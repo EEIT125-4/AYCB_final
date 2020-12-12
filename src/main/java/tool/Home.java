@@ -12,9 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import product.model.ProductBean;
 import product.service.ProductService;
 import product.service.impl.ProductServiceImpl;
-/*
- * Kevin:改成MVC後此方法必須修改
- */
+
 
 @WebServlet("/Home")
 public class Home extends HttpServlet {
@@ -34,7 +32,6 @@ public class Home extends HttpServlet {
 		request.setAttribute("cates", cate);
 		request.getSession().setAttribute("cates", cate);
 		request.getRequestDispatcher("index.jsp").forward(request, response);
-		
 	}
 
 }

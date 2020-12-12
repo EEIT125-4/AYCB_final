@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
         
     <wb-module deploy-name="AYCB-0.0.1-SNAPSHOT">
@@ -17,6 +16,3 @@
     </wb-module>
     
 </project-modules>
-=======
-<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId"/>
->>>>>>> branch 'master' of https://github.com/EEIT125-4/AYCB_final.git
