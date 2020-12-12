@@ -10,12 +10,13 @@
 //import javax.websocket.OnError;
 //import javax.websocket.OnMessage;
 //import javax.websocket.OnOpen;
-//import javax.websocket.Session;
 //import javax.websocket.server.ServerEndpoint;
+//
+//import org.hibernate.Session;
 //
 //
 ///**
-// * @ServerEndpoint 注解标识该类是websocket类
+// @ServerEndpoint 注解标识该类是websocket类
 // */
 //@ServerEndpoint("/websocket")
 //public class WebSocketTest {
@@ -25,21 +26,13 @@
 //
 //   //session保存用户请求过来的信息
 //	
-//	/*
-//	 *思路:如果有登錄,從session拿MemberName
-//	 *沒登入為訪客,仍需要唯一值辨識
-//	 */
-//	private Session session;
+//
+//	private javax.websocket.Session session;
 //	private String userName;
 //
-//	/**
-//	 *
-//	 * 
-//	 * @param session
-//	 * 当有客户端与服务器建立连接时调用
-//	 */
+//
 //	@OnOpen
-//	public void onOpen(Session session) {
+//	public void onOpen(javax.websocket.Session session) {
 //		this.session = session;
 //		try {
 //			this.userName = URLDecoder.decode(session.getQueryString().substring(session.getQueryString().indexOf("=") + 1),"UTF-8");
@@ -70,7 +63,7 @@
 //	 * 收到来自客户端的消息时调用，session保存发送消息的客户端信息
 //	 */
 //	@OnMessage
-//	public void onMessage(String message, Session session) {
+//	public void onMessage(String message, javax.websocket.Session session) {
 //		String messageUser=null;
 //		try {
 //			messageUser = URLDecoder.decode(session.getQueryString().substring(session.getQueryString().indexOf("=") + 1), "UTF-8");

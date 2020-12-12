@@ -44,7 +44,7 @@ if(mb!=null){
 							href=''>訪客</a></li>
 						<li class="other_ul_li"><a id="login" class="other_ul_li_a"
 							
-							href="${pageContext.request.contextPath}/<%=(mb==null)?"member/login.jsp":"member/update.jsp" %>"><%=(mb==null)?"登入/註冊":mb.getName()%></a></li>
+							href="${pageContext.request.contextPath}/<%=(mb==null)?"member/login":"member/update.jsp" %>"><%=(mb==null)?"登入/註冊":mb.getName()%></a></li>
 					</ul>
 <!-- 					"/RegisterServlet?update=update" -->
 				</div>
