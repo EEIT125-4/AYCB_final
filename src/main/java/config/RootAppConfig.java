@@ -64,9 +64,10 @@ public class RootAppConfig {
 			factory.setDataSource(msSQLDataSource());
 			factory.setHibernateProperties(additionalPropertiesMsSQL());	
 		} 
+		 System.out.println("產生LocalSessionFactory");
 		return factory;
 	}
-	@Bean(name="transactionManager")
+	@Bean//(name="transactionManager")
     @Autowired
     public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
          HibernateTransactionManager txManager = new HibernateTransactionManager();
@@ -78,10 +79,14 @@ public class RootAppConfig {
 	private Properties additionalPropertiesMsSQL() {
 		Properties properties=new Properties();
 		properties.put("hibernate.dialect", org.hibernate.dialect.SQLServer2012Dialect.class);
+		properties.put("hibernate.transaction.coordinator_class", "jdbc");
 		properties.put("hibernate.show_sql", Boolean.TRUE);
 		properties.put("hibernate.format_sql", Boolean.TRUE);
 		properties.put("default_batch_fetch_size", 10);
 		properties.put("hibernate.hbm2ddl.auto", "update");
+		properties.put("hibernate.bytecode.use_reflection_optimizer", "false");
+		
+		
 		return properties;
 	}
 

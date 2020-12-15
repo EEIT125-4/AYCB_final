@@ -4,16 +4,17 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.annotations.Check;
 import org.hibernate.query.Query;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import member.MemberBean;
-import message.model.MessageBean;
-import tool.HibernateUtils;
 
-public class RegisterDaoImpl implements MemberDao {
 
-	SessionFactory factory = HibernateUtils.getSessionFactory();
+@Repository
+
+public class MemberDaoImpl implements MemberDao {
+	@Autowired
+	SessionFactory factory ;
 
 	@SuppressWarnings("unchecked")
 	public boolean isDup(String account) {

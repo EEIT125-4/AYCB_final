@@ -5,9 +5,6 @@ import java.util.List;
 
 import message.model.MessageBean;
 
-
-
-
 public interface MessageDao {
 	
 	boolean isDup(String id);

@@ -7,10 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 
 @Entity
-
+@Table
 public class MemberBean implements Serializable {
 	/**
 	 * 
@@ -39,10 +40,7 @@ public class MemberBean implements Serializable {
 		
 	}
 	
-	
-	
-	
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -143,7 +141,7 @@ public class MemberBean implements Serializable {
 	public MemberBean(Integer id, String account, String name, String password, String address, String phone,
 			String birthday, String email, String gender) {
 		super();
-		id = id;
+		this.id = id;
 		this.account = account;
 		this.name = name;
 		this.password = password;
