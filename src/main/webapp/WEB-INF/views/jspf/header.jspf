@@ -21,7 +21,7 @@ if(mb!=null){
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link REL=STYLESHEET HREF="${pageContext.request.contextPath}/css/Home.css" TYPE="text/css">
-<link rel="icon" href="image/logo.ico" type="image/x-icon">
+<link rel="icon" href="${pageContext.request.contextPath}/image/logo.ico" type="image/x-icon">
 <body>
 	<div class="box">
 		<div id="top" class="top_box1">

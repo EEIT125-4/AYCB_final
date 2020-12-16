@@ -16,33 +16,9 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 <title>留言板</title>
 </head>
 <%@include file="../jspf/header.jspf"%>
-<div>
-	<div
-		style="float: left; width: 20%; text-align: center; margin-left: 220px; position: relative; top: 200px;">
 
-		<dl>
-			<dt>
-				<h2>討論區</h2>
-			</dt>
-			<hr width=70% size=1 color=#BFBFBF
-				style="FILTER: alpha(opacity = 100, finishopacity = 0, style = 3)">
-			<dt>
-				<A class="a1" href="../DeleteServlet1"><h2>查詢留言</h2></A>
-			</dt>
+<%@include file="../jspf/commentSide.jspf"%>
 
-			<dt>
-				<A class="a1" href="article.jsp">
-					<h2>美誌分享</h2>
-				</A>
-			</dt>
-			<dt>
-				<A class="a1" href="#">
-					<h2>影音專區</h2>
-				</A>
-			</dt>
-		</dl>
-	</div>
-</div>
 <div id="content">
 	<div id="post" style="margin-top: 60px;">
 

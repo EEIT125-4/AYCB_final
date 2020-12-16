@@ -7,7 +7,11 @@ import java.util.Calendar;
 
 import javax.servlet.http.Part;
 
-import net.bytebuddy.asm.Advice.This;
+import org.springframework.web.multipart.MultipartFile;
+
+
+
+
 
 public  class Common {
 	
@@ -23,8 +27,13 @@ public  class Common {
 	}
 	
 	
-	public static String UPLOAD_PATH="C:/iii/Java/JavaWebWorkspace/ProjectTest/WebContent/upload";//UPLOAD_PATH="C:/AYCB/AYCB2/src/main/webapp/upload/
-	public static String IMAGE_REAL_PATH="C:\\iii\\java\\src\\main\\webapp\\upload";//"C:\\AYCB\\AYCB2\\src\\main\\webapp\\upload"
+	public static String UPLOAD_PATH="C:/AYCB_merge/AYCB_final/src/main/webapp/upload/";
+	//UPLOAD_PATH="C:/AYCB/AYCB2/src/main/webapp/upload/
+	//C:/iii/Java/JavaWebWorkspace/ProjectTest/WebContent/upload
+	public static String IMAGE_REAL_PATH="C:\\AYCB_merge\\AYCB_final\\src\\main\\webapp\\upload";
+	
+	//"C:\\iii\\java\\src\\main\\webapp\\upload";
+	//"C:\\AYCB\\AYCB2\\src\\main\\webapp\\upload"
 	//public static String uPLOAD_DIR="C:/iii/Java/JavaWebWorkspace/ProjectTest/WebContent/upload";
 			
 	public static boolean deleteFile(String path) {
@@ -43,20 +52,22 @@ public  class Common {
 		return !file.exists();// 不知道有沒有可能碰到,刪不掉的情形
 	}
 	
-	public static String saveImage(Part part) throws IOException {
+	
+	//Kevin:儲存檔案的方式有變化,從Part->MultipartFile
+	public static String saveImage(MultipartFile file) throws IOException {
 		
-		String filename = part.getSubmittedFileName();
+		String filename = file.getOriginalFilename();
 
 		filename = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(Calendar.getInstance().getTime()) + "_"
 				+ filename;
 
-		File file = new File(Common.UPLOAD_PATH, filename);
+		File tempfile = new File(Common.UPLOAD_PATH, filename);
+		
+		file.transferTo(tempfile);// 寫入真實路徑//		part.transferTo(file);// 寫入真實路徑
 
-		part.write(file.getAbsolutePath());// 寫入真實路徑
+		System.out.printf("成功寫入圖片,路徑:%s\n", tempfile.getAbsoluteFile());
 
-		System.out.printf("成功寫入圖片,路徑:%s\n", file.getAbsoluteFile());
-
-		return "./upload/" + filename;
+		return "/AYCB_final/upload/" + filename;
 		
 		
 	}

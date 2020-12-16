@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
@@ -75,6 +76,16 @@ public class RootAppConfig {
          return txManager;
       }	
 	
+	@Bean
+	public CommonsMultipartResolver multipartResolver() {
+		CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+		resolver.setDefaultEncoding("UTF-8");
+		resolver.setMaxUploadSize(81920000);
+		return resolver;
+	}
+	
+	
+	
 	
 	private Properties additionalPropertiesMsSQL() {
 		Properties properties=new Properties();
@@ -89,5 +100,7 @@ public class RootAppConfig {
 		
 		return properties;
 	}
+	
+	
 
 }

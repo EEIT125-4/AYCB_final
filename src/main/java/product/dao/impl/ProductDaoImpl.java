@@ -6,17 +6,18 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import product.dao.ProductDao;
 import product.model.ProductBean;
-import tool.HibernateUtils;
+
 
 
 
 public class ProductDaoImpl implements ProductDao {
 	
-	
-	SessionFactory factory = HibernateUtils.getSessionFactory();
+	@Autowired
+	SessionFactory factory ;
 
 	@Override
 	public int saveProduct(ProductBean pb) {
