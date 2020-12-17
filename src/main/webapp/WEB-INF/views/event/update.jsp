@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -39,49 +40,50 @@
 		<H1 class='center'>更新報名資料</H1>
 		<hr>
 		<p>
-		<Form class='center' Action="AttendanceUpdate.do" method="POST">
-			<input type="hidden" name="aid" value="${a.aid}"> <input
-				type="hidden" name="MemberID" value="${a.memberID}"> <input
-				type="hidden" name="finalDecision" value="">
+		<form:form method="POST" modelAttribute="updateattendance">
+			<input type="hidden" name="aid" value="${attendance.aid}"> 
+			<input type="hidden" name="memberid" value="${attendance.memberid}"> 
+			<input type="hidden" name="finalDecision" value="">
+				
 			<Table>
 				<TR>
 					<TD align="RIGHT">活動ID：</TD>
-					<TD align="LEFT"><input type="text" name="EventID"
-						value="${a.eventID}${param.eventID}" size="30"> <font
-						color='red' size='-3'>${error.eid}</font></TD>
+					<TD align="LEFT"><input type="text" name="eventid" value="${attendance.eventid}${param.eventid}" size="30">
+				    <font color='red' size='-3'>${error.eid}</font></TD>
+						
 				</TR>
 				<TR>
 					<TD align="RIGHT">Phone：</TD>
-					<TD align="LEFT"><input type="text" name="Phone"
-						value="${a.phone}${param.phone}"> <font color='red'
+					<TD align="LEFT"><input type="text" name="phone"
+						value="${attendance.phone}${param.phone}"> <font color='red'
 						size='-3'>${error.phone}</font></TD>
 				</TR>
 				<TR>
 					<TD align="RIGHT">mail：</TD>
-					<TD align="LEFT"><input type="text" name="Mailaddress"
-						value="${a.mailaddress}${param.mailaddress}"> <font
+					<TD align="LEFT"><input type="text" name="mailaddress"
+						value="${attendance.mailaddress}${param.mailaddress}"> <font
 						color='red' size='-3'>${error.mail}</font></TD>
 				</TR>
 
 
 				<TR>
 					<TD align="RIGHT">pax：</TD>
-					<TD align="LEFT"><input type="text" name="Pax"
-						value="${a.pax}${param.pax}"> <font color='red' size='-3'>${error.pax}</font>
+					<TD align="LEFT"><input type="text" name="pax"
+						value="${attendance.pax}${param.pax}"> <font color='red' size='-3'>${error.pax}</font>
 					</TD>
 				</TR>
 
 				<TR>
 					<TD colspan="2" align="center"><input type="submit" value="更新"
-						name='updateBtn' onclick="return confirmUpdate('${a.memberID}');">
+						name='updateBtn' onclick="return confirmUpdate('${attendance.memberid}');">
 						<input type="submit" value="刪除" name='deleteBtn'
-						onclick="return confirmDelete('${a.memberID}');"></TD>
+						onclick="return confirmDelete('${attendance.memberid}');"></TD>
 				</TR>
 			</Table>
 			<c:if test="${not empty requestScope.modify}">
 				<c:remove var="member" scope="request" />
 			</c:if>
-		</Form>
+		</form:form>
 		<p />
 		<small>&lt;&lt;<a href="javascript:history.back()">回上一頁</a>&gt;&gt;
 		</small>
