@@ -221,7 +221,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public int updateMember(ProductBean pb) {
+	public int updateProduct(ProductBean pb) {
 		int count = 0;
 		Session session = factory.getCurrentSession();
 		Transaction tx = null;

@@ -29,6 +29,6 @@ public interface ProductService {
 
 	int deleteProduct(int no);
 
-	int updateMember(ProductBean pb);
+	int updateProduct(ProductBean pb);
 
 }
