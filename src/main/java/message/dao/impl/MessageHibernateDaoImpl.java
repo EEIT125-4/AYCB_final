@@ -9,15 +9,17 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import message.dao.MessageDao;
 import message.model.MessageBean;
-import tool.HibernateUtils;
+
+@Repository
 
 public class MessageHibernateDaoImpl implements MessageDao {
-
-	SessionFactory factory = HibernateUtils.getSessionFactory();
-
-	@SuppressWarnings("unchecked")
+	@Autowired
+	SessionFactory factory;
+	
 	@Override
 	public boolean isDup(String id) {
 		boolean result = false;
@@ -66,8 +68,8 @@ public class MessageHibernateDaoImpl implements MessageDao {
 	@Override
 	public List<MessageBean> getAllMessages() {
 		List<MessageBean> list = new ArrayList<>();
-		String hql = "FROM MessageBean";
-		Session session = factory.getCurrentSession();
+		String hql = "FROM MessageBean order by id desc";
+			Session session = factory.getCurrentSession();
 
 		Query<MessageBean> query = session.createQuery(hql);
 		list = query.getResultList();

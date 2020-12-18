@@ -10,15 +10,18 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import comment.model.CommentBean;
-import tool.HibernateUtils;
+
 
 
 
 public class CommentDaoImp implements  CommentDao {
+	
+	@Autowired 
 
-	SessionFactory factory = HibernateUtils.getSessionFactory();
+	SessionFactory factory;
 
 	//新增一筆留言
 	@Override

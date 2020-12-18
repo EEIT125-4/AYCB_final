@@ -6,20 +6,22 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import product.cartDao.OrderDao;
 import product.cartDao.impl.OrderDaoImpl;
 import product.cartModel.OrderBean;
 import product.cartModel.ProductDB;
 import product.cartService.OrderService;
-import tool.HibernateUtils;
+
 
 
 
 
 public class OrderServiceImpl implements OrderService {
+	@Autowired
 	
-	SessionFactory factory = HibernateUtils.getSessionFactory();
+	SessionFactory factory;
 	OrderDao dao = new OrderDaoImpl();
 	
 	public ProductDB getProductDB() {

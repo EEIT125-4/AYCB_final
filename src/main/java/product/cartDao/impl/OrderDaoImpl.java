@@ -10,17 +10,18 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import product.cartDao.OrderDao;
 import product.cartModel.OrderBean;
 import product.cartModel.ProductDB;
 import product.model.ProductBean;
-import tool.HibernateUtils;
+
 
 
 public class OrderDaoImpl implements OrderDao {
-
-	SessionFactory factory = HibernateUtils.getSessionFactory();
+	@Autowired
+	SessionFactory factory ;
 	
 	@SuppressWarnings("unchecked")
 	@Override

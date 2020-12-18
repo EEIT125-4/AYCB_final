@@ -7,16 +7,18 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import comment.dao.CommentDao;
 import comment.dao.CommentDaoImp;
 import comment.model.CommentBean;
-import tool.HibernateUtils;
+
 
 
 
 public class CommentServiceImpl implements CommentService {
-	
-	SessionFactory factory = HibernateUtils.getSessionFactory();
+	@Autowired
+	SessionFactory factory;
 	
 	CommentDao dao= new CommentDaoImp();
 	

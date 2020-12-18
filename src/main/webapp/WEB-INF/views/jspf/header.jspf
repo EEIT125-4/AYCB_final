@@ -5,7 +5,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
 <%
 	response.setContentType("text/html;charset=UTF-8");
 response.setHeader("Cache-Control", "no-cache"); // HTTP 1.1
@@ -17,13 +16,12 @@ if(mb!=null){
 	
 }
 
-
 %>
 
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link REL=STYLESHEET HREF="${pageContext.request.contextPath}/css/Home.css" TYPE="text/css">
-<link rel="icon" href="image/logo.ico" type="image/x-icon">
+<link rel="icon" href="${pageContext.request.contextPath}/image/logo.ico" type="image/x-icon">
 <body>
 	<div class="box">
 		<div id="top" class="top_box1">
@@ -55,7 +53,7 @@ if(mb!=null){
 				<div class="menu">
 					<ul class="menu_ul">
 						<li class="menu_ul_li"><a class="menu_ul_li_a"
-							href="${pageContext.request.contextPath}/message/ ">訊息中心</a></li>
+							href="${pageContext.request.contextPath}/message/query ">訊息中心</a></li>
 <!-- 							queryMessage.do -->
 						<%--<li class="menu_ul_li">熱銷產品</li>--%>
 						<li class="menu_ul_li"><a class="menu_ul_li_a"

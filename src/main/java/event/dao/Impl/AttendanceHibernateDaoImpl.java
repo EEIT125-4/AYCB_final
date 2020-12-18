@@ -6,10 +6,11 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import event.dao.AttendanceDAO;
 import event.model.Attendance;
-import tool.HibernateUtils;
+
 
 
 
@@ -17,8 +18,8 @@ import tool.HibernateUtils;
 //實作介面或繼承父類別,程式使用時直接寫父類別/介面名稱
 public class AttendanceHibernateDaoImpl implements AttendanceDAO  {
 //	String resource = "java:comp/env/jdbc/memberDB";
-	
-	SessionFactory factory = HibernateUtils.getSessionFactory();
+	@Autowired
+	SessionFactory factory ;
 	
 		
 	@SuppressWarnings("unchecked")
