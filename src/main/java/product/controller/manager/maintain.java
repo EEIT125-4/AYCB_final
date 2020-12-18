@@ -47,10 +47,10 @@ public class maintain extends HttpServlet {
 			ProductBean pb = new ProductBean(brandno, brandname, producttype, productname, productseries,
 					productcategory, "all", productprice);
 			session.setAttribute("pb", pb);
-			count = ps.saveproduct(pb);
-			if (count == 1) {
-				NextPage = request.getContextPath() + "/Manager";
-			}
+//			count = ps.saveproduct(pb);
+//			if (count == 1) {
+//				NextPage = request.getContextPath() + "/Manager";
+//			}
 		} else if (todo.equals("remove")) {
 			Integer productno = Integer.parseInt(request.getParameter("productno"));
 			count = ps.deleteProduct(productno);

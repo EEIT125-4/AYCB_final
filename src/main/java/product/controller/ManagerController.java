@@ -2,6 +2,7 @@ package product.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -17,11 +18,11 @@ public class ManagerController {
 	@Autowired
 	ProductService ps;
 	
-	@PostMapping("")
+	@PostMapping("/Add")
 	public String add(@ModelAttribute("ProductBean") ProductBean pb				
 	) {
 		ps.saveproduct(pb);
-		return "redirect:/allproducts";
+		return "redirect:/MProduct";
 	}
 	
 	@InitBinder
@@ -42,7 +43,7 @@ public class ManagerController {
 	public String update(@ModelAttribute("ProductBean") ProductBean pb
 	) {
 		ps.updateProduct(pb);
-		return "redirect:/allproducts";
+		return "redirect:/product/mproduct";
 	}
 	
 //	@GetMapping
@@ -51,4 +52,14 @@ public class ManagerController {
 //		ps.deleteProduct(no);
 //		return "redirect:/allproducts";
 //	}
+	
+	@GetMapping("/Manager")
+	public String manager(Model model) {
+		return "product/manager";
+	}
+	
+	@GetMapping("/MProduct")
+	public String mproduct(Model model) {
+		return "product/mproduct";
+	}
 }

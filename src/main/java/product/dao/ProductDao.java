@@ -7,7 +7,7 @@ import product.model.ProductBean;
 
 public interface ProductDao {
 
-	int saveProduct(ProductBean pb);
+	void saveProduct(ProductBean pb);
 
 	List<ProductBean> getAllProducts();
 	

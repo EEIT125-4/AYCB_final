@@ -6,7 +6,7 @@ import product.model.ProductBean;
 
 public interface ProductService {
 
-	int saveproduct(ProductBean pb);
+	void saveproduct(ProductBean pb);
 
 	List<ProductBean> getAllProducts();
 
