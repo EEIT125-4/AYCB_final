@@ -1,27 +1,30 @@
 package event.dao;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import event.model.Attendance;
 
 
 
+@Repository
 public interface AttendanceDAO {
 	
-			boolean isDup(String id);
+			//boolean isDup(String id);
 			
 			
 	        //新增
-		    int save(Attendance a);
+		    void save(Attendance a);
 		    
 		    //刪除
-	        int deleteAttendance(Integer aid);
+	        void deleteAttendance(Integer aid);
 	        
+	        Attendance getAttendance(Integer Aid);
 	        //修改
-	        int updateAttendance(Attendance a);
+	        void updateAttendance(Attendance a);
 			
 	        List<Attendance> getAllAttendance();
 
-			Attendance getAttendance(Integer Aid);
 	        
 	        
 
