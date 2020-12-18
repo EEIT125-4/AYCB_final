@@ -7,14 +7,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link REL=STYLESHEET HREF="css/member.css" TYPE="text/css">
+<link REL=STYLESHEET HREF="${pageContext.request.contextPath}/css/member.css" TYPE="text/css">
 <link rel="icon" href="image/logo.ico" type="image/x-icon">
 <title>登入</title>
 </head>
 <jsp:useBean id="member" class="member.MemberBean" scope="session" />
 <%@include file="../jspf/header.jspf"%>
 <div style="position: relative; top: 200px;">
-	<form action="../RegisterServlet" method="post">
+	<form action="${pageContext.request.contextPath}/member/updateComplete" method="post">
 		<fieldset
 			style="margin: auto; border: 3px solid black; width: 550px;border-radius: 6px;">
 			<legend
@@ -22,7 +22,7 @@
 			<table>
 				<tr>
 					<td>姓名:</td>
-					<td><input name="usename"
+					<td><input name="username"
 						value=<jsp:getProperty name="member" property="name"/>></td>
 				</tr>
 				<tr>

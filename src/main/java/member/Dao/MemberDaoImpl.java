@@ -4,16 +4,16 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.annotations.Check;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import member.MemberBean;
-import message.model.MessageBean;
-import tool.HibernateUtils;
 
-public class RegisterDaoImpl implements MemberDao {
-
-	SessionFactory factory = HibernateUtils.getSessionFactory();
+@Repository
+public class MemberDaoImpl implements MemberDao {
+    @Autowired
+	SessionFactory factory ;
 
 	@SuppressWarnings("unchecked")
 	public boolean isDup(String account) {
@@ -39,7 +39,8 @@ public class RegisterDaoImpl implements MemberDao {
 
 		Query<MemberBean> query = session.createQuery(hql);
 		MemberBean mb = query.setParameter("acc", account).getSingleResult();
-
+		System.out.println("====================================");
+		System.out.println(mb);
 		if (mb.getPassword().equals(password)) {
 			return true;
 		}
@@ -99,7 +100,7 @@ public class RegisterDaoImpl implements MemberDao {
 //	}
 
 	@Override
-	public int updateregister(MemberBean mb) {
+	public int update(MemberBean mb) {
 		int count = 0;
 		Session session = factory.getCurrentSession();
 

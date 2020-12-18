@@ -18,7 +18,7 @@ import member.Service.MemberService;
 import member.Service.MemberServiceImpl;
 
 
-@WebServlet("/MemberLogin")
+//@WebServlet("/MemberLogin")
 public class MemberLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

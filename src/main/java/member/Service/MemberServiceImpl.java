@@ -1,130 +1,68 @@
 package member.Service;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import member.MemberBean;
-import member.Dao.RegisterDaoImpl;
-import tool.HibernateUtils;
+import member.Dao.MemberDao;
 
+@Service
+@Transactional
+public class MemberServiceImpl implements MemberService {
 
+	@Autowired
+	MemberDao memberDao;
 
-public class MemberServiceImpl implements MemberService    {
+//	SessionFactory factory = HibernateUtils.getSessionFactory();
+//	RegisterDaoImpl dao = new RegisterDaoImpl();
 
-	SessionFactory factory = HibernateUtils.getSessionFactory();
-	RegisterDaoImpl dao = new RegisterDaoImpl();
-	
 	@Override
 	public boolean isDup(String account) {
 		boolean result = false;
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			result = dao.isDup(account);
-			
-			
-			tx.commit();
-		} catch(Exception e) {
-			if (tx != null) {
-				tx.rollback();
-			}
-			e.printStackTrace();
-		}
-		return result;	
+		result = memberDao.isDup(account);
+
+		return result;
 	}
 
-	
-	
-
 	@Override
-	public int insertregester(MemberBean mb) {
+	public int insertregister(MemberBean mb) {
 		int count = 0;
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			dao.insertregister(mb);
-			count++;
-			tx.commit();
-		} catch(Exception e) {
-			if (tx != null) {
-				tx.rollback();
-			}
-			e.printStackTrace();
-		}
+
+		memberDao.insertregister(mb);
+		count++;
+
 		return count;
 	}
 
-
-	
 	@Override
-	public int updateregister(MemberBean mb) {
+	public int update(MemberBean mb) {
 		int count = 0;
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			dao.updateregister(mb);
-			count++;
-			tx.commit();
-		} catch(Exception e) {
-			if (tx != null) {
-				tx.rollback();
-			}
-			e.printStackTrace();
-		}	
+
+		memberDao.update(mb);
+
 		return count;
 	}
-
-
-
 
 	@Override
 	public boolean identify(String account, String password) {
-		Session session=factory.getCurrentSession();
-		boolean login=false;
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			login=dao.identify(account, password);
-			
-			tx.commit();
-			
-		} catch(Exception e) {
-			if (tx != null) {
-				tx.rollback();
-			}
-			e.printStackTrace();
-		}	
+
+		boolean login = false;
+
+		login = memberDao.identify(account, password);
+
 		return login;
-	
-	
+
 	}
-
-
-
 
 	@Override
 	public MemberBean getMember(String account) {
-		Session session=factory.getCurrentSession();
-		MemberBean mb=null;
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			
-			mb=dao.getMember(account);
-			
-			tx.commit();
-			
-		} catch(Exception e) {
-			if (tx != null) {
-				tx.rollback();
-			}
-			e.printStackTrace();
-		}	
+
+		MemberBean mb = null;
+
+		mb = memberDao.getMember(account);
+
 		return mb;
 	}
 }

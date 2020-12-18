@@ -35,12 +35,18 @@ public class RootAppConfig {
 		ds.setPassword("tiger");
 		try {
 			ds.setDriverClass("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+			System.out.println("+++++++++++++++++++");
+			System.out.println("AAA");
+			System.out.println("+++++++++++++++++++");
 		} catch (PropertyVetoException e) {
+			System.out.println("+++++++++++++++++++");
+			System.out.println("BBB");
+			System.out.println("+++++++++++++++++++");
 			e.printStackTrace();
 		}
-		//ds.setJdbcUrl("jdbc:sqlserver://10.31.25.143:1433;DatabaseName=project");
+        ds.setJdbcUrl("jdbc:sqlserver://127.0.0.1:1433;DatabaseName=project");
 		//如果跑本機,記得切換
-		ds.setJdbcUrl("jdbc:sqlserver://127.0.0.1:1433;DatabaseName=project");
+		//ds.setJdbcUrl("jdbc:sqlserver://10.31.25.134:1433;DatabaseName=AYCB");
 		ds.setInitialPoolSize(4);
 		ds.setMaxPoolSize(8);
 		return ds;
@@ -58,6 +64,7 @@ public class RootAppConfig {
 				"tool",
 				"chat",
 				"comment",
+				"config"
 								
 		});
 		 if (SystemConstant.DB_TYPE == SystemConstant.SQL_SERVER) {
