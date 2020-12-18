@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,10 @@ public class MessageController {
 
 	@Autowired
 	MessageService ms;
+	@Autowired
+	ServletContext context;
+	
+	
 
 	@PostMapping(value = { "/message/update" })
 	public String update(Model model, @RequestParam(value = "submit") String s, @RequestParam(value = "id") String id) {
@@ -140,7 +145,7 @@ public class MessageController {
 		System.out.printf("id:%s\n", id);
 		System.out.println("file:" + file.getSize());
 
-		System.out.println("MultipartFile 為空:" + file.isEmpty());
+	
 		System.out.println("MultipartFile 名稱:" + file.getOriginalFilename());
 		System.out.printf("動作為:%s\n", submit);
 //新增圖片
@@ -154,7 +159,10 @@ public class MessageController {
 				;
 				// 如果有傳檔案過來
 				if (file != null && file.getSize() > 0) {
-					System.out.println("有圖片");
+					
+					//這邊是存在Tomcat的路徑,但網站重部屬時就會消失,所以目前方案是存在專案實際位置,每次重新佈署時就會自動同步
+					System.out.println("有圖片"+context.getRealPath("/"));
+					
 					imgPath = Common.saveImage(file);
 					System.out.println("存檔");
 				} else {
@@ -176,9 +184,6 @@ public class MessageController {
 			try {
 				// 如果有傳檔案過來
 				if (file != null && file.getSize() > 0) {
-					
-					
-					
 					
 					// 刪除舊檔
 					if (path != null && !path.equals("")) {
