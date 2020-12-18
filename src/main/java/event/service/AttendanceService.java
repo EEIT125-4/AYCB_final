@@ -2,21 +2,23 @@ package event.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import event.model.Attendance;
 
 
-
+@Repository
 public interface AttendanceService {
 
-	boolean isDup(String id);
+//	boolean isDup(String id);
 
-	int save(Attendance a);
+	void save(Attendance a);
 
 	List<Attendance> getAllAttendance();
 
-	int deleteAttendance(Integer MemberID);
+	void deleteAttendance(Integer MemberID);
 
-	int updateAttendance(Attendance a);
+	void updateAttendance(Attendance a);
 
 	Attendance getAttendance(Integer MemberID);
 
