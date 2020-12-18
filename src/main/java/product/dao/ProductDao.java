@@ -33,9 +33,9 @@ public interface ProductDao {
 	
 	List<String> getOneCate(String cate);
 	
-	int deleteProduct(int no);
+	void deleteProduct(int no);
 
-	int updateProduct(ProductBean pb);
+	void updateProduct(ProductBean pb);
 	
 	int getTotalPages();
 	

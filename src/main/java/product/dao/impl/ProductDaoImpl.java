@@ -127,23 +127,17 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	@Override
-	public int deleteProduct(int no) {
-		int count = 0;
+	public void deleteProduct(int no) {
 		Session session = factory.getCurrentSession();
 		ProductBean pb = new ProductBean();
 		pb.setProductno(no);
 		session.delete(pb);
-		count++;
-		return count;
 	}
 
 	@Override
-	public int updateProduct(ProductBean pb) {
-		int count = 0;
+	public void updateProduct(ProductBean pb) {
 		Session session = factory.getCurrentSession();
 		session.saveOrUpdate(pb);
-		count++;
-		return count;
 	}
 
 	@Override

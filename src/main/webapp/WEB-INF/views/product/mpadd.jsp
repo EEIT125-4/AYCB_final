@@ -17,9 +17,7 @@
 			<div id="add" class="addcontent">
 				<div class="addbox">
 					<div>
-						<form:form method="POST" modelAttribute="ProductBean"
-							action="${pageContext.request.contextPath}/Add"
-							enctype="multipart/form-data">
+						<form:form method="POST" modelAttribute="ProductBean">
 							<fieldset class="addfs">
 								<legend class="addtitle">新增</legend>
 								<div class="adddiv">
