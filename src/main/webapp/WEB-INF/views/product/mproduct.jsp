@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
@@ -14,75 +15,53 @@
 	<%@include file="../jspf/managerheader.jspf"%>
 	<div class="contentoutbox">
 		<div class="contentbox">
+			<div class="title">產品管理</div>
 			<div class="mp">
 				<div class="mpbox">
-					<button class="mpbtn" onclick="addshow()">
+					<button class="mpbtn"
+						onclick='location.href="${pageContext.request.contextPath}/Mpadd"'>
 						<div class="mpimgbox">
 							<img class="mpimg" src="image/add.png">
 						</div>
 						<div class="mptext">新增</div>
 					</button>
 				</div>
-				<div class="mpbox">
-					<button class="mpbtn">
-						<div class="mpimgbox">
-							<img class="mpimg" src="image/update.png">
-						</div>
-						<div class="mptext">更新</div>
-					</button>
-				</div>
-				<div class="mpbox">
-					<button class="mpbtn">
-						<div class="mpimgbox">
-							<img class="mpimg" src="image/del.png">
-						</div>
-						<div class="mptext">刪除</div>
-					</button>
-				</div>
 			</div>
-			<div id="add" class="addcontent">
-				<div class="addbox">
-					<div>
-						<form:form method="POST" action="${pageContext.request.contextPath}/Add" modelAttribute="ProductBean" enctype="multipart/form-data">
-							<fieldset class="addfs">
-								<legend class="addtitle">新增</legend>
-								<div class="adddiv">
-									<label class="addlab">廠牌名稱:</label> <input type="text"
-										name="brandname" class="addinput">
+			<div class="mpcontent">
+				<div>
+					<c:forEach var="pro" items="${Products}">
+						<div class="rightside">
+							<div class="imgbox">
+								<a href='<c:url value="/Mpdetail" />?no=${pro.productno}'><img
+									class="proimg" src="image/${pro.productname}.png"></a>
+							</div>
+							<div class="proname">${pro.productname}</div>
+							<div class="buttonbox">
+								<div class="proprice">NT$ ${pro.productprice}</div>
+								<div class="cart">
+									<a class="cart_a "
+										href='<c:url value="/Delete" />?no=${pro.productno}'> <i
+										class="fa fa-trash fa-2x cartimg" aria-hidden="true"></i>
+									</a>
 								</div>
-								<div class="adddiv">
-									<label class="addlab">產品類型:</label> <select class="addsel"
-										name="producttype">
-										<option>保養品</option>
-										<option>彩妝</option>
-									</select>
-								</div>
-								<div class="adddiv">
-									<label class="addlab">產品名稱:</label> <input type="text"
-										name="productname" class="addinput">
-								</div>
-								<div class="adddiv">
-									<label class="addlab">產品系列:</label> <input type="text"
-										name="productseries" class="addinput">
-								</div>
-								<div class="adddiv">
-									<label class="addlab">產品種類:</label> <input type="text"
-										name="productcategory" class="addinput">
-								</div>
-								<div class="adddiv">
-									<label class="addlab">產品價格:</label> <input type="text"
-										name="productprice" class="addinput">
-								</div>
-<!-- 								<div class="adddiv"> -->
-<!-- 									<label class="addlab">產品圖片:</label> <input type="file" -->
-<!-- 										name="productimg"> -->
-<!-- 								</div> -->
-								<div class="adddiv">
-									<input type="submit" value="新增" class="addbtn">
-								</div>
-							</fieldset>
-						</form:form>
-					</div>
+							</div>
+						</div>
+					</c:forEach>
+				</div>
+				<div class="page">
+					<ul class="page_ul">
+						<li class="page_ul_li"><a class="page_ul_li_a"
+							href='<c:url value="/AllProducts" />?page=${Pages - 1}'> <i
+								class="fa fa-angle-double-left" aria-hidden="true"></i>
+						</a></li>
+						<c:forEach var='i' begin='1' end='${TotalPages}'>
+							<li class="page_ul_li"><a class="page_ul_li_a"
+								href='<c:url value="/AllProducts" />?page=${i}'>${i}</a></li>
+						</c:forEach>
+						<li class="page_ul_li"><a class="page_ul_li_a"
+							href='<c:url value="/AllProducts" />?page=${Pages + 1}'><i
+								class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+					</ul>
 				</div>
 			</div>
 		</div>

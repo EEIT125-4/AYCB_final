@@ -23,22 +23,9 @@ public class ProductBean {
 	//圖片
 
 	public ProductBean() {
-		super();
+		
 	}
 
-	public ProductBean(String brandno, String brandname, String producttype, String productname,
-			String productseries, String productcategory, String skintype, Double productprice) {
-		super();
-		this.brandno = brandno;
-		this.brandname = brandname;
-		this.producttype = producttype;
-		this.productname = productname;
-		this.productseries = productseries;
-		this.productcategory = productcategory;
-		this.skintype = skintype;
-		this.productprice = productprice;
-	}
-	
 	public ProductBean(Integer productno, String brandno, String brandname, String producttype, String productname,
 			String productseries, String productcategory, String skintype, Double productprice) {
 		super();
