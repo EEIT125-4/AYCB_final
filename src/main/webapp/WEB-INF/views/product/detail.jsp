@@ -21,12 +21,12 @@
 				<div class="catediv">
 					廠商分類<a id="a1" class="catea" href="#" onclick="show1()">+</a>
 				</div>
-				<c:forEach var="brand" varStatus='vs' items="${Brands}">
+				<c:forEach var="brand" varStatus='vs' items="${brand}">
 					<c:if test='${vs.first }'>
 						<c:out value="<ul id='ul1' class='cateul'>" escapeXml='false' />
 					</c:if>
 					<li class="cateul_li"><a class="cateul_li_a"
-						href="BrandServlet?brand=${brand}">${brand}</a></li>
+						href='<c:url value="/Brand" />?brand=${brand}'>${brand}</a></li>
 					<c:if test='${vs.last }'>
 						<c:out value="</ul>" escapeXml='false' />
 					</c:if>
@@ -39,7 +39,7 @@
 						<c:out value="<ul id='ul2' class='cateul'>" escapeXml='false' />
 					</c:if>
 					<li class="cateul_li"><a class="cateul_li_a"
-						href="SeriesServlet?series=${series}">${series}</a></li>
+						href='<c:url value="/Series" />?series=${series}'>${series}</a></li>
 					<c:if test='${vs.last }'>
 						<c:out value="</ul>" escapeXml='false' />
 					</c:if>
@@ -47,12 +47,12 @@
 				<div class="catediv">
 					種類分類<a id="a3" class="catea" href="#" onclick="show3()">+</a>
 				</div>
-				<c:forEach var="cate" varStatus='vs' items="${cates}">
+				<c:forEach var="cate" varStatus='vs' items="${cate}">
 					<c:if test='${vs.first }'>
 						<c:out value="<ul id='ul3' class='cateul'>" escapeXml='false' />
 					</c:if>
 					<li class="cateul_li"><a class="cateul_li_a"
-						href="CateServlet?cate=${cate}">${cate}</a></li>
+						href='<c:url value="/Cate" />?cate=${cate}'>${cate}</a></li>
 					<c:if test='${vs.last }'>
 						<c:out value="</ul>" escapeXml='false' />
 					</c:if>
@@ -60,48 +60,46 @@
 			</div>
 		</div>
 		<div class="rightoutbox">
-			<c:forEach var="D" items="${Detail}">
-				<form name="AddForm" action="ControllerServlet" method="POST">
-					<input type="hidden" name="todo" value="add">
-					<div class="rightside">
-						<div class="imgbox">
-							<a href="#"><img src="image/${D.productname}.png"></a>
-						</div>
+			<form name="AddForm" action="" method="POST">
+				<input type="hidden" name="todo" value="add">
+				<div class="rightside">
+					<div class="imgbox">
+						<a href="#"><img src="image/${Detail.productname}.png"></a>
 					</div>
-					<div class="infobox">
-						<div class="infoname">${D.productname}</div>
-						<div class="infono">商品編號：${D.brandno}${D.productno}</div>
-						<hr>
-						<div class="infoseries">系列：${D.productseries}</div>
-						<div class="infocate">種類：${D.productcategory}</div>
-						<hr>
-						<div class="infoprice">NT$：${D.productprice}</div>
-						<div>
-							<div class="infocount">
-								數量 :
-								<div class="selbox">
-									<select name="count" class="countsel">
-										<option value="1">1</option>
-										<option value="2">2</option>
-										<option value="3">3</option>
-										<option value="4">4</option>
-										<option value="5">5</option>
-										<option value="6">6</option>
-										<option value="7">7</option>
-										<option value="8">8</option>
-										<option value="9">9</option>
-										<option value="10">10</option>
-									</select>
-								</div>
-								<div class="infobtn">
-									<input class="btn" type="submit" value="加入購物車"> <input
-										type="hidden" name="productno" value="${D.productno}">
-								</div>
+				</div>
+				<div class="infobox">
+					<div class="infoname">${Detail.productname}</div>
+					<div class="infono">商品編號：${Detail.brandno}${Detail.productno}</div>
+					<hr>
+					<div class="infoseries">系列：${Detail.productseries}</div>
+					<div class="infocate">種類：${Detail.productcategory}</div>
+					<hr>
+					<div class="infoprice">NT$：${Detail.productprice}</div>
+					<div>
+						<div class="infocount">
+							數量 :
+							<div class="selbox">
+								<select name="count" class="countsel">
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+									<option value="8">8</option>
+									<option value="9">9</option>
+									<option value="10">10</option>
+								</select>
+							</div>
+							<div class="infobtn">
+								<input class="btn" type="submit" value="加入購物車"> <input
+									type="hidden" name="productno" value="${Detail.productno}">
 							</div>
 						</div>
 					</div>
-				</form>
-			</c:forEach>
+				</div>
+			</form>
 		</div>
 		<%@include file="../jspf/footer.jspf"%>
 	</div>
