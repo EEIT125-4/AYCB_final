@@ -38,9 +38,9 @@ public class RootAppConfig {
 		} catch (PropertyVetoException e) {
 			e.printStackTrace();
 		}
-		//ds.setJdbcUrl("jdbc:sqlserver://10.31.25.143:1433;DatabaseName=project");
+		ds.setJdbcUrl("jdbc:sqlserver://10.31.25.143:1433;DatabaseName=Project");
 		//如果跑本機,記得切換
-		ds.setJdbcUrl("jdbc:sqlserver://127.0.0.1:1433;DatabaseName=project");
+//		ds.setJdbcUrl("jdbc:sqlserver://192.168.196.113:1433;DatabaseName=comment");
 		ds.setInitialPoolSize(4);
 		ds.setMaxPoolSize(8);
 		return ds;
@@ -58,6 +58,7 @@ public class RootAppConfig {
 				"tool",
 				"chat",
 				"comment",
+				"config"
 								
 		});
 		 if (SystemConstant.DB_TYPE == SystemConstant.SQL_SERVER) {

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <% 
 	response.setContentType("text/html;charset=UTF-8");
     request.setCharacterEncoding("UTF-8");
@@ -8,6 +8,7 @@
     response.setHeader("Pragma","no-cache"); // HTTP 1.0  
     response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
 %>
+<%@include file="../jspf/header.jspf"%>
 
 <c:set var = "rs" value="${Result}"/>
 	<c:set var = "commentId" value = "${rs.commentId}"/>
@@ -26,7 +27,7 @@
 
 <fieldset class="updateform">
 	<legend class="title">編輯留言</legend>
-	<form  action="./DeleteServlet1" method="post">
+	<form  action="${pageContext.request.contextPath}/comment/CommentController" method="post">
         <p>  
             <label class="t1" for="">名稱:</label>
             <input type="text" name="name" value="${name}">   
@@ -45,11 +46,12 @@
         </p>
         <p>
             <label for="" class="t1">留言內文:</label>
-            <input type="text" name="content" value="${content}">
+            <textarea name="content" >${content}</textarea>
+          
         </p>
         <p>
             <label class="t1"></label>
-            <input type="hidden" name="status" value="<jsp:getProperty name="bean" property="status"/>">
+            <input type="hidden" name="status" value="0">
         </p>
         
         <p>
@@ -58,11 +60,12 @@
         </p>
         <p>
             <label class="t1"></label>
-            <input type="text" name="commentId" value="${commentId}">
+            <input type="hidden" name="commentId" value="${commentId}">
         </p>
         <input type="submit" name="confirmupdate" value="送出">
     </form>
     
 	</fieldset>
+	<%@include file="../jspf/footer.jspf"%>
 	
 	

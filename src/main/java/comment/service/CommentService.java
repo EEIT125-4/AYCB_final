@@ -7,7 +7,6 @@ import comment.model.CommentBean;
 public interface CommentService {
 
 	// DiscussionBean變數名稱
-	int insertComment(CommentBean commentData);
 
 	List<CommentBean> selectAll();
 
@@ -16,5 +15,9 @@ public interface CommentService {
 	int updateComment(CommentBean cb);
 
 	CommentBean selectUpdateitem(Integer commentId);
+
+	int insertComment(CommentBean cb);
+
+	CommentBean selectInsertitem(Integer commentId);
 
 }
