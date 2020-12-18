@@ -23,12 +23,12 @@
 				<div class="catediv">
 					廠商分類<a id="a1" class="catea" href="#" onclick="show1()">+</a>
 				</div>
-				<c:forEach var="brand" varStatus='vs' items="${Brands}">
+				<c:forEach var="brand" varStatus='vs' items="${brand}">
 					<c:if test='${vs.first }'>
 						<c:out value="<ul id='ul1' class='cateul'>" escapeXml='false' />
 					</c:if>
-						<li class="cateul_li"><a class="cateul_li_a"
-							href="BrandServlet?brand=${brand}">${brand}</a></li>
+					<li class="cateul_li"><a class="cateul_li_a"
+						href='<c:url value="/Brand" />?brand=${brand}'>${brand}</a></li>
 					<c:if test='${vs.last }'>
 						<c:out value="</ul>" escapeXml='false' />
 					</c:if>
@@ -40,8 +40,8 @@
 					<c:if test='${vs.first }'>
 						<c:out value="<ul id='ul2' class='cateul'>" escapeXml='false' />
 					</c:if>
-						<li class="cateul_li"><a class="cateul_li_a"
-						href="SeriesServlet?series=${series}">${series}</a></li>
+					<li class="cateul_li"><a class="cateul_li_a"
+						href='<c:url value="/Series" />?series=${series}'>${series}</a></li>
 					<c:if test='${vs.last }'>
 						<c:out value="</ul>" escapeXml='false' />
 					</c:if>
@@ -49,12 +49,12 @@
 				<div class="catediv">
 					種類分類<a id="a3" class="catea" href="#" onclick="show3()">+</a>
 				</div>
-				<c:forEach var="cate" varStatus='vs' items="${cates}">
+				<c:forEach var="cate" varStatus='vs' items="${cate}">
 					<c:if test='${vs.first }'>
 						<c:out value="<ul id='ul3' class='cateul'>" escapeXml='false' />
 					</c:if>
-						<li class="cateul_li"><a class="cateul_li_a"
-						href="CateServlet?cate=${cate}">${cate}</a></li>
+					<li class="cateul_li"><a class="cateul_li_a"
+						href='<c:url value="/Cate" />?cate=${cate}'>${cate}</a></li>
 					<c:if test='${vs.last }'>
 						<c:out value="</ul>" escapeXml='false' />
 					</c:if>
@@ -65,18 +65,36 @@
 			<c:forEach var="pro" items="${Products}">
 				<div class="rightside">
 					<div class="imgbox">
-						<a href="ProductDetailServlet?no=${pro.productno}"><img
+						<a href='<c:url value="/Detail" />?no=${pro.productno}'><img
 							class="proimg" src="image/${pro.productname}.png"></a>
 					</div>
 					<div class="proname">${pro.productname}</div>
 					<div class="buttonbox">
 						<div class="proprice">NT$ ${pro.productprice}</div>
 						<div class="cart">
-							<a href="ControllerServlet?todo=add&productno=${pro.productno}&count=1"> <img class="cartimg" src="image/bg_cart_b.svg"></a>
+							<a
+								href="ControllerServlet?todo=add&productno=${pro.productno}&count=1">
+								<img class="cartimg" src="image/bg_cart_b.svg">
+							</a>
 						</div>
 					</div>
 				</div>
 			</c:forEach>
+			<div class="page">
+				<ul class="page_ul">
+					<li class="page_ul_li"><a class="page_ul_li_a"
+						href='<c:url value="/Keyword" />?keyword=${Keyword}&page=${Pages - 1}'> <i
+							class="fa fa-angle-double-left" aria-hidden="true"></i>
+					</a></li>
+					<c:forEach var='i' begin='1' end='${TotalPages}'>
+						<li class="page_ul_li"><a class="page_ul_li_a"
+							href='<c:url value="/Keyword" />?keyword=${Keyword}&page=${i}'>${i}</a></li>
+					</c:forEach>
+					<li class="page_ul_li"><a class="page_ul_li_a"
+						href='<c:url value="/Keyword" />?keyword=${Keyword}&page=${Pages + 1}'><i
+							class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+				</ul>
+			</div>
 		</div>
 		<%@include file="../jspf/footer.jspf"%>
 	</div>

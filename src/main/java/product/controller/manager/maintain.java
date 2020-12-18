@@ -71,7 +71,7 @@ public class maintain extends HttpServlet {
 			ProductBean pb = new ProductBean(productno, brandno, brandname, producttype, productname, productseries,
 					productcategory, skintype, productprice);
 			session.setAttribute("pb", pb);
-			count = ps.updateMember(pb);
+			count = ps.updateProduct(pb);
 			if (count == 1) {
 				NextPage = request.getContextPath() + "/Manager";
 			}

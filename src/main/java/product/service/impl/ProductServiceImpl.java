@@ -1,241 +1,187 @@
 package product.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import product.dao.ProductDao;
-import product.dao.impl.ProductDaoImpl;
 import product.model.ProductBean;
 import product.service.ProductService;
-import tool.HibernateUtils;
 
-
-
+@Transactional
+@Service
 public class ProductServiceImpl implements ProductService {
 
-	SessionFactory factory = HibernateUtils.getSessionFactory();
-	ProductDao dao = new ProductDaoImpl();
+	@Autowired
+	SessionFactory factory;
 
+	@Autowired
+	ProductDao dao;
+	
 	@Override
 	public int saveproduct(ProductBean pb) {
 		int count = 0;
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			dao.saveProduct(pb);
-			count++;
-			tx.commit();
-		} catch (Exception e) {
-			if (tx != null) {
-				tx.rollback();
-			}
-			e.printStackTrace();
-		}
+		dao.saveProduct(pb);
+		count++;
 		return count;
 	}
 
 	@Override
 	public List<ProductBean> getAllProducts() {
-		List<ProductBean> list = new ArrayList<>();
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			list = dao.getAllProducts();
-			tx.commit();
-		} catch (Exception e) {
-			if (tx != null) {
-				tx.rollback();
-			}
-			e.printStackTrace();
-		}
-		return list;
+		return dao.getAllProducts();
 	}
 
 	@Override
-	public List<ProductBean> getProduct(int no) {
-		List<ProductBean> list = new ArrayList<>();
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			list = dao.getProduct(no);
-			tx.commit();
-		} catch (Exception e) {
-			if (tx != null) {
-				tx.rollback();
-			}
-			e.printStackTrace();
-		}
-		return list;
+	public ProductBean getProduct(int no) {
+		return dao.getProduct(no);
 	}
-	
+
 	@Override
 	public List<ProductBean> getBrandProduct(String brandname) {
-		List<ProductBean> list = new ArrayList<>();
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			list = dao.getBrandProduct(brandname);
-			tx.commit();
-		} catch (Exception e) {
-			if (tx != null) {
-				tx.rollback();
-			}
-			e.printStackTrace();
-		}
-		return list;
+		return dao.getBrandProduct(brandname);
 	}
-	
+
 	@Override
 	public List<ProductBean> getSeriesProduct(String series) {
-		List<ProductBean> list = new ArrayList<>();
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			list = dao.getSeriesProduct(series);
-			tx.commit();
-		} catch (Exception e) {
-			if (tx != null) {
-				tx.rollback();
-			}
-			e.printStackTrace();
-		}
-		return list;
+		return dao.getSeriesProduct(series);
 	}
-	
+
 	@Override
 	public List<ProductBean> getCateProduct(String cate) {
-		List<ProductBean> list = new ArrayList<>();
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			list = dao.getCateProduct(cate);
-			tx.commit();
-		} catch (Exception e) {
-			if (tx != null) {
-				tx.rollback();
-			}
-			e.printStackTrace();
-		}
-		return list;
+		return dao.getCateProduct(cate);
 	}
 
 	@Override
-	public List<ProductBean> getkeyword(String keyword) {
-		List<ProductBean> list = new ArrayList<>();
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			list = dao.getKeyword(keyword);
-			tx.commit();
-		} catch (Exception e) {
-			if (tx != null) {
-				tx.rollback();
-			}
-			e.printStackTrace();
-		}
-		return list;
+	public List<ProductBean> getKeyword(String keyword) {
+		return dao.getKeyword(keyword);
 	}
 
 	@Override
-	public List<ProductBean> getBrand() {
-		List<ProductBean> list = new ArrayList<>();
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			list = dao.getBrand();
-			tx.commit();
-		} catch (Exception e) {
-			if (tx != null) {
-				tx.rollback();
-			}
-			e.printStackTrace();
-		}
-		return list;
+	public List<String> getBrand() {
+		return dao.getBrand();
+	}
+
+	@Override
+	public List<String> getSeries() {
+		return dao.getSeries();
+	}
+
+	@Override
+	public List<String> getCate() {
+		return dao.getCate();
 	}
 	
 	@Override
-	public List<ProductBean> getSeries() {
-		List<ProductBean> list = new ArrayList<>();
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			list = dao.getSeries();
-			tx.commit();
-		} catch (Exception e) {
-			if (tx != null) {
-				tx.rollback();
-			}
-			e.printStackTrace();
-		}
-		return list;
+	public List<String> getOneBrand(String brandname) {
+		return dao.getOneBrand(brandname);
 	}
 	
 	@Override
-	public List<ProductBean> getCate() {
-		List<ProductBean> list = new ArrayList<>();
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			list = dao.getCate();
-			tx.commit();
-		} catch (Exception e) {
-			if (tx != null) {
-				tx.rollback();
-			}
-			e.printStackTrace();
-		}
-		return list;
+	public List<String> getOneSeries(String series) {
+		return dao.getOneSeries(series);
+	}
+	
+	@Override
+	public List<String> getOneCate(String cate) {
+		return dao.getOneCate(cate);
 	}
 
 	@Override
 	public int deleteProduct(int no) {
 		int count = 0;
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			dao.deleteProduct(no);
-			count++;
-			tx.commit();
-		} catch (Exception e) {
-			if (tx != null) {
-				tx.rollback();
-			}
-			e.printStackTrace();
-		}
+		dao.deleteProduct(no);
+		count++;
 		return count;
 	}
 
 	@Override
-	public int updateMember(ProductBean pb) {
+	public int updateProduct(ProductBean pb) {
 		int count = 0;
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			dao.updateProduct(pb);
-			count++;
-			tx.commit();
-		} catch (Exception e) {
-			if (tx != null) {
-				tx.rollback();
-			}
-			e.printStackTrace();
-		}
+		dao.updateProduct(pb);
+		count++;
 		return count;
+	}
+	
+	@Override
+	public int getTotalPages() {
+		return dao.getTotalPages();
+	}
+	
+	@Override
+	public int getBrandTotalPages(String brandname) {
+		return dao.getBrandTotalPages(brandname);
+	}
+	
+	@Override
+	public int getSeriesTotalPages(String series) {
+		return dao.getSeriesTotalPages(series);
+	}
+	
+	@Override
+	public int getCateTotalPages(String cate) {
+		return dao.getCateTotalPages(cate);
+	}
+	
+	@Override
+	public int getKeywordTotalPages(String keyword) {
+		return dao.getKeywordTotalPages(keyword);
+	}
+	
+	@Override
+	public long getCounts() {
+		return dao.getCounts();
+	}
+	
+	@Override
+	public long getBrandCounts(String brandname) {
+		return dao.getBrandCounts(brandname);
+	}
+	
+	@Override
+	public long getSeriesCounts(String series) {
+		return dao.getSeriesCounts(series);
+	}
+	
+	@Override
+	public long getCateCounts(String cate) {
+		return dao.getCateCounts(cate);
+	}
+	
+	@Override
+	public long getKeywordCounts(String keyword) {
+		return dao.getKeywordCounts(keyword);
+	}
+
+	@Override
+	public List<ProductBean> getPage(int pageNo) {
+		return dao.getPage(pageNo);
+	}
+	
+	@Override
+	public List<ProductBean> getBrandPage(String brandname, int pageNo) {
+		return dao.getBrandPage(brandname, pageNo);
+	}
+	
+	@Override
+	public List<ProductBean> getSeriesPage(String series, int pageNo) {
+		return dao.getSeriesPage(series, pageNo);
+	}
+	
+	@Override
+	public List<ProductBean> getCatePage(String cate, int pageNo) {
+		return dao.getCatePage(cate, pageNo);
+	}
+	
+	@Override
+	public List<ProductBean> getKeywordPage(String keyword, int pageNo) {
+		return dao.getKeywordPage(keyword, pageNo);
+	}
+	
+	@Override
+	public List<ProductBean> getBHlist(String list) {
+		return dao.getBHlist(list);
 	}
 }

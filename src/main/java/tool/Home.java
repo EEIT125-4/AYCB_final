@@ -1,37 +1,50 @@
 package tool;
 
-import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
-import product.model.ProductBean;
 import product.service.ProductService;
-import product.service.impl.ProductServiceImpl;
 
+@Controller
+@SessionAttributes({"brand", "series", "cate"})
+public class Home {
 
-@WebServlet("/Home")
-public class Home extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doPost(request, response);
+	@Autowired
+	ProductService ps;
+	
+	@SuppressWarnings("unchecked")
+	@GetMapping("/")
+	public String home(Model model) {
+		List<String> brand = (List<String>) model.getAttribute("brand");
+		List<String> series = (List<String>) model.getAttribute("series");
+		List<String> cate = (List<String>) model.getAttribute("cate");
+		model.addAttribute("Brands", brand);
+		model.addAttribute("Series", series);
+		model.addAttribute("Cates", cate);
+		return "index";
 	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		
-		ProductService ps = new ProductServiceImpl();
-		List<ProductBean> cate = ps.getCate();
-		
-		request.setAttribute("cates", cate);
-		request.getSession().setAttribute("cates", cate);
-		request.getRequestDispatcher("index.jsp").forward(request, response);
+	
+	@ModelAttribute("brand")
+	public List<String> initBrands(Model model){
+		List<String> brand = ps.getBrand();
+		return brand;
 	}
-
+	
+	@ModelAttribute("series")
+	public List<String> initSeries(Model model){
+		List<String> series = ps.getSeries();
+		return series;
+	}
+	
+	@ModelAttribute("cate")
+	public List<String> initCates(Model model){
+		List<String> cate = ps.getCate();
+		return cate;
+	}
 }

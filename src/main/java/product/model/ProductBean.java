@@ -20,6 +20,7 @@ public class ProductBean {
 	private String productcategory;
 	private String skintype;
 	private Double productprice;
+	//圖片
 
 	public ProductBean() {
 		super();
