@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
 	response.setContentType("text/html;charset=UTF-8");
 response.setHeader("Cache-Control", "no-cache"); // HTTP 1.1
@@ -16,15 +17,13 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 <title>留言板</title>
 </head>
 <%@include file="../jspf/header.jspf"%>
-
-<%@include file="../jspf/commentSide.jspf"%>
-
+<%@include file ="../jspf/commentSide.jspf" %>
 <div id="content">
 	<div id="post" style="margin-top: 60px;">
 
 		<H1 class="board" style="border-radius: 10px" ALIGN="CENTER">留言佈告欄</H1>
 
-		<FORM ACTION="../Controller" method="Post">
+	   <FORM ACTION="${pageContext.request.contextPath}/comment/CommentController" method="Post">
 			<Fieldset class="discussionbox">
 				<div>
 					<label>會員名稱：</label> <input type="text" id="shangtian" name="name"
@@ -46,15 +45,16 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 					<%!int st = 0;%>
 
 					<label for="status"></label> <input type="hidden" name="status"
-						value=<%=st%>> <label for="id"></label> <input
-						type="hidden" name="id"> <label for="commentTime"></label>
-					<input type="hidden" name="commentTime">
+						value=<%=st%>> 
+					<label for="id"></label><input type="hidden" name="id"> 
+					<label for="commentId"></label><input type="hidden" name="commentId"> 
+					<label for="commentTime"></label><input type="hidden" name="commentTime">
 				</div>
 				<label for="contentBox"></label>
 				<textarea name="content" id="contentBox" class="transition"></textarea>
 
-				<INPUT id="postBt" type="submit" name="submit" value="發表留言" /> <INPUT
-					id="clear" type="reset" name="clear" value="清除" />
+				<INPUT id="postBt" type="submit" name="submit" value="發表留言" /> 
+				<INPUT id="clear" type="reset" name="clear" value="清除" />
 			</Fieldset>
 		</FORM>
 

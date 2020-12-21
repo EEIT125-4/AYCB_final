@@ -1,17 +1,16 @@
 package member;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
-
 
 @Entity
-@Table
+
 public class MemberBean implements Serializable {
 	/**
 	 * 
@@ -30,16 +29,15 @@ public class MemberBean implements Serializable {
 	private String address;
 	@Column(columnDefinition = "nvarchar(Max)")
 	private String phone;
-	private String birth;
+	private Date birth;
 	@Column(columnDefinition = "nvarchar(Max)")
 	private String email;
 	@Column(columnDefinition = "nvarchar(Max)")
 	private String gender;
-	
+
 	public MemberBean() {
-		
+
 	}
-	
 
 	public Integer getId() {
 		return id;
@@ -89,11 +87,11 @@ public class MemberBean implements Serializable {
 		this.phone = phone;
 	}
 
-	public String getBirth() {
+	public Date getBirth() {
 		return birth;
 	}
 
-	public void setBirth(String birth) {
+	public void setBirth(Date birth) {
 		this.birth = birth;
 	}
 
@@ -139,9 +137,9 @@ public class MemberBean implements Serializable {
 	}
 
 	public MemberBean(Integer id, String account, String name, String password, String address, String phone,
-			String birthday, String email, String gender) {
+			Date birthday, String email, String gender) {
 		super();
-		this.id = id;
+		id = id;
 		this.account = account;
 		this.name = name;
 		this.password = password;
@@ -151,6 +149,5 @@ public class MemberBean implements Serializable {
 		this.email = email;
 		this.gender = gender;
 	}
-
 
 }

@@ -1,0 +1,75 @@
+.rightoutbox {
+    width: fit-content;
+    position: relative;
+    float: left;
+    top: 235px;
+    left: 25%;
+    border: 1px solid gray;
+}
+
+.rightside {
+    width: fit-content;
+    margin: 20px;
+    float: left;
+    border: 1px solid gray;
+}
+
+.updateprice {
+    margin: 20px auto;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: line-through;
+    color: gray;
+}
+
+.updatetext {
+    float: left;
+    width: 100px;
+    height: 30px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.updatebtn {
+    float: left;
+    height: 36px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.infobox {
+    float: left;
+    margin-top: 16px;
+    margin-left: 50px;
+    margin-right: 50px;
+    width: 600px;
+}
+
+.infoname {
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.infono {
+    margin: 10px auto;
+    color: gray;
+    font-weight: bold;
+}
+
+.infoseries {
+    margin-top: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.infocate {
+    margin: 20px auto;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.infoprice {
+    margin: 20px auto;
+    font-size: 30px;
+    font-weight: bold;
+}

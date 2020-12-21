@@ -6,7 +6,7 @@ import product.model.ProductBean;
 
 public interface ProductService {
 
-	int saveproduct(ProductBean pb);
+	void saveproduct(ProductBean pb);
 
 	List<ProductBean> getAllProducts();
 
@@ -32,9 +32,9 @@ public interface ProductService {
 	
 	List<String> getOneCate(String cate);
 
-	int deleteProduct(int no);
+	void deleteProduct(int no);
 
-	int updateProduct(ProductBean pb);
+	void updateProduct(ProductBean pb);
 
 	int getTotalPages();
 	

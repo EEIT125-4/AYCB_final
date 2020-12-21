@@ -100,6 +100,8 @@ types = (List<String>) request.getAttribute("types");
 		<input type="button" value="篩選訊息" onclick="search()"> <br>
 		<!-- 實際跳轉交給javascript處理 -->
 		<a href="" onclick="checkLogin()">查看訂閱設定</a>
+		<a href="${pageContext.request.contextPath}/email">發送email</a>
+		
 
 	</aside>
 

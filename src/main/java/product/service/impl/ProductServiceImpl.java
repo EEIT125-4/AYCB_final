@@ -22,11 +22,8 @@ public class ProductServiceImpl implements ProductService {
 	ProductDao dao;
 	
 	@Override
-	public int saveproduct(ProductBean pb) {
-		int count = 0;
+	public void saveproduct(ProductBean pb) {
 		dao.saveProduct(pb);
-		count++;
-		return count;
 	}
 
 	@Override
@@ -90,19 +87,13 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public int deleteProduct(int no) {
-		int count = 0;
+	public void deleteProduct(int no) {
 		dao.deleteProduct(no);
-		count++;
-		return count;
 	}
 
 	@Override
-	public int updateProduct(ProductBean pb) {
-		int count = 0;
+	public void updateProduct(ProductBean pb) {
 		dao.updateProduct(pb);
-		count++;
-		return count;
 	}
 	
 	@Override

@@ -92,4 +92,11 @@ public class MessageServiceImpl implements MessageService {
 		
 	}
 
+
+	@Override
+	public List<MessageBean> getRandomMessage(int num) {
+		
+		return dao.getRandomMessage(num);
+	}
+
 }

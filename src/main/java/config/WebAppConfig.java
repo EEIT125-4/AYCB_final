@@ -17,7 +17,9 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 	"product",
 	"tool",
 	"chat",
-	"comment"})
+	"comment",
+	"mail"
+	})
 public class WebAppConfig implements WebMvcConfigurer {
 	@Bean
 	public InternalResourceViewResolver internalResourceViewResolver() {

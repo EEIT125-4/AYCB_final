@@ -1,31 +1,38 @@
 package tool.controller;
 
-import java.text.SimpleDateFormat;
-
-import javax.servlet.ServletContext;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
+import org.springframework.web.bind.annotation.RequestParam;
+import product.model.ProductBean;
+import product.service.ProductService;
 
 
 @Controller
 public class HomeController {
 	
 		@Autowired
-		ServletContext servletContext;
+		ProductService ps;
 		
 		@RequestMapping(value={"/","/Home"})
-		public String home() {
+		public String home(Model model) {
+			
+			List<ProductBean> list = ps.getAllProducts();
+			model.addAttribute("list", list);
+			System.out.println("get product list");
+			for(ProductBean p:list) {
+				
+				System.out.println("p:"+p.getProductname());
+			}
+				
 			return "index";     // 請視圖解析器由視圖的邏輯名稱index來找出真正的視圖
+			
+			
 		}
 
-//		@RequestMapping("/Home")
-//		public String home() {
-//			return "index";     // 請視圖解析器由視圖的邏輯名稱index來找出真正的視圖
-//		}
 
 }

@@ -16,7 +16,7 @@ import message.model.MessageBean;
 
 @Repository
 
-public class MessageHibernateDaoImpl implements MessageDao {
+public class MessageDaoImpl implements MessageDao {
 	@Autowired
 	SessionFactory factory;
 	
@@ -147,5 +147,27 @@ public class MessageHibernateDaoImpl implements MessageDao {
 		
 		
 		return types;
+	}
+	
+	public List<MessageBean> getRandomMessage(int num) {
+		
+	
+		String sql = "select top "+num+" from message_table order by NEWID()";
+			Session session = factory.getCurrentSession();
+		List<MessageBean> list=new ArrayList<MessageBean>();
+		
+		
+		@SuppressWarnings("unchecked")
+		
+	
+		Query<MessageBean> query=session.createNativeQuery(sql );
+		list = query.getResultList();	
+		
+
+		
+
+		return list;
+		
+		
 	}
 }

@@ -25,5 +25,7 @@ public interface MessageDao {
 	
 	List<String> queryMessageType();
 	
+	List<MessageBean> getRandomMessage(int num);
+	
 
 }

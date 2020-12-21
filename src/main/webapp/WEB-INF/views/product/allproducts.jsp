@@ -59,6 +59,9 @@
 						<c:out value="</ul>" escapeXml='false' />
 					</c:if>
 				</c:forEach>
+				<div>
+					<a href='<c:url value="/Manager" />'>後台</a>
+				</div>
 			</div>
 		</div>
 		<div class="rightoutbox">

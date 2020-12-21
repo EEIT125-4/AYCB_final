@@ -6,7 +6,7 @@
 		<property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
 		<property name="hibernate.connection.username">sa</property>
 		<property name="hibernate.connection.password">manager</property>
-		<property name="hibernate.connection.url">jdbc:sqlserver://localhost:1433;databaseName=JSPDB</property>
+		<property name="hibernate.connection.url">jdbc:sqlserver://localhost:1433;databaseName=project</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.SQLServer2012Dialect</property>
 
 		<!-- 2. 其他與資料存取有關的設定 -->
@@ -26,9 +26,9 @@
 		<property name="connection_pool_size">8</property>
 
 		<!-- 3. 宣告程式使用的Mapping檔 ，每個永續類別都需要定義一個Mapping檔 -->
-		<mapping class="com.web.store.model.MemberBean"></mapping>
-		<mapping class="com.web.store.model.BookBean"></mapping>
-		<mapping class="com.web.store.model.CompanyBean"></mapping>
+		<mapping class="member.MemberBean"></mapping>
+		<mapping class="message.model.MessageBean"></mapping>
+	
 
 	</session-factory>
 </hibernate-configuration>

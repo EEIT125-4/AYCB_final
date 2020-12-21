@@ -1,56 +1,80 @@
-//package subscript;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//import org.hibernate.Session;
-//import org.hibernate.SessionFactory;
-//import org.hibernate.Transaction;
-//
-//import member.model.MemberBean;
-//import member.service.MemberService;
-//import member.service.impl.MemberServiceImpl;
-//import message.model.MessageBean;
-//import message.service.MessageService;
-//import message.service.impl.MessageServiceImpl;
-//import subscript.model.Follow;
-//import subscript.model.FollowPK;
-//import tool.HibernateUtils;
-//
-//public class TestOfFollow {
-//
-//	public static void main(String[] args) {
-//		
-//		
-//		MemberService ms1=new MemberServiceImpl();
-//		
-//		List<MemberBean> members=ms1.getAllMembers();
-//		MemberBean member1=ms1.getMember(1);
-//		MemberBean member2=ms1.getMember(2);
-//		System.out.println(member1);
-//		System.out.println(member2);
-//		for(MemberBean m:members) {
-//			
-//			System.out.println("member:"+m);
-//			
-//		}
-//		System.out.println("==================");
-//		
+package subscript;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
+
+import member.MemberBean;
+import message.model.MessageBean;
+import tool.HibernateUtils;
+
+public class TestOfFollow {
+
+	public static void main(String[] args) {
+		
+		SessionFactory factory = HibernateUtils.getSessionFactory();
+		
+		Session session=factory.getCurrentSession();
+		
+		Transaction tx = null;
+		
+		try {
+			tx = session.beginTransaction();
+			String hql = "FROM MemberBean m WHERE m.account = :account0";
+
+			Query<MemberBean> query = session.createQuery(hql);
+			MemberBean member = query.setParameter("account0", "jjj").getSingleResult();
+			
+			System.out.println("member:"+member.getName());
+			@SuppressWarnings("unchecked")
+			Query<MessageBean> query2=session.createNativeQuery("select top 1 * from message_table order by NEWID() ").addEntity(MessageBean.class);
+			
+			MessageBean message=(MessageBean)query2.getSingleResult();
+
+			System.out.println("message:"+message.getMsg_id());
+			
+			
+			
+			
+			
+		
+			tx.commit();
+		}catch (Exception e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		}
+		
+		finally{
+			if (session != null)
+			session.close();
+		}
+		HibernateUtils.shutdown();
+			System.out.println("==================");
+		}
+
+		
+	
+	
+		
 //		MessageService ms2=new MessageServiceImpl();
-//		MessageBean message1=ms2.getMessage("20201207001");
-//		MessageBean message2=ms2.getMessage("202012075");
-//		System.out.println(message1);
-//		System.out.println(message2);
+//	
+//		List<MessageBean>list=ms2.getRandomMessage(2);
 //		
+//		for(MessageBean m:list) {
+//			System.out.println("message:"+m.getMsg_id());
+//		}
 //		System.out.println("===================");
-//		
-//		
-////		subscript.model.FollowPK fPk=new subscript.model.FollowPK();
-////		fPk.setMember(mBean);
-////		fPk.setScriptType("girl");
-//		
-//		//Follow follow1=new Follow(fPk);
-//		
+		
+		
+//		subscript.model.FollowPK fPk=new subscript.model.FollowPK();
+//		fPk.setMember(mBean);
+//		fPk.setScriptType("girl");
+		
+		//Follow follow1=new Follow(fPk);
+		
 //		Follow follow1=new Follow();
 //		follow1.setMember(member1);
 //		follow1.setScriptType("type1");	
@@ -88,6 +112,6 @@
 //		HibernateUtils.shutdown();
 //		
 //		
-//	}
-//
-//}
+	}
+
+

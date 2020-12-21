@@ -1,5 +1,7 @@
 package product.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Product")
-public class ProductBean {
+public class ProductBean implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer productno;
@@ -23,22 +25,9 @@ public class ProductBean {
 	//圖片
 
 	public ProductBean() {
-		super();
+		
 	}
 
-	public ProductBean(String brandno, String brandname, String producttype, String productname,
-			String productseries, String productcategory, String skintype, Double productprice) {
-		super();
-		this.brandno = brandno;
-		this.brandname = brandname;
-		this.producttype = producttype;
-		this.productname = productname;
-		this.productseries = productseries;
-		this.productcategory = productcategory;
-		this.skintype = skintype;
-		this.productprice = productprice;
-	}
-	
 	public ProductBean(Integer productno, String brandno, String brandname, String producttype, String productname,
 			String productseries, String productcategory, String skintype, Double productprice) {
 		super();
@@ -77,6 +66,8 @@ public class ProductBean {
 		builder.append("]");
 		return builder.toString();
 	}
+
+	
 
 	public Integer getProductno() {
 		return productno;
@@ -149,5 +140,7 @@ public class ProductBean {
 	public void setProductprice(Double productprice) {
 		this.productprice = productprice;
 	}
+	
+	
 
 }
