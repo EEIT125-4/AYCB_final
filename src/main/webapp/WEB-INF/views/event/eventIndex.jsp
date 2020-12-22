@@ -7,7 +7,7 @@
 <head>
 
 <meta charset="UTF-8">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/eventpage.css">
+<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/css/eventpage.css"> --%>
 <title>報名資料管理</title>
 </head>  
 

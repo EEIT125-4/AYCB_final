@@ -13,7 +13,7 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="../css/comment.css" />
+<!-- <link rel="stylesheet" href="../css/comment.css" /> -->
 <title>留言板</title>
 </head>
 <%@include file="../jspf/header.jspf"%>

@@ -79,7 +79,7 @@ public class AttendanceController {
 				return "event/attendanceForm";
 			}
 			
-			return "event/showAttendance"; 
+			return "redirect:/event/showAttendance";
 		}
 		@GetMapping(value = "event/update")
 		public String showDataForm(				

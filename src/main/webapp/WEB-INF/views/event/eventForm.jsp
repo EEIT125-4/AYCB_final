@@ -51,8 +51,9 @@
 			</div>
 			<div class="form1">
 				<label class="label1">活動圖片:</label> 
-				<form:input type="file" path="eventimg"/><br>
+				<input name="file" type="file" /><br>
 			</div>
+			
 			
 
 
@@ -64,5 +65,6 @@
 		</fieldset>
 	</form:form>
 </div>
+<%@include file="../jspf/footer.jspf"%>
 </body>
 </html>

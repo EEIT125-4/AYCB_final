@@ -204,7 +204,7 @@ button {
     margin: 0;
     padding: 0;
     position: absolute;
-    width: auto;
+    width: 4000px;
     left: 0px;
     transition: all .5s;
 }
@@ -212,8 +212,8 @@ button {
 .adbox_slides li {
     margin: 0;
     padding: 0;
-    width: 500px;
-    height: auto;
+    width: 2000px;
+    height: 750px;
     overflow: hidden;
     float: left;
 }
