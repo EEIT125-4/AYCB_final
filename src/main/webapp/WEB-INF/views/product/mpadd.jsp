@@ -14,10 +14,23 @@
 	<%@include file="../jspf/managerheader.jspf"%>
 	<div class="contentoutbox">
 		<div class="contentbox">
+			<div class="title">產品管理</div>
+			<div class="mp">
+				<div>
+					<button class="mpbtn"
+						onclick='location.href="${pageContext.request.contextPath}/MProduct"'>
+						<div class="mpimgbox">
+							<img class="mpimg" src="image/product.png">
+						</div>
+						<div class="mptext">返回</div>
+					</button>
+				</div>
+			</div>
 			<div id="add" class="addcontent">
 				<div class="addbox">
 					<div>
-						<form:form method="POST" modelAttribute="ProductBean">
+						<form:form method='POST' modelAttribute="ProductBean"
+							enctype="multipart/form-data">
 							<fieldset class="addfs">
 								<legend class="addtitle">新增</legend>
 								<div class="adddiv">
@@ -47,10 +60,10 @@
 									<label class="addlab">產品價格:</label>
 									<form:input type="text" path="productprice" class="addinput" />
 								</div>
-								<!-- 								<div class="adddiv"> -->
-								<!-- 									<label class="addlab">產品圖片:</label> -->
-								<%-- 									<form:input type="file" path="productimg" /> --%>
-								<!-- 								</div> -->
+								<div class="adddiv">
+									<label class="addlab">產品圖片:</label>
+									<form:input type="file" path="productimage" />
+								</div>
 								<div class="adddiv">
 									<input type="submit" value="新增" class="addbtn">
 								</div>

@@ -43,8 +43,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 			<div class="menu_box">
 				<div class="menu">
 					<ul class="menu_ul">
-						<li class="menu_ul_li"><a class="menu_ul_li_a"
-							href="">訊息中心</a></li>
+						<li class="menu_ul_li"><a class="menu_ul_li_a" href="">訊息中心</a></li>
 						<%--<li class="menu_ul_li">熱銷產品</li>--%>
 						<li class="menu_ul_li"><a class="menu_ul_li_a"
 							href='<c:url value="/AllProducts"/>'>保養品</a>
@@ -60,10 +59,8 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 									</c:if>
 								</c:forEach>
 							</div></li>
-						<li class="menu_ul_li"><a class="menu_ul_li_a"
-							href="">討論區</a></li>
-						<li class="menu_ul_li"><a class="menu_ul_li_a"
-							href="">預約活動</a></li>
+						<li class="menu_ul_li"><a class="menu_ul_li_a" href="">討論區</a></li>
+						<li class="menu_ul_li"><a class="menu_ul_li_a" href="">預約活動</a></li>
 					</ul>
 				</div>
 				<div class="search">

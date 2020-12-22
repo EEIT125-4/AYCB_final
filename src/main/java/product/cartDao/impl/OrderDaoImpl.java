@@ -1,52 +1,59 @@
 package product.cartDao.impl;
 
-import java.sql.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import product.cartDao.OrderDao;
 import product.cartModel.OrderBean;
 import product.cartModel.ProductDB;
 import product.model.ProductBean;
-import tool.HibernateUtils;
 
 
+@Repository
 public class OrderDaoImpl implements OrderDao {
 
-	SessionFactory factory = HibernateUtils.getSessionFactory();
+	//SessionFactory factory = HibernateUtils.getSessionFactory();
 	
-	@SuppressWarnings("unchecked")
+	@Autowired
+	SessionFactory factory;
+	
+	
+	
+	public OrderDaoImpl() { }
+	
+	@SuppressWarnings({ "unchecked", "static-access" })
 	@Override
 	public ProductDB getProductDB() {
 
 		  Session session = factory.getCurrentSession();
-		  String sql="FROM ProductBean";
-		  List<ProductBean> products=new ArrayList<ProductBean>();
+		  String hql="FROM ProductBean";
+		  List<ProductBean> products= new ArrayList<ProductBean>();
 		  List<String> nameList = new ArrayList<String>();
 		  List<Double> priceList = new ArrayList<Double>();
 		  
-		  Query<ProductBean> query1=session.createQuery(sql);
+		  Query<ProductBean> query1=session.createQuery(hql);
 		  
 		  products=query1.getResultList();
 		  
-		  System.out.println("products:"+products);
+		  //System.out.println("products:"+products);
 		  
 		  for(ProductBean p:products) {
+			    
+	      
 			  nameList.add(p.getProductname());
-			  System.out.println(p.getProductname());
+			  //System.out.println(p.getProductname());
+			
 			  priceList.add(p.getProductprice());
-			  System.out.println(p.getProductprice());
+			  //System.out.println(p.getProductprice());
 		  }
 		  
-		  ProductDB PD = new ProductDB();
-		  
+		  ProductDB PD = new ProductDB();		  
 	       
 		  PD.setProductName(nameList);
 		  PD.setProductPrice(priceList);
@@ -63,15 +70,10 @@ public class OrderDaoImpl implements OrderDao {
 		  
 //		  String Hql2 = "SELECT p.Product_Price FROM Product p ";
 		  
-		  
-		  
-		  
 		  //Query<String> query = session.createQuery(Hql);
 		  //nameList = query.getResultList();
 		 // Query<Integer> query1 = session.createQuery(Hql2);
 		  //priceList = query1.getResultList();
-		  
-		
 		
 	}
 	
@@ -184,6 +186,7 @@ public class OrderDaoImpl implements OrderDao {
 
 	}
 
+
 	@Override
 	public boolean deleteOrderitem(int no) {
 
@@ -220,9 +223,9 @@ public class OrderDaoImpl implements OrderDao {
 	@Override
 	public OrderBean selectUpdateitem(int ino) {
 
-		OrderBean order = null;
+		
 		Session session = factory.getCurrentSession();
-		order = session.get(OrderBean.class, ino);
+		OrderBean order = session.get(OrderBean.class, ino);
 
 		return order;
 //		try (

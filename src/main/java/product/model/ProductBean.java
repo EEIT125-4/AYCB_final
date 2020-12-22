@@ -5,6 +5,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "Product")
@@ -20,10 +23,23 @@ public class ProductBean {
 	private String productcategory;
 	private String skintype;
 	private Double productprice;
-	//圖片
+	private String imagepath;
+
+	@Transient
+	private MultipartFile productimage;  	
+	
+	@Transient
+	public MultipartFile getProductimage() {
+		return productimage;
+	}
+
+	@Transient
+	public void setProductimage(MultipartFile productimage) {
+		this.productimage = productimage;
+	}
 
 	public ProductBean() {
-		
+		super();
 	}
 
 	public ProductBean(Integer productno, String brandno, String brandname, String producttype, String productname,
@@ -137,4 +153,11 @@ public class ProductBean {
 		this.productprice = productprice;
 	}
 
+	public String getImagepath() {
+		return imagepath;
+	}
+
+	public void setImagepath(String imagepath) {
+		this.imagepath = imagepath;
+	}
 }
