@@ -1,5 +1,7 @@
 package member.controller;
 
+import java.sql.Date;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -58,7 +60,7 @@ public class MemberController {
 
 		member.setId(null);
 
-		member.setPhone("0");
+	
 
 		model.addAttribute("member", member);
 
@@ -132,7 +134,9 @@ public class MemberController {
 			@RequestParam(value = "useraddress", required = false) String address,
 			@RequestParam(value = "userphone", required = false) String phone,
 			@RequestParam(value = "useremail", required = false) String email,
-			@RequestParam(value = "pwd", required = false) String pwd) {
+			@RequestParam(value = "pwd", required = false) String pwd,
+			@RequestParam(value = "birth", required = false) Date birth 
+			) {
 		System.out.println("確認更新===============");
 		MemberBean mb = (MemberBean) session.getAttribute("member");
 		mb.setName(name);
