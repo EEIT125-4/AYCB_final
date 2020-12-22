@@ -23,15 +23,9 @@ public class AttendanceValidator implements Validator {
 //		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "account", "member.account.not.empty", "帳號欄不能空白(預設值)");
 //		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "member.name.not.empty", "姓名欄不能空白(預設值)");
 
-
-		if (attendance.getMemberid().isEmpty()) {
-			errors.rejectValue("memberid", "", "帳號欄不能空白");
-		}
-
 //		if (attendance.getMemberid().isEmpty()) {
 //			errors.rejectValue("MemberID", "", "帳號欄不能空白");
 //		}
-
 //
 //		if (attendance.getEventid().length() == 0) {
 //			errors.rejectValue("EventID", "", "請填寫活動欄");

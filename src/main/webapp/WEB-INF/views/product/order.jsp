@@ -4,7 +4,7 @@
 	pageEncoding="UTF-8"
 	import="java.util.*,product.*,product.cartModel.CartItem,member.*"%>
 <%
-	response.setContentType("text/html;charset=UTF-8");
+response.setContentType("text/html;charset=UTF-8");
 response.setHeader("Cache-Control", "no-cache"); // HTTP 1.1
 response.setHeader("Pragma", "no-cache"); // HTTP 1.0  
 response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
@@ -16,7 +16,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 <meta charset="UTF-8">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link REL=STYLESHEET HREF="css/cart.css" TYPE="text/css">
+<link REL=STYLESHEET HREF="${pageContext.request.contextPath}/css/cart.css" TYPE="text/css">
 <title>購物車</title>
 </head>
 <%@include file="../jspf/header.jspf"%>
@@ -28,9 +28,8 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
  	%> 
 
 <%--  	<span style="border-bottom: 2px solid gray; width: 150px;"><strong><%=member.getName() + "       "%>  --%>
-			您好!</strong></span><br> <A style="color: black;" href="${pageContext.request.contextPath}/product/historyOrders.jsp"><h3>查詢歷史清單</h3></A> 
+			您好!</strong></span><br> <A style="color: black;" href="<c:url value='/orderSelect' />"><h3>查詢歷史清單</h3></A> 
  </div> 
-
 
 
 <fieldset style="float: auto;">
@@ -61,17 +60,15 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 				%>
 				<tr>
 					<!-- 每一筆都是獨立的FORM -->
-					<form name="removeForm" action="ControllerServlet" method="POST">
+					<form name="removeForm" action="${pageContext.request.contextPath}/cartRemove" method="get">
 						<input type="hidden" name="todo" value="remove">
 						<!-- 移除商品 -->
 						<input type="hidden" name="cartIndex" value="<%=i%>">
-						<td align="right"><img class="img"
-							src="image/<%=aCartItem.getProductName()%>.png"></td>
+						<td align="right"><img class="img" src="image/<%=aCartItem.getProductName()%>.png"></td>
 						<td align="left"><%=aCartItem.getProductName()%></td>
 						<td align="right" valign="middle">$<%=aCartItem.getProductPrice() %></td>
 						<td align="right"><%=aCartItem.getQtyOrdered()%></td>
-						<td><input style="margin-bottom: 6px;" type="button"
-							value="追蹤"><br>
+						<td><input style="margin-bottom: 6px;" type="button" value="追蹤"><br>
 						<input type="submit" value="刪除"></td>
 					</form>
 				</tr>
@@ -83,8 +80,8 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 
 
 			<div style="text-align: center;">
-				<form id="butt" name=".\shoppingForm" action="ControllerServlet"
-					method="POST">
+				<form id="butt" name="shoppingForm" action="${pageContext.request.contextPath}/shopping"
+					method="get">
 					<button id="butt" type="submit" name="todo" value="shop">繼續購物</button>
 					<button id="butt" type="submit" name="todo" value="checkout">結帳</button>
 				</form>
@@ -97,7 +94,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 				<h4>
 
 					<%
-						response.setHeader("Refresh", "2;AllProductServlet");
+						response.setHeader("Refresh", "2;AllProducts");
 					}
 					%>
 				

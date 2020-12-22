@@ -21,8 +21,8 @@ public class OrderBean implements Serializable {
 	private String customerId;
 	@Column(name = "Date", columnDefinition = "datetime NOT NULL")
 	private Date orderTime;
-	@Column(name = "price", columnDefinition = "int NOT NULL")
-	private Integer price;
+	@Column(name = "price", columnDefinition = "decimal(8, 2) NOT NULL")
+	private Double price;
 	@Column(name = "quantity", columnDefinition = "int NOT NULL")
 	private Integer quantity;
 	@Column(name = "status", columnDefinition = "nvarchar(10) NOT NULL")
@@ -32,7 +32,7 @@ public class OrderBean implements Serializable {
 		
 	}
 
-	public OrderBean(Integer orderNo, String customerId, Date orderTime, Integer price, Integer quantity,
+	public OrderBean(Integer orderNo, String customerId, Date orderTime, Double price, Integer quantity,
 			String status) {
 		super();
 		this.orderNo = orderNo;
@@ -67,11 +67,11 @@ public class OrderBean implements Serializable {
 		this.orderTime = orderTime;
 	}
 
-	public Integer getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(Integer price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 
