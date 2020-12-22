@@ -12,83 +12,64 @@
 <%@include file="../jspf/managerheader.jspf"%>
 <div class="contentoutbox">
 	<div class="contentbox">
-		<div class="rightoutbox">
+		<div class="title">產品管理</div>
+		<div class="mp">
 			<div>
-				<form:form method="POST" modelAttribute="ProductBean">
-					<div class="rightside">
-						<div class="imgbox">
-							<a href="#"><img src="image/${ProductBean.productname}.png"></a>
-						</div>
+				<button class="mpbtn"
+					onclick='location.href="${pageContext.request.contextPath}/MProduct"'>
+					<div class="mpimgbox">
+						<img class="mpimg" src="image/product.png">
 					</div>
-
-					<div class="infobox">
-						<div>
-							商品編號： ${ProductBean.productno}
-
-							<form:input type="text" path="productno" />
-
-						</div>
-						<hr>
-						missing area 
-						<input type="text" name="pno" value='${ProductBean.productno}' /> 
-							<input type="text" name="bno" value='${ProductBean.brandno}' /> 
-							<input type="text" name="st" value='${ProductBean.skintype}' />
-						<hr>
-
-						<div class="infobrandno">
-							廠編：${ProductBean.brandno}
-							<form:input type="hidden" path="brandno" />
-						</div>
-
-						<div class="infobrandno">
-							廠名：${ProductBean.brandname}
-							<form:input type="hidden" path="brandname" />
-						</div>
-						<hr>
-
-						<div class="infotype">
-							${ProductBean.producttype}
-							<form:input type="hidden" path="producttype" />
-						</div>
-
-
-						<div class="infoname">
-							${ProductBean.productname}
-							<form:input type="hidden" path="productname" />
-						</div>
-
-						<div class="infoseries">
-							系列：${ProductBean.productseries}
-							<form:input type="text" path="productseries" />
-						</div>
-
-						<div class="infocate">
-							種類：${ProductBean.productcategory}
-							<form:input type="text" path="productcategory" />
-						</div>
-
-
-
-						<div class="infoskinnytype">
-							種類：${ProductBean.skintype}
-							<form:input type="text" path="skintype" />
-						</div>
-
-
-						<hr>
-						<div id="infoprice" class="updateprice">NT$：${ProductBean.productprice}</div>
-						<div id="updatebox" class="updatebox">
-							<form:input class="updatetext" type="text" path="productprice" />
-							<input type="submit" class="updatebtn" value="更新">
-						</div>
-					</div>
-				</form:form>
+					<div class="mptext">返回</div>
+				</button>
 			</div>
 		</div>
-		<%@include file="../jspf/footer.jspf"%>
 	</div>
-</div>
+	<div class="rightoutbox">
+		<div>
+			<form:form method="POST" modelAttribute="ProductBean">
+				<div class="rightside">
+					<div class="imgbox">
+						<a href="#"><img src="image/${ProductBean.productname}.png"></a>
+					</div>
+				</div>
+				<div class="infobox">
+					<div class="infoname">
+						${ProductBean.productname}
+						<form:input type="hidden" path="brandname" />
+						<form:input type="hidden" path="productname" />
+						<form:input type="hidden" path="producttype" />
+					</div>
+					<div class="infono">
+						商品編號：${ProductBean.brandno}${ProductBean.productno} <input
+							type="hidden" name="productno" value="${ProductBean.productno}" />
+						<input type="hidden" name="brandno" value="${ProductBean.brandno}" />
 
+					</div>
+					<hr>
+					<div class="infoseries">
+						系列：${ProductBean.productseries}
+						<form:input type="hidden" path="productseries" />
+					</div>
+					<div class="infocate">
+						種類：${ProductBean.productcategory}
+						<form:input type="hidden" path="productcategory" />
+						<form:input type="hidden" path="skintype" />
+					</div>
+					<hr>
+					<div id="infoprice" class="updateprice">NT$：${ProductBean.productprice}</div>
+					<div id="updatebox" class="updatebox">
+						<form:input class="updatetext" type="text" path="productprice" />
+						<input type="submit" class="updatebtn" value="更新">
+					</div>
+				</div>
+			</form:form>
+		</div>
+	</div>
+	<%@include file="../jspf/footer.jspf"%>
+</div>
+</div>
+</div>
 
 </body>
 </html>

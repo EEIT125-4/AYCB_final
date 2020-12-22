@@ -1,11 +1,7 @@
 package product.cartDao.impl;
 
-import java.sql.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

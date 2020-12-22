@@ -1,0 +1,47 @@
+.back {
+    width: 75%;
+    /* height: 50%; */
+    position: relative;
+    /* float: left; */
+    top: 180px;
+    left: 220px;
+    /* border-right: 1px solid gray; */
+    /* border: 1px solid red; */
+}
+
+.title {
+    width: fit-content;
+    margin: 50px auto;
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.format {
+    width: fit-content;
+    margin: 0 auto;
+    /* border: 1px solid blue; */
+}
+
+.mbtn {
+    margin: 10px 10px;
+    width: 200px;
+    height: 200px;
+    font-size: 36px;
+    font-weight: bold;
+    background-color: white;
+    border-radius: 20px;
+    border-color: black;
+    cursor: pointer;
+    outline-style: none;
+}
+
+/* .addproduct { */
+/* 	margin-left: 20px; */
+/* } */
+
+/* .addproduct_btn { */
+/* 	border: none; */
+/* 	background-color: transparent; */
+/* 	cursor: pointer; */
+/* 	outline: none; */
+/* } */
