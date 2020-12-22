@@ -31,7 +31,9 @@ public  class Common {
 	public static String IMAGE_REAL_PATH="C:\\Users\\Student\\git\\AYCB_final\\src\\main\\webapp\\WEB-INF\\images";
 	//"C:\\AYCB\\AYCB2\\src\\main\\webapp\\upload"
 	//public static String uPLOAD_DIR="C:/iii/Java/JavaWebWorkspace/ProjectTest/WebContent/upload";
-			
+	public static String EMAIL_HOST="smtp.gmail.com";
+	public static Integer EMAIL_PORT=587;
+	public static String EMAIL_SENDER="2020AYCB@gmail.com";
 	public static boolean deleteFile(String path) {
 		File file = new File(path);
 		if (file.exists()) {

@@ -17,7 +17,8 @@
 		<jackson.json.version>2.11.3</jackson.json.version>
 		<fileupload.version>1.4</fileupload.version>
 		<commons.version>2.8.0</commons.version>
-		<spring-boot-email.version>2.2.6.RELEASE</spring-boot-email.version>
+		<javax.mail.version>1.6.2</javax.mail.version>
+<!-- 		<spring-boot-email.version>2.2.6.RELEASE</spring-boot-email.version> -->
 	</properties>
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
@@ -168,12 +169,21 @@
 		
 		
 		
-<!-- 		Kevin:寄出email -->
+<!-- 		Kevin:寄出email 相關-->
+<!-- 因為會強制變成boot專案,暫時不用 -->
 <!-- 		<dependency> -->
 <!--     <groupId>org.springframework.boot</groupId> -->
 <!--     <artifactId>spring-boot-starter-mail</artifactId> -->
 <!--     <version>${spring-boot-email.version}</version> -->
 <!-- </dependency> -->
+
+<!-- https://mvnrepository.com/artifact/com.sun.mail/javax.mail -->
+<dependency>
+    <groupId>com.sun.mail</groupId>
+    <artifactId>javax.mail</artifactId>
+    <version>${javax.mail.version}</version>
+</dependency>
+
 		
 
 

@@ -89,7 +89,7 @@
 								<c:if test='${empty msg.getId()}'>
 							<c:out value=""/>
 							</c:if>
-								alt=<c:out value='${msg.getImgid()}'/>
+								alt=<c:out value='${msg.getImageid()}'/>
 								onerror="javascript:this.src='${pageContext.request.contextPath}/image/noImage.jpg'">
 
 							</td>
