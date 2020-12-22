@@ -32,7 +32,7 @@ public class TestOfFollow {
 			
 			MessageBean message=(MessageBean)query2.getSingleResult();
 
-			System.out.println("message:"+message.getMsg_id());
+			System.out.println("message:"+message.getId());
 			
 			
 			

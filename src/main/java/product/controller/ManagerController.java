@@ -20,11 +20,10 @@ public class ManagerController {
 
 	@Autowired
 	ProductService ps;
-	
+
 	@GetMapping("/Mallp")
 	public String mallp(Model model,
-			@RequestParam(value = "page", defaultValue = "1", required = false) Integer pageNo
-	) {
+			@RequestParam(value = "page", defaultValue = "1", required = false) Integer pageNo) {
 		if (pageNo == 0) {
 			pageNo = 1;
 		} else if (pageNo > ps.getTotalPages()) {
@@ -36,89 +35,59 @@ public class ManagerController {
 		model.addAttribute("TotalPages", ps.getTotalPages());
 		return "product/mproduct";
 	}
-	
+
 	@GetMapping("/Mpadd")
 	public String mpadd(Model model) {
 		ProductBean pb = new ProductBean();
 		model.addAttribute("ProductBean", pb);
 		return "product/mpadd";
 	}
-	
+
 	@PostMapping("/Mpadd")
-	public String add(@ModelAttribute("ProductBean") ProductBean pb			
-	) {
+	public String add(@ModelAttribute("ProductBean") ProductBean pb) {
 		ps.saveproduct(pb);
 		return "redirect:/MProduct";
 	}
-	
+
 	@GetMapping("/Mpupdate")
-	public String mpupdate(Model model,
-			@RequestParam(value = "no", required = false) Integer no
-	) {
+	public String mpupdate(Model model, @RequestParam(value = "no", required = false) Integer no) {
 		ProductBean pb = ps.getProduct(no);
-		System.out.println("pb number is:"+no);
+		System.out.println("pb number is:" + no);
 		model.addAttribute("ProductBean", pb);
 		return "product/mpdetail";
 	}
-	
+
 	@PostMapping("/Mpupdate")
-	public String update(
-			@ModelAttribute("ProductBean") ProductBean pb
-//			@RequestParam(value="pno") Integer pno,
-//			@RequestParam(value="bno") String bno,
-//			@RequestParam(value="st") String st
-			
-			
-			
-	) {
+	public String update(@ModelAttribute("ProductBean") ProductBean pb) {
 		
-		
-		
-//		System.out.println("got pb:\n"+pb);
-//		pb.setProductno(pno);
-//		pb.setBrandno(bno);
-//		pb.setSkintype(st);
-		System.out.println("new PB value:"+pb);
-		
+		System.out.println("new PB value:" + pb);
+
 		ps.updateProduct(pb);
-		
-		
+
 		return "redirect:/MProduct";
 	}
-	
+
 	@InitBinder
 	public void whiteListing(WebDataBinder binder) {
-	    binder.setAllowedFields(
-	    		 "productno", 
-	    		 "brandno",
-	    		 "skintype",
-	    "brandname", 
-	    "producttype", 
-	    "productname", 
-	    "productseries", 
-	    "productcategory", 
-	    "companyId", 
-	    "productprice",
-	    ""	//image
-	    );
+		binder.setAllowedFields("productno", "brandno", "skintype", "brandname", "producttype", "productname",
+				"productseries", "productcategory", "companyId", "productprice", "" // image
+		);
 	}
-	
+
 	@GetMapping("/Delete")
-	public String delete(@RequestParam(value = "no", required = false) Integer no
-	) {
+	public String delete(@RequestParam(value = "no", required = false) Integer no) {
 		ps.deleteProduct(no);
 		return "redirect:/MProduct";
 	}
-	
+
 	@GetMapping("/Manager")
 	public String manager(Model model) {
 		return "product/manager";
 	}
-	
+
 	@GetMapping("/MProduct")
 	public String mproduct(Model model,
-			@RequestParam(value = "page", defaultValue = "1", required = false) Integer pageNo
-	) {
+			@RequestParam(value = "page", defaultValue = "1", required = false) Integer pageNo) {
 		if (pageNo == 0) {
 			pageNo = 1;
 		} else if (pageNo > ps.getTotalPages()) {
@@ -130,7 +99,7 @@ public class ManagerController {
 		model.addAttribute("TotalPages", ps.getTotalPages());
 		return "product/mproduct";
 	}
-	
+
 //	@GetMapping("/Mpdetail")
 //	public String mpdetail(Model model,
 //			@RequestParam(value = "no", required = false) Integer no

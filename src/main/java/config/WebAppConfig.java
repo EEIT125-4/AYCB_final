@@ -18,7 +18,8 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 	"tool",
 	"chat",
 	"comment",
-	"mail"
+	"mail",
+	"tool"
 	})
 public class WebAppConfig implements WebMvcConfigurer {
 	@Bean

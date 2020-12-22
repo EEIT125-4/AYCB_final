@@ -9,8 +9,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
+//import org.springframework.mail.javamail.JavaMailSender;
+//import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -50,28 +50,28 @@ public class RootAppConfig {
 		return ds;
 	}
 	
-	@Bean
-	public 	JavaMailSender getJavaMailSender() {
-		
-		 JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-	     mailSender.setHost("smtp.gmail.com");
-	     mailSender.setPort(587);
-	      
-	     mailSender.setUsername("2020aycb@gmail.com");
-	     mailSender.setPassword("AYCB@2020");
-	      
-	     Properties props = mailSender.getJavaMailProperties();
-	     props.put("mail.transport.protocol", "smtp");
-	     props.put("mail.smtp.auth", "true");
-	     props.put("mail.smtp.starttls.enable", "true");
-	     props.put("mail.smtp.starttls.required", "true");
-	     props.put("mail.debug", "true");
-	      
-	     return mailSender;
-		
-		
-	}
-	
+//	@Bean
+//	public 	JavaMailSender getJavaMailSender() {
+//		
+//		 JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+//	     mailSender.setHost("smtp.gmail.com");
+//	     mailSender.setPort(587);
+//	      
+//	     mailSender.setUsername("2020aycb@gmail.com");
+//	     mailSender.setPassword("AYCB@2020");
+//	      
+//	     Properties props = mailSender.getJavaMailProperties();
+//	     props.put("mail.transport.protocol", "smtp");
+//	     props.put("mail.smtp.auth", "true");
+//	     props.put("mail.smtp.starttls.enable", "true");
+//	     props.put("mail.smtp.starttls.required", "true");
+//	     props.put("mail.debug", "false");
+//	      
+//	     return mailSender;
+//		
+//		
+//	}
+//	
 	
 	@Bean
 	public LocalSessionFactoryBean sessionFactory() {
@@ -84,7 +84,8 @@ public class RootAppConfig {
 				"tool",
 				"chat",
 				"comment",
-				"mail"
+				"mail",
+				"tool"
 								
 		});
 		 if (SystemConstant.DB_TYPE == SystemConstant.SQL_SERVER) {

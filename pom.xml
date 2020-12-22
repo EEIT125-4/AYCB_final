@@ -169,11 +169,11 @@
 		
 		
 <!-- 		Kevin:寄出email -->
-		<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-mail</artifactId>
-    <version>${spring-boot-email.version}</version>
-</dependency>
+<!-- 		<dependency> -->
+<!--     <groupId>org.springframework.boot</groupId> -->
+<!--     <artifactId>spring-boot-starter-mail</artifactId> -->
+<!--     <version>${spring-boot-email.version}</version> -->
+<!-- </dependency> -->
 		
 
 
