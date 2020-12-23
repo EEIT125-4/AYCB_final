@@ -52,7 +52,9 @@ public class MessageDaoImpl implements MessageDao {
 		String tempID = f.format(date);
 
 		if (list.size() > 0) {// 如果今天已經有資料
-			Integer index = Integer.parseInt(list.get(list.size() - 1).getId().substring(8)) + 1;
+			Integer index = Integer.parseInt(list.get(list.size() - 1).getId().substring(8));
+			System.out.println("current index="+index);
+			index+=1;
 			tempID += String.format("%03d", index);
 			System.out.println("tempID:" + tempID);
 
@@ -85,7 +87,7 @@ public class MessageDaoImpl implements MessageDao {
 		int count = 0;
 		Session session = factory.getCurrentSession();
 //
-		session.saveOrUpdate(mb);
+		session.save(mb);
 		//
 		count++;
 

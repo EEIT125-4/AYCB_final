@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.sun.mail.auth.MD4;
+
 import message.model.MessageBean;
 import message.service.MessageService;
 import product.model.ProductBean;
@@ -36,6 +38,7 @@ public class MessageController {
 
 	@Autowired
 	MessageService ms;
+	
 	@Autowired
 	ImageService imgService;
 	@Autowired
@@ -59,6 +62,7 @@ public class MessageController {
 
 		} else if (s.equals("delete")) {
 			System.out.println("in delete");
+			imgService.deleteImage(ms.getMessage(id).getImageid());
 			ms.deleteMessage(id);
 			return query(model, "", "", "", "");
 
@@ -81,6 +85,8 @@ public class MessageController {
 						// 如果message有存圖片的主鍵
 						if (message.getImageid()!=null) {
 							img = imgService.getImage(message.getImageid());
+							System.out.println("old圖片ID:"+img.getImgid());
+							
 						} else {
 							img = new Image();
 						}
@@ -115,7 +121,8 @@ public class MessageController {
 			}
 
 			System.out.println("撈取列表並前往");
-			model.addAttribute("message", ms.getAllMessages());
+//			model.addAttribute("message", ms.getAllMessages());
+			
 			return "redirect:/message/query";
 
 		}
@@ -200,6 +207,7 @@ public class MessageController {
 		System.out.println("file:" + message.getFile().getSize());
 		System.out.println("MultipartFile 名稱:" + message.getFile().getOriginalFilename());
 		System.out.printf("動作為:%s\n", submit);
+		System.out.println("messageID:"+message.getId());
 
 		System.out.println("insert");
 		try {

@@ -30,6 +30,13 @@ public class JavaMail {
 			
 			synchronized (JavaMail.class) {
 				instance=new JavaMail();
+				
+				Properties prop = new Properties();
+				prop.setProperty("mail.host", "smtp.qq.com");
+		        // 使用的協議（JavaMail規範要求）
+		        prop.setProperty("mail.transport.protocol", "smtp");
+		        // 需要請求認證
+		        prop.setProperty("mail.smtp.auth", "true");
 //				session
 				
 				

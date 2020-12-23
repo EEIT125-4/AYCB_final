@@ -41,10 +41,23 @@ public class ImageDaoImpl implements ImageDao {
 
 	@Override
 	public void saveImage(Image img) {
-
+		if(img.getImgid()!=null) {
+			System.out.println("saveImage ID:"+img.getImgid());
+		}
 		Session session = factory.getCurrentSession();
 		session.saveOrUpdate(img);
+		
 
 	}
+
+	@Override
+	public void deleteImage(Integer id) {
+		Session session=factory.getCurrentSession();
+		Image img = session.get(Image.class, id);
+		session.delete(img);
+		
+	}
+	
+	
 
 }

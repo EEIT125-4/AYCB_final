@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import message.dao.MessageDao;
 import message.model.MessageBean;
 import message.service.MessageService;
+import tool.dao.ImageDao;
 
 
 
@@ -22,6 +23,8 @@ public class MessageServiceImpl implements MessageService {
 	
 	@Autowired
 	MessageDao dao;
+	@Autowired
+	ImageDao imageDao;
 	
 	
 	@Override
@@ -67,8 +70,11 @@ public class MessageServiceImpl implements MessageService {
 
 	@Override
 	public int deleteMessage(String id) {
+//		int imageId=dao.getMessage(id).getImageid();
+//		imageDao.deleteImage(imageId);
 		
 		return dao.deleteMessage(id);
+		
 	}
 
 

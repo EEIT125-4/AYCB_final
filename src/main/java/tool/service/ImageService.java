@@ -12,6 +12,6 @@ public interface ImageService {
 	Image getImage(Integer id);
 	Image setImage(Blob blob);
 	void saveImage(Image img);
-	
+	void deleteImage(Integer id);
 
 }

@@ -38,4 +38,10 @@ public class ImageServiceImpl implements ImageService {
 
 	}
 
+	@Override
+	public void deleteImage(Integer id) {
+		dao.deleteImage(id);
+		
+	}
+
 }

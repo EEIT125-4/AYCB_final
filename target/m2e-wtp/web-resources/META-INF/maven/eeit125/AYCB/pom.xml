@@ -184,6 +184,14 @@
     <version>${javax.mail.version}</version>
 </dependency>
 
+<!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-context-support</artifactId>
+    <version>5.2.11.RELEASE</version>
+</dependency>
+
+
 		
 
 

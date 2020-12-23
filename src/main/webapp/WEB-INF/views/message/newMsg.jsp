@@ -80,13 +80,16 @@
 							</td>
 						</tr>
 						<tr>
-							<td>圖片預覽</td>
+							<td>圖片預覽
+							<form:input type="hidden" path="imageid"/>
+							</td>
 							<td><img id="demo" class="preview"
 								src=
-								<c:if test='${not empty msg.getId()}'>
-							<c:out value="pic/'${msg.getImgpath()}'"/> 
+								<c:if test='${not empty message.getId()}'>
+							<c:out value="${pageContext.request.contextPath}/pic/${message.getImageid()}"/>
+							
 							</c:if>
-								<c:if test='${empty msg.getId()}'>
+								<c:if test='${empty message.getId()}'>
 							<c:out value=""/>
 							</c:if>
 								alt=<c:out value='${msg.getImageid()}'/>
@@ -94,11 +97,16 @@
 
 							</td>
 						</tr>
+						
 						<tr>
 
 							<td colspan="2">
 							<input type="hidden" name="id" value='${msg.getId()}'> 
-							<input type="hidden" name="path" value=<c:out value='${msg.getImgpath()}'/>>
+							<c:if test='${not empty message.getId()}'>
+							<form:input type="hidden" path="date"/>
+							</c:if>
+							
+							
 						<input type="submit" name="submit" value='${action}'> 
 						<input type="reset" value="清除"></td>
 						</tr>

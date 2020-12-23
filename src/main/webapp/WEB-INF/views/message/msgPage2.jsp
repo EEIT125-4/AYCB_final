@@ -100,7 +100,8 @@ types = (List<String>) request.getAttribute("types");
 		<input type="button" value="篩選訊息" onclick="search()"> <br>
 		<!-- 實際跳轉交給javascript處理 -->
 		<a href="" onclick="checkLogin()">查看訂閱設定</a>
-		<%-- 		<a href="${pageContext.request.contextPath}/email">發送email</a> --%>
+		<br>
+				<button onclick="sendEmail()">發送email</button>
 
 
 	</aside>
@@ -110,8 +111,8 @@ types = (List<String>) request.getAttribute("types");
 	%>
 	<form action="<c:url value='/message/update_step'/>" method="post">
 		<article class="article">
-			<h1 name="title" class="t1"><%=list.get(i).getTitle()%></h1>
-			<h2 name="type" class="t2"><%=list.get(i).getType()%></h2>
+			<h3 name="title" class="t1"><%=list.get(i).getTitle()%></h3>
+			<h4 name="type" class="t2"><%=list.get(i).getType()%></h4>
 
 			<input type="hidden" name="id" value=<%=list.get(i).getId()%>>
 
@@ -189,6 +190,35 @@ types = (List<String>) request.getAttribute("types");
 				+ "&count="
 				+ select_count + "&word=" + select_word;
 
+	}
+	
+	function sendEmail(){
+		
+		
+		$.ajax({
+
+			type : "get",
+			url : "${pageContext.request.contextPath}/email",
+			// 		contentType: "application/json; charset=utf-8",
+					dataType:"text",
+			success : function(data) {
+				
+				alert("email sent");
+// 				console.log("email sent");
+				console.log(data);
+				console.log(typeof (data));
+
+				
+			},
+			error : function() {
+				alert("send fail");
+			}
+
+		})
+		
+		
+		
+		
 	}
 
 	function getTypes() {
