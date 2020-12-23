@@ -157,8 +157,6 @@ public class ProductBean implements Serializable{
 		this.productprice = productprice;
 	}
 	
-	
-
 	public String getImagepath() {
 		return imagepath;
 	}

@@ -56,4 +56,11 @@ public class WebAppConfig implements WebMvcConfigurer {
 //		.addResourceLocations("/public/images");
 		
 	}
+	@Bean
+	public CommonsMultipartResolver multipartResolver() {
+		CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+		resolver.setDefaultEncoding("UTF-8");
+		resolver.setMaxUploadSize(81920000);
+		return resolver;
+	}
 }
