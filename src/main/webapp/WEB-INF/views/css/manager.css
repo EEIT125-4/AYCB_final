@@ -1,12 +1,7 @@
 .back {
     width: 75%;
-    /* height: 50%; */
     position: relative;
-    /* float: left; */
-    top: 180px;
     left: 220px;
-    /* border-right: 1px solid gray; */
-    /* border: 1px solid red; */
 }
 
 .title {
@@ -19,7 +14,6 @@
 .format {
     width: fit-content;
     margin: 0 auto;
-    /* border: 1px solid blue; */
 }
 
 .mbtn {

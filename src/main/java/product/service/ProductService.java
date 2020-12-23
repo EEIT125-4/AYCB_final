@@ -67,4 +67,6 @@ public interface ProductService {
 	List<ProductBean> getKeywordPage(String keyword, int pageNo);
 	
 	List<ProductBean> getBHlist(String list);
+	
+	List<ProductBean> getBrandPage(int pageNo, String brandname);
 }

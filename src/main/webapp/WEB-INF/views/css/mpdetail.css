@@ -1,7 +1,6 @@
 .title {
     width: fit-content;
     position: relative;
-    top: 100px;
     margin: 0 auto;
     font-size: 48px;
     font-weight: bold;
@@ -11,7 +10,7 @@
     width: fit-content;
     position: relative;
     float: left;
-    top: 150px;
+    top: 50px;
     left: 15%;
     border: 1px solid gray;
 }
@@ -34,14 +33,15 @@
 .updatetext {
     float: left;
     width: 100px;
-    height: 30px;
+    height: 40px;
     font-size: 20px;
     font-weight: bold;
 }
 
 .updatebtn {
     float: left;
-    height: 36px;
+    height: 40px;
+    margin-left: 10px;
     font-size: 20px;
     font-weight: bold;
 }
@@ -87,7 +87,7 @@
     width: fit-content;
     position: relative;
     float: left;
-    top: 180px;
+    top: 60px;
     left: 50px;
 /*     border: 1px solid red; */
 }

@@ -10,9 +10,6 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
 	<script>
         window.alert("交易完成!");
     </script>
-	<% 
-	session.invalidate();
-	response.setHeader("Refresh","2;AllProducts");		
-	%>
+	<% response.setHeader("Refresh","2;../AllProductServlet");%>
 <%@include file="../jspf/footer.jspf"%>
 	

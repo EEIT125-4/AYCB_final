@@ -33,7 +33,8 @@
 						</button>
 					</div>
 					<div>
-						<button class="mpbtn" onclick='location.href="${pageContext.request.contextPath}/Manager"'>
+						<button class="mpbtn"
+							onclick='location.href="${pageContext.request.contextPath}/Manager"'>
 							<div class="mpimgbox">
 								<img class="mpimg" src="image/product.png">
 							</div>
@@ -45,13 +46,16 @@
 			<div id="area" class="mpcontent"></div>
 		</div>
 	</div>
+	<%-- 	<input id="Products" type="hidden" value="${Products}" /> --%>
+	<%-- 	<input id="Pages" type="hidden" value="${Pages}" /> --%>
+	<%-- 	<input id="TotalPages" type="hidden" value="${TotalPages}" /> --%>
 	<script>
 		var selectElement = document.getElementById('brand');
 		var area = document.getElementById('area');
 		var detail = document.getElementById('detail');
+
 		var xhr = new XMLHttpRequest();
 		var xhr2 = new XMLHttpRequest();
-		var xhr3 = new XMLHttpRequest();
 
 		var companyData = [];
 		xhr.onreadystatechange = function() {
@@ -81,6 +85,11 @@
 			xhr2.open("GET", "<c:url value='/GetProductsByBrand' />"
 					+ "?brandname=" + brandname, true);
 			xhr2.send();
+
+			// 			var pageNo = document.getElementById('pageNo').value;
+			// 			xhr3.open("GET", "<c:url value='/GetgetProductsPage' />"
+			// 					+ "?pageNo=" + pageNo, true);
+			// 			xhr3.send();
 		}
 
 		function display(responseText) {
@@ -101,13 +110,29 @@
 						+ product[i].productprice
 						+ "</div>"
 						+ "<div class='cart'>"
-						+ "<a class='cart_a' href='<c:url value="" />?no="
+						+ "<a id='del' class='cart_a' href='<c:url value="/Delete" />?no="
 						+ product[i].productno
 						+ "'>"
 						+ "<i class='fa fa-trash fa-2x cartimg' aria-hidden='true'></i>"
 						+ "</a>" + "</div>" + "</div>" + "</div>";
 			}
-			content += "</div>";
+			// 			content += "<div class='page'>" + "<ul class='page_ul'>"
+			// 					+ "<li class='page_ul_li'>"
+			// 					+ "<a class='page_ul_li_a' href='<c:url value="/GetBrandPage" />?pageNo=" + Pages-1 + "'>"
+			// 					+ "<i class='fa fa-angle-double-left' aria-hidden='true'></i>"
+			// 					+ "</a>" + "</li>";
+			// 			for (var i = 1; i < TotalPages; i++) {
+			// 				content += "<li class='page_ul_li'>"
+			// 						+ "<a id='pageNo' class='page_ul_li_a' href='<c:url value="/GetBrandPage" />?pageNo=" + i + "'>" 
+			// 						+ i
+			// 						+"</a>" + "</li>";
+			// 			}
+			// 			content += "<li class='page_ul_li'>"
+			// 					+ "<a class='page_ul_li_a' href='<c:url value="/GetBrandPage" />?pageNo=" + Pages+1 + "'>"
+			// 					+ "<i class='fa fa-angle-double-right' aria-hidden='true'></i>"
+			// 					+ "</a>" + "</li>" + "</ul>" + "</div>";
+			// 			content += "</div>";
+
 			area.innerHTML = content;
 			var brandname = selectElement.options[selectElement.selectedIndex].value;
 			if (brandname == "") {

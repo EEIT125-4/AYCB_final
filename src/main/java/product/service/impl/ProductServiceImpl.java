@@ -175,4 +175,9 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductBean> getBHlist(String list) {
 		return dao.getBHlist(list);
 	}
+	
+	@Override
+	public List<ProductBean> getBrandPage(int pageNo, String brandname) {
+		return dao.getBrandPage(pageNo, brandname);
+	}
 }

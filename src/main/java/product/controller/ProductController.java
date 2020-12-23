@@ -19,7 +19,7 @@ public class ProductController {
 
 	@GetMapping("/AllProducts")
 	public String allProducts(Model model,
-			@RequestParam(value = "page", defaultValue = "1", required = false) Integer pageNo
+			@RequestParam(value = "pageNo", defaultValue = "1", required = false) Integer pageNo
 	) {
 		if (pageNo == 0) {
 			pageNo = 1;
@@ -35,7 +35,7 @@ public class ProductController {
 
 	@GetMapping("/Brand")
 	public String brand(Model model, 
-			@RequestParam(value = "page", defaultValue = "1", required = false) Integer pageNo,
+			@RequestParam(value = "pageNo", defaultValue = "1", required = false) Integer pageNo,
 			@RequestParam(value = "brand", required = false) String brandname
 	) {
 		if (pageNo == 0) {
@@ -54,7 +54,7 @@ public class ProductController {
 
 	@GetMapping("/Series")
 	public String series(Model model,
-			@RequestParam(value = "page", defaultValue = "1", required = false) Integer pageNo,
+			@RequestParam(value = "pageNo", defaultValue = "1", required = false) Integer pageNo,
 			@RequestParam(value = "series", required = false) String productseries
 	) {
 		if (pageNo == 0) {
@@ -73,7 +73,7 @@ public class ProductController {
 
 	@GetMapping("/Cate")
 	public String cate(Model model, 
-			@RequestParam(value = "page", defaultValue = "1", required = false) Integer pageNo,
+			@RequestParam(value = "pageNo", defaultValue = "1", required = false) Integer pageNo,
 			@RequestParam(value = "cate", required = false) String productcategory
 	) {
 		if (pageNo == 0) {

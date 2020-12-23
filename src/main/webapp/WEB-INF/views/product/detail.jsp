@@ -60,7 +60,7 @@
 			</div>
 		</div>
 		<div class="rightoutbox">
-			<form name="AddForm" action="${pageContext.request.contextPath}/cartAdd" method="get">
+			<form name="AddForm" action="" method="POST">
 				<input type="hidden" name="todo" value="add">
 				<div class="rightside">
 					<div class="imgbox">
@@ -92,10 +92,21 @@
 									<option value="10">10</option>
 								</select>
 							</div>
-							<div class="infobtn">
-								<input class="btn" type="submit" value="加入購物車"> <input
-									type="hidden" name="productno" value="${Detail.productno}">
-							</div>
+						</div>
+					</div>
+					<div class="infobtn">
+						<input class="cartbtn" type="submit" value="加入購物車"> <input
+							type="hidden" name="productno" value="${Detail.productno}">
+						<div class="lineshare">
+							<div class="line-it-button" data-lang="zh_Hant"
+								data-type="share-a" data-ver="3"
+								data-url="http://localhost:8080/AYCB/Detail?no=${Detail.productno}"
+								data-color="default" data-size="large" data-count="true"
+								style="display: none;"></div>
+							<script
+								src="https://d.line-scdn.net/r/web/social-plugin/js/thirdparty/loader.min.js"
+								async="async" defer="defer"></script>
+							<div id="fb-root"></div>
 						</div>
 					</div>
 				</div>

@@ -1,7 +1,5 @@
 package product.model;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "Product")
-public class ProductBean implements Serializable{
+public class ProductBean {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer productno;
@@ -82,8 +80,6 @@ public class ProductBean implements Serializable{
 		builder.append("]");
 		return builder.toString();
 	}
-
-	
 
 	public Integer getProductno() {
 		return productno;
@@ -156,7 +152,7 @@ public class ProductBean implements Serializable{
 	public void setProductprice(Double productprice) {
 		this.productprice = productprice;
 	}
-	
+
 	public String getImagepath() {
 		return imagepath;
 	}

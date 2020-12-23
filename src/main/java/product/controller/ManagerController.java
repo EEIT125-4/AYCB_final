@@ -105,11 +105,11 @@ public class ManagerController {
 	@GetMapping("/Delete")
 	public String delete(@RequestParam(value = "no", required = false) Integer no
 	) {
-		System.out.println("no" + no);
 		ps.deleteProduct(no);
 		return "redirect:/MProduct";
 	}
 	
+	// 後台頁路徑
 	@GetMapping("/Manager")
 	public String manager(Model model) {
 		return "product/manager";
@@ -121,14 +121,14 @@ public class ManagerController {
 		return "product/mproduct";
 	}
 	
-	// 後台選廠商顯示
+	// 後台選廠商顯示商品
 	@GetMapping(value = "/Brands", produces = "application/json")
 	public @ResponseBody List<String> brands(Model model) {
 		List<String> list = ps.getBrand();
 		return list;
 	}
 	
-	// 後台選廠商顯示
+	// 後台選廠商顯示商品
 	@GetMapping(value = "/GetProductsByBrand", produces = "application/json")
 	public @ResponseBody List<ProductBean> getProductsByBrand(Model model,
 			@RequestParam("brandname") String brandname
@@ -136,4 +136,21 @@ public class ManagerController {
 		List<ProductBean> list = ps.getBrandProduct(brandname);
 		return list;
 	}
+	
+//	@GetMapping(value = "/GetBrandPage", produces = "application/json")
+//	public @ResponseBody String getBrandPage(Model model,
+//			@RequestParam(value = "pageNo", defaultValue = "1", required = false) Integer pageNo,
+//			@RequestParam("brandname") String brandname
+//	){
+//		if (pageNo == 0) {
+//			pageNo = 1;
+//		} else if (pageNo > ps.getTotalPages()) {
+//			pageNo = ps.getTotalPages();
+//		}
+//		List<ProductBean> list = ps.getBrandPage(pageNo, brandname);
+//		model.addAttribute("Products", list);
+//		model.addAttribute("Pages", String.valueOf(pageNo));
+//		model.addAttribute("TotalPages", ps.getTotalPages());
+//		return "product/mproduct";
+//	}
 }

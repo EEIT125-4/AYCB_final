@@ -69,7 +69,6 @@
 	<%@include file="../jspf/footer.jspf"%>
 </div>
 </div>
-</div>
 
 </body>
 </html>
