@@ -22,6 +22,8 @@ public interface MessageService {
 	
 	List<String> queryMessageType();
 	
+	List<MessageBean> getRandomMessage(int num);
+	
 	
 
 }

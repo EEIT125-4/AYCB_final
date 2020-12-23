@@ -4,31 +4,67 @@ import java.util.List;
 
 import product.model.ProductBean;
 
-
 public interface ProductService {
 
-	int saveproduct(ProductBean pb);
+	void saveproduct(ProductBean pb);
 
 	List<ProductBean> getAllProducts();
-	
-	List<ProductBean> getProduct(int no);
-	
+
+	ProductBean getProduct(int no);
+
 	List<ProductBean> getBrandProduct(String brandname);
-	
+
 	List<ProductBean> getSeriesProduct(String series);
-	
+
 	List<ProductBean> getCateProduct(String cate);
-	
-	List<ProductBean> getkeyword(String keyword);
-	
-	List<ProductBean> getBrand();
-	
-	List<ProductBean> getSeries();
-	
-	List<ProductBean> getCate();
 
-	int deleteProduct(int no);
+	List<ProductBean> getKeyword(String keyword);
 
-	int updateMember(ProductBean pb);
+	List<String> getBrand();
 
+	List<String> getSeries();
+
+	List<String> getCate();
+	
+	List<String> getOneBrand(String brandname);
+	
+	List<String> getOneSeries(String series);
+	
+	List<String> getOneCate(String cate);
+
+	void deleteProduct(int no);
+
+	void updateProduct(ProductBean pb);
+
+	int getTotalPages();
+	
+	int getBrandTotalPages(String brandname);
+	
+	int getSeriesTotalPages(String series);
+	
+	int getCateTotalPages(String cate);
+	
+	int getKeywordTotalPages(String keyword);
+
+	long getCounts();
+	
+	long getBrandCounts(String brandname);
+	
+	long getSeriesCounts(String series);
+	
+	long getCateCounts(String cate);
+
+	long getKeywordCounts(String keyword);
+
+	List<ProductBean> getPage(int pageNo);
+	
+	List<ProductBean> getBrandPage(String brandname, int pageNo);
+	
+	List<ProductBean> getSeriesPage(String series, int pageNo);
+	
+	List<ProductBean> getCatePage(String cate, int pageNo);
+	
+	List<ProductBean> getKeywordPage(String keyword, int pageNo);
+	
+	List<ProductBean> getBHlist(String list);
 }

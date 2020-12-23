@@ -14,7 +14,7 @@
 					style="FILTER: alpha(opacity = 100, finishopacity = 0, style = 3)">
 				
 				<dt>
-					<a class="a1" href="${pageContext.request.contextPath}/comment/displayBoard.jsp">
+					<a class="a1" href="${pageContext.request.contextPath}/comment/select">
 						<h2>留言專區</h2>
 					</a>
 				</dt>

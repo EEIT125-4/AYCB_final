@@ -11,7 +11,7 @@ $(function() {
         $(".adbox_dot li").eq(num).css("background", "black")
                 .siblings().css("background", "transparent");
 
-        let move = 0 - 2000 * num;
+        let move = 0 - 500 * num;
         $(".adbox_slides").css("left", move);
         if (num >= lastIndex)
             num = -1;
@@ -21,7 +21,7 @@ $(function() {
         $(".adbox_dot li").eq(num).css("background", "black")
                 .siblings().css("background", "transparent");
 
-        let move = 0 - 2000 * num;
+        let move = 0 - 500 * num;
         $(".adbox_slides").css("left", move);
     }
 

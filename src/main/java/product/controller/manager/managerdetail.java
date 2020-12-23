@@ -28,10 +28,10 @@ public class managerdetail extends HttpServlet {
 		int no = Integer.parseInt(request.getParameter("no"));
 		
 		ProductService ps = new ProductServiceImpl();
-		List<ProductBean> detail = ps.getProduct(no);
-		List<ProductBean> brand = ps.getBrand();
-		List<ProductBean> series = ps.getSeries();
-		List<ProductBean> cate = ps.getCate();
+		ProductBean detail = ps.getProduct(no);
+		List<String> brand = ps.getBrand();
+		List<String> series = ps.getSeries();
+		List<String> cate = ps.getCate();
 		
 		request.setAttribute("Detail", detail);
 		request.setAttribute("Brands", brand);

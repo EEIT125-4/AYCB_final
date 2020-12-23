@@ -1,6 +1,9 @@
   
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,20 +27,15 @@
 					<hr width=70% size=1 color=#BFBFBF
 						style="FILTER: alpha(opacity = 100, finishopacity = 0, style = 3)">
 					<dt class="a1">
-						<A href="eventpage.html">
+						<A href="showEvent">
 							<h2>活動介紹</h2>
 						</A>
 					</dt>
 					<dt class="a1">
-						<a
-							href='${pageContext.request.contextPath}/event/attendanceForm.jsp'>
-							<h2>報名參加</h2>
-						</a>
+						<a href='attendanceForm'><h2>報名參加</h2></a>	
 					</dt>
 					<dt class="a1">
-						<A href='${pageContext.request.contextPath}/queryAllAttendance.do'>
-							<h2>查詢報名</h2>
-						</A>
+						<A href='showAttendance'><h2>查詢報名</h2></A>	
 					</dt>
 
 				</dl>
@@ -46,36 +44,38 @@
 
 
 		<div>
-
-			<form action='../insertAttendance.do' method='POST'>
+                <form:form method="POST" modelAttribute="attendance">
 				<fieldset>
 					<legend>
 						<h2>報名資料</h2>
 					</legend>
 					<div class="form1">
-						<label class="label1">帳號:</label> <input type='text'
-							name='MemberID' value='${param.memberid}'> <br> <font
-							color='red' size='-3'>${error.id}</font><br>
+						<label class="label1">帳號:</label> 
+						<form:input path="memberid"/> <br> 
+						<font color='red' size='-3'>${error.id}</font><br>
+							
 					</div>
 					<div class="form1">
-						<label class="label1">電話號碼:</label> <input type='text'
-							name='Phone' value='${param.phone}'><br> <font
-							color='red' size='-3'>${error.phone}</font><br>
+						<label class="label1">電話號碼:</label>						
+						<form:input path="phone"/> <br> 
+						<font color='red' size='-3'>${error.phone}</font><br>
 					</div>
 					<div class="form1">
-						<label class="label1">mail:</label> <input type='text'
-							name='Mailaddress' value='${param.Mailaddress}'><br>
+						<label class="label1">mail:</label> 						
+						<form:input path="mailaddress"/> <br> 	
 						<font color='red' size='-3'>${error.mail}</font><br>
 					</div>
 					<div class="form1">
-						<label class="label1">活動ID:</label> <input type='text'
-							name='EventID' value='${param.eventid}'><br> <font
-							color='red' size='-3'>${error.eid}</font><br>
+						<label class="label1">活動ID:</label> 						
+						<form:input path="eventid"/> <br> 
+						 <font color='red' size='-3'>${error.eid}</font><br>
+							
 					</div>
 					<div class="form1">
-						<label class="label1">參加人數:</label> <input type='text' name='Pax'
-							value='${param.pax}'><br> <font color='red'
-							size='-3'>${error.pax}</font><br>
+						<label class="label1">參加人數:</label> 
+						<form:input path="pax"/> <br> 
+						<font color='red'size='-3'>${error.pax}</font><br>
+							
 					</div>
 
 
@@ -85,8 +85,8 @@
 					</div>
 
 				</fieldset>
-			</form>
-			<a href='${pageContext.request.contextPath}/event/eventIndex.jsp'>回到報名管理</a>
+			</form:form>
+			
 		</div>
 	</div>
 </body>

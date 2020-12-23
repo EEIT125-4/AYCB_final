@@ -1,7 +1,9 @@
 package event.model;
 
-import javax.persistence.Column;
 
+
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,81 +15,81 @@ import javax.persistence.Table;
 public class Attendance{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Integer AId;
+	Integer aid;
 	@Column(columnDefinition = "nvarchar(max)")
-	String MemberID;
-	String Phone;
-	String Mailaddress;
-	String EventID;
-	String Pax;
-	
-	public Integer getAid() {
-		return AId;
-	}
-	public void setAId(Integer aId) {
-		AId = aId;
-	}
-	public String getMemberID() {
-		return MemberID;
-	}
-	public void setMemberID(String memberID) {
-		MemberID = memberID;
-	}
-	public String getPhone() {
-		return Phone;
-	}
-	public void setPhone(String phone) {
-		Phone = phone;
-	}
-	public String getMailaddress() {
-		return Mailaddress;
-	}
-	public void setMailaddress(String mailaddress) {
-		Mailaddress = mailaddress;
-	}
-	public String getEventID() {
-		return EventID;
-	}
-	public void setEventID(String eventID) {
-		EventID = eventID;
-	}
-	public String getPax() {
-		return Pax;
-	}
-	public void setPax(String pax) {
-		Pax = pax;
-	}
+	String memberid;
+	String phone;
+	String mailaddress;
+	String eventid;
+	String pax;
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Attendance [AId=");
-		builder.append(AId);
-		builder.append(", MemberID=");
-		builder.append(MemberID);
-		builder.append(", Phone=");
-		builder.append(Phone);
-		builder.append(", Mailaddress=");
-		builder.append(Mailaddress);
-		builder.append(", EventID=");
-		builder.append(EventID);
-		builder.append(", Pax=");
-		builder.append(Pax);
+		builder.append("Attendance [aid=");
+		builder.append(aid);
+		builder.append(", memberid=");
+		builder.append(memberid);
+		builder.append(", phone=");
+		builder.append(phone);
+		builder.append(", mailaddress=");
+		builder.append(mailaddress);
+		builder.append(", eventid=");
+		builder.append(eventid);
+		builder.append(", pax=");
+		builder.append(pax);
 		builder.append("]");
 		return builder.toString();
 	}
-	public Attendance(Integer aId, String memberID, String phone, String mailaddress, String eventID, String pax) {
+	public Integer getAid() {
+		return aid;
+	}
+	public void setAid(Integer aid) {
+		this.aid = aid;
+	}
+	public String getMemberid() {
+		return memberid;
+	}
+	public void setMemberid(String memberid) {
+		this.memberid = memberid;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public String getMailaddress() {
+		return mailaddress;
+	}
+	public void setMailaddress(String mailaddress) {
+		this.mailaddress = mailaddress;
+	}
+	public String getEventid() {
+		return eventid;
+	}
+	public void setEventid(String eventid) {
+		this.eventid = eventid;
+	}
+	public String getPax() {
+		return pax;
+	}
+	public void setPax(String pax) {
+		this.pax = pax;
+	}
+	public Attendance(Integer aid, String memberid, String phone, String mailaddress, String eventid, String pax) {
 		super();
-		AId = aId;
-		MemberID = memberID;
-		Phone = phone;
-		Mailaddress = mailaddress;
-		EventID = eventID;
-		Pax = pax;
+		this.aid = aid;
+		this.memberid = memberid;
+		this.phone = phone;
+		this.mailaddress = mailaddress;
+		this.eventid = eventid;
+		this.pax = pax;
 	}
 	public Attendance() {
 		super();
 		
 	}
+	
 	
     
 }   

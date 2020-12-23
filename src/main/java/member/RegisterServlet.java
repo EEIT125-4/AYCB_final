@@ -2,7 +2,9 @@ package member;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 
 //import javax.rmi.*;
 import javax.naming.InitialContext;
@@ -22,7 +24,7 @@ import member.Service.MemberServiceImpl;
 /**
  * Servlet implementation class RegisterServlet
  */
-@WebServlet("/RegisterServlet")
+//@WebServlet("/RegisterServlet123")
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -73,7 +75,7 @@ public class RegisterServlet extends HttpServlet {
 			throws ServletException, IOException {
 		System.out.println("in submit process");
 		String name;
-		String  birthday;
+		Date  birthday;
 		String acc;
 		String pwd;
 		String address;
@@ -84,7 +86,9 @@ public class RegisterServlet extends HttpServlet {
 		name = request.getParameter("name").trim();
 //		birthyear = Integer.parseInt(request.getParameter("byear").trim());
 //		birthmonth = Integer.parseInt(request.getParameter("bmonth").trim());
-		birthday = request.getParameter("bday").trim();
+//		java.sql.Date date = new Date(bday);
+		birthday = Date.valueOf(request.getParameter("bday").trim());
+		System.out.println(request.getParameter("bday"));
 		acc = request.getParameter("acc").trim();
 		pwd = request.getParameter("pwd").trim();
 		phone = "";
@@ -120,7 +124,7 @@ public class RegisterServlet extends HttpServlet {
 		
 		MemberBean mb = (MemberBean) request.getSession(true).getAttribute("register_name");
 		MemberService ms = new MemberServiceImpl();
-		ms.insertregester(mb);
+		ms.insertregister(mb);
 		System.out.println(".................");
 		// request.getSession(true).invalidate();//
 		request.getRequestDispatcher("Home.jsp").forward(request, response);
@@ -150,7 +154,7 @@ public class RegisterServlet extends HttpServlet {
 		a.setPassword(pwd);
 		a.setAddress(address);
 		a.setPhone(phone);
-		ms.updateregister(a);
+		ms.update(a);
 
 		request.getRequestDispatcher("Home.jsp").forward(request, response);
 

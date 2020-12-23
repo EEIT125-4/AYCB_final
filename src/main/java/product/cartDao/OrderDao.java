@@ -1,6 +1,5 @@
 package product.cartDao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import product.cartModel.OrderBean;

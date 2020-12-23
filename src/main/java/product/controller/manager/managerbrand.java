@@ -29,9 +29,9 @@ public class managerbrand extends HttpServlet {
 	
 		ProductService ps = new ProductServiceImpl();
 		List<ProductBean> list = ps.getBrandProduct(brandname);
-		List<ProductBean> brand = ps.getBrand();
-		List<ProductBean> series = ps.getSeries();
-		List<ProductBean> cate = ps.getCate();
+		List<String> brand = ps.getBrand();
+		List<String> series = ps.getSeries();
+		List<String> cate = ps.getCate();
 		
 		request.setAttribute("Products", list);
 		request.setAttribute("Brands", brand);

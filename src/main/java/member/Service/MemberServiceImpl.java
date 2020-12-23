@@ -1,42 +1,76 @@
 package member.Service;
 
+import java.util.List;
+
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
 import member.MemberBean;
-import member.Dao.MemberDaoImpl;
+import member.Dao.MemberDao;
 
 @Service
 @Transactional
+public class MemberServiceImpl implements MemberService {
 
-public class MemberServiceImpl implements MemberService    {
+	@Autowired
+	MemberDao memberDao;
 
-	@Autowired		
-	MemberDaoImpl dao;
-	
+//	SessionFactory factory = HibernateUtils.getSessionFactory();
+//	RegisterDaoImpl dao = new RegisterDaoImpl();
+
 	@Override
-	public boolean isDup(String account) {				
-			return dao.isDup(account);					
+	public boolean isDup(String account) {
+		boolean result = false;
+		result = memberDao.isDup(account);
+
+		return result;
 	}
 
 	@Override
-	public int insertregester(MemberBean mb) {				
-		return dao.insertregister(mb);
+	public int insertregister(MemberBean mb) {
+		int count = 0;
+
+		memberDao.insertregister(mb);
+		count++;
+
+		return count;
 	}
 
 	@Override
-	public int updateregister(MemberBean mb) {	
-		return dao.updateregister(mb);
+	public int update(MemberBean mb) {
+		int count = 0;
+
+		memberDao.update(mb);
+
+		return count;
 	}
 
 	@Override
-	public boolean identify(String account, String password) {							
-		return dao.identify(account, password);	
-	
+	public boolean identify(String account, String password) {
+
+		boolean login = false;
+
+		login = memberDao.identify(account, password);
+
+		return login;
+
 	}
 
 	@Override
-	public MemberBean getMember(String account) {		
-		return dao.getMember(account);
+	public MemberBean getMember(String account) {
+
+		MemberBean mb = null;
+
+		mb = memberDao.getMember(account);
+
+		return mb;
+	}
+
+	@Override
+	public List<MemberBean> getAllMembers() {
+		
+		return memberDao.getAllMembers();
 	}
 }

@@ -2,28 +2,24 @@
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import event.model.Event;
 
 
-
+@Repository
 public interface EventDAO {
-
-
-		boolean isDup(String id);
-		
-		
+			
         //新增
-	    int save(Event e);
-	    
+	    void save(Event e);	    
 	    //刪除
-        int deleteEvent(int pk);
-        
+        void delete(Integer eventID);
         //修改
-        int updateEvent(Event e);
-		
+        void updateEvent(Event e);		
         List<Event> getAllEvent();
-
 		Event getEvent(int pk);
+		
+		
 
 
 }
