@@ -6,7 +6,7 @@ import product.cartModel.OrderBean;
 import product.cartModel.ProductDB;
 
 public interface OrderDao {
-
+ 
 	List<OrderBean> selectOrderitem(String name);
 
 	boolean insertOrderitem(OrderBean order);
