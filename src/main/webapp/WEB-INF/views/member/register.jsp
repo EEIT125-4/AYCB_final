@@ -43,20 +43,20 @@
 			<form:input type="account" id="realname" path="name"
 				class="form-control mx-sm-3" aria-describedby="passwordHelpInline"
 				style="width:210px" />
-				
-				
+
+
 			<label for="inputPassword6"
 				style="font-weight: bold; font-size: 25px">帳號</label>
 			<form:input type="account" id="acc" path="account"
 				class="form-control mx-sm-3" aria-describedby="passwordHelpInline"
-				style="width:235px" />
-			<span id="idsp" style="color: red;"></span>
-	
-				
-		</div>
-		
-<br>
+				 style="width:235px" placeholder="請輸入6-12英文數字" />
+			<label for="account" id="accountcheck"></label>
 
+		</div>
+
+
+
+		<br>
 
 
 		<!-- 				<tr> -->
@@ -65,21 +65,22 @@
 		<!-- 					</td> -->
 		<!-- 				</tr> -->
 
-<!-- 		<div class="d-flex justify-content-center"> -->
-<!-- 			<label for="inputPassword6" style="font-weight: bold; font-size: 30px">性別</label> -->
-<%--  <form:radiobutton  style="height:20px; width:20px;"  path="gender" id="Male" value="男"/> --%>
-<!-- <label  style="font-weight: bold; font-size: 20px" for="inlineRadio1">男</label>  -->
-<!-- <br> -->
-<%-- 		  <form:radiobutton  style="height:20px; width:20px;" path="gender" id="FE" value="女"/> --%>
-<!-- 		  <label style="font-weight: bold; font-size: 20px" for="inlineRadio2">女</label> -->
+		<!-- 		<div class="d-flex justify-content-center"> -->
+		<!-- 			<label for="inputPassword6" style="font-weight: bold; font-size: 30px">性別</label> -->
+		<%--  <form:radiobutton  style="height:20px; width:20px;"  path="gender" id="Male" value="男"/> --%>
+		<!-- <label  style="font-weight: bold; font-size: 20px" for="inlineRadio1">男</label>  -->
+		<!-- <br> -->
+		<%-- 		  <form:radiobutton  style="height:20px; width:20px;" path="gender" id="FE" value="女"/> --%>
+		<!-- 		  <label style="font-weight: bold; font-size: 20px" for="inlineRadio2">女</label> -->
 
-<!-- <div> -->
+		<!-- <div> -->
 
-<%-- 		  <form:radiobutton class="form-check-input" type="radio" path="gender" id="Male" value="男"/> --%>
-<!-- 		  <label class="form-check-label" for="inlineRadio1">男</label> -->
+		<%-- 		  <form:radiobutton class="form-check-input" type="radio" path="gender" id="Male" value="男"/> --%>
+		<!-- 		  <label class="form-check-label" for="inlineRadio1">男</label> -->
 
 
-<!-- 		</div> -->
+		<!-- 		</div> -->
+
 
 
 
@@ -96,7 +97,7 @@
 		<!-- 				<tr> -->
 
 
-	
+
 
 
 
@@ -120,67 +121,79 @@
 				style="font-weight: bold; font-size: 25px">密碼</label>
 			<form:input type="password" id="pwd" path="password"
 				class="form-control mx-sm-3" aria-describedby="passwordHelpInline"
-				style="width:200px"  />
-				
-			<label for="inputPassword6"
-				style="font-weight: bold; font-size: 25px">確認密碼</label>
+				style="width:200px" placeholder="請輸入6到12英數混合" />
+			<label for="passwordcheck" id="passwordcheck"></label> <label
+				for="inputPassword6" style="font-weight: bold; font-size: 25px">確認密碼</label>
 			<form:input type="password" id="cpwd" path=""
 				class="form-control mx-sm-3" aria-describedby="passwordHelpInline"
 				style="width:200px" />
+
+			<br>
+			<!--           <small id="passwordHelpInline" class="text-muted"> -->
+			<!--             Must be 8-20 characters long. -->
+			<!--           </small> -->
+		</div>
 		<br>
-		<!--           <small id="passwordHelpInline" class="text-muted"> -->
-		<!--             Must be 8-20 characters long. -->
-		<!--           </small> -->
-</div>
-<br>
-	
+
+
 		<div class="d-flex justify-content-center">
 
-		
-				
-				<label for="inputPassword6"
+
+
+			<label for="inputPassword6"
 				style="font-weight: bold; font-size: 25px">信箱</label>
-			<form:input type="email" id="emailcheck" path="email" blur="email"
+			<form:input type="email" id="emailcheck" path="email" onblur="check()"
 				class="form-control mx-sm-3" aria-describedby="passwordHelpInline"
-				style="width:535px" />
-				
-				
+				style="width:360px" />
+			<label for="inputPassword6"
+				style="font-weight: bold; font-size: 25px">性別</label>
+
+			<form:radiobutton style="height:30px; width:30px;" path="gender"
+				id="Male" value="男" />
+			<label style="font-weight: bold; font-size: 25px" for="inlineRadio1">男</label>
+			<form:radiobutton style="height:30px; width:30px;" path="gender"
+				id="FE" value="女" />
+			<label style="font-weight: bold; font-size: 25px" for="inlineRadio2">女</label>
+
+
 		</div>
 
-		
+
+
 		<br>
 
-
-	<div class="d-flex justify-content-center">
+		<div class="d-flex justify-content-center">
 
 			<label for="inputPassword6"
 				style="font-weight: bold; font-size: 25px">電話</label>
 			<form:input type="phone" id="phone" path="phone"
 				class="form-control mx-sm-3" aria-describedby="passwordHelpInline"
-				style="width:210px" />
-				
-					<label for="inputPassword6"
-				style="font-weight: bold; font-size: 25px">生日</label>
+				style="width:210px" placeholder="請輸入手機號碼" />
+
+			<label for="phone" id="phonecheck"></label> <label
+				for="inputPassword6" style="font-weight: bold; font-size: 25px">生日</label>
 			<form:input type="date" id="bday" path="birth"
 				class="form-control mx-sm-3" aria-describedby="passwordHelpInline"
 				style="width:235px" />
-				
-			
+
+
 		</div>
 		<br>
 
 		<div class="d-flex justify-content-center">
 
-		
-				
-				<label for="inputPassword6"
+
+
+			<label for="inputPassword6"
 				style="font-weight: bold; font-size: 25px">地址</label>
 			<form:input type="address" id="address" path="address" blur="address"
 				class="form-control mx-sm-3" aria-describedby="passwordHelpInline"
-				style="width:535px" />
-				
-				
+				style="width:535px" placeholder="請輸入完整地址" />
+			<label for="address" id="addresscheck"></label>
+
 		</div>
+		<label for="address" id="addresscheck"
+			class="col-sm-3 col-form-label col-form-label-lg"></label>
 
 
 		<!-- 				<tr> -->
@@ -192,7 +205,7 @@
 		<!-- 				<tr> -->
 
 
-	
+
 
 
 
@@ -216,18 +229,16 @@
 
 		<!-- 						</div></td> -->
 		<!-- 			</table> -->
-		<div style="margin-left:830px">
-	    <input type="submit"  value="註冊" style="padding:5px 15px;font-weight:bold; background:#ccc; border:0 none;
-cursor:pointer;
--webkit-border-radius: 5px;
-border-radius: 5px; width:250px">
-		
+		<div style="margin-left: 830px">
+			<input type="submit" id="submit" value="註冊"
+				style="padding: 5px 15px; font-weight: bold; background: #ccc; border: 0 none; cursor: pointer; -webkit-border-radius: 5px; border-radius: 5px; width: 250px">
+
 		</div>
-<!-- 		<div style="margin-left: 1000px"> -->
-			<!-- 				<button style="width: 50px;" class="sb" type="submit" name="submit">註冊</button> -->
-<!-- 			<input type="submit" value="註冊"> -->
-			<!-- 						<button type="submit" name="submit"><a href='memberConfirm'>確認</a></button> -->
-<!-- 		</div> -->
+		<!-- 		<div style="margin-left: 1000px"> -->
+		<!-- 				<button style="width: 50px;" class="sb" type="submit" name="submit">註冊</button> -->
+		<!-- 			<input type="submit" value="註冊"> -->
+		<!-- 						<button type="submit" name="submit"><a href='memberConfirm'>確認</a></button> -->
+		<!-- 		</div> -->
 	</form:form>
 	<!-- 	</fieldset> -->
 </div>
@@ -235,24 +246,160 @@ border-radius: 5px; width:250px">
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
 	crossorigin="anonymous"></script>
-<script>
-//密碼判斷
-let password=/[a-zA-z]+\d|\d+[a-zA-z]+/;
-document.getElementById("pwd").addEventListener("change",function(){
+<script src="${pageContext.request.contextPath}/js/jquery-3.5.1.min.js"> </script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"
+	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+	crossorigin="anonymous"></script>
 
-	if (!password.test(document.getElementById("password").value)){
-		document.getElementById("passwordcheck").innerHTML="格式錯誤";
-		check[2]=0;
-	}
-	else{
-		document.getElementById("passwordcheck").innerHTML="OK";
-		check[2]=1;
-	} 
+<script>
+setInterval(function(){ 
+	let phone = /^[09]{2}[0-9]{8}$/;//手機判斷
+	document.getElementById("phone").addEventListener("change",function(){
+		
+		if (!phone.test(document.getElementById("phone").value)){
+			document.getElementById("phonecheck").innerHTML="<img src='image/cross.png'>";
+// 			check[0]=0;
+		}
+		else{
+			document.getElementById("phonecheck").innerHTML="<img src='image/correct.png'>";
+// 			check[0]=1;
+         p1=true;
+		}
+	});
+	
+	let password=/[a-zA-Z]+\d|\d+[a-zA-Z]+/;
+	document.getElementById("pwd").addEventListener("change",function(){
+
+		if (!password.test(document.getElementById("pwd").value)){
+			document.getElementById("passwordcheck").innerHTML="<img src='image/cross.png'>";
+// 			check[2]=0;
+		}
+		else{
+			document.getElementById("passwordcheck").innerHTML="<img src='image/correct.png'>";
+// 			check[2]=1;
+			p2=true;
+		} 
+	});
+	let address=/^[\u4e00-\u9fff]+\d+/;//地址
+	document.getElementById("address").addEventListener("change",function(){
+
+		if (!address.test(document.getElementById("address").value)){
+			document.getElementById("addresscheck").innerHTML="<img src='image/cross.png'>";
+// 			check[6]=0;
+		}
+		else{
+			document.getElementById("addresscheck").innerHTML="<img src='image/correct.png'>";
+// 			check[6]=1;
+			p3=true;
+		}
+	});
+// 	let account=/[a-zA-Z]+\d|\d+[a-zA-Z]+/;
+// 	document.getElementById("acc").addEventListener("change",function(){
+
+// 		if (!password.test(document.getElementById("acc").value)){
+// 			document.getElementById("accountcheck").innerHTML="<img src='image/cross.png'>";
+// 			check[2]=0;
+// 		}
+// 		else{
+// 			document.getElementById("accountcheck").innerHTML="<img src='image/correct.png'>";
+// 			check[2]=1;
+// 		} 
+// 	});
+	
+	
+}, 8);
+
+	//檢查帳戶
+    $('#acc').blur(function() {
+    	console.log("blur");
+	
+	let account = document.getElementById("acc").value;
+
+	let accountlen = account.length;
+	console.log("acc:"+account+"len="+accountlen);
+ 	let sp = document.getElementById("accountcheck")
+	
+ 	let rex=/[a-zA-Z]+\d|\d+[a-zA-Z]+/;
+// 	if (account == "") {
+// 		sp.innerHTML = "<img src='image/cross.png'>";
+// 		p4=false;
+// 	} else
+		
+ 	 if (rex.test(account) && accountlen >= 6 && check()) {
+ 		p4=true;
+		
+	sp.innerHTML = "<img src='image/correct.png'>"
+ 	} else {
+		sp.innerHTML = "<img src='image/cross.png'>";
+		p4=false;
+ 	}
+// 	let mb_Account = $('#account').val();
+
+	
 });
 
-
-
-
+function check(){
+    	let account = document.getElementById("acc").value
+    	
+    	let accountlen = account.length;
+     	let sp = document.getElementById("accountcheck")
+    	let aza= $("#acc").val();
+     	let mail=$("#emailcheck").val();
+     	console.log("aza:"+aza);
+     	let confirm=false;
+     	
+//      	let aaa= $("#acc").val();
+    	$.ajax({
+    		async : false,
+    		type : 'post',
+    		url :   "accountcheck"    ,
+    		dataType : "json",
+    		contentType : "application/json;charset=utf-8",
+    		success : function(data) {
+    		
+    			$.each(data,function(i,n){
+    				console.log(i+"/"+n.email);
+    				
+    				
+    				if(aza!=n.account){
+    					
+//     					if(i+1==data.length){
+    						
+// 						};
+    					
+    					p4=true;
+//     					console.log("aza="+aza+",i="+i+"acc="+n.account+",eq?"+aza==n.account);
+    					confirm=true;
+    					
+    					return;
+    					
+    					
+    				}else{
+//     					console.log("aza="+aza+",i="+i+"acc="+n.account+",eq?"+aza==n.account);
+    					p4=false;    	
+    				
+    					
+    					confirm=false;
+    					return false;
+    				}    			   				
+    			});
+    		}    		  		
+    	});
+    	return confirm;
+}
+    
+   
+    	$('#submit').click(function(){
+    		if(p1!=ture &&p2!=ture &&p3!=ture &&p4!=ture &&p5!=ture){
+    			
+    			alert("填寫未正確");	
+    			
+    		}else{
+    			$('form').submit();
+    		}
+    			
+    	});
+    		
 </script>
 
 

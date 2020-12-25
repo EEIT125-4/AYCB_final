@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -104,7 +104,7 @@
 				<label for="inputPassword6"
 					style="font-weight: bold; font-size: 20px">電話 </label> <input 
 					name="userphone" class="form-control mx-sm-3" style="width: 230px"
-					aria-describedby="passwordHelpInline"
+					aria-describedby="passwordHelpInline" 
 					value=<jsp:getProperty name="member" property="phone" />> 
 					</div>
 					
@@ -119,7 +119,7 @@
 					
 					 <label
 					for="inputPassword6" style="font-weight: bold; font-size: 20px">信箱</label>
-				<input name="email" class="form-control mx-sm-3"
+				<input disabled  name="email" class="form-control mx-sm-3"
 					style="width: 230px" aria-describedby="passwordHelpInline"
 					value=<jsp:getProperty name="member" property="email" />>
 </div>
@@ -129,7 +129,7 @@
 				<div class="form-inline">
 					<label
 					for="inputPassword6" style="font-weight: bold; font-size: 20px">地址</label>
-				<input name="useremail" class="form-control mx-sm-3"
+				<input name="useraddress" class="form-control mx-sm-3"
 					style="width: 535px" aria-describedby="passwordHelpInline"
 					value=<jsp:getProperty name="member" property="address" />>
 					</div>

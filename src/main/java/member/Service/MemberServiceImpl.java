@@ -21,12 +21,22 @@ public class MemberServiceImpl implements MemberService {
 //	RegisterDaoImpl dao = new RegisterDaoImpl();
 
 	@Override
-	public boolean isDup(String account) {
-		boolean result = false;
-		result = memberDao.isDup(account);
+	public List<MemberBean> checkDup() {
+		
 
-		return result;
+		return memberDao.checkDup();
 	}
+	
+	
+	@Override
+	 public boolean isDup(String account) {
+		  boolean result = false;
+		  result = memberDao.isDup(account);
+
+		  return result;
+		 }
+	
+	
 
 	@Override
 	public int insertregister(MemberBean mb) {

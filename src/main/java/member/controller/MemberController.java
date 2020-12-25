@@ -1,11 +1,13 @@
 package member.controller;
 
 import java.sql.Date;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.annotations.Check;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import member.MemberBean;
@@ -51,9 +54,27 @@ public class MemberController {
 
 		System.out.println("member" + memberbean.getName());
 
+
 		return "member/register";
 	}
 
+	@PostMapping("/accountcheck")
+	@ResponseBody
+	public List<MemberBean> Check() {
+		
+		
+		List<MemberBean>list=memberService.getAllMembers();
+		for(MemberBean m:list) {
+			
+			System.out.println("acc:"+m.getAccount());
+		}
+		
+		return  list;//memberService.checkDup();
+
+	}
+	
+
+	
 	@PostMapping("/memberConfirm") // 確認頁
 	public String register(@ModelAttribute("member") MemberBean member, BindingResult result, Model model,
 			HttpServletRequest request) {

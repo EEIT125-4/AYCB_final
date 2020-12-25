@@ -34,6 +34,19 @@ public class MemberBean implements Serializable {
 	private String email;
 	@Column(columnDefinition = "nvarchar(Max)")
 	private String gender;
+	@Column(columnDefinition = "nvarchar(Max)")
+    private String boss; 
+	
+	
+	
+	
+	public String getBoss() {
+		return boss;
+	}
+
+	public void setBoss(String boss) {
+		this.boss = boss;
+	}
 
 	public MemberBean() {
 
@@ -114,7 +127,7 @@ public class MemberBean implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("MemberBean [Id=");
+		builder.append("MemberBean [id=");
 		builder.append(id);
 		builder.append(", account=");
 		builder.append(account);
@@ -132,12 +145,14 @@ public class MemberBean implements Serializable {
 		builder.append(email);
 		builder.append(", gender=");
 		builder.append(gender);
+		builder.append(", boss=");
+		builder.append(boss);
 		builder.append("]");
 		return builder.toString();
 	}
 
 	public MemberBean(Integer id, String account, String name, String password, String address, String phone,
-			Date birthday, String email, String gender) {
+			Date birthday, String email, String gender, String boss) {
 		super();
 		id = id;
 		this.account = account;
@@ -148,6 +163,7 @@ public class MemberBean implements Serializable {
 		this.birth = birthday;
 		this.email = email;
 		this.gender = gender;
+        this.boss =boss;		
 	}
 
 }

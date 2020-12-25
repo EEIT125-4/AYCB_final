@@ -7,8 +7,6 @@ import org.springframework.stereotype.Repository;
 import member.MemberBean;
 @Repository
 public interface MemberDao {
-	
-	boolean isDup(String acc);
 
 	int insertregister(MemberBean mb);
 
@@ -20,8 +18,8 @@ public interface MemberDao {
 
 	List<MemberBean> getAllMembers();
 
-	
-	
+	 List<MemberBean> checkDup();
+	 boolean isDup(String account);
 
 	
 

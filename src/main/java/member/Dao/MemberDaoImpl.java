@@ -31,6 +31,26 @@ public class MemberDaoImpl implements MemberDao {
 
 		return result;
 	}
+	
+	public List<MemberBean> checkDup() {
+		String hql = "FROM MemberBean";
+		Session session = factory.getCurrentSession();
+
+		Query<MemberBean> query = session.createQuery(hql);
+		
+		List<MemberBean> list = query.getResultList();
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return list;
+		}
+	}
+	
+	
+	
+	
+	
+	
 
 	public boolean identify(String account, String password) {
 
