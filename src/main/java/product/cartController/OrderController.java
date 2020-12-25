@@ -103,33 +103,37 @@ public class OrderController {
 		return "product/updateOrder";
 	}
 	
-	@GetMapping("/orderUpdate")
-	public String OrderUpdate(Model model,
-							@RequestParam(value = "orderNo", required = false) Integer orderNo,
-							@RequestParam(value = "customerId", required = false) String customerId,
-							@RequestParam(value = "price", required = false) Double price,
-							@RequestParam(value = "quantity", required = false) Integer quantity,
-							@RequestParam(value = "status", required = false) String status							
-	){
-		System.out.println("OrderUpdate");
-		System.out.println("order_No"+orderNo);
-		System.out.println("customer_Id"+customerId);
-		System.out.println("price"+price);
-		System.out.println("quantity"+quantity);
+//	@GetMapping("/orderUpdate")
+//	public String OrderUpdate(Model model,
+//							@RequestParam(value = "orderNo", required = false) Integer orderNo,
+//							@RequestParam(value = "customerId", required = false) String customerId,
+//							@RequestParam(value = "price", required = false) Double price,
+//							@RequestParam(value = "quantity", required = false) Integer quantity,
+//							@RequestParam(value = "status", required = false) String status							
+//	){
+//		System.out.println("OrderUpdate");
+//		System.out.println("order_No"+orderNo);
+//		System.out.println("customer_Id"+customerId);
+//		System.out.println("price"+price);
+//		System.out.println("quantity"+quantity);
+//		
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss: SSS");
+//		TimeZone zone = TimeZone.getTimeZone("Asia/Taipei");
+//		sdf.setTimeZone(zone);
+//		Date now = new Date();	
+//		
+//		//OrderBean updateOrder = new OrderBean( orderNo, customerId, now, price, quantity, status);
+//						
+//		if (os.updateOrderitem(updateOrder)) {
+//			System.out.println("Let orderUpdate done!");
+//			return "product/orderUpdateThanks";
+//		} else{
+//				return "product/orderUpdateThanks";
+//		}
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss: SSS");
-		TimeZone zone = TimeZone.getTimeZone("Asia/Taipei");
-		sdf.setTimeZone(zone);
-		Date now = new Date();	
 		
-		OrderBean updateOrder = new OrderBean( orderNo, customerId, now, price, quantity, status);
-						
-		if (os.updateOrderitem(updateOrder)) {
-			System.out.println("Let orderUpdate done!");
-			return "product/orderUpdateThanks";
-		} else{
-				return "product/orderUpdateThanks";
-		}
+		
+		
 		
 		//return "redirect:/orderManagement";
 	}
@@ -148,30 +152,30 @@ public class OrderController {
 //		
 //		return "product/historyOrders";
 //	}
+//	
+//	@GetMapping("/orderManagement")
+//	public String OrderManagement( ) {
+//		
+//		return "product/historyOrders";
+//	}
 	
-	@GetMapping("/orderManagement")
-	public String OrderManagement( ) {
-		
-		return "product/historyOrders";
-	}
-	
-	@ModelAttribute("orderlist")
-	public List<OrderBean> OrderSelect (HttpSession session, HttpServletRequest request){
-		
-		MemberBean memberBean =((MemberBean)session.getAttribute("member"));
-		
-		String name = memberBean.getName();
-		
-		List<OrderBean>  orderlist = new ArrayList<OrderBean>();
-		
-		orderlist = os.selectOrderitem(name);
-		
+//	@ModelAttribute("orderlist")
+//	public List<OrderBean> OrderSelect (HttpSession session, HttpServletRequest request){
+//		
+//		MemberBean memberBean =((MemberBean)session.getAttribute("member"));
+//		
+//		String name = memberBean.getName();
+//		
+//		List<OrderBean>  orderlist = new ArrayList<OrderBean>();
+//		
+//		orderlist = os.selectOrderitem(name);
+//		
 		
 		//System.out.println(orderlist);
-		
-		return orderlist;
-	}
+//		
+//		return orderlist;
+//	}
 	
 	
 	
-}
+//}

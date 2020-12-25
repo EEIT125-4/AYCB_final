@@ -24,11 +24,11 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 
 <div style="position: relative; top: 200px; left: 30px; width: 150px;">
  	<% 
- 		//MemberBean member = (MemberBean) session.getAttribute("login_session");
+ 		MemberBean member = (MemberBean) session.getAttribute("member");
  	%> 
 
-<%--  	<span style="border-bottom: 2px solid gray; width: 150px;"><strong><%=member.getName() + "       "%>  --%>
-			您好!</strong></span><br> <A style="color: black;" href="<c:url value='/orderSelect' />"><h3>查詢歷史清單</h3></A> 
+  	<span style="border-bottom: 2px solid gray; width: 150px;"> 
+	<strong><%=member.getName() + "       "%>您好!</strong></span><br> <A style="color: black;" href="<c:url value='/orderSelect' />"><h3>查詢歷史清單</h3></A> 
  </div> 
 
 
@@ -91,7 +91,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 			%>
 			<h4>
 				目前無商品加入
-				<h4>
+				</h4>
 
 					<%
 						response.setHeader("Refresh", "2;AllProducts");
