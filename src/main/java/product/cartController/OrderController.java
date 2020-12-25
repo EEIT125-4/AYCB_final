@@ -1,52 +1,76 @@
 package product.cartController;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.TimeZone;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import member.MemberBean;
+import product.cartModel.CartItem;
 import product.cartModel.OrderBean;
+import product.cartModel.OrderItemBean;
 import product.cartService.OrderService;
 
 @Controller
-@SessionAttributes({ "cart","totalPrice","totalQtyOrdered" })
+@SessionAttributes({ "cart","totalPrice","totalQtyOrdered","member"})
 public class OrderController {
 	
 	@Autowired
 	OrderService os;
 	
+	@SuppressWarnings("unchecked")
 	@GetMapping("/orderInsert")
-	public String OrderInsert(Model model,SessionStatus sessionStatus, HttpSession session) {
+	public String OrderInsert(Model model,SessionStatus sessionStatus, HttpSession session, HttpServletRequest request) {
+		
+	
 		
 		Double totalPrice = (Double) model.getAttribute("totalPrice");
-		Integer totalQtyOrder = (Integer) model.getAttribute("totalQtyOrdered");
+		//Integer totalQtyOrder = (Integer) model.getAttribute("totalQtyOrdered");
+		List<CartItem> items = (List<CartItem>) model.getAttribute("cart");
 		
-		//MemberBean memberBean =((MemberBean)request.getSession(true).getAttribute("login_session"));
+		MemberBean memberBean =((MemberBean)session.getAttribute("member"));		
+		String name = memberBean.getName();
 		
+		Set<OrderItemBean> details = new HashSet<OrderItemBean>();
+		for(CartItem cart : items) {
+			OrderItemBean oib = new OrderItemBean(null, cart.getProductNo(), cart.getProductName(), cart.getProductPrice(), cart.getQtyOrdered());
+			details.add(oib);
+		}
+	
 //		java.util.Date date = new Date(); 
 //		java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss: SSS");
-		TimeZone zone = TimeZone.getTimeZone("Asia/Taipei");
-		sdf.setTimeZone(zone);
-		Date now = new Date();	
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String sTimeString = sdf.format(new Date());
+		Timestamp tTime = Timestamp.valueOf(sTimeString);
 		
-//		order.setCustomerId(memberBean.getName());
-		//"name"= memberBean.getName
-		OrderBean order = new OrderBean( null, "name", now, totalPrice, totalQtyOrder, "付款成功");
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss: SSS");
+//		TimeZone zone = TimeZone.getTimeZone("Asia/Taipei");
+//		sdf.setTimeZone(zone);
+//		Date now = new Date();	
 		
+		OrderBean order = new OrderBean(null, name, totalPrice, tTime, "付款成功", details);
+		
+	
 		os.insertOrderitem(order);
 		
-		session.invalidate();
+		//session.removeAttribute("cart");
+		//session.invalidate();
 		
 		//sessionStatus.setComplete();
 		//request.getSession(true).removeAttribute("cart");//移除session
@@ -54,43 +78,98 @@ public class OrderController {
 		return "product/commit";		
 	}
 	
-//	@GetMapping("/Allproducts")
-//	public String ToAllproducts() {
-//		return "product/allproducts";
-//	}
-	
+//
 	@GetMapping("/orderDelete")
 	public String OrderDelete(Model model,
-							   SessionStatus sessionStatus,
-							   @RequestParam(value = "todo", required = false) String todo
+							   @RequestParam(value = "deleteindex", required = false) int deleteindex
 	){
+		System.out.println("delete process");
 		
-		String a = "product/allproducts";
-		String b = "product/checkout";
-		String c = null;		
-		
-		if (todo.equalsIgnoreCase("delete")) {
-			
-			System.out.println("delete process");
-			
-		}
-	
-		return "product/historyOrders";
-	}
+		os.deleteOrderitem(deleteindex);
 
-	@GetMapping("/orderSelect")
-	public String OrderSelect(Model model){
+		return "redirect:/orderManagement";
+	}
+	
+	@GetMapping("/pickOrderUpdate")
+	public String PickOrderUpdate(Model model,
+							@RequestParam(value = "updateindex", required = false) int updateindex
+	){
+		System.out.println("PickOrderUpdate");
 		
-		List<OrderBean> orderlist = os.selectOrderitem("name");
-		model.addAttribute("orderlist", orderlist);
+		OrderBean pickOrder = os.selectUpdateitem(updateindex);
 		
-		return "product/historyOrders";
+		model.addAttribute("pickOrder", pickOrder);
+		
+		return "product/updateOrder";
 	}
 	
 	@GetMapping("/orderUpdate")
-	public String OrderUpdate(Model model){
+	public String OrderUpdate(Model model,
+							@RequestParam(value = "orderNo", required = false) Integer orderNo,
+							@RequestParam(value = "customerId", required = false) String customerId,
+							@RequestParam(value = "price", required = false) Double price,
+							@RequestParam(value = "quantity", required = false) Integer quantity,
+							@RequestParam(value = "status", required = false) String status							
+	){
+		System.out.println("OrderUpdate");
+		System.out.println("order_No"+orderNo);
+		System.out.println("customer_Id"+customerId);
+		System.out.println("price"+price);
+		System.out.println("quantity"+quantity);
 		
-		return "product/updateOrder";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss: SSS");
+		TimeZone zone = TimeZone.getTimeZone("Asia/Taipei");
+		sdf.setTimeZone(zone);
+		Date now = new Date();	
+		
+		OrderBean updateOrder = new OrderBean( orderNo, customerId, now, price, quantity, status);
+						
+		if (os.updateOrderitem(updateOrder)) {
+			System.out.println("Let orderUpdate done!");
+			return "product/orderUpdateThanks";
+		} else{
+				return "product/orderUpdateThanks";
+		}
+		
+		//return "redirect:/orderManagement";
+	}
+//	
+//	@GetMapping("/orderUpdateThanks")
+//	public String OrderUpdateThanks( ) {
+//		
+//		return "product/orderUpdateThanks";
+//	}
+	
+//	@GetMapping("/orderSelect")
+//	public String OrderSelect(Model model){
+//		
+//		List<OrderBean> orderlist = os.selectOrderitem("name");
+//		model.addAttribute("orderlist", orderlist);
+//		
+//		return "product/historyOrders";
+//	}
+	
+	@GetMapping("/orderManagement")
+	public String OrderManagement( ) {
+		
+		return "product/historyOrders";
+	}
+	
+	@ModelAttribute("orderlist")
+	public List<OrderBean> OrderSelect (HttpSession session, HttpServletRequest request){
+		
+		MemberBean memberBean =((MemberBean)session.getAttribute("member"));
+		
+		String name = memberBean.getName();
+		
+		List<OrderBean>  orderlist = new ArrayList<OrderBean>();
+		
+		orderlist = os.selectOrderitem(name);
+		
+		
+		//System.out.println(orderlist);
+		
+		return orderlist;
 	}
 	
 	
