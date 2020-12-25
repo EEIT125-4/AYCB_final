@@ -130,7 +130,7 @@ public class ManagerController {
 	
 	// 後台選廠商顯示商品
 	@GetMapping(value = "/GetProductsByBrand", produces = "application/json")
-	public @ResponseBody List<ProductBean> getProductsByBrand(Model model,
+	public @ResponseBody List<ProductBean> getProductsByBrand(
 			@RequestParam("brandname") String brandname
 	) {
 		List<ProductBean> list = ps.getBrandProduct(brandname);

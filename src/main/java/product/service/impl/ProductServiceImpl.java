@@ -65,6 +65,11 @@ public class ProductServiceImpl implements ProductService {
 	public List<String> getSeries() {
 		return dao.getSeries();
 	}
+	
+	@Override
+	public List<String> getSeriesByBrand(String brandname) {
+		return dao.getSeriesByBrand(brandname);
+	}
 
 	@Override
 	public List<String> getCate() {

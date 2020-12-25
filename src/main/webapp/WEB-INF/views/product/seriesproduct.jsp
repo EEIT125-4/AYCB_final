@@ -80,13 +80,13 @@
 			</c:forEach>
 			<div class="page">
 				<ul class="page_ul">
-					<c:forEach var="series" varStatus='vs' items="${OneSeries}">
-						<c:if test='${vs.first }'>
-							<li class="page_ul_li"><a class="page_ul_li_a"
-								href='<c:url value="/Series" />?series=${series}&pageNo=${Pages - 1}'><i
-									class="fa fa-angle-double-left" aria-hidden="true"></i></a></li>
-						</c:if>
-					</c:forEach>
+<%-- 					<c:forEach var="series" varStatus='vs' items="${OneSeries}"> --%>
+<%-- 						<c:if test='${vs.first }'> --%>
+<!-- 							<li class="page_ul_li"><a class="page_ul_li_a" -->
+<%-- 								href='<c:url value="/Series" />?series=${series}&pageNo=${Pages - 1}'><i --%>
+<!-- 									class="fa fa-angle-double-left" aria-hidden="true"></i></a></li> -->
+<%-- 						</c:if> --%>
+<%-- 					</c:forEach> --%>
 					<c:forEach var='i' begin='1' end='${TotalPages}'>
 						<c:forEach var="series" varStatus='vs' items="${OneSeries}">
 							<c:if test='${vs.first }'>
@@ -95,13 +95,13 @@
 							</c:if>
 						</c:forEach>
 					</c:forEach>
-					<c:forEach var="series" varStatus='vs' items="${OneSeries}">
-						<c:if test='${vs.first }'>
-							<li class="page_ul_li"><a class="page_ul_li_a"
-								href='<c:url value="/Series" />?series=${series}&pageNo=${Pages + 1}'><i
-									class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
-						</c:if>
-					</c:forEach>
+<%-- 					<c:forEach var="series" varStatus='vs' items="${OneSeries}"> --%>
+<%-- 						<c:if test='${vs.first }'> --%>
+<!-- 							<li class="page_ul_li"><a class="page_ul_li_a" -->
+<%-- 								href='<c:url value="/Series" />?series=${series}&pageNo=${Pages + 1}'><i --%>
+<!-- 									class="fa fa-angle-double-right" aria-hidden="true"></i></a></li> -->
+<%-- 						</c:if> --%>
+<%-- 					</c:forEach> --%>
 				</ul>
 			</div>
 		</div>

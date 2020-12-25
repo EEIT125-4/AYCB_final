@@ -25,6 +25,8 @@ public interface ProductDao {
 	
 	List<String> getSeries();
 	
+	List<String> getSeriesByBrand(String brandname);
+	
 	List<String> getCate();
 
 	List<String> getOneBrand(String brandname);

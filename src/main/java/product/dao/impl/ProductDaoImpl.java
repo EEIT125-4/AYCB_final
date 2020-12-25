@@ -93,6 +93,14 @@ public class ProductDaoImpl implements ProductDao {
 		Session session = factory.getCurrentSession();
 		return session.createQuery(hql).getResultList();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<String> getSeriesByBrand(String brandname) {
+		String hql = "SELECT DISTINCT p.productseries FROM ProductBean p WHERE p.brandname = :brandname";
+		Session session = factory.getCurrentSession();
+		return session.createQuery(hql).setParameter("brandname", brandname).getResultList();
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override

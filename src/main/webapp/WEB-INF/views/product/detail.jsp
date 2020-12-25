@@ -78,7 +78,7 @@
 					<div>
 						<div class="infocount">
 							數量 :
-							<div class="selbox">
+							
 								<select name="count" class="countsel">
 									<option value="1">1</option>
 									<option value="2">2</option>
@@ -91,12 +91,12 @@
 									<option value="9">9</option>
 									<option value="10">10</option>
 								</select>
-							</div>
+							
 						</div>
-					</div>
-					<div class="infobtn">
-						<input class="cartbtn" type="submit" value="加入購物車"> <input
-							type="hidden" name="productno" value="${Detail.productno}">
+						<div class="infobtn">
+							<input class="cartbtn" type="submit" value="加入購物車"> <input
+								type="hidden" name="productno" value="${Detail.productno}">
+						</div>
 						<div class="lineshare">
 							<div class="line-it-button" data-lang="zh_Hant"
 								data-type="share-a" data-ver="3"

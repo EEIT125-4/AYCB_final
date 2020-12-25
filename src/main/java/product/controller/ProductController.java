@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import product.model.ProductBean;
 import product.service.ProductService;
@@ -115,5 +116,13 @@ public class ProductController {
 		ProductBean detail = ps.getProduct(no);
 		model.addAttribute("Detail", detail);
 		return "product/detail";
+	}
+	
+	@GetMapping(value = "/GetSeriesByBrand", produces = "application/json")
+	public @ResponseBody List<String> getSeriesByBrand(
+			@RequestParam("brandname") String brandname
+	){
+		List<String> list = ps.getSeriesByBrand(brandname);
+		return list;
 	}
 }

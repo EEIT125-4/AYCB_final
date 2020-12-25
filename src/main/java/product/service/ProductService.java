@@ -23,6 +23,8 @@ public interface ProductService {
 	List<String> getBrand();
 
 	List<String> getSeries();
+	
+	List<String> getSeriesByBrand(String brandname);
 
 	List<String> getCate();
 	
