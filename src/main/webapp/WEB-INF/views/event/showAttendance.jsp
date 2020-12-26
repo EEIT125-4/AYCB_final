@@ -61,8 +61,8 @@
 				</tr>
 				<c:forEach var='Attendance' varStatus='vs' items='${attendances}'>
 					<tr>
-						<td>${Attendance.memberid}</td>
-						<td>${Attendance.eventid}</td>
+						<td>${Attendance.member.account}</td>
+						<td>${Attendance.event.eventid}</td>
 						<td>${Attendance.mailaddress}</td>
 						<td>${Attendance.phone}</td>
 						<td>${Attendance.pax}</td>
