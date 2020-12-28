@@ -2,6 +2,7 @@ package comment.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,11 +29,13 @@ public class Video {
 //	private String name;
 //	private String gender;
 //	private Integer age;
+	@Column(columnDefinition= "smalldatetime")
 	private Date commentTime;
 	private String title;
 	private String url;
 	private Integer status;
 	private Integer thumbsup;
+	@Column(columnDefinition= "smalldatetime")
 	private Date fixedtime;
 
 	public Video() {

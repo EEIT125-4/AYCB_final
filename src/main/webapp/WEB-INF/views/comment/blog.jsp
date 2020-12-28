@@ -53,7 +53,7 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 <!-- 	<form:form method="POST" modelAttribute="blog" enctype='multipart/form-data'> -->
 
 <a class="a1"
-		href="${pageContext.request.contextPath}/comment/blogForm">
+		href="${pageContext.request.contextPath}/blog/empty">
 		<h3>我要上傳文章</h3>
 	</a>
 		<!-- Blog Section Begin -->

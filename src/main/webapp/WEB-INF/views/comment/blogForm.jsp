@@ -21,7 +21,7 @@
 }
 </style>
 <div class='center' style='position: relative; top: 200px;'>
-	<form:form method="POST" modelAttribute="video"
+	<form:form method="POST" modelAttribute="blog"
 		enctype='multipart/form-data'>
 		<fieldset class="updateform">
 		<legend class="title">文章上傳</legend>
@@ -58,4 +58,4 @@
 	</form:form>
 </div>
 </body>
-</html>tml>
+</html>
