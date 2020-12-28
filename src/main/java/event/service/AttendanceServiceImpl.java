@@ -15,7 +15,6 @@ import event.model.Attendance;
 
 
 
-
 @Service
 @Transactional
 public class AttendanceServiceImpl implements AttendanceService  {

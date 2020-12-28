@@ -66,8 +66,6 @@ public class AttendanceController {
 			AttendanceValidator validator =new AttendanceValidator();
 			validator.validate(attendance, result);
 			if(result.hasErrors()) {
-				
-				
 				return "event/attendanceForm";
 			}
 			try {
@@ -81,7 +79,7 @@ public class AttendanceController {
 				return "event/attendanceForm";
 			}
 			
-			return "redirect:/event/showAttendance"; 
+			return "event/showAttendance"; 
 		}
 		@GetMapping(value = "event/update")
 		public String showDataForm(				

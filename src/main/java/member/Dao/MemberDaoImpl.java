@@ -7,13 +7,12 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
 import member.MemberBean;
 
-
 @Repository
-
 public class MemberDaoImpl implements MemberDao {
-	@Autowired
+    @Autowired
 	SessionFactory factory ;
 
 	@SuppressWarnings("unchecked")
@@ -39,8 +38,10 @@ public class MemberDaoImpl implements MemberDao {
 		String hql = "FROM MemberBean m WHERE m.account = :acc";
 
 		Query<MemberBean> query = session.createQuery(hql);
+		try {
 		MemberBean mb = query.setParameter("acc", account).getSingleResult();
-
+		System.out.println("====================================");
+		System.out.println(mb);
 		if (mb.getPassword().equals(password)) {
 			return true;
 		}
@@ -49,6 +50,13 @@ public class MemberDaoImpl implements MemberDao {
 			return false;
 
 		}
+		}catch(Exception e){
+			e.printStackTrace();
+			System.out.println("can't find this acc");
+			return false;
+			
+		}
+		
 
 	}
 
@@ -100,7 +108,7 @@ public class MemberDaoImpl implements MemberDao {
 //	}
 
 	@Override
-	public int updateregister(MemberBean mb) {
+	public int update(MemberBean mb) {
 		int count = 0;
 		Session session = factory.getCurrentSession();
 

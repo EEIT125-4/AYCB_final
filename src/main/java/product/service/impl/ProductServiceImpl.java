@@ -22,11 +22,8 @@ public class ProductServiceImpl implements ProductService {
 	ProductDao dao;
 	
 	@Override
-	public int saveproduct(ProductBean pb) {
-		int count = 0;
+	public void saveproduct(ProductBean pb) {
 		dao.saveProduct(pb);
-		count++;
-		return count;
 	}
 
 	@Override

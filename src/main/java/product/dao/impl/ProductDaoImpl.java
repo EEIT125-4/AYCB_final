@@ -22,12 +22,9 @@ public class ProductDaoImpl implements ProductDao {
 	private int recordsPerPage = 10;
 
 	@Override
-	public int saveProduct(ProductBean pb) {
-		int count = 0;
+	public void saveProduct(ProductBean pb) {
 		Session session = factory.getCurrentSession();
 		session.save(pb);
-		count++;
-		return count;
 	}
 
 	@SuppressWarnings("unchecked")

@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <link REL=STYLESHEET HREF="css/inside.css" TYPE="text/css">
-<link REL=STYLESHEET HREF="css/ManagerAdd.css" TYPE="text/css">
+<link REL=STYLESHEET HREF="css/manageradd.css" TYPE="text/css">
 <title>Manager</title>
 </head>
 <%@include file="../jspf/managerheader.jspf"%>
