@@ -49,8 +49,10 @@
 						<h2>報名資料</h2>
 					</legend>
 					<div class="form1">
-						<label class="label1">帳號:</label> 
-						<form:input path="member" value="${member.account}" disabled="true"/> <br> 
+						<label class="label1">帳號: ${member.account}</label> 
+<%-- 						<form:input path="member" value="${member.account}" disabled="true"/> <br>  --%>
+                        
+						<input name="account" type="hidden" value="${member.account}"/> <br> 
 						<font color='red' size='-3'>${error.id}</font><br>
 							
 					</div>
@@ -66,7 +68,7 @@
 					</div>
 					<div class="form1">
 						<label class="label1">活動名稱:</label> 
-						<input type="text" name="eventid" value="${eventid}"> 						
+						<input type="hidden" name="eventid" value="${eventid}"> 						
 						<input name="eventname" value="${eventname}" disabled="true"/> <br> 
 						 <font color='red' size='-3'>${error.eid}</font><br>
 							

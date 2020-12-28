@@ -26,9 +26,9 @@ public  class Common {
 	}
 	
 	
-	public static String UPLOAD_PATH="C:/Users/Student/git/AYCB_final/src/main/webapp/WEB-INF/images";
+	public static String UPLOAD_PATH="C:/Users/Student/git/AYCB_final/src/main/webapp/WEB-INF/views/image";
 	//UPLOAD_PATH="C:/AYCB/AYCB2/src/main/webapp/upload/
-	public static String IMAGE_REAL_PATH="C:\\Users\\Student\\git\\AYCB_final\\src\\main\\webapp\\WEB-INF\\images";
+	public static String IMAGE_REAL_PATH="C:\\Users\\Student\\git\\AYCB_final\\src\\main\\webapp\\WEB-INF\\views\\image";
 	//"C:\\AYCB\\AYCB2\\src\\main\\webapp\\upload"
 	//public static String uPLOAD_DIR="C:/iii/Java/JavaWebWorkspace/ProjectTest/WebContent/upload";
 	public static String EMAIL_HOST="smtp.gmail.com";
@@ -67,7 +67,7 @@ public  class Common {
 		File tempfile = new File(Common.UPLOAD_PATH, filename);
 		file.transferTo(tempfile);// 寫入真實路徑// part.transferTo(file);// 寫入真實路徑
 		System.out.printf("成功寫入圖片,路徑:%s\n", tempfile.getAbsoluteFile());
-		return "/AYCB_final/images/" + filename;
+		return "/AYCB/image/" + filename;
 
 	}
 

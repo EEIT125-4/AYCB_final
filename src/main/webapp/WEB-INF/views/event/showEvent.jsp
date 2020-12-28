@@ -5,19 +5,19 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <script type='text/javascript'
-	src='${pageContext.request.contextPath}/scripts/jquery-1.9.1.min.js'></script>
+	src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	
 <title></title>
 <link rel="stylesheet"
 	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-<link rel='stylesheet'
-	href='${pageContext.request.contextPath}/css/style.css' type="text/css" />
+	
 </head>
 
 <%@include file="../jspf/header.jspf"%>
 <body>
-<!-- 	<div align='center' style='position: relative; top: 200px;'> -->
-		<div style="text-align: center">
+	<div style="text-align: center">
 			<h3>活動資料</h3>
 			<a href="<c:url value='/event/eventForm'/>">新增活動</a>
 			&nbsp;&nbsp;<a href="<c:url value='/'/> ">回前頁</a>
@@ -25,14 +25,31 @@
 			<form method='POST'>
 				<input type='hidden' name='_method' value='DELETE'>
 			</form>
+<!-- <section class="blog spad"> -->
+<!-- <div class="container"> -->
+<!-- <div class="row"> -->
+<%-- <c:forEach var='event' items='${events}'> --%>
+<!--                 <div class="col-lg-4 col-md-6 col-sm-6"> -->
+<!--                     <div class="blog__item"> -->
+<%--                         <div class="blog__item__pic set-bg" data-setbg='${event.filename}'></div> --%>
+<!--                         <div class="blog__item__text"> -->
+<%--                             <span><img src='${event.filename}' alt=""> 16 February 2020</span> --%>
+<%--                             <h5>${event.eventname}</h5> --%>
+<!--                             <a href="#">Read More</a> -->
+<!--                         </div> -->
+<!--                     </div> -->
+<!--       </div> -->
+<%--  </c:forEach>                --%>
+<!-- </div>                 -->
+<!-- </div> -->
+<!-- </section>		 -->
 
 <section class="container" >
 		<div class="row">
 		<c:forEach var='event' items='${events}'>
 				<div class="col-sm-6 col-md-3" style="width: 360px; height: 640px">
 					<div class="thumbnail" style="width: 320px; height: 600px">
-						<img width='180' height='200'
-							src='${event.filename}' />
+						<img width='180' height='200' src='${event.filename}' />							
 						<div class="caption">
 							<p><b style='font-size: 16px;'>${event.eventname}</b></p>
 							<p>${event.eventid}</p>
@@ -106,19 +123,7 @@
 		</div>
 	</div>
 
-<!-- <!-- 	<script type='text/javascript'> --> -->
-<!-- // 		$(document).ready(function() { -->
-<!-- // 			$('.deletelink').click(function() { -->
-<!-- // 				if (confirm('確定刪除此筆紀錄? ')) { -->
-<!-- // 					var href = $(this).attr('href'); -->
-<!-- // 					$('form').attr('action', href).submit(); -->
-<!-- // 				} -->
-<!-- // 				return false; -->
-
-<!-- // 			}); -->
-<!-- // 		}) -->
-<!-- <!-- 	</script> --> 
-	
+ 	
 	<%@include file="../jspf/footer.jspf"%>
 </body>
 </html>
