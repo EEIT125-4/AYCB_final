@@ -31,6 +31,26 @@ public class MemberDaoImpl implements MemberDao {
 
 		return result;
 	}
+	
+	public List<MemberBean> checkDup() {
+		String hql = "FROM MemberBean";
+		Session session = factory.getCurrentSession();
+
+		Query<MemberBean> query = session.createQuery(hql);
+		
+		List<MemberBean> list = query.getResultList();
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return list;
+		}
+	}
+	
+	
+	
+	
+	
+	
 
 	public boolean identify(String account, String password) {
 
@@ -129,5 +149,20 @@ public class MemberDaoImpl implements MemberDao {
 		MemberBean mb = query.setParameter("account0", account).getSingleResult();
 		return mb;	
 		
+	}
+	@Override
+	public boolean emailcheck(String email) {
+		boolean result = false;
+		String hql = "FROM MemberBean m WHERE m.email = :email0";
+		Session session = factory.getCurrentSession();
+
+		Query<MemberBean> query = session.createQuery(hql);
+		List<MemberBean> list = query.setParameter("email0", email).getResultList();
+		if (list.size() > 0) {
+
+			result = true;
+		}
+
+		return result;
 	}
 }
