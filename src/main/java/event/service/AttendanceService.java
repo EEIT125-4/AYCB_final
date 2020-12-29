@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import event.model.Attendance;
 
 
+
 @Repository
 public interface AttendanceService {
 
@@ -21,6 +22,10 @@ public interface AttendanceService {
 	void updateAttendance(Attendance a);
 
 	Attendance getAttendance(Integer MemberID);
+	
+	List<Attendance> getAllAttendancebyID(Integer memberid);
+	
+
 
 
 }

@@ -42,15 +42,23 @@ public class AttendanceController {
 		MemberService memberService;
 		
 		
-//		@GetMapping("/event")
-//		public String home() {
-//			return "event/eventIndex";     // 請視圖解析器由視圖的邏輯名稱index來找出真正的視圖
-//		}
-		
 		//select 查詢所有報名
 		@GetMapping("event/showAttendance")
 		public String list(Model model) {
 			model.addAttribute("attendances", attendanceService.getAllAttendance());
+			
+			return "event/showAttendance";
+		}
+		
+		
+		@GetMapping("event/showAllAttendanceByID")
+		public String attendancelist(Model model,
+				@RequestParam (value="id" ) Integer id
+			) {
+			System.out.println(id);
+			List<Attendance> attendancelist=attendanceService.getAllAttendancebyID(id);
+			model.addAttribute("attendancelist",attendancelist);
+			System.out.println("+++++++++++++++++++++++++++++++++++++++++++++"+attendancelist);
 			
 			return "event/showAttendance";
 		}
