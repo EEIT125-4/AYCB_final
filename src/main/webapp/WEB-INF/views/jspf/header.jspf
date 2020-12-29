@@ -148,13 +148,19 @@ if (mb != null) {
 				</div>
 				<div class="col-lg-3 col-md-3">
 					<div class="header__nav__option">
-						<a href="#" class="search-switch"> <img
-							src="${pageContext.request.contextPath}/image/icon/search.png"
-							alt=""></a> <a href="#"> <img
+						<form action="Keyword" style="height:0">
+							<input type="text" name="keyword" style="width: 120px">
+							<button class="search-switch">
+								<img
+									src="${pageContext.request.contextPath}/image/icon/search.png"
+									alt="">
+							</button>
+						<a href="#"> <img
 							src="${pageContext.request.contextPath}/image/icon/heart.png"
 							alt=""></a> <a href="#"> <img
 							src="${pageContext.request.contextPath}/image/icon/cart.png"
 							alt=""> <span></span></a>
+						</form>
 						<div class="price"></div>
 					</div>
 				</div>

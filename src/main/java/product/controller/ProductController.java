@@ -93,7 +93,7 @@ public class ProductController {
 	
 	@GetMapping("/Keyword")
 	public String keyword(Model model,
-			@RequestParam(value = "page", defaultValue = "1", required = false) Integer pageNo,
+			@RequestParam(value = "pageNo", defaultValue = "1", required = false) Integer pageNo,
 			@RequestParam(value = "keyword", required = false) String keyword
 	) {
 		if (pageNo == 0) {

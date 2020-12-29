@@ -71,4 +71,6 @@ public interface ProductService {
 	List<ProductBean> getBHlist(String list);
 	
 	List<ProductBean> getBrandPage(int pageNo, String brandname);
+	
+	List<ProductBean> ra(String cate);
 }

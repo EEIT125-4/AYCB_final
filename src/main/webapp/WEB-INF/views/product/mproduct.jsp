@@ -17,7 +17,7 @@
 			<div class="title">產品管理</div>
 			<div class="branddiv">
 				請選擇廠商: <select id='brand' class="brandsel">
-					<option></option>
+					<option>請選擇廠商</option>
 				</select>
 			</div>
 			<div id='detail' class="detail">${Brands}</div>

@@ -232,7 +232,7 @@ public class ProductDaoImpl implements ProductDao {
 		String hql = "FROM ProductBean";
 		Session session = factory.getCurrentSession();
 		Query<ProductBean> query = session.createQuery(hql);
-		list = query.setFirstResult(startRecordNo).setMaxResults(20).getResultList();
+		list = query.setFirstResult(startRecordNo).setMaxResults(recordsPerPage).getResultList();
 		return list;
 	}
 
@@ -287,8 +287,7 @@ public class ProductDaoImpl implements ProductDao {
 		String hql = "FROM ProductBean p WHERE p.productname like :keyword";
 		Session session = factory.getCurrentSession();
 		Query<ProductBean> query = session.createQuery(hql);
-		list = query.setParameter("keyword", "%" + keyword + "%").setFirstResult(startRecordNo)
-				.setMaxResults(recordsPerPage).getResultList();
+		list = query.setParameter("keyword", "%" + keyword + "%").setFirstResult(startRecordNo).setMaxResults(recordsPerPage).getResultList();
 		return list;
 	}
 
@@ -327,4 +326,12 @@ public class ProductDaoImpl implements ProductDao {
 		list = query.setFirstResult(startRecordNo).setMaxResults(10).setParameter("brandname", brandname).getResultList();
 		return list;
 	}
+	
+	@Override
+	public List<ProductBean> ra(String cate) {
+		String hql = "SELECT TOP 5 * FROM ProductBean p WHERE p.productcategory = :productcategory";
+		Session session = factory.getCurrentSession();
+		return session.createQuery(hql).setParameter("productcategory", cate).getResultList();
+	}
+	
 }
