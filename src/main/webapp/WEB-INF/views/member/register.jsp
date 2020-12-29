@@ -1,15 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
-<html>
+<html lang="zh-Hant-TW">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link REL=STYLESHEET HREF="${pageContext.request.contextPath}css/member.css" TYPE="text/css">
+<%-- <link REL=STYLESHEET HREF="${pageContext.request.contextPath}css/member.css" TYPE="text/css"> --%>
 <link rel="icon" href="image/logo.ico" type="image/x-icon">
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+	crossorigin="anonymous">
+
 <title>註冊</title>
 </head>
 <%@include file="../jspf/header.jspf"%>
@@ -150,6 +157,112 @@
 	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 	crossorigin="anonymous"></script>
 <script>
+setInterval(function(){ 
+	let phone = /^[09]{2}[0-9]{8}$/;//手機判斷
+	document.getElementById("phone").addEventListener("change",function(){
+		
+		if (!phone.test(document.getElementById("phone").value)){
+			document.getElementById("phonecheck").innerHTML="<img src='image/cross.png'>";
+// 			check[0]=0;
+		}
+		else{
+			document.getElementById("phonecheck").innerHTML="<img src='image/correct.png'>";
+// 			check[0]=1;
+		}
+	});
+	
+	let password=/[a-zA-Z]+\d|\d+[a-zA-Z]+/;
+	document.getElementById("pwd").addEventListener("change",function(){
+
+		if (!password.test(document.getElementById("pwd").value)){
+			document.getElementById("passwordcheck").innerHTML="<img src='image/cross.png'>";
+// 			check[2]=0;
+		}
+		else{
+			document.getElementById("passwordcheck").innerHTML="<img src='image/correct.png'>";
+// 			check[2]=1;
+		} 
+	});
+	let address=/^[\u4e00-\u9fff]+\d+/;//地址
+	document.getElementById("address").addEventListener("change",function(){
+
+		if (!address.test(document.getElementById("address").value)){
+			document.getElementById("addresscheck").innerHTML="<img src='image/cross.png'>";
+// 			check[6]=0;
+		}
+		else{
+			document.getElementById("addresscheck").innerHTML="<img src='image/correct.png'>";
+// 			check[6]=1;
+		}
+	});
+// 	let account=/[a-zA-Z]+\d|\d+[a-zA-Z]+/;
+// 	document.getElementById("acc").addEventListener("change",function(){
+
+// 		if (!password.test(document.getElementById("acc").value)){
+// 			document.getElementById("accountcheck").innerHTML="<img src='image/cross.png'>";
+// 			check[2]=0;
+// 		}
+// 		else{
+// 			document.getElementById("accountcheck").innerHTML="<img src='image/correct.png'>";
+// 			check[2]=1;
+// 		} 
+// 	});
+	
+	
+	
+}, 8);
+
+
+$('#acc').blur(function() {
+	
+	let account = document.getElementById("acc").value
+	let accountlen = account.length;
+ 	let sp = document.getElementById("accountcheck")
+
+ 	let account2=/[a-zA-Z]+\d|\d+[a-zA-Z]+/;
+	if (account == "") {
+		sp.innerHTML = "<img src='image/cross.png'>";
+		
+	} else if (checkAcc()=='ok' && accountlen >= 6) {
+// 		rex.test(account) && 
+		sp.innerHTML = "<img src='image/correct.png'>"
+	} else {
+		sp.innerHTML = "<img src='image/cross.png'>";
+	}
+// 	let mb_Account = $('#account').val();
+
+	
+})
+
+function checkAcc(){
+	return 'ok';
+	
+// 	$.ajax({
+// 		async : false,
+// 		type : 'GET',
+// 		url :   "accountcheck"    ,
+// 		dataType : "json",
+// 		contentType : "application/json;charset=utf-8",
+// 		success : function(data) {
+// 			 {
+// 				console.log("data:"+data);
+			
+// 				return 'ok'
+// 			}else {
+// 				sp.innerHTML ="<img src='image/correct.png'>"
+// 				console.log("data"+data);
+					
+// 			}
+// 		},error: function(){
+// 			alert("error");
+// 			return 'nok';
+// 		}
+// 	});
+	
+}
+
+
+
 
 
 setInterval(function(){ 

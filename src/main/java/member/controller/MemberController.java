@@ -27,13 +27,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wf.captcha.SpecCaptcha;
-import com.wf.captcha.utils.CaptchaUtil;
-
-import javassist.bytecode.stackmap.BasicBlock.Catch;
+import antlr.build.Tool;
 import member.MemberBean;
 import member.Service.MemberService;
+import tool.Common;
+import tool.GlobalService;
 
 @Controller
 
@@ -94,6 +92,8 @@ public class MemberController {
 
 		member.setId(null);
 
+		member.setPhone("");
+
 		model.addAttribute("member", member);
 
 		if (memberService.isDup(member.getAccount())) {
@@ -110,9 +110,16 @@ public class MemberController {
 	// HttpServletRequest request
 
 	) {
+		
 		System.out.println("取得" + member.getAccount());
+		String password=member.getPassword();
+		System.out.println("原始密碼:"+password);
+		password=Common.getMD5Endocing(password);
+		System.out.println("加密後密碼:"+password);
+		member.setPassword(password);
 		memberService.insertregister(member);
-
+		
+		
 		return "member/login";
 
 	}
@@ -138,37 +145,18 @@ public class MemberController {
 
 			login=false;
 		}
+		
+		
 
 		if (memberService.identify(user, pwd)) {
+			System.out.println("登入成功");
+			MemberBean mb=memberService.getMember(user);
 			
-			if (!CaptchaUtil.ver(Qcode, request)) {
-				CaptchaUtil.clear(request); // 清除session中的验证码
-//	            return JsonResult.error("验证码不正确");
-				System.out.println("驗證碼錯誤");
-				
-
-			}else {
-				login=true;
-			}
-		}else {
-			
-			System.out.println("會員帳密錯誤");
-			login=false;
-			
-			
-		}
-	
-
-		if (login) {
-			
-			System.out.println("驗證成功");
-			MemberBean mb = memberService.getMember(user);
 			session.setAttribute("member", mb);
 			return "index";
-
-		} else {
-			System.out.println("驗證失敗");
-			return "member/login";
+		}else {
+			System.out.println("登入失敗");
+			return "member/login";	
 		}
 
 	}

@@ -125,9 +125,16 @@ if (mb != null) {
 										<!--                                     <li><a href="./checkout.html">Check Out</a></li> -->
 										<!--                                     <li><a href="./blog-details.html">Blog Details</a></li> -->
 									</ul>
-								</li>
-							<li><a href="${pageContext.request.contextPath}/comment/">討論區</a></li>
-							<li><a href="${pageContext.request.contextPath}/event/showEvent">預約活動</a></li>
+								</div></li>
+					<li><a href="${pageContext.request.contextPath}/comment/">討論區</a>
+							<div>
+							<ul class="dropdown">
+
+                                <li><a href="${pageContext.request.contextPath}/comment/blog/">美誌分享</a></li>
+                                <li><a href="${pageContext.request.contextPath}/comment/video/">影音分享</a></li>
+                            </ul></div>
+                            </li>
+							<li><a href="${pageContext.request.contextPath}/event/">預約活動</a></li>
 						</ul>
 					</nav>
 				</div>
