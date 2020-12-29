@@ -25,9 +25,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.sun.xml.fastinfoset.stax.EventLocation;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -65,7 +64,7 @@ public class EventController {
 		@GetMapping("/eventForm")
 		public String showEmptyForm(Model model) {
 			Event event = new Event();
-			event.setEventname("event1");
+	 //event.setEventname("event1");
 			model.addAttribute("event",event);
 				
 			return "event/eventForm";
@@ -142,20 +141,25 @@ public class EventController {
 		
 		
 		//update
-		@GetMapping(value = "event/${Attendance.aid}")
-		public String showDataForm(@PathVariable("eventID") Integer eventID, Model model) {
-			Event event = eventService.getEvent(eventID);
+		@GetMapping(value = "/eventupdate")
+		public String showDataForm(
+				//@PathVariable("eventID") Integer eventID, 
+				Model model,
+				@RequestParam(value="eventid" ,required = false)Integer eventid
+				) {
+			System.out.println("eid:"+eventid);
+			Event event = eventService.getEvent(eventid);
 			model.addAttribute(event);
-			return "event/update";
+			return "event/eventupdate";
 		}
-		
-		
-		@PostMapping(value = "event/${Event.id}")		
+		@PostMapping(value = "/eventupdate")		
 		public String modify(
 				@ModelAttribute("event") Event event, 
 				BindingResult result, 
 				Model model,
-				@PathVariable Integer id, 
+				//@PathVariable Integer eventid,
+				@RequestParam(value="eventid" ,required = false)Integer eventid,
+				@RequestParam(value = "file",required = false) MultipartFile file,
 				HttpServletRequest request) {
 			EventValidator validator = new EventValidator();
 			validator.validate(event, result);
@@ -165,15 +169,26 @@ public class EventController {
 				for (ObjectError error : list) {
 					System.out.println("有錯誤：" + error);
 				}
-				return "crm/insertMember";
+				return "event/eventForm";
 			}
+			String path = null;
+			try {
+				path = Common.saveImage(file);
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+			}
+			event.setFilename(path);
 			eventService.updateEvent(event);
-			return "redirect:event/showAttendance";
+			return "redirect:/event/showEvent";
 		}	
-		@DeleteMapping(value = "event/${Event.id}")
-		public String delete(@PathVariable("id") Integer id) {
-			eventService.delete(id);
-			return "redirect:/event/showAttendance";
+		@GetMapping(value = "eventdelete")
+		public String delete(
+				//@PathVariable("id") Integer id
+				@RequestParam(value="eventid",required = false)Integer eventid
+				) {
+			eventService.delete(eventid);
+			return "redirect:/event/showEvent";
 		}
 		@GetMapping("/img/{id}")
 		public ResponseEntity<byte[]> getPicture(@PathVariable("eventid") Integer eventid) {

@@ -10,32 +10,31 @@
 
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/eventpage.css">
-<title>新增會員資料</title>
+<title>填寫報名資料</title>
 </head>
 <%@include file="../jspf/header.jspf"%>
 <body>
 
 	<div style=' position: relative; top: 200px;'>
 		<div>
-			<div
-				style="float: left; width: 20%; text-align: center; margin-left: 220px;">
+			<div style="float: left; width: 20%; text-align: center; margin-left: 220px;">
 
 				<dl>
 					<dt>
-						<h2>預約活動</h2>
+						<h3>預約活動</h3>
 					</dt>
 					<hr width=70% size=1 color=#BFBFBF
 						style="FILTER: alpha(opacity = 100, finishopacity = 0, style = 3)">
 					<dt class="a1">
 						<A href="showEvent">
-							<h2>活動介紹</h2>
+							<h4>活動介紹</h4>
 						</A>
 					</dt>
 					<dt class="a1">
-						<a href='attendanceForm'><h2>報名參加</h2></a>	
+						<a href='attendanceForm'><h5>報名參加</h5></a>	
 					</dt>
 					<dt class="a1">
-						<A href='showAttendance'><h2>查詢報名</h2></A>	
+						<A href='showAttendance'><h6>查詢報名</h6></A>	
 					</dt>
 
 				</dl>
@@ -50,24 +49,27 @@
 						<h2>報名資料</h2>
 					</legend>
 					<div class="form1">
-						<label class="label1">帳號:</label> 
-						<form:input path="memberid"/> <br> 
+						<label class="label1">帳號: ${member.account}</label> 
+<%-- 						<form:input path="member" value="${member.account}" disabled="true"/> <br>  --%>
+                        
+						<input name="account" type="hidden" value="${member.account}"/> <br> 
 						<font color='red' size='-3'>${error.id}</font><br>
 							
 					</div>
 					<div class="form1">
 						<label class="label1">電話號碼:</label>						
-						<form:input path="phone"/> <br> 
+						<form:input path="phone" value="${member.phone}" /> <br> 
 						<font color='red' size='-3'>${error.phone}</font><br>
 					</div>
 					<div class="form1">
 						<label class="label1">mail:</label> 						
-						<form:input path="mailaddress"/> <br> 	
+						<form:input path="mailaddress" value="${member.email}"/> <br> 	
 						<font color='red' size='-3'>${error.mail}</font><br>
 					</div>
 					<div class="form1">
-						<label class="label1">活動ID:</label> 						
-						<form:input path="eventid"/> <br> 
+						<label class="label1">活動名稱:</label> 
+						<input type="hidden" name="eventid" value="${eventid}"> 						
+						<input name="eventname" value="${eventname}" disabled="true"/> <br> 
 						 <font color='red' size='-3'>${error.eid}</font><br>
 							
 					</div>

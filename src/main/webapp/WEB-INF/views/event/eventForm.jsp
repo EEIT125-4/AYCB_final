@@ -26,7 +26,7 @@
 			</div>
 			<div class="form1">
 				<label class="label1">活動日期:</label> 
-				<form:input type='text'  path="eventdate"/><br>
+				<form:input type='date'  path="eventdate"/><br>
 			</div>
 			<div class="form1">
 				<label class="label1">活動地點:</label> 
