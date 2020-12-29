@@ -1,5 +1,6 @@
 package event.dao.Impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -44,14 +45,12 @@ public class AttendanceDaoImpl implements AttendanceDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Attendance> getAllAttendance() {
-//		List<Attendance> list = new ArrayList<>();
-		
+		List<Attendance> list = new ArrayList<>();
 		String hql = "FROM Attendance";
 		Session session = factory.getCurrentSession();
 
-//		Query<Attendance> query = session.createQuery(hql);
-//		list = query.getResultList();
-		List<Attendance> list = session.createQuery(hql).getResultList();
+		Query<Attendance> query = session.createQuery(hql);
+		list = query.getResultList();
      //System.out.println(list);  
 		return list;
 	}

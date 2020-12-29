@@ -3,20 +3,27 @@ package product.cartDao;
 import java.util.List;
 
 import product.cartModel.OrderBean;
+import product.cartModel.OrderItemBean;
 import product.cartModel.ProductDB;
 
 public interface OrderDao {
+	
+	List<OrderBean> selectAllOrder();
 
-	List<OrderBean> selectOrderitem(String name);
+	List<OrderBean> selectOrderBean(String name);
+	
+	List<OrderItemBean> selectOrderItem(int no);
 
-	boolean insertOrderitem(OrderBean order);
+	boolean insertOrderBean(OrderBean order);
 
-	boolean updateOrderitem(OrderBean order);
+	boolean updateOrderBean(OrderBean order);
 
-	boolean deleteOrderitem(int no);
+	boolean deleteOrderBean(int no);
 
-	OrderBean selectUpdateitem(int ino);
+	OrderBean selectUpdateBean(int ino);
 	
 	ProductDB getProductDB();
+	
+	
 
 }
