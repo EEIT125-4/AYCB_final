@@ -2,12 +2,19 @@ package member;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+
+import event.model.Record;
 
 @Entity
 
@@ -18,6 +25,7 @@ public class MemberBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
 	private Integer id;
 	@Column(columnDefinition = "nvarchar(Max)")
 	private String account;
@@ -34,6 +42,17 @@ public class MemberBean implements Serializable {
 	private String email;
 	@Column(columnDefinition = "nvarchar(Max)")
 	private String gender;
+	@ManyToMany(mappedBy = "member",cascade = CascadeType.ALL)
+	Set<Record>records=new HashSet<Record>();
+	
+
+	public Set<Record> getRecords() {
+		return records;
+	}
+
+	public void setRecords(Set<Record> records) {
+		this.records = records;
+	}
 
 	public MemberBean() {
 

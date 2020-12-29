@@ -1,0 +1,160 @@
+package tool;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.sql.Blob;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import javax.sql.rowset.serial.SerialBlob;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import product.model.ProductBean;
+import tool.model.Image;
+
+public class TestOfProject {
+
+	static SessionFactory factory;
+	static Session session;
+	static Transaction tx;
+	
+	public static void main(String[] args)  {
+		
+//		testJson();
+		
+		initTransaction();
+
+		uploadImage();
+//		refreshPic();
+//		testJson();
+
+
+
+	}
+	
+	static void testJson()  {
+		
+		String str = 
+				"{\"resourceName\":\"people/108400300607956312980\",\"etag\":\"%Eg8BAj0HCAk+Cz8NDxBANy4aBAECBQc=\",\"names\":[{\"metadata\":{\"primary\":true,\"source\":{\"type\":\"PROFILE\",\"id\":\"108400300607956312980\"}},\"displayName\":\"我的姓我的名\",\"familyName\":\"我的姓\",\"givenName\":\"我的名\",\"displayNameLastFirst\":\"我的姓我的名\",\"unstructuredName\":\"我的姓我的名\"}],\"genders\":[{\"metadata\":{\"primary\":true,\"source\":{\"type\":\"PROFILE\",\"id\":\"108400300607956312980\"}},\"value\":\"male\",\"formattedValue\":\"男性\"}],\"birthdays\":[{\"metadata\":{\"primary\":true,\"source\":{\"type\":\"PROFILE\",\"id\":\"108400300607956312980\"}},\"date\":{\"year\":2000,\"month\":12,\"day\":9}}],\"residences\":[{\"metadata\":{\"primary\":true,\"source\":{\"type\":\"PROFILE\",\"id\":\"108400300607956312980\"}},\"value\":\"四川\"}],\"emailAddresses\":[{\"metadata\":{\"primary\":true,\"verified\":true,\"source\":{\"type\":\"ACCOUNT\",\"id\":\"108400300607956312980\"}},\"value\":\"2020aycb@gmail.com\"}],\"occupations\":[{\"metadata\":{\"primary\":true,\"source\":{\"type\":\"PROFILE\",\"id\":\"108400300607956312980\"}},\"value\":\"馬仔\"}]}";
+		ObjectMapper objectMapper = new ObjectMapper();
+//		TestBean testBean;
+		try {
+			Map data=objectMapper.readValue(str,Map.class);
+			System.out.println("data:"+data);
+			JsonNode data2=objectMapper.readTree(str);
+			System.out.println("data2:"+data2.path("names"));
+			JsonNode data3=data2.path("names");
+			System.out.println("data3 size:"+data3.get(0));
+			System.out.println("get birth:"+data2.path("birthdays").get(0).path("date"));
+			System.out.println("get year:"+data2.path("birthdays").get(0).path("date").get("year"));
+			
+			System.out.println("get month"+data2.findPath("month "));
+			System.out.println("showmyName");
+			
+			
+//			testBean = objectMapper.readValue(str, TestBean.class);
+//			System.out.println("testBean:"+testBean.toString());
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+			System.out.println("解析json失敗");
+		
+		}
+		
+
+		
+		
+	}
+	
+	/**
+	 * 進行與資料庫交易有關的操作前初始化方法
+	 */
+	static void initTransaction() {
+		factory = HibernateUtils.getSessionFactory();
+
+		session = factory.getCurrentSession();
+		tx=session.beginTransaction();
+		
+		
+	}
+	
+	static void uploadImage() {
+		try {
+			JFrame frame=new JFrame();
+			JFileChooser chooser=new JFileChooser();
+			FileNameExtensionFilter filter = new FileNameExtensionFilter(
+			        "\"jpg\", \"gif\",\"jfif\",\"jpeg\",\"png\"", "jpg", "gif","jfif","jpeg","png");
+			    chooser.setFileFilter(filter);
+			    chooser.setMultiSelectionEnabled(true);
+			    int returnVal = chooser.showOpenDialog(frame);
+			    if(returnVal == JFileChooser.APPROVE_OPTION) {
+			    	
+			    	File[] files=chooser.getSelectedFiles();
+			    	for(File f:files) {
+			    		 System.out.println("You chose to open this file: " +
+			 		          f.getName());
+			    		 Image img=new Image();
+			    		 FileInputStream fis=new FileInputStream(f);
+			    		 
+			    		 byte[] b = fis.readAllBytes();
+							Blob blob = new SerialBlob(b);
+							img.setImage(blob);
+							img.setFilename(f.getName());
+							session.save(img);						
+			    	}
+			    	
+    	
+			    	tx.commit();
+			    	System.out.println("上傳圖片成功");
+			    	
+			
+		} 
+			    }
+		catch (Exception e) {
+			tx.rollback();
+			System.err.println("上傳圖片失敗");
+			e.printStackTrace();
+			
+		}
+	}
+	static void refreshPic() {
+		
+		//執行圖檔更新
+    	System.out.println();
+    	List<ProductBean> products = new ArrayList<>();
+		String hql = "FROM ProductBean order by id desc";
+		Query<ProductBean> query = session.createQuery(hql);
+		products = query.getResultList();
+		String hql2="FROM Image";
+		Query<Image> query2=session.createQuery(hql2);
+		List<Image>images=new ArrayList<Image>();
+		images=query2.getResultList();
+		for(ProductBean p:products) {
+			System.out.println("productName:"+p.getProductname());
+			for(Image img:images) {
+				String imagePath=img.getFilename();
+				imagePath=imagePath.substring(0, imagePath.lastIndexOf("."));
+//				System.out.println("imagePath:"+imagePath);
+				if(p.getProductname().equals(imagePath)) {
+					p.setImagepath(String.valueOf(img.getImgid()));
+					session.save(p);
+					System.out.println("更新product:"+p.getProductname()+" path:"+p.getImagepath());
+					
+				}
+			}
+		}
+		tx.commit();
+	}
+
+}

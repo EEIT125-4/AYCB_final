@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import member.MemberBean;
+import tool.Common;
 
 @Repository
 public class MemberDaoImpl implements MemberDao {
@@ -33,9 +34,9 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	public boolean identify(String account, String password) {
-
+		
 		Session session = factory.getCurrentSession();
-
+		
 		String hql = "FROM MemberBean m WHERE m.account = :acc";
 
 		Query<MemberBean> query = session.createQuery(hql);
@@ -43,7 +44,9 @@ public class MemberDaoImpl implements MemberDao {
 		MemberBean mb = query.setParameter("acc", account).getSingleResult();
 		System.out.println("====================================");
 		System.out.println(mb);
-		if (mb.getPassword().equals(password)) {
+		System.out.println("輸入密碼:"+account);
+		System.out.println("密碼轉換:"+Common.getMD5Endocing(account));
+		if (Common.getMD5Endocing(password).equals(mb.getPassword())) {
 			return true;
 		}
 

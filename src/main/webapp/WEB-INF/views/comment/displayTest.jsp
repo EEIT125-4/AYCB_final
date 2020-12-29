@@ -21,14 +21,12 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 <%@include file="../jspf/header.jspf"%>
 <%@include file="../jspf/commentSide.jspf"%>
 
-<c:set var="rs" value="${comment}" />
+<c:set var="video" value="${comment}" />
+<c:set var="member" value="${rs.member}"/>
 <c:set var="commentId" value="${rs.commentId}" />
-<c:set var="name" value="${rs.name}" />
-<c:set var="gender" value="${rs.gender}" />
-<c:set var="age" value="${rs.age}" />
 <c:set var="commentTime" value="${rs.commentTime}" />
 <c:set var="content" value="${rs.contentBox}" />
-<c:set var="id" value="${rs.id}" />
+
 <jsp:useBean id="comment" class="comment.model.CommentBean" scope="session" />
 
 <form action="${pageContext.request.contextPath}/comment/CommentController" method="post">
@@ -39,25 +37,36 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 		<table>
 			<tr>
 				<td style="width: 100px;">姓名:</td>
-				<td><input type="text" name="name" value="${name}"></td>
+				<td><input type="text" name="name" value="${member.name}"></td>
 			</tr>
 			<tr>
 				<td>性別:</td>
-				<td><input type="text" name="gender" value="${gender}"></td>
+				<td><input type="text" name="gender" value="${member.gender}"></td>
 			</tr>
 			<tr>
 				<td>年齡:</td>
-				<td><input type="text" name="age" value="${age}"></td>
+				<td><input type="text" name="age" ></td>
 			</tr>
 			<tr>
 				<td>留言內容:</td>
 				<td><textarea name="content" >${content}</textarea></td>
 			</tr>
-			
-			<input type="hidden" name="commentTime" value="${commentTime}">						
-			<input type="hidden" name="id" value="${id}">
-			<input type="hidden" name="commentId" value="${commentId}">
-			<input type="hidden" name="status" value="0">
+			<tr>
+				<td></td>
+				<td><input type="hidden" name="commentTime" value="${commentTime}"/>
+			</tr>						
+			<tr>
+				<td>member id</td>
+				<td><input type="text" name="id" value="${member.id}"/>
+			</tr>
+			<tr>
+				<td>comment id</td>
+				<td><input type="text" name="commentId" value="${commentId}"/>
+			</tr>
+			<tr>
+				<td></td>
+				<td><input type="hidden" name="status" value="0"/>
+			</tr>
 
 		</table>
 		<div>

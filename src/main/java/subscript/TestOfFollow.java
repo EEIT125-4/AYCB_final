@@ -33,16 +33,13 @@ public class TestOfFollow {
 			MessageBean message=(MessageBean)query2.getSingleResult();
 
 			System.out.println("message:"+message.getId());
-			
-			
-			
-			
-			
+					
 		
 			tx.commit();
 		}catch (Exception e) {
 			if (tx != null) {
 				tx.rollback();
+				
 			}
 			e.printStackTrace();
 		}

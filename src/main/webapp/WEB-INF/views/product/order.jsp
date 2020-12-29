@@ -14,12 +14,12 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet"
+<!-- <link rel="stylesheet" -->
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link REL=STYLESHEET HREF="${pageContext.request.contextPath}/css/cart.css" TYPE="text/css">
 <title>購物車</title>
 </head>
-<%@include file="../jspf/header.jspf"%>
+<%-- <%@include file="../jspf/header.jspf"%> --%>
 
 
 <div style="position: relative; top: 200px; left: 30px; width: 150px;">

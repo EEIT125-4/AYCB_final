@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import antlr.build.Tool;
 import member.MemberBean;
 import member.Service.MemberService;
+import tool.Common;
+import tool.GlobalService;
 
 @Controller
 
@@ -58,7 +61,7 @@ public class MemberController {
 
 		member.setId(null);
 
-		member.setPhone("0");
+		member.setPhone("");
 
 		model.addAttribute("member", member);
 
@@ -76,9 +79,16 @@ public class MemberController {
 	// HttpServletRequest request
 
 	) {
+		
 		System.out.println("取得" + member.getAccount());
+		String password=member.getPassword();
+		System.out.println("原始密碼:"+password);
+		password=Common.getMD5Endocing(password);
+		System.out.println("加密後密碼:"+password);
+		member.setPassword(password);
 		memberService.insertregister(member);
-
+		
+		
 		return "member/login";
 
 	}
@@ -93,13 +103,16 @@ public class MemberController {
 			return "member/login";
 		}
 		
-		memberService.identify(user, pwd);	
+		
 
 		if (memberService.identify(user, pwd)) {
+			System.out.println("登入成功");
 			MemberBean mb=memberService.getMember(user);
+			
 			session.setAttribute("member", mb);
 			return "index";
 		}else {
+			System.out.println("登入失敗");
 			return "member/login";	
 		}
 
