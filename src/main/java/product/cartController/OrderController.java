@@ -37,8 +37,6 @@ public class OrderController {
 	@GetMapping("/orderInsert")
 	public String OrderInsert(Model model,SessionStatus sessionStatus, HttpSession session, HttpServletRequest request) {
 		
-	
-		
 		Double totalPrice = (Double) model.getAttribute("totalPrice");
 		//Integer totalQtyOrder = (Integer) model.getAttribute("totalQtyOrdered");
 		List<CartItem> items = (List<CartItem>) model.getAttribute("cart");
@@ -67,7 +65,7 @@ public class OrderController {
 		OrderBean order = new OrderBean(null, name, totalPrice, tTime, "付款成功", details);
 		
 	
-		os.insertOrderitem(order);
+		os.insertOrderBean(order);
 		
 		//session.removeAttribute("cart");
 		//session.invalidate();
@@ -78,14 +76,14 @@ public class OrderController {
 		return "product/commit";		
 	}
 	
-//
+
 	@GetMapping("/orderDelete")
 	public String OrderDelete(Model model,
 							   @RequestParam(value = "deleteindex", required = false) int deleteindex
 	){
 		System.out.println("delete process");
 		
-		os.deleteOrderitem(deleteindex);
+		os.deleteOrderBean(deleteindex);
 
 		return "redirect:/orderManagement";
 	}
@@ -96,86 +94,83 @@ public class OrderController {
 	){
 		System.out.println("PickOrderUpdate");
 		
-		OrderBean pickOrder = os.selectUpdateitem(updateindex);
+		OrderBean pickOrder = os.selectUpdateBean(updateindex);
 		
 		model.addAttribute("pickOrder", pickOrder);
 		
 		return "product/updateOrder";
 	}
 	
-//	@GetMapping("/orderUpdate")
-//	public String OrderUpdate(Model model,
-//							@RequestParam(value = "orderNo", required = false) Integer orderNo,
-//							@RequestParam(value = "customerId", required = false) String customerId,
-//							@RequestParam(value = "price", required = false) Double price,
-//							@RequestParam(value = "quantity", required = false) Integer quantity,
-//							@RequestParam(value = "status", required = false) String status							
-//	){
-//		System.out.println("OrderUpdate");
-//		System.out.println("order_No"+orderNo);
-//		System.out.println("customer_Id"+customerId);
-//		System.out.println("price"+price);
-//		System.out.println("quantity"+quantity);
-//		
-//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss: SSS");
-//		TimeZone zone = TimeZone.getTimeZone("Asia/Taipei");
-//		sdf.setTimeZone(zone);
-//		Date now = new Date();	
-//		
-//		//OrderBean updateOrder = new OrderBean( orderNo, customerId, now, price, quantity, status);
-//						
-//		if (os.updateOrderitem(updateOrder)) {
+	@GetMapping("/orderUpdate")
+	public String OrderUpdate(Model model,
+							@RequestParam(value = "orderNo", required = false) Integer orderNo,
+							@RequestParam(value = "customerId", required = false) String customerId,
+							@RequestParam(value = "price", required = false) Double price,
+							@RequestParam(value = "quantity", required = false) Integer quantity,
+							@RequestParam(value = "status", required = false) String status							
+	){
+		System.out.println("OrderUpdate");
+		System.out.println("order_No"+orderNo);
+		System.out.println("customer_Id"+customerId);
+		System.out.println("price"+price);
+		System.out.println("quantity"+quantity);
+		
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String sTimeString = sdf.format(new Date());
+		Timestamp tTime = Timestamp.valueOf(sTimeString);
+		
+//		OrderBean updateOrder = new OrderBean(orderNo, customerId, price, tTime, status, items);		
+//		if (os.updateOrderBean(updateOrder)) {
 //			System.out.println("Let orderUpdate done!");
 //			return "product/orderUpdateThanks";
 //		} else{
 //				return "product/orderUpdateThanks";
 //		}
-		
-		
-		
-		
-		
-		//return "redirect:/orderManagement";
+	
+		return "redirect:/orderManagement";
 	}
-//	
-//	@GetMapping("/orderUpdateThanks")
-//	public String OrderUpdateThanks( ) {
-//		
-//		return "product/orderUpdateThanks";
-//	}
 	
-//	@GetMapping("/orderSelect")
-//	public String OrderSelect(Model model){
-//		
-//		List<OrderBean> orderlist = os.selectOrderitem("name");
-//		model.addAttribute("orderlist", orderlist);
-//		
-//		return "product/historyOrders";
-//	}
-//	
-//	@GetMapping("/orderManagement")
-//	public String OrderManagement( ) {
-//		
-//		return "product/historyOrders";
-//	}
+	@GetMapping("/orderUpdateThanks")
+	public String OrderUpdateThanks( ) {
+		
+		return "product/orderUpdateThanks";
+	}
 	
-//	@ModelAttribute("orderlist")
-//	public List<OrderBean> OrderSelect (HttpSession session, HttpServletRequest request){
-//		
-//		MemberBean memberBean =((MemberBean)session.getAttribute("member"));
-//		
-//		String name = memberBean.getName();
-//		
-//		List<OrderBean>  orderlist = new ArrayList<OrderBean>();
-//		
-//		orderlist = os.selectOrderitem(name);
-//		
+	@GetMapping("/selectOrderItem")
+	public String SelectOrderItem(Model model,
+			@RequestParam(value = "selectindex", required = false) int selectindex			
+	){
+		
+		List<OrderItemBean> itemList = os.selectOrderItem(selectindex);
+		model.addAttribute("itemList", itemList);
+		
+		return "product/historyOrderItem";
+	}
+
+	@GetMapping("/orderManagement")
+	public String OrderManagement( ) {
+		
+		return "product/historyOrders";
+	}
+	
+	@ModelAttribute("orderList")
+	public List<OrderBean> OrderSelect (HttpSession session, HttpServletRequest request){
+		
+		MemberBean memberBean =((MemberBean)session.getAttribute("member"));
+		
+		String name = memberBean.getName();
+		
+		List<OrderBean>  orderList = new ArrayList<OrderBean>();
+		
+		orderList = os.selectOrderBean(name);
+		
 		
 		//System.out.println(orderlist);
-//		
-//		return orderlist;
-//	}
+		
+		return orderList;
+	}
 	
 	
 	
-//}
+}
