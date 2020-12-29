@@ -20,6 +20,9 @@
 	type="text/javascript"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/message.css">
+
+<link href="${pageContext.request.contextPath}/css/editor.css"
+	rel="stylesheet">
 <title>NewMsg</title>
 
 <style>
@@ -47,7 +50,8 @@
 
 	<main>
 		<div>
-			<form:form method="POST" modelAttribute="message"  enctype='multipart/form-data'>
+			<form:form method="POST" modelAttribute="message"
+				enctype='multipart/form-data'>
 				<fieldset>
 					<legend>
 						<c:out value='${hint}' />
@@ -55,37 +59,30 @@
 					<table>
 						<tr>
 							<td>標題</td>
-							<td>
-							<form:input path="title" type="text" placeholder="${message.title}"/>
-							</td>
+							<td><form:input path="title" type="text"
+									placeholder="${message.title}" /></td>
 						</tr>
 
 						<tr>
 							<td>分類</td>
-							<td>
-							<form:input type="text" path="type" placeholder="${message.type}"/>
-							</td>
+							<td><form:input type="text" path="type"
+									placeholder="${message.type}" /></td>
 						</tr>
 						<tr>
 							<td>訊息內容</td>
-							<td>
-							<form:textarea  path="content" cols="100" rows="10"/>																	
-							</td>
+							<td><form:textarea id="editor" path="content" cols="100"
+									rows="10" /></td>
 
 						</tr>
 						<tr>
 							<td>上傳圖片</td>
-							<td><input id="file" type="file"  name="file"/>
-							
-							</td>
+							<td><input id="file" type="file" name="file" /></td>
 						</tr>
 						<tr>
-							<td>圖片預覽
-							<form:input type="hidden" path="imageid"/>
+							<td>圖片預覽 <form:input type="hidden" path="imageid" />
 							</td>
 							<td><img id="demo" class="preview"
-								src=
-								<c:if test='${not empty message.getId()}'>
+								src=<c:if test='${not empty message.getId()}'>
 							<c:out value="${pageContext.request.contextPath}/pic/${message.getImageid()}"/>
 							
 							</c:if>
@@ -97,18 +94,15 @@
 
 							</td>
 						</tr>
-						
+
 						<tr>
 
-							<td colspan="2">
-							<input type="hidden" name="id" value='${msg.getId()}'> 
-							<c:if test='${not empty message.getId()}'>
-							<form:input type="hidden" path="date"/>
-							</c:if>
-							
-							
-						<input type="submit" name="submit" value='${action}'> 
-						<input type="reset" value="清除"></td>
+							<td colspan="2"><input type="hidden" name="id"
+								value='${msg.getId()}'> <c:if
+									test='${not empty message.getId()}'>
+									<form:input type="hidden" path="date" />
+								</c:if> <input type="submit" name="submit" value='${action}'> <input
+								type="reset" value="清除"></td>
 						</tr>
 					</table>
 				</fieldset>
@@ -124,6 +118,8 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"
 	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.ckeditor.com/ckeditor5/24.0.0/classic/ckeditor.js"></script>
 
 <script>
 	$('#file').change(function() {
@@ -135,10 +131,20 @@
 		};
 		reader.readAsDataURL(file);
 	});
+	
+	
+
+    ClassicEditor
+            .create(document.querySelector( 
+                    '#editor'))
+            .then(editor=>{
+                   console.log(editor);
+            })
+            .catch(error=>{
+                   console.error(error);
+            });
+	
 </script>
-
-
-
 
 
 </body>

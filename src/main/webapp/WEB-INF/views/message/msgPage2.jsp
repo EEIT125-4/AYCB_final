@@ -13,6 +13,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 
+
+
 <%
 	boolean editable = false;
 if (session.getAttribute("member") != null) {
@@ -39,8 +41,8 @@ types = (List<String>) request.getAttribute("types");
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="http://use.edgefonts.net/arizonia:n4:default.js"
 	type="text/javascript"></script>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/message.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/message.css">
+	<link href="${pageContext.request.contextPath}/css/editor.css" rel="stylesheet">
 <title>MsgPage</title>
 <style>
 .reply {
@@ -99,9 +101,8 @@ types = (List<String>) request.getAttribute("types");
 
 		<input type="button" value="篩選訊息" onclick="search()"> <br>
 		<!-- 實際跳轉交給javascript處理 -->
-		<a href="" onclick="checkLogin()">查看訂閱設定</a>
-		<br>
-				<button onclick="sendEmail()">發送email</button>
+		<a href="" onclick="checkLogin()">查看訂閱設定</a> <br>
+		<button onclick="sendEmail()">發送email</button>
 
 
 	</aside>
@@ -127,16 +128,14 @@ types = (List<String>) request.getAttribute("types");
 				<img class="img1" alt="圖片待補" title=<%= list.get(i).getTitle() %>
 					onerror="javascript:this.src='${pageContext.request.contextPath}/image/noImage.jpg'"
 					src='${pageContext.request.contextPath}/pic/<%= list.get(i).getImageid() %>' />
-				<%
-					System.out.println("imageid:" + list.get(i).getImageid());
-				%>
 				<figcaption class="msgfigcaption"><%=list.get(i).getTitle()%></figcaption>
 			</figure>
 			<p class="msgp"><%=list.get(i).getId()%></p>
 			<p class="msgp">
-				<textarea class="editable" name=title disabled><%=list.get(i).getContent()%></textarea>
+<%-- 				<textarea class="editor"  name=title disabled="disabled"><%=list.get(i).getContent()%></textarea> --%>
+				<%=list.get(i).getContent()%>
 			</p>
-
+<!-- class="editable" -->
 			<p><%=list.get(i).getImgpath()%></p>
 			<p>會員回覆列</p>
 
@@ -157,12 +156,13 @@ types = (List<String>) request.getAttribute("types");
 <!-- 	crossorigin="anonymous"></script> -->
 
 <script src="${pageContext.request.contextPath}/js/jquery-3.5.1.min.js"></script>
-
+<script
+	src="https://cdn.ckeditor.com/ckeditor5/24.0.0/classic/ckeditor.js"></script>
 <script>
 	//
 	function checkLogin() {
-		var login =
-<%=session.getAttribute("member")%>
+		var login =session.getAttribute("member");
+<%-- <%=session.getAttribute("member")%> --%>
 	if (login == null) {
 
 			alert('請先登入');
@@ -191,34 +191,31 @@ types = (List<String>) request.getAttribute("types");
 				+ select_count + "&word=" + select_word;
 
 	}
-	
-	function sendEmail(){
-		
-		
+
+	function sendEmail() {
+
 		$.ajax({
 
 			type : "get",
 			url : "${pageContext.request.contextPath}/email",
 			// 		contentType: "application/json; charset=utf-8",
-					dataType:"text",
+			dataType : "text",
+			
+			// 					async
 			success : function(data) {
-				
-				alert("email sent");
-// 				console.log("email sent");
+
+				alert("email sent!" + data);
+				// 				console.log("email sent");
 				console.log(data);
 				console.log(typeof (data));
 
-				
 			},
 			error : function() {
 				alert("send fail");
 			}
 
 		})
-		
-		
-		
-		
+
 	}
 
 	function getTypes() {
@@ -273,6 +270,16 @@ types = (List<String>) request.getAttribute("types");
 	})
 
 	$('.msgTypes').on('focus', getTypes());
+	
+	 ClassicEditor
+     .create(document.querySelector( 
+             '.editor'))
+     .then(editor=>{
+            console.log(editor);
+     })
+     .catch(error=>{
+            console.error(error);
+     });
 </script>
 </body>
 </html>

@@ -193,11 +193,11 @@ button {
 }
 
 .adbox {
-    position: relative;
-    width: 100%;
-    height: 750px;
-    top: 155px;
-    overflow: hidden;
+   position: relative;
+            width: 800px;
+            height: 300px;
+            overflow: hidden;
+            margin: 0 auto;
 }
 
 .adbox_slides {
@@ -205,17 +205,21 @@ button {
     padding: 0;
     position: absolute;
     width: 4000px;
-    left: 0px;
+ 
     transition: all .5s;
+     width: 4000px;
+            left: 0px;
+          
 }
 
 .adbox_slides li {
     margin: 0;
     padding: 0;
-    width: 2000px;
-    height: 750px;
-    overflow: hidden;
-    float: left;
+    float: left;    
+      width: 800px;
+            height: 300px;
+            overflow: hidden;
+            float: left;
 }
 
 .adbox_slides li img {

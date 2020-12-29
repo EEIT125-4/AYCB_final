@@ -28,7 +28,9 @@ import com.sun.mail.auth.MD4;
 
 import message.model.MessageBean;
 import message.service.MessageService;
+import net.bytebuddy.agent.builder.AgentBuilder.CircularityLock.Global;
 import product.model.ProductBean;
+import tool.GlobalService;
 import tool.model.Image;
 import tool.service.ImageService;
 
@@ -38,25 +40,21 @@ public class MessageController {
 
 	@Autowired
 	MessageService ms;
-	
+
 	@Autowired
 	ImageService imgService;
 	@Autowired
 	ServletContext context;
-	
 
 	@PostMapping(value = { "/message/update_step" })
-	public String update(Model model,
-			@ModelAttribute("message") MessageBean message,
-			@RequestParam(value = "submit") String s,
-			@RequestParam(value = "id",required = false) String id) {
+	public String update(Model model, @ModelAttribute("message") MessageBean message,
+			@RequestParam(value = "submit") String s, @RequestParam(value = "id", required = false) String id) {
 		System.out.println("submit:" + s);
-		
 
 		if (s.equals("edit")) {
-			
+
 			System.out.println("in update");
-			message=ms.getMessage(id);	
+			message = ms.getMessage(id);
 			model.addAttribute("message", message);
 			return "message/newMsg";
 
@@ -74,29 +72,26 @@ public class MessageController {
 
 				// 如果有傳檔案過來
 				if (file != null && file.getSize() > 0) {
-					
+
 					System.out.println("有收到圖片");
 					Image img = null;
 
 					try {
-						byte[] b = file.getBytes();
-						Blob blob = new SerialBlob(b);
-
 						// 如果message有存圖片的主鍵
-						if (message.getImageid()!=null) {
+						if (message.getImageid() != null) {
 							img = imgService.getImage(message.getImageid());
-							System.out.println("old圖片ID:"+img.getImgid());
-							
+							System.out.println("old圖片ID:" + img.getImgid());
 						} else {
-							img = new Image();
+							img = new Image(file);
 						}
 
 						// 更新圖片名稱
-						img.setFilename(file.getOriginalFilename());
+						img.setImage(file);
+
 						// 更新圖片內容
-						img.setImage(blob);
 						imgService.saveImage(img);
 						message.setImageid(img.getImgid());
+						System.out.println("圖片儲存完畢,id=" + img.getImgid()+",filename="+img.getFilename());
 
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -122,7 +117,7 @@ public class MessageController {
 
 			System.out.println("撈取列表並前往");
 //			model.addAttribute("message", ms.getAllMessages());
-			
+
 			return "redirect:/message/query";
 
 		}
@@ -207,55 +202,46 @@ public class MessageController {
 		System.out.println("file:" + message.getFile().getSize());
 		System.out.println("MultipartFile 名稱:" + message.getFile().getOriginalFilename());
 		System.out.printf("動作為:%s\n", submit);
-		System.out.println("messageID:"+message.getId());
+		System.out.println("messageID:" + message.getId());
 
 		System.out.println("insert");
 		try {
 			System.out.println("textArea:" + message.getContent());
-
 			MultipartFile file = message.getFile();
 			// 新增圖片
 			// 如果有傳檔案過來
 			if (file != null && file.getSize() > 0) {
-
 				// 這邊是存在Tomcat的路徑,但網站重佈署時就會消失,所以目前方案是存在專案實際位置,每次重新佈署時就會自動同步
 				System.out.println("有圖片" + context.getRealPath("/"));
 
-				Image img = new Image();
-
 				try {
-					byte[] b = file.getBytes();
-					Blob blob = new SerialBlob(b);
+					Image img = new Image(file);
 
-					img.setImage(blob);
-					img.setFilename(file.getOriginalFilename());
 					imgService.saveImage(img);
 					message.setImageid(img.getImgid());
+					System.out.println("圖片儲存完畢,id=" + img.getImgid()+",filename="+img.getFilename());
 
 				} catch (Exception e) {
 					e.printStackTrace();
 					throw new RuntimeException("圖片上傳發生異常: " + e.getMessage());
 				}
 
-				System.out.println("存檔");
 			} else {
 				System.out.println("沒有圖片");
 			}
 
-			System.out.println("存bean");
 			java.sql.Date date = new java.sql.Date(new Date().getTime());
 			message.setDate(date);
 
 			ms.save(message);
-			System.out.println("存檔成功");
+			System.out.println("訊息存檔成功");
 
 		} catch (Exception e) {
 
-			System.err.println("上傳過程發生異常");
+			System.err.println("訊息儲存過程發生異常");
 
 		}
 
-		System.out.println("撈取列表並前往");
 		model.addAttribute("message", ms.getAllMessages());
 		return "redirect:/message/query";
 

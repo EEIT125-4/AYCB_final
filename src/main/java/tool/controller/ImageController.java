@@ -1,6 +1,7 @@
 package tool.controller;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.InputStream;
 import java.sql.Blob;
 
@@ -23,7 +24,7 @@ import tool.service.ImageService;
 @Controller
 public class ImageController {
 	
-	String noImage = "/image/noImage.jpg";
+	String noImage = "/images/noImage.jpg";
 	
 	
 	
@@ -44,7 +45,16 @@ public class ImageController {
 
 		Image img =service.getImage(id);
 		if (img == null) {
-			return new ResponseEntity<byte[]>(HttpStatus.NOT_FOUND);
+			
+			System.out.println("img is null");
+			
+			String path = noImage;
+			
+			body = fileToByteArray(path);
+			
+			re = new ResponseEntity<byte[]>(body, headers, HttpStatus.OK);
+
+			return re;
 		}
 		String filename =img.getFilename();
 		
@@ -77,19 +87,28 @@ public class ImageController {
  */
 	private byte[] fileToByteArray(String path) {
 		byte[] result = null;
-		try (InputStream is = context.getResourceAsStream(path);
-				ByteArrayOutputStream baos = new ByteArrayOutputStream();) {
-			
-			byte[] b = new byte[819200];
-			int len = 0;
-			while ((len = is.read(b)) != -1) {
-				baos.write(b, 0, len);
+		System.out.println("path"+context.getContextPath());
+	
+			try (InputStream is = context.getResourceAsStream(path);
+					
+					ByteArrayOutputStream baos = new ByteArrayOutputStream();) {
+				
+				System.out.println("resource"+context.getResource(path));
+				
+				byte[] b = new byte[819200];
+				int length=0;
+				while ((length = is.read(b)) != -1) {
+					baos.write(b, 0, length);
+				}
+				result = baos.toByteArray();
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-			result = baos.toByteArray();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return result;
+			return result;
+		
+
+		
+		
 	}
 	
 	public byte[] blobToByteArray(Blob blob) {

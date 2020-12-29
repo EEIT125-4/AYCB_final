@@ -64,7 +64,7 @@ public class CommentDaoImp implements CommentDao {
 		
 		CommentBean cb=null;
 		cb=getSession().get(CommentBean.class, commentId);
-		System.out.println("即將刪除"+cb.getName());
+		System.out.println("即將刪除"+cb.getMember().getName());
 		
 		return cb;
 	}

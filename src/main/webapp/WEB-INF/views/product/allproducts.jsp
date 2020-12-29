@@ -69,7 +69,7 @@
 				<div class="rightside">
 					<div class="imgbox">
 						<a href='<c:url value="/Detail" />?no=${pro.productno}'><img
-							class="proimg" src="image/${pro.productname}.png"></a>
+							class="proimg" src="${pageContext.request.contextPath}/pic/${pro.imagepath}"></a>
 					</div>
 					<div class="proname">${pro.productname}</div>
 					<div class="buttonbox">
