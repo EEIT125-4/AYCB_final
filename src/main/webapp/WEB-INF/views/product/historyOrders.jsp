@@ -23,6 +23,8 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
 <%@include file="../jspf/header.jspf"%> 
 
 
+
+
 <c:choose>
 <c:when test="${empty orderList}">
 	查無資料<br>
