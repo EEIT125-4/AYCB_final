@@ -22,12 +22,9 @@ public class ProductDaoImpl implements ProductDao {
 	private int recordsPerPage = 10;
 
 	@Override
-	public int saveProduct(ProductBean pb) {
-		int count = 0;
+	public void saveProduct(ProductBean pb) {
 		Session session = factory.getCurrentSession();
 		session.save(pb);
-		count++;
-		return count;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -130,23 +127,17 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	@Override
-	public int deleteProduct(int no) {
-		int count = 0;
+	public void deleteProduct(int no) {
 		Session session = factory.getCurrentSession();
 		ProductBean pb = new ProductBean();
 		pb.setProductno(no);
 		session.delete(pb);
-		count++;
-		return count;
 	}
 
 	@Override
-	public int updateProduct(ProductBean pb) {
-		int count = 0;
+	public void updateProduct(ProductBean pb) {
 		Session session = factory.getCurrentSession();
 		session.saveOrUpdate(pb);
-		count++;
-		return count;
 	}
 
 	@Override

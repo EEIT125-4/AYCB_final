@@ -60,7 +60,7 @@
 			</div>
 		</div>
 		<div class="rightoutbox">
-			<form name="AddForm" action="" method="POST">
+			<form name="AddForm" action="${pageContext.request.contextPath}/cartAdd" method="get">
 				<input type="hidden" name="todo" value="add">
 				<div class="rightside">
 					<div class="imgbox">

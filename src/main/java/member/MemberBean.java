@@ -1,17 +1,21 @@
 package member;
 
 import java.io.Serializable;
+import java.sql.Date;
+import java.util.HashSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.CascadeType;
+import org.hibernate.mapping.Set;
 
 @Entity
-@Table
+
 public class MemberBean implements Serializable {
 	/**
 	 * 
@@ -30,16 +34,32 @@ public class MemberBean implements Serializable {
 	private String address;
 	@Column(columnDefinition = "nvarchar(Max)")
 	private String phone;
-	private String birth;
+	private Date birth;
 	@Column(columnDefinition = "nvarchar(Max)")
 	private String email;
 	@Column(columnDefinition = "nvarchar(Max)")
 	private String gender;
+	@Column(columnDefinition = "nvarchar(Max)")
+    private String boss; 
 	
-	public MemberBean() {
-		
+	
+	
+
+//	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+//	Set<Attendance> Attendance = new HashSet<>();
+	
+	
+	public String getBoss() {
+		return boss;
 	}
-	
+
+	public void setBoss(String boss) {
+		this.boss = boss;
+	}
+
+	public MemberBean() {
+
+	}
 
 	public Integer getId() {
 		return id;
@@ -89,11 +109,11 @@ public class MemberBean implements Serializable {
 		this.phone = phone;
 	}
 
-	public String getBirth() {
+	public Date getBirth() {
 		return birth;
 	}
 
-	public void setBirth(String birth) {
+	public void setBirth(Date birth) {
 		this.birth = birth;
 	}
 
@@ -116,7 +136,7 @@ public class MemberBean implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("MemberBean [Id=");
+		builder.append("MemberBean [id=");
 		builder.append(id);
 		builder.append(", account=");
 		builder.append(account);
@@ -134,14 +154,16 @@ public class MemberBean implements Serializable {
 		builder.append(email);
 		builder.append(", gender=");
 		builder.append(gender);
+		builder.append(", boss=");
+		builder.append(boss);
 		builder.append("]");
 		return builder.toString();
 	}
 
 	public MemberBean(Integer id, String account, String name, String password, String address, String phone,
-			String birthday, String email, String gender) {
+			Date birthday, String email, String gender, String boss) {
 		super();
-		this.id = id;
+		id = id;
 		this.account = account;
 		this.name = name;
 		this.password = password;
@@ -150,7 +172,7 @@ public class MemberBean implements Serializable {
 		this.birth = birthday;
 		this.email = email;
 		this.gender = gender;
+        this.boss =boss;		
 	}
-
 
 }

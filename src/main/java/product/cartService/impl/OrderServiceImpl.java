@@ -7,153 +7,107 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import product.cartDao.OrderDao;
-import product.cartDao.impl.OrderDaoImpl;
+
 import product.cartModel.OrderBean;
+import product.cartModel.OrderItemBean;
 import product.cartModel.ProductDB;
 import product.cartService.OrderService;
 
 
 
-
-
+@Transactional
+@Service
 public class OrderServiceImpl implements OrderService {
+	
 	@Autowired
+	OrderDao dao;
 	
-	SessionFactory factory;
-	OrderDao dao = new OrderDaoImpl();
 	
+	@Override
 	public ProductDB getProductDB() {
-		  ProductDB PD =null;
-		  Session session = factory.getCurrentSession();
-		  Transaction tx = null;
 		  
-		  try {
-		   tx = session.beginTransaction();
 		   System.out.println("準備撈DB");
-		   PD=dao.getProductDB();
-		   tx.commit();
-		  } catch (Exception e) {
+		   ProductDB PD = dao.getProductDB();
 
-		  }
-		  System.out.println("PD:"+PD);
 		  return PD;
 		 }
 	
 	
 	@Override
-	public List<OrderBean> selectOrderitem(String name) {		
+	public List<OrderBean> selectAllOrder() {
 		
-		List<OrderBean> list =new ArrayList<OrderBean>();
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			list = dao.selectOrderitem(name);
-			tx.commit();
+		List<OrderBean> list = dao.selectAllOrder();
 		
-		} catch (Exception ex) {
-			if(tx != null) {
-				tx.rollback();
-				
-				ex.printStackTrace();
-			}		
-		}
+		return list;
+	}
+	
+	
+	@Override
+	public List<OrderBean> selectOrderBean(String name) {				
+
+		List<OrderBean> list = dao.selectOrderBean(name);
+
 		return list;			
 	}
 	
 	
 	@Override
-	public boolean insertOrderitem(OrderBean order) {
+	public List<OrderItemBean> selectOrderItem(int no){
+		
+		List<OrderItemBean> list = dao.selectOrderItem(no);
+		
+		return list;	
+	}
+	
+	
+	@Override
+	public boolean insertOrderBean(OrderBean order) {
 		 
 		boolean result = false;
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			
-			dao.insertOrderitem(order);
-			tx.commit();
-			result = true;
-		}catch (Exception ex) {
-				if(tx != null) {
-					tx.rollback();
-					result = false;
-				}
-				ex.printStackTrace();
-			}
+
+			dao.insertOrderBean(order);
+
 		return result;
 		
 	}
 	
 	
 	@Override
-	public boolean updateOrderitem(OrderBean order) {
+	public boolean updateOrderBean(OrderBean order) {
 		
 		boolean result = false;
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			
-			dao.updateOrderitem(order);
-			tx.commit();
-			result = true;
-		}catch (Exception ex) {
-				if(tx != null) {
-					tx.rollback();
-					result = false;
-				}
-				ex.printStackTrace();
-			}
+
+			dao.updateOrderBean(order);
+
 		return result;				
 	}
 	
 	
 	@Override
-	public boolean deleteOrderitem(int no) {
+	public boolean deleteOrderBean(int no) {
 		
 		boolean result = false;
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			dao.deleteOrderitem(no);
-			tx.commit();
+
+			dao.deleteOrderBean(no);
+
 			result = true;
-		}catch (Exception ex) {
-				if(tx != null) {
-					tx.rollback();
-					result = false;
-				}
-				ex.printStackTrace();
-			}
+
 		return result;		
 	}
 	
 	
 	@Override
-	public OrderBean selectUpdateitem(int ino) {
-		
-		OrderBean order = new OrderBean();
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			dao.selectUpdateitem(ino);
-			tx.commit();
-			
-		}catch (Exception ex) {
-				if(tx != null) {
-					tx.rollback();
-					
-				}
-				ex.printStackTrace();
-			}
+	public OrderBean selectUpdateBean(int ino) {		
+
+		OrderBean order = dao.selectUpdateBean(ino);
+
 		return order;
 	}
-	
-	
-	
+
+			
 }

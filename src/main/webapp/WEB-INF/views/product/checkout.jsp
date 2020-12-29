@@ -11,14 +11,15 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link REL=STYLESHEET HREF="css/cart.css" TYPE="text/css">
+<link REL=STYLESHEET HREF="${pageContext.request.contextPath}/css/cart.css" TYPE="text/css">
 <title>購物車</title>
 </head>
 <%@include file="../jspf/header.jspf"%>
 	
-	<fieldset>
-      <h3><strong>購物清單</strong></h3>
-      <table id="tab" border="1" cellspacing="0" cellpadding="5">
+	<fieldset style="margin: auto; position: relative; top: 50px; width: 500px; border: 1px solid transparent;">
+      <h4><strong>購物清單</strong></h4>
+      <br>
+      <table id="tab" border="2" cellspacing="0" cellpadding="5">
          <tr>
             <th>商品</th>
             <th>內容</th>
@@ -49,7 +50,7 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
       </table>
       <br />
  	  <div style="text-align: center;" >
-      <form name="checkoutForm" action="ControllerServlet" method="POST">
+      <form name="checkoutForm" action="<c:url value='/orderInsert' />" method="get">
          <input type="hidden" name="todo" value="commit"><!-- hidden隱藏欄位 -->
          <input type="submit" value="送出訂單">
          

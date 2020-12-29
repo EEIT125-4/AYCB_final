@@ -59,6 +59,9 @@
 						<c:out value="</ul>" escapeXml='false' />
 					</c:if>
 				</c:forEach>
+				<div>
+					<a href='<c:url value="/Manager" />'>後台</a>
+				</div>
 			</div>
 		</div>
 		<div class="rightoutbox">
@@ -72,7 +75,7 @@
 					<div class="buttonbox">
 						<div class="proprice">NT$ ${pro.productprice}</div>
 						<div class="cart">
-							<a href=""> <img class="cartimg" src="image/bg_cart_b.svg">
+							<a href="<c:url value='/cartAdd?productno=${pro.productno}&count=1' />"> <img class="cartimg" src="image/bg_cart_b.svg">
 							</a>
 						</div>
 					</div>

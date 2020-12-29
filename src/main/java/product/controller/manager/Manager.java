@@ -17,7 +17,7 @@ import product.model.ProductBean;
 import product.service.ProductService;
 
 
-@WebServlet("/Manager")
+//@WebServlet("/Manager")
 public class Manager extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

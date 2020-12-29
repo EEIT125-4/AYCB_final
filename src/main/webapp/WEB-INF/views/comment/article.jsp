@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
 
@@ -7,38 +8,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="../css/comment.css" />
+
 <title>美誌分享</title>
 </head>
 <%@include file="../jspf/header.jspf"%>
-	<div>
-		<div
-			style="float: left; width:20%; text-align: center; position: relative; top: 200px;">
-			<dl>
-				<dt>
-					<h2>討論區</h2>
-				</dt>
-				<hr width=70% size=1 color=#BFBFBF
-					style="FILTER: alpha(opacity = 100, finishopacity = 0, style = 3)">
-				<dt>
-					<A class="a1" href="../DeleteServlet1">
-						<h2>查詢留言</h2>
-					</A>
-				</dt>
-				<dt>
-					<A class="a1" href="${pageContext.request.contextPath}/comment/displayBoard.jsp">
-						<h2>留言專區</h2>
-					</A>
-				</dt>
-				<dt>
-					<A class="a1" href="#">
-						<h2>影音專區</h2>
-					</A>
-				</dt>
-			</dl>
-		</div>
-	</div>
-
-
+<%@include file ="../jspf/commentSide.jspf" %>
+	
+	
 	<fieldset class="article">
 		<h2>心得分享</h2>
 		<h5>Article Sharing</h5>

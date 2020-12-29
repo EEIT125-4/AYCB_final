@@ -1,14 +1,19 @@
 package product.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "Product")
-public class ProductBean {
+public class ProductBean implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer productno;
@@ -20,25 +25,25 @@ public class ProductBean {
 	private String productcategory;
 	private String skintype;
 	private Double productprice;
-	//圖片
+	private String imagepath;
+
+	@Transient
+	private MultipartFile productimage;  	
+	
+	@Transient
+	public MultipartFile getProductimage() {
+		return productimage;
+	}
+
+	@Transient
+	public void setProductimage(MultipartFile productimage) {
+		this.productimage = productimage;
+	}
 
 	public ProductBean() {
 		super();
 	}
 
-	public ProductBean(String brandno, String brandname, String producttype, String productname,
-			String productseries, String productcategory, String skintype, Double productprice) {
-		super();
-		this.brandno = brandno;
-		this.brandname = brandname;
-		this.producttype = producttype;
-		this.productname = productname;
-		this.productseries = productseries;
-		this.productcategory = productcategory;
-		this.skintype = skintype;
-		this.productprice = productprice;
-	}
-	
 	public ProductBean(Integer productno, String brandno, String brandname, String producttype, String productname,
 			String productseries, String productcategory, String skintype, Double productprice) {
 		super();
@@ -77,6 +82,8 @@ public class ProductBean {
 		builder.append("]");
 		return builder.toString();
 	}
+
+	
 
 	public Integer getProductno() {
 		return productno;
@@ -149,5 +156,14 @@ public class ProductBean {
 	public void setProductprice(Double productprice) {
 		this.productprice = productprice;
 	}
+	
+	
 
+	public String getImagepath() {
+		return imagepath;
+	}
+
+	public void setImagepath(String imagepath) {
+		this.imagepath = imagepath;
+	}
 }

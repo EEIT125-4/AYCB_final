@@ -100,18 +100,22 @@ types = (List<String>) request.getAttribute("types");
 		<input type="button" value="篩選訊息" onclick="search()"> <br>
 		<!-- 實際跳轉交給javascript處理 -->
 		<a href="" onclick="checkLogin()">查看訂閱設定</a>
+		<br>
+				<button onclick="sendEmail()">發送email</button>
+
 
 	</aside>
 
 	<%
 		for (int i = 0; i < list.size(); i++) {
 	%>
-	<form action="<c:url value='/message/update'/>" method="post" >
+	<form action="<c:url value='/message/update_step'/>" method="post">
 		<article class="article">
-			<h1 name="title" class="t1"><%=list.get(i).getMsg_title()%></h1>
-			<h2 name="type" class="t2"><%=list.get(i).getMsg_type()%></h2>
+			<h3 name="title" class="t1"><%=list.get(i).getTitle()%></h3>
+			<h4 name="type" class="t2"><%=list.get(i).getType()%></h4>
 
-			<input type="hidden" name="id" value=<%=list.get(i).getMsg_id()%>>
+			<input type="hidden" name="id" value=<%=list.get(i).getId()%>>
+
 			<input class="editbtn" type=<%=(editable) ? "submit" : "hidden"%>
 				name="submit" value="edit"> <input class="editbtn"
 				type=<%=(editable) ? "submit" : "hidden"%> name="submit"
@@ -120,17 +124,20 @@ types = (List<String>) request.getAttribute("types");
 			<%--onclick="replyClick()" --%>
 
 			<figure class="msgfigure">
-				<img class="img1" alt="圖片待補" title=<%= list.get(i).getMsg_title() %>
+				<img class="img1" alt="圖片待補" title=<%= list.get(i).getTitle() %>
 					onerror="javascript:this.src='${pageContext.request.contextPath}/image/noImage.jpg'"
-					loading="lazy" src='<%= list.get(i).getMsg_imgpath() %>' />
-				<figcaption class="msgfigcaption"><%=list.get(i).getMsg_title()%></figcaption>
+					src='${pageContext.request.contextPath}/pic/<%= list.get(i).getImageid() %>' />
+				<%
+					System.out.println("imageid:" + list.get(i).getImageid());
+				%>
+				<figcaption class="msgfigcaption"><%=list.get(i).getTitle()%></figcaption>
 			</figure>
-			<p class="msgp"><%=list.get(i).getMsg_id()%></p>
+			<p class="msgp"><%=list.get(i).getId()%></p>
 			<p class="msgp">
-				<textarea class="editable" name=title disabled><%=list.get(i).getMsg_desc()%></textarea>
+				<textarea class="editable" name=title disabled><%=list.get(i).getContent()%></textarea>
 			</p>
 
-			<p><%=list.get(i).getMsg_imgpath()%></p>
+			<p><%=list.get(i).getImgpath()%></p>
 			<p>會員回覆列</p>
 
 		</article>
@@ -161,9 +168,7 @@ types = (List<String>) request.getAttribute("types");
 			alert('請先登入');
 		} else {
 			window.location.href = '/SubScriptServlet';
-
 		}
-
 	}
 
 	//   
@@ -185,6 +190,35 @@ types = (List<String>) request.getAttribute("types");
 				+ "&count="
 				+ select_count + "&word=" + select_word;
 
+	}
+	
+	function sendEmail(){
+		
+		
+		$.ajax({
+
+			type : "get",
+			url : "${pageContext.request.contextPath}/email",
+			// 		contentType: "application/json; charset=utf-8",
+					dataType:"text",
+			success : function(data) {
+				
+				alert("email sent");
+// 				console.log("email sent");
+				console.log(data);
+				console.log(typeof (data));
+
+				
+			},
+			error : function() {
+				alert("send fail");
+			}
+
+		})
+		
+		
+		
+		
 	}
 
 	function getTypes() {
@@ -238,73 +272,7 @@ types = (List<String>) request.getAttribute("types");
 		})
 	})
 
-	$('.msgTypes').on(
-			'focus',
-			getTypes() 
-// 			{
-// 				let type = this.id;
-
-// 				$.ajax({
-
-// 					type : "get",
-// 					url : "${pageContext.request.contextPath}/message/types",
-// 					// 		contentType: "application/json; charset=utf-8",
-// 					// 		dataType:"text",
-// 					success : function(data) {
-// 						console.log("success");
-// 						console.log(data);
-// 						console.log(typeof (data));
-
-// 						console.log(type.innerHTML);
-// 						$('#type').empty();
-// 						$('#type').append(
-// 								"<option value='' disabled='' selected='' hidden=''>選擇訊息類別</option>"
-// 										+ "<option value=''>All</option>");
-
-// 						for (let i = 0; i < data.length; i++) {
-// 							console.log("data:" + i + data[i]);
-// 							$('#type').append(
-// 									"<option value="+data[i]+">" + data[i]
-// 											+ "</option>");
-// 						}
-
-// 						console.log("should get types: " + data);
-// 					},
-// 					error : function() {
-// 						console.log("error");
-// 					}
-
-// 				})
-// 			}
-			
-	);
-
-	// 			for(var r in data){
-	// 				console.log("r:"+JSON.stringify(r));
-	// 			}
-
-	//let arr=Array.from(data);
-	// 			let arr=[];
-	// 			for(let s in data){
-	// 				arr.push(data[s]);
-	// 				console.log("s:"+s);
-
-	// 			}
-	// 			console.log("arr:"+arr);
-
-	// 			var list=JSON.stringify(data);
-	// 			console.log("list type: "+typeof(list))
-	// 			let arr2=list.split(",");
-	// 			console.log("arr type: "+typeof(arr2));
-	// 			for(let i=0;i<arr2.length;i++){
-	// 				let index=i;
-	// 				let value=arr2[i];
-	// 				console.log("arr2 index:"+i+" "+arr2[i]);
-	// 			}
-	// 			for(let i=0;i<list.length;i++){
-	// 				console.log(`content${i}=${list[i]}`);
-	// 			}
-	// 			console.log(list);
+	$('.msgTypes').on('focus', getTypes());
 </script>
 </body>
 </html>

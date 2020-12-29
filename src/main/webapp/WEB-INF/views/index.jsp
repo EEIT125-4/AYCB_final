@@ -14,12 +14,19 @@
 <%@include file="jspf/header.jspf"%>
 <div class="adbox">
 	<ul class="adbox_slides">
-		<li><img src="image/ad1.jpg"></li>
-		<li><img src="image/ad2.png"></li>
+		<c:forEach var="item" varStatus='vs' items="${list}">
+		
+		<li><a href='<c:url value="/Detail" />?no=${item.productno}'><img src="image/${item.productname}.png"></a></li>
+		
+					
+				</c:forEach>
 	</ul>
 	<ul class="adbox_dot">
-		<li id="1"></li>
-		<li id="2"></li>
+	<c:forEach var="id" varStatus='vs' items="${list}">
+	
+		<li id="${id.productno}"></li>
+		
+		</c:forEach>
 	</ul>
 	<div id="prevbtn" class="adbox_btn">
 		<i class="fa fa-chevron-left"></i>
