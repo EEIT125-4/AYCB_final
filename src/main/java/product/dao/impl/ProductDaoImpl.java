@@ -19,7 +19,7 @@ public class ProductDaoImpl implements ProductDao {
 	@Autowired
 	SessionFactory factory;
 
-	private int recordsPerPage = 10;
+	private int recordsPerPage = 20;
 
 	@Override
 	public void saveProduct(ProductBean pb) {
@@ -232,7 +232,7 @@ public class ProductDaoImpl implements ProductDao {
 		String hql = "FROM ProductBean";
 		Session session = factory.getCurrentSession();
 		Query<ProductBean> query = session.createQuery(hql);
-		list = query.setFirstResult(startRecordNo).setMaxResults(10).getResultList();
+		list = query.setFirstResult(startRecordNo).setMaxResults(20).getResultList();
 		return list;
 	}
 

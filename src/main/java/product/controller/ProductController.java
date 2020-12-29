@@ -125,4 +125,18 @@ public class ProductController {
 		List<String> list = ps.getSeriesByBrand(brandname);
 		return list;
 	}
+	
+	@GetMapping(value = "/GetProductsBySeries", produces = "application/json")
+	public @ResponseBody List<ProductBean> getProductsBySeries(
+			@RequestParam("series") String series
+	){
+		List<ProductBean> list = ps.getSeriesProduct(series);
+		return list;
+	}
+	
+	@GetMapping(value = "/GetBrand", produces = "application/json")
+	public @ResponseBody List<String> getBrand(){
+		List<String> list = ps.getBrand();
+		return list;
+	}
 }

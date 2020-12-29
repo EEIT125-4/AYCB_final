@@ -65,7 +65,7 @@
 			<c:forEach var="pro" items="${Products}">
 				<div class="rightside">
 					<div class="imgbox">
-						<div class="like"><a class="like_a" href=""><i class="fa fa-heart nopadding"></i></a></div>
+<!-- 						<div class="like"><a class="like_a" href=""><i class="fa fa-heart nopadding"></i></a></div> -->
 						<a href='<c:url value="/Detail" />?no=${pro.productno}'><img
 							class="proimg" src="image/${pro.productname}.png"></a>
 					</div>

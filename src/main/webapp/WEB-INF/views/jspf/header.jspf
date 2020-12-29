@@ -20,21 +20,39 @@ if (mb != null) {
 
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="icon" href="${pageContext.request.contextPath}/image/logo.ico" type="image/x-icon">
+<link rel="icon"
+	href="${pageContext.request.contextPath}/image/logo.ico"
+	type="image/x-icon">
 <!-- Google Font -->
-<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
+<link
+	href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
 	rel="stylesheet">
-	
+
 
 <!-- Css Styles -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/elegant-icons.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/magnific-popup.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/nice-select.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.carousel.min.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/slicknav.min.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type="text/css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/bootstrap.min.css"
+	type="text/css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/font-awesome.min.css"
+	type="text/css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/elegant-icons.css"
+	type="text/css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/magnific-popup.css"
+	type="text/css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/nice-select.css"
+	type="text/css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/owl.carousel.min.css"
+	type="text/css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/slicknav.min.css"
+	type="text/css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/style.css" type="text/css">
 <body>
 	<!-- Page Preloder -->
 	<!--     <div id="preloder"> -->
@@ -42,12 +60,11 @@ if (mb != null) {
 	<!--     </div> -->
 
 	<!-- Offcanvas Menu Begin -->
-	<div class="offcanvas-menu-overlay"></div> 
+	<div class="offcanvas-menu-overlay"></div>
 	<div class="offcanvas-menu-wrapper">
 		<div class="offcanvas__option">
 			<div class="offcanvas__links">
-				<a href="#">登入</a> 
-				<a href="#">FAQs</a>
+				<a href="#">登入</a> <a href="#">FAQs</a>
 			</div>
 			<div class="offcanvas__top__hover">
 				<span>Usd <i class="arrow_carrot-down"></i></span>
@@ -59,9 +76,13 @@ if (mb != null) {
 			</div>
 		</div>
 		<div class="offcanvas__nav__option">
-			<a href="#" class="search-switch"><img src="${pageContext.request.contextPath}/image/icon/search.png" alt=""></a>
-			<a href="#"><img src="${pageContext.request.contextPath}/image/icon/heart.png" alt=""></a>
-			<a href="#"><img src="${pageContext.request.contextPath}/image/icon/cart.png" alt=""> <span>0</span></a>
+			<a href="#" class="search-switch"><img
+				src="${pageContext.request.contextPath}/image/icon/search.png"
+				alt=""></a> <a href="#"><img
+				src="${pageContext.request.contextPath}/image/icon/heart.png" alt=""></a>
+			<a href="#"><img
+				src="${pageContext.request.contextPath}/image/icon/cart.png" alt="">
+				<span>0</span></a>
 			<div class="price">$0.00</div>
 		</div>
 		<div id="mobile-menu-wrap"></div>
@@ -74,22 +95,24 @@ if (mb != null) {
 	<!-- Header Section Begin -->
 	<header class="header">
 		<div class="header__top" style="background-color: black">
-			<div class="container" >
+			<div class="container">
 				<div class="row">
 					<div class="col-lg-6 col-md-7">
-						<div class="header__top__left" >
-							<a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/image/logo.png"></a>
-<%-- 							<a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/image/2.png"></a> --%>
+						<div class="header__top__left">
+							<a href="${pageContext.request.contextPath}/"><img
+								src="${pageContext.request.contextPath}/image/logo.png"></a>
+							<%-- 							<a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/image/2.png"></a> --%>
 						</div>
 					</div>
 					<div class="col-lg-6 col-md-5">
 						<div class="header__top__right">
 							<div class="header__top__links">
-								<a id="login" href="${pageContext.request.contextPath}/<%=(mb==null)?"member/login":"member/update.jsp" %>"><%=(mb == null) ? "登入/註冊" : mb.getName()%></a>
-								<a  href="<c:url value='/car'/>">購物車</a>							
-								<a id="logout" href='${pageContext.request.contextPath}/Logout'>登出</a>
-<!-- 							    <a id="user"  href=''>訪客</a> -->
-									
+								<a id="login"
+									href="${pageContext.request.contextPath}/<%=(mb==null)?"member/login":"member/update.jsp" %>"><%=(mb == null) ? "登入/註冊" : mb.getName()%></a>
+								<a href="<c:url value='/car'/>">購物車</a> <a id="logout"
+									href='${pageContext.request.contextPath}/Logout'>登出</a>
+								<!-- 							    <a id="user"  href=''>訪客</a> -->
+
 							</div>
 							<div class="header__top__hover"></div>
 						</div>
@@ -99,28 +122,23 @@ if (mb != null) {
 		</div>
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-3 col-md-3">					
+				<div class="col-lg-3 col-md-3">
 					<div class="header__logo">
-<%-- 						<a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/image/logo.png"></a> --%>
+						<%-- <a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/image/logo.png"></a> --%>
 					</div>
 				</div>
 				<div class="col-lg-6 col-md-6">
 					<nav class="header__menu mobile-menu">
 						<ul>
-							<li><a href="${pageContext.request.contextPath}/message/query">訊息中心</a>
+							<li><a
+								href="${pageContext.request.contextPath}/message/query">訊息中心</a>
 							<li><a href='<c:url value="/AllProducts"/>'>保養品</a>
 								<div>
-									<ul class="dropdown">
+									<ul id="area" class="dropdown">
 										<c:forEach var="cate" varStatus='vs' items="${cate}">
-											<li >
-											<a  href='<c:url value="/Cate" />?cate=${cate}'>${cate}</a>
+											<li><a href='<c:url value="/Cate" />?cate=${cate}'>${cate}</a>
 											</li>
 										</c:forEach>
-										<!--                                     <li><a href="./about.html">About Us</a></li> -->
-										<!--                                     <li><a href="./shop-details.html">Shop Details</a></li> -->
-										<!--                                     <li><a href="./shopping-cart.html">Shopping Cart</a></li> -->
-										<!--                                     <li><a href="./checkout.html">Check Out</a></li> -->
-										<!--                                     <li><a href="./blog-details.html">Blog Details</a></li> -->
 									</ul>
 								</div></li>
 							<li><a href="${pageContext.request.contextPath}/comment/">討論區</a></li>
@@ -130,12 +148,13 @@ if (mb != null) {
 				</div>
 				<div class="col-lg-3 col-md-3">
 					<div class="header__nav__option">
-						<a href="#" class="search-switch">
-						<img src="${pageContext.request.contextPath}/image/icon/search.png" alt=""></a>
-						<a href="#">
-						<img src="${pageContext.request.contextPath}/image/icon/heart.png" alt=""></a>
-						<a href="#">
-						<img src="${pageContext.request.contextPath}/image/icon/cart.png" alt=""> <span></span></a>							
+						<a href="#" class="search-switch"> <img
+							src="${pageContext.request.contextPath}/image/icon/search.png"
+							alt=""></a> <a href="#"> <img
+							src="${pageContext.request.contextPath}/image/icon/heart.png"
+							alt=""></a> <a href="#"> <img
+							src="${pageContext.request.contextPath}/image/icon/cart.png"
+							alt=""> <span></span></a>
 						<div class="price"></div>
 					</div>
 				</div>
@@ -162,15 +181,18 @@ if (mb != null) {
 		// 			document.getElementById("login").style.display = "block";
 		// 			document.getElementById("logout").style.display = "none";
 		// 		}
-	
 	</script>
 	<script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/jquery.nice-select.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/jquery.nicescroll.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/jquery.magnific-popup.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/jquery.countdown.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/jquery.slicknav.js"></script>
-    <script src="${pageContext.request.contextPath}/js/mixitup.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/main.js"></script>
+	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/jquery.nice-select.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/jquery.nicescroll.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/jquery.magnific-popup.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/jquery.countdown.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.slicknav.js"></script>
+	<script src="${pageContext.request.contextPath}/js/mixitup.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/main.js"></script>
