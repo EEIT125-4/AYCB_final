@@ -52,9 +52,7 @@ public class Attendance{
 		this.aid = aid;
 	}
 
-	
 
-	
 
 	public String getPhone() {
 		return phone;
