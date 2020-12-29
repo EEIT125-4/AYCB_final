@@ -32,7 +32,7 @@
 						</A>
 					</dt>
 					<dt class="a1">
-						<a href='attendanceForm'><h2>報名參加</h2></a>	
+						<a href="<c:url value='showAllAttendanceByID'/>?id=${member.id}"><h2>查詢會員報名</h2></a>	
 					</dt>
 					<dt class="a1">
 						<A href='showAttendance'><h2>查詢報名</h2></A>	

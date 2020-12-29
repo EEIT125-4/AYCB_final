@@ -22,11 +22,10 @@ public class Attendance{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer aid;
-	
 	String phone;
 	String mailaddress;
 	String pax;
-	//String eventid;
+
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn

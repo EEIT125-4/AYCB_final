@@ -127,7 +127,7 @@ if (mb != null) {
 									</ul>
 								</li>
 							<li><a href="${pageContext.request.contextPath}/comment/">討論區</a></li>
-							<li><a href="${pageContext.request.contextPath}/event/">預約活動</a></li>
+							<li><a href="${pageContext.request.contextPath}/event/showEvent">預約活動</a></li>
 						</ul>
 					</nav>
 				</div>
