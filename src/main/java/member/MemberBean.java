@@ -42,6 +42,11 @@ public class MemberBean implements Serializable {
 	private String email;
 	@Column(columnDefinition = "nvarchar(Max)")
 	private String gender;
+	
+	private Integer level;
+	
+	private Integer iconid;
+	
 	@ManyToMany(mappedBy = "member",cascade = CascadeType.ALL)
 	Set<Record>records=new HashSet<Record>();
 	
@@ -129,6 +134,58 @@ public class MemberBean implements Serializable {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
+	
+	
+
+	public Integer getLevel() {
+		return level;
+	}
+
+	public void setLevel(Integer level) {
+		this.level = level;
+	}
+
+	public Integer getIconid() {
+		return iconid;
+	}
+
+	public void setIconid(Integer iconid) {
+		this.iconid = iconid;
+	}
+
+
+
+	public MemberBean(Integer id, String account, String name, String password, String address, String phone,
+			Date birthday, String email, String gender) {
+		super();
+		id = id;
+		this.account = account;
+		this.name = name;
+		this.password = password;
+		this.address = address;
+		this.phone = phone;
+		this.birth = birthday;
+		this.email = email;
+		this.gender = gender;
+     
+	}
+
+	public MemberBean(Integer id, String account, String name, String password, String address, String phone,
+			Date birth, String email, String gender, Integer level, Integer iconid, Set<Record> records) {
+		super();
+		this.id = id;
+		this.account = account;
+		this.name = name;
+		this.password = password;
+		this.address = address;
+		this.phone = phone;
+		this.birth = birth;
+		this.email = email;
+		this.gender = gender;
+		this.level = level;
+		this.iconid = iconid;
+		this.records = records;
+	}
 
 	@Override
 	public String toString() {
@@ -151,25 +208,18 @@ public class MemberBean implements Serializable {
 		builder.append(email);
 		builder.append(", gender=");
 		builder.append(gender);
-		builder.append(", boss=");
-		builder.append(boss);
+		builder.append(", level=");
+		builder.append(level);
+		builder.append(", iconid=");
+		builder.append(iconid);
+		builder.append(", records=");
+		builder.append(records);
 		builder.append("]");
 		return builder.toString();
 	}
-
-	public MemberBean(Integer id, String account, String name, String password, String address, String phone,
-			Date birthday, String email, String gender, String boss) {
-		super();
-		id = id;
-		this.account = account;
-		this.name = name;
-		this.password = password;
-		this.address = address;
-		this.phone = phone;
-		this.birth = birthday;
-		this.email = email;
-		this.gender = gender;
-        this.boss =boss;		
-	}
+	
+	
+	
+	
 
 }

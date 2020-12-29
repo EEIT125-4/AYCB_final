@@ -27,6 +27,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.wf.captcha.SpecCaptcha;
+import com.wf.captcha.utils.CaptchaUtil;
+
 import antlr.build.Tool;
 import member.MemberBean;
 import member.Service.MemberService;
