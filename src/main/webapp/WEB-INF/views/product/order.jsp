@@ -22,20 +22,21 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 <%@include file="../jspf/header.jspf"%>
 
 
-<div style="position: relative; top: 200px; left: 30px; width: 150px;">
+<div style="position: relative; left: 30px; width: 150px;">
  	<% 
  		MemberBean member = (MemberBean) session.getAttribute("member");
  	%> 
 
   	<span style="border-bottom: 2px solid gray; width: 150px;"> 
-	<strong><%=member.getName() + "       "%>您好!</strong></span><br> <A style="color: black;" href="<c:url value='/orderSelect' />"><h3>查詢歷史清單</h3></A> 
+	<strong><h5><%=member.getName() +  "   "%>您好!</h5></strong></span><br> <A style="color: black;" href="<c:url value='orderManagement' />"><h5>查詢歷史清單</h5></A> 
  </div> 
 
+<div class='shopingcart'>
+<fieldset style="float: auto; margin: auto; position: relative; width: 500px; border: 1px solid transparent;">
+	
+	<h4><strong>您購物車中的商品</strong></h4>
+	<br>
 
-<fieldset style="float: auto;">
-	<h3>
-		<strong>您購物車中的商品</strong>
-		</h3>
 			<%
 				// Check whether the shopping cart is empty.
 			List<CartItem> theCart = (List<CartItem>) session.getAttribute("cart");
@@ -44,7 +45,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 			%>
 
 
-			<table id="tab" border="1" cellspacing="0" cellpadding="5">
+			<table id="tab" border="2" cellspacing="0" cellpadding="5">
 				<tr>
 					<th>商品</th>
 					<th>內容</th>
@@ -76,9 +77,9 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 					} // for loop
 				%>
 			</table>
-			<br />
-
-
+			
+			<br>
+		
 			<div style="text-align: center;">
 				<form id="butt" name="shoppingForm" action="${pageContext.request.contextPath}/shopping"
 					method="get">
@@ -86,19 +87,20 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 					<button id="butt" type="submit" name="todo" value="checkout">結帳</button>
 				</form>
 			</div>
+			<br>
+		</fieldset>
+		</div>
 			<%
 				} else {
 			%>
-			<h4>
-				目前無商品加入
-				</h4>
+			<h4>目前無商品加入</h4>
 
-					<%
+				<%
 						response.setHeader("Refresh", "2;AllProducts");
 					}
-					%>
+				%>
 				
-</fieldset>
+
 <%@include file="../jspf/footer.jspf"%>
 </body>
 </html>

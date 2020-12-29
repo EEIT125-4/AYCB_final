@@ -16,9 +16,10 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
 </head>
 <%@include file="../jspf/header.jspf"%>
 	
-	<fieldset>
-      <h3><strong>購物清單</strong></h3>
-      <table id="tab" border="1" cellspacing="0" cellpadding="5">
+	<fieldset style="margin: auto; position: relative; top: 50px; width: 500px; border: 1px solid transparent;">
+      <h4><strong>購物清單</strong></h4>
+      <br>
+      <table id="tab" border="2" cellspacing="0" cellpadding="5">
          <tr>
             <th>商品</th>
             <th>內容</th>

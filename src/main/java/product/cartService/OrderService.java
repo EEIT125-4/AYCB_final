@@ -3,19 +3,24 @@ package product.cartService;
 import java.util.List;
 
 import product.cartModel.OrderBean;
+import product.cartModel.OrderItemBean;
 import product.cartModel.ProductDB;
 
 public interface OrderService {
+	
+	List<OrderBean> selectAllOrder();
+	
+	List<OrderBean> selectOrderBean(String name);
+	
+	List<OrderItemBean> selectOrderItem(int no);
 
-	List<OrderBean> selectOrderitem(String name);
+	boolean insertOrderBean(OrderBean order);
 
-	boolean insertOrderitem(OrderBean order);
+	boolean updateOrderBean(OrderBean order);
 
-	boolean updateOrderitem(OrderBean order);
+	boolean deleteOrderBean(int no);
 
-	boolean deleteOrderitem(int no);
-
-	OrderBean selectUpdateitem(int ino);
+	OrderBean selectUpdateBean(int ino);
 	
 	ProductDB getProductDB();
 

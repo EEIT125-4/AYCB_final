@@ -48,8 +48,7 @@
 			<Table>
 				<TR>
 					<TD align="RIGHT">活動ID：</TD>
-					<TD align="LEFT">
-					<input type="text" name="eventid" value="${attendance.eventid}${param.eventid}" size="30">
+					<TD align="LEFT"><input type="text" name="eventid" value="${attendance.eventid}${param.eventid}" size="30">
 				    <font color='red' size='-3'>${error.eid}</font></TD>
 						
 				</TR>

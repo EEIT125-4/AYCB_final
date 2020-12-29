@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import member.MemberBean;
 import product.cartModel.CartItem;
 import product.cartModel.ProductDB;
 import product.cartService.OrderService;
@@ -25,7 +26,15 @@ public class CarWorkingController {
 	OrderService os;
 
 	@GetMapping("/car")
-	public String Car() {
+	public String Car(HttpSession session) {
+		
+		MemberBean mb = (MemberBean) session.getAttribute("member");
+		if (mb != null ) {
+			System.out.println("member:" + mb.getName());
+		}else {
+			return "member/login";
+		}
+				
 		return "product/order";
 	}
 
@@ -75,7 +84,7 @@ public class CarWorkingController {
 		}
 
 		System.out.println("準備前往購物車");
-		return "redirect:/add";
+		return "redirect:AllProducts";
 	}
 
 	@GetMapping("/add")

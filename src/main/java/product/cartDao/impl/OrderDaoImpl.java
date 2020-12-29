@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import product.cartDao.OrderDao;
 import product.cartModel.OrderBean;
+import product.cartModel.OrderItemBean;
 import product.cartModel.ProductDB;
 import product.model.ProductBean;
 
@@ -49,19 +50,28 @@ public class OrderDaoImpl implements OrderDao {
 			priceList.add(p.getProductprice());
 			// System.out.println(p.getProductprice());
 		}
-
 		ProductDB PD = new ProductDB();
 
 		PD.setProductName(nameList);
 		PD.setProductPrice(priceList);
 
 		return PD;
-
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<OrderBean> selectAllOrder() {
+		
+		List<OrderBean> list = new ArrayList<OrderBean>();
+		Session session = factory.getCurrentSession();
+		String hql = "FROM OrderBean";
+		list = session.createQuery(hql).getResultList();
+		return list;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<OrderBean> selectOrderitem(String name) {
+	public List<OrderBean> selectOrderBean(String name) {
 
 		List<OrderBean> list = new ArrayList<OrderBean>();
 		String hq1 = "FROM OrderBean o WHERE o.customerId = :name";
@@ -72,9 +82,32 @@ public class OrderDaoImpl implements OrderDao {
 		return list;
 
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	@Override	
+	public List<OrderItemBean> selectOrderItem(int no){
+		
+		List<OrderItemBean> list = new ArrayList<OrderItemBean>();
+		String sql = "SELECT * FROM OrderItems WHERE fkOrderNo = " + no;
+		Session session = factory.getCurrentSession();
+		
+		list = session.createNativeQuery(sql).addEntity(OrderItemBean.class).getResultList();
+		
+//		for(OrderItemBean item : list) {
+//			item.getProductNo();
+//			System.out.println("ProductNo"+item.getProductNo());
+//			item.getProductName();
+//			System.out.println("ProductName"+item.getProductName());
+//			item.getProductPrice();
+//			System.out.println("ProductPrice"+item.getProductPrice());
+//			item.getQuantity();
+//			System.out.println("Quantity"+item.getQuantity());
+//		}		
+		return list;		
+	}
+	
 	@Override
-	public boolean insertOrderitem(OrderBean order) {
+	public boolean insertOrderBean(OrderBean order) {
 
 		Session session = factory.getCurrentSession();
 		session.save(order);
@@ -83,7 +116,7 @@ public class OrderDaoImpl implements OrderDao {
 	}
 
 	@Override
-	public boolean updateOrderitem(OrderBean order) {
+	public boolean updateOrderBean(OrderBean order) {
 
 		Session session = factory.getCurrentSession();
 		session.update(order);
@@ -92,7 +125,7 @@ public class OrderDaoImpl implements OrderDao {
 	}
 
 	@Override
-	public boolean deleteOrderitem(int no) {
+	public boolean deleteOrderBean(int no) {
 
 		Session session = factory.getCurrentSession();
 		OrderBean order = new OrderBean();
@@ -104,7 +137,7 @@ public class OrderDaoImpl implements OrderDao {
 	}
 
 	@Override
-	public OrderBean selectUpdateitem(int ino) {
+	public OrderBean selectUpdateBean(int ino) {
 
 		Session session = factory.getCurrentSession();
 		OrderBean order = session.get(OrderBean.class, ino);
@@ -112,5 +145,6 @@ public class OrderDaoImpl implements OrderDao {
 		return order;
 
 	}
+
 
 }

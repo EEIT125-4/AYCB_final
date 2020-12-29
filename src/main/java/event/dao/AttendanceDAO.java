@@ -24,6 +24,10 @@ public interface AttendanceDAO {
 	        void updateAttendance(Attendance a);
 			
 	        List<Attendance> getAllAttendance();
+	        
+	        List<Attendance> getAllAttendancebyID(Integer id);
+	        
+	      
 
 	        
 	        
