@@ -7,7 +7,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/comment.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/comment.css">
 <meta charset="UTF-8">
 <title>上傳影片</title>
 </head>
@@ -20,11 +21,28 @@
 	margin-left: 500px;
 }
 </style>
+<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-blog set-bg"
+	data-setbg="${pageContext.request.contextPath}/image/breadcrumb-bg2.jpg">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<h2>影片上傳</h2>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- Breadcrumb Section End -->
+
 <div class='center' style='position: relative; top: 200px;'>
 	<form:form method="POST" modelAttribute="video"
 		enctype='multipart/form-data'>
 		<fieldset class="updateform">
-		<legend class="title">影片上傳</legend>
+			<legend class="title">影片上傳</legend>
 			<p>
 				<label class="t1" for="">上傳者:</label>
 				<form:input type="text" path="member" value="${member.name}"
@@ -47,10 +65,10 @@
 			</p>
 
 			<p>
-			<input type="hidden" name="id" value="${id}">
+				<input type="hidden" name="id" value="${id}">
 			</p>
 			<p>
-			<input type="hidden" name="videoId" value="${videoId}">
+				<input type="hidden" name="videoId" value="${videoId}">
 			</p>
 			<input type="submit" name="confirmupdate" value="送出">
 

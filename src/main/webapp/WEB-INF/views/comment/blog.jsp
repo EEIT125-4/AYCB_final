@@ -12,19 +12,9 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 
 <head>
 <meta charset="UTF-8">
-<meta name="description" content="Male_Fashion Template">
-<meta name="keywords" content="Male_Fashion, unica, creative, html">
+<meta name="description" content="blog">
+<meta name="keywords" content="blog, article, share, write">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- <link rel="stylesheet" href="../fonts/Elegantlcons.eot" /> -->
-<!-- <link rel="stylesheet" href="../fonts/Elegantlcons.svg" /> -->
-<!-- <link rel="stylesheet" href="../fonts/FontAwesome.otf" /> -->
-<!-- <link rel="stylesheet" href="../fonts/fontAwesome-webfont.eot" /> -->
-<!-- <link rel="stylesheet" href="../fonts/fontAwesome-webfont.svg" /> -->
-<!-- <link rel="stylesheet" href="../fonts/fontAwesome-webfont.ttf" /> -->
-<!-- <link rel="stylesheet" href="../fonts/fontAwesome-webfont.woff" /> -->
-<!-- <link rel="stylesheet" href="../fonts/fontAwesome-webfont.woff2" /> -->
-
-
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>美誌分享</title>
 </head>
@@ -50,10 +40,8 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 		</div>
 	</section>
 	<!-- Breadcrumb Section End -->
-<!-- 	<form:form method="POST" modelAttribute="blog" enctype='multipart/form-data'> -->
-
-<a class="a1"
-		href="${pageContext.request.contextPath}/blog/empty">
+	
+	<a class="a1" href="${pageContext.request.contextPath}/blog/empty">
 		<h3>我要上傳文章</h3>
 	</a>
 		<!-- Blog Section Begin -->
@@ -63,8 +51,6 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 				<c:forEach var='b' varStatus='bg' items='${blog}'>
 					<div class="col-lg-4 col-md-6 col-sm-6">
 						<div class="blog__item">
-							<div class="blog__item__pic set-bg"
-								data-setbg="img/blog/blog-1.jpg"></div>
 							<div class="blog__item__text">
 								<span><img src="image/icon/calendar.png" alt=""> ${b.commentTime}</span>
 								<h5>${b.title}</h5>
@@ -80,7 +66,6 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 			</div>
 		</section>
 
-<!-- 	</form:form> -->
 
 	<!-- Js Plugins -->
 <script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>

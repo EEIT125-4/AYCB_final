@@ -1,6 +1,7 @@
 package comment.controller;
 
-
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import comment.model.Blog;
 import comment.service.BlogService;
@@ -51,24 +53,28 @@ public class BlogController {
 		return "comment/blogForm";
 	}
 
-	//新增照片
-	@GetMapping("comment/blogForm")
-	public String add(@ModelAttribute("blog") Blog blog, BindingResult result, Model model,
-			HttpServletRequest request){
-		System.out.println("into blogForm");
-//			VideoValidator validator =new VideoValidator();
-//			validator.validate(video, result);
-			if(result.hasErrors()) {
-				return "comment/blogForm";
-			}
-			try {
+	//新增一筆部落格文章
+	@PostMapping("blog/empty")
+	public String add(@ModelAttribute("blog") Blog blog, Model model,
+			HttpServletRequest request,
+			@RequestParam(value = "commentTime", required = false) Date commentTime,
+			@RequestParam(value = "status", required = false) Integer status,
+			@RequestParam(value = "id", required = false) Integer id,
+			@RequestParam(value = "blogId", required = false) Integer blogId,
+			@RequestParam(value = "confirmupdate", required = false) String confirmupdate
+			){
+				System.out.println("into blogForm");
+				try {
+				// JAVA的Date轉SQL的Date
+				Timestamp time = new Timestamp(new Date().getTime());
+				java.sql.Date sqlDate = new java.sql.Date(time.getTime());
+				// SQL的Date轉JAVA的Date
+				java.util.Date utilDate = new java.util.Date();
+				utilDate.setTime(sqlDate.getTime());
+				blog.setCommentTime(sqlDate);
 				blogService.insertBlog(blog);
-			} catch (org.hibernate.exception.ConstraintViolationException e) {
-				// result.rejectValue("account", "", "帳號已存在，請重新輸入");
-				return "comment/blogForm";
 			} catch (Exception ex) {
 				System.out.println(ex.getClass().getName() + ", ex.getMessage()=" + ex.getMessage());
-				result.rejectValue("account", "", "請通知系統人員...");
 				return "comment/blogForm";
 			}
 			return "comment/blog";
@@ -82,6 +88,7 @@ public class BlogController {
 		return "comment/blogUpdate";
 	}
 
+	//更新一篇部落格文章
 	@PostMapping(value = "comment/${Blog.id}")
 	public String modify(@ModelAttribute("blog") Blog blog, BindingResult result, Model model,
 			@PathVariable Integer id, HttpServletRequest request) {
@@ -99,6 +106,7 @@ public class BlogController {
 		return "redirect:comment/blog";
 	}
 
+	//刪除一篇文章
 	@DeleteMapping(value = "comment/${Blog.id}")
 	public String delete(@PathVariable("id") Integer id) {
 		blogService.deleteBlog(id);

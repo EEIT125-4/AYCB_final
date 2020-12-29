@@ -3,7 +3,6 @@
 body {
 	margin: 0;
 	padding: 0;
-	background-image: url(../image/bg.jpg);
 }
 
 .board {
@@ -104,54 +103,6 @@ body {
 	top: 200px;
 }
 
-@
-keyframes glow { 0% {
-	border-color: #393;
-	box-shadow: 0 0 5px rgba(0, 255, 0, .2), inset 0 0 5px
-		rgba(0, 255, 0, .1), 0 1px 0 #393;
-}
-
-100
-%
-{
-border-color
-:
-#6f6;
-box-shadow
-:
-0
-0
-20px
-rgba(
-0
-,
-255
-,
-0
-,
-.6
-)
-,
-inset
-0
-0
-10px
-rgba(
-0
-,
-255
-,
-0
-,
-.4
-)
-,
-0
-1px
-0
-#6f6;
-}
-}
 .article {
 	float: right;
 	width: 80%;
@@ -178,12 +129,6 @@ rgba(
 
 .disscussarea {
 	float: left;
-}
-
-.selectrecord, .title1, .row {
-	background-color: #FFEEDD;
-	margin-left: 250px;
-	border: 1px solid black;
 }
 
 .selectrecord {
