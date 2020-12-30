@@ -39,7 +39,7 @@ public class TestOfProject {
 //		resetpassword();
 
 //		uploadImage();
-//		refreshPic();
+		refreshPic();
 //		testJson();
 		
 		

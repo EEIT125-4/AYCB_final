@@ -2,7 +2,6 @@
     width: 250px;
     position: relative;
     float: left;
-    top: 230px;
     left: 230px;
 }
 
@@ -89,7 +88,6 @@
     position: relative;
     float: left;
     margin-left: 20px;
-    top: 235px;
     left: 230px;
     border-left: 1px solid gray;
 }
@@ -102,6 +100,7 @@
 }
 
 .imgbox {
+	position: relative;
     margin: 10px;
 }
 
@@ -127,8 +126,8 @@
     height: 20px;
     margin-top: 10px;
     margin-left: 5px;
-    padding-right: 15px;
-    padding-left: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
     float: left;
     border-right: 1px solid black;
 }
@@ -141,7 +140,6 @@
 .cart {
     float: left;
     margin-top: 6px;
-    margin-left: 5px;
     padding: 0 35px;
 }
 
@@ -193,4 +191,29 @@
 
 .page_ul_li_a:visited:hover {
     color: tomato;
+}
+
+.like {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    margin-left: 80%;
+    line-height: 40px;
+    text-align: center;
+    border: 2px solid gray;
+    border-radius: 25px;
+    background-color: white;
+    display: none;
+}
+
+.like_a:link {
+    color: red;
+}
+
+.like_a:visited{
+    color: red;
+}
+
+.imgbox:hover .like{
+    display: block;
 }

@@ -145,15 +145,14 @@ MemberBean mb = (MemberBean) session.getAttribute("member");
 				</div>
 				<div class="col-lg-3 col-md-3">
 					<div class="header__nav__option">
-						<a href="#" class="search-switch">
-<!-- 						<form action="KeywordServlet"> -->
-<!-- 						<input class="searchinput" type="text" name="keyword"> -->
-<!-- 						<button type="submit"> -->
-<!-- 							<i class="fa fa-search"></i> -->
-<!-- 						</button> -->
-<!-- 						</form>					 -->
-						<img src="${pageContext.request.contextPath}/image/icon/search.png" alt=""></a>
-						
+					<form action="Keyword" style="height:0">
+						<input type="text" name="keyword" style="width: 120px">
+							<button class="search-switch">
+								<img
+									src="${pageContext.request.contextPath}/image/icon/search.png"
+									alt="">
+							</button>
+				
 						<a href="#">
 						<img src="${pageContext.request.contextPath}/image/icon/heart.png" alt=""></a>
 						<a href="<c:url value='/car'/>">
@@ -161,6 +160,7 @@ MemberBean mb = (MemberBean) session.getAttribute("member");
 						<div class="search">
 					
 				</div>
+				</form>
 						<div class="price"></div>
 					</div>
 				</div>

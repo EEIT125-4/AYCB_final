@@ -70,9 +70,7 @@
 
 				alert("get result!(輪播加工中,要手動輸入/index才會有資料,之後要改ajax動態產生)");
 				console.log("轉換前:" + data);
-// 				let result = eval(data);
-// 				console.log("type:" + typeof (result));
-// 				console.log(result);
+
 				console.log("資料數" + data.length);
 
 				for (let i = 0; i < data.length; i++) {
@@ -82,21 +80,7 @@
 
 				}
 
-				// 				<c:forEach var="item" varStatus='vs' items="${list}">
-
-				// 				<li><a href='<c:url value="/Detail" />?no=${item.productno}'><img
-// 						src="${pageContext.request.contextPath}/pic/${item.imagepath}"
-// 						onerror="javascript:this.src='${pageContext.request.contextPath}/image/noImage.jpg'">
-				// 						</a></li>
-
-				// 			</c:forEach>
-				// 		</ul>
-				// 		<ul class="adbox_dot">
-				// 			<c:forEach var="id" varStatus='vs' items="${list}">
-
-				// 				<li id="${id.productno}"></li>
-
-				// 			</c:forEach>
+		
 
 			},
 			error : function() {
