@@ -1,5 +1,6 @@
 package product.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.Gson;
 
 import product.model.ProductBean;
 import product.service.ProductService;
@@ -16,6 +20,22 @@ public class ProductController {
 
 	@Autowired
 	ProductService ps;
+	
+	@GetMapping("ads")
+	@ResponseBody
+	public String getAds(){
+		
+		List<ProductBean>products=new ArrayList<ProductBean>();
+		products=ps.getAllProducts();
+		
+		Gson gson=new Gson();
+		String result=gson.toJson(products);
+		System.out.println("gson parse:"+result);
+		
+		return gson.toJson(products);
+
+		
+	}
 
 	@GetMapping("/AllProducts")
 	public String allProducts(Model model,
