@@ -16,6 +16,8 @@ import javax.persistence.OneToMany;
 
 import event.model.Record;
 
+
+
 @Entity
 
 public class MemberBean implements Serializable {
@@ -50,7 +52,6 @@ public class MemberBean implements Serializable {
 	@ManyToMany(mappedBy = "member",cascade = CascadeType.ALL)
 	Set<Record>records=new HashSet<Record>();
 	
-
 	public Set<Record> getRecords() {
 		return records;
 	}
@@ -58,6 +59,11 @@ public class MemberBean implements Serializable {
 	public void setRecords(Set<Record> records) {
 		this.records = records;
 	}
+	
+
+	
+
+
 
 	public MemberBean() {
 
@@ -171,7 +177,7 @@ public class MemberBean implements Serializable {
 	}
 
 	public MemberBean(Integer id, String account, String name, String password, String address, String phone,
-			Date birth, String email, String gender, Integer level, Integer iconid, Set<Record> records) {
+			Date birth, String email, String gender, Integer level, Integer iconid) {
 		super();
 		this.id = id;
 		this.account = account;
@@ -184,7 +190,7 @@ public class MemberBean implements Serializable {
 		this.gender = gender;
 		this.level = level;
 		this.iconid = iconid;
-		this.records = records;
+
 	}
 
 	@Override
@@ -212,8 +218,7 @@ public class MemberBean implements Serializable {
 		builder.append(level);
 		builder.append(", iconid=");
 		builder.append(iconid);
-		builder.append(", records=");
-		builder.append(records);
+
 		builder.append("]");
 		return builder.toString();
 	}

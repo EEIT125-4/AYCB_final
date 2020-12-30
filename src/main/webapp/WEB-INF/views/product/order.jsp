@@ -1,5 +1,6 @@
 
 
+<%@page import="java.lang.ProcessBuilder.Redirect"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
 	import="java.util.*,product.*,product.cartModel.CartItem,member.*"%>
@@ -14,7 +15,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 <html>
 <head>
 <meta charset="UTF-8">
-<!-- <link rel="stylesheet" -->
+<link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link REL=STYLESHEET HREF="${pageContext.request.contextPath}/css/cart.css" TYPE="text/css">
 <title>購物車</title>
@@ -95,8 +96,11 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 			%>
 			<h4>目前無商品加入</h4>
 
-				<%
-						response.setHeader("Refresh", "2;AllProducts");
+				<%		
+				System.out.println(request.getContextPath());
+				String path=request.getContextPath()+"/AllProducts";
+						response.setHeader("Refresh", "2;"+path);
+					
 					}
 				%>
 				

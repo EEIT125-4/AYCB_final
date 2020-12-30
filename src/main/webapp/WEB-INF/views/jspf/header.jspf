@@ -11,11 +11,13 @@ response.setContentType("text/html;charset=UTF-8");
 response.setHeader("Cache-Control", "no-cache"); // HTTP 1.1
 response.setHeader("Pragma", "no-cache"); // HTTP 1.0
 response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
-MemberBean mb = (MemberBean) session.getAttribute("member");
-if (mb != null) {
-	System.out.println("member:" + mb.getName());
 
-}
+
+MemberBean mb = (MemberBean) session.getAttribute("member");
+//這邊是拿來確認有拿到會員資料的,之後要改成Cookie
+// if (mb != null) {
+// 	System.out.println("member:" + mb.getName());
+// }
 %>
 
 <link rel="stylesheet"
@@ -92,7 +94,7 @@ if (mb != null) {
 
 <%-- 								<a href="<c:url value='/car'/>">購物車</a>							 --%>
 								<a id="logout" href='${pageContext.request.contextPath}/Logout'>登出</a>
-								<a  href="<c:url value='/car'/>">購物車</a>	
+								<a  href="${pageContext.request.contextPath}/car/">購物車</a>	
 <!-- 							    <a id="user"  href=''>訪客</a> -->
 							</div>
 							<div class="header__top__hover"></div>
@@ -119,13 +121,9 @@ if (mb != null) {
 											<a  href='<c:url value="/Cate" />?cate=${cate}'>${cate}</a>
 											</li>
 										</c:forEach>
-										<!--                                     <li><a href="./about.html">About Us</a></li> -->
-										<!--                                     <li><a href="./shop-details.html">Shop Details</a></li> -->
-										<!--                                     <li><a href="./shopping-cart.html">Shopping Cart</a></li> -->
-										<!--                                     <li><a href="./checkout.html">Check Out</a></li> -->
-										<!--                                     <li><a href="./blog-details.html">Blog Details</a></li> -->
+									
 									</ul>
-								</div></li>
+								
 					<li><a href="${pageContext.request.contextPath}/comment/">討論區</a>
 							<div>
 							<ul class="dropdown">
@@ -135,7 +133,10 @@ if (mb != null) {
                             </ul></div>
                             </li>
 							<li><a href="${pageContext.request.contextPath}/event/">預約活動</a></li>
+							
+							
 						</ul>
+						
 					</nav>
 				</div>
 				<div class="col-lg-3 col-md-3">

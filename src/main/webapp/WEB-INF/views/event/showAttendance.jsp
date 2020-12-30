@@ -32,7 +32,7 @@
 						</A>
 					</dt>
 					<dt class="a1">
-						<a href='attendanceForm'><h2>報名參加</h2></a>	
+						<a href="<c:url value='showAllAttendanceByID'/>?id=${member.id}"><h2>查詢會員報名</h2></a>	
 					</dt>
 					<dt class="a1">
 						<A href='showAttendance'><h2>查詢報名</h2></A>	
@@ -52,7 +52,7 @@
 			<table border='1' >
 				<tr>				
 					<td>帳號</td>
-					<td>活動ID</td>
+					<td>活動名稱</td>
 					<td>mail</td>
 					<td>電話號碼</td>
 					<td>參加人數</td>
@@ -61,8 +61,8 @@
 				</tr>
 				<c:forEach var='Attendance' varStatus='vs' items='${attendances}'>
 					<tr>
-						<td>${Attendance.memberid}</td>
-						<td>${Attendance.eventid}</td>
+						<td>${Attendance.member.account}</td>
+						<td>${Attendance.event.eventname}</td>
 						<td>${Attendance.mailaddress}</td>
 						<td>${Attendance.phone}</td>
 						<td>${Attendance.pax}</td>

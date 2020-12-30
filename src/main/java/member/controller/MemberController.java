@@ -216,7 +216,7 @@ public class MemberController {
 		  {
     	  boolean res=memberService.emailcheck(email);
     	  if(res==false) 
-    	  {MemberBean memberBean=new MemberBean(0, null, name, null, null, null, null, email, gender, null);
+    	  {MemberBean memberBean=new MemberBean(0, null, name, null, null, null, null, email, gender, null,null);
     	  
     		  memberService.insertregister(memberBean);
   

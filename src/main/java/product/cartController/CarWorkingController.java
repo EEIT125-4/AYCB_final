@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class CarWorkingController {
 
 	@Autowired
 	OrderService os;
+	
+	@Autowired
+	ServletContext context;
 
 	@GetMapping("/car")
 	public String Car(HttpSession session) {
@@ -84,7 +88,7 @@ public class CarWorkingController {
 		}
 
 		System.out.println("準備前往購物車");
-		return "redirect:AllProducts";
+		return "redirect:AllProducts";//"+context.getContextPath()+"/
 	}
 
 	@GetMapping("/add")

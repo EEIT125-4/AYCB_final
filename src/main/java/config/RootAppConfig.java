@@ -9,6 +9,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -39,11 +41,9 @@ public class RootAppConfig {
 		} catch (PropertyVetoException e) {
 			e.printStackTrace();
 		}
-//		ds.setJdbcUrl("jdbc:sqlserver://10.31.25.143:1433;DatabaseName=project");
+		ds.setJdbcUrl("jdbc:sqlserver://10.31.25.143:1433;DatabaseName=project");
 		//如果跑本機,記得切換
-		ds.setJdbcUrl("jdbc:sqlserver://127.0.0.1:1433;DatabaseName=project");
 //		ds.setJdbcUrl("jdbc:sqlserver://127.0.0.1:1433;DatabaseName=project");
-//		ds.setJdbcUrl("jdbc:sqlserver://10.31.25.143:1433;DatabaseName=project");
 		ds.setInitialPoolSize(4);
 		ds.setMaxPoolSize(8);
 		return ds;
@@ -102,6 +102,28 @@ public class RootAppConfig {
 		
 		
 		return properties;
+	}
+	
+	@Bean
+	public 	JavaMailSender getJavaMailSender() {
+
+		 JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+	     mailSender.setHost("smtp.gmail.com");
+	     mailSender.setPort(587);
+
+	     mailSender.setUsername("2020aycb@gmail.com");
+	     mailSender.setPassword("AYCB@2020");
+
+	     Properties props = mailSender.getJavaMailProperties();
+	     props.put("mail.transport.protocol", "smtp");
+	     props.put("mail.smtp.auth", "true");
+	     props.put("mail.smtp.starttls.enable", "true");
+	     props.put("mail.smtp.starttls.required", "true");
+	     props.put("mail.debug", "true");
+
+	     return mailSender;
+
+
 	}
 	
 	

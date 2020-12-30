@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import event.model.Attendance;
 
-import event.model.Attendance;
 
 
 @Repository

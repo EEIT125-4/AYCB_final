@@ -50,11 +50,11 @@ public  class Common
 	}
 	
 	
-	public static String UPLOAD_PATH="C:/Users/Student/git/AYCB_final/src/main/webapp/WEB-INF/images";
-	
+	public static String UPLOAD_PATH="C:/Users/user/git/AYCB_final/src/main/webapp/WEB-INF/images";
+
 	public static String UPLOAD_VIDEO="C:/Users/user/git/AYCB_final/src/main/webapp/WEB-INF/video";
 	//UPLOAD_PATH="C:/AYCB/AYCB2/src/main/webapp/upload/
-	public static String IMAGE_REAL_PATH="C:\\Users\\Student\\git\\AYCB_final\\src\\main\\webapp\\WEB-INF\\images";
+	public static String IMAGE_REAL_PATH="C:\\Users\\user\\git\\AYCB_final\\src\\main\\webapp\\WEB-INF\\images";
 	
 	public static String UPLOAD_DIALOG="上傳單一檔案";
 	//"C:\\AYCB\\AYCB2\\src\\main\\webapp\\upload"

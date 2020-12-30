@@ -1,27 +1,20 @@
 package event.model;
 
 import java.sql.Blob;
-import java.util.HashSet;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-//import javax.persistence.JoinColumn;
-//import javax.persistence.ManyToOne;
+
+
+
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.springframework.web.multipart.MultipartFile;
-
-import member.MemberBean;
 
 
 @Entity
@@ -30,10 +23,9 @@ public class Event {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "EVENTID")
 	private Integer eventid;
+	@Column(columnDefinition = "nvarchar(max)")
 	private String eventname;
-
 	private String eventdate;
 	private String eventlocation;
 	private String eventdescription;
@@ -45,98 +37,10 @@ public class Event {
 	@Transient
 	MultipartFile eventimage;
 	
-	@ManyToMany(cascade = CascadeType.ALL)//mappedBy = "event",
-	@JoinTable(name = "join_member_event",
-	joinColumns = {
-			@JoinColumn(name="eventid",referencedColumnName = "EVENTID")},
-			inverseJoinColumns = {
-					@JoinColumn(name="FK_MEMBER_ID",referencedColumnName = "id")
-			}
-	)
-			
-	Set<MemberBean>members=new HashSet<MemberBean>();
-	public Set<MemberBean> getMembers() {
-		return members;
-	}
-
-
-	public void setMembers(Set<MemberBean> members) {
-		this.members = members;
-	}
-	
-//	Set<Record>records=new HashSet<Record>();
-//
-//	public void setRecords(Set<Record> records) {
-//		this.records = records;
-//	}
+//	@OneToOne(mappedBy = "event")
+//	Attendance attendance;
 
 	
-//public Set<Record> getRecords() {
-//		return records;
-//	}
-
-
-
-
-	
-
-
-	//	@ManyToOne
-//    @JoinColumn(name="AId")
-//	private Attendance attendance;
-//	
-	public Event() {
-		super();
-		
-
-	}
-
-
-	public Event(Integer eventid, String eventname, String eventdate, String eventlocation, String eventdescription,
-			String host, String hostphone, String filename, Blob eventimg, String pax, MultipartFile eventimage) {
-		super();
-		this.eventid = eventid;
-		this.eventname = eventname;
-		this.eventdate = eventdate;
-		this.eventlocation = eventlocation;
-		this.eventdescription = eventdescription;
-		this.host = host;
-		this.hostphone = hostphone;
-		this.filename = filename;
-		this.eventimg = eventimg;
-		this.pax = pax;
-		this.eventimage = eventimage;
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Event [eventid=");
-		builder.append(eventid);
-		builder.append(", eventname=");
-		builder.append(eventname);
-		builder.append(", eventdate=");
-		builder.append(eventdate);
-		builder.append(", eventlocation=");
-		builder.append(eventlocation);
-		builder.append(", eventdescription=");
-		builder.append(eventdescription);
-		builder.append(", host=");
-		builder.append(host);
-		builder.append(", hostphone=");
-		builder.append(hostphone);
-		builder.append(", filename=");
-		builder.append(filename);
-		builder.append(", eventimg=");
-		builder.append(eventimg);
-		builder.append(", pax=");
-		builder.append(pax);
-//		builder.append(", attendance=");
-//		builder.append(attendance);
-		builder.append("]");
-		return builder.toString();
-	}
-
 	public Integer getEventid() {
 		return eventid;
 	}
@@ -216,10 +120,11 @@ public class Event {
 	public void setPax(String pax) {
 		this.pax = pax;
 	}
+
 	public MultipartFile getEventimage() {
 		return eventimage;
 	}
-	
+
 	public void setEventimage(MultipartFile eventimage) {
 		this.eventimage = eventimage;
 	}
@@ -231,6 +136,64 @@ public class Event {
 //	public void setAttendance(Attendance attendance) {
 //		this.attendance = attendance;
 //	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Event [eventid=");
+		builder.append(eventid);
+		builder.append(", eventname=");
+		builder.append(eventname);
+		builder.append(", eventdate=");
+		builder.append(eventdate);
+		builder.append(", eventlocation=");
+		builder.append(eventlocation);
+		builder.append(", eventdescription=");
+		builder.append(eventdescription);
+		builder.append(", host=");
+		builder.append(host);
+		builder.append(", hostphone=");
+		builder.append(hostphone);
+		builder.append(", filename=");
+		builder.append(filename);
+		builder.append(", eventimg=");
+		builder.append(eventimg);
+		builder.append(", pax=");
+		builder.append(pax);
+		builder.append(", eventimage=");
+		builder.append(eventimage);
+		return builder.toString();
+	}
+
+	public Event(Integer eventid, String eventname, String eventdate, String eventlocation, String eventdescription,
+			String host, String hostphone, String filename, Blob eventimg, String pax, MultipartFile eventimage
+			) {
+		super();
+		this.eventid = eventid;
+		this.eventname = eventname;
+		this.eventdate = eventdate;
+		this.eventlocation = eventlocation;
+		this.eventdescription = eventdescription;
+		this.host = host;
+		this.hostphone = hostphone;
+		this.filename = filename;
+		this.eventimg = eventimg;
+		this.pax = pax;
+		this.eventimage = eventimage;
+//		this.attendance = attendance;
+	}
+
+	public Event() {
+		super();
+		
+	}
+
+	
+//	@ManyToOne
+//    @JoinColumn(name="AId")
+//	private Attendance attendance;
+//	
+	
 	
 }
 

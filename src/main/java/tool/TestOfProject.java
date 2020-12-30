@@ -21,6 +21,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import member.MemberBean;
 import product.model.ProductBean;
 import tool.model.Image;
 
@@ -35,13 +36,54 @@ public class TestOfProject {
 //		testJson();
 		
 		initTransaction();
+//		resetpassword();
 
-		uploadImage();
+//		uploadImage();
 //		refreshPic();
 //		testJson();
+		
+		
 
 
 
+	}
+	static void resetpassword() {
+		
+		String hql="FROM MemberBean";
+		
+		Query<MemberBean> query=session.createQuery(hql);
+		List<MemberBean>members=new ArrayList<MemberBean>();
+		members=query.getResultList();
+		
+		try {
+			
+			for(MemberBean m:members) {
+				
+				
+				if(m.getPassword()!=null && m.getPassword()!="NULL" && m.getPassword()!="") {
+					
+					String newpwd=Common.getMD5Endocing(m.getPassword());
+					
+					System.out.println("member:"+m.getName()+"--origin password:"+m.getPassword()+"--new password="+newpwd);
+					m.setPassword(newpwd);
+					System.out.println("reset ok");
+					System.out.println("================================");	
+					
+				}
+				
+			
+			
+			}
+			tx.commit();
+			System.out.println("all member reset password done");
+			
+		} catch (Exception e) {
+			tx.rollback();
+			e.printStackTrace();
+			System.out.println("update password occur error");
+		}
+		System.out.println("process end");
+		
 	}
 	
 	static void testJson()  {
