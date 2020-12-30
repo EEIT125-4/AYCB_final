@@ -28,6 +28,7 @@ public class BlogController {
 
 	@Autowired
 	ServletContext servletContext;
+	
 
 	@Autowired
 	BlogService blogService;
