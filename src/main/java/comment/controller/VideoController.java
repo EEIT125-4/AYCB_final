@@ -30,7 +30,7 @@ public class VideoController {
 		ServletContext servletContext;
 
 		//select all 秀出所有影片
-		@GetMapping("comment/video/")
+		@GetMapping("comment/video")
 		public String list(Model model) {
 			model.addAttribute("video", videoService.selectAllVideo());
 			return "comment/video";
@@ -41,7 +41,7 @@ public class VideoController {
 		public String showEmptyForm(Model model) {
 			Video video = new Video();
 			model.addAttribute("video",video);			
-			return "comment/video";
+			return "comment/videoForm";
 		}
 		
 		//insert一部影片

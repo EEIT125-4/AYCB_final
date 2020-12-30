@@ -11,7 +11,7 @@
                         <div class="footer__logo">
                            <a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/image/2.png"></a>
                         </div>
-                        <p>The customer is at the heart of our unique business model, which includes design.</p>
+                        <p>Skincare is the strongest weapon to make you young!</p>
                         <a href="#"><img src="${pageContext.request.contextPath}/image/payment.png" alt=""></a>
                     </div>
                 </div>

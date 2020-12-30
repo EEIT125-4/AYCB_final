@@ -2,6 +2,7 @@ package comment.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,18 +29,20 @@ public class Video {
 //	private String name;
 //	private String gender;
 //	private Integer age;
+	@Column(columnDefinition= "smalldatetime")
 	private Date commentTime;
 	private String title;
 	private String url;
 	private Integer status;
 	private Integer thumbsup;
-	private Date fixedtime;
+	@Column(columnDefinition= "smalldatetime")
+	private Date fixedTime;
 
 	public Video() {
 	}
 
 	public Video(Integer videoId, MemberBean member, Date commentTime, String title, String url, Integer status,
-			Integer thumbsup, Date fixedtime) {
+			Integer thumbsup, Date fixedTime) {
 		super();
 		this.videoId = videoId;
 		this.member = member;
@@ -48,7 +51,7 @@ public class Video {
 		this.url = url;
 		this.status = status;
 		this.thumbsup = thumbsup;
-		this.fixedtime = fixedtime;
+		this.fixedTime = fixedTime;
 	}
 
 	public Integer getVideoId() {
@@ -107,12 +110,12 @@ public class Video {
 		this.thumbsup = thumbsup;
 	}
 
-	public Date getFixedtime() {
-		return fixedtime;
+	public Date getFixedTime() {
+		return fixedTime;
 	}
 
-	public void setFixedtime(Date fixedtime) {
-		this.fixedtime = fixedtime;
+	public void setFixedTime(Date fixedTime) {
+		this.fixedTime = fixedTime;
 	}
 
 	@Override
@@ -132,12 +135,11 @@ public class Video {
 		builder.append(status);
 		builder.append(", thumbsup=");
 		builder.append(thumbsup);
-		builder.append(", fixedtime=");
-		builder.append(fixedtime);
+		builder.append(", fixedTime=");
+		builder.append(fixedTime);
 		builder.append("]");
 		return builder.toString();
 	}
 
-	
 
 }

@@ -44,7 +44,7 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 	<!-- Breadcrumb Section End -->
 	<!-- Blog Section Begin -->
 	<a class="a1"
-		href="${pageContext.request.contextPath}/comment/videoForm">
+		href="${pageContext.request.contextPath}/video/empty">
 		<h3>我要上傳影片</h3>
 	</a>
 	<div class="search-container" style="text-align: right">

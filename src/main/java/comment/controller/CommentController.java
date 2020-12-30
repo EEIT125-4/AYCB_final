@@ -70,6 +70,7 @@ public class CommentController {
 		}
 //insert的確認送出的留言
 		if (confirm != null) {
+			
 			System.out.println("comment confirm");
 			// JAVA的Date轉SQL的Date
 			Timestamp time = new Timestamp(new Date().getTime());

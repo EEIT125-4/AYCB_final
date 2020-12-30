@@ -1,8 +1,7 @@
 package comment.model;
 
-import java.sql.Blob;
-import java.util.Date;
 
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,10 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import org.springframework.web.multipart.MultipartFile;
-
 import member.MemberBean;
 
 @Entity
@@ -31,20 +26,18 @@ public class Blog {
 	@Column(columnDefinition= "smalldatetime")
 	private Date commentTime;
 	private String title;
+//	@Column(columnDefinition= "NVARCHAR(MAX) NOT NULL")
 	private String reflection;
-	private int picture;
+	private Integer picture;
 	private Integer status;
 	@Column(columnDefinition= "smalldatetime")
 	private Date fixedtime;
-	
-	@Transient
-	MultipartFile pic;
 
 	public Blog() {
 	}
 
-	public Blog(Integer blogId, MemberBean member, Date commentTime, String title, String reflection, int picture,
-			Integer status, Date fixedtime, MultipartFile pic) {
+	public Blog(Integer blogId, MemberBean member, Date commentTime, String title, String reflection, Integer picture,
+			Integer status, Date fixedtime) {
 		super();
 		this.blogId = blogId;
 		this.member = member;
@@ -54,7 +47,6 @@ public class Blog {
 		this.picture = picture;
 		this.status = status;
 		this.fixedtime = fixedtime;
-		this.pic = pic;
 	}
 
 	public Integer getBlogId() {
@@ -97,11 +89,11 @@ public class Blog {
 		this.reflection = reflection;
 	}
 
-	public int getPicture() {
+	public Integer getPicture() {
 		return picture;
 	}
 
-	public void setPicture(int picture) {
+	public void setPicture(Integer picture) {
 		this.picture = picture;
 	}
 
@@ -119,14 +111,6 @@ public class Blog {
 
 	public void setFixedtime(Date fixedtime) {
 		this.fixedtime = fixedtime;
-	}
-
-	public MultipartFile getPic() {
-		return pic;
-	}
-
-	public void setPic(MultipartFile pic) {
-		this.pic = pic;
 	}
 
 	@Override
@@ -148,12 +132,8 @@ public class Blog {
 		builder.append(status);
 		builder.append(", fixedtime=");
 		builder.append(fixedtime);
-		builder.append(", pic=");
-		builder.append(pic);
 		builder.append("]");
 		return builder.toString();
 	}
 
-	
-	
 }

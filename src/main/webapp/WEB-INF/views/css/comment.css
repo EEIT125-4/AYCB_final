@@ -1,8 +1,8 @@
 @charset "UTF-8";
+
 body {
 	margin: 0;
 	padding: 0;
-	background-image:url(../image/bg.jpg);
 }
 
 .board {
@@ -12,13 +12,13 @@ body {
 	text-align: center;
 	font-size: 24px;
 	color: #fff;
-	background:	#FF8000;
-	width:930px
+	background: #FFAF60;
+	width: 900px;
 }
 
 .transition {
-	width:850px;
-	height:200px;
+	width: 850px;
+	height: 200px;
 }
 
 #content {
@@ -46,51 +46,38 @@ body {
 .transition:hover {
 	border: 1px #9bdf70 solid;
 	background: #f0fbeb;
-	top:50px;
+	top: 50px;
 }
 
-#shangtian,#ritian{
+#shangtian, #ritian {
 	border: none;
-	background-color:#adcd3c;
-  	width: auto;
-  	line-height:1.6;
+	background-color: #adcd3c;
+	width: auto;
+	line-height: 1.6;
 }
 
-#clear{
-	float:right;
-	width:60px;
-	height:30px;
-	margin-top:10px;
+#clear {
+	float: right;
+	width: 60px;
+	height: 30px;
+	margin-top: 10px;
 	margin-right: 5px;
-	}
-	
-#postBt{
-	width:80px;
-	height:30px;
-	margin-top:10px;
-	float:right;
 }
 
-
-#contentBox{
-	margin-top:10px;
-}
-	
-.discussionbox{
-	width:900px;
-	border:2px dashed #467500;
+#postBt {
+	width: 80px;
+	height: 30px;
+	margin-top: 10px;
+	float: right;
 }
 
-.board{animation: glow 800ms ease-out infinite alternate; }
-@keyframes glow {
-    0% {
-        border-color: #393;
-        box-shadow: 0 0 5px rgba(0,255,0,.2), inset 0 0 5px rgba(0,255,0,.1), 0 1px 0 #393;
-    }
-    100% {
-        border-color: #6f6;
-        box-shadow: 0 0 20px 	#FF8000, inset 0 0 10px rgba(0,255,0,.4), 0 1px 0 #6f6;
-    }
+#contentBox {
+	margin-top: 10px;
+}
+
+.discussionbox {
+	width: 900px;
+	border: 2px dashed #467500;
 }
 
 .confirmbox {
@@ -98,67 +85,52 @@ body {
 	border: 5px inset #ff80c0;
 	border-radius: 15px;
 	margin-left: 700px;
-	position: relative; 
+	position: relative;
 	top: 200px;
 }
 
-.arrow_box{
+.arrow_box {
 	border: 2px dashed;
-    margin: 0 auto;
-    width: 500px;
-    height: 100px;
-    text-align: center;
-    line-height: 2.5;
-    font-size: 40px;
-    animation: glow 800ms ease-out infinite alternate;
-	background-image: linear-gradient(yellow,pink);
-	position: relative; 
+	margin: 0 auto;
+	width: 500px;
+	height: 100px;
+	text-align: center;
+	line-height: 2.5;
+	font-size: 40px;
+	animation: glow 800ms ease-out infinite alternate;
+	background-image: linear-gradient(yellow, pink);
+	position: relative;
 	top: 200px;
- }
-@keyframes glow {
-    0% {
-        border-color: #393;
-        box-shadow: 0 0 5px rgba(0,255,0,.2), inset 0 0 5px rgba(0,255,0,.1), 0 1px 0 #393;
-    }
-    100% {
-        border-color: #6f6;
-        box-shadow: 0 0 20px rgba(0,255,0,.6), inset 0 0 10px rgba(0,255,0,.4), 0 1px 0 #6f6;
-    }
 }
 
-.article{
-	float: right; 
+.article {
+	float: right;
 	width: 80%;
-	margin-top:10px;
+	margin-top: 10px;
 	border-style: ridge;
 	border-width: 5px;
-	border-color: 	#FFA6FF;
+	border-color: #FFA6FF;
 	border-radius: 5px;
 }
 
 .updateform {
 	margin: auto;
 	position: relative;
-	top: 200px;width: 600px;
+	top: 200px;
+	width: 600px;
 	border: 5px inset #ff80c0;
 	border-radius: 15px;
 }
 
-.title{
+.title {
 	font-size: 30px;
 	font-weight: bold;
 }
 
-.disscussarea{
-	float:left;
+.disscussarea {
+	float: left;
 }
 
-.selectrecord,.title1,.row{
-	background-color:#FFEEDD;
-	margin-left: 250px;
-    border: 1px solid black;
-
-}
 .selectrecord {
-  border-collapse: collapse;
+	border-collapse: collapse;
 }
