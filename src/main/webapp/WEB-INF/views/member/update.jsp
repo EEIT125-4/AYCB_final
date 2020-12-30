@@ -40,7 +40,7 @@
 					<li class="list-group-item list-group-item-light">
 					<a href="update">修改會員資料</a></li>
 						
-					<li class="list-group-item list-group-item-light"><a href="update">修改會員資料</a>訂單查詢</li>
+					<li class="list-group-item list-group-item-light"><a href="<c:url value='/orderManagement' />">訂單查詢</a></li>
 					<li class="list-group-item list-group-item-light">活動查詢</li>
 					<li class="list-group-item list-group-item-light">訊息查詢</li>
 				</ul>

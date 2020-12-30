@@ -20,7 +20,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 <link REL=STYLESHEET HREF="${pageContext.request.contextPath}/css/cart.css" TYPE="text/css">
 <title>購物車</title>
 </head>
-<%-- <%@include file="../jspf/header.jspf"%> --%>
+<%@include file="../jspf/header.jspf"%>
 
 
 <div style="position: relative; left: 30px; width: 150px;">
@@ -66,7 +66,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 						<input type="hidden" name="todo" value="remove">
 						<!-- 移除商品 -->
 						<input type="hidden" name="cartIndex" value="<%=i%>">
-						<td align="right"><img class="img" src="image/<%=aCartItem.getProductName()%>.png"></td>
+						<td align="right"><img class="img" src="${pageContext.request.contextPath}/pic/1"></td>
 						<td align="left"><%=aCartItem.getProductName()%></td>
 						<td align="right" valign="middle">$<%=aCartItem.getProductPrice() %></td>
 						<td align="right"><%=aCartItem.getQtyOrdered()%></td>

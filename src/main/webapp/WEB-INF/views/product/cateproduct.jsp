@@ -73,7 +73,7 @@
 					<div class="buttonbox">
 						<div class="proprice">NT$ ${pro.productprice}</div>
 						<div class="cart">
-							<a href=""> <img class="cartimg" src="image/bg_cart_b.svg"></a>
+							<a href="<c:url value='/cartAdd?productno=${pro.productno}&count=1' />"> <img class="cartimg" src="image/bg_cart_b.svg"></a>
 						</div>
 					</div>
 				</div>

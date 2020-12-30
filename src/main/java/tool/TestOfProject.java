@@ -131,45 +131,45 @@ public class TestOfProject {
 		
 	}
 	
-	static void uploadImage() {
-		try {
-			JFrame frame=new JFrame();
-			JFileChooser chooser=new JFileChooser();
-			FileNameExtensionFilter filter = new FileNameExtensionFilter(
-			        "\"jpg\", \"gif\",\"jfif\",\"jpeg\",\"png\"", "jpg", "gif","jfif","jpeg","png");
-			    chooser.setFileFilter(filter);
-			    chooser.setMultiSelectionEnabled(true);
-			    int returnVal = chooser.showOpenDialog(frame);
-			    if(returnVal == JFileChooser.APPROVE_OPTION) {
-			    	
-			    	File[] files=chooser.getSelectedFiles();
-			    	for(File f:files) {
-			    		 System.out.println("You chose to open this file: " +
-			 		          f.getName());
-			    		 Image img=new Image();
-			    		 FileInputStream fis=new FileInputStream(f);
-			    		 
-			    		 byte[] b = fis.readAllBytes();
-							Blob blob = new SerialBlob(b);
-							img.setImage(blob);
-							img.setFilename(f.getName());
-							session.save(img);						
-			    	}
-			    	
-    	
-			    	tx.commit();
-			    	System.out.println("上傳圖片成功");
-			    	
-			
-		} 
-			    }
-		catch (Exception e) {
-			tx.rollback();
-			System.err.println("上傳圖片失敗");
-			e.printStackTrace();
-			
-		}
-	}
+//	static void uploadImage() {
+//		try {
+//			JFrame frame=new JFrame();
+//			JFileChooser chooser=new JFileChooser();
+//			FileNameExtensionFilter filter = new FileNameExtensionFilter(
+//			        "\"jpg\", \"gif\",\"jfif\",\"jpeg\",\"png\"", "jpg", "gif","jfif","jpeg","png");
+//			    chooser.setFileFilter(filter);
+//			    chooser.setMultiSelectionEnabled(true);
+//			    int returnVal = chooser.showOpenDialog(frame);
+//			    if(returnVal == JFileChooser.APPROVE_OPTION) {
+//			    	
+//			    	File[] files=chooser.getSelectedFiles();
+//			    	for(File f:files) {
+//			    		 System.out.println("You chose to open this file: " +
+//			 		          f.getName());
+//			    		 Image img=new Image();
+//			    		 FileInputStream fis=new FileInputStream(f);
+//			    		 
+//			    		 byte[] b = fis.readAllBytes();
+//							Blob blob = new SerialBlob(b);
+//							img.setImage(blob);
+//							img.setFilename(f.getName());
+//							session.save(img);						
+//			    	}
+//			    	
+//    	
+//			    	tx.commit();
+//			    	System.out.println("上傳圖片成功");
+//			    	
+//			
+//		} 
+//			    }
+//		catch (Exception e) {
+//			tx.rollback();
+//			System.err.println("上傳圖片失敗");
+//			e.printStackTrace();
+//			
+//		}
+//	}
 	static void refreshPic() {
 		
 		//執行圖檔更新
