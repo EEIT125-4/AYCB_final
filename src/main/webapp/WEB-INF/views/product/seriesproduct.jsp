@@ -66,8 +66,8 @@
 				<div class="rightside">
 					<div class="imgbox">
 <!-- 						<div class="like"><a class="like_a" href=""><i class="fa fa-heart nopadding"></i></a></div> -->
-						<a href='<c:url value="/Detail" />?no=${pro.productno}'><img
-							class="proimg" src="image/${pro.productname}.png"></a>
+						<a href='<c:url value="/Detail" />?no=${pro.productno}'>
+						<img	class="proimg" src="${pageContext.request.contextPath}/pic/${pro.imagepath}"></a>
 					</div>
 					<div class="proname">${pro.productname}</div>
 					<div class="buttonbox">
