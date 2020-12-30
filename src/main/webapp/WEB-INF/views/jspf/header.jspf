@@ -92,9 +92,13 @@ MemberBean mb = (MemberBean) session.getAttribute("member");
 							<div class="header__top__links">
 								<a id="login" href="${pageContext.request.contextPath}/<%=(mb==null)?"member/login":"member/update" %>"><%=(mb == null) ? "登入/註冊" : mb.getName()%></a>
 
-<%-- 								<a href="<c:url value='/car'/>">購物車</a>							 --%>
-								<a id="logout" href='${pageContext.request.contextPath}/Logout'>登出</a>
+
 								<a  href="${pageContext.request.contextPath}/car/">購物車</a>	
+								
+								<a id="logout" href='${pageContext.request.contextPath}/logout'><%=(mb == null) ? "" : "登出"%></a>	
+
+
+					
 <!-- 							    <a id="user"  href=''>訪客</a> -->
 							</div>
 							<div class="header__top__hover"></div>

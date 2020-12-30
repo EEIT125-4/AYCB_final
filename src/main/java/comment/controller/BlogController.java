@@ -36,6 +36,8 @@ public class BlogController {
 	//選擇所有留言資料顯現出來(select all)
 	@GetMapping("comment/blog")
 	public String getAll(Model model) {
+		
+			
 			List<Blog> bg = blogService.selectAllBlog();
 			model.addAttribute("blog", bg);
 			

@@ -26,9 +26,9 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 <jsp:useBean id="video" class="comment.model.Video" scope="session" />
 <body>
 	<!-- Page Preloder -->
-	<div id="preloder">
-		<div class="loader"></div>
-	</div>
+<!-- 	<div id="preloder"> -->
+<!-- 		<div class="loader"></div> -->
+<!-- 	</div> -->
 
 	<!-- Breadcrumb Section Begin -->
 	<section class="breadcrumb-blog set-bg"

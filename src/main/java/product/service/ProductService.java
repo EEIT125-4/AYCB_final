@@ -23,6 +23,8 @@ public interface ProductService {
 	List<String> getBrand();
 
 	List<String> getSeries();
+	
+	List<String> getSeriesByBrand(String brandname);
 
 	List<String> getCate();
 	
@@ -67,4 +69,8 @@ public interface ProductService {
 	List<ProductBean> getKeywordPage(String keyword, int pageNo);
 	
 	List<ProductBean> getBHlist(String list);
+	
+	List<ProductBean> getBrandPage(int pageNo, String brandname);
+	
+	List<ProductBean> ra(String cate);
 }

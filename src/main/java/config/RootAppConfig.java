@@ -34,16 +34,18 @@ public class RootAppConfig {
 	@Bean
 	public DataSource msSQLDataSource() {
 		ComboPooledDataSource ds = new ComboPooledDataSource();
-		ds.setUser("sa");
-		ds.setPassword("manager");
+//		ds.setUser("sa");
+//		ds.setPassword("manager");
+		ds.setUser("scott");
+		ds.setPassword("tiger");
 		try {
 			ds.setDriverClass("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		} catch (PropertyVetoException e) {
 			e.printStackTrace();
 		}
-//		ds.setJdbcUrl("jdbc:sqlserver://10.31.25.143:1433;DatabaseName=project");
+		ds.setJdbcUrl("jdbc:sqlserver://10.31.25.143:1433;DatabaseName=project");
 		//如果跑本機,記得切換
-		ds.setJdbcUrl("jdbc:sqlserver://127.0.0.1:1433;DatabaseName=project");
+//		ds.setJdbcUrl("jdbc:sqlserver://127.0.0.1:1433;DatabaseName=project");
 		ds.setInitialPoolSize(4);
 		ds.setMaxPoolSize(8);
 		return ds;
@@ -54,6 +56,7 @@ public class RootAppConfig {
 	public LocalSessionFactoryBean sessionFactory() {
 		LocalSessionFactoryBean factory = new LocalSessionFactoryBean();
 		factory.setPackagesToScan(new String[] {
+				"config",
 				"event",
 				"member",
 				"message",

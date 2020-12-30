@@ -29,25 +29,37 @@
 				style="color: red;"></span>
 				<label for="password" id="passwordeye"><img src="${pageContext.request.contextPath}/image/closeeye.png" id="eye"></label>	 
 		<br>
-		<a href="<c:url value="/register"/>" style="margin-left:80 px;">新註冊</a>
+		<div class="d-flex justify-content-center">
+		
 		
 			<img src="<c:url value="/captcha"/>"></a>
 				
-				<input name="Qcode" required style="font-size:10px;outline:none;height:28px">
+				<input name="Qcode" required style="font-size:10px;outline:none;height:28px;margin-top:15px">
 				
-				  <input class="aaaa"
-				type="checkbox" style="margin-left: 40px; "><span>記住我</span>
+<!-- 				  <input class="aaaa" -->
+<!-- 				type="checkbox" style="margin-left: 40px; "><span>記住我</span> -->
+				</div>
 <br>
 <br>
+<a href="<c:url value="/register"/>" class="btn btn-primary btn-lg active" role="button" aria-pressed="true" >新註冊</a>
+		
+		<a href="<c:url value="/register"/>" class="btn btn-primary btn-lg active" role="button" aria-pressed="true" >忘記密碼</a>
+		
+			<br>
+			
 			<button type="submit" name="button1" id="button1"
 				style="width: 250px; background-color: rgba(0, 0, 0, 0.753); height: 30px; color: snow; margin-left: 230px;">登入</button>
 			
 			
 			<br>
+			<br>
 			
-			
-			 <button type="button" id="btnSignIn">Google登入</button>
-			   <button type="button" id="btnDisconnect">斷連Google </button>
+	<div class="d-flex justify-content-center" >
+			 <button type="button" id="btnSignIn" class="btn btn-info" style="width:130px;margin-right:20px">Google登入</button>
+	
+			   <button type="button" class="btn btn-danger" id="btnDisconnect" style="width:130px">斷連Google </button>
+    </div>
+    
     <hr />
     
     <div id="content"></div>
@@ -187,7 +199,7 @@
     		async : false,
     		type : 'post',
     		url :   "google" ,
-//     		datatype:"text",
+     		datatype:"text",
     		data : {"googlename":a,
     			"googlegender":b,
     			"googleemail":c},

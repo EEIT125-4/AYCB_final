@@ -9,7 +9,6 @@
 
 /*------------------------------------------------------------------
 [Table of contents]
-
 1.  Template default CSS
 	1.1	Variables
 	1.2	Mixins
@@ -320,7 +319,7 @@ ol {
 }
 
 .header__top {
-	background: #060606;
+	background: #111111;
 	padding: 10px 0;
 }
 
@@ -512,6 +511,14 @@ ol {
 	display: inline-block;
 	margin-right: 26px;
 	position: relative;
+}
+
+.header__nav__option button {
+	display: inline-block;
+	margin-right: 26px;
+	position: relative;
+	background-color: white;
+	border: none;
 }
 
 .header__nav__option a span {
@@ -2754,7 +2761,7 @@ ol {
 }
 
 .blog__item__text {
-	padding: 50px 5px 10px;
+	padding: 30px 30px 25px;
 	margin: 0 30px;
 	margin-top: -35px;
 	background: #ffffff;

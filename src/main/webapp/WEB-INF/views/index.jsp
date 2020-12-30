@@ -68,7 +68,7 @@
 
 			success : function(data) {
 
-				alert("get result!");
+				alert("get result!(輪播加工中,要手動輸入/index才會有資料,之後要改ajax動態產生)");
 				console.log("轉換前:" + data);
 // 				let result = eval(data);
 // 				console.log("type:" + typeof (result));

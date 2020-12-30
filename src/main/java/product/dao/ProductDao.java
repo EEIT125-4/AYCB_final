@@ -25,6 +25,8 @@ public interface ProductDao {
 	
 	List<String> getSeries();
 	
+	List<String> getSeriesByBrand(String brandname);
+	
 	List<String> getCate();
 
 	List<String> getOneBrand(String brandname);
@@ -68,5 +70,9 @@ public interface ProductDao {
 	List<ProductBean> getKeywordPage(String keyword, int pageNo);
 	
 	List<ProductBean> getBHlist(String list);
+	
+	List<ProductBean> getBrandPage(int pageNo, String brandname);
+	
+	List<ProductBean> ra(String cate);
 
 }

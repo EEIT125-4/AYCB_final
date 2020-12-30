@@ -64,8 +64,8 @@ public class MemberDaoImpl implements MemberDao {
 		MemberBean mb = query.setParameter("acc", account).getSingleResult();
 		System.out.println("====================================");
 		System.out.println(mb);
-		System.out.println("輸入密碼:"+account);
-		System.out.println("密碼轉換:"+Common.getMD5Endocing(account));
+		System.out.println("輸入密碼:"+password);
+		System.out.println("密碼轉換:"+Common.getMD5Endocing(password));
 		if (Common.getMD5Endocing(password).equals(mb.getPassword())) {
 			return true;
 		}

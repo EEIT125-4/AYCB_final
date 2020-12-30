@@ -21,7 +21,8 @@ public class ProductController {
 	@Autowired
 	ProductService ps;
 	
-	@GetMapping("ads")
+	
+	@GetMapping("/ads")
 	@ResponseBody
 	public String getAds(){
 		
@@ -39,7 +40,7 @@ public class ProductController {
 
 	@GetMapping("/AllProducts")
 	public String allProducts(Model model,
-			@RequestParam(value = "page", defaultValue = "1", required = false) Integer pageNo
+			@RequestParam(value = "pageNo", defaultValue = "1", required = false) Integer pageNo
 	) {
 		if (pageNo == 0) {
 			pageNo = 1;
@@ -55,7 +56,7 @@ public class ProductController {
 
 	@GetMapping("/Brand")
 	public String brand(Model model, 
-			@RequestParam(value = "page", defaultValue = "1", required = false) Integer pageNo,
+			@RequestParam(value = "pageNo", defaultValue = "1", required = false) Integer pageNo,
 			@RequestParam(value = "brand", required = false) String brandname
 	) {
 		if (pageNo == 0) {
@@ -74,7 +75,7 @@ public class ProductController {
 
 	@GetMapping("/Series")
 	public String series(Model model,
-			@RequestParam(value = "page", defaultValue = "1", required = false) Integer pageNo,
+			@RequestParam(value = "pageNo", defaultValue = "1", required = false) Integer pageNo,
 			@RequestParam(value = "series", required = false) String productseries
 	) {
 		if (pageNo == 0) {
@@ -93,7 +94,7 @@ public class ProductController {
 
 	@GetMapping("/Cate")
 	public String cate(Model model, 
-			@RequestParam(value = "page", defaultValue = "1", required = false) Integer pageNo,
+			@RequestParam(value = "pageNo", defaultValue = "1", required = false) Integer pageNo,
 			@RequestParam(value = "cate", required = false) String productcategory
 	) {
 		if (pageNo == 0) {
@@ -112,7 +113,7 @@ public class ProductController {
 	
 	@GetMapping("/Keyword")
 	public String keyword(Model model,
-			@RequestParam(value = "page", defaultValue = "1", required = false) Integer pageNo,
+			@RequestParam(value = "pageNo", defaultValue = "1", required = false) Integer pageNo,
 			@RequestParam(value = "keyword", required = false) String keyword
 	) {
 		if (pageNo == 0) {
@@ -135,5 +136,27 @@ public class ProductController {
 		ProductBean detail = ps.getProduct(no);
 		model.addAttribute("Detail", detail);
 		return "product/detail";
+	}
+	
+	@GetMapping(value = "/GetSeriesByBrand", produces = "application/json")
+	public @ResponseBody List<String> getSeriesByBrand(
+			@RequestParam("brandname") String brandname
+	){
+		List<String> list = ps.getSeriesByBrand(brandname);
+		return list;
+	}
+	
+	@GetMapping(value = "/GetProductsBySeries", produces = "application/json")
+	public @ResponseBody List<ProductBean> getProductsBySeries(
+			@RequestParam("series") String series
+	){
+		List<ProductBean> list = ps.getSeriesProduct(series);
+		return list;
+	}
+	
+	@GetMapping(value = "/GetBrand", produces = "application/json")
+	public @ResponseBody List<String> getBrand(){
+		List<String> list = ps.getBrand();
+		return list;
 	}
 }

@@ -65,6 +65,11 @@ public class ProductServiceImpl implements ProductService {
 	public List<String> getSeries() {
 		return dao.getSeries();
 	}
+	
+	@Override
+	public List<String> getSeriesByBrand(String brandname) {
+		return dao.getSeriesByBrand(brandname);
+	}
 
 	@Override
 	public List<String> getCate() {
@@ -174,5 +179,15 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<ProductBean> getBHlist(String list) {
 		return dao.getBHlist(list);
+	}
+	
+	@Override
+	public List<ProductBean> getBrandPage(int pageNo, String brandname) {
+		return dao.getBrandPage(pageNo, brandname);
+	}
+	
+	@Override
+	public List<ProductBean> ra(String cate) {
+		return dao.ra(cate);
 	}
 }

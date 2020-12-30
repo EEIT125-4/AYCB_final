@@ -65,6 +65,7 @@
 			<c:forEach var="pro" items="${Products}">
 				<div class="rightside">
 					<div class="imgbox">
+<!-- 						<div class="like"><a class="like_a" href=""><i class="fa fa-heart nopadding"></i></a></div> -->
 						<a href='<c:url value="/Detail" />?no=${pro.productno}'><img
 							class="proimg" src="image/${pro.productname}.png"></a>
 					</div>
@@ -72,35 +73,35 @@
 					<div class="buttonbox">
 						<div class="proprice">NT$ ${pro.productprice}</div>
 						<div class="cart">
-							<a href="<c:url value='/cartAdd?productno=${pro.productno}&count=1' />"> <img class="cartimg" src="image/bg_cart_b.svg"></a>
+							<a href=""> <img class="cartimg" src="image/bg_cart_b.svg"></a>
 						</div>
 					</div>
 				</div>
 			</c:forEach>
 			<div class="page">
 				<ul class="page_ul">
-					<c:forEach var="cate" varStatus='vs' items="${OneCate}">
-						<c:if test='${vs.first }'>
-							<li class="page_ul_li"><a class="page_ul_li_a"
-								href='<c:url value="/Cate" />?cate=${cate}&page=${Pages - 1}'><i
-									class="fa fa-angle-double-left" aria-hidden="true"></i></a></li>
-						</c:if>
-					</c:forEach>
+<%-- 					<c:forEach var="cate" varStatus='vs' items="${OneCate}"> --%>
+<%-- 						<c:if test='${vs.first }'> --%>
+<!-- 							<li class="page_ul_li"><a class="page_ul_li_a" -->
+<%-- 								href='<c:url value="/Cate" />?cate=${cate}&pageNo=${Pages - 1}'><i --%>
+<!-- 									class="fa fa-angle-double-left" aria-hidden="true"></i></a></li> -->
+<%-- 						</c:if> --%>
+<%-- 					</c:forEach> --%>
 					<c:forEach var='i' begin='1' end='${TotalPages}'>
 						<c:forEach var="cate" varStatus='vs' items="${OneCate}">
 							<c:if test='${vs.first }'>
 								<li class="page_ul_li"><a class="page_ul_li_a"
-									href='<c:url value="/Cate" />?cate=${cate}&page=${i}'>${i}</a></li>
+									href='<c:url value="/Cate" />?cate=${cate}&pageNo=${i}'>${i}</a></li>
 							</c:if>
 						</c:forEach>
 					</c:forEach>
-					<c:forEach var="cate" varStatus='vs' items="${OneCate}">
-						<c:if test='${vs.first }'>
-							<li class="page_ul_li"><a class="page_ul_li_a"
-								href='<c:url value="/Cate" />?cate=${cate}&page=${Pages + 1}'><i
-									class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
-						</c:if>
-					</c:forEach>
+<%-- 					<c:forEach var="cate" varStatus='vs' items="${OneCate}"> --%>
+<%-- 						<c:if test='${vs.first }'> --%>
+<!-- 							<li class="page_ul_li"><a class="page_ul_li_a" -->
+<%-- 								href='<c:url value="/Cate" />?cate=${cate}&pageNo=${Pages + 1}'><i --%>
+<!-- 									class="fa fa-angle-double-right" aria-hidden="true"></i></a></li> -->
+<%-- 						</c:if> --%>
+<%-- 					</c:forEach> --%>
 				</ul>
 			</div>
 		</div>

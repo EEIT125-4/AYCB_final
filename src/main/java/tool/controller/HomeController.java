@@ -17,7 +17,7 @@ public class HomeController {
 		@Autowired
 		ProductService ps;
 		
-		@RequestMapping(value={"index"})//,"/Home"
+		@RequestMapping(value={"/index"})//,"/Home"
 		public String home(Model model) {
 			System.out.println("welcome home");
 			List<ProductBean> list = ps.getAllProducts();
