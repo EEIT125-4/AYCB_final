@@ -10,7 +10,7 @@
 </head>
 <%@include file="../jspf/header.jspf"%>
 <body>
-	<div style=' position: relative; top: 200px;'>
+	<div>
 		<h1>新增報名資料成功</h1>
 		<!-- 
 本文件顯示會員資料新增成功的訊息，要顯示的會員資料由Controller放入『Session範圍』內

@@ -60,11 +60,11 @@ public class EventController {
 			model.addAttribute("events", eventService.getAllEvent());
 			return "event/showEvent";
 		}
-		
+		//insert event 
 		@GetMapping("/eventForm")
 		public String showEmptyForm(Model model) {
 			Event event = new Event();
-	 //event.setEventname("event1");
+	   //event.setEventname("event1");
 			model.addAttribute("event",event);
 				
 			return "event/eventForm";
@@ -72,14 +72,7 @@ public class EventController {
 		
 		@PostMapping("/eventForm")
 		public String add(Model model,
-				@ModelAttribute("event") Event event,			      
-//			    @RequestParam(value = "eventname" ,required = false) String eventname,
-//				@RequestParam(value = "eventdate" ,required = false) String eventdate,
-//				@RequestParam(value = "evnetlocation",required = false) String eventlocation,
-//				@RequestParam(value = "eventdescription",required = false) String eventdescription,
-//				@RequestParam(value = "host",required = false) String host,
-//				@RequestParam(value = "hostphone",required = false) String hostphone,
-//				@RequestParam(value = "pax",required = false) String pax,
+				@ModelAttribute("event") Event event,
 				@RequestParam(value = "file",required = false) MultipartFile file,
 		    HttpServletRequest request) {
 			

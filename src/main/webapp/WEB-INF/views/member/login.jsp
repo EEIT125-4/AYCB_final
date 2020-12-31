@@ -14,62 +14,50 @@
 <title>登入</title>
 </head>
 <%@include file="../jspf/header.jspf"%>
-<form action="<c:url value="/login"/>" method="post">
-	<fieldset class="loginfs">
-		<div style="margin-top: 20px; margin-left: 580px; width: 700px">
+
+<div class="container">
+<form action="<c:url value="/login"/>" method="post" >
+	<fieldset class="loginfs" style="margin-left:200px" >
+<!-- 		<div style="margin-top: 20px; margin-left: 580px; width: 700px"> -->
 			<legend style="margin-left: 300px; font-size: 22px">會員登入</legend>
-
-
+			<div>
 			<input class="bbb" type="text" name="user" id="ac" required  placeholder="請輸入帳號or名稱" onblur="Ckac();" style="outline:none;">
 			<span id="idsp" style="color: red;"></span>
-			 <input class="bbb"
-				type="password" required name="pwd" id="pwd" placeholder="請輸入密碼(6-20數字英文混合)"
-				onblur="Ckpwd();" style="outline: none;"> 
-				<span id="idsp1"
-				style="color: red;"></span>
-				<label for="password" id="passwordeye"><img src="${pageContext.request.contextPath}/image/openeye.png" id="eye"></label>	 
-		<br>
-		<div class="d-flex justify-content-center">
-		
-		
-			<img src="<c:url value="/captcha"/>"></a>
-				
-				<input name="Qcode" required style="font-size:10px;outline:none;height:28px;margin-top:15px">
-				
+			</div>
+			<div>
+			<input class="bbb" type="password" required name="pwd" id="pwd" placeholder="請輸入密碼(6-20數字英文混合)" onblur="Ckpwd();" style="outline: none;">
+			<span id="idsp1"style="color: red;"></span>
+			<label for="password" id="passwordeye"><img src="${pageContext.request.contextPath}/image/closeeye.png" id="eye"></label><br>
+			</div>			
+			<div class="d-flex justify-content-center">	
+				<img src="<c:url value="/captcha"/>">
+<!-- 				</a> -->
+			<input name="Qcode" required style="font-size:10px;outline:none;height:28px;margin-top:15px">	
 <!-- 				  <input class="aaaa" -->
 <!-- 				type="checkbox" style="margin-left: 40px; "><span>記住我</span> -->
-				</div>
-<br>
-<br>
-<a href="<c:url value="/register"/>" class="btn btn-primary btn-lg active" role="button" aria-pressed="true" >新註冊</a>
-		
-		<a href="<c:url value="/register"/>" class="btn btn-primary btn-lg active" role="button" aria-pressed="true" >忘記密碼</a>
-		
-			<br>
-			
-			<button type="submit" name="button1" id="button1"
-				style="width: 250px; background-color: rgba(0, 0, 0, 0.753); height: 30px; color: snow; margin-left: 230px;">登入</button>
-			
+			</div><br>
+		<div style="margin-left:270px">
+        <a href="<c:url value="/register"/>" class="btn btn-primary" role="button" aria-pressed="true" >新註冊</a>		
+		<a href="<c:url value="/register"/>" class="btn btn-primary" role="button" aria-pressed="true" >忘記密碼</a><br>
+		</div><br>
+		<button type="submit" name="button1" id="button1" style="width: 250px; background-color: rgba(0, 0, 0, 0.753); height: 30px; color: snow; margin-left: 230px;">登入</button>
 			
 			<br>
 			<br>
 			
 	<div class="d-flex justify-content-center" >
 			 <button type="button" id="btnSignIn" class="btn btn-info" style="width:130px;margin-right:20px">Google登入</button>
-	
-			   <button type="button" class="btn btn-danger" id="btnDisconnect" style="width:130px">斷連Google </button>
+			 <button type="button" class="btn btn-danger" id="btnDisconnect" style="width:130px">斷連Google </button>
     </div>
-    
-    <hr />
-    
-    <div id="content"></div>
-			
-			
-			
-		</div>
+<!--      <div id="content" style="background-color: orange;"></div> -->
+		
 	</fieldset>
 </form>
+</div>
 <%@include file="../jspf/footer.jspf"%>
+</body>
+
+
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <!--CLIENT_ID請自己改成從 後端組態檔讀取，例如：ASP.net的Web.config-->
 <script type="text/javascript">
@@ -224,7 +212,7 @@
         let auth2 = gapi.auth2.getAuthInstance(); //取得GoogleAuth物件
 
         auth2.disconnect().then(function () {
-            alert('User disconnect.');
+            console.log('User disconnect.');
         });
     }
     
@@ -277,12 +265,12 @@
 		document.getElementById("passwordeye").addEventListener("click",function(){
 			if(p==0){
 				document.getElementById("pwd").type="text";p=p+1;
-				document.getElementById("eye").src="${pageContext.request.contextPath}/image/closeeye.png";
+				document.getElementById("eye").src="${pageContext.request.contextPath}/image/openeye.png";
 				
 			}
 			else{
 				document.getElementById("pwd").type="password";p=0;
-				document.getElementById("eye").src="${pageContext.request.contextPath}/image/openeye.png";
+				document.getElementById("eye").src="${pageContext.request.contextPath}/image/closeeye.png";
 			}
 		
 		

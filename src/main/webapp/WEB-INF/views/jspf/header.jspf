@@ -92,19 +92,15 @@ MemberBean mb = (MemberBean) session.getAttribute("member");
 							
 						
 							<p >
-							<input type="button" data-toggle="modal" data-target="#more${member.id}" 	">
-							<img src="${pageContext.request.contextPath}/pic/${member.iconid}" class="user-icon" />
-<!-- 							</button>		 -->
-									
-									
-									</p>
+							<input type="image" src="${pageContext.request.contextPath}/pic/${member.iconid}" data-toggle="modal" data-target="#more${member.id}" class="user-icon" >
+							</p>	
 							</c:if>
 								<a id="login" href="${pageContext.request.contextPath}/<%=(mb==null)?"member/login":"member/update" %>"><%=(mb == null) ? "登入/註冊" : mb.getName()%></a>
 								
 
-								<a  href="${pageContext.request.contextPath}/car/">購物車</a>	
+<%-- 		不要解鎖by怡佳						<a  href="${pageContext.request.contextPath}/car/">購物車</a>	 --%>
 								
-								<a id="logout" href='${pageContext.request.contextPath}/logout'><%=(mb == null) ? "" : "登出"%></a>	
+<%-- 								<a id="logout" href='${pageContext.request.contextPath}/logout'><%=(mb == null) ? "" : "登出"%></a>	 --%>
 
 
 					
@@ -123,30 +119,30 @@ MemberBean mb = (MemberBean) session.getAttribute("member");
 											</button>
 										</div>
 										<div class="modal-body">
+										<div style="text-align: center;">
 											<img width='180' height='200' src='${pageContext.request.contextPath}/pic/${member.iconid}' />
+										</div>
 											<div class="caption">
-												<p>
+												<p style="text-align: center;">
 													<b style='font-size: 16px;'>${member.name}</b>
 												</p>
-												<p>${member.id}</p>
-												<p>活動日期:${member.email}</p>
+												<p style="text-align: center;">${member.account}</p>
+												
 											
 											
 												
 											</div>
 											<div class="modal-footer">
-												<button type="button" class="btn btn-secondary"
-													data-dismiss="modal">Close</button>
-												<a href="" class="btn btn-primary">
-<%-- 													href="<c:url value='/event/attendanceForm'/>?eventid=${event.eventid}" --%>
-													
-													 <span
-													class="glyphicon-info-sigh glyphicon">報名參加</span></a>
+											<a href='' class="btn btn-secondary" data-dismiss="modal"><span class="glyphicon-info-sigh glyphicon">會員中心</span></a>											 
+
+												<a href='${pageContext.request.contextPath}/logout' class="btn btn-primary"><%=(mb == null) ? "" : "登出"%>
+
+												</a>
 											</div>
 										</div>
 									</div>
 								</div>
-								</p>
+								
 							</div>
 										
 
@@ -187,7 +183,12 @@ MemberBean mb = (MemberBean) session.getAttribute("member");
                                 <li><a href="${pageContext.request.contextPath}/comment/video/">影音分享</a></li>
                             </ul></div>
                             </li>
-							<li><a href="${pageContext.request.contextPath}/event/">預約活動</a></li>
+							<li><a href="${pageContext.request.contextPath}/event/showEvent">預約活動</a>
+							<ul class="dropdown">
+                                    <li><a href="<c:url value='/event/showAttendance'/>">查詢報名</a></li> 
+                                    <li><a href="<c:url value='/event/showAllAttendanceByID'/>?id=${member.id}">查詢會員報名</a></li>
+                                </ul>
+							</li>	
 							
 							
 						</ul>

@@ -13,7 +13,7 @@
 
 <%@include file="../jspf/header.jspf"%>
 
-<div class='center'  style=' position: relative; top: 200px;' >
+<div class='center' >
 <div>
 			<div
 				style="float: left; width: 20%; text-align: center; margin-left: 220px;">

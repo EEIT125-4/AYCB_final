@@ -36,7 +36,7 @@
 <body>
 	<p>&nbsp;</p>
 	<hr>
-	<div class='center' style=' position: relative; top: 200px;'>
+	<div>
 		<H1 class='center'>更新報名資料</H1>
 		<hr>
 		<p>
