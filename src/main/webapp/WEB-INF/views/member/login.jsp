@@ -27,7 +27,7 @@
 			<div>
 			<input class="bbb" type="password" required name="pwd" id="pwd" placeholder="請輸入密碼(6-20數字英文混合)" onblur="Ckpwd();" style="outline: none;">
 			<span id="idsp1"style="color: red;"></span>
-			<label for="password" id="passwordeye"><img src="${pageContext.request.contextPath}/image/closeeye.png" id="eye"></label><br>
+			<label for="password" id="passwordeye"><img src="${pageContext.request.contextPath}/image/openeye.png" id="eye"></label><br>
 			</div>			
 			<div class="d-flex justify-content-center">	
 				<img src="<c:url value="/captcha"/>">
@@ -35,12 +35,55 @@
 			<input name="Qcode" required style="font-size:10px;outline:none;height:28px;margin-top:15px">	
 <!-- 				  <input class="aaaa" -->
 <!-- 				type="checkbox" style="margin-left: 40px; "><span>記住我</span> -->
-			</div><br>
-		<div style="margin-left:270px">
+				</div>
+<br>
+
+<div style="margin-left:270px">
         <a href="<c:url value="/register"/>" class="btn btn-primary" role="button" aria-pressed="true" >新註冊</a>		
 		<a href="<c:url value="/register"/>" class="btn btn-primary" role="button" aria-pressed="true" >忘記密碼</a><br>
-		</div><br>
-		<button type="submit" name="button1" id="button1" style="width: 250px; background-color: rgba(0, 0, 0, 0.753); height: 30px; color: snow; margin-left: 230px;">登入</button>
+		</div>
+		<br>
+									
+<%-- 		<a href="<c:url value="/register"/>" class="btn btn-primary btn-lg active" role="button" aria-pressed="true" >忘記密碼</a> --%>
+	<!-- Modal -->
+							<div class="modal fade" id="forgot" tabindex="-1"
+								role="dialog" aria-labelledby="exampleModalLongTitle"
+								aria-hidden="true">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h1 class="modal-title" id="Title">找回密碼</h1>
+											<button type="button" class="close" data-dismiss="modal"
+												aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">
+											
+											<div class="caption">
+												<label>請輸入您註冊的email</label>
+												<input type="text">
+												
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-primary"
+													data-dismiss="modal">送出確認信</button>
+												<a
+													href="<c:url value='/event/attendanceForm'/>?eventid=${event.eventid}"
+													class="btn btn-primary"> <span
+													class="glyphicon-info-sigh glyphicon">報名參加</span></a>
+											</div>
+										</div>
+									</div>
+								</div>
+								</p>
+							</div>
+		
+	
+			
+			<button type="submit" name="button1" id="button1"
+				style="width: 250px; background-color: rgba(0, 0, 0, 0.753); height: 30px; color: snow; margin-left: 230px;">登入</button>
+			
 			
 			<br>
 			<br>

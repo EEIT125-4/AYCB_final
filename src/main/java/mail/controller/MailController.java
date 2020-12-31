@@ -20,6 +20,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import member.MemberBean;
@@ -32,6 +34,63 @@ public class MailController {
 	private JavaMailSender mailSender;
 	@Autowired
 	MemberService ms;
+	
+	static String SEND_FROM="2020AYCB@gmail.com";
+	
+	
+	@GetMapping(value="/forgot")
+	@ResponseBody
+	public String forgot(@RequestParam(value = "email")String email) throws MessagingException {
+		
+		//以填寫的email查詢資料庫是否有此會員,如果有,才寄送
+		
+		
+		
+		MimeMessage mimeMessage=mailSender.createMimeMessage();
+		MimeMessageHelper helper=new MimeMessageHelper(mimeMessage,true,"utf-8");//第二個參數表示含multipart
+		helper.setFrom(SEND_FROM);
+		
+		helper.setTo(email);
+		
+		MemberBean mb=ms.getMember("oo");
+		
+				
+		StringBuilder sb=new StringBuilder();
+		
+		mimeMessage.setSubject("dear "+mb.getName()+"您好,請在收到信件後嘗試連線並Line回覆我");
+		sb.append("<h1>Hi,"+mb.getName()+"</h1><br />");
+		sb.append("<h2 style='color:red'>會員帳號密碼</h2><br />");
+		sb.append("<h3>帳號："+mb.getAccount()+"<br/>用戶密碼："+mb.getPassword()+"<br />");
+		sb.append("<a href=\"");
+		sb.append("http://http://localhost/AYCB_final/");
+		sb.append("\">");
+		sb.append("官網連結");
+		sb.append("</a>");
+		sb.append("</body></html>");
+		
+		MimeMultipart mimeMultipart=new MimeMultipart();
+		
+		
+		BodyPart part=new MimeBodyPart();
+		part.setContent(sb.toString(),"text/html");
+		
+		
+		mimeMultipart.addBodyPart(part);
+		
+		
+
+		mimeMessage.setContent(sb.toString(), "text/html;charset=utf-8");
+//		helper.setText(context,true);//第二個參數表示是html內容
+		
+		
+		mailSender.send(mimeMessage);
+		
+		
+		
+		
+		
+		return null;
+	}
 
 	@GetMapping(value = "email")
 	@ResponseBody
@@ -204,6 +263,8 @@ public class MailController {
 			
 		
 	}
+	
+	
 	
 	public String sendComplexEmail() {
 		

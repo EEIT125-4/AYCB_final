@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialBlob;
 
@@ -48,7 +49,9 @@ public class MessageController {
 
 	@PostMapping(value = { "/message/update_step" })
 	public String update(Model model, @ModelAttribute("message") MessageBean message,
-			@RequestParam(value = "submit") String s, @RequestParam(value = "id", required = false) String id) {
+			@RequestParam(value = "submit") String s, @RequestParam(value = "id", required = false) String id
+			
+			) {
 		System.out.println("submit:" + s);
 
 		if (s.equals("edit")) {

@@ -31,21 +31,9 @@
 
 <div class="contentoutbox">
 	<div class="contentbox">
-		<div class="leftside">
-			<div class="condition">會員中心</div>
-			<div class="category">
-				
-				<ul class="list-group">
-					<li class="list-group-item list-group-item-light">會員中心</li>
-					<li class="list-group-item list-group-item-light">
-					<a href="update">修改會員資料</a></li>
-						
-					<li class="list-group-item list-group-item-light"><a href="<c:url value='/orderManagement' />">訂單查詢</a></li>
-					<li class="list-group-item list-group-item-light">活動查詢</li>
-					<li class="list-group-item list-group-item-light">訊息查詢</li>
-				</ul>
-			</div>
-		</div>
+	
+	<%@include file="../jspf/memberPanel.jspf"%>
+		
 		<div></div>
 		<div class="rightoutbox">
 			<form action="${pageContext.request.contextPath}/member/updateComplete"
@@ -123,7 +111,7 @@
 			</form>
 		</div>
 	</div>
-	<%@include file="../jspf/footer.jspf"%>
+<%-- 	<%@include file="../jspf/footer.jspf"%> --%>
 </div>
 <!-- 	</div> -->
 
