@@ -146,7 +146,7 @@ MemberBean mb = (MemberBean) session.getAttribute("member");
 				<div class="col-lg-3 col-md-3">
 					<div class="header__nav__option">
 					<form action="Keyword" style="height:0">
-						<input type="text" name="keyword" style="width: 120px">
+						<input type="text" name="keyword" style="width: 150px">
 							<button class="search-switch">
 								<img
 									src="${pageContext.request.contextPath}/image/icon/search.png"
