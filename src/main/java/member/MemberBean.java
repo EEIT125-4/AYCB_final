@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import event.model.Record;
 
@@ -49,6 +50,8 @@ public class MemberBean implements Serializable {
 	
 	private Integer iconid;
 	
+	
+	@Transient
 	@ManyToMany(mappedBy = "member",cascade = CascadeType.ALL)
 	Set<Record>records=new HashSet<Record>();
 	

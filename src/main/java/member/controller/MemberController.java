@@ -1,26 +1,19 @@
 package member.controller;
 
-import java.io.IOException;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,11 +23,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.wf.captcha.SpecCaptcha;
 import com.wf.captcha.utils.CaptchaUtil;
 
-import antlr.build.Tool;
 import member.MemberBean;
 import member.Service.MemberService;
 import tool.Common;
-import tool.GlobalService;
 
 @Controller
 
@@ -75,7 +66,7 @@ public class MemberController {
 		return "member/register";
 	}
 
-	@PostMapping("/accountcheck")
+	@PostMapping("member/accountcheck")
 	@ResponseBody
 	public List<MemberBean> Check() {
 
@@ -220,6 +211,7 @@ public class MemberController {
 		 @RequestParam(value = "googlegender", required = false) String gender,
 		 @RequestParam(value = "googleemail", required = false) String email)
 		  {
+    	  System.out.println("");
     	  boolean res=memberService.emailcheck(email);
     	  if(res==false) 
     	  {MemberBean memberBean=new MemberBean(0, null, name, null, null, null, null, email, gender, null,null);
@@ -227,7 +219,7 @@ public class MemberController {
     		  memberService.insertregister(memberBean);
   
     	  }
-    	  System.out.println(res);
+    	 
 	     return "index";
       }
       

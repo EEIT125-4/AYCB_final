@@ -39,6 +39,8 @@ MemberBean mb = (MemberBean) session.getAttribute("member");
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.carousel.min.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/slicknav.min.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type="text/css">
+<!-- 下面這個是自訂的CSS -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/custom.css" type="text/css">
 <body>
 	<!-- Page Preloder -->
 	 <div id="preloder">
@@ -89,9 +91,15 @@ MemberBean mb = (MemberBean) session.getAttribute("member");
 					</div>
 					<div class="col-lg-6 col-md-4">
 						<div class="header__top__right">
+						
 							<div class="header__top__links">
+							<c:if test='${not empty member}'>
+							
+						
+							<p><a href=""><img src="${pageContext.request.contextPath}/pic/${member.iconid}" class="user-icon"/></a></p>
+							</c:if>
 								<a id="login" href="${pageContext.request.contextPath}/<%=(mb==null)?"member/login":"member/update" %>"><%=(mb == null) ? "登入/註冊" : mb.getName()%></a>
-
+								
 
 								<a  href="${pageContext.request.contextPath}/car/">購物車</a>	
 								

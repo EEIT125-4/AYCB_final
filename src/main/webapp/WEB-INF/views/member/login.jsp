@@ -27,7 +27,7 @@
 				onblur="Ckpwd();" style="outline: none;"> 
 				<span id="idsp1"
 				style="color: red;"></span>
-				<label for="password" id="passwordeye"><img src="${pageContext.request.contextPath}/image/closeeye.png" id="eye"></label>	 
+				<label for="password" id="passwordeye"><img src="${pageContext.request.contextPath}/image/openeye.png" id="eye"></label>	 
 		<br>
 		<div class="d-flex justify-content-center">
 		
@@ -224,7 +224,7 @@
         let auth2 = gapi.auth2.getAuthInstance(); //取得GoogleAuth物件
 
         auth2.disconnect().then(function () {
-            console.log('User disconnect.');
+            alert('User disconnect.');
         });
     }
     
@@ -277,12 +277,12 @@
 		document.getElementById("passwordeye").addEventListener("click",function(){
 			if(p==0){
 				document.getElementById("pwd").type="text";p=p+1;
-				document.getElementById("eye").src="${pageContext.request.contextPath}/image/openeye.png";
+				document.getElementById("eye").src="${pageContext.request.contextPath}/image/closeeye.png";
 				
 			}
 			else{
 				document.getElementById("pwd").type="password";p=0;
-				document.getElementById("eye").src="${pageContext.request.contextPath}/image/closeeye.png";
+				document.getElementById("eye").src="${pageContext.request.contextPath}/image/openeye.png";
 			}
 		
 		
