@@ -50,11 +50,16 @@ public  class Common
 	}
 	
 	
-	public static String UPLOAD_PATH="C:/Users/user/git/AYCB_final/src/main/webapp/WEB-INF/images";
-
-	public static String UPLOAD_VIDEO="C:/Users/user/git/AYCB_final/src/main/webapp/WEB-INF/video";
+	/**
+	 * 
+	 * Kevin:這個是以博淞主機下的專案路徑設置,如果要在本機測試,記得將以下兩組路徑自己替換掉!!
+	 */
+	public static String UPLOAD_PATH="C:/Users/Student/git/AYCB_final/src/main/webapp/WEB-INF/views/image";
+	
+	public static String IMAGE_REAL_PATH="C:\\Users\\Student\\git\\AYCB_final\\src\\main\\webapp\\WEB-INF\\views\\image";
+//	public static String UPLOAD_VIDEO="C:/Users/user/git/AYCB_final/src/main/webapp/WEB-INF/video";
 	//UPLOAD_PATH="C:/AYCB/AYCB2/src/main/webapp/upload/
-	public static String IMAGE_REAL_PATH="C:\\Users\\user\\git\\AYCB_final\\src\\main\\webapp\\WEB-INF\\images";
+	
 	
 	public static String UPLOAD_DIALOG="上傳單一檔案";
 	//"C:\\AYCB\\AYCB2\\src\\main\\webapp\\upload"
@@ -95,7 +100,7 @@ public  class Common
 		File tempfile = new File(Common.UPLOAD_PATH, filename);
 		file.transferTo(tempfile);// 寫入真實路徑// part.transferTo(file);// 寫入真實路徑
 		System.out.printf("成功寫入圖片,路徑:%s\n", tempfile.getAbsoluteFile());
-		return "/AYCB/image/" + filename;
+		return "/AYCB_final/image/" + filename;
 
 	}
 
