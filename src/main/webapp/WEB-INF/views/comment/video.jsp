@@ -86,9 +86,22 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 			</div>
 		</div>
 	</section>
-
-
 	<!-- Blog Section End -->
+	
+	<!--social media icons -->
+<div class="row">
+    <div  class="col-sm-2"></div>
+    <div  class="col-sm-8"></div>
+    <div  class="col-sm-1">
+      
+                <a href="#" class="fa fa-facebook"></a>
+                <a href="#" class="fa fa-google"></a>
+                <a href="http://twitter.com/home/?status=https://www.removal.idv.tw/article.php" class="fa fa-twitter"></a>
+                <a href="#" class="fa fa-youtube"></a>
+          
+    </div>
+    <div  class="col-sm-1"></div>
+</div>
 
 	<!-- Js Plugins -->
 	<script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>

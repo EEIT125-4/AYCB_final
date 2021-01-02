@@ -12,7 +12,7 @@ body {
 	text-align: center;
 	font-size: 24px;
 	color: #fff;
-	background: #FFAF60;
+	background: #02C874;
 	width: 900px;
 }
 
@@ -51,7 +51,6 @@ body {
 
 #shangtian, #ritian {
 	border: none;
-	background-color: #adcd3c;
 	width: auto;
 	line-height: 1.6;
 }
@@ -116,8 +115,6 @@ body {
 .updateform {
 	margin: auto;
 	position: relative;
-	top: 200px;
-	width: 600px;
 	border: 5px inset #ff80c0;
 	border-radius: 15px;
 }

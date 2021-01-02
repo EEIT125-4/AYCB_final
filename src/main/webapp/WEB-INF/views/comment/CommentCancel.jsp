@@ -13,14 +13,14 @@ response.setContentType("text/html;charset=UTF-8");
 <%@include file="../jspf/header.jspf"%>
 <title>留言未完成</title>
 <script>
-window.alert("請重新留言,3秒後跳轉至留言介面");
+window.alert("請重新動作,3秒後跳轉至首頁");
 // setTimeout("location.href=select", 3000);
-setTimeout(function(){location.href="select"} , 3000);  
+setTimeout(function(){location.href="index"} , 3000);  
 </script>
 
 </head>
 <form class="arrow_box">
-請重新留言!
+請重新動作!
 </form>
 
 </body>

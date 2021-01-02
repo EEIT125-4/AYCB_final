@@ -31,12 +31,24 @@ public class CommentController {
 	@Autowired
 	CommentService commentService;
 
-	@GetMapping("/comment/")
-	public String home(Model model) {
-		model.addAttribute("member");
-		return "comment/displayBoard"; // 請視圖解析器由視圖的邏輯名稱index來找出真正的視圖
-	}
 
+//		@GetMapping("comment/empty")
+//		public String showEmptyForm(Model model) {
+//			Blog bg = new Blog();
+//			model.addAttribute("blog", bg);
+//			return "comment/blogForm";
+//		}
+//	
+	//空白的表格
+	@GetMapping("comment/")
+	public String home(Model model) {
+		System.out.println("in comment");
+		CommentBean comment=new CommentBean();
+		model.addAttribute("comment",comment);
+
+		return "comment/commentBoard";
+	}
+	
 	@PostMapping("comment/CommentController")
 	public String steps(Model model, HttpSession session,
 			@RequestParam(value = "submit", required = false) String submit,
@@ -66,7 +78,7 @@ public class CommentController {
 			CommentBean comment = new CommentBean(null, (MemberBean) session.getAttribute("member"), null, content,
 					status, keynumber, type);
 			model.addAttribute("comment", comment);
-			return "comment/displayTest";
+			return "comment/commentConfirm";
 		}
 //insert的確認送出的留言
 		if (confirm != null) {
@@ -78,7 +90,6 @@ public class CommentController {
 			// SQL的Date轉JAVA的Date
 			java.util.Date utilDate = new java.util.Date();
 			utilDate.setTime(sqlDate.getTime());
-//			Timestamp commentTime = String.valueOf(utilDate);
 			CommentBean comment = new CommentBean(
 					commentId,
 					(MemberBean) session.getAttribute("member"),
@@ -88,7 +99,6 @@ public class CommentController {
 					keynumber, 
 					type);
 
-//			model.addAttribute("comment", comment);
 			try {
 				System.out.println("一筆資料" + comment);
 				System.out.println("comment:" + comment.getMember().getName());
@@ -96,9 +106,7 @@ public class CommentController {
 				commentService.insertComment(comment);
 				List<CommentBean> cb = commentService.selectAll();
 				model.addAttribute("dis_board", cb);
-				return "/comment/select";
-				// request.getRequestDispatcher("CommentThanks.jsp").forward(request, response);
-				// response.sendRedirect(request.getContextPath() + "/CommentThanks.jsp");
+				return "/comment/commentSelectAll";
 			} catch (Exception e) {
 				return "comment/CommentCancel";
 			}
@@ -115,9 +123,9 @@ public class CommentController {
 				List<CommentBean> cb = commentService.selectAll();
 				model.addAttribute("dis_board", cb);
 				if (cheat != null && cheat.equals("cheat")) {
-					return "comment/select";
+					return "comment/commentSelectAll";
 				} else {
-					return "comment/select";
+					return "comment/commentSelectAll";
 				}
 
 			} catch (Exception e) {
@@ -158,9 +166,9 @@ public class CommentController {
 				List<CommentBean> cb = commentService.selectAll();
 				model.addAttribute("dis_board", cb);
 				if (cheat != null && cheat.equals("cheat")) {
-					return "comment/select";
+					return "comment/commentSelectAll";
 				} else {
-					return "comment/select";
+					return "comment/commentSelectAll";
 				}
 			} catch (Exception e) {
 				System.out.println("error");
@@ -172,9 +180,9 @@ public class CommentController {
 		if (category != null) {
 			List<CommentBean> cb = commentService.selectAll();
 			model.addAttribute("dis_board", cb);
-			return "comment/select";
+			return "comment/commentSelectAll";
 		}
-		return "comment/select";
+		return "comment/commentSelectAll";
 
 	}
 
@@ -183,7 +191,7 @@ public class CommentController {
 	public String getAll(Model model) {
 		List<CommentBean> cb = commentService.selectAll();
 		model.addAttribute("dis_board", cb);
-		return "comment/select";
+		return "comment/commentSelectAll";
 	}
 
 //controller控制跳轉頁面	

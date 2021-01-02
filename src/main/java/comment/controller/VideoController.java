@@ -56,9 +56,6 @@ public class VideoController {
 			}
 			try {
 				videoService.insertVideo(video);
-			} catch (org.hibernate.exception.ConstraintViolationException e) {
-				//result.rejectValue("account", "", "帳號已存在，請重新輸入");
-				return "comment/videoForm";
 			} catch (Exception ex) {
 				System.out.println(ex.getClass().getName() + ", ex.getMessage()=" + ex.getMessage());
 				result.rejectValue("account", "", "請通知系統人員...");
@@ -104,7 +101,6 @@ public class VideoController {
 		//刪除影片
 		@GetMapping(value = "comment/delete")
 		public String delete(
-			//	@PathVariable("aid") Integer aid
 				@RequestParam(value="aid" ,required = false)Integer aid
 				) {
 			videoService.deleteVideo(aid);

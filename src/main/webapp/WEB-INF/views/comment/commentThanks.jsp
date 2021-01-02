@@ -12,13 +12,13 @@
 <link rel="stylesheet" href="../css/comment.css" />
 <title>留言成功</title>
 <script>
-	window.alert("留言成功");
-	setTimeout(function(){location.href="select"} , 3000); 
+	window.alert("執行成功");
+	setTimeout(function(){location.href="index"} , 3000); 
 </script>
 
 </head>
 <%@include file="../jspf/header.jspf"%>
-<form class="arrow_box">留言成功!</form>
+<form class="arrow_box">執行成功!</form>
 
 <!-- <!-- <script type="text/javascript"> --> 
 <!-- // 	function countDown() { -->

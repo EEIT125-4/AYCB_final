@@ -56,7 +56,7 @@ public class MessageController {
 		return null;
 
 	}
-
+//長出新的留言
 	@GetMapping(value = "/message/types")
 	@ResponseBody
 	public List<String> queryTypes() {

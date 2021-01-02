@@ -22,12 +22,13 @@
 }
 </style>
 <!-- Page Preloder -->
-	<div id="preloder">
-		<div class="loader"></div>
-	</div>
+<div id="preloder">
+	<div class="loader"></div>
+</div>
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-blog set-bg"
-	data-setbg="${pageContext.request.contextPath}/image/breadcrumb-bg2.jpg">
+	data-setbg="/AYCB/image/breadcrumb-bg2.jpg"
+	style="background-image: url(&quot;/AYCB/image/breadcrumb-bg2.jpg&quot;);">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
@@ -39,8 +40,7 @@
 <!-- Breadcrumb Section End -->
 
 <div class='center' style='position: relative; top: 200px;'>
-	<form:form method="POST" modelAttribute="video"
-		enctype='multipart/form-data'>
+	<form:form method="POST" modelAttribute="video" enctype='multipart/form-data'>
 		<fieldset class="updateform">
 			<legend class="title">影片上傳</legend>
 			<p>
@@ -53,8 +53,9 @@
 					name="title" value="${title}">
 			</p>
 			<p>
-				<label for="" class="t1">上傳影片:</label> <input type="text" name="url"
-					value="${url}">
+				<label for="" class="t1">上傳影片的網址:</label> <input type="text"
+					name="url" value="${url}"
+					placeholder="例:https://www.youtube.com/embed/36jbdUTUwxU">
 			</p>
 			<p>
 				<input type="hidden" name="commentTime" value="${commentTime}">
