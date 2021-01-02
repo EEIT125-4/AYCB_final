@@ -21,10 +21,10 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 </head>
 
 <%@include file="../jspf/header.jspf"%>
-<%@include file="../jspf/footer.jspf"%>
 
-<jsp:useBean id="video" class="comment.model.Video" scope="session" />
-<body>
+
+<jsp:useBean id="videolist" class="comment.model.Video" scope="session" />
+
 	<!-- Page Preloder -->
 <!-- 	<div id="preloder"> -->
 <!-- 		<div class="loader"></div> -->
@@ -59,7 +59,7 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 		<div class="container">
 			<div class="row">
 
-				<c:forEach var='v' varStatus='vs' items='${video}'>
+				<c:forEach var='v' varStatus='vs' items='${videolist}'>
 
 					<div class="col-lg-4 col-md-6 col-sm-6">
 						<div class="blog__item">
@@ -87,7 +87,7 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 		</div>
 	</section>
 
-
+<%@include file="../jspf/footer.jspf"%>
 	<!-- Blog Section End -->
 
 	<!-- Js Plugins -->

@@ -197,10 +197,7 @@ public class CommentController {
 		return "comment/video";
 	}
 
-	@RequestMapping("/blog")
-	public String gotoBlog(Model model) {
-		return "comment/blog";
-	}
+	
 
 
 }

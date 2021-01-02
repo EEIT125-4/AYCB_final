@@ -6,15 +6,15 @@
 		<property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
 		
 <!-- 		 切換本機 -->
-<!-- 		<property name="hibernate.connection.username">sa</property> -->
-<!-- 		<property name="hibernate.connection.password">manager</property> -->
-<!-- 		<property name="hibernate.connection.url">jdbc:sqlserver://localhost:1433;databaseName=project</property> -->
+		<property name="hibernate.connection.username">sa</property>
+		<property name="hibernate.connection.password">manager</property>
+		<property name="hibernate.connection.url">jdbc:sqlserver://localhost:1433;databaseName=project</property>
 		
 		
 <!-- 		切換外地 -->
-		<property name="hibernate.connection.url">jdbc:sqlserver://10.31.25.143:1433;databaseName=project</property>
-		<property name="hibernate.connection.username">scott</property>
-		<property name="hibernate.connection.password">tiger</property>
+<!-- 		<property name="hibernate.connection.url">jdbc:sqlserver://10.31.25.143:1433;databaseName=project</property> -->
+<!-- 		<property name="hibernate.connection.username">scott</property> -->
+<!-- 		<property name="hibernate.connection.password">tiger</property> -->
 
 
 		<property name="hibernate.dialect">org.hibernate.dialect.SQLServer2012Dialect</property>
@@ -42,6 +42,6 @@
 		<mapping class="tool.model.Image"></mapping>
 		<mapping class="product.model.ProductBean"></mapping>
 	
-
+		<mapping class="comment.model.Video"></mapping>
 	</session-factory>
 </hibernate-configuration>

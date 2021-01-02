@@ -2,6 +2,7 @@ package tool;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import comment.model.Video;
 import member.MemberBean;
 import product.model.ProductBean;
 import tool.model.Image;
@@ -35,11 +37,16 @@ public class TestOfProject {
 		
 //		testJson();
 		
+		
+		/**
+		 * 這個方法是初始化交易的,如果要進資料庫,記得一定要開
+		 */
 		initTransaction();
+		uploadVideo();
 //		resetpassword();
 
 //		uploadImage();
-		refreshPic();
+//		refreshPic();
 //		testJson();
 		
 		
@@ -131,45 +138,91 @@ public class TestOfProject {
 		
 	}
 	
-//	static void uploadImage() {
-//		try {
-//			JFrame frame=new JFrame();
-//			JFileChooser chooser=new JFileChooser();
-//			FileNameExtensionFilter filter = new FileNameExtensionFilter(
-//			        "\"jpg\", \"gif\",\"jfif\",\"jpeg\",\"png\"", "jpg", "gif","jfif","jpeg","png");
-//			    chooser.setFileFilter(filter);
-//			    chooser.setMultiSelectionEnabled(true);
-//			    int returnVal = chooser.showOpenDialog(frame);
-//			    if(returnVal == JFileChooser.APPROVE_OPTION) {
-//			    	
-//			    	File[] files=chooser.getSelectedFiles();
-//			    	for(File f:files) {
-//			    		 System.out.println("You chose to open this file: " +
-//			 		          f.getName());
-//			    		 Image img=new Image();
-//			    		 FileInputStream fis=new FileInputStream(f);
-//			    		 
+	static void uploadVideo() {
+		try {
+			
+			JFrame frame=new JFrame();
+			JFileChooser chooser=new JFileChooser();
+			chooser.setDialogTitle("choose video to upload");
+			FileNameExtensionFilter filter = new FileNameExtensionFilter(
+			        "mp4,wmv,", "mp4", "wmv");
+			    chooser.setFileFilter(filter);
+			    chooser.setMultiSelectionEnabled(true);
+			    int returnVal = chooser.showOpenDialog(frame);
+			    if(returnVal == JFileChooser.APPROVE_OPTION) {
+			    	
+			    	File[] files=chooser.getSelectedFiles();
+			    	for(File f:files) {
+			    		 System.out.println("You chose to open this file: " +
+			 		          f.getName());
+			    		 Video video =new Video();
+			    		
+			    		 FileInputStream fis=new FileInputStream(f);
+			    		 
+			    		 
+			    		 byte[] b=new byte[fis.available()];
+			    		 	fis.close();
+							video.setVideo(new SerialBlob(b));
+							
+							session.save(video);					
+			    	}
+			    	
+    	
+			    	tx.commit();
+			    	System.out.println("上傳影片成功");
+			    	
+			
+		} 
+			    }
+		catch (Exception e) {
+			tx.rollback();
+			System.err.println("上傳圖片失敗");
+			e.printStackTrace();
+			
+		}
+	}
+	
+	static void uploadImage() {
+		try {
+			JFrame frame=new JFrame();
+			JFileChooser chooser=new JFileChooser();
+			FileNameExtensionFilter filter = new FileNameExtensionFilter(
+			        "\"jpg\", \"gif\",\"jfif\",\"jpeg\",\"png\"", "jpg", "gif","jfif","jpeg","png");
+			    chooser.setFileFilter(filter);
+			    chooser.setMultiSelectionEnabled(true);
+			    int returnVal = chooser.showOpenDialog(frame);
+			    if(returnVal == JFileChooser.APPROVE_OPTION) {
+			    	
+			    	File[] files=chooser.getSelectedFiles();
+			    	for(File f:files) {
+			    		 System.out.println("You chose to open this file: " +
+			 		          f.getName());
+			    		 Image img=new Image();
+			    		
+			    		 FileInputStream fis=new FileInputStream(f);
+			    		 
+			    		 byte[] b=new byte[fis.available()];
 //			    		 byte[] b = fis.readAllBytes();
-//							Blob blob = new SerialBlob(b);
-//							img.setImage(blob);
-//							img.setFilename(f.getName());
-//							session.save(img);						
-//			    	}
-//			    	
-//    	
-//			    	tx.commit();
-//			    	System.out.println("上傳圖片成功");
-//			    	
-//			
-//		} 
-//			    }
-//		catch (Exception e) {
-//			tx.rollback();
-//			System.err.println("上傳圖片失敗");
-//			e.printStackTrace();
-//			
-//		}
-//	}
+							Blob blob = new SerialBlob(b);
+							img.setImage(blob);
+							img.setFilename(f.getName());
+							session.save(img);					
+			    	}
+			    	
+    	
+			    	tx.commit();
+			    	System.out.println("上傳圖片成功");
+			    	
+			
+		} 
+			    }
+		catch (Exception e) {
+			tx.rollback();
+			System.err.println("上傳圖片失敗");
+			e.printStackTrace();
+			
+		}
+	}
 	static void refreshPic() {
 		
 		//執行圖檔更新

@@ -1,5 +1,9 @@
 package comment.model;
 
+import java.io.IOException;
+import java.sql.Blob;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -10,6 +14,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.sql.rowset.serial.SerialBlob;
+import javax.sql.rowset.serial.SerialException;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import member.MemberBean;
 
@@ -30,19 +39,27 @@ public class Video {
 //	private String gender;
 //	private Integer age;
 	@Column(columnDefinition= "smalldatetime")
-	private Date commentTime;
+	private Timestamp commentTime;
+	@Column(columnDefinition = "NVARCHAR(50) NOT NULL")
 	private String title;
+	@Column(columnDefinition = "NVARCHAR(max) NOT NULL")
 	private String url;
 	private Integer status;
 	private Integer thumbsup;
 	@Column(columnDefinition= "smalldatetime")
-	private Date fixedTime;
+	private Timestamp fixedTime;
+	
+	private Blob video;
+	
+	
+	
 
+	
 	public Video() {
 	}
 
-	public Video(Integer videoId, MemberBean member, Date commentTime, String title, String url, Integer status,
-			Integer thumbsup, Date fixedTime) {
+	public Video(Integer videoId, MemberBean member,Timestamp commentTime, String title, String url, Integer status,
+			Integer thumbsup, Timestamp fixedTime) {
 		super();
 		this.videoId = videoId;
 		this.member = member;
@@ -53,6 +70,35 @@ public class Video {
 		this.thumbsup = thumbsup;
 		this.fixedTime = fixedTime;
 	}
+	
+	
+
+
+	/**
+	 * 上傳檔案並依檔名設定標題
+	 * @param file
+	 * @throws IOException
+	 * @throws SerialException
+	 * @throws SQLException
+	 */
+public void setVideo(MultipartFile file) throws IOException, SerialException, SQLException {
+		
+		byte[] b = file.getBytes();
+		Blob blob = new SerialBlob(b);
+		this.title=file.getOriginalFilename();
+		this.video=blob;
+		
+		
+	}
+
+public void setVideo(Blob blob) {
+
+	
+	this.video=blob;
+	
+	
+}
+
 
 	public Integer getVideoId() {
 		return videoId;
@@ -74,7 +120,7 @@ public class Video {
 		return commentTime;
 	}
 
-	public void setCommentTime(Date commentTime) {
+	public void setCommentTime(Timestamp commentTime) {
 		this.commentTime = commentTime;
 	}
 
@@ -114,9 +160,11 @@ public class Video {
 		return fixedTime;
 	}
 
-	public void setFixedTime(Date fixedTime) {
+	public void setFixedTime(Timestamp fixedTime) {
 		this.fixedTime = fixedTime;
 	}
+	
+	
 
 	@Override
 	public String toString() {

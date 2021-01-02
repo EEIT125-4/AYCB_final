@@ -23,6 +23,8 @@
 
 <link href="${pageContext.request.contextPath}/css/editor.css"
 	rel="stylesheet">
+	
+
 <title>NewMsg</title>
 
 <style>
@@ -112,7 +114,7 @@
 		</div>
 	</main>
 </div>
-<%@include file="../jspf/footer.jspf"%>
+<%-- <%@include file="../jspf/footer.jspf"%> --%>
 
 
 <script src="https://code.jquery.com/jquery-3.5.1.js"

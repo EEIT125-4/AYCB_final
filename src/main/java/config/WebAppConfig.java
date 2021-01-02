@@ -13,6 +13,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @EnableWebMvc
 @ComponentScan({
 	"config",
+	"blog",
 	"event",
 	"member",
 	"message",
