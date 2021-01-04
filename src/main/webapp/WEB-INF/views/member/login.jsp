@@ -245,7 +245,7 @@
 	function Ckac() {
 		let ac = document.getElementById("ac").value
 		let aclen = ac.length;
-		let sp = document.getElementById("idsp")
+		let sp =                                                                                                     document.getElementById("idsp")
 		var rex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]+$/;
 		if (ac.length >= 2 && rex.test(ac)) {
 			sp.innerHTML = "正確"

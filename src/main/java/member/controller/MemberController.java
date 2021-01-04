@@ -63,8 +63,8 @@ public class MemberController {
 
 		return "member/center"; // 請視圖解析器由視圖的邏輯名稱index來找出真正的視圖
 	}
-
-	@GetMapping("/register") // 註冊頁
+	// 註冊頁
+	@GetMapping("/register") 
 	public String getregister(Model model) {
 		MemberBean memberbean = new MemberBean();
 
@@ -74,7 +74,11 @@ public class MemberController {
 
 		return "member/register";
 	}
+<<<<<<< Updated upstream
 
+=======
+//帳號判斷
+>>>>>>> Stashed changes
 	@PostMapping("/accountcheck")
 	@ResponseBody
 	public List<MemberBean> Check() {
@@ -88,14 +92,36 @@ public class MemberController {
 		return list;// memberService.checkDup();
 
 	}
+	
+	
+	//信箱確認
+	@PostMapping("/emailcheck")
+	@ResponseBody
+	public List<MemberBean> emailCheck() {
 
-	@PostMapping("/memberConfirm") // 確認頁
+		List<MemberBean> list = memberService.getAllMembers();
+		for (MemberBean m : list) {
+
+			System.out.println("acc:" + m.getAccount());
+		}
+
+		return list;// memberService.checkDup();
+
+	}
+	
+	
+	
+	
+	
+	
+	// 確認頁
+	@PostMapping("/memberConfirm") 
 	public String register(@ModelAttribute("member") MemberBean member, BindingResult result, Model model,
 			HttpServletRequest request) {
 
 		member.setId(null);
 
-		member.setPhone("");
+
 
 		model.addAttribute("member", member);
 
@@ -107,8 +133,8 @@ public class MemberController {
 		}
 
 	}
-
-	@PostMapping("/insert") // 新增
+	// 新增
+	@PostMapping("/insert") 
 	public String insert(@ModelAttribute("member") MemberBean member, BindingResult result, Model model
 	// HttpServletRequest request
 
@@ -116,9 +142,9 @@ public class MemberController {
 		
 		System.out.println("取得" + member.getAccount());
 		String password=member.getPassword();
-		System.out.println("原始密碼:"+password);
+//		System.out.println("原始密碼:"+password);
 		password=Common.getMD5Endocing(password);
-		System.out.println("加密後密碼:"+password);
+//		System.out.println("加密後密碼:"+password);
 		member.setPassword(password);
 		memberService.insertregister(member);
 		
@@ -137,7 +163,7 @@ public class MemberController {
 
 	}
 
-
+//驗證碼以及登入
 	@PostMapping("/login") // 登入
 	public String checklogin(@RequestParam(value = "user", required = false) String user,
 			@RequestParam(value = "pwd", required = false) String pwd, Model model, String Qcode, HttpSession session,
@@ -183,14 +209,13 @@ public class MemberController {
 		}
 
 	}
-
+//更新會員資料
 	@GetMapping("member/update") // 更新Get
 	public String update(Model model) {
 
 		return "member/update";
 
 	}
-
 	@PostMapping("/member/updateComplete") // 更新post
 	public String updateComplete(Model model, HttpSession session,
 			@RequestParam(value = "username", required = false) String name,
@@ -211,6 +236,38 @@ public class MemberController {
 		return "index";
 
 	}
+	
+
+	//更新密碼
+	@PostMapping("member/changeComplete") // 更新post
+	@ResponseBody
+	public boolean changeComplete(Model model, HttpSession session,HttpServletRequest request,
+			 HttpServletResponse response,
+			@RequestParam(value = "old", required = false) String oldpwd) {
+		
+		boolean pp =false;
+		System.out.println("確認更新===============");
+		System.out.println("oldpwd"+oldpwd);
+		MemberBean mb = (MemberBean) session.getAttribute("member");
+		System.out.println("mb"+mb);
+		oldpwd=Common.getMD5Endocing(oldpwd);
+		System.out.println("oldpwd"+oldpwd);
+		System.out.println("passowrd"+mb.getPassword());
+		
+		
+		if(mb.getPassword().equals(oldpwd)) {
+			
+			return true;
+		}else {
+			return pp;
+		}
+	
+
+	}
+	
+	
+	
+	
 
 
 
