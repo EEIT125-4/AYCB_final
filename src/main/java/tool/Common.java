@@ -54,6 +54,9 @@ public class Common
 	public static String IMAGE_REAL_PATH = "C:\\Users\\user\\git\\AYCB_final\\src\\main\\webapp\\WEB-INF\\views\\image";
 	public static String UPLOAD_VIDEO="C:/Users/user/git/AYCB_final/src/main/webapp/video";
 	// UPLOAD_PATH="C:/AYCB/AYCB2/src/main/webapp/upload/
+	
+	//Server所在IP位置
+	public static String DOMAIN="http://localhost:8080";
 
 	public static String UPLOAD_DIALOG = "上傳單一檔案";
 	// "C:\\AYCB\\AYCB2\\src\\main\\webapp\\upload"

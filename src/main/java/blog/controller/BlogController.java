@@ -19,9 +19,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
+import blog.model.Blog;
 import blog.service.BlogService;
-import comment.model.Blog;
 import event.validator.EventValidator;
 
 @Controller
@@ -84,12 +85,19 @@ public class BlogController {
 			return "blog/blog";
 	}
 	
-	// 選擇一筆需要更新的部落格文章
-	@GetMapping(value = "blog/${Blog.aid}")
-	public String showDataForm(@PathVariable("blogId") Integer blogId, Model model) {
-		Blog blog = blogService.selectUpdateBlog(blogId);
-		model.addAttribute(blog);
-		return "blog/blogUpdate";
+	// 選擇一筆部落格文章
+	@GetMapping(value = "blog/{blogId}")
+	public ModelAndView showDataForm(@PathVariable("blogId") Integer blogId) {
+		ModelAndView mav=new ModelAndView();
+		
+		Blog blog = blogService.selectBlog(blogId);
+		blog.setViews(blog.getViews()+1);
+		blogService.updateBlog(blog);
+		mav.addObject("blog", blog);
+		mav.setViewName("blog/blogContent");
+		
+		
+		return mav;
 	}
 
 	//更新一篇部落格文章

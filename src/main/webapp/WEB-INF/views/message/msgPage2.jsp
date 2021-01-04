@@ -54,7 +54,7 @@ types = (List<String>) request.getAttribute("types");
 <script async charset="utf-8" src="cdn.embedly.com/widgets/platform.js"></script>
 </head>
 
-<%-- <%@include file="../jspf/header.jspf"%> --%>
+<%@include file="../jspf/header.jspf"%>
 
 <div class="mid">
 	<aside id="left">

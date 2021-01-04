@@ -1,9 +1,11 @@
 $(function() {
+	
     let timer = setInterval(auto, 2000);
     let num = 0;
     let slideCount = $(".adbox_slides li").length;
+    $(".adbox_slides").width(800*slideCount);
     let lastIndex = slideCount - 1;
-
+	
     function auto() {
         if (num >= lastIndex)
             num = -1;

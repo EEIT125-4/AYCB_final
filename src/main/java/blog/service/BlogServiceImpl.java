@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import blog.dao.BlogDao;
-import comment.model.Blog;
+import blog.model.Blog;
 
 
 @Service
@@ -35,10 +35,10 @@ public class BlogServiceImpl implements BlogService {
 		return dao.deleteBlog(blogId);
 	}
 
-//選擇一筆需要更新的部落格文章
+//選擇一筆部落格文章
 	@Override
-	public Blog selectUpdateBlog(Integer BlogId) {
-			return dao.selectUpdateBlog(BlogId);
+	public Blog selectBlog(Integer BlogId) {
+			return dao.selectBlog(BlogId);
 	}
 
 	// 更新一筆部落格文章

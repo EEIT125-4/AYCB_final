@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import comment.model.Blog;
+import blog.model.Blog;
 
 public interface BlogDao {
 	
@@ -26,7 +26,7 @@ public interface BlogDao {
 	Blog get(Integer BlogId);
 
 	// 選擇一筆需要更新的部落格文章
-	Blog selectUpdateBlog(Integer blogId);
+	Blog selectBlog(Integer blogId);
 
 	// 更新一筆部落格文章
 	Integer updateBlog(Blog bg);

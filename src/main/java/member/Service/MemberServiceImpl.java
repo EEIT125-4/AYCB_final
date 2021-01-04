@@ -92,4 +92,11 @@ public class MemberServiceImpl implements MemberService {
 		
 		return memberDao.getAllMembers();
 	}
+
+
+	@Override
+	public MemberBean getMember(Integer pk) {
+		
+		return memberDao.getMember(pk);
+	}
 }

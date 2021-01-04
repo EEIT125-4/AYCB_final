@@ -308,12 +308,12 @@
 		document.getElementById("passwordeye").addEventListener("click",function(){
 			if(p==0){
 				document.getElementById("pwd").type="text";p=p+1;
-				document.getElementById("eye").src="${pageContext.request.contextPath}/image/openeye.png";
+				document.getElementById("eye").src="${pageContext.request.contextPath}/image/closeeye.png";
 				
 			}
 			else{
 				document.getElementById("pwd").type="password";p=0;
-				document.getElementById("eye").src="${pageContext.request.contextPath}/image/closeeye.png";
+				document.getElementById("eye").src="${pageContext.request.contextPath}/image/openeye.png";
 			}
 		
 		

@@ -59,9 +59,9 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 								<span><img src="image/icon/calendar.png" alt=""> ${b.commentTime}</span>
 								<h5>${b.title}</h5>
 								<div class="proprice">上傳者:${b.member.name}</div>
-
-								</span> <span class="thumbsup">5 </span>
-								<a href="#">Read More</a>
+								<span>瀏覽人次:${b.views}</span>	
+								 <span class="thumbsup">按讚次數:${b.thumbs} </span>
+								<a href="${pageContext.request.contextPath}/blog/${b.blogId}">Read More</a>
 							</div>
 						</div>
 					</div>

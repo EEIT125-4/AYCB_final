@@ -7,34 +7,64 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
+import org.apache.el.parser.ArithmeticNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import comment.model.CommentBean;
 import comment.service.CommentService;
 import member.MemberBean;
+import member.Service.MemberService;
 
 @SessionAttributes({ "comment", "dis_board", "member" })
 @Controller
 public class CommentController {
 
 	@Autowired
-	ServletContext servletContext;
+	ServletContext context;
+	@Autowired
+	MemberService ms;
 
 	@Autowired
-	CommentService commentService;
+	CommentService cs;
 
 	@GetMapping("/comment/")
 	public String home(Model model) {
 		model.addAttribute("member");
 		return "comment/displayBoard"; // 請視圖解析器由視圖的邏輯名稱index來找出真正的視圖
+	}
+	
+	@PostMapping("/leaveComment")
+	@ResponseBody
+	public String leaveComment(
+			Model model,
+			@RequestParam("mid")Integer mid,
+			@ModelAttribute("leave")CommentBean cb) {
+		
+		
+		System.out.println("leaving comment");
+		MemberBean mb=ms.getMember(mid);
+		Timestamp time = new Timestamp(new Date().getTime());
+		
+		cb.setMember(mb);
+		cb.setCommentTime(time);
+		
+		System.out.println("cb now:"+cb);
+		cs.insertComment(cb);
+		
+		return "OK";
+		
+
 	}
 
 	@PostMapping("comment/CommentController")
@@ -93,8 +123,8 @@ public class CommentController {
 				System.out.println("一筆資料" + comment);
 				System.out.println("comment:" + comment.getMember().getName());
 
-				commentService.insertComment(comment);
-				List<CommentBean> cb = commentService.selectAll();
+				cs.insertComment(comment);
+				List<CommentBean> cb = cs.selectAll();
 				model.addAttribute("dis_board", cb);
 				return "/comment/select";
 				// request.getRequestDispatcher("CommentThanks.jsp").forward(request, response);
@@ -109,10 +139,10 @@ public class CommentController {
 
 			System.out.println("delete id:" + commentId);
 			System.out.println("deleteComment");
-			commentService.deleteComment(commentId);
+			cs.deleteComment(commentId);
 
 			try {
-				List<CommentBean> cb = commentService.selectAll();
+				List<CommentBean> cb = cs.selectAll();
 				model.addAttribute("dis_board", cb);
 				if (cheat != null && cheat.equals("cheat")) {
 					return "comment/select";
@@ -129,7 +159,7 @@ public class CommentController {
 		if (update != null) {
 			System.out.println("commentID:"+commentId);
 			
-			CommentBean comment = commentService.selectUpdateitem(commentId);
+			CommentBean comment = cs.selectUpdateitem(commentId);
 			System.out.println("comment"+comment);
 			System.out.println("update page" + comment);
 			model.addAttribute("comment", comment);
@@ -153,9 +183,9 @@ public class CommentController {
 					keynumber,
 					type);
 			try {
-				commentService.updateComment(comment);
+				cs.updateComment(comment);
 				System.out.println("updateComment" + comment);
-				List<CommentBean> cb = commentService.selectAll();
+				List<CommentBean> cb = cs.selectAll();
 				model.addAttribute("dis_board", cb);
 				if (cheat != null && cheat.equals("cheat")) {
 					return "comment/select";
@@ -170,7 +200,7 @@ public class CommentController {
 
 		}
 		if (category != null) {
-			List<CommentBean> cb = commentService.selectAll();
+			List<CommentBean> cb = cs.selectAll();
 			model.addAttribute("dis_board", cb);
 			return "comment/select";
 		}
@@ -181,7 +211,7 @@ public class CommentController {
 //選擇所有留言資料顯現出來(select all)
 	@GetMapping("/comment/select")
 	public String getAll(Model model) {
-		List<CommentBean> cb = commentService.selectAll();
+		List<CommentBean> cb = cs.selectAll();
 		model.addAttribute("dis_board", cb);
 		return "comment/select";
 	}

@@ -168,4 +168,18 @@ public class MemberDaoImpl implements MemberDao {
 
 		return result;
 	}
+
+	@Override
+	public MemberBean getMember(Integer pk) {
+		Session session = factory.getCurrentSession();
+
+		String hql = "FROM MemberBean m WHERE m.id = :pk";
+
+		@SuppressWarnings("unchecked")
+		Query<MemberBean> query = session.createQuery(hql);
+		MemberBean mb = query.setParameter("pk", pk).getSingleResult();
+		return mb;
+	}
+	
+	
 }

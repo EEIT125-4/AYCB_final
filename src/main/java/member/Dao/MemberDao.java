@@ -22,5 +22,7 @@ public interface MemberDao {
 	 boolean isDup(String account);
 
 	 boolean emailcheck(String email);
+	 
+	 MemberBean getMember(Integer pk);
 
 }

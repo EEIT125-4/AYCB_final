@@ -2,7 +2,7 @@ package blog.service;
 
 import java.util.List;
 
-import comment.model.Blog;
+import blog.model.Blog;
 
 public interface BlogService {
 
@@ -16,7 +16,7 @@ public interface BlogService {
 	int deleteBlog(Integer blogId);
 
 	//選擇一筆需要更新的部落格文章
-	Blog selectUpdateBlog(Integer BlogId);
+	Blog selectBlog(Integer BlogId);
 
 	// 更新一筆部落格文章
 	int updateBlog(Blog bg);

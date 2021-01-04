@@ -7,7 +7,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import comment.model.Blog;
+import blog.model.Blog;
 
 @Repository
 public class BlogDaoImp implements BlogDao {
@@ -66,7 +66,7 @@ public class BlogDaoImp implements BlogDao {
 
 	// 選擇一筆需要更新的部落格文章
 	@Override
-	public Blog selectUpdateBlog(Integer id) {
+	public Blog selectBlog(Integer id) {
 
 		Session session = getSession();
 		return session.get(Blog.class, id);

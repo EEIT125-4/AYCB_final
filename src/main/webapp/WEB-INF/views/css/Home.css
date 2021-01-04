@@ -204,10 +204,10 @@ button {
     margin: 0;
     padding: 0;
     position: absolute;
-    width: 4000px;
+   
  
     transition: all .5s;
-     width: 4000px;
+     width: 1600px;
             left: 0px;
           
 }

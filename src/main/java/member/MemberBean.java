@@ -47,7 +47,7 @@ public class MemberBean implements Serializable {
 	private String gender;
 	
 	private Integer level;
-	
+	@Column(columnDefinition="int default 0")
 	private Integer iconid;
 	
 	
