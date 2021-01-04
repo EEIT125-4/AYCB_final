@@ -57,6 +57,7 @@ public class RootAppConfig {
 		LocalSessionFactoryBean factory = new LocalSessionFactoryBean();
 		factory.setPackagesToScan(new String[] {
 				"config",
+				"blog",
 				"event",
 				"member",
 				"message",

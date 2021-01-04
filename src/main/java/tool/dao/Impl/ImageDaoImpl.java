@@ -1,6 +1,8 @@
 package tool.dao.Impl;
 
 import java.sql.Blob;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -40,12 +42,25 @@ public class ImageDaoImpl implements ImageDao {
 	}
 
 	@Override
-	public void saveImage(Image img) {
+	public Integer saveImage(Image img) {
+		
+//		Map<String, String>resultMap=new HashMap<String, String>();
+		
 		if(img.getImgid()!=null) {
 			System.out.println("saveImage ID:"+img.getImgid());
 		}
 		Session session = factory.getCurrentSession();
 		session.saveOrUpdate(img);
+//		try{
+//			
+//			resultMap.put("uploaded","true");
+//			resultMap.put("url","");	
+//			return null;
+//		}catch (Exception e) {
+//			
+//		}
+		
+		return img.getImgid();
 		
 
 	}

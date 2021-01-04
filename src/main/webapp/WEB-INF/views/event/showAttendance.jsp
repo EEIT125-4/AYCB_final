@@ -15,7 +15,7 @@
 </head>
 <%@include file="../jspf/header.jspf"%>
 <body>
-<div style=' position: relative; top: 200px;'>
+<div>
 		<div>
 			<div
 				style="float: left; width: 20%; text-align: center; margin-left: 220px;">

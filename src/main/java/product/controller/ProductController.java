@@ -1,17 +1,24 @@
 package product.controller;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 
+import comment.model.CommentBean;
+import comment.service.CommentService;
 import product.model.ProductBean;
 import product.service.ProductService;
 
@@ -20,7 +27,12 @@ public class ProductController {
 
 	@Autowired
 	ProductService ps;
+	@Autowired
+	CommentService cs;
 	
+	/*
+	 * K:廣告輪播AJAX取圖
+	 */
 	
 	@GetMapping("/ads")
 	@ResponseBody
@@ -130,13 +142,41 @@ public class ProductController {
 	}
 	
 	@GetMapping("/Detail")
-	public String detail(Model model, 
+	public ModelAndView detail(Model model, 
 			@RequestParam(value = "no", required = false) Integer no
 	) {
+		ModelAndView mav=new ModelAndView();
+		
 		ProductBean detail = ps.getProduct(no);
-		model.addAttribute("Detail", detail);
-		return "product/detail";
+//		model.addAttribute("Detail", detail);
+		mav.addObject("Detail",detail);
+		CommentBean commentBean=new CommentBean();
+//		model.addAttribute("leave",commentBean);
+		mav.addObject("leave",commentBean);
+		mav.setViewName("product/detail");
+		return mav;
 	}
+	
+/*
+ * Kevin:for ajax response
+ */
+	@PostMapping("/Detail")
+	@ResponseBody
+	public String leaveComment(Model model, @ModelAttribute("leave") CommentBean cb) {
+
+		System.out.println("comment:" + cb);
+		// JAVA的Date轉SQL的Date
+		Timestamp time = new Timestamp(new Date().getTime());
+//		
+		cb.setCommentTime(time);
+		cs.insertComment(cb);
+		List<CommentBean> list = cs.selectAll();
+		model.addAttribute("comments", list);
+	
+		return "OK";
+	}
+	
+	
 	
 	@GetMapping(value = "/GetSeriesByBrand", produces = "application/json")
 	public @ResponseBody List<String> getSeriesByBrand(

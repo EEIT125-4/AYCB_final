@@ -33,8 +33,8 @@ public class ImageServiceImpl implements ImageService {
 	}
 
 	@Override
-	public void saveImage(Image img) {
-		dao.saveImage(img);
+	public Integer saveImage(Image img) {
+		return dao.saveImage(img);
 
 	}
 

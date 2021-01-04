@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<link REL=STYLESHEET HREF="${pageContext.request.contextPath}/css/Footer.css" TYPE="text/css">
-	
+
 <footer class="footer">
         <div class="container">
             <div class="row">
@@ -11,29 +10,29 @@
                         <div class="footer__logo">
                            <a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/image/2.png"></a>
                         </div>
-                        <p>Skincare is the strongest weapon to make you young!</p>
+                        <p>The customer is at the heart of our unique business model, which includes design.</p>
                         <a href="#"><img src="${pageContext.request.contextPath}/image/payment.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
                     <div class="footer__widget">
-                        <h6>Shopping</h6>
+                        <h6>購物須知</h6>
                         <ul>
-                            <li><a href="#">Clothing Store</a></li>
-                            <li><a href="#">Trending Shoes</a></li>
-                            <li><a href="#">Accessories</a></li>
-                            <li><a href="#">Sale</a></li>
+                            <li><a href="#">購物流程</a></li>
+                            <li><a href="#">付款&運送方式</a></li>
+                            <li><a href="#">退換貨流程</a></li>
+                            <li><a href="#">常見問題</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-3 col-sm-6">
                     <div class="footer__widget">
-                        <h6>Shopping</h6>
+                        <h6>會員服務</h6>
                         <ul>
-                            <li><a href="#">Contact Us</a></li>
-                            <li><a href="#">Payment Methods</a></li>
-                            <li><a href="#">Delivary</a></li>
-                            <li><a href="#">Return & Exchanges</a></li>
+                            <li><a href="#">會員權益聲明</a></li>
+                            <li><a href="#">會員中心</a></li>
+                            <li><a href="#">隱私權保護</a></li>
+                            <li><a href="#">聯絡我們</a></li>
                         </ul>
                     </div>
                 </div>
@@ -67,3 +66,4 @@
             </div>
         </div>
     </footer>
+

@@ -4,8 +4,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.InputStream;
 import java.sql.Blob;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
@@ -16,7 +19,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import tool.Common;
 import tool.model.Image;
 import tool.service.ImageService;
 
@@ -33,6 +41,33 @@ public class ImageController {
 	
 	@Autowired
 	ServletContext context;
+	
+	@RequestMapping("/uploadImage.do")
+	@ResponseBody
+	
+	public Map<String, String> receiveImage(@RequestPart("upload") MultipartFile file, HttpServletRequest request) {
+	   
+		
+		Map<String, String>result=new HashMap<String, String>();
+		
+		try {
+			
+			result.put("url", Common.DOMAIN+Common.saveImage(file));
+			result.put("uploaded","true");
+			System.out.println("ckeditor上傳成功");
+			return result;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("上傳失敗");
+			result.put("uploaded","false");
+			return null;
+			
+		}
+		
+		
+		
+	}
 	
 	
 	@GetMapping("/pic/{id}")

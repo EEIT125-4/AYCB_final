@@ -1,12 +1,8 @@
 .back {
     width: 75%;
-    /* height: 50%; */
     position: relative;
-    /* float: left; */
-    top: 180px;
+    top: 100px;
     left: 220px;
-    /* border-right: 1px solid gray; */
-    /* border: 1px solid red; */
 }
 
 .title {

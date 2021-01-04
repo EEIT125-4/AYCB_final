@@ -1,26 +1,20 @@
 package member.controller;
 
-import java.io.IOException;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
 import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,11 +24,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.wf.captcha.SpecCaptcha;
 import com.wf.captcha.utils.CaptchaUtil;
 
-import antlr.build.Tool;
 import member.MemberBean;
 import member.Service.MemberService;
 import tool.Common;
-import tool.GlobalService;
 
 @Controller
 
@@ -57,6 +49,12 @@ public class MemberController {
 
 		return "member/login"; // 請視圖解析器由視圖的邏輯名稱index來找出真正的視圖
 	}
+	
+	@GetMapping(value="/member/changepassword")
+	public String changePassword() {
+		
+		return "member/changePassword";
+	}
 
 	@GetMapping(value = { "/member/center" })
 	public String center() {
@@ -75,7 +73,7 @@ public class MemberController {
 		return "member/register";
 	}
 
-	@PostMapping("/accountcheck")
+	@PostMapping("member/accountcheck")
 	@ResponseBody
 	public List<MemberBean> Check() {
 
@@ -91,7 +89,8 @@ public class MemberController {
 
 	@PostMapping("/memberConfirm") // 確認頁
 	public String register(@ModelAttribute("member") MemberBean member, BindingResult result, Model model,
-			HttpServletRequest request) {
+			HttpServletRequest request)
+	{
 
 		member.setId(null);
 
@@ -215,19 +214,35 @@ public class MemberController {
 
 
       @PostMapping("member/google")
+      
      @ResponseBody
       public String googlelogin (@RequestParam(value = "googlename", required = false) String name ,
 		 @RequestParam(value = "googlegender", required = false) String gender,
+		 HttpServletRequest request,
+		 HttpServletResponse response,
+		
 		 @RequestParam(value = "googleemail", required = false) String email)
 		  {
+    	  System.out.println("");
     	  boolean res=memberService.emailcheck(email);
     	  if(res==false) 
     	  {MemberBean memberBean=new MemberBean(0, null, name, null, null, null, null, email, gender, null,null);
     	  
+//    	  		Cookie[] cookies = request.getCookies();
+    	  		
+//    	  		for(Cookie cookie: cookies) {
+//    	  			System.out.println(cookie.getName());
+//    	  			System.out.println(cookie.getValue());
+//    	  		}
+//    	  		Cookie cookie = new Cookie("abc", "123");
+//    	  		cookie.setMaxAge(60*10);
+//    	  		cookie.setPath("/AYCB");
+//    	  		response.addCookie(cookie);
+    	  		
     		  memberService.insertregister(memberBean);
   
     	  }
-    	  System.out.println(res);
+    	 
 	     return "index";
       }
       

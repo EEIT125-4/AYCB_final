@@ -14,38 +14,72 @@
 <title>登入</title>
 </head>
 <%@include file="../jspf/header.jspf"%>
-<form action="<c:url value="/login"/>" method="post">
-	<fieldset class="loginfs">
-		<div style="margin-top: 20px; margin-left: 580px; width: 700px">
+
+<div class="container">
+<form action="<c:url value="/login"/>" method="post" >
+	<fieldset class="loginfs" style="margin-left:200px" >
+<!-- 		<div style="margin-top: 20px; margin-left: 580px; width: 700px"> -->
 			<legend style="margin-left: 300px; font-size: 22px">會員登入</legend>
-
-
+			<div>
 			<input class="bbb" type="text" name="user" id="ac" required  placeholder="請輸入帳號or名稱" onblur="Ckac();" style="outline:none;">
 			<span id="idsp" style="color: red;"></span>
-			 <input class="bbb"
-				type="password" required name="pwd" id="pwd" placeholder="請輸入密碼(6-20數字英文混合)"
-				onblur="Ckpwd();" style="outline: none;"> 
-				<span id="idsp1"
-				style="color: red;"></span>
-				<label for="password" id="passwordeye"><img src="${pageContext.request.contextPath}/image/closeeye.png" id="eye"></label>	 
-		<br>
-		<div class="d-flex justify-content-center">
-		
-		
-			<img src="<c:url value="/captcha"/>"></a>
-				
-				<input name="Qcode" required style="font-size:10px;outline:none;height:28px;margin-top:15px">
-				
+			</div>
+			<div>
+			<input class="bbb" type="password" required name="pwd" id="pwd" placeholder="請輸入密碼(6-20數字英文混合)" onblur="Ckpwd();" style="outline: none;">
+			<span id="idsp1"style="color: red;"></span>
+			<label for="password" id="passwordeye"><img src="${pageContext.request.contextPath}/image/openeye.png" id="eye"></label><br>
+			</div>			
+			<div class="d-flex justify-content-center">	
+				<img src="<c:url value="/captcha"/>">
+<!-- 				</a> -->
+			<input name="Qcode" required style="font-size:10px;outline:none;height:28px;margin-top:15px">	
 <!-- 				  <input class="aaaa" -->
 <!-- 				type="checkbox" style="margin-left: 40px; "><span>記住我</span> -->
 				</div>
 <br>
-<br>
-<a href="<c:url value="/register"/>" class="btn btn-primary btn-lg active" role="button" aria-pressed="true" >新註冊</a>
+
+<div style="margin-left:270px">
+        <a href="<c:url value="/register"/>" class="btn btn-primary" role="button" aria-pressed="true" >新註冊</a>		
+		<a href="<c:url value="/register"/>" class="btn btn-primary" role="button" aria-pressed="true" >忘記密碼</a><br>
+		</div>
+		<br>
+									
+<%-- 		<a href="<c:url value="/register"/>" class="btn btn-primary btn-lg active" role="button" aria-pressed="true" >忘記密碼</a> --%>
+	<!-- Modal -->
+							<div class="modal fade" id="forgot" tabindex="-1"
+								role="dialog" aria-labelledby="exampleModalLongTitle"
+								aria-hidden="true">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h1 class="modal-title" id="Title">找回密碼</h1>
+											<button type="button" class="close" data-dismiss="modal"
+												aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">
+											
+											<div class="caption">
+												<label>請輸入您註冊的email</label>
+												<input type="text">
+												
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-primary"
+													data-dismiss="modal">送出確認信</button>
+												<a
+													href="<c:url value='/event/attendanceForm'/>?eventid=${event.eventid}"
+													class="btn btn-primary"> <span
+													class="glyphicon-info-sigh glyphicon">報名參加</span></a>
+											</div>
+										</div>
+									</div>
+								</div>
+								</p>
+							</div>
 		
-		<a href="<c:url value="/register"/>" class="btn btn-primary btn-lg active" role="button" aria-pressed="true" >忘記密碼</a>
-		
-			<br>
+	
 			
 			<button type="submit" name="button1" id="button1"
 				style="width: 250px; background-color: rgba(0, 0, 0, 0.753); height: 30px; color: snow; margin-left: 230px;">登入</button>
@@ -56,20 +90,17 @@
 			
 	<div class="d-flex justify-content-center" >
 			 <button type="button" id="btnSignIn" class="btn btn-info" style="width:130px;margin-right:20px">Google登入</button>
-	
-			   <button type="button" class="btn btn-danger" id="btnDisconnect" style="width:130px">斷連Google </button>
+			 <button type="button" class="btn btn-danger" id="btnDisconnect" style="width:130px">斷連Google </button>
     </div>
-    
-    <hr />
-    
-    <div id="content"></div>
-			
-			
-			
-		</div>
+<!--      <div id="content" style="background-color: orange;"></div> -->
+		
 	</fieldset>
 </form>
+</div>
 <%@include file="../jspf/footer.jspf"%>
+</body>
+
+
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <!--CLIENT_ID請自己改成從 後端組態檔讀取，例如：ASP.net的Web.config-->
 <script type="text/javascript">
@@ -277,12 +308,12 @@
 		document.getElementById("passwordeye").addEventListener("click",function(){
 			if(p==0){
 				document.getElementById("pwd").type="text";p=p+1;
-				document.getElementById("eye").src="${pageContext.request.contextPath}/image/openeye.png";
+				document.getElementById("eye").src="${pageContext.request.contextPath}/image/closeeye.png";
 				
 			}
 			else{
 				document.getElementById("pwd").type="password";p=0;
-				document.getElementById("eye").src="${pageContext.request.contextPath}/image/closeeye.png";
+				document.getElementById("eye").src="${pageContext.request.contextPath}/image/openeye.png";
 			}
 		
 		

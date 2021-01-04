@@ -51,6 +51,7 @@ types = (List<String>) request.getAttribute("types");
 	background-color: gray;
 }
 </style>
+<script async charset="utf-8" src="cdn.embedly.com/widgets/platform.js"></script>
 </head>
 
 <%@include file="../jspf/header.jspf"%>
@@ -149,7 +150,7 @@ types = (List<String>) request.getAttribute("types");
 
 
 </div>
-<%@include file="../jspf/footer.jspf"%>
+<%-- <%@include file="../jspf/footer.jspf"%> --%>
 
 <!-- <script src="https://code.jquery.com/jquery-3.5.1.js" -->
 <!-- 	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" -->
@@ -158,6 +159,7 @@ types = (List<String>) request.getAttribute("types");
 <script src="${pageContext.request.contextPath}/js/jquery-3.5.1.min.js"></script>
 <script
 	src="https://cdn.ckeditor.com/ckeditor5/24.0.0/classic/ckeditor.js"></script>
+
 <script>
 	//
 	function checkLogin() {
