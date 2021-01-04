@@ -61,7 +61,7 @@
         </div>
         <hr>
         <div style="text-align: center;" >
-        <input type="submit"  value="送出">
+        <input class="btn btn-dark" type="submit"  value="送出">
         </div>
     </form>
     

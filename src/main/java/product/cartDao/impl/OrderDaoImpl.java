@@ -35,6 +35,7 @@ public class OrderDaoImpl implements OrderDao {
 		List<ProductBean> products = new ArrayList<ProductBean>();
 		List<String> nameList = new ArrayList<String>();
 		List<Double> priceList = new ArrayList<Double>();
+		List<String> imgList = new ArrayList<String>();
 
 		Query<ProductBean> query1 = session.createQuery(hql);
 
@@ -49,11 +50,14 @@ public class OrderDaoImpl implements OrderDao {
 
 			priceList.add(p.getProductprice());
 			// System.out.println(p.getProductprice());
+			
+			imgList.add(p.getImagepath());
 		}
 		ProductDB PD = new ProductDB();
 
 		PD.setProductName(nameList);
 		PD.setProductPrice(priceList);
+		PD.setProductImage(imgList);
 
 		return PD;
 	}

@@ -46,7 +46,7 @@ public class OrderController {
 		
 		Set<OrderItemBean> details = new HashSet<OrderItemBean>();
 		for(CartItem cart : items) {
-			OrderItemBean oib = new OrderItemBean(null, cart.getProductNo(), cart.getProductName(), cart.getProductPrice(), cart.getQtyOrdered());
+			OrderItemBean oib = new OrderItemBean(null, cart.getProductImage(), cart.getProductNo(), cart.getProductName(), cart.getProductPrice(), cart.getQtyOrdered());
 			details.add(oib);
 		}
 	

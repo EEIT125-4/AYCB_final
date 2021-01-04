@@ -17,7 +17,7 @@ public class CartItem implements Serializable{
 		return productNo;
 	}
 
-	public void setProduct_No(int productNo) {
+	public void setProductNo(int productNo) {
 		this.productNo = productNo;
 	}
 
@@ -35,6 +35,10 @@ public class CartItem implements Serializable{
 
 	public Double getProductPrice() {
 		return ProductDB.getProductPrice(productNo-1);
+	}
+	
+	public String getProductImage() {
+		return ProductDB.getProductImage(productNo-1);
 	}
 
 }
