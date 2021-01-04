@@ -125,6 +125,7 @@
     //jQuery處理button click event 當畫面DOM都載入時....
     
     var result="";
+    
     $(function () {
         $("#btnSignIn").on("click", function () {
         	console.log("btn click");
