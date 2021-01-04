@@ -21,9 +21,9 @@ response.setHeader("Refresh", "10;AllProducts");
 
 <CENTER>
 	<h3>親愛的會員 ${member.name} 您好：
-	 <BR>感謝您的訂購<BR> 期待您再度光臨 !!
+	 <br>感謝您的訂購<br> 期待您再度光臨 !!
 	</h3>
-	<BR>
+	<br>
 
 </CENTER>
 <%@include file="../jspf/footer.jspf"%>

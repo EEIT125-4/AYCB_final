@@ -22,8 +22,8 @@
 					onclick='location.href="#"'> <input class="mbtn"
 					type="button" value="商品"
 					onclick='location.href="${pageContext.request.contextPath}/MProduct"'>
-				<input class="mbtn" type="button" value="購物車"
-					onclick='location.href="#"'>
+				<input class="mbtn" type="button" value="訂單"
+					onclick='location.href="${pageContext.request.contextPath}/orderManager"'>
 			</div>
 			<div class="format">
 				<input class="mbtn" type="button" value="訊息"
@@ -35,6 +35,6 @@
 		<%@include file="../jspf/footer.jspf"%>
 	</div>
 </div>
-</div>
+
 </body>
 </html>

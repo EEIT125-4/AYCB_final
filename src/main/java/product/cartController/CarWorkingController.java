@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -109,7 +110,7 @@ public class CarWorkingController {
 		} else if (todo.equals("checkout")) {
 
 			List<CartItem> theCart = (List<CartItem>) model.getAttribute("cart");
-
+			System.out.println("theCart"+theCart.size());
 			Double totalPrice = 0.0; // 計算總價,數字歸零
 			Integer totalQtyOrdered = 0; // 總數量歸零
 			for (CartItem item : theCart) {
@@ -121,6 +122,7 @@ public class CarWorkingController {
 
 			session.setAttribute("totalPrice", totalPrice);
 			session.setAttribute("totalQtyOrdered", totalQtyOrdered);
+			
 			System.out.println("totalPrice" + totalPrice);
 			System.out.println("totalQtyOrdered" + totalQtyOrdered);
 
@@ -130,28 +132,23 @@ public class CarWorkingController {
 
 	}
 
+	//@RequestParam(value = "cartIndex", required = false) Integer cartIndex,
+	//@PathVariable Integer cartIndex,
 	@SuppressWarnings( "unchecked" )
-	@GetMapping("/cartRemove")
+	@GetMapping("/cartRemove/{cartIndex}")
 	public String TodoRemove(Model model, 
-				@RequestParam(value = "cartIndex", required = false) int cartIndex,
+			@PathVariable int cartIndex,
 				HttpSession session
 	){
 		
-		System.out.println(cartIndex);
+		System.out.println("cartIndex"+cartIndex);
 		List<CartItem> theCart = (List<CartItem>) session.getAttribute("cart");
 		
-		
-		System.out.println("刪除商品" + theCart.get(cartIndex).getProductName());
+		System.out.println("刪除商品:" + theCart.get(cartIndex).getProductName());
 		theCart.remove(cartIndex); 
-		System.out.println("the cart:");
-		for(CartItem item:theCart) {
-			
-			System.out.println("商品:"+item);
-		}
 		
 		//session.setAttribute("cart", theCart);
-		
-		
+					
 		return "product/order";
 	}
 
