@@ -49,7 +49,7 @@
 				<TR>
 					<TD align="RIGHT">活動名稱：</TD>
 					<TD align="LEFT">
-					<input type="text" name="eventid" value="${attendance.event.eventname}${param.event.eventnameS}" size="30" disabled="disabled">
+					<input type="text" name="eventid" value="${attendance.event.eventname}${param.event.eventname}" size="30" disabled="disabled">
 				    <font color='red' size='-3'>${error.eid}</font></TD>
 						
 				</TR>
