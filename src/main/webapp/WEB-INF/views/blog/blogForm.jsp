@@ -21,14 +21,11 @@
 	margin-left: 500px;
 }
 </style>
-<!-- Page Preloder -->
+
 
 <%@include file="../jspf/header.jspf"%>
 
 
-<div id="preloder">
-	<div class="loader"></div>
-</div>
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-blog set-bg"
 	data-setbg="${pageContext.request.contextPath}/image/breadcrumb-bg.jpg">
