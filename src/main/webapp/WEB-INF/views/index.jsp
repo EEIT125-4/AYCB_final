@@ -18,7 +18,7 @@
 </head>
 <%@include file="jspf/header.jspf"%>
 
-<div class="wrapper">
+<div >
 
 <div class="adbox" id="adbox">
 	<ul class="adbox_slides" id="slides">

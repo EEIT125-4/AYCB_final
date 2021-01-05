@@ -16,8 +16,8 @@
 </head>
 
 <%@include file="../jspf/header.jspf"%>
-
-<div class="contentoutbox" >
+<div class="wrapper">
+<div class="contentoutbox" style="min-height: 2000px;">
 	<div class="contentbox">
 		<div class="leftside">
 			<div class="condition">條件篩選</div>
@@ -127,6 +127,7 @@
 			</div>
 		</div>		
 	</div>
+</div>
 </div>
 <%@include file="../jspf/footer.jspf"%>
 </body>
