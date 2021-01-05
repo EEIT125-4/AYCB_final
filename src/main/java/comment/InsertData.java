@@ -36,7 +36,6 @@ public class InsertData {
 //				time = new Timestamp(
 //						new SimpleDateFormat("yyyy-MM-dd'T'HH:mm").parse("").getTime());
 //			} catch (ParseException e) {
-//				// TODO Auto-generated catch block
 //				e.printStackTrace();
 //			}
 //			java.sql.Date sqlDate = new java.sql.Date(date.getTime());

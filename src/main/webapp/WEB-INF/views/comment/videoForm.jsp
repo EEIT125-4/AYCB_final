@@ -37,6 +37,13 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 		</div>
 	</div>
 </section>
+<!-- <div class="row"> -->
+<!-- 	<div class="col-lg-12"> -->
+<!-- 		<h2>影片上傳</h2> -->
+<!-- 	</div> -->
+<!-- </div> -->
+
+
 <!-- Breadcrumb Section End -->
 <section>
 	<div class="updateform">
@@ -57,18 +64,18 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 
 				</p>
 				<p>
-					<label for="" class="t1">上傳影片:</label>
-					<form:input type="text" path="url" value="${url}" />
+					<label for="" class="t1">上傳網址:</label>
+					<form:input type="text" path="url" value="${url}" placeholder="https://www.youtube.com/embed/gacTr733e5U"/>
 
 				</p>
-				
+
 
 				<p>
 					<form:input type="hidden" path="status" value="0" />
 				</p>
 
 				<p>
-					<input type="hidden" path="videoId" value="${videoId}">
+					<form:input type="hidden" path="videoId" value="${videoId}" />
 				</p>
 				<p>
 					<input id="file" type="file" name="file" />
@@ -83,6 +90,7 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 		</form:form>
 	</div>
 </section>
+
 
 <%@include file="../jspf/footer.jspf"%>
 
