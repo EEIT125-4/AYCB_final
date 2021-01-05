@@ -1,5 +1,6 @@
 package member.Dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import member.MemberBean;
+import tool.Common;
 
 @Repository
 public class MemberDaoImpl implements MemberDao {
@@ -30,11 +32,31 @@ public class MemberDaoImpl implements MemberDao {
 
 		return result;
 	}
-
-	public boolean identify(String account, String password) {
-
+	
+	public List<MemberBean> checkDup() {
+		String hql = "FROM MemberBean";
 		Session session = factory.getCurrentSession();
 
+		Query<MemberBean> query = session.createQuery(hql);
+		
+		List<MemberBean> list = query.getResultList();
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return list;
+		}
+	}
+	
+	
+	
+	
+	
+	
+
+	public boolean identify(String account, String password) {
+		
+		Session session = factory.getCurrentSession();
+		
 		String hql = "FROM MemberBean m WHERE m.account = :acc";
 
 		Query<MemberBean> query = session.createQuery(hql);
@@ -42,7 +64,9 @@ public class MemberDaoImpl implements MemberDao {
 		MemberBean mb = query.setParameter("acc", account).getSingleResult();
 		System.out.println("====================================");
 		System.out.println(mb);
-		if (mb.getPassword().equals(password)) {
+		System.out.println("輸入密碼:"+password);
+		System.out.println("密碼轉換:"+Common.getMD5Endocing(password));
+		if (Common.getMD5Endocing(password).equals(mb.getPassword())) {
 			return true;
 		}
 
@@ -71,18 +95,18 @@ public class MemberDaoImpl implements MemberDao {
 		return count;
 	}
 
-//	@Override
-//	@SuppressWarnings("unchecked")
-//	public List<MemberBean> getAllMembers() {
-//		List<MemberBean> list = new ArrayList<>();
-//		String hql = "FROM MemberBean";
-//		Session session = factory.getCurrentSession();
-//
-//			Query<MemberBean> query = session.createQuery(hql);
-//			list = query.getResultList();
-////		
-//		return list;
-//	}
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<MemberBean> getAllMembers() {
+		List<MemberBean> list = new ArrayList<>();
+		String hql = "FROM MemberBean";
+		Session session = factory.getCurrentSession();
+
+			Query<MemberBean> query = session.createQuery(hql);
+			list = query.getResultList();
+//		
+		return list;
+	}
 
 //	@Override
 //	public MemberBean getMember(int account) {
@@ -129,4 +153,33 @@ public class MemberDaoImpl implements MemberDao {
 		return mb;	
 		
 	}
+	@Override
+	public boolean emailcheck(String email) {
+		boolean result = false;
+		String hql = "FROM MemberBean m WHERE m.email = :email0";
+		Session session = factory.getCurrentSession();
+
+		Query<MemberBean> query = session.createQuery(hql);
+		List<MemberBean> list = query.setParameter("email0", email).getResultList();
+		if (list.size() > 0) {
+
+			result = true;
+		}
+
+		return result;
+	}
+
+	@Override
+	public MemberBean getMember(Integer pk) {
+		Session session = factory.getCurrentSession();
+
+		String hql = "FROM MemberBean m WHERE m.id = :pk";
+
+		@SuppressWarnings("unchecked")
+		Query<MemberBean> query = session.createQuery(hql);
+		MemberBean mb = query.setParameter("pk", pk).getSingleResult();
+		return mb;
+	}
+	
+	
 }

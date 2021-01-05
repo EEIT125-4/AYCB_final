@@ -7,13 +7,13 @@
 <head>
 
 <meta charset="UTF-8">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/eventpage.css">
+<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/css/eventpage.css"> --%>
 <title>報名資料管理</title>
 </head>  
 
 <%@include file="../jspf/header.jspf"%>
 
-<div class='center'  style=' position: relative; top: 200px;' >
+<div class='center' >
 <div>
 			<div
 				style="float: left; width: 20%; text-align: center; margin-left: 220px;">

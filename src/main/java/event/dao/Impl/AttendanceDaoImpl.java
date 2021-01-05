@@ -1,16 +1,18 @@
 package event.dao.Impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+
+
 import event.dao.AttendanceDAO;
 import event.model.Attendance;
+
 
 
 @Repository
@@ -45,16 +47,20 @@ public class AttendanceDaoImpl implements AttendanceDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Attendance> getAllAttendance() {
-		List<Attendance> list = new ArrayList<>();
-		String hql = "FROM Attendance";
+//		List<Attendance> list = new ArrayList<>();
+		
+		String hql = "FROM Attendance ";
 		Session session = factory.getCurrentSession();
 
-		Query<Attendance> query = session.createQuery(hql);
-		list = query.getResultList();
-     //System.out.println(list);  
+//		Query<Attendance> query = session.createQuery(hql);
+//		list = query.getResultList();
+		List<Attendance> list = session.createQuery(hql).getResultList();
+     
 		return list;
 	}
 
+	
+	
 	@Override
 	public Attendance getAttendance(Integer Aid) {
 		Attendance a = null;
@@ -64,7 +70,8 @@ public class AttendanceDaoImpl implements AttendanceDAO {
 
 		return a;
 	}
-
+	
+	
 	@Override
 	public void deleteAttendance(Integer aid) {
 		Session session = factory.getCurrentSession();
@@ -79,6 +86,18 @@ public class AttendanceDaoImpl implements AttendanceDAO {
 		Session session = factory.getCurrentSession();
 		session.saveOrUpdate(a);
 
+	}
+    @SuppressWarnings("unchecked")
+	@Override
+	public  List<Attendance> getAllAttendancebyID(Integer id) {		
+    	System.out.println("bbbbbbbbbbbbbbb");
+		String hql = "FROM Attendance WHERE member_id=:id";
+		Session session = factory.getCurrentSession();
+		List<Attendance> list = session.createQuery(hql)
+				.setParameter("id", id)
+				.getResultList();
+     System.out.println("aaaaaaaaaaaaaaaaaa");
+		return list;
 	}
 
 }

@@ -7,11 +7,14 @@ import javax.transaction.Transactional;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import event.dao.AttendanceDAO;
 
 import event.model.Attendance;
+
+
 
 
 
@@ -22,7 +25,7 @@ public class AttendanceServiceImpl implements AttendanceService  {
 	
 	@Autowired
     AttendanceDAO attendanceDAO;
-//	EventDAO edao = new EventDaoImpl();
+
 
 	@Override
 	public void save(Attendance a) {
@@ -50,6 +53,13 @@ public class AttendanceServiceImpl implements AttendanceService  {
 	public Attendance getAttendance(Integer MemberID) {
 		return attendanceDAO.getAttendance(MemberID);
 	}
+
+	@Override
+	public List<Attendance> getAllAttendancebyID(Integer id) {
+		return attendanceDAO.getAllAttendancebyID(id);
+	}
+
+	
 	
 	
 	

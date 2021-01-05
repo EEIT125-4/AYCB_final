@@ -65,6 +65,11 @@ public class ProductServiceImpl implements ProductService {
 	public List<String> getSeries() {
 		return dao.getSeries();
 	}
+	
+	@Override
+	public List<String> getSeriesByBrand(String brandname) {
+		return dao.getSeriesByBrand(brandname);
+	}
 
 	@Override
 	public List<String> getCate() {
@@ -87,19 +92,13 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public int deleteProduct(int no) {
-		int count = 0;
+	public void deleteProduct(int no) {
 		dao.deleteProduct(no);
-		count++;
-		return count;
 	}
 
 	@Override
-	public int updateProduct(ProductBean pb) {
-		int count = 0;
+	public void updateProduct(ProductBean pb) {
 		dao.updateProduct(pb);
-		count++;
-		return count;
 	}
 	
 	@Override
@@ -180,5 +179,15 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<ProductBean> getBHlist(String list) {
 		return dao.getBHlist(list);
+	}
+	
+	@Override
+	public List<ProductBean> getBrandPage(int pageNo, String brandname) {
+		return dao.getBrandPage(pageNo, brandname);
+	}
+	
+	@Override
+	public List<ProductBean> ra(String cate) {
+		return dao.ra(cate);
 	}
 }

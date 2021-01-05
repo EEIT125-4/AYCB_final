@@ -23,20 +23,20 @@ public class EventValidator implements Validator {
 //		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "account", "member.account.not.empty", "帳號欄不能空白(預設值)");
 //		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "member.name.not.empty", "姓名欄不能空白(預設值)");
 //
-//		if (event.getEventname().length() ==0) {
-//			errors.rejectValue("eventname", "", "活動名稱不能空白");
-//		}
-//
-//		if (event.getEventdate().length() ==0) {
-//			errors.rejectValue("eventdate", "", "請填寫活動日期");
-//		}
-//		if (event.getEventlocation().length() ==0) {
-//			errors.rejectValue("eventlocation", "", "請填寫活動地點");
-//		}
-//		if (event.getPax().length() < 1) {
-//			errors.rejectValue("pax", "", "參加人數須大於一");
-//		}
-//
+		if (event.getEventname()!=null&& event.getEventname().contains(" ")) {
+			errors.rejectValue("eventname", "", "活動名稱不能含有空白");
+		}
+
+		if (event.getEventdate().length() ==0) {
+			errors.rejectValue("eventdate", "", "請填寫活動日期");
+		}
+		if (event.getEventlocation().length() ==0) {
+			errors.rejectValue("eventlocation", "", "請填寫活動地點");
+		}
+		if (event.getPax().length() < 1) {
+			errors.rejectValue("pax", "", "參加人數須大於一");
+		}
+
 	}
 
 }

@@ -2,12 +2,22 @@ package member;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+
+import event.model.Record;
+
+
 
 @Entity
 
@@ -18,6 +28,7 @@ public class MemberBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
 	private Integer id;
 	@Column(columnDefinition = "nvarchar(Max)")
 	private String account;
@@ -34,6 +45,28 @@ public class MemberBean implements Serializable {
 	private String email;
 	@Column(columnDefinition = "nvarchar(Max)")
 	private String gender;
+	
+	private Integer level;
+	@Column(columnDefinition="int default 0")
+	private Integer iconid;
+	
+	
+	@Transient
+	@ManyToMany(mappedBy = "member",cascade = CascadeType.ALL)
+	Set<Record>records=new HashSet<Record>();
+	
+	public Set<Record> getRecords() {
+		return records;
+	}
+
+	public void setRecords(Set<Record> records) {
+		this.records = records;
+	}
+	
+
+	
+
+
 
 	public MemberBean() {
 
@@ -110,11 +143,63 @@ public class MemberBean implements Serializable {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
+	
+	
+
+	public Integer getLevel() {
+		return level;
+	}
+
+	public void setLevel(Integer level) {
+		this.level = level;
+	}
+
+	public Integer getIconid() {
+		return iconid;
+	}
+
+	public void setIconid(Integer iconid) {
+		this.iconid = iconid;
+	}
+
+
+
+	public MemberBean(Integer id, String account, String name, String password, String address, String phone,
+			Date birthday, String email, String gender) {
+		super();
+		id = id;
+		this.account = account;
+		this.name = name;
+		this.password = password;
+		this.address = address;
+		this.phone = phone;
+		this.birth = birthday;
+		this.email = email;
+		this.gender = gender;
+     
+	}
+
+	public MemberBean(Integer id, String account, String name, String password, String address, String phone,
+			Date birth, String email, String gender, Integer level, Integer iconid) {
+		super();
+		this.id = id;
+		this.account = account;
+		this.name = name;
+		this.password = password;
+		this.address = address;
+		this.phone = phone;
+		this.birth = birth;
+		this.email = email;
+		this.gender = gender;
+		this.level = level;
+		this.iconid = iconid;
+
+	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("MemberBean [Id=");
+		builder.append("MemberBean [id=");
 		builder.append(id);
 		builder.append(", account=");
 		builder.append(account);
@@ -132,22 +217,17 @@ public class MemberBean implements Serializable {
 		builder.append(email);
 		builder.append(", gender=");
 		builder.append(gender);
+		builder.append(", level=");
+		builder.append(level);
+		builder.append(", iconid=");
+		builder.append(iconid);
+
 		builder.append("]");
 		return builder.toString();
 	}
-
-	public MemberBean(Integer id, String account, String name, String password, String address, String phone,
-			Date birthday, String email, String gender) {
-		super();
-		id = id;
-		this.account = account;
-		this.name = name;
-		this.password = password;
-		this.address = address;
-		this.phone = phone;
-		this.birth = birthday;
-		this.email = email;
-		this.gender = gender;
-	}
+	
+	
+	
+	
 
 }

@@ -73,7 +73,7 @@
 						<div class="proprice">NT$ ${pro.productprice}</div>
 						<div class="cart">
 							<a
-								href="ControllerServlet?todo=add&productno=${pro.productno}&count=1">
+								href="<c:url value='/cartAdd?productno=${pro.productno}&count=1' />">
 								<img class="cartimg" src="image/bg_cart_b.svg">
 							</a>
 						</div>
@@ -82,17 +82,17 @@
 			</c:forEach>
 			<div class="page">
 				<ul class="page_ul">
-					<li class="page_ul_li"><a class="page_ul_li_a"
-						href='<c:url value="/Keyword" />?keyword=${Keyword}&page=${Pages - 1}'> <i
-							class="fa fa-angle-double-left" aria-hidden="true"></i>
-					</a></li>
+<!-- 					<li class="page_ul_li"><a class="page_ul_li_a" -->
+<%-- 						href='<c:url value="/Keyword" />?keyword=${Keyword}&pageNo=${Pages - 1}'> <i --%>
+<!-- 							class="fa fa-angle-double-left" aria-hidden="true"></i> -->
+<!-- 					</a></li> -->
 					<c:forEach var='i' begin='1' end='${TotalPages}'>
 						<li class="page_ul_li"><a class="page_ul_li_a"
-							href='<c:url value="/Keyword" />?keyword=${Keyword}&page=${i}'>${i}</a></li>
+							href='<c:url value="/Keyword" />?keyword=${Keyword}&pageNo=${i}'>${i}</a></li>
 					</c:forEach>
-					<li class="page_ul_li"><a class="page_ul_li_a"
-						href='<c:url value="/Keyword" />?keyword=${Keyword}&page=${Pages + 1}'><i
-							class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+<!-- 					<li class="page_ul_li"><a class="page_ul_li_a" -->
+<%-- 						href='<c:url value="/Keyword" />?keyword=${Keyword}&pageNo=${Pages + 1}'><i --%>
+<!-- 							class="fa fa-angle-double-right" aria-hidden="true"></i></a></li> -->
 				</ul>
 			</div>
 		</div>

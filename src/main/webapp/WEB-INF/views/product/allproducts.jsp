@@ -14,8 +14,10 @@
 <link REL=STYLESHEET HREF="css/inside.css" TYPE="text/css">
 <title>All You Can Buy</title>
 </head>
+
 <%@include file="../jspf/header.jspf"%>
-<div class="contentoutbox">
+
+<div class="contentoutbox" >
 	<div class="contentbox">
 		<div class="leftside">
 			<div class="condition">條件篩選</div>
@@ -23,53 +25,80 @@
 				<div class="catediv">
 					廠商分類<a id="a1" class="catea" href="#" onclick="show1()">+</a>
 				</div>
-				<c:forEach var="brand" varStatus='vs' items="${brand}">
-					<c:if test='${vs.first }'>
-						<c:out value="<ul id='ul1' class='cateul'>" escapeXml='false' />
-					</c:if>
-					<li class="cateul_li"><a class="cateul_li_a"
-						href='<c:url value="/Brand" />?brand=${brand}'>${brand}</a></li>
-					<c:if test='${vs.last }'>
-						<c:out value="</ul>" escapeXml='false' />
-					</c:if>
-				</c:forEach>
+				<div id="brandarea">
+					<c:forEach var="brand" varStatus='vs' items="${brand}">
+						<c:if test='${vs.first }'>
+							<c:out value="<ul id='ul1' class='cateul'>" escapeXml='false' />
+						</c:if>
+						<li class="cateul_li"><a class="cateul_li_a"
+							href='<c:url value="/Brand" />?brand=${brand}'>${brand}</a></li>
+						<c:if test='${vs.last }'>
+							<c:out value="</ul>" escapeXml='false' />
+						</c:if>
+					</c:forEach>
+				</div>
 				<div class="catediv">
 					系列分類<a id="a2" class="catea" href="#" onclick="show2()">+</a>
 				</div>
-				<c:forEach var="series" varStatus='vs' items="${series}">
-					<c:if test='${vs.first }'>
-						<c:out value="<ul id='ul2' class='cateul'>" escapeXml='false' />
-					</c:if>
-					<li class="cateul_li"><a class="cateul_li_a"
-						href='<c:url value="/Series" />?series=${series}'>${series}</a></li>
-					<c:if test='${vs.last }'>
-						<c:out value="</ul>" escapeXml='false' />
-					</c:if>
-				</c:forEach>
+				<div id="series">
+					<c:forEach var="series" varStatus='vs' items="${series}">
+						<c:if test='${vs.first }'>
+							<c:out value="<ul id='ul2' class='cateul'>" escapeXml='false' />
+						</c:if>
+						<li class="cateul_li"><a class="cateul_li_a"
+							href='<c:url value="/Series" />?series=${series}'>${series}</a></li>
+						<c:if test='${vs.last }'>
+							<c:out value="</ul>" escapeXml='false' />
+						</c:if>
+					</c:forEach>
+				</div>
 				<div class="catediv">
 					種類分類<a id="a3" class="catea" href="#" onclick="show3()">+</a>
 				</div>
-				<c:forEach var="cate" varStatus='vs' items="${cate}">
-					<c:if test='${vs.first }'>
-						<c:out value="<ul id='ul3' class='cateul'>" escapeXml='false' />
-					</c:if>
-					<li class="cateul_li"><a class="cateul_li_a"
-						href='<c:url value="/Cate" />?cate=${cate}'>${cate}</a></li>
-					<c:if test='${vs.last }'>
-						<c:out value="</ul>" escapeXml='false' />
-					</c:if>
-				</c:forEach>
+				<div id="cate">
+					<c:forEach var="cate" varStatus='vs' items="${cate}">
+						<c:if test='${vs.first }'>
+							<c:out value="<ul id='ul3' class='cateul'>" escapeXml='false' />
+						</c:if>
+						<li class="cateul_li"><a class="cateul_li_a"
+							href='<c:url value="/Cate" />?cate=${cate}'>${cate}</a></li>
+						<c:if test='${vs.last }'>
+							<c:out value="</ul>" escapeXml='false' />
+						</c:if>
+					</c:forEach>
+				</div>
 				<div>
 					<a href='<c:url value="/Manager" />'>後台</a>
 				</div>
+<!-- 				<div> -->
+<!-- 					廠商:<select id='brandsel' class="brandsel"> -->
+<!-- 						<option>請選擇廠商</option> -->
+<!-- 					</select> -->
+<!-- 				</div> -->
+<!-- 				<div> -->
+<!-- 					系列:<select id='seriessel' class="seriessel"> -->
+<!-- 						<option>請選擇系列</option> -->
+<!-- 					</select> -->
+<!-- 				</div> -->
+<!-- 				<script> -->
+					
+<!-- 				</script> -->
 			</div>
 		</div>
-		<div class="rightoutbox">
+		<div id="area" class="rightoutbox">
 			<c:forEach var="pro" items="${Products}">
 				<div class="rightside">
 					<div class="imgbox">
-						<a href='<c:url value="/Detail" />?no=${pro.productno}'><img
-							class="proimg" src="image/${pro.productname}.png"></a>
+						<!-- 						<div class="like"> -->
+						<!-- 							<a class="like_a" href="#"><i id="heart" -->
+						<!-- 								class="fa fa-heart-o"></i></a> <a class="like_a" href=""><i -->
+						<!-- 								class="fa fa-heart nopadding"></i></a> -->
+						<!-- 						</div> -->
+						<a href='<c:url value="/Detail" />?no=${pro.productno}'>
+						<img class="proimg" src="${pageContext.request.contextPath}/pic/${pro.imagepath}">
+						</a>
+							
+							
 					</div>
 					<div class="proname">${pro.productname}</div>
 					<div class="buttonbox">
@@ -83,23 +112,22 @@
 			</c:forEach>
 			<div class="page">
 				<ul class="page_ul">
-					<li class="page_ul_li"><a class="page_ul_li_a"
-						href='<c:url value="/AllProducts" />?page=${Pages - 1}'> <i
-							class="fa fa-angle-double-left" aria-hidden="true"></i>
-					</a></li>
+					<!-- 					<li class="page_ul_li"><a class="page_ul_li_a" -->
+					<%-- 						href='<c:url value="/AllProducts" />?pageNo=${Pages - 1}'> <i --%>
+					<!-- 							class="fa fa-angle-double-left" aria-hidden="true"></i> -->
+					<!-- 					</a></li> -->
 					<c:forEach var='i' begin='1' end='${TotalPages}'>
 						<li class="page_ul_li"><a class="page_ul_li_a"
-							href='<c:url value="/AllProducts" />?page=${i}'>${i}</a></li>
+							href='<c:url value="/AllProducts" />?pageNo=${i}'>${i}</a></li>
 					</c:forEach>
-					<li class="page_ul_li"><a class="page_ul_li_a"
-						href='<c:url value="/AllProducts" />?page=${Pages + 1}'><i
-							class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+					<!-- 					<li class="page_ul_li"><a class="page_ul_li_a" -->
+					<%-- 						href='<c:url value="/AllProducts" />?pageNo=${Pages + 1}'><i --%>
+					<!-- 							class="fa fa-angle-double-right" aria-hidden="true"></i></a></li> -->
 				</ul>
 			</div>
-		</div>
-		<%@include file="../jspf/footer.jspf"%>
+		</div>		
 	</div>
 </div>
-</div>
+<%@include file="../jspf/footer.jspf"%>
 </body>
 </html>

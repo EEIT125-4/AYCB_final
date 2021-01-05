@@ -1,5 +1,7 @@
 package member.Service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +21,31 @@ public class MemberServiceImpl implements MemberService {
 //	RegisterDaoImpl dao = new RegisterDaoImpl();
 
 	@Override
-	public boolean isDup(String account) {
-		boolean result = false;
-		result = memberDao.isDup(account);
+	public List<MemberBean> checkDup() {
+		
 
-		return result;
+		return memberDao.checkDup();
 	}
+	
+	
+	@Override
+	 public boolean isDup(String account) {
+		  boolean result = false;
+		  result = memberDao.isDup(account);
+
+		  return result;
+		 }
+	
+	
+	@Override
+	 public boolean emailcheck(String email) {
+		  boolean result = false;
+		  result = memberDao.emailcheck(email);
+
+		  return result;
+		 }
+	
+	
 
 	@Override
 	public int insertregister(MemberBean mb) {
@@ -64,5 +85,18 @@ public class MemberServiceImpl implements MemberService {
 		mb = memberDao.getMember(account);
 
 		return mb;
+	}
+
+	@Override
+	public List<MemberBean> getAllMembers() {
+		
+		return memberDao.getAllMembers();
+	}
+
+
+	@Override
+	public MemberBean getMember(Integer pk) {
+		
+		return memberDao.getMember(pk);
 	}
 }

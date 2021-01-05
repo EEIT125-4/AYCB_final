@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,8 +15,10 @@
 <title>All You Can Buy</title>
 </head>
 <%@include file="../jspf/header.jspf"%>
+
 <div class="contentoutbox">
-	<div class="contentbox">
+	<div class="contentBox" style="min-height: 1300px;">
+
 		<div class="leftside">
 			<div class="condition">條件篩選</div>
 			<div class="category">
@@ -63,17 +63,21 @@
 				</c:forEach>
 			</div>
 		</div>
+
 		<div class="rightoutbox">
+
 			<form name="AddForm"
 				action="${pageContext.request.contextPath}/cartAdd" method="get">
 				<input type="hidden" name="todo" value="add">
 				<div class="rightside">
 					<div class="imgbox">
-						<a href="#"><img
+						<a href="#"> <img
 							src="${pageContext.request.contextPath}/pic/${Detail.imagepath}"></a>
 					</div>
 				</div>
+
 				<div class="infobox">
+
 					<div class="infoname">${Detail.productname}</div>
 					<div class="infono">商品編號：${Detail.brandno}${Detail.productno}</div>
 					<hr>
@@ -83,27 +87,6 @@
 					<div class="infoprice">NT$：${Detail.productprice}</div>
 					<div>
 						<div class="infocount">
-<<<<<<< Updated upstream
-							數量 :
-							<div class="selbox">
-								<select name="count" class="countsel">
-									<option value="1">1</option>
-									<option value="2">2</option>
-									<option value="3">3</option>
-									<option value="4">4</option>
-									<option value="5">5</option>
-									<option value="6">6</option>
-									<option value="7">7</option>
-									<option value="8">8</option>
-									<option value="9">9</option>
-									<option value="10">10</option>
-								</select>
-							</div>
-							<div class="infobtn">
-								<input class="btn" type="submit" value="加入購物車"> <input
-									type="hidden" name="productno" value="${Detail.productno}">
-							</div>
-=======
 							數量 : <select name="count" class="countsel">
 								<option value="1">1</option>
 								<option value="2">2</option>
@@ -132,124 +115,139 @@
 								src="https://d.line-scdn.net/r/web/social-plugin/js/thirdparty/loader.min.js"
 								async="async" defer="defer"></script>
 							<div id="fb-root"></div>
->>>>>>> Stashed changes
 						</div>
 					</div>
 				</div>
 			</form>
 		</div>
-		<%-- 		<%@include file="../jspf/footer.jspf"%> --%>
+
+		<div class="content">##################</div>
+
+		<div class="content">
+			<div id="post" style="margin-top: 60px;">
+
+				<H1 class="board" style="border-radius: 10px" ALIGN="CENTER">留言佈告欄</H1>
+
+
+				<form:form method="POST" modelAttribute="leave" id="ajaxform"
+					name="ajaxform" enctype='multipart/form-data'>
+					<Fieldset class="discussionbox">
+						<div>
+							<label>留言類型:</label>
+							<form:input path="type" value="product" disabled="true" />
+						</div>
+						<div>
+							<label>會員名稱：</label> <span>${member.name}</span> <input
+								type="hidden" id="shangtian" name="mid" value="${member.id}" />
+
+
+						</div>
+
+						<div>
+							<label>性別:</label> <span>${member.gender}</span>
+						</div>
+
+
+						<div>
+							Age:<label for="age">(between 0 and 100):</label> <input
+								type="number" id="age" name="age" min="0" max="100">
+							<%!int st = 0;%>
+
+							<label for="status"></label>
+							<%-- 					<form:input type="hidden" path="status" value=<%=st%>/>					 --%>
+							<!-- 					<label for="commentId"></label> -->
+							<!-- 					<input type="hidden" name="commentId">  -->
+							<!-- 					<label for="commentTime"></label> -->
+							<!-- 					<input type="hidden" name="commentTime"> -->
+						</div>
+						<div>
+							<label for="contentBox"></label>
+							<form:textarea path="contentBox" id="contentBox"
+								class="transition" />
+
+							<!-- 				<INPUT id="postBt" type="submit" name="submit" onclick="leavecomment" -->
+							<!-- 					value="發表留言" />  -->
+						</div>
+						<div>
+							<span>
+								<button id="postBt" type="button">發表留言</button> <!-- 				 onclick="leavecomment()" -->
+								<button id="clear" type="reset">清除</button>
+							</span>
+						</div>
+					</Fieldset>
+
+				</form:form>
+
+			</div>
+		</div>
+
 	</div>
+	<%@include file="../jspf/footer.jspf"%>
+
 </div>
 
-<div id="content">
-	<div id="post" style="margin-top: 60px;">
-
-		<H1 class="board" style="border-radius: 10px" ALIGN="CENTER">留言佈告欄</H1>
-		
-	
-		<form:form method="POST" modelAttribute="leave"
-			enctype='multipart/form-data'>
-			<Fieldset class="discussionbox">
-				<div>
-					<label>會員名稱：</label>
-<%-- 					<form:input type="hidden" path="commentTime"/> --%>
-					<form:input type="hidden" id="shangtian"  path="member"
-						value="${member}" />
-						<input type="text" disabled="disabled" value="${member.name}">
-						<input type="text" disabled="disabled" value="${leave.commentTime}">
-				</div>
-
-				<div>
-					<label>性別:</label>
-					<input type="text" disabled="disabled" value="${member.gender}">
-				</div>
 
 
-				<div>
-					Age:<label for="age">(between 0 and 100):</label> <input
-						type="number" id="age" name="age" min="0" max="100">
-					<%!int st = 0;%>
 
-					<label for="status"></label> <input type="hidden" name="status"
-						value=<%=st%>> <label for="id"></label><input
-						type="hidden" name="${member.id}"> <label for="commentId"></label><input
-						type="hidden" name="commentId"> <label for="commentTime"></label><input
-						type="hidden" name="commentTime">
-				</div>
-				<label for="contentBox"></label>
-				<textarea name="content" id="contentBox" class="transition"></textarea>
 
-<!-- 				<INPUT id="postBt" type="submit" name="submit" onclick="leavecomment" -->
-<!-- 					value="發表留言" />  -->
-					
-					
-					<button id="postBt"  onclick="leavecomment()"> 
-					發表留言
-					</button>
-					<INPUT id="clear" type="reset" name="clear"
-					value="清除" />
-			</Fieldset>
-		</form:form>
 
-	</div>
-
-</div>
 <!-- 長出留言 -->
 <script>
-	var productno = ducument.getElementById('productno');
-	var productcategory = ducument.getElementById('productcategory');
+	var productno = $
+	{
+		Detail.productno
+	};
+	$(document).ready(function() {
 
-	function leavecomment() {
-		alert("btn click");
+		console.log("productno=" + productno);
 
-		$.ajax({
-			
-			type : "post",
-			url : "${pageContext.request.contextPath}/leaveComment",
-			// 			contentType: "application/json; charset=utf-8",
-			dataType : "text",
-			success : function(data) {
+		$("#postBt").on("click", function() {
+			leavecomment();
 
-				alert("leave comment!" + data);
-				console.log("leave comment");
-				console.log(data);
-				console.log(typeof (data));
-				
-// 				display();
+		});
 
-			},
-			error : function() {
-				alert("留言失敗,請重新留言");
-			}
-		})
+		function leavecomment() {
+			alert("btn click");
 
-	}
+			$.ajax({
 
-	function display(){
-		
-		
-		$('#productno').empty();
-		$('#productno').append();
-		
-	}
-// 				"<option value='' disabled='' selected='' hidden=''>留言訊息</option>"
-// 						+ "<option value=''>All</option>");
-		
+				type : "post",
+				url : "${pageContext.request.contextPath}/leaveComment",
+				// 			contentType: "application/json; charset=utf-8",
+				dataType : "text",
+				data : $("#ajaxform").serialize(),
+				success : function(data) {
 
-// 		for (let i = 0; i < data.length; i++) {
-// 			console.log("data:" + i + data[i]);
-// 			$('#productno').append(
-// 					"<option value="+data[i]+">" + data[i]
-// 							+ "</option>");
+					alert("leave comment!" + data);
+					console.log("leave comment");
+					console.log(data);
+					console.log(typeof (data));
 
-		
-		
-		
+					// 				display();
 
-	
-	
-	
+				},
+				error : function() {
+					alert("留言失敗,請重新留言");
+				}
+			})
+
+		}
+
+		function display() {
+
+			$('#productno').empty();
+			$('#productno').append();
+
+		}
+	});
+	// 				"<option value='' disabled='' selected='' hidden=''>留言訊息</option>"
+	// 						+ "<option value=''>All</option>");
+
+	// 		for (let i = 0; i < data.length; i++) {
+	// 			console.log("data:" + i + data[i]);
+	// 			$('#productno').append(
+	// 					"<option value="+data[i]+">" + data[i]
+	// 							+ "</option>");
 </script>
 </body>
 </html>

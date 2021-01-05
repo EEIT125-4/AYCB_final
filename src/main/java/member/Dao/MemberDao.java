@@ -1,12 +1,12 @@
 package member.Dao;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import member.MemberBean;
 @Repository
 public interface MemberDao {
-	
-	boolean isDup(String acc);
 
 	int insertregister(MemberBean mb);
 
@@ -16,11 +16,13 @@ public interface MemberDao {
 	
 	MemberBean getMember(String account);
 
-	
-	
+	List<MemberBean> getAllMembers();
 
-	
+	 List<MemberBean> checkDup();
+	 boolean isDup(String account);
 
-	
+	 boolean emailcheck(String email);
+	 
+	 MemberBean getMember(Integer pk);
 
 }

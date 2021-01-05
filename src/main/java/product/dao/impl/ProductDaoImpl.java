@@ -19,7 +19,7 @@ public class ProductDaoImpl implements ProductDao {
 	@Autowired
 	SessionFactory factory;
 
-	private int recordsPerPage = 10;
+	private int recordsPerPage = 20;
 
 	@Override
 	public void saveProduct(ProductBean pb) {
@@ -75,7 +75,7 @@ public class ProductDaoImpl implements ProductDao {
 	public List<ProductBean> getKeyword(String keyword) {
 		String hql = "FROM ProductBean p WHERE p.productname like :keyword";
 		Session session = factory.getCurrentSession();
-		return session.createQuery(hql).setParameter("keyword", "%"+keyword+"%").getResultList();
+		return session.createQuery(hql).setParameter("keyword", "%" + keyword + "%").getResultList();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -92,6 +92,14 @@ public class ProductDaoImpl implements ProductDao {
 		String hql = "SELECT DISTINCT p.productseries FROM ProductBean p";
 		Session session = factory.getCurrentSession();
 		return session.createQuery(hql).getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<String> getSeriesByBrand(String brandname) {
+		String hql = "SELECT DISTINCT p.productseries FROM ProductBean p WHERE p.brandname = :brandname";
+		Session session = factory.getCurrentSession();
+		return session.createQuery(hql).setParameter("brandname", brandname).getResultList();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -127,23 +135,17 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	@Override
-	public int deleteProduct(int no) {
-		int count = 0;
+	public void deleteProduct(int no) {
 		Session session = factory.getCurrentSession();
 		ProductBean pb = new ProductBean();
 		pb.setProductno(no);
 		session.delete(pb);
-		count++;
-		return count;
 	}
 
 	@Override
-	public int updateProduct(ProductBean pb) {
-		int count = 0;
+	public void updateProduct(ProductBean pb) {
 		Session session = factory.getCurrentSession();
 		session.saveOrUpdate(pb);
-		count++;
-		return count;
 	}
 
 	@Override
@@ -165,7 +167,7 @@ public class ProductDaoImpl implements ProductDao {
 	public int getCateTotalPages(String cate) {
 		return (int) (Math.ceil(getCateCounts(cate) / (double) recordsPerPage));
 	}
-	
+
 	@Override
 	public int getKeywordTotalPages(String keyword) {
 		return (int) (Math.ceil(getKeywordCounts(keyword) / (double) recordsPerPage));
@@ -210,14 +212,14 @@ public class ProductDaoImpl implements ProductDao {
 		long count = (long) query.setParameter("productcategory", cate).uniqueResult();
 		return count;
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	@Override
 	public long getKeywordCounts(String keyword) {
-		String hql = "SELECT count(*) FROM ProductBean p WHERE p.productname like :keyword"; 
+		String hql = "SELECT count(*) FROM ProductBean p WHERE p.productname like :keyword";
 		Session session = factory.getCurrentSession();
 		Query query = session.createQuery(hql);
-		long count = (long) query.setParameter("keyword", "%"+keyword+"%").uniqueResult();
+		long count = (long) query.setParameter("keyword", "%" + keyword + "%").uniqueResult();
 		return count;
 	}
 
@@ -230,7 +232,7 @@ public class ProductDaoImpl implements ProductDao {
 		String hql = "FROM ProductBean";
 		Session session = factory.getCurrentSession();
 		Query<ProductBean> query = session.createQuery(hql);
-		list = query.setFirstResult(startRecordNo).setMaxResults(10).getResultList();
+		list = query.setFirstResult(startRecordNo).setMaxResults(recordsPerPage).getResultList();
 		return list;
 	}
 
@@ -275,7 +277,7 @@ public class ProductDaoImpl implements ProductDao {
 				.getResultList();
 		return list;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ProductBean> getKeywordPage(String keyword, int pageNo) {
@@ -285,8 +287,7 @@ public class ProductDaoImpl implements ProductDao {
 		String hql = "FROM ProductBean p WHERE p.productname like :keyword";
 		Session session = factory.getCurrentSession();
 		Query<ProductBean> query = session.createQuery(hql);
-		list = query.setParameter("keyword", "%"+keyword+"%").setFirstResult(startRecordNo).setMaxResults(recordsPerPage)
-				.getResultList();
+		list = query.setParameter("keyword", "%" + keyword + "%").setFirstResult(startRecordNo).setMaxResults(recordsPerPage).getResultList();
 		return list;
 	}
 
@@ -312,4 +313,25 @@ public class ProductDaoImpl implements ProductDao {
 			return null;
 		}
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ProductBean> getBrandPage(int pageNo, String brandname) {
+		int startRecordNo = (pageNo - 1) * recordsPerPage;
+		// Linked
+		List<ProductBean> list = new LinkedList<ProductBean>();
+		String hql = "FROM ProductBean p WHERE p.brandname = :brandname";
+		Session session = factory.getCurrentSession();
+		Query<ProductBean> query = session.createQuery(hql);
+		list = query.setFirstResult(startRecordNo).setMaxResults(10).setParameter("brandname", brandname).getResultList();
+		return list;
+	}
+	
+	@Override
+	public List<ProductBean> ra(String cate) {
+		String hql = "SELECT TOP 5 * FROM ProductBean p WHERE p.productcategory = :productcategory";
+		Session session = factory.getCurrentSession();
+		return session.createQuery(hql).setParameter("productcategory", cate).getResultList();
+	}
+	
 }

@@ -27,5 +27,7 @@ public interface VideoDao {
 
 	// 更新一筆影片
 	Integer updateVideo(Video vd);
+	
+	
 
 }

@@ -4,16 +4,18 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
-import org.apache.tomcat.jni.OS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import member.MemberBean;
 import product.cartModel.CartItem;
 import product.cartModel.ProductDB;
 import product.cartService.OrderService;
@@ -24,9 +26,20 @@ public class CarWorkingController {
 
 	@Autowired
 	OrderService os;
+	
+	@Autowired
+	ServletContext context;
 
 	@GetMapping("/car")
-	public String Car() {
+	public String Car(HttpSession session) {
+		
+		MemberBean mb = (MemberBean) session.getAttribute("member");
+		if (mb != null ) {
+			System.out.println("member:" + mb.getName());
+		}else {
+			return "member/login";
+		}
+				
 		return "product/order";
 	}
 
@@ -76,7 +89,7 @@ public class CarWorkingController {
 		}
 
 		System.out.println("準備前往購物車");
-		return "redirect:/add";
+		return "redirect:AllProducts";//"+context.getContextPath()+"/
 	}
 
 	@GetMapping("/add")
@@ -97,7 +110,7 @@ public class CarWorkingController {
 		} else if (todo.equals("checkout")) {
 
 			List<CartItem> theCart = (List<CartItem>) model.getAttribute("cart");
-
+			System.out.println("theCart"+theCart.size());
 			Double totalPrice = 0.0; // 計算總價,數字歸零
 			Integer totalQtyOrdered = 0; // 總數量歸零
 			for (CartItem item : theCart) {
@@ -109,6 +122,7 @@ public class CarWorkingController {
 
 			session.setAttribute("totalPrice", totalPrice);
 			session.setAttribute("totalQtyOrdered", totalQtyOrdered);
+			
 			System.out.println("totalPrice" + totalPrice);
 			System.out.println("totalQtyOrdered" + totalQtyOrdered);
 
@@ -118,28 +132,23 @@ public class CarWorkingController {
 
 	}
 
+	//@RequestParam(value = "cartIndex", required = false) Integer cartIndex,
+	//@PathVariable Integer cartIndex,
 	@SuppressWarnings( "unchecked" )
-	@GetMapping("/cartRemove")
+	@GetMapping("/cartRemove/{cartIndex}")
 	public String TodoRemove(Model model, 
-				@RequestParam(value = "cartIndex", required = false) int cartIndex,
+			@PathVariable int cartIndex,
 				HttpSession session
 	){
 		
-		System.out.println(cartIndex);
+		System.out.println("cartIndex"+cartIndex);
 		List<CartItem> theCart = (List<CartItem>) session.getAttribute("cart");
 		
-		
-		System.out.println("刪除商品" + theCart.get(cartIndex).getProductName());
+		System.out.println("刪除商品:" + theCart.get(cartIndex).getProductName());
 		theCart.remove(cartIndex); 
-		System.out.println("the cart:");
-		for(CartItem item:theCart) {
-			
-			System.out.println("商品:"+item);
-		}
 		
 		//session.setAttribute("cart", theCart);
-		
-		
+					
 		return "product/order";
 	}
 
