@@ -11,7 +11,6 @@
 <script src="js/inside.js" defer="defer"></script>
 <link REL=STYLESHEET HREF="css/inside.css" TYPE="text/css">
 <link REL=STYLESHEET HREF="css/ProductDetail.css" TYPE="text/css">
-<link rel="stylesheet" href="css/comment.css" />
 <title>All You Can Buy</title>
 </head>
 <%@include file="../jspf/header.jspf"%>
