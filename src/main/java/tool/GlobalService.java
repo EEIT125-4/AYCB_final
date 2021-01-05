@@ -153,7 +153,10 @@ public class GlobalService {
 	// 如果fileName的長度小於或等於maxLength，直接傳回fileName
 	// 否則保留最後一個句點與其後的附檔名，縮短主檔名使得fileName的總長度
 	// 等於maxLength。
+	
+	
 	public static String adjustFileName(String fileName, int maxLength) {
+		
 		int length = fileName.length();
 		if (length <= maxLength) {
 			return fileName;

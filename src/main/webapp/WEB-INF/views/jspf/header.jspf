@@ -125,7 +125,7 @@ MemberBean mb = (MemberBean) session.getAttribute("member");
 						<div class="header__top__right">
 						
 							<div class="header__top__links">
-							<c:if test='${not empty member}'>
+							<c:if test='${member.id>0}'>
 							
 						
 							<p >

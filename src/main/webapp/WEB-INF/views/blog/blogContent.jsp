@@ -255,6 +255,10 @@
 	crossorigin="anonymous"></script>
 <script
 	src="https://cdn.ckeditor.com/ckeditor5/24.0.0/classic/ckeditor.js"></script>
+	<!-- 	Kevin:這裡非常奇怪,header已經載入過的js失效,且必須在body末端加入才有效?? -->
+<script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/main.js"></script>
+	
 
 <script>
 	$('#file').change(function() {
