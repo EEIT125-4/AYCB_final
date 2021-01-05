@@ -116,10 +116,12 @@
 											<button type="button" style="width: 100px;"
 												class="btn btn-secondary" data-dismiss="modal">Close</button>
 
-												<form action="<c:url value='/event/attendanceForm'/>" id="transfer">
-												<input type="hidden" name="eventid" value="${event.eventid}">
-												<button type="button" id="attend" class="btn btn-primary" style="width: 100px;">報名參加</button>
-												</form>
+<%-- 												<form action="<c:url value='/event/attendanceForm'/>" id="transfer"> --%>
+<%-- 												<input type="hidden" name="eventid" value="${event.eventid}"> --%>
+<!-- 												<button type="button" id="attend" class="btn btn-primary" style="width: 100px;">報名參加</button> -->
+<!-- 												</form> -->
+												<a id="transfer" href="<c:url value='/event/attendanceForm'/>?eventid=${event.eventid}">
+												<button id="attend" type="submit" class="btn btn-primary" style="width: 100px;">報名參加</button></a> 
 											<input type="hidden" id="membercatcher" value="${member}"> 
 
 										</div>

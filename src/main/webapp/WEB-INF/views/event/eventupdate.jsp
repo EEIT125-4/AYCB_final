@@ -30,16 +30,14 @@
 		return false;
 	}
 </script>
-</head>
+
 <%@include file="../jspf/header.jspf"%>
 
-<body>
 	<p>&nbsp;</p>
 	<hr>
-	<div class='center' style=' position: relative; top: 200px;'>
+	<div class='center'>
 		<H1 class='center'>更新活動資料</H1>
 		<hr>
-		<p>
 		<form:form method='POST' modelAttribute='eventupdate' enctype='multipart/form-data'>
 			<input type="hidden" name="eventid" value="${event.eventid}"> 
 <%-- 			<input type="hidden" name="memberid" value="${event.memberid}">  --%>
@@ -98,7 +96,7 @@
 					<TD align="RIGHT">活動簡介：</TD>
 					<TD align="LEFT">
 					<textarea cols="50" rows="5" name="eventdescription">
-				    <input value="${event.eventdescription}${param.eventdescription}">
+				    ${event.eventdescription}${param.eventdescription}
 					</textarea>
 				    <font color='red' size='-3'>${error.eid}</font>
 					</TD>	
@@ -116,10 +114,11 @@
 				<c:remove var="member" scope="request" />
 			</c:if>
 		</form:form>
-		<p />
+		
 		<small>&lt;&lt;<a href="javascript:history.back()">回上一頁</a>&gt;&gt;
 		</small>
 	</div>
+	
 	<%@include file="../jspf/footer.jspf"%> 
 </body>
 

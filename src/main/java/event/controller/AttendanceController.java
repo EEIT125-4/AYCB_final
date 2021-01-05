@@ -133,6 +133,7 @@ public class AttendanceController {
 				@RequestParam(value="aid" ,required = false)Integer aid ) {
 			Attendance attendance = attendanceService.getAttendance(aid);
 			model.addAttribute(attendance);
+			System.out.println("編輯前:"+attendance);
 			
 			
 			
@@ -146,9 +147,11 @@ public class AttendanceController {
 				BindingResult result, 
 				Model model,
 //				@PathVariable Integer id, 
-				HttpServletRequest request,
-				@RequestParam(value="aid",required = false)Integer aid
+				HttpServletRequest request
+//				@RequestParam(value="aid",required = false)Integer aid
 				) {
+			
+			System.out.println("報名編輯:"+attendance);
 			AttendanceValidator validator = new AttendanceValidator();
 			validator.validate(attendance, result);
 			if (result.hasErrors()) {
@@ -157,11 +160,13 @@ public class AttendanceController {
 				for (ObjectError error : list) {
 					System.out.println("有錯誤：" + error);
 				}
-				return "event/attendanceForm";
+				return "event/update";
 			}
+									
 			attendanceService.updateAttendance(attendance);
 			return "redirect:/event/showAttendance";
 		}	
+		
 		@GetMapping(value = "event/delete")
 		public String delete(
 			//	@PathVariable("aid") Integer aid
