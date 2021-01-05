@@ -132,7 +132,8 @@ public class AttendanceController {
 				Model model,
 				@RequestParam(value="aid" ,required = false)Integer aid ) {
 			Attendance attendance = attendanceService.getAttendance(aid);
-			model.addAttribute("attendance",attendance);
+			model.addAttribute(attendance);
+			System.out.println("編輯前:"+attendance);
 			
 			
 			
@@ -150,6 +151,8 @@ public class AttendanceController {
 				@RequestParam(value="eventid")Integer eventid,
 				@RequestParam(value="memberid")Integer memberid
 				) {
+			
+			System.out.println("報名編輯:"+attendance);
 			AttendanceValidator validator = new AttendanceValidator();
 			attendance.setMember(memberService.getMember(memberid));
 			attendance.setEvent(eventService.getEvent(eventid));
@@ -162,9 +165,11 @@ public class AttendanceController {
 				}
 				return "event/update";
 			}
+									
 			attendanceService.updateAttendance(attendance);
 			return "redirect:/event/showAttendance";
 		}	
+		
 		@GetMapping(value = "event/delete")
 		public String delete(
 			//	@PathVariable("aid") Integer aid
