@@ -8,8 +8,8 @@
 	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 	crossorigin="anonymous"></script>
 <script src="js/inside.js" defer="defer"></script>
-<link REL=STYLESHEET HREF="${pageContext.request.contextPath}/css/inside.css" TYPE="text/css">
-<link REL=STYLESHEET HREF="${pageContext.request.contextPath}/css/manager.css" TYPE="text/css">
+<link REL=STYLESHEET HREF="css/inside.css" TYPE="text/css">
+<link REL=STYLESHEET HREF="css/manager.css" TYPE="text/css">
 <title>Manager</title>
 </head>
 <%@include file="../jspf/managerheader.jspf"%>
@@ -32,9 +32,8 @@
 					class="mbtn" type="button" value="留言板" onclick='location.href="#"'>
 			</div>
 		</div>
-		<%@include file="../jspf/footer.jspf"%>
 	</div>
 </div>
-
+<%@include file="../jspf/footer.jspf"%>
 </body>
 </html>

@@ -13,16 +13,16 @@
 	href="${pageContext.request.contextPath}/css/eventpage.css">
 <title>修改報名資料</title>
 <script type="text/javascript">
-	function confirmDelete(memberID) {
-		var result = confirm("確定取消參加(帳號:" + memberID + ")?");
+	function confirmDelete(member) {
+		var result = confirm("確定取消參加(帳號:" + member + ")?");
 		if (result) {
 			document.forms[1].finalDecision.value = "DELETE";
 			return true;
 		}
 		return false;
 	}
-	function confirmUpdate(memberID) {
-		var result = confirm("確定送出此筆記錄(帳號:" + memberID + ")?");
+	function confirmUpdate(member) {
+		var result = confirm("確定送出此筆記錄(帳號:" + member + ")?");
 		if (result) {
 			document.forms[1].finalDecision.value = "UPDATE";
 			return true;
@@ -42,14 +42,14 @@
 		<p>
 		<form:form method="POST" modelAttribute="updateattendance">
 			<input type="hidden" name="aid" value="${attendance.aid}"> 
-			<input type="hidden" name="memberid" value="${attendance.memberid}"> 
+			<input type="hidden" name="member" value="${member.account}"> 
 			<input type="hidden" name="finalDecision" value="">
 				
 			<Table>
 				<TR>
-					<TD align="RIGHT">活動ID：</TD>
+					<TD align="RIGHT">活動名稱：</TD>
 					<TD align="LEFT">
-					<input type="text" name="eventid" value="${attendance.eventid}${param.eventid}" size="30">
+					<input type="text" name="eventid" value="${attendance.event.eventname}${param.event.eventnameS}" size="30" disabled="disabled">
 				    <font color='red' size='-3'>${error.eid}</font></TD>
 						
 				</TR>
@@ -75,10 +75,11 @@
 				</TR>
 
 				<TR>
-					<TD colspan="2" align="center"><input type="submit" value="更新"
-						name='updateBtn' onclick="return confirmUpdate('${attendance.memberid}');">
-						<input type="submit" value="刪除" name='deleteBtn'
-						onclick="return confirmDelete('${attendance.memberid}');"></TD>
+					<TD colspan="2" align="center">
+					<input type="submit" value="更新" name='updateBtn' onclick="return confirmUpdate('${attendance.member.account}');">
+					<input type="submit" value="刪除" name='deleteBtn'onclick="return confirmDelete('${attendance.member.account}');">	
+						
+					</TD>
 				</TR>
 			</Table>
 			<c:if test="${not empty requestScope.modify}">

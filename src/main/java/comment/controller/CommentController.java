@@ -7,12 +7,10 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
-import org.apache.el.parser.ArithmeticNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,43 +22,41 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import comment.model.CommentBean;
 import comment.service.CommentService;
 import member.MemberBean;
-import member.Service.MemberService;
 
 @SessionAttributes({ "comment", "dis_board", "member" })
 @Controller
 public class CommentController {
 
 	@Autowired
-	ServletContext context;
-	@Autowired
-	MemberService ms;
+	ServletContext servletContext;
 
 	@Autowired
-	CommentService cs;
+	CommentService commentService;
 
 	@GetMapping("/comment/")
 	public String home(Model model) {
 		model.addAttribute("member");
 		return "comment/displayBoard"; // 請視圖解析器由視圖的邏輯名稱index來找出真正的視圖
 	}
-	
+
 	@PostMapping("/leaveComment")
 	@ResponseBody
 	public String leaveComment(
 			Model model,
-			@RequestParam("mid")Integer mid,
 			@ModelAttribute("leave")CommentBean cb) {
 		
 		
 		System.out.println("leaving comment");
-		MemberBean mb=ms.getMember(mid);
 		Timestamp time = new Timestamp(new Date().getTime());
 		
-		cb.setMember(mb);
+		
+		// SQL的Date轉JAVA的Date
+	
+	
 		cb.setCommentTime(time);
 		
 		System.out.println("cb now:"+cb);
-		cs.insertComment(cb);
+		commentService.insertComment(cb);
 		
 		return "OK";
 		
@@ -100,7 +96,7 @@ public class CommentController {
 		}
 //insert的確認送出的留言
 		if (confirm != null) {
-			
+
 			System.out.println("comment confirm");
 			// JAVA的Date轉SQL的Date
 			Timestamp time = new Timestamp(new Date().getTime());
@@ -109,22 +105,16 @@ public class CommentController {
 			java.util.Date utilDate = new java.util.Date();
 			utilDate.setTime(sqlDate.getTime());
 //			Timestamp commentTime = String.valueOf(utilDate);
-			CommentBean comment = new CommentBean(
-					commentId,
-					(MemberBean) session.getAttribute("member"),
-					time,
-					content,
-					status,
-					keynumber, 
-					type);
+			CommentBean comment = new CommentBean(commentId, (MemberBean) session.getAttribute("member"), time, content,
+					status, keynumber, type);
 
 //			model.addAttribute("comment", comment);
 			try {
 				System.out.println("一筆資料" + comment);
 				System.out.println("comment:" + comment.getMember().getName());
 
-				cs.insertComment(comment);
-				List<CommentBean> cb = cs.selectAll();
+				commentService.insertComment(comment);
+				List<CommentBean> cb = commentService.selectAll();
 				model.addAttribute("dis_board", cb);
 				return "/comment/select";
 				// request.getRequestDispatcher("CommentThanks.jsp").forward(request, response);
@@ -139,10 +129,10 @@ public class CommentController {
 
 			System.out.println("delete id:" + commentId);
 			System.out.println("deleteComment");
-			cs.deleteComment(commentId);
+			commentService.deleteComment(commentId);
 
 			try {
-				List<CommentBean> cb = cs.selectAll();
+				List<CommentBean> cb = commentService.selectAll();
 				model.addAttribute("dis_board", cb);
 				if (cheat != null && cheat.equals("cheat")) {
 					return "comment/select";
@@ -157,10 +147,10 @@ public class CommentController {
 		}
 //按下更新鍵,到另一個頁面去做修改
 		if (update != null) {
-			System.out.println("commentID:"+commentId);
-			
-			CommentBean comment = cs.selectUpdateitem(commentId);
-			System.out.println("comment"+comment);
+			System.out.println("commentID:" + commentId);
+
+			CommentBean comment = commentService.selectUpdateitem(commentId);
+			System.out.println("comment" + comment);
 			System.out.println("update page" + comment);
 			model.addAttribute("comment", comment);
 			return "comment/commentUpdate";
@@ -174,18 +164,12 @@ public class CommentController {
 			java.util.Date utilDate = new java.util.Date();
 			utilDate.setTime(sqlDate.getTime());
 //			String commentTime = String.valueOf(utilDate);
-			CommentBean comment = new CommentBean(
-					commentId,
-					(MemberBean) session.getAttribute("member"),
-					time,
-					content,
-					status,
-					keynumber,
-					type);
+			CommentBean comment = new CommentBean(commentId, (MemberBean) session.getAttribute("member"), time, content,
+					status, keynumber, type);
 			try {
-				cs.updateComment(comment);
+				commentService.updateComment(comment);
 				System.out.println("updateComment" + comment);
-				List<CommentBean> cb = cs.selectAll();
+				List<CommentBean> cb = commentService.selectAll();
 				model.addAttribute("dis_board", cb);
 				if (cheat != null && cheat.equals("cheat")) {
 					return "comment/select";
@@ -200,7 +184,7 @@ public class CommentController {
 
 		}
 		if (category != null) {
-			List<CommentBean> cb = cs.selectAll();
+			List<CommentBean> cb = commentService.selectAll();
 			model.addAttribute("dis_board", cb);
 			return "comment/select";
 		}
@@ -211,7 +195,7 @@ public class CommentController {
 //選擇所有留言資料顯現出來(select all)
 	@GetMapping("/comment/select")
 	public String getAll(Model model) {
-		List<CommentBean> cb = cs.selectAll();
+		List<CommentBean> cb = commentService.selectAll();
 		model.addAttribute("dis_board", cb);
 		return "comment/select";
 	}
@@ -226,8 +210,5 @@ public class CommentController {
 	public String gotoVideo(Model model) {
 		return "comment/video";
 	}
-
-	
-
 
 }

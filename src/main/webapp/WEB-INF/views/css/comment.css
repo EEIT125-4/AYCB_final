@@ -1,4 +1,6 @@
-@charset "UTF-8";
+.selectrecord {
+	border-collapse: collapse;
+}
 
 body {
 	margin: 0;
@@ -21,7 +23,7 @@ body {
 	height: 200px;
 }
 
-.content {
+#content {
 	margin: 0 auto;
 	width: 960px;
 	overflow: hidden;
@@ -71,21 +73,8 @@ body {
 	float: right;
 }
 
-.contentBox {
+#contentBox {
 	margin-top: 10px;
-	
-}
-.sectionBox{
-	border-style: double;
-    border-color: green;
-    border-radius: 15px;
-    padding-top: 10px;
-    margin: 10px auto;
-    display: block;
-   
-    background-color: whitesmoke;
-    align-content: center;
-	
 }
 
 .discussionbox {
@@ -128,10 +117,7 @@ body {
 
 .updateform {
 	margin: auto;
-	position: relative;
 	text-align: center;
-	top: 100px;
-	min-height: 400px;
 	width: 600px;
 	border: 5px inset #ff80c0;
 	border-radius: 15px;
@@ -148,4 +134,41 @@ body {
 
 .selectrecord {
 	border-collapse: collapse;
+}
+
+/* 留下留言 */
+.headpic {
+	vertical-align: middle;
+	border-radius: 50%;
+}
+
+.reply {
+	padding: 5px 10px;
+	background: #e6e6e6;
+	color: #000000;
+	text-transform: uppercase;
+	font-size: 11px;
+	letter-spacing: .1em;
+	font-weight: 400;
+	border-radius: 4px;
+}
+
+.commentdate {
+	font-size: 15px;
+	color: #589167;
+}
+
+.picform {
+	width: 80px;
+	float: left;
+	list-style: none;
+}
+
+.leavecomment {
+	border-color: grey;
+	border-style: solid;
+	border-width: 1px;
+	width: 800px;
+	margin-top: 250px;
+	margin-left: 380px;
 }

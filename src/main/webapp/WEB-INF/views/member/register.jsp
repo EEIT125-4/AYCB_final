@@ -5,21 +5,17 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<%-- <link REL=STYLESHEET HREF="${pageContext.request.contextPath}css/member.css" TYPE="text/css"> --%>
+<link REL=STYLESHEET
+	HREF="${pageContext.request.contextPath}/css/member.css"
+	TYPE="text/css">
 <link rel="icon" href="image/logo.ico" type="image/x-icon">
-
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
-	crossorigin="anonymous">
 
 <title>註冊</title>
 </head>
-<%@include file="../jspf/header.jspf"%>
 
 <div style="position: relative; top: 10px;">
 	<!-- 	<fieldset -->
@@ -57,6 +53,60 @@
 
 
 		<br>
+
+
+		<!-- 				<tr> -->
+		<!-- 					<td>*姓名</td> -->
+		<%-- 					<td><form:input class="abc" type="text" path="name" id="realname"/>  --%>
+		<!-- 					</td> -->
+		<!-- 				</tr> -->
+
+		<!-- 		<div class="d-flex justify-content-center"> -->
+		<!-- 			<label for="inputPassword6" style="font-weight: bold; font-size: 30px">性別</label> -->
+		<%--  <form:radiobutton  style="height:20px; width:20px;"  path="gender" id="Male" value="男"/> --%>
+		<!-- <label  style="font-weight: bold; font-size: 20px" for="inlineRadio1">男</label>  -->
+		<!-- <br> -->
+		<%-- 		  <form:radiobutton  style="height:20px; width:20px;" path="gender" id="FE" value="女"/> --%>
+		<!-- 		  <label style="font-weight: bold; font-size: 20px" for="inlineRadio2">女</label> -->
+
+		<!-- <div> -->
+
+		<%-- 		  <form:radiobutton class="form-check-input" type="radio" path="gender" id="Male" value="男"/> --%>
+		<!-- 		  <label class="form-check-label" for="inlineRadio1">男</label> -->
+
+
+		<!-- 		</div> -->
+
+
+
+
+
+
+		<!-- 				<tr> -->
+		<!-- 					<td>*性別</td> -->
+
+		<%-- <%-- 					<form:radiobuttons path="gender" items='${gender}'/></td> --%>
+		<%-- 					<td><form:radiobutton  path="gender" value="男"/>先生  --%>
+		<%-- 					<form:radiobutton  path="gender" value="女" />小姐</td> --%>
+
+		<!-- 				</tr> -->
+		<!-- 				<tr> -->
+
+
+
+
+
+
+
+		<!-- 					<td>*帳號</td> -->
+		<%-- 					<td><form:input class="ddd" type="text" path="account" id="acc" --%>
+		<%-- <%-- 						onblur="Ckac();"/></td> --%>
+		<%-- 						<span id="idsp" style="color: red;"></span>  --%>
+		<%-- 				</tr> --%>
+		<!-- 				<tr> -->
+		<!-- 					<td>*密碼</td> -->
+		<%-- 					<td><form:input class="ddd" type="password" path="password" id="pwd"/></td> --%>
+		<!-- 				</tr> -->
 
 
 
@@ -157,7 +207,6 @@
 			class="col-sm-3 col-form-label col-form-label-lg"></label>
 
 
-
 		<div style="margin-left: 830px">
 			<input type="submit" id="submit" value="註冊"
 				style="padding: 5px 15px; font-weight: bold; background: #ccc; border: 0 none; cursor: pointer; -webkit-border-radius: 5px; border-radius: 5px; width: 250px">
@@ -171,6 +220,7 @@
 	</form:form>
 	<!-- 	</fieldset> -->
 </div>
+<%@include file="../jspf/footer.jspf"%>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
@@ -222,7 +272,6 @@ setInterval(function(){
 			p3=true;
 		}
 	});
-
 	
 	
 }, 8);
@@ -260,7 +309,6 @@ function check(){
     	let aza= $("#acc").val();
      	console.log("aza:"+aza);
      	let confirm=false;
-
     	$.ajax({
     		async : false,
     		type : 'post',
@@ -274,7 +322,6 @@ function check(){
     				
     				
     				if(aza!=n.account){
-
     					p4=true;
 
     					confirm=true;

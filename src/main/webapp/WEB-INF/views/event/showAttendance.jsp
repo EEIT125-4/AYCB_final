@@ -12,10 +12,9 @@
 	href="${pageContext.request.contextPath}/css/eventpage.css">
 <title>活動資料</title>
 
-</head>
 <%@include file="../jspf/header.jspf"%>
-<body>
-<div>
+
+<div class="container" style="margin-bottom: 80px">
 		<div>
 			<div
 				style="float: left; width: 20%; text-align: center; margin-left: 220px;">
@@ -80,18 +79,19 @@
 		<a href="<c:url value='attendanceForm'/>">回到報名</a>
 	
 </div>
-	<script type='text/javascript'>
-    $(document).ready(function() {    	
-        $('.deletelink').click(function() {
-        	if (confirm('確定刪除此筆紀錄? ')) {
-        	var href = $(this).attr('href');        	       		
-                $('form').attr('action', href).submit();
-        	} 
-        	return false;
-            
-        });
-    })
-</script>
-</body>
+
 <%@include file="../jspf/footer.jspf"%>
+</body>
+<!-- 	<script type='text/javascript'> -->
+<!--     $(document).ready(function() {    	 -->
+<!--         $('.deletelink').click(function() { -->
+<!--         	if (confirm('確定刪除此筆紀錄? ')) { -->
+<!--         	var href = $(this).attr('href');        	       		 -->
+<!--                 $('form').attr('action', href).submit(); -->
+<!--         	}  -->
+<!--         	return false; -->
+            
+<!--         }); -->
+<!--     }) -->
+<!-- </script> -->
 </html>

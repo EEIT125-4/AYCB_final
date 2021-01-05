@@ -14,8 +14,10 @@
 <link REL=STYLESHEET HREF="css/inside.css" TYPE="text/css">
 <title>All You Can Buy</title>
 </head>
+
 <%@include file="../jspf/header.jspf"%>
-<div class="contentoutbox">
+
+<div class="contentoutbox" >
 	<div class="contentbox">
 		<div class="leftside">
 			<div class="condition">條件篩選</div>
@@ -123,10 +125,9 @@
 					<!-- 							class="fa fa-angle-double-right" aria-hidden="true"></i></a></li> -->
 				</ul>
 			</div>
-		</div>
-		<%@include file="../jspf/footer.jspf"%>
+		</div>		
 	</div>
 </div>
-</div>
+<%@include file="../jspf/footer.jspf"%>
 </body>
 </html>

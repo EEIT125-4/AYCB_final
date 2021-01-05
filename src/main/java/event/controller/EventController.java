@@ -167,12 +167,15 @@ public class EventController {
 			String path = null;
 			try {
 				path = Common.saveImage(file);
+				event.setFilename(path);
+				eventService.updateEvent(event);
+				System.out.println("000000000000000000000000000000000000"+path);
 			} catch (IOException e) {
 				
 				e.printStackTrace();
 			}
-			event.setFilename(path);
-			eventService.updateEvent(event);
+			
+	
 			return "redirect:/event/showEvent";
 		}	
 		@GetMapping(value = "eventdelete")
