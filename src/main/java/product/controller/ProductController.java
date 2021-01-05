@@ -1,26 +1,25 @@
 package product.controller;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
-=======
->>>>>>> parent of b635b29... 1/5 Julia
-=======
->>>>>>> parent of b635b29... 1/5 Julia
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 
+import comment.model.CommentBean;
+import comment.service.CommentService;
 import product.model.ProductBean;
 import product.service.ProductService;
 
@@ -29,8 +28,7 @@ public class ProductController {
 
 	@Autowired
 	ProductService ps;
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 	@Autowired
 	CommentService cs;
 	
@@ -54,20 +52,13 @@ public class ProductController {
 		
 	}
 
-	@GetMapping("/AllProducts")
-	public String allProducts(Model model,
-			@RequestParam(value = "pageNo", defaultValue = "1", required = false) Integer pageNo
-=======
-=======
->>>>>>> parent of b635b29... 1/5 Julia
+
+
 
 	@GetMapping("/AllProducts")
 	public String allProducts(Model model,
 			@RequestParam(value = "page", defaultValue = "1", required = false) Integer pageNo
-<<<<<<< HEAD
->>>>>>> parent of b635b29... 1/5 Julia
-=======
->>>>>>> parent of b635b29... 1/5 Julia
+
 	) {
 		if (pageNo == 0) {
 			pageNo = 1;
@@ -102,14 +93,9 @@ public class ProductController {
 
 	@GetMapping("/Series")
 	public String series(Model model,
-<<<<<<< HEAD
-<<<<<<< HEAD
-			@RequestParam(value = "pageNo", defaultValue = "1", required = false) Integer pageNo,
-=======
-=======
->>>>>>> parent of b635b29... 1/5 Julia
+
 			@RequestParam(value = "page", defaultValue = "1", required = false) Integer pageNo,
->>>>>>> parent of b635b29... 1/5 Julia
+
 			@RequestParam(value = "series", required = false) String productseries
 	) {
 		if (pageNo == 0) {
@@ -147,14 +133,9 @@ public class ProductController {
 	
 	@GetMapping("/Keyword")
 	public String keyword(Model model,
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 			@RequestParam(value = "pageNo", defaultValue = "1", required = false) Integer pageNo,
-=======
-=======
->>>>>>> parent of b635b29... 1/5 Julia
-			@RequestParam(value = "page", defaultValue = "1", required = false) Integer pageNo,
->>>>>>> parent of b635b29... 1/5 Julia
+
 			@RequestParam(value = "keyword", required = false) String keyword
 	) {
 		if (pageNo == 0) {
@@ -171,11 +152,9 @@ public class ProductController {
 	}
 	
 	@GetMapping("/Detail")
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 	public ModelAndView detail(Model model, 
-			@RequestParam(value = "no", required = false) Integer no
-	) {
+			@RequestParam(value = "no", required = false) Integer no) {
 		ModelAndView mav=new ModelAndView();
 		
 		ProductBean detail = ps.getProduct(no);
@@ -230,24 +209,15 @@ public class ProductController {
 		List<String> list = ps.getBrand();
 		return list;
 	}
+
+
+
+
+
+
+
+
+
+
 }
-=======
-	public String detail(Model model, 
-			@RequestParam(value = "no", required = false) Integer no
-	) {
-		ProductBean detail = ps.getProduct(no);
-		model.addAttribute("Detail", detail);
-		return "product/detail";
-	}
-}
->>>>>>> parent of b635b29... 1/5 Julia
-=======
-	public String detail(Model model, 
-			@RequestParam(value = "no", required = false) Integer no
-	) {
-		ProductBean detail = ps.getProduct(no);
-		model.addAttribute("Detail", detail);
-		return "product/detail";
-	}
-}
->>>>>>> parent of b635b29... 1/5 Julia
+

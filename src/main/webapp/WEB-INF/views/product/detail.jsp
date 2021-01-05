@@ -1,12 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<<<<<<< HEAD
-<<<<<<< HEAD
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-=======
->>>>>>> parent of b635b29... 1/5 Julia
-=======
->>>>>>> parent of b635b29... 1/5 Julia
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,6 +11,7 @@
 <script src="js/inside.js" defer="defer"></script>
 <link REL=STYLESHEET HREF="css/inside.css" TYPE="text/css">
 <link REL=STYLESHEET HREF="css/ProductDetail.css" TYPE="text/css">
+<link rel="stylesheet" href="css/comment.css" />
 <title>All You Can Buy</title>
 </head>
 <%@include file="../jspf/header.jspf"%>
@@ -70,8 +65,6 @@
 		</div>
 
 		<div class="rightoutbox">
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 			<form name="AddForm"
 				action="${pageContext.request.contextPath}/cartAdd" method="get">
@@ -80,20 +73,6 @@
 					<div class="imgbox">
 						<a href="#"> <img
 							src="${pageContext.request.contextPath}/pic/${Detail.imagepath}"></a>
-=======
-			<form name="AddForm" action="${pageContext.request.contextPath}/cartAdd" method="get">
-				<input type="hidden" name="todo" value="add">
-				<div class="rightside">
-					<div class="imgbox">
-						<a href="#"><img src="image/${Detail.productname}.png"></a>
->>>>>>> parent of b635b29... 1/5 Julia
-=======
-			<form name="AddForm" action="${pageContext.request.contextPath}/cartAdd" method="get">
-				<input type="hidden" name="todo" value="add">
-				<div class="rightside">
-					<div class="imgbox">
-						<a href="#"><img src="image/${Detail.productname}.png"></a>
->>>>>>> parent of b635b29... 1/5 Julia
 					</div>
 				</div>
 
@@ -108,8 +87,6 @@
 					<div class="infoprice">NT$：${Detail.productprice}</div>
 					<div>
 						<div class="infocount">
-<<<<<<< HEAD
-<<<<<<< HEAD
 							數量 : <select name="count" class="countsel">
 								<option value="1">1</option>
 								<option value="2">2</option>
@@ -138,39 +115,11 @@
 								src="https://d.line-scdn.net/r/web/social-plugin/js/thirdparty/loader.min.js"
 								async="async" defer="defer"></script>
 							<div id="fb-root"></div>
-=======
-=======
->>>>>>> parent of b635b29... 1/5 Julia
-							數量 :
-							<div class="selbox">
-								<select name="count" class="countsel">
-									<option value="1">1</option>
-									<option value="2">2</option>
-									<option value="3">3</option>
-									<option value="4">4</option>
-									<option value="5">5</option>
-									<option value="6">6</option>
-									<option value="7">7</option>
-									<option value="8">8</option>
-									<option value="9">9</option>
-									<option value="10">10</option>
-								</select>
-							</div>
-							<div class="infobtn">
-								<input class="btn" type="submit" value="加入購物車"> <input
-									type="hidden" name="productno" value="${Detail.productno}">
-							</div>
-<<<<<<< HEAD
->>>>>>> parent of b635b29... 1/5 Julia
-=======
->>>>>>> parent of b635b29... 1/5 Julia
 						</div>
 					</div>
 				</div>
 			</form>
 		</div>
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 		<div class="content">##################</div>
 
@@ -249,68 +198,42 @@
 		Detail.productno
 	};
 	$(document).ready(function() {
-
 		console.log("productno=" + productno);
-
 		$("#postBt").on("click", function() {
 			leavecomment();
-
 		});
-
 		function leavecomment() {
 			alert("btn click");
-
 			$.ajax({
-
 				type : "post",
 				url : "${pageContext.request.contextPath}/leaveComment",
 				// 			contentType: "application/json; charset=utf-8",
 				dataType : "text",
 				data : $("#ajaxform").serialize(),
 				success : function(data) {
-
 					alert("leave comment!" + data);
 					console.log("leave comment");
 					console.log(data);
 					console.log(typeof (data));
-
 					// 				display();
-
 				},
 				error : function() {
 					alert("留言失敗,請重新留言");
 				}
 			})
-
 		}
-
 		function display() {
-
 			$('#productno').empty();
 			$('#productno').append();
-
 		}
 	});
 	// 				"<option value='' disabled='' selected='' hidden=''>留言訊息</option>"
 	// 						+ "<option value=''>All</option>");
-
 	// 		for (let i = 0; i < data.length; i++) {
 	// 			console.log("data:" + i + data[i]);
 	// 			$('#productno').append(
 	// 					"<option value="+data[i]+">" + data[i]
 	// 							+ "</option>");
 </script>
-=======
-		<%@include file="../jspf/footer.jspf"%>
-	</div>
-</div>
-</div>
->>>>>>> parent of b635b29... 1/5 Julia
-=======
-		<%@include file="../jspf/footer.jspf"%>
-	</div>
-</div>
-</div>
->>>>>>> parent of b635b29... 1/5 Julia
 </body>
 </html>
