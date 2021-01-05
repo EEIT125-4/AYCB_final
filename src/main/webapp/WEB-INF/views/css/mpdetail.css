@@ -32,14 +32,15 @@
 .updatetext {
     float: left;
     width: 100px;
-    height: 30px;
+    height: 40px;
     font-size: 20px;
     font-weight: bold;
 }
 
 .updatebtn {
     float: left;
-    height: 36px;
+    height: 40px;
+    margin-left: 10px;
     font-size: 20px;
     font-weight: bold;
 }
