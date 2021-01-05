@@ -355,6 +355,7 @@ public class Common
 				out.println(line);
 			}
 		}
+<<<<<<< HEAD
 	}
 
 	/**
@@ -370,4 +371,18 @@ public class Common
 		return pathName.substring(pathName.lastIndexOf("/") + 1);
 	}
 
+=======
+		/**
+		 * 取得最後一個"/"後的文字
+		 * @param pathName
+		 * @return
+		 * @throws IOException
+		 * @throws SQLException
+		 */
+		
+		public static String extractFileName(String pathName) throws IOException, SQLException {
+			return pathName.substring(pathName.lastIndexOf("/") + 1);
+		}
+	 
+>>>>>>> parent of b635b29... 1/5 Julia
 }
