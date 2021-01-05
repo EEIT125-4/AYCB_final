@@ -34,6 +34,7 @@
 <script
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAN4iHbCP2pOJkfPy_FogIbgD7Ac7WpvK4&callback=initMap"
 	async defer></script>
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
 
 <title></title>
 
@@ -57,9 +58,13 @@
 						<p>
 							<b style='font-size: 16px;'>${event.eventname}</b>
 						</p>
-						<span><img
-							src="${pageContext.request.contextPath}/image/icon/calendar.png"
-							alt="">${event.eventdate}</span> <span>${event.eventlocation}</span>
+						<span>
+						<img src="${pageContext.request.contextPath}/image/icon/calendar.png"alt="">							
+							${event.eventdate}</span><br>
+						<span>
+						<button  value="${event.eventlocation}" data-toggle="modal" data-target="#mapdialog" style="border: none;background-color: transparent;">
+						<i class='fas fa-map-marker-alt' style='font-size:16px; color:red'></i></button>
+						活動地點:${event.eventlocation}</span>
 
 
 						<div>
@@ -110,18 +115,19 @@
 											<p>${event.hostphone}</p>
 											<p>${event.pax}</p>
 											<p>${event.hostphone}</p>
-											<div id="map" value="${event.eventid}" style="width: 465px; height: 500px"></div>
+<%-- 											<div id="map" value="${event.eventid}" style="width: 465px; height: 500px"></div> --%>
 										</div>
 										<div class="modal-footer">
 											<button type="button" style="width: 100px;"
 												class="btn btn-secondary" data-dismiss="modal">Close</button>
 
-<%-- 												<form action="<c:url value='/event/attendanceForm'/>" id="transfer"> --%>
-<%-- 												<input type="hidden" name="eventid" value="${event.eventid}"> --%>
-<!-- 												<button type="button" id="attend" class="btn btn-primary" style="width: 100px;">報名參加</button> -->
-<!-- 												</form> -->
-												<a id="transfer" href="<c:url value='/event/attendanceForm'/>?eventid=${event.eventid}">
-												<button id="attend" type="submit" class="btn btn-primary" style="width: 100px;">報名參加</button></a> 
+												<form action="<c:url value='/event/attendanceForm'/>" id="trans">
+												<input type="hidden" name="eventid" value="${event.eventid}">
+												<button type="button" id="attend" class="btn btn-primary" style="width: 100px;">報名參加</button>
+												</form>
+												
+<%-- 												<a id="trans" href="<c:url value='/event/attendanceForm'/>?eventid=${event.eventid}"> --%>
+<!-- 												<button id="attend" type="submit" class="btn btn-primary" style="width: 100px;">報名參加</button></a>  -->
 											<input type="hidden" id="membercatcher" value="${member}"> 
 
 										</div>
@@ -135,6 +141,29 @@
 		</c:forEach>
 	</div>
 	</section>
+	<div class="modal fade" id="mapdialog" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="modalTitle">${event.eventname}</h5>
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">	
+										<div class="caption">											
+											<div id="map" value="${event.eventid}" style="width: 465px; height: 500px"></div>
+										</div>
+										<div class="modal-footer">
+											<button type="button" style="width: 100px;"
+												class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 </div>
 <%@include file="../jspf/footer.jspf"%>
 </body>
@@ -142,42 +171,42 @@
    //googlemap
 	var map, geocoder;
 	var mapId = "";
-	$('button').click(function() {
-	var map = $('#transfer').children('input').val();
+	$('button').click(function(){
 		mapId = $(this).val();
-		console.log(mapId);
-		console.log(map);
-		console.log("wwww" + mapId);
-		geocoder = new google.maps.Geocoder();
-		map = new google.maps.Map(document.getElementById('map'), {
-			zoom : 17
-		});
-
+		console.log('mapid='+mapId);
+		
+		console.log("wwww"+mapId);
+		  geocoder = new google.maps.Geocoder();
+		  map = new google.maps.Map(document.getElementById('map'), {
+		    zoom: 17
+		  });
+		
 		var address = mapId;
-		geocoder.geocode({
-			'address' : address
-		}, function(results, status) {
-			if (status == 'OK') {
-				map.setCenter(results[0].geometry.location);
-				var marker = new google.maps.Marker({
-					map : map,
-					position : results[0].geometry.location
-				});
-			} else {
-				console.log(status);
-			}
-		});
+		  geocoder.geocode( { 'address': address},
+				  function(results, status) {
+		    if (status == 'OK') {
+		      map.setCenter(results[0].geometry.location);
+		      var marker = new google.maps.Marker({
+		          map: map,
+		          position: results[0].geometry.location
+		      });
+		    } else {
+		      console.log(status);
+		    }
+		  });
 	})
 	//判斷是否為會員
-	let membercatcher = $('membercatcher').val();
+	let membercatcher = $('#membercatcher').val();
 	$('#attend').click(function(){
-		console.log(membercatcher)
 		if(membercatcher == ""){
 			window.location.href="${pageContext.request.contextPath}/member/login";
 		}else{
-			$('#transfer').submit();
+			$('#trans').submit();
 		}
 	})
+	
+	
 </script>
+
 
 </html>

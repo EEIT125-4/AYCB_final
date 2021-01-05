@@ -95,7 +95,7 @@
 				<TR>
 					<TD align="RIGHT">活動簡介：</TD>
 					<TD align="LEFT">
-					<textarea cols="50" rows="5" name="eventdescription">
+					<textarea cols="50" rows="5" name="eventdescription" style="text-align: left;" >
 				    ${event.eventdescription}${param.eventdescription}
 					</textarea>
 				    <font color='red' size='-3'>${error.eid}</font>
