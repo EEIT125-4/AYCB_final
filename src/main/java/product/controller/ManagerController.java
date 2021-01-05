@@ -1,6 +1,5 @@
 package product.controller;
 
-import java.io.File;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -17,6 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import product.model.ProductBean;
 import product.service.ProductService;
+import tool.model.Image;
+import tool.service.ImageService;
 
 @Controller
 public class ManagerController {
@@ -26,6 +27,9 @@ public class ManagerController {
 	
 	@Autowired
 	ServletContext context;
+	
+	@Autowired
+	ImageService imgService;
 	
 	// 新增
 	@GetMapping("/Mpadd")
@@ -45,22 +49,43 @@ public class ManagerController {
 	public String add(@ModelAttribute("ProductBean") ProductBean pb			
 	) {
 		MultipartFile productImage = pb.getProductimage();
-		String originalFilename = productImage.getOriginalFilename();
-		String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
-		String rootDirectory = context.getRealPath("/");
-		System.out.println(context.getContextPath());
-		System.out.println(context.getResourcePaths("/"));
-		try {
-			File imageFolder = new File(rootDirectory, "images");
-			if (!imageFolder.exists())
-				imageFolder.mkdirs();
-			File file = new File(imageFolder, pb.getProductno() + ext);
-			productImage.transferTo(file);
-			pb.setImagepath(file.toString());
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
+		if (productImage != null && productImage.getSize() > 0) {
+			// 這邊是存在Tomcat的路徑,但網站重佈署時就會消失,所以目前方案是存在專案實際位置,每次重新佈署時就會自動同步
+			System.out.println("有圖片" + context.getRealPath("/"));
+
+			try {
+				Image img = new Image(productImage);
+
+				imgService.saveImage(img);
+				pb.setImagepath(img.getImgid().toString());
+				System.out.println("圖片儲存完畢,id=" + img.getImgid()+",filename="+img.getFilename());
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException("圖片上傳發生異常: " + e.getMessage());
+			}
+
+		} else {
+			System.out.println("沒有圖片");
 		}
+		
+		
+//		String originalFilename = productImage.getOriginalFilename();
+//		String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
+//		String rootDirectory = context.getRealPath("/");
+//		System.out.println(context.getContextPath());
+//		System.out.println(context.getResourcePaths("/"));
+//		try {
+//			File imageFolder = new File(rootDirectory, "images");
+//			if (!imageFolder.exists())
+//				imageFolder.mkdirs();
+//			File file = new File(imageFolder, pb.getProductno() + ext);
+//			productImage.transferTo(file);
+//			pb.setImagepath(file.toString());
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
+//		}
 		ps.saveproduct(pb);
 		return "redirect:/MProduct";
 	}

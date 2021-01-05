@@ -18,10 +18,10 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>Blog撰寫</title>
 
-
+</head>
 
 <%@include file="../jspf/header.jspf"%>
-	
+
 	<!-- Breadcrumb Section Begin -->
 	<section class="breadcrumb-blog set-bg"
 		data-setbg="${pageContext.request.contextPath}/image/breadcrumb-bg3.jpg">

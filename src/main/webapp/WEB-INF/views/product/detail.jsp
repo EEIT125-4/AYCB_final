@@ -17,7 +17,7 @@
 <%@include file="../jspf/header.jspf"%>
 
 <div class="contentoutbox">
-	<div class="contentBox" style="min-height: 2000px;">
+	<div class="contentBox" style="min-height: 1300px;">
 
 		<div class="leftside">
 			<div class="condition">條件篩選</div>
@@ -63,9 +63,9 @@
 				</c:forEach>
 			</div>
 		</div>
-		
+
 		<div class="rightoutbox">
-				
+
 			<form name="AddForm"
 				action="${pageContext.request.contextPath}/cartAdd" method="get">
 				<input type="hidden" name="todo" value="add">
@@ -75,7 +75,7 @@
 							src="${pageContext.request.contextPath}/pic/${Detail.imagepath}"></a>
 					</div>
 				</div>
-		
+
 				<div class="infobox">
 
 					<div class="infoname">${Detail.productname}</div>
@@ -118,77 +118,73 @@
 						</div>
 					</div>
 				</div>
-				</form>
-				</div>
-			
-		
-				<hr>
-			
-			<div class="content">##################</div>
-			
-			
-			
-			<div class="content">
-				<div id="post" style="margin-top: 60px;">
-
-					<H1 class="board" style="border-radius: 10px" ALIGN="CENTER">留言佈告欄</H1>
-
-
-					<form:form method="POST" modelAttribute="leave" id="ajaxform"
-						name="ajaxform" enctype='multipart/form-data'>
-						<Fieldset class="discussionbox">
-							<div>
-								<label>留言類型:</label>
-								<form:input path="type" value="product" disabled="true" />
-							</div>
-							<div>
-								<label>會員名稱：</label> <span>${member.name}</span> <input
-									type="hidden" id="shangtian" name="mid" value="${member.id}" />
-
-
-							</div>
-
-							<div>
-								<label>性別:</label> <span>${member.gender}</span>
-							</div>
-
-
-							<div>
-								Age:<label for="age">(between 0 and 100):</label> <input
-									type="number" id="age" name="age" min="0" max="100">
-								<%!int st = 0;%>
-
-								<label for="status"></label>
-								<%-- 					<form:input type="hidden" path="status" value=<%=st%>/>					 --%>
-								<!-- 					<label for="commentId"></label> -->
-								<!-- 					<input type="hidden" name="commentId">  -->
-								<!-- 					<label for="commentTime"></label> -->
-								<!-- 					<input type="hidden" name="commentTime"> -->
-							</div>
-							<div>
-								<label for="contentBox"></label>
-								<form:textarea path="contentBox" id="contentBox" class="transition" />
-
-								<!-- 				<INPUT id="postBt" type="submit" name="submit" onclick="leavecomment" -->
-								<!-- 					value="發表留言" />  -->
-							</div>
-							<div>
-								<span>
-									<button id="postBt" type="button">發表留言</button> <!-- 				 onclick="leavecomment()" -->
-									<button id="clear" type="reset">清除</button>
-								</span>
-							</div>
-						</Fieldset>
-
-					</form:form>
-
-				</div>
-			</div>
-			
-			</div>
-				<%@include file="../jspf/footer.jspf"%>
-
+			</form>
 		</div>
+
+		<div class="content">##################</div>
+
+		<div class="content">
+			<div id="post" style="margin-top: 60px;">
+
+				<H1 class="board" style="border-radius: 10px" ALIGN="CENTER">留言佈告欄</H1>
+
+
+				<form:form method="POST" modelAttribute="leave" id="ajaxform"
+					name="ajaxform" enctype='multipart/form-data'>
+					<Fieldset class="discussionbox">
+						<div>
+							<label>留言類型:</label>
+							<form:input path="type" value="product" disabled="true" />
+						</div>
+						<div>
+							<label>會員名稱：</label> <span>${member.name}</span> <input
+								type="hidden" id="shangtian" name="mid" value="${member.id}" />
+
+
+						</div>
+
+						<div>
+							<label>性別:</label> <span>${member.gender}</span>
+						</div>
+
+
+						<div>
+							Age:<label for="age">(between 0 and 100):</label> <input
+								type="number" id="age" name="age" min="0" max="100">
+							<%!int st = 0;%>
+
+							<label for="status"></label>
+							<%-- 					<form:input type="hidden" path="status" value=<%=st%>/>					 --%>
+							<!-- 					<label for="commentId"></label> -->
+							<!-- 					<input type="hidden" name="commentId">  -->
+							<!-- 					<label for="commentTime"></label> -->
+							<!-- 					<input type="hidden" name="commentTime"> -->
+						</div>
+						<div>
+							<label for="contentBox"></label>
+							<form:textarea path="contentBox" id="contentBox"
+								class="transition" />
+
+							<!-- 				<INPUT id="postBt" type="submit" name="submit" onclick="leavecomment" -->
+							<!-- 					value="發表留言" />  -->
+						</div>
+						<div>
+							<span>
+								<button id="postBt" type="button">發表留言</button> <!-- 				 onclick="leavecomment()" -->
+								<button id="clear" type="reset">清除</button>
+							</span>
+						</div>
+					</Fieldset>
+
+				</form:form>
+
+			</div>
+		</div>
+
+	</div>
+	<%@include file="../jspf/footer.jspf"%>
+
+</div>
 
 
 
@@ -197,9 +193,12 @@
 
 <!-- 長出留言 -->
 <script>
-var productno = ${Detail.productno};
+	var productno = $
+	{
+		Detail.productno
+	};
 	$(document).ready(function() {
-	
+
 		console.log("productno=" + productno);
 
 		$("#postBt").on("click", function() {

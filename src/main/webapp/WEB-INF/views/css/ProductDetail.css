@@ -36,7 +36,6 @@
 
 .infocount {
     float: left;
-    clear: both;
     margin-top: 5px;
     font-size: 30px;
     font-weight: bold;
@@ -48,26 +47,32 @@
 }
 
 .countsel {
-    width: 60px;
+    width: fit-content;
     height: 40px;
-    padding-left: 12px;
+    padding-left: 15px;
 }
 
 .infobtn {
-    clear: both;
-    margin-top: 10px;
+	float: left;
 }
 
-.btn {
+.cartbtn {
     width: 150px;
-    height: 50px;
+    height: 40px;
+    margin-top: 7px;
+    margin-left: 30px;
     font-size: 24px;
     font-weight: bold;
     background-color: white;
     border: 1px solid gray;
-    cursor: pointer;
 }
 
 .btn:hover {
     background-color: gainsboro;
+}
+
+.lineshare {
+	float: left;
+	margin-top: 12px;
+	margin-left: 120px;
 }

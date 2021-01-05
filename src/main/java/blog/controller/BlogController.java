@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 import blog.model.Blog;
 import blog.service.BlogService;
 import event.validator.EventValidator;
+import member.Service.MemberService;
 
 @Controller
 public class BlogController {
@@ -34,6 +36,9 @@ public class BlogController {
 
 	@Autowired
 	BlogService blogService;
+	
+	@Autowired
+	MemberService memberService;
 
 	//選擇所有留言資料顯現出來(select all)
 	@GetMapping("/blog")
@@ -60,13 +65,15 @@ public class BlogController {
 
 	//新增一筆部落格文章
 	@PostMapping("blog/empty")
-	public String add(@ModelAttribute("blog") Blog blog, Model model,
-			HttpServletRequest request,
-			@RequestParam(value = "commentTime", required = false) Date commentTime,
-			@RequestParam(value = "status", required = false) Integer status,
-			@RequestParam(value = "id", required = false) Integer id,
-			@RequestParam(value = "blogId", required = false) Integer blogId,
-			@RequestParam(value = "confirmupdate", required = false) String confirmupdate
+	public String add(
+			@ModelAttribute("blog") Blog blog,
+			Model model,
+			@RequestParam(value="memberID")Integer mid
+//			@RequestParam(value = "commentTime", required = false) Date commentTime,
+//			@RequestParam(value = "status", required = false) Integer status,
+//			@RequestParam(value = "id", required = false) Integer id,
+//			@RequestParam(value = "blogId", required = false) Integer blogId,
+//			@RequestParam(value = "confirmupdate", required = false) String confirmupdate
 			){
 				System.out.println("into blogForm");
 				try {
@@ -77,12 +84,14 @@ public class BlogController {
 				java.util.Date utilDate = new java.util.Date();
 				utilDate.setTime(sqlDate.getTime());
 				blog.setCommentTime(sqlDate);
+				blog.setMember(memberService.getMember(mid));
 				blogService.insertBlog(blog);
+				return "blog/blog";
 			} catch (Exception ex) {
 				System.out.println(ex.getClass().getName() + ", ex.getMessage()=" + ex.getMessage());
 				return "blog/blogForm";
 			}
-			return "blog/blog";
+			
 	}
 	
 	// 選擇一筆部落格文章
