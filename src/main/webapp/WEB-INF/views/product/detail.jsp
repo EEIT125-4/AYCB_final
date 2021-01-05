@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <<<<<<< HEAD
+<<<<<<< HEAD
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+=======
+>>>>>>> parent of b635b29... 1/5 Julia
 =======
 >>>>>>> parent of b635b29... 1/5 Julia
 <!DOCTYPE html>
@@ -68,6 +71,7 @@
 
 		<div class="rightoutbox">
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 			<form name="AddForm"
 				action="${pageContext.request.contextPath}/cartAdd" method="get">
@@ -76,6 +80,13 @@
 					<div class="imgbox">
 						<a href="#"> <img
 							src="${pageContext.request.contextPath}/pic/${Detail.imagepath}"></a>
+=======
+			<form name="AddForm" action="${pageContext.request.contextPath}/cartAdd" method="get">
+				<input type="hidden" name="todo" value="add">
+				<div class="rightside">
+					<div class="imgbox">
+						<a href="#"><img src="image/${Detail.productname}.png"></a>
+>>>>>>> parent of b635b29... 1/5 Julia
 =======
 			<form name="AddForm" action="${pageContext.request.contextPath}/cartAdd" method="get">
 				<input type="hidden" name="todo" value="add">
@@ -97,6 +108,7 @@
 					<div class="infoprice">NT$：${Detail.productprice}</div>
 					<div>
 						<div class="infocount">
+<<<<<<< HEAD
 <<<<<<< HEAD
 							數量 : <select name="count" class="countsel">
 								<option value="1">1</option>
@@ -127,6 +139,8 @@
 								async="async" defer="defer"></script>
 							<div id="fb-root"></div>
 =======
+=======
+>>>>>>> parent of b635b29... 1/5 Julia
 							數量 :
 							<div class="selbox">
 								<select name="count" class="countsel">
@@ -146,12 +160,16 @@
 								<input class="btn" type="submit" value="加入購物車"> <input
 									type="hidden" name="productno" value="${Detail.productno}">
 							</div>
+<<<<<<< HEAD
+>>>>>>> parent of b635b29... 1/5 Julia
+=======
 >>>>>>> parent of b635b29... 1/5 Julia
 						</div>
 					</div>
 				</div>
 			</form>
 		</div>
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 		<div class="content">##################</div>
@@ -282,6 +300,12 @@
 	// 					"<option value="+data[i]+">" + data[i]
 	// 							+ "</option>");
 </script>
+=======
+		<%@include file="../jspf/footer.jspf"%>
+	</div>
+</div>
+</div>
+>>>>>>> parent of b635b29... 1/5 Julia
 =======
 		<%@include file="../jspf/footer.jspf"%>
 	</div>

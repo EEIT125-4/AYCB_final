@@ -1,9 +1,12 @@
 package product.controller;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+=======
+>>>>>>> parent of b635b29... 1/5 Julia
 =======
 >>>>>>> parent of b635b29... 1/5 Julia
 import java.util.List;
@@ -26,6 +29,7 @@ public class ProductController {
 
 	@Autowired
 	ProductService ps;
+<<<<<<< HEAD
 <<<<<<< HEAD
 	@Autowired
 	CommentService cs;
@@ -54,10 +58,15 @@ public class ProductController {
 	public String allProducts(Model model,
 			@RequestParam(value = "pageNo", defaultValue = "1", required = false) Integer pageNo
 =======
+=======
+>>>>>>> parent of b635b29... 1/5 Julia
 
 	@GetMapping("/AllProducts")
 	public String allProducts(Model model,
 			@RequestParam(value = "page", defaultValue = "1", required = false) Integer pageNo
+<<<<<<< HEAD
+>>>>>>> parent of b635b29... 1/5 Julia
+=======
 >>>>>>> parent of b635b29... 1/5 Julia
 	) {
 		if (pageNo == 0) {
@@ -94,8 +103,11 @@ public class ProductController {
 	@GetMapping("/Series")
 	public String series(Model model,
 <<<<<<< HEAD
+<<<<<<< HEAD
 			@RequestParam(value = "pageNo", defaultValue = "1", required = false) Integer pageNo,
 =======
+=======
+>>>>>>> parent of b635b29... 1/5 Julia
 			@RequestParam(value = "page", defaultValue = "1", required = false) Integer pageNo,
 >>>>>>> parent of b635b29... 1/5 Julia
 			@RequestParam(value = "series", required = false) String productseries
@@ -136,8 +148,11 @@ public class ProductController {
 	@GetMapping("/Keyword")
 	public String keyword(Model model,
 <<<<<<< HEAD
+<<<<<<< HEAD
 			@RequestParam(value = "pageNo", defaultValue = "1", required = false) Integer pageNo,
 =======
+=======
+>>>>>>> parent of b635b29... 1/5 Julia
 			@RequestParam(value = "page", defaultValue = "1", required = false) Integer pageNo,
 >>>>>>> parent of b635b29... 1/5 Julia
 			@RequestParam(value = "keyword", required = false) String keyword
@@ -156,6 +171,7 @@ public class ProductController {
 	}
 	
 	@GetMapping("/Detail")
+<<<<<<< HEAD
 <<<<<<< HEAD
 	public ModelAndView detail(Model model, 
 			@RequestParam(value = "no", required = false) Integer no
@@ -215,6 +231,16 @@ public class ProductController {
 		return list;
 	}
 }
+=======
+	public String detail(Model model, 
+			@RequestParam(value = "no", required = false) Integer no
+	) {
+		ProductBean detail = ps.getProduct(no);
+		model.addAttribute("Detail", detail);
+		return "product/detail";
+	}
+}
+>>>>>>> parent of b635b29... 1/5 Julia
 =======
 	public String detail(Model model, 
 			@RequestParam(value = "no", required = false) Integer no

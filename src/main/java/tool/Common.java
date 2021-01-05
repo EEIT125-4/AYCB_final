@@ -384,5 +384,8 @@ public class Common
 			return pathName.substring(pathName.lastIndexOf("/") + 1);
 		}
 	 
+<<<<<<< HEAD
+>>>>>>> parent of b635b29... 1/5 Julia
+=======
 >>>>>>> parent of b635b29... 1/5 Julia
 }
