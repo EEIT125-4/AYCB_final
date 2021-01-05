@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+
 <%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
@@ -34,7 +36,6 @@
 	async defer></script>
 
 <title></title>
-</head>
 
 <%@include file="../jspf/header.jspf"%>
 
@@ -46,69 +47,6 @@
 	<form method='POST'>
 		<input type='hidden' name='_method' value='DELETE'>
 	</form>
-	<!-- <section class="blog spad"> -->
-	<!-- <div class="container"> -->
-	<!-- <div class="row"> -->
-	<%-- <c:forEach var='event' items='${events}'> --%>
-	<!--                 <div class="col-lg-4 col-md-6 col-sm-6"> -->
-	<!--                     <div class="blog__item"> -->
-	<%--                         <div class="blog__item__pic set-bg" data-setbg=""><img width='180' height='200' src='${event.filename}' /></div> --%>
-
-	<!--                         <div class="blog__item__text"> -->
-	<%--                             <span><img src="${pageContext.request.contextPath}/image/icon/calendar.png" alt="">${event.eventdate}</span> --%>
-	<%--                             <h5>${event.eventname}</h5> --%>
-
-	<!--                             <button type="button" class="btn btn-primary" style="width: 100px;" -->
-	<%-- 									data-toggle="modal" data-target="#more${event.eventid}" >詳細資料</button> --%>
-
-
-	<%-- 							<div class="modal fade" id="more${event.eventid}" tabindex="-1" role="dialog" aria-labelledby="modalLongTitle" --%>
-	<!-- 								aria-hidden="true"> -->
-
-	<!-- 								<div class="modal-dialog" role="document"> -->
-	<!-- 									<div class="modal-content"> -->
-	<!-- 										<div class="modal-header"> -->
-	<%-- 											<h5 class="modal-title" id="modalLongTitle">${event.eventname}</h5> --%>
-	<!-- 											<button type="button" class="close" data-dismiss="modal" -->
-	<!-- 												aria-label="Close"> -->
-	<!-- 												<span aria-hidden="true">&times;</span> -->
-	<!-- 											</button> -->
-	<!-- 										</div> -->
-	<!-- 										<div class="modal-body"> -->
-	<%-- 											<img width='180' height='200' src='${event.filename}' /> --%>
-	<!-- 											<div class="caption"> -->
-	<!-- 												<p> -->
-	<%-- 												<b style='font-size: 16px;'>${event.eventname}</b> --%>
-	<!-- 												</p> -->
-	<%-- 												<p>${event.eventid}</p> --%>
-	<%-- 												<p>活動日期:${event.eventdate}</p> --%>
-	<%-- 												<p>${event.eventlocation}</p> --%>
-	<%-- 												<p>${event.eventdescription}</p> --%>
-	<%-- 												<p>${event.host}</p> --%>
-	<%-- 												<p>${event.hostphone}</p> --%>
-	<%-- 												<p>${event.pax}</p> --%>
-	<%-- 												<p>${event.hostphone}</p> --%>
-	<!-- 											</div> -->
-	<!-- 											<div class="modal-footer"> -->
-	<!-- 											<button type="button"  style="width: 100px;"  class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-	<%-- 											<a href="<c:url value='/event/attendanceForm'/>?eventid=${event.eventid}" class="btn btn-primary">													 --%>
-	<!-- 											<span class="glyphicon-info-sigh glyphicon">報名參加</span></a> -->
-
-	<!-- 											</div> -->
-	<!-- 										</div> -->
-	<!-- 									</div> -->
-	<!-- 								</div> -->
-	<!-- 							</div> -->
-
-
-	<!--                         </div> -->
-	<!--                     </div> -->
-	<!--       </div> -->
-	<%--  </c:forEach>                --%>
-	<!-- </div>                 -->
-	<!-- </div> -->
-	<!-- </section>		 -->
-
 	<section class="container">
 	<div class="row">
 		<c:forEach var='event' items='${events}'>
@@ -199,8 +137,7 @@
 <%@include file="../jspf/footer.jspf"%>
 </body>
 <script>
-
-
+   //googlemap
 	var map, geocoder;
 	var mapId = "";
 	$('button').click(function() {
@@ -229,6 +166,7 @@
 			}
 		});
 	})
+	//判斷是否為會員
 	let membercatcher = $('membercatcher').val();
 	$('#attend').click(function(){
 		console.log(membercatcher)

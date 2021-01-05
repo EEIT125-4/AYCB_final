@@ -51,7 +51,7 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 
 	</div>
 	<%@include file="../jspf/footer.jspf"%>
-
+</body>
 	<script>
 		$(function() {
 			var $li = $('ul.tab-title li');
@@ -67,19 +67,15 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 		});
 	</script>
 	<!-- Js Plugins -->
-<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/js/jquery.nice-select.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/js/jquery.nicescroll.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/js/jquery.magnific-popup.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/js/jquery.countdown.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/jquery.slicknav.js"></script>
-<script src="${pageContext.request.contextPath}/js/mixitup.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/main.js"></script>
+<%-- <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script> --%>
+<%-- <script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script> --%>
+<%-- <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script> --%>
+<%-- <script src="${pageContext.request.contextPath}/js/jquery.nice-select.min.js"></script>	 --%>
+<%-- <script src="${pageContext.request.contextPath}/js/jquery.nicescroll.min.js"></script>	 --%>
+<%-- <script src="${pageContext.request.contextPath}/js/jquery.magnific-popup.min.js"></script>	 --%>
+<%-- <script src="${pageContext.request.contextPath}/js/jquery.countdown.min.js"></script>	 --%>
+<%-- <script src="${pageContext.request.contextPath}/js/jquery.slicknav.js"></script> --%>
+<%-- <script src="${pageContext.request.contextPath}/js/mixitup.min.js"></script> --%>
+<%-- <script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script> --%>
+<%-- <script src="${pageContext.request.contextPath}/js/main.js"></script> --%>
 </html>

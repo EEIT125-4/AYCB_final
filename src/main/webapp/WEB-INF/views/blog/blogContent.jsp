@@ -26,20 +26,20 @@
 <title>${blog.title}</title>
 
     <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
-        rel="stylesheet">
+<!--     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap" -->
+<!--         rel="stylesheet"> -->
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/magnific-popup.css" type="text/css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type="text/css">
+<%--     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css" type="text/css"> --%>
+<%--     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css" type="text/css"> --%>
+<%--     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/elegant-icons.css" type="text/css"> --%>
+<%--     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/magnific-popup.css" type="text/css"> --%>
+<%--     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/nice-select.css" type="text/css"> --%>
+<%--     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.carousel.min.css" type="text/css"> --%>
+<%--     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/slicknav.min.css" type="text/css"> --%>
+<%--     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type="text/css"> --%>
 
-</head>
+
 <%@include file="../jspf/header.jspf"%>
 
 <!-- <div class="mid"> -->
@@ -248,7 +248,7 @@
 
 
 <%@include file="../jspf/footer.jspf"%>
-
+</body>
 
 <script src="https://code.jquery.com/jquery-3.5.1.js"
 	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
@@ -291,6 +291,6 @@
 </script>
 
 
-</body>
+
 
 </html>

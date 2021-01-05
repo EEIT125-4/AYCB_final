@@ -68,13 +68,6 @@
 						
 				</TR>
 				<TR>
-					<TD align="RIGHT">活動簡介：</TD>
-					<TD align="LEFT">
-					<input type="text" name="eventdescription" value="${event.eventdescription}${param.eventdescription}" size="30">
-				    <font color='red' size='-3'>${error.eid}</font></TD>
-						
-				</TR>
-				<TR>
 					<TD align="RIGHT">主辦方：</TD>
 					<TD align="LEFT">
 					<input type="text" name="host" value="${event.host}${param.host}">
@@ -101,8 +94,16 @@
 						<font color='red' size='-3'>${error.pax}</font>
 					</TD>
 				</TR>
+				<TR>
+					<TD align="RIGHT">活動簡介：</TD>
+					<TD align="LEFT">
+					<textarea cols="50" rows="5" name="eventdescription">
+				    <input value="${event.eventdescription}${param.eventdescription}">
+					</textarea>
+				    <font color='red' size='-3'>${error.eid}</font>
+					</TD>	
+				</TR>
 						
-
 				<TR>
 					<TD colspan="2" align="center">
 					<input type="submit" value="更新" name='updateBtn' onclick="return confirmUpdate('${event.eventid}');">
@@ -119,7 +120,8 @@
 		<small>&lt;&lt;<a href="javascript:history.back()">回上一頁</a>&gt;&gt;
 		</small>
 	</div>
+	<%@include file="../jspf/footer.jspf"%> 
 </body>
-<%@include file="../jspf/footer.jspf"%> 
+
 
 </html>

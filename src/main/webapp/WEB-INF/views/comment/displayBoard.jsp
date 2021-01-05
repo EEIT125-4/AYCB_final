@@ -15,9 +15,8 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="../css/comment.css" />
 <title>留言板</title>
-</head>
+
 <%@include file="../jspf/header.jspf"%>
-<%@include file="../jspf/footer.jspf"%>
 <%@include file ="../jspf/commentSide.jspf" %>
 <div id="content">
 	<div id="post" style="margin-top: 60px;">
@@ -62,4 +61,7 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 	</div>
 
 </div>
+
+<%@include file="../jspf/footer.jspf"%>
+</body>
 </html>

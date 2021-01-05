@@ -11,37 +11,11 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/eventpage.css">
 <title>填寫報名資料</title>
-</head>
+
 <%@include file="../jspf/header.jspf"%>
-<body>
-
-	<div>
-		<div>
-			<div style="float: left; width: 20%; text-align: center; margin-left: 220px;">
-
-				<dl>
-					<dt>
-						<h3>預約活動</h3>
-					</dt>
-					<hr width=70% size=1 color=#BFBFBF
-						style="FILTER: alpha(opacity = 100, finishopacity = 0, style = 3)">
-					<dt class="a1">
-						<A href="showEvent">
-							<h4>活動介紹</h4>
-						</A>
-					</dt>
-					<dt class="a1">
-						<a href='attendanceForm'><h5>報名參加</h5></a>	
-					</dt>
-					<dt class="a1">
-						<A href='showAttendance'><h6>查詢報名</h6></A>	
-					</dt>
-
-				</dl>
-			</div>
-		</div>
 
 
+<section class="container" style="margin-bottom: 80px">		
 		<div>
                 <form:form method="POST" modelAttribute="attendance">
 				<fieldset>
@@ -90,7 +64,9 @@
 			</form:form>
 			
 		</div>
-	</div>
-</body>
+	
+	</section>
 <%@include file="../jspf/footer.jspf"%>
+</body>
+
 </html>
