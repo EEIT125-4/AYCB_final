@@ -21,11 +21,11 @@
 <!-- 		<div style="margin-top: 20px; margin-left: 580px; width: 700px"> -->
 			<legend style="margin-left: 300px; font-size: 22px">會員登入</legend>
 			<div>
-			<input class="bbb" type="text" name="user" id="ac" required  placeholder="請輸入帳號or名稱" onblur="Ckac();" style="outline:none;">
+			<input class="bbb" type="text" name="user" id="ac" required  placeholder="請輸入帳號" onblur="Ckac();" style="outline:none;">
 			<span id="idsp" style="color: red;"></span>
 			</div>
 			<div>
-			<input class="bbb" type="password" required name="pwd" id="pwd" placeholder="請輸入密碼(6-20數字英文混合)" onblur="Ckpwd();" style="outline: none;">
+			<input class="bbb" type="password" required name="pwd" id="pwd" placeholder="請輸入(6-20數字英文混合)" onblur="Ckpwd();" style="outline: none;">
 			<span id="idsp1"style="color: red;"></span>
 			<label for="password" id="passwordeye"><img src="${pageContext.request.contextPath}/image/openeye.png" id="eye"></label><br>
 			</div>			

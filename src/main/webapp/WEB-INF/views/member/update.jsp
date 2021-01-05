@@ -25,7 +25,7 @@
 	TYPE="text/css">
 
 <title>登入</title>
-</head>
+
 <jsp:useBean id="member" class="member.MemberBean" scope="session" />
 <%@include file="../jspf/header.jspf"%>
 
@@ -33,21 +33,18 @@
 	<div class="contentbox">
 	
 	<%@include file="../jspf/memberPanel.jspf"%>
-		
-		<div></div>
 		<div class="rightoutbox">
-			<form action="${pageContext.request.contextPath}/member/updateComplete"
-				method="post">
+			<form action="${pageContext.request.contextPath}/member/updateComplete" method="post" >
 				
-				<div  style="font-size: 300px">
-
-			<p style="font-size: 10% ;margin-left:250px;margin-top:40px"></p>
+				
+				<div>
+<!-- 			<p style="font-size: 10% ;margin-left:250px;margin-top:10px"></p> -->
+			<label for="icon" style="font-weight: bold; font-size: 20px;margin-left:0px">上傳頭像</label>
+			<input type="file" name="icon" id="icon" style="font-size:15px"/>	
 		</div>
-				
+
 		
-				
-		
-				<div class="form-inline">
+				<div class="form-inline " style="margin-left:80px">
 				<label for="inputPassword6"
 					style="font-weight: bold; font-size: 20px">帳號</label>
 				<input disabled name="account" class="form-control mx-sm-3" style="width: 230px"
@@ -55,47 +52,51 @@
 					value=<jsp:getProperty name="member" property="account" />>
 				 
 				
-			   <label for="inputPassword6" style="font-weight: bold; font-size: 20px">密碼</label>
+<!-- 			   <label for="inputPassword6" style="font-weight: bold; font-size: 20px">密碼</label> -->
 					
-				<input name="pwd" class="form-control mx-sm-3" style="width: 230px"
-					aria-describedby="passwordHelpInline"
-					value=<jsp:getProperty name="member" property="password" />>
-            </div>
-              <br>
-               	<div class="form-inline">
-				<label for="inputPassword6"
+<!-- 				<input name="pwd" class="form-control mx-sm-3" style="width: 230px" -->
+<!-- 					aria-describedby="passwordHelpInline" -->
+<!-- 					value=<jsp:getProperty name="member" property="password" />> -->
+
+<label for="inputPassword6"
 					style="font-weight: bold; font-size: 20px">姓名</label> 
 					<input name="username" class="form-control mx-sm-3" style="width: 230px"
 					aria-describedby="passwordHelpInline"
 					value=<jsp:getProperty name="member" property="name" />>
 
 
+            </div>
+              <br>
+               	<div class="form-inline" style="margin-left:80px">
+				
+		 <label
+					for="inputPassword6" style="font-weight: bold; font-size: 20px">信箱</label>
+				<input disabled style="width: 535px"  name="email" class="form-control mx-sm-3"
+					style="width: 230px" aria-describedby="passwordHelpInline"
+					value=<jsp:getProperty name="member" property="email" />>
+
+		</div>
+					
+<br>
+
+
+	<div class="form-inline" style="margin-left:80px">
 				<label for="inputPassword6"
+					style="font-weight: bold; font-size: 20px">生日</label> 
+					<input disabled type="date" name="birth" class="form-control mx-sm-3" style="width: 230px"
+					aria-describedby="passwordHelpInline" value=<jsp:getProperty name="member" property="birth" />>
+							<label for="inputPassword6"
 					style="font-weight: bold; font-size: 20px">電話 </label> <input 
 					name="userphone" class="form-control mx-sm-3" style="width: 230px"
 					aria-describedby="passwordHelpInline" 
 					value=<jsp:getProperty name="member" property="phone" />> 
 					</div>
-					
-<br>
+			
 
-
-	<div class="form-inline">
-				<label for="inputPassword6"
-					style="font-weight: bold; font-size: 20px">生日</label> 
-					<input disabled type="date" name="birth" class="form-control mx-sm-3" style="width: 230px"
-					aria-describedby="passwordHelpInline" value=<jsp:getProperty name="member" property="birth" />>
-					
-					 <label
-					for="inputPassword6" style="font-weight: bold; font-size: 20px">信箱</label>
-				<input disabled  name="email" class="form-control mx-sm-3"
-					style="width: 230px" aria-describedby="passwordHelpInline"
-					value=<jsp:getProperty name="member" property="email" />>
-</div>
 		<br>
 					
 					
-				<div class="form-inline">
+				<div class="form-inline" style="margin-left:80px">
 					<label
 					for="inputPassword6" style="font-weight: bold; font-size: 20px">地址</label>
 				<input name="useraddress" class="form-control mx-sm-3"
@@ -103,7 +104,7 @@
 					value=<jsp:getProperty name="member" property="address" />>
 					</div>
 <br>
-			<button name="update" type="submit" class="btn btn-dark" style="width:180px;margin-left:230px" >更新</button>
+			<button name="update" type="submit" class="btn btn-dark" style="width:180px;margin-left:285px" >更新</button>
 <!-- 				<input type="submit" name="update" value="確認更新" -->
 <!-- 					style="margin-left: 280px"> -->
 				<!-- 		</fieldset> -->
