@@ -17,6 +17,9 @@
 
 </head>
 <%@include file="jspf/header.jspf"%>
+
+<div class="wrapper">
+
 <div class="adbox" id="adbox">
 	<ul class="adbox_slides" id="slides">
 		<%-- 		<c:forEach var="item" varStatus='vs' items="${list}"> --%>
@@ -43,11 +46,11 @@
 		<i class="fa fa-chevron-right"></i>
 	</div>
 </div>
-
+</div>
 
 
 <%@include file="jspf/footer.jspf"%>
-
+</body>
 
 
 
@@ -88,7 +91,8 @@
 					"<li><a href='${pageContext.request.contextPath}/Detail/?no="+data[i].productno+"'>"
 					+"<img src="+"${pageContext.request.contextPath}/pic/"+data[i].imagepath
 					
-					+" onerror=javascript:this.src='${pageContext.request.contextPath}/image/noImage.jpg'></a></li>"
+					+" onerror=javascript:this.src='${pageContext.request.contextPath}/image/noImage.jpg' width='150px'" 
+					+" height='150px'></a></li>"
 					);
 					
 					$('#dots').append("<li id="+data[i].productno+"></li>");
@@ -107,7 +111,7 @@
 	getAds();
 </script>
 <script src="js/Home.js" defer="defer"></script>
-</body>
+<!-- </body> -->
 
 
 </html>

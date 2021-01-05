@@ -21,15 +21,15 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 <title>購物車</title>
 </head>
 <%@include file="../jspf/header.jspf"%>
-
-
-<div style="position: relative; left: 30px; width: 150px;">
+<div style="text-align: center">
+<!-- <div style="position: relative; left: 30px; width: 150px;"> -->
  	<% 
  		MemberBean member = (MemberBean) session.getAttribute("member");
  	%> 
 
   	<span style="border-bottom: 2px solid gray; width: 150px;"> 
-	<strong><h5><%=member.getName() +  "   "%>您好!</h5></strong></span><br> <A style="color: black;" href="<c:url value='orderManagement' />"><h5>查詢歷史清單</h5></A> 
+	<strong><h5><%=member.getName() +  "   "%>您好!</h5></strong></span><br> 
+	<A style="color: black;" href="<c:url value='orderManagement' />"><h5>查詢歷史清單</h5></A> 
  </div> 
 
 <div class='shopingcart'>
@@ -91,6 +91,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 			<br>
 		</fieldset>
 		</div>
+			<div>
 			<%
 				} else {
 			%>
@@ -103,7 +104,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 					
 					}
 				%>
-				
+			</div>
 
 <%@include file="../jspf/footer.jspf"%>
 </body>

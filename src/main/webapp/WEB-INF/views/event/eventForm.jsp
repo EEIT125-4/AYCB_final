@@ -14,7 +14,7 @@
 </head>
 <%@include file="../jspf/header.jspf"%>
 
-<div class='container'>
+<div class='container' style="margin-bottom: 80px">
 	<form:form method="POST" modelAttribute="event" enctype='multipart/form-data'>
 		<fieldset>
 			<legend>

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import event.model.Attendance;
 import event.service.AttendanceService;
@@ -132,6 +133,9 @@ public class AttendanceController {
 				@RequestParam(value="aid" ,required = false)Integer aid ) {
 			Attendance attendance = attendanceService.getAttendance(aid);
 			model.addAttribute(attendance);
+			
+			
+			
 			return "event/update";
 		}
 		
@@ -166,6 +170,19 @@ public class AttendanceController {
 			attendanceService.deleteAttendance(aid);
 			return "redirect:/event/showAttendance";
 		}
+//		
+//		@GetMapping(value="")
+//		public ModelAndView  showevent(@RequestParam(value="aid",required = false)Integer aid) {
+//			
+//			ModelAndView mav=new ModelAndView();
+//			mav.addObject("aid", aid);
+//			mav.setViewName("event/attendanceForm");
+//			
+//			return mav;
+//			
+//		}
+		
+		
 		
 		
 }
