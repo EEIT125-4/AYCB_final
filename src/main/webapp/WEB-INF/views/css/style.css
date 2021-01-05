@@ -2754,7 +2754,11 @@ ol {
 }
 
 .blog__item__text {
+<<<<<<< Updated upstream
 	padding: 50px 5px 10px;
+=======
+	padding: 40px 30px 25px;
+>>>>>>> Stashed changes
 	margin: 0 30px;
 	margin-top: -35px;
 	background: #ffffff;

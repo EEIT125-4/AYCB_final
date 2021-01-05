@@ -153,6 +153,7 @@ types = (List<String>) request.getAttribute("types");
 
 <script>
 	//
+	
 	function checkLogin() {
 		var login =
 <%=session.getAttribute("member")%>

@@ -32,6 +32,11 @@ public class RootAppConfig {
 	@Bean
 	public DataSource msSQLDataSource() {
 		ComboPooledDataSource ds = new ComboPooledDataSource();
+<<<<<<< Updated upstream
+=======
+//		ds.setUser("sa");
+//		ds.setPassword("manager");
+>>>>>>> Stashed changes
 		ds.setUser("sa");
 		ds.setPassword("manager");
 		try {
