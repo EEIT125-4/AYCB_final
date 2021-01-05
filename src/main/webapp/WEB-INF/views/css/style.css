@@ -42,7 +42,7 @@ body {
   }
 
 .wrapper {
-/* 	min-height: 200px; */
+	min-height: 50px;
    flex-grow: 1; /*可佔滿垂直剩餘的空間 */
 }
 

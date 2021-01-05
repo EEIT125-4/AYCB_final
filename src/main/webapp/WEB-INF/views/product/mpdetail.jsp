@@ -30,7 +30,7 @@
 			<form:form method="POST" modelAttribute="ProductBean">
 				<div class="rightside">
 					<div class="imgbox">
-						<a href="#"><img src="image/${ProductBean.productname}.png"></a>
+						<a href="#"><img src="${pageContext.request.contextPath}/pic/${ProductBean.imagepath}"></a>
 					</div>
 				</div>
 				<div class="infobox">
@@ -66,10 +66,7 @@
 			</form:form>
 		</div>
 	</div>
-	<%@include file="../jspf/footer.jspf"%>
 </div>
-</div>
-</div>
-
+<%@include file="../jspf/footer.jspf"%>
 </body>
 </html>
