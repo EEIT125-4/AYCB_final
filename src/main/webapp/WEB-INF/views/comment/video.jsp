@@ -72,7 +72,8 @@ input[type=text]:focus {
 <a class="a1" href="${pageContext.request.contextPath}/video/empty">
 	<button style="width: auto; height: auto; margin-top: 0px;">上傳影片</button>
 </a>
-<a class="a1" href="${pageContext.request.contextPath}/video/update">
+<%-- <a class="a1" href="${pageContext.request.contextPath}/video/update"> --%>
+<a class="a1" href="#">
 	<button style="width: auto; height: auto; margin-top: 0px;"
 		onclick="alert('更新影片')">更新影片</button>
 </a>
@@ -113,6 +114,7 @@ input[type=text]:focus {
 		</div>
 	</section>
 	<!-- video end -->
+	
 <!-- 	social media icons -->
 	<div class="stickyicon-list" style="font-size:30px">
 		<a href="#facebook" class="facebook"> <i class="fa fa-facebook"></i>
@@ -123,7 +125,7 @@ input[type=text]:focus {
 			href="#youtube" class="youtube"> <i class="fa fa-youtube"></i>
 		</a>
 	</div>
-</div>
+	</div>
 
 
 
