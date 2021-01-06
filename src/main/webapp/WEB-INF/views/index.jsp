@@ -8,14 +8,14 @@
 
 
 
-<title>index</title>
+<title>ALL YOU CAN BUY</title>
 
 
 
 <!-- Css Styles -->
 
 
-</head>
+
 <%@include file="jspf/header.jspf"%>
 <%-- <c:set var="projectPath" value="${pageContext.request.contextPath}" scope="application" /> --%>
 <%-- <c:out value=projectpath/> --%>
@@ -34,6 +34,7 @@
 	<div id="nextbtn" class="adbox_btn">
 		<i class="fa fa-chevron-right"></i>
 	</div>
+</div>
 </div>
 
 <%@include file="jspf/footer.jspf"%>

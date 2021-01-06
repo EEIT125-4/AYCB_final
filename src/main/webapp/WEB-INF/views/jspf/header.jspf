@@ -18,11 +18,10 @@ MemberBean mb = (MemberBean) session.getAttribute("member");
 // }
 %>
 
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link REL=STYLESHEET
-	HREF="${pageContext.request.contextPath}/css/Home.css" TYPE="text/css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">	
+<link REL=STYLESHEET HREF="${pageContext.request.contextPath}/css/Home.css" TYPE="text/css">	
 <link rel="icon" href="${pageContext.request.contextPath}/image/logo.ico" type="image/x-icon">
+
 <!-- Google Font -->
 <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
 	rel="stylesheet">
@@ -37,6 +36,7 @@ MemberBean mb = (MemberBean) session.getAttribute("member");
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.carousel.min.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/slicknav.min.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type="text/css">
+
 <!-- 下面這個是自訂的CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/custom.css" type="text/css">
 
@@ -68,9 +68,14 @@ MemberBean mb = (MemberBean) session.getAttribute("member");
 				<a href="#">FAQs</a>
 			</div>
 			<div class="offcanvas__top__hover">
-
+			<span>Usd <i class="arrow_carrot-down"></i></span>
+                <ul>
+                    <li>USD</li>
+                    <li>EUR</li>
+                    <li>USD</li>
+                </ul>
 			</div>
-		</div>
+	</div>
 		<%
 		 	Double totalPrice = 0.0d;
 			List theCart = (List) session.getAttribute("cart");
@@ -107,12 +112,9 @@ MemberBean mb = (MemberBean) session.getAttribute("member");
 						</div>											
 					</div>
 					<div class="col-lg-6 col-md-4">
-						<div class="header__top__right">
-						
+						<div class="header__top__right">						
 							<div class="header__top__links">
 							<c:if test='${member.id>0}'>
-							
-						
 							<p >
 							<input type="image" src="${pageContext.request.contextPath}/pic/${member.iconid}" data-toggle="modal" data-target="#more${member.id}" class="user-icon" >
 							</p>	
@@ -122,12 +124,9 @@ MemberBean mb = (MemberBean) session.getAttribute("member");
 
 <%-- 		不要解鎖by怡佳						<a  href="${pageContext.request.contextPath}/car/">購物車</a>	 --%>
 								
-<%-- 								<a id="logout" href='${pageContext.request.contextPath}/logout'><%=(mb == null) ? "" : "登出"%></a>	 --%>
+<%-- 								<a id="logout" href='${pageContext.request.contextPath}/logout'><%=(mb == null) ? "" : "登出"%></a>	 --%>				
 
-
-					
-
-
+								<c:if test="${not empty member}">
 								<div class="modal fade" id="more${member.id}" tabindex="-1"
 								role="dialog" aria-labelledby="exampleModalLongTitle"
 								aria-hidden="true">
@@ -142,17 +141,15 @@ MemberBean mb = (MemberBean) session.getAttribute("member");
 										</div>
 										<div class="modal-body">
 										<div style="text-align: center;">
+										
 											<img width='180' height='200' src='${pageContext.request.contextPath}/pic/${member.iconid}' />
+											
 										</div>
 											<div class="caption">
 												<p style="text-align: center;">
 													<b style='font-size: 16px;'>${member.name}</b>
 												</p>
 												<p style="text-align: center;">${member.account}</p>
-												
-											
-											
-												
 											</div>
 											<div class="modal-footer">											
 											<a href='${pageContext.request.contextPath}/member/update' class="btn btn-secondary" >會員中心</a>											 
@@ -164,12 +161,10 @@ MemberBean mb = (MemberBean) session.getAttribute("member");
 											</div>
 										</div>
 									</div>
-								</div>
-								
+								</div>								
 							</div>
-										
-
-
+							</c:if>
+									
 							</div>
 							<div class="header__top__hover"></div>
 						</div>
@@ -194,28 +189,22 @@ MemberBean mb = (MemberBean) session.getAttribute("member");
 											<li>
 											<a  href='<c:url value="/Cate" />?cate=${cate}'>${cate}</a>
 											</li>
-										</c:forEach>
-									
+										</c:forEach>									
 									</ul>
 								
-					<li><a href="${pageContext.request.contextPath}/comment/">討論區</a>
-							<div>
+					        <li><a href="${pageContext.request.contextPath}/comment/">討論區</a>
 							<ul class="dropdown">
-
                                 <li><a href="${pageContext.request.contextPath}/blog/">美誌分享</a></li>
                                 <li><a href="${pageContext.request.contextPath}/comment/videolist/">影音分享</a></li>
-                            </ul></div>
+                            </ul>
                             </li>
 							<li><a href="${pageContext.request.contextPath}/event/showEvent">預約活動</a>
 							<ul class="dropdown">
                                     <li><a href="<c:url value='/event/showAttendance'/>">查詢報名</a></li> 
                                     <li><a href="<c:url value='/event/showAllAttendanceByID'/>?id=${member.id}">查詢會員報名</a></li>
                                 </ul>
-							</li>	
-							
-							
+							</li>
 						</ul>
-						
 					</nav>
 				</div>
 				<div class="col-lg-3 col-md-3">
@@ -223,27 +212,19 @@ MemberBean mb = (MemberBean) session.getAttribute("member");
 					<form action="Keyword" style="height:0">
 						<input type="text" name="keyword" style="width: 150px">
 							<button class="search-switch">
-								<img
-									src="${pageContext.request.contextPath}/image/icon/search.png"
-									alt="">
-							</button>
-				
-						<a href="#">
-						<img src="${pageContext.request.contextPath}/image/icon/heart.png" alt=""></a>
-						<a href="<c:url value='/car'/>">
-						<img src="${pageContext.request.contextPath}/image/icon/cart.png" alt=""><span>0</span></a>							
+								<img src="${pageContext.request.contextPath}/image/icon/search.png" alt="">
+							</button>				
+						<a href="#"><img src="${pageContext.request.contextPath}/image/icon/heart.png" alt=""></a>						
+						<a href="<c:url value='/car'/>"><img src="${pageContext.request.contextPath}/image/icon/cart.png" alt=""><span>0</span></a>	
 						<div class="search">
-					
-				</div>
-				</form>
+				    </div>
+				   </form>
 						<div class="price"></div>
 					</div>
 				</div>
 			</div>
-			<div class="canvas__open">
-				<i class="fa fa-bars"></i>
-			</div>
+			<div class="canvas__open"><i class="fa fa-bars"></i></div>
 		</div>
-	</header>
+</header>
 
 	
