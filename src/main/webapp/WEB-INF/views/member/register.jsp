@@ -186,24 +186,39 @@
 
 
 
-			<label for="inputPassword6"
+			<label for="address"
 				style="font-weight: bold; font-size: 25px">地址</label>
 			<form:input type="address" id="address" path="address" blur="address"
 				class="form-control mx-sm-3" aria-describedby="passwordHelpInline"
 				style="width:360px" placeholder="請輸入完整地址"  required="required"/>
-			<label for="address" id="addresscheck"></label>
-					<label for="inputPassword6"
+		
+					<label for="gender"
 				style="font-weight: bold; font-size: 25px">性別</label>
 
 			<form:radiobutton style="height:30px; width:30px;" path="gender"
-				id="Male" value="男" />
+				id="gender" value="男" />
 			<label style="font-weight: bold; font-size: 25px" for="inlineRadio1">男</label>
 			<form:radiobutton style="height:30px; width:30px;" path="gender"
-				id="FE" value="女" />
+				id="gender" value="女" />
 			<label style="font-weight: bold; font-size: 25px" for="inlineRadio2">女</label>
 <!-- 			<label for="icon" style="font-weight: bold; font-size: 20px">頭像</label> -->
 <!-- 			<input type="file" name="icon" id="icon" style="font-size:13px"/>	 -->
 		</div>
+		
+		<div class="d-flex justify-content-center">
+
+
+
+			<label for="introduce"
+				style="font-weight: bold; font-size: 25px">自我介紹</label>
+		</div>
+		<div class="d-flex justify-content-center">			
+			<form:textarea id="introduce" path="introduce" cols="100" rows="10" />
+
+		</div>
+		
+		
+		
 		<label for="address" id="addresscheck"
 			class="col-sm-3 col-form-label col-form-label-lg"></label>
 

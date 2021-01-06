@@ -112,6 +112,16 @@
 					value=<jsp:getProperty name="member" property="address" />>
 					</div>
 <br>
+<div class="form-inline" style="margin-left:80px">
+				<label for="introduce" style="font-weight: bold; font-size: 20px">自我介紹</label>
+				</div>
+<div class="form-inline" style="margin-left:80px">
+<textarea id="introduce" name="introduce" rows="5" cols="70" ><jsp:getProperty name="member" property="introduce" /></textarea>
+
+									</div>
+									
+<br>
+
 			<button name="update" type="submit" class="btn btn-dark" style="width:180px;margin-left:285px" >更新</button>
 <!-- 				<input type="submit" name="update" value="確認更新" -->
 <!-- 					style="margin-left: 280px"> -->
@@ -120,9 +130,9 @@
 			</form>
 		</div>
 	</div>
-<%-- 	<%@include file="../jspf/footer.jspf"%> --%>
+<%-- <%@include file="../jspf/footer.jspf"%> --%>
 </div>
-
+	
 
 <script>
 $('#file').change(function() {

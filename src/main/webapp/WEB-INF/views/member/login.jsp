@@ -156,10 +156,12 @@
      		success : function(data) {
      			
      			if(data=="ok"){
-     				alert("已寄送新密碼至您信箱");	
+     				swal("密碼重置","已寄送新密碼至您信箱","success")
+     				
      			}else{
      				
-     				alert("發生錯誤:"+data);
+     				swal("發生錯誤","寄送過程發生錯誤,請稍後再試或撥打客服電話","error")
+     				
      			}
      			
      			

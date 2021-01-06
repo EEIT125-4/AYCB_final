@@ -1,5 +1,6 @@
 package member.controller;
 
+import java.lang.reflect.Member;
 import java.sql.Date;
 import java.util.List;
 
@@ -112,6 +113,30 @@ public class MemberController {
 		return list;// memberService.checkDup();
 
 	}
+	
+	
+	@GetMapping(value = "/member/Backstage")
+	
+	public String backstage() {
+		
+		return "member/memberBackstage";
+
+	}
+	
+//	@GetMapping(value = "/member/refresh")
+//	@ResponseBody
+//	public boolean memberData(MemberBean mb) {
+//		System.out.println("ajax request memberData");
+//		
+//		boolean update=false;
+//		
+//		
+//		List<MemberBean> members = memberService.getAllMembers();// 訊息types
+//	
+//
+//		return members;
+//
+//	}
 	
 	
 	
@@ -229,6 +254,7 @@ public class MemberController {
 			@RequestParam(value = "username", required = false) String name,
 			@RequestParam(value = "useraddress", required = false) String address,
 			@RequestParam(value = "userphone", required = false) String phone,
+			@RequestParam(value="introduce",required=false)String introduce,
 			
 			@RequestParam(value="file",required = false)MultipartFile file,		
 			@RequestParam(value = "birth", required = false) Date birth) {
@@ -238,6 +264,7 @@ public class MemberController {
 		mb.setName(name);
 		mb.setAddress(address);
 		mb.setPhone(phone);
+		mb.setIntroduce(introduce);
 		
 		// 更新會員icon
 		if (file != null && file.getSize() > 0) {
