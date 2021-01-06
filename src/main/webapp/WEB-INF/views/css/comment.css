@@ -140,6 +140,8 @@ body {
 .headpic {
 	vertical-align: middle;
 	border-radius: 50%;
+	width: 70px;
+	height:60px;
 }
 
 .reply {
@@ -171,4 +173,47 @@ body {
 	width: 800px;
 	margin-top: 250px;
 	margin-left: 380px;
+}
+
+/* social media icons */
+/* Style the Sticky icons on web page */
+.stickyicon-list {
+	position: fixed;
+	top: 200px;
+	transform: translateY(-50%);
+	margin-left: 1300px;
+}
+
+.stickyicon-list a {
+	display: block;
+	text-align: center;
+	padding: 8px;
+	transition: all 0.5s ease;
+	color: white;
+	font-size: 30px;
+}
+/* HOver affect on sticky social media icons */
+.stickyicon-list a:hover {
+	color: #000;
+	width: 10px;
+}
+
+.facebook {
+	background: #3b5998;
+	color: white;
+}
+
+.twitter {
+	color: white;
+	background: #00acee;
+}
+
+.google {
+	color: white;
+	background: #db4a39;
+}
+
+.youtube {
+	color: white;
+	background: #c4302b;
 }

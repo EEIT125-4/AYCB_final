@@ -37,12 +37,6 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 		</div>
 	</div>
 </section>
-<!-- <div class="row"> -->
-<!-- 	<div class="col-lg-12"> -->
-<!-- 		<h2>影片上傳</h2> -->
-<!-- 	</div> -->
-<!-- </div> -->
-
 
 <!-- Breadcrumb Section End -->
 <section>
