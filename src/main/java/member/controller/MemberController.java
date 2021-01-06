@@ -1,7 +1,10 @@
 package member.controller;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.management.MBeanAttributeInfo;
 import javax.servlet.ServletContext;
@@ -12,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.jasper.tagplugins.jstl.core.Remove;
 import org.hibernate.SessionFactory;
+import org.hibernate.persister.walking.spi.MetamodelGraphWalker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -99,7 +103,7 @@ public class MemberController {
 		List<MemberBean> list = memberService.getAllMembers();
 		for (MemberBean m : list) {
 
-			System.out.println("acc:" + m.getAccount());
+			System.out.println("acc:" + m.getEmail());
 		}
 
 		return list;// memberService.checkDup();
@@ -158,7 +162,6 @@ public class MemberController {
 		SpecCaptcha captcha = new SpecCaptcha(130, 48);
 
 		CaptchaUtil.out(captcha, request, response);
-//        System.out.println("+++++++++++++"+captcha);
 
 	}
 
@@ -179,7 +182,7 @@ public class MemberController {
 			
 			if (!CaptchaUtil.ver(Qcode, request)) {
 				CaptchaUtil.clear(request); // 清除session中的验证码
-//	            return JsonResult.error("验证码不正确");
+
 				System.out.println("驗證碼錯誤");
 				
 
@@ -278,7 +281,7 @@ public class MemberController {
 		boolean kk = false;
 		
 	
-		if(pwd2.equals(pwd3)&& pwd3!="") {
+		if(pwd2.equals(pwd3)&& pwd3!=""&&pwd2!="") {
 			return true;
 			
 		}else {
@@ -313,20 +316,22 @@ public class MemberController {
 //google第三方
       @PostMapping("member/google")
      @ResponseBody
-      public String googlelogin (@RequestParam(value = "googlename", required = false) String name ,
+      public boolean googlelogin (@RequestParam(value = "googlename", required = false) String name ,
 		 @RequestParam(value = "googlegender", required = false) String gender,
 		 HttpServletRequest request,
 		 HttpServletResponse response,
 		 HttpSession session,
-		
-		 @RequestParam(value = "googleemail", required = false) String email)
+	  @RequestParam(value = "googleemail", required = false) String email,
+      @RequestParam(value = "googlebirth", required = false) String birth)
 		  {
-    	  System.out.println("");
+    	  System.out.println("birth"+birth);
     	  boolean res=memberService.emailcheck(email);
-    	  if(res==false) 
-    	  {MemberBean memberBean=new MemberBean(0, null, name, null, null, null, null, email, gender, null,null);
+    	  MemberBean mb = new MemberBean();
+    	  if(res==false){
+    		  MemberBean memberBean=new MemberBean(0, null, name, null, null, null, null, email, gender, null,null);
+    		  System.out.println("birth"+birth);
     	  
-    	  		Cookie[] cookies = request.getCookies();
+//    	  		Cookie[] cookies = request.getCookies();
 //    	  		
 //    	  		for(Cookie cookie: cookies) {
 //    	  			System.out.println(cookie.getName());
@@ -338,16 +343,20 @@ public class MemberController {
 //    	  		response.addCookie(cookie);
     	  		
     		  memberService.insertregister(memberBean);
-  
-    	  }else {MemberBean mb = (MemberBean) session.getAttribute("member");
-    	  
-    		 
     		  
-    		  
-    		  
+//    		  MemberBean mb = (MemberBean) session.getAttribute("member");
+//    		  
+//  
+//    	  }else {MemberBean mb = (MemberBean) session.getAttribute("member");
     	  }
-		return email;
-   
+    	  
+    	  MemberBean mbb=memberService.getemail(email);
+    	  
+    	  session.setAttribute("member", mbb);
+    	  
+    	 
+    	  
+    	  return true;
 		  }
      
       @GetMapping("/logout") // 登出

@@ -21,4 +21,6 @@ public interface MemberService {
 	boolean isDup(String account);
 	boolean emailcheck(String email);
 	MemberBean getMember(Integer pk);
+	
+	MemberBean getemail(String email );
 }

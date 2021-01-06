@@ -75,7 +75,7 @@
 
 				<br>
 				
-				<button name="update" type="submit" class="btn btn-dark"
+				<button name="update" type="submit" id="send" class="btn btn-dark"
 					style="width: 180px; margin-left: 270px">更新</button>
 <!-- 								<input type="submit" name="update" value="確認更新" -->
 <!-- 									style="margin-left: 300px"> -->
@@ -88,6 +88,10 @@
 </div>
 <script>
 
+var p1=false;
+var p2=false;
+var p3=false;
+var p4=false;
 
  
 	
@@ -111,13 +115,13 @@
 				console.log("type:"+typeof(data));	
 				if(data){
 					console.log("56+6"+data);
-					sp.innerHTML = "密碼正確";
-					
+					sp.innerHTML = "<img src='${pageContext.request.contextPath}\\image/correct.png'>"
+					p1=true;
 
 					
 				}else{
 
-					sp.innerHTML = "錯誤";
+					sp.innerHTML = "<img src='${pageContext.request.contextPath}\\image/cross.png'>"
 				}    			   				
 			}
 		});    		  		
@@ -130,15 +134,30 @@
 		document.getElementById("pwd2").addEventListener("change",function(){
 
 			if (!password.test(document.getElementById("pwd2").value)){
-				document.getElementById("newpwd2").innerHTML="錯";
-
+				document.getElementById("newpwd2").innerHTML="<img src='${pageContext.request.contextPath}\\image/cross.png\'>";
+			
 			}
 			else{
-				document.getElementById("newpwd2").innerHTML="對";
-
-				
+				document.getElementById("newpwd2").innerHTML="<img src='${pageContext.request.contextPath}\\image/correct.png\'>";
+				p2=true;
 			} 
 		});
+		
+		
+		let password2=/[a-zA-Z]+\d|\d+[a-zA-Z]+/;
+		document.getElementById("pwd3").addEventListener("change",function(){
+
+			if (!password2.test(document.getElementById("pwd3").value)){
+				document.getElementById("newpwd3").innerHTML="<img src='${pageContext.request.contextPath}\\image/cross.png\'>";
+				
+			}
+			else{
+				document.getElementById("newpwd3").innerHTML="<img src='${pageContext.request.contextPath}\\image/correct.png\'>";
+				p3=true;
+			} 
+		});
+		
+		
 	
 
 	}, 8);
@@ -173,19 +192,36 @@
 				console.log("type:"+typeof(data));	
 				if(data){
 					console.log("56+6"+data);
-					sp.innerHTML = "密碼正確";
-					
+					sp.innerHTML = "<img src='${pageContext.request.contextPath}\\image/correct.png'>"
+						p4=true;
 
 					
 				}else{
 
-					sp.innerHTML = "錯誤";
+					sp.innerHTML = "<img src='${pageContext.request.contextPath}\\image/cross.png'>"
 				}    			   				
 			}
 		});    		  		
 	});
 	
-	
+	$('#send').click(function(){
+		if(p1!=true || p2!=true || p3!=true || p4!=true ){
+
+			swal.fire({
+				  title: "oops",
+				  text: "輸入錯誤",
+				  icon: "error",
+				  button: "OK",
+				});
+			
+			return false;
+		}else{
+			$('form').submit();
+			return true;
+		}
+			
+	});
+		
 	
 	
 

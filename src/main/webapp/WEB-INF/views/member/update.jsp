@@ -86,7 +86,7 @@
 					<input disabled type="date" name="birth" class="form-control mx-sm-3" style="width: 230px"
 					aria-describedby="passwordHelpInline" value=<jsp:getProperty name="member" property="birth" />>
 							<label for="inputPassword6"
-					style="font-weight: bold; font-size: 20px">電話 </label> <input 
+					style="font-weight: bold; font-size: 20px">電話 </label> <input pattern="[0-9]{10}"  type="text" placeholder="請輸入手機號碼"
 					name="userphone" class="form-control mx-sm-3" style="width: 230px"
 					aria-describedby="passwordHelpInline" 
 					value=<jsp:getProperty name="member" property="phone" />> 

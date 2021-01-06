@@ -99,4 +99,11 @@ public class MemberServiceImpl implements MemberService {
 		
 		return memberDao.getMember(pk);
 	}
+	
+	@Override
+	public MemberBean getemail(String email ) {
+		
+		return memberDao.getemail(email);
+	}
+	
 }
