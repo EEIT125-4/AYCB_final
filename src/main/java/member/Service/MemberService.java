@@ -23,5 +23,6 @@ public interface MemberService {
 	MemberBean getMember(Integer pk);
 	MemberBean getMemberByEmail(String email);
 	boolean emailDupCheck(String email);
+	 MemberBean getemail(String email );
 	
 }

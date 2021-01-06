@@ -114,5 +114,11 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.emailDupCheck(email);
 	}
 	
+	@Override
+	public MemberBean getemail(String email ) {
+		
+		return memberDao.getemail(email);
+	}
+	
 	
 }

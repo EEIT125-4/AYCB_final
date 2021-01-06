@@ -20,7 +20,6 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -35,7 +34,6 @@ import javax.sql.rowset.serial.SerialClob;
 import javax.swing.JFrame;
 import javax.xml.bind.DatatypeConverter;
 
-import org.hibernate.boot.jaxb.hbm.spi.JaxbHbmNativeQueryReturnType.JaxbHbmReturnDiscriminator;
 import org.springframework.web.multipart.MultipartFile;
 
 public class Common
@@ -54,10 +52,10 @@ public class Common
 	 * 
 	 * Kevin:這個是以博淞主機下的專案路徑設置,如果要在本機測試,記得將以下兩組路徑自己替換掉!!
 	 */
-//	public static String UPLOAD_PATH = "C:/Users/Student/git/AYCB_final/src/main/webapp/WEB-INF/views/image";
-	public static String UPLOAD_PATH = "C:/Users/user/git/AYCB_final/src/main/webapp/WEB-INF/views/image";
-//	public static String IMAGE_REAL_PATH = "C:\\Users\\Student\\git\\AYCB_final\\src\\main\\webapp\\WEB-INF\\views\\image";
-	public static String IMAGE_REAL_PATH = "C:\\Users\\user\\git\\AYCB_final\\src\\main\\webapp\\WEB-INF\\views\\image";
+	public static String UPLOAD_PATH = "C:/Users/Student/git/AYCB_final/src/main/webapp/WEB-INF/views/image";
+//	public static String UPLOAD_PATH = "C:/Users/user/git/AYCB_final/src/main/webapp/WEB-INF/views/image";
+	public static String IMAGE_REAL_PATH = "C:\\Users\\Student\\git\\AYCB_final\\src\\main\\webapp\\WEB-INF\\views\\image";
+//	public static String IMAGE_REAL_PATH = "C:\\Users\\user\\git\\AYCB_final\\src\\main\\webapp\\WEB-INF\\views\\image";
 	public static String UPLOAD_VIDEO="C:/Users/user/git/AYCB_final/src/main/webapp/video";
 	// UPLOAD_PATH="C:/AYCB/AYCB2/src/main/webapp/upload/
 	
