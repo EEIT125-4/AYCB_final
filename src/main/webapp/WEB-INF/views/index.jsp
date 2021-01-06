@@ -18,7 +18,7 @@
 </head>
 <%@include file="jspf/header.jspf"%>
 
-<div class="wrapper">
+<div >
 
 <div class="adbox" id="adbox">
 	<ul class="adbox_slides" id="slides">
@@ -46,8 +46,6 @@
 		<i class="fa fa-chevron-right"></i>
 	</div>
 </div>
-</div>
-
 
 <%@include file="jspf/footer.jspf"%>
 </body>
@@ -81,7 +79,7 @@
 				
 				
 				$('#slides').empty();
-// 				$('#slides').width=800*data.length
+// 				$('#slides').width=200*data.length
 				$('#dots').empty();
 				
 				
@@ -91,8 +89,8 @@
 					"<li><a href='${pageContext.request.contextPath}/Detail/?no="+data[i].productno+"'>"
 					+"<img src="+"${pageContext.request.contextPath}/pic/"+data[i].imagepath
 					
-					+" onerror=javascript:this.src='${pageContext.request.contextPath}/image/noImage.jpg' width='150px'" 
-					+" height='150px'></a></li>"
+					+" onerror=javascript:this.src='${pageContext.request.contextPath}/image/noImage.jpg' " 
+					+" ></a></li>"
 					);
 					
 					$('#dots').append("<li id="+data[i].productno+"></li>");

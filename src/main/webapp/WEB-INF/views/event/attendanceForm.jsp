@@ -32,7 +32,7 @@
 					</div>
 					<div class="form1">
 						<label class="label1">電話號碼:</label>						
-						<form:input path="phone" value="${member.phone}" /> <br> 
+						<form:input path="phone" value="${member.phone}"/> <br> 
 						<font color='red' size='-3'>${error.phone}</font><br>
 					</div>
 					<div class="form1">
@@ -49,7 +49,7 @@
 					</div>
 					<div class="form1">
 						<label class="label1">參加人數:</label> 
-						<form:input path="pax"/> <br> 
+						<form:input type="number" path="pax"/> <br> 
 						<font color='red'size='-3'>${error.pax}</font><br>
 							
 					</div>

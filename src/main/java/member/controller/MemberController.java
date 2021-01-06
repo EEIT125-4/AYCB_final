@@ -27,13 +27,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.wf.captcha.SpecCaptcha;
 import com.wf.captcha.utils.CaptchaUtil;
 
+import javassist.bytecode.Mnemonic;
 import member.MemberBean;
 import member.Service.MemberService;
 import tool.Common;
+import tool.model.Image;
+import tool.service.ImageService;
 
 @Controller
 
@@ -50,6 +54,9 @@ public class MemberController {
 
 	@Autowired
 	MemberService memberService;
+	
+	@Autowired
+	ImageService imgService;
 
 	@GetMapping(value = { "/member/login" })
 	public String login() {
@@ -225,17 +232,44 @@ public class MemberController {
 			@RequestParam(value = "username", required = false) String name,
 			@RequestParam(value = "useraddress", required = false) String address,
 			@RequestParam(value = "userphone", required = false) String phone,
-//			@RequestParam(value = "useremail", required = false) String email,
 			
+			@RequestParam(value="file",required = false)MultipartFile file,		
 			@RequestParam(value = "birth", required = false) Date birth) {
+		
 		System.out.println("確認更新===============");
 		MemberBean mb = (MemberBean) session.getAttribute("member");
 		mb.setName(name);
 		mb.setAddress(address);
 		mb.setPhone(phone);
+		
+		// 更新會員icon
+		if (file != null && file.getSize() > 0) {
+			System.out.println("有收到圖片");
+			Image img = null;
 
-	
-		System.out.println("目前名字是" + mb.getName());
+			try {	
+				if (mb.getIconid() != null && mb.getIconid()>0) {
+					img = imgService.getImage(mb.getIconid());
+					System.out.println("old圖片ID:" + img.getImgid());
+				} else {
+					System.out.println("沒有舊icon");
+					img = new Image(file);
+				}
+				// 更新圖片名稱
+				img.setImage(file);
+				// 更新圖片內容
+				imgService.saveImage(img);
+				mb.setIconid(img.getImgid());
+				System.out.println("圖片儲存完畢,id=" + img.getImgid()+",filename="+img.getFilename());
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException("圖片上傳發生異常: " + e.getMessage());
+			}
+		} else {
+			System.out.println("沒有上傳icon");
+		}
+		
 		memberService.update(mb);
 		return "index";
 
@@ -309,7 +343,36 @@ public class MemberController {
 	}
 	
 
-	
+//	@GetMapping("member/forgotPassword")
+//	@ResponseBody
+//	public String forgotPassword(@RequestParam(value="email")String email) {
+//		
+//		if(email!=null && !email.equals("")) {
+//			
+//			if(memberService.emailcheck(email)) {
+//				
+//				//如果email存在,才重設密碼並寄出email
+//				MemberBean mb=memberService.getMemberByEmail(email);
+//				
+//				
+//				
+//				
+//				
+//				
+//			}else{
+//				
+//			}
+//			
+//			
+//		}else {
+//			return "email有誤";
+//		}
+//		
+//		
+//		return null;
+//		
+//		
+//	}
 	
 
 

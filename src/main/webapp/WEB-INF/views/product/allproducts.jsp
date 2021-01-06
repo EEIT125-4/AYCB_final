@@ -16,8 +16,8 @@
 </head>
 
 <%@include file="../jspf/header.jspf"%>
-
-<div class="contentoutbox" >
+<div class="wrapper">
+<div class="contentoutbox">
 	<div class="contentbox">
 		<div class="leftside">
 			<div class="condition">條件篩選</div>
@@ -67,9 +67,9 @@
 						</c:if>
 					</c:forEach>
 				</div>
-				<div>
-					<a href='<c:url value="/Manager" />'>後台</a>
-				</div>
+<!-- 				<div> -->
+<%-- 					<a href='<c:url value="/Manager" />'>後台</a> --%>
+<!-- 				</div> -->
 <!-- 				<div> -->
 <!-- 					廠商:<select id='brandsel' class="brandsel"> -->
 <!-- 						<option>請選擇廠商</option> -->
@@ -127,6 +127,7 @@
 			</div>
 		</div>		
 	</div>
+</div>
 </div>
 <%@include file="../jspf/footer.jspf"%>
 </body>

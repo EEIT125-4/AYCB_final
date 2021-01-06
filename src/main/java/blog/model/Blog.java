@@ -33,9 +33,13 @@ public class Blog {
 	private String title;
 	@Column(columnDefinition= "NVARCHAR(MAX) NOT NULL")
 	private String reflection;
-	private Integer picture;
+	@Column(columnDefinition= "NVARCHAR(MAX)")
+	private String blogCategory;
+	private Integer picture=0;
 	@Column(columnDefinition="int default 0")
-	private Integer thumbs;
+	private Integer thumbs=0;
+	@Column(columnDefinition= "NVARCHAR(10) NOT NULL default('blog')")
+	private final String identify="blog";
 
 	
 	
@@ -49,7 +53,8 @@ public class Blog {
 	 * 3=用戶設置刪除
 	 * 
 	 */
-	private Integer status;
+	@Column(columnDefinition="int default 0")
+	private Integer status=0;
 	@Column(columnDefinition= "smalldatetime")
 	private Date fixedtime;
 	@Column(columnDefinition="int default 0")
@@ -77,6 +82,14 @@ public class Blog {
 
 	public void setBlogId(Integer blogId) {
 		this.blogId = blogId;
+	}
+	
+	public String getBlogcategory() {
+		return blogCategory;
+	}
+
+	public void setBlogcategory(String blogcategory) {
+		this.blogCategory = blogcategory;
 	}
 
 	public MemberBean getMember() {
@@ -154,10 +167,10 @@ public class Blog {
 		this.thumbs = thumbs;
 	}
 	
-	
 
-
-	
+	public String getIdentify() {
+		return identify;
+	}
 
 	@Override
 	public String toString() {
@@ -165,7 +178,7 @@ public class Blog {
 		builder.append("Blog [blogId=");
 		builder.append(blogId);
 		builder.append(", member=");
-		builder.append(member);
+		builder.append(member.getAccount());
 		builder.append(", commentTime=");
 		builder.append(commentTime);
 		builder.append(", title=");
@@ -176,6 +189,8 @@ public class Blog {
 		builder.append(picture);
 		builder.append(", thumbs=");
 		builder.append(thumbs);
+		builder.append(", identify=");
+		builder.append(identify);
 		builder.append(", status=");
 		builder.append(status);
 		builder.append(", fixedtime=");
@@ -186,6 +201,7 @@ public class Blog {
 		return builder.toString();
 	}
 
+	
 	
 
 	
