@@ -32,8 +32,9 @@
 	})
 </script>
 <script
-	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAN4iHbCP2pOJkfPy_FogIbgD7Ac7WpvK4&callback=initMap"
-	async defer></script>
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAN4iHbCP2pOJkfPy_FogIbgD7Ac7WpvK4&callback=initMap" async defer></script>
+	
+	
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 
 <title></title>
@@ -68,25 +69,25 @@
 
 
 						<div>
-							<a href="<c:url value='eventupdate'/>?eventid=${event.eventid}"
-								class="btn btn-primary"
+						    <input type="hidden" id="aa" class="aa" value="${member.level}"> 
+							<a id="manager" href="<c:url value='eventupdate'/>?eventid=${event.eventid}" class="btn btn-primary manager"								
 								style="background-color: black; border-color: black; border-radius: 0px">
-
-								<span class="glyphicon-info-sigh glyphicon">編輯</span>
-							</a> <a href="<c:url value='eventdelete'/>?eventid=${event.eventid}"
-								class="btn btn-primary"
+                            <span id="manager" class="glyphicon-info-sigh glyphicon manager">編輯</span></a>
+								
+							 <a id="manager" href="<c:url value='eventdelete'/>?eventid=${event.eventid}"
+								class="btn btn-primary manager"
 								style="background-color: black; border-color: black; border-radius: 0px">
-								<span class="glyphicon-info-sigh glyphicon">刪除</span>
+								<span id="manager" class="glyphicon-info-sigh glyphicon manager">刪除</span>
 							</a>
 
 							<!-- Button trigger modal -->
 							<button type="button" class="btn btn-primary"
 								value="${event.eventlocation}"
 								style="width: 100px; background-color: black; border-color: black; border-radius: 0px"
-								data-toggle="modal" data-target="#more${event.eventid}">詳細資料</button>
+								data-toggle="modal" data-target="#event${event.eventid}">詳細資料</button>
 						</div>
 						<!-- Modal -->
-						<div class="modal fade" id="more${event.eventid}" tabindex="-1"
+						<div class="modal fade" id="event${event.eventid}" tabindex="-1"
 							role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
 
 							<div class="modal-dialog" role="document">
@@ -123,7 +124,7 @@
 
 												<form action="<c:url value='/event/attendanceForm'/>" id="trans">
 												<input type="hidden" name="eventid" value="${event.eventid}">
-												<button type="button" id="attend" class="btn btn-primary" style="width: 100px;">報名參加</button>
+												<button type="button" id="attend" class="btn btn-primary attend" style="width: 100px;">報名參加</button>
 												</form>
 												
 <%-- 												<a id="trans" href="<c:url value='/event/attendanceForm'/>?eventid=${event.eventid}"> --%>
@@ -145,7 +146,7 @@
 				<div class="modal-dialog" role="document">
 								<div class="modal-content">
 									<div class="modal-header">
-										<h5 class="modal-title" id="modalTitle">${event.eventname}</h5>
+										<h5 class="modal-title" id="modalTitle">詳細位址</h5>
 										<button type="button" class="close" data-dismiss="modal"
 											aria-label="Close">
 											<span aria-hidden="true">&times;</span>
@@ -153,7 +154,8 @@
 									</div>
 									<div class="modal-body">	
 										<div class="caption">											
-											<div id="map" value="${event.eventid}" style="width: 465px; height: 500px"></div>
+											<div id="map" style="width: 465px; height: 500px"></div>
+<%-- 											value="${event.eventid}"  --%>
 										</div>
 										<div class="modal-footer">
 											<button type="button" style="width: 100px;"
@@ -194,16 +196,30 @@
 		      console.log(status);
 		    }
 		  });
-	})
+	});
 	//判斷是否為會員
+	
 	let membercatcher = $('#membercatcher').val();
-	$('#attend').click(function(){
+	console.log(membercatcher)
+	
+	$('.attend').click(function(){
 		if(membercatcher == ""){
 			window.location.href="${pageContext.request.contextPath}/member/login";
 		}else{
 			$('#trans').submit();
 		}
 	})
+	
+	//判斷是否為管理員
+	let aa =$('.aa').val();
+	
+	 if (aa=='999'){
+		 $('.manager').show();
+	 }else {
+		 $('.manager').hide();
+	 }
+	  
+	
 	
 	
 </script>

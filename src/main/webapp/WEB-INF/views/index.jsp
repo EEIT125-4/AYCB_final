@@ -8,17 +8,17 @@
 
 
 
-<title>index</title>
+<title>ALL YOU CAN BUY</title>
 
 
 
 <!-- Css Styles -->
 
 
-</head>
+
 <%@include file="jspf/header.jspf"%>
 
-<div >
+<div>
 
 <div class="adbox" id="adbox">
 	<ul class="adbox_slides" id="slides">
@@ -45,6 +45,7 @@
 	<div id="nextbtn" class="adbox_btn">
 		<i class="fa fa-chevron-right"></i>
 	</div>
+</div>
 </div>
 
 <%@include file="jspf/footer.jspf"%>

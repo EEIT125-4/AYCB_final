@@ -16,7 +16,7 @@
 </head>
 
 <%@include file="../jspf/header.jspf"%>
-<div class="wrapper">
+<div>
 <div class="contentoutbox" style="min-height: 2000px;">
 	<div class="contentbox">
 		<div class="leftside">
