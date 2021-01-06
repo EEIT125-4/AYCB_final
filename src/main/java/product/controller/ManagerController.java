@@ -35,11 +35,6 @@ public class ManagerController {
 	@GetMapping("/Mpadd")
 	public String mpadd(Model model) {
 		ProductBean pb = new ProductBean();
-		pb.setBrandname("Biotherm");
-		pb.setProductname("XXX");
-		pb.setProductseries("XX系列");
-		pb.setProductcategory("精華液");
-		pb.setProductprice(1230.0);
 		model.addAttribute("ProductBean", pb);
 		return "product/mpadd";
 	}

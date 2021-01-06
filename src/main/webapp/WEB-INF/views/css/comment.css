@@ -23,6 +23,18 @@ body {
 	height: 200px;
 }
 
+.content {
+	clear: both;
+/* 	margin: 0 auto; */
+/* 	width: 960px; */
+/* 	overflow: hidden; */
+	margin-top: 500px;
+	margin-left: 20px;
+	margin-bottom: 60px;
+/* 	position: relative; */
+/* 	top: 200px; */
+}
+
 #content {
 	margin: 0 auto;
 	width: 960px;
