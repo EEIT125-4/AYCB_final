@@ -17,7 +17,6 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 <title>留言板</title>
 </head>
 <%@include file="../jspf/header.jspf"%>
-<%@include file="../jspf/footer.jspf"%>
 <%@include file="../jspf/commentSide.jspf"%>
 <div id="content">
 	<div id="post" style="margin-top: 60px;">
@@ -58,17 +57,23 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 	</div>
 </div>
 
- <div class="leavecomment">
-        <li>
-            <div class="picform">
-                <img class="headpic" src="${pageContext.request.contextPath}/image/pic.jpg" alt="Image placeholder">
-            </div>
-            <div>
-                <h3>John Doe</h3>
-                <div class="commentdate">April 12, 2020 at 1:21am</div>
-                <p> 請問一下有沒有賣雅漾保濕舒壓潤膚乳液，加強保濕的，還有沒有買一送一?</p>
-                <p><a href="#" class="reply">回覆</a></p>
-            </div>
-        </li>
-    </div>
+<div class="leavecomment">
+	<li>
+		<div class="picform">
+			<img class="headpic"
+				src="${pageContext.request.contextPath}/image/pic.jpg"
+				alt="Image placeholder">
+		</div>
+		<div>
+			<h3>John Doe</h3>
+			<div class="commentdate">April 12, 2020 at 1:21am</div>
+			<p>請問一下有沒有賣雅漾保濕舒壓潤膚乳液，加強保濕的，還有沒有買一送一?</p>
+			<p>
+				<a href="#" class="reply">回覆</a>
+			</p>
+		</div>
+	</li>
+</div>
+<%@include file="../jspf/footer.jspf"%>
+</body>
 </html>

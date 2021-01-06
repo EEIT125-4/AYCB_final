@@ -16,6 +16,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link REL=STYLESHEET HREF="${pageContext.request.contextPath}/css/member.css" TYPE="text/css">
 <link rel="icon" href="image/logo.ico" type="image/x-icon">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <title>資料確認</title>
 </head>
 <%@include file="../jspf/header.jspf"%>
@@ -50,10 +51,28 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 			</div>
 <!-- 			<button type="submit" name="submit"><a href='memberConfirm'>確認</a></button> -->
 			
-			<input type="submit" name="submit" value="確認">
+			<input type="submit" name="submit" id="send" value="確認">
 		</fieldset>
 	</form:form>
 </div>
 <%@include file="../jspf/footer.jspf"%>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+
+document.getElementById("send").addEventListener("click",function(){
+	  swal("Good job!", "You clicked the button!", "success");
+	});
+
+
+
+
+
+
+
+</script>
+
+
+
+
 </body>
 </html>

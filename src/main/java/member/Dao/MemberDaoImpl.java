@@ -108,6 +108,19 @@ public class MemberDaoImpl implements MemberDao {
 		return list;
 	}
 
+	@Override
+	@SuppressWarnings("unchecked")
+	public MemberBean getemail(String email ) {
+		Session session = factory.getCurrentSession();
+		String hql="FROM MemberBean WHERE email=:email";
+		Query<MemberBean> query=session.createQuery(hql);
+		MemberBean mb = query.setParameter("email", email).getSingleResult();
+					
+		return mb;
+		
+	}	
+
+	
 //	@Override
 //	public MemberBean getMember(int account) {
 //		MemberBean mb = null;
