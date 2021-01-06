@@ -84,7 +84,7 @@
 }
 
 .rightoutbox {
-    width: 1350px;
+    width: 65%;
     position: relative;
     float: left;
     margin-left: 20px;
@@ -157,7 +157,7 @@
     clear: both;
     width: fit-content;
     margin: 0 auto;
-    padding-top: 50px;
+    padding: 80px;
 }
 
 .page_ul {

@@ -39,43 +39,23 @@
 
 				<div style="font-size: 300px">
 
-					<p style="font-size: 10%; margin-left: 295px; margin-top: 40px; font-weight:bold">密碼更改</p>
+					<p style="font-size: 10%; margin-left: 295px; margin-top: 40px; font-weight:bold">找回密碼</p>
 				</div>
 
 <br>
    
 				<div class="form-inline">
-					<label for="oldpwd" style="font-weight: bold; font-size: 20px; margin-left:180px">舊密碼 </label>
-					<input type=password name="oldpwd" class="form-control mx-sm-3"  id="oldpwd"
-						     style="width: 230px" aria-describedby="passwordHelpInline" required/>
-						     <label for="oldpwd1" id="oldpwd1"></label> 
-						     
-						     
+					<label for="email" style="font-weight: bold; font-size: 20px; margin-left:180px">請輸入註冊email </label>
+					<input type="email" name="email" class="form-control mx-sm-3"  id="email"
+						     style="width: 230px" aria-describedby="passwordHelpInline" required/>						     						      
 						</div>
 					<br>	
 
-					<div class="form-inline">
-					<label for="pw2" style="font-weight: bold; font-size: 20px;margin-left:180px">新密碼 </label>
-
-					<input type=password placeholder="請輸入6-12數英混合" name="pwd2" id="pwd2" class="form-control mx-sm-3"
-						style="width: 230px" aria-describedby="passwordHelpInline" required/>
-						<label for="newpwd2" id="newpwd2"></label> 
-						
-						
-						</div>
-						<br>
-						
-							<div class="form-inline">
-					<label for="pwd3" style="font-weight: bold; font-size:20px;;margin-left:170px">確認密碼</label>
-
-					<input type=password name="pwd3" id="pwd3" class="form-control mx-sm-3"
-						style="width: 230px" aria-describedby="passwordHelpInline" required/>
-						<label for="newpwd3" id="newpwd3"></label>
-						</div>
-
-				<br>
+					
 				
-				<button name="update" type="submit" id="send" class="btn btn-dark"
+			
+				
+				<button name="update" type="submit" class="btn btn-dark"
 					style="width: 180px; margin-left: 270px">更新</button>
 <!-- 								<input type="submit" name="update" value="確認更新" -->
 <!-- 									style="margin-left: 300px"> -->
@@ -88,10 +68,6 @@
 </div>
 <script>
 
-var p1=false;
-var p2=false;
-var p3=false;
-var p4=false;
 
  
 	
@@ -115,13 +91,13 @@ var p4=false;
 				console.log("type:"+typeof(data));	
 				if(data){
 					console.log("56+6"+data);
-					sp.innerHTML = "<img src='${pageContext.request.contextPath}\\image/correct.png'>"
-					p1=true;
+					sp.innerHTML = "密碼正確";
+					
 
 					
 				}else{
 
-					sp.innerHTML = "<img src='${pageContext.request.contextPath}\\image/cross.png'>"
+					sp.innerHTML = "錯誤";
 				}    			   				
 			}
 		});    		  		
@@ -134,30 +110,15 @@ var p4=false;
 		document.getElementById("pwd2").addEventListener("change",function(){
 
 			if (!password.test(document.getElementById("pwd2").value)){
-				document.getElementById("newpwd2").innerHTML="<img src='${pageContext.request.contextPath}\\image/cross.png\'>";
-			
-			}
-			else{
-				document.getElementById("newpwd2").innerHTML="<img src='${pageContext.request.contextPath}\\image/correct.png\'>";
-				p2=true;
-			} 
-		});
-		
-		
-		let password2=/[a-zA-Z]+\d|\d+[a-zA-Z]+/;
-		document.getElementById("pwd3").addEventListener("change",function(){
+				document.getElementById("newpwd2").innerHTML="錯";
 
-			if (!password2.test(document.getElementById("pwd3").value)){
-				document.getElementById("newpwd3").innerHTML="<img src='${pageContext.request.contextPath}\\image/cross.png\'>";
-				
 			}
 			else{
-				document.getElementById("newpwd3").innerHTML="<img src='${pageContext.request.contextPath}\\image/correct.png\'>";
-				p3=true;
+				document.getElementById("newpwd2").innerHTML="對";
+
+				
 			} 
 		});
-		
-		
 	
 
 	}, 8);
@@ -192,36 +153,19 @@ var p4=false;
 				console.log("type:"+typeof(data));	
 				if(data){
 					console.log("56+6"+data);
-					sp.innerHTML = "<img src='${pageContext.request.contextPath}\\image/correct.png'>"
-						p4=true;
+					sp.innerHTML = "密碼正確";
+					
 
 					
 				}else{
 
-					sp.innerHTML = "<img src='${pageContext.request.contextPath}\\image/cross.png'>"
+					sp.innerHTML = "錯誤";
 				}    			   				
 			}
 		});    		  		
 	});
 	
-	$('#send').click(function(){
-		if(p1!=true || p2!=true || p3!=true || p4!=true ){
-
-			swal.fire({
-				  title: "oops",
-				  text: "輸入錯誤",
-				  icon: "error",
-				  button: "OK",
-				});
-			
-			return false;
-		}else{
-			$('form').submit();
-			return true;
-		}
-			
-	});
-		
+	
 	
 	
 

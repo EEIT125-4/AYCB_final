@@ -15,6 +15,7 @@
 <title>All You Can Buy</title>
 </head>
 <%@include file="../jspf/header.jspf"%>
+
 <div class="contentoutbox">
 	<div class="contentbox">
 		<div class="leftside">
@@ -108,6 +109,7 @@
 		
 	</div>
 </div>
+
 <%@include file="../jspf/footer.jspf"%>
 </body>
 </html>

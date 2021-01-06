@@ -5,17 +5,23 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link REL=STYLESHEET
-	HREF="${pageContext.request.contextPath}/css/member.css"
-	TYPE="text/css">
+<%-- <link REL=STYLESHEET HREF="${pageContext.request.contextPath}css/member.css" TYPE="text/css"> --%>
 <link rel="icon" href="image/logo.ico" type="image/x-icon">
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+	crossorigin="anonymous">
+	
+	
 
 <title>註冊</title>
 </head>
+<%@include file="../jspf/header.jspf"%>
 
 <div style="position: relative; top: 10px;">
 	<!-- 	<fieldset -->
@@ -53,60 +59,6 @@
 
 
 		<br>
-
-
-		<!-- 				<tr> -->
-		<!-- 					<td>*姓名</td> -->
-		<%-- 					<td><form:input class="abc" type="text" path="name" id="realname"/>  --%>
-		<!-- 					</td> -->
-		<!-- 				</tr> -->
-
-		<!-- 		<div class="d-flex justify-content-center"> -->
-		<!-- 			<label for="inputPassword6" style="font-weight: bold; font-size: 30px">性別</label> -->
-		<%--  <form:radiobutton  style="height:20px; width:20px;"  path="gender" id="Male" value="男"/> --%>
-		<!-- <label  style="font-weight: bold; font-size: 20px" for="inlineRadio1">男</label>  -->
-		<!-- <br> -->
-		<%-- 		  <form:radiobutton  style="height:20px; width:20px;" path="gender" id="FE" value="女"/> --%>
-		<!-- 		  <label style="font-weight: bold; font-size: 20px" for="inlineRadio2">女</label> -->
-
-		<!-- <div> -->
-
-		<%-- 		  <form:radiobutton class="form-check-input" type="radio" path="gender" id="Male" value="男"/> --%>
-		<!-- 		  <label class="form-check-label" for="inlineRadio1">男</label> -->
-
-
-		<!-- 		</div> -->
-
-
-
-
-
-
-		<!-- 				<tr> -->
-		<!-- 					<td>*性別</td> -->
-
-		<%-- <%-- 					<form:radiobuttons path="gender" items='${gender}'/></td> --%>
-		<%-- 					<td><form:radiobutton  path="gender" value="男"/>先生  --%>
-		<%-- 					<form:radiobutton  path="gender" value="女" />小姐</td> --%>
-
-		<!-- 				</tr> -->
-		<!-- 				<tr> -->
-
-
-
-
-
-
-
-		<!-- 					<td>*帳號</td> -->
-		<%-- 					<td><form:input class="ddd" type="text" path="account" id="acc" --%>
-		<%-- <%-- 						onblur="Ckac();"/></td> --%>
-		<%-- 						<span id="idsp" style="color: red;"></span>  --%>
-		<%-- 				</tr> --%>
-		<!-- 				<tr> -->
-		<!-- 					<td>*密碼</td> -->
-		<%-- 					<td><form:input class="ddd" type="password" path="password" id="pwd"/></td> --%>
-		<!-- 				</tr> -->
 
 
 
@@ -167,7 +119,7 @@
 
 			<label for="inputPassword6"
 				style="font-weight: bold; font-size: 25px">電話</label>
-			<form:input type="phone" id="phone" path="phone"
+			<form:input type="phone" pattern="[0-9]{10}" id="phone" path="phone"
 				class="form-control mx-sm-3" aria-describedby="passwordHelpInline"
 				style="width:210px" placeholder="請輸入手機號碼" required="required" />
 
@@ -185,30 +137,46 @@
 
 
 
-			<label for="inputPassword6"
+			<label for="address"
 				style="font-weight: bold; font-size: 25px">地址</label>
 			<form:input type="address" id="address" path="address" blur="address"
 				class="form-control mx-sm-3" aria-describedby="passwordHelpInline"
 				style="width:360px" placeholder="請輸入完整地址"  required="required"/>
-			<label for="address" id="addresscheck"></label>
-					<label for="inputPassword6"
+		
+					<label for="gender"
 				style="font-weight: bold; font-size: 25px">性別</label>
 
 			<form:radiobutton style="height:30px; width:30px;" path="gender"
-				id="Male" value="男" />
+				id="gender" value="男" />
 			<label style="font-weight: bold; font-size: 25px" for="inlineRadio1">男</label>
 			<form:radiobutton style="height:30px; width:30px;" path="gender"
-				id="FE" value="女" />
+				id="gender" value="女" />
 			<label style="font-weight: bold; font-size: 25px" for="inlineRadio2">女</label>
 <!-- 			<label for="icon" style="font-weight: bold; font-size: 20px">頭像</label> -->
 <!-- 			<input type="file" name="icon" id="icon" style="font-size:13px"/>	 -->
 		</div>
+		
+		<div class="d-flex justify-content-center">
+
+
+
+			<label for="introduce"
+				style="font-weight: bold; font-size: 25px">自我介紹</label>
+		</div>
+		<div class="d-flex justify-content-center">			
+			<form:textarea id="introduce" path="introduce" cols="100" rows="10" />
+
+		</div>
+		
+		
+		
 		<label for="address" id="addresscheck"
 			class="col-sm-3 col-form-label col-form-label-lg"></label>
 
 
+
 		<div style="margin-left: 830px">
-			<input type="submit" id="submit" value="註冊"
+			<input type="submit" id="send" value="註冊"
 				style="padding: 5px 15px; font-weight: bold; background: #ccc; border: 0 none; cursor: pointer; -webkit-border-radius: 5px; border-radius: 5px; width: 250px">
 
 		</div>
@@ -220,7 +188,6 @@
 	</form:form>
 	<!-- 	</fieldset> -->
 </div>
-<%@include file="../jspf/footer.jspf"%>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
@@ -229,19 +196,29 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"
 	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 	crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <script>
+
+var p1 = false;
+var p2 = false;
+var p3 = false;
+var p4 = false;
+var p5 = false;
+var p6 = false;
+var p7 = false;
+
+
+
 setInterval(function(){ 
 	let phone = /^[09]{2}[0-9]{8}$/;//手機判斷
 	document.getElementById("phone").addEventListener("change",function(){
 		
 		if (!phone.test(document.getElementById("phone").value)){
 			document.getElementById("phonecheck").innerHTML="<img src='image/cross.png'>";
-// 			check[0]=0;
 		}
 		else{
 			document.getElementById("phonecheck").innerHTML="<img src='image/correct.png'>";
-// 			check[0]=1;
          p1=true;
 		}
 	});
@@ -251,27 +228,29 @@ setInterval(function(){
 
 		if (!password.test(document.getElementById("pwd").value)){
 			document.getElementById("passwordcheck").innerHTML="<img src='image/cross.png'>";
-// 			check[2]=0;
+			
 		}
 		else{
 			document.getElementById("passwordcheck").innerHTML="<img src='image/correct.png'>";
-// 			check[2]=1;
 			p2=true;
 		} 
 	});
+	
 	let address=/^[\u4e00-\u9fff]+\d+/;//地址
 	document.getElementById("address").addEventListener("change",function(){
 
 		if (!address.test(document.getElementById("address").value)){
 			document.getElementById("addresscheck").innerHTML="<img src='image/cross.png'>";
-// 			check[6]=0;
+			p3=false;
+
 		}
 		else{
 			document.getElementById("addresscheck").innerHTML="<img src='image/correct.png'>";
-// 			check[6]=1;
+
 			p3=true;
 		}
 	});
+
 	
 	
 }, 8);
@@ -295,7 +274,7 @@ setInterval(function(){
 	sp.innerHTML = "<img src='image/correct.png'>"
  	} else {
 		sp.innerHTML = "<img src='image/cross.png'>";
-		p4=false;
+		
  	}
 	
 });
@@ -309,6 +288,7 @@ function check(){
     	let aza= $("#acc").val();
      	console.log("aza:"+aza);
      	let confirm=false;
+
     	$.ajax({
     		async : false,
     		type : 'post',
@@ -322,7 +302,8 @@ function check(){
     				
     				
     				if(aza!=n.account){
-    					p4=true;
+
+    					p5=true;
 
     					confirm=true;
     					
@@ -331,8 +312,7 @@ function check(){
     					
     				}else{
 
-    					p4=false;    	
-
+    					
     					confirm=false;
     					return false;
     				}    			   				
@@ -349,7 +329,6 @@ $('#emailcheck').blur(function() {
 
 let email = document.getElementById("emailcheck").value;
 let emaillen = email.length;
-
 if(emaillen >=4 && emailcheck!='')
 	{
 	
@@ -362,7 +341,7 @@ if(emaillen >=4 && emailcheck!='')
 	$.ajax({
 		async : false,
 		type : 'post',
-		url :   "accountcheck"  ,
+		url :   "emailcheck"  ,
 		dataType : "json",
 		contentType : "application/json;charset=utf-8",
 		success : function(data) {
@@ -371,18 +350,20 @@ if(emaillen >=4 && emailcheck!='')
 				
 				if(email!=n.email){
 					console.log("member email"+n.email);
-					p5=true;
+					
 					
 					sp.innerHTML = "<img src='image/correct.png'>";
-								
+						p6=true;
+						
 					return;
 									
 				}else{
 
-					p5=false;    	
+				 	
 					sp.innerHTML = "<img src='image/cross.png'>";
+				p6=false;
+				return false;
 					
-					return false;
 				}    			   				
 			});
 		}    		  		
@@ -391,7 +372,8 @@ if(emaillen >=4 && emailcheck!='')
 
 	}else{
 		sp.innerHTML = "<img src='image/cross.png'>";
-		p5=false;
+		p6=false;
+		return false;
 	}
 
 
@@ -404,9 +386,10 @@ $('#cpwd').blur(function() {
 	sp = document.getElementById("pwd2")
 	if (pwd == cpwd && cpwd != "") {
 	sp.innerHTML = "<img src='image/correct.png'>"
-	a3 = true;
+	p7 = true;
 	} else {
 	sp.innerHTML = "<img src='image/cross.png'>"
+	p7=false;
 	}
 	})
 
@@ -414,13 +397,24 @@ $('#cpwd').blur(function() {
 
 
 
-    	$('#submit').click(function(){
-    		if(p1!=ture &&p2!=ture &&p3!=ture &&p4!=ture &&p5!=ture){
+    	$('#send').click(function(){
+    		if(p1!=true || p2!=true || p3!=true || p4!=true || p5!=true || p6!=true || p7!=true){
     			
-    			alert("填寫未正確");	
+//     			Swal.fire({title:'錯誤', text:'資料填寫錯誤', icon:'error',button:"ok"});
+    	
     			
+    			
+    			swal.fire({
+    				  title: "oops",
+    				  text: "資料輸入有誤",
+    				  icon: "error",
+    				  button: "OK",
+    				});
+    			
+    			return false;
     		}else{
     			$('form').submit();
+    			return true;
     		}
     			
     	});

@@ -26,6 +26,14 @@
 
 <title>登入</title>
 
+<style>
+.preview {
+	width: 200px;
+	height: 200px;
+	background-size: cover;
+}
+</style>
+
 <jsp:useBean id="member" class="member.MemberBean" scope="session" />
 <%@include file="../jspf/header.jspf"%>
 
@@ -34,33 +42,38 @@
 	
 	<%@include file="../jspf/memberPanel.jspf"%>
 		<div class="rightoutbox">
-			<form action="${pageContext.request.contextPath}/member/updateComplete" method="post" >
+			<form action="${pageContext.request.contextPath}/member/updateComplete" method="post" enctype='multipart/form-data' >
 				
 				
-				<div>
-<!-- 			<p style="font-size: 10% ;margin-left:250px;margin-top:10px"></p> -->
-			<label for="icon" style="font-weight: bold; font-size: 20px;margin-left:0px">上傳頭像</label>
-			<input type="file" name="icon" id="icon" style="font-size:15px"/>	
-		</div>
-
-		
+				<div class="form-inline " style="margin-left:80px;margin-bottom: 10px;">
+					<img id="demo" class="preview" name="icon"
+								src=<c:if test='${not empty member.getId()}'>
+							<c:out value="${pageContext.request.contextPath}/pic/${member.iconid}"/>
+							
+							</c:if>
+								<c:if test='${empty member.id}'>
+							<c:out value=""/>
+							</c:if>
+								alt=<c:out value='${msg.getImageid()}'/>
+								onerror="javascript:this.src='${pageContext.request.contextPath}/image/noImage.jpg'">
+								</div>
 				<div class="form-inline " style="margin-left:80px">
-				<label for="inputPassword6"
+				<label for="file" style="font-weight: bold; font-size: 20px;margin-left:0px;margin-bottom:20px">上傳頭像</label>
+				<input type="file" name="file" id="file" style="font-size:15px"/>	
+				
+				</div>
+					
+				<div class="form-inline " style="margin-left:80px">
+				<label
 					style="font-weight: bold; font-size: 20px">帳號</label>
 				<input disabled name="account" class="form-control mx-sm-3" style="width: 230px"
 					aria-describedby="passwordHelpInline"
 					value=<jsp:getProperty name="member" property="account" />>
-				 
-				
-<!-- 			   <label for="inputPassword6" style="font-weight: bold; font-size: 20px">密碼</label> -->
-					
-<!-- 				<input name="pwd" class="form-control mx-sm-3" style="width: 230px" -->
-<!-- 					aria-describedby="passwordHelpInline" -->
-<!-- 					value=<jsp:getProperty name="member" property="password" />> -->
+				 			
 
-<label for="inputPassword6"
+				<label for="username" 
 					style="font-weight: bold; font-size: 20px">姓名</label> 
-					<input name="username" class="form-control mx-sm-3" style="width: 230px"
+					<input id="username" name="username" class="form-control mx-sm-3" style="width: 230px"
 					aria-describedby="passwordHelpInline"
 					value=<jsp:getProperty name="member" property="name" />>
 
@@ -69,8 +82,7 @@
               <br>
                	<div class="form-inline" style="margin-left:80px">
 				
-		 <label
-					for="inputPassword6" style="font-weight: bold; font-size: 20px">信箱</label>
+		 		<label style="font-weight: bold; font-size: 20px">信箱</label>
 				<input disabled style="width: 535px"  name="email" class="form-control mx-sm-3"
 					style="width: 230px" aria-describedby="passwordHelpInline"
 					value=<jsp:getProperty name="member" property="email" />>
@@ -79,14 +91,12 @@
 					
 <br>
 
-
 	<div class="form-inline" style="margin-left:80px">
-				<label for="inputPassword6"
-					style="font-weight: bold; font-size: 20px">生日</label> 
+				<label style="font-weight: bold; font-size: 20px">生日</label> 
 					<input disabled type="date" name="birth" class="form-control mx-sm-3" style="width: 230px"
 					aria-describedby="passwordHelpInline" value=<jsp:getProperty name="member" property="birth" />>
-							<label for="inputPassword6"
-					style="font-weight: bold; font-size: 20px">電話 </label> <input 
+				<label for="userphone" style="font-weight: bold; font-size: 20px">電話 </label> 
+				<input pattern="[0-9]{10}"  type="text" placeholder="請輸入手機號碼"
 					name="userphone" class="form-control mx-sm-3" style="width: 230px"
 					aria-describedby="passwordHelpInline" 
 					value=<jsp:getProperty name="member" property="phone" />> 
@@ -97,13 +107,22 @@
 					
 					
 				<div class="form-inline" style="margin-left:80px">
-					<label
-					for="inputPassword6" style="font-weight: bold; font-size: 20px">地址</label>
-				<input name="useraddress" class="form-control mx-sm-3"
+				<label for="useraddress" style="font-weight: bold; font-size: 20px">地址</label>
+				<input id="useraddress" name="useraddress" class="form-control mx-sm-3"
 					style="width: 535px" aria-describedby="passwordHelpInline"
 					value=<jsp:getProperty name="member" property="address" />>
 					</div>
 <br>
+<div class="form-inline" style="margin-left:80px">
+				<label for="introduce" style="font-weight: bold; font-size: 20px">自我介紹</label>
+				</div>
+<div class="form-inline" style="margin-left:80px">
+<textarea id="introduce" name="introduce" rows="5" cols="70" ><jsp:getProperty name="member" property="introduce" /></textarea>
+
+									</div>
+									
+<br>
+
 			<button name="update" type="submit" class="btn btn-dark" style="width:180px;margin-left:285px" >更新</button>
 <!-- 				<input type="submit" name="update" value="確認更新" -->
 <!-- 					style="margin-left: 280px"> -->
@@ -112,11 +131,21 @@
 			</form>
 		</div>
 	</div>
-<%-- 	<%@include file="../jspf/footer.jspf"%> --%>
+<%-- <%@include file="../jspf/footer.jspf"%> --%>
 </div>
-<!-- 	</div> -->
+	
 
+<script>
+$('#file').change(function() {
 
+	var file = $('#file')[0].files[0];
+	var reader = new FileReader;
+	reader.onload = function(e) {
+		$('#demo').attr('src', e.target.result);
+	};
+	reader.readAsDataURL(file);
+});
+</script>
 
 </body>
 

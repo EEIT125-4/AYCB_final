@@ -46,6 +46,9 @@ public class MemberBean implements Serializable {
 	@Column(columnDefinition = "nvarchar(Max)")
 	private String gender;
 	
+	@Column(columnDefinition = "nvarchar(Max)")
+	private String introduce;
+	
 	private Integer level;
 	@Column(columnDefinition="int default 0")
 	private Integer iconid;
@@ -63,10 +66,15 @@ public class MemberBean implements Serializable {
 		this.records = records;
 	}
 	
-
 	
 
+	public String getIntroduce() {
+		return introduce;
+	}
 
+	public void setIntroduce(String introduce) {
+		this.introduce = introduce;
+	}
 
 	public MemberBean() {
 

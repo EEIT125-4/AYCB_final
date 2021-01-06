@@ -20,12 +20,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import blog.model.Blog;
 import blog.service.BlogService;
 import event.validator.EventValidator;
 import member.Service.MemberService;
+import tool.model.Image;
+import tool.service.ImageService;
 
 @Controller
 public class BlogController {
@@ -33,6 +36,8 @@ public class BlogController {
 	@Autowired
 	ServletContext servletContext;
 	
+	@Autowired
+	ImageService imgService;
 
 	@Autowired
 	BlogService blogService;
@@ -59,6 +64,7 @@ public class BlogController {
 	@GetMapping("blog/empty")
 	public String showEmptyForm(Model model) {
 		Blog bg = new Blog();
+		
 		model.addAttribute("blog", bg);
 		return "blog/blogForm";
 	}
@@ -68,7 +74,8 @@ public class BlogController {
 	public String add(
 			@ModelAttribute("blog") Blog blog,
 			Model model,
-			@RequestParam(value="memberID")Integer mid
+			@RequestParam(value="memberID")Integer mid,
+			@RequestParam(value="file")MultipartFile file
 //			@RequestParam(value = "commentTime", required = false) Date commentTime,
 //			@RequestParam(value = "status", required = false) Integer status,
 //			@RequestParam(value = "id", required = false) Integer id,
@@ -80,13 +87,47 @@ public class BlogController {
 				// JAVA的Date轉SQL的Date
 				Timestamp time = new Timestamp(new Date().getTime());
 				java.sql.Date sqlDate = new java.sql.Date(time.getTime());
-				// SQL的Date轉JAVA的Date
-				java.util.Date utilDate = new java.util.Date();
-				utilDate.setTime(sqlDate.getTime());
-				blog.setCommentTime(sqlDate);
+				
+				
+				//上傳封面圖
+				if (file != null && file.getSize() > 0) {
+					System.out.println("有收到圖片");
+					Image img = null;
+
+					try {	
+						if (blog.getPicture() != null && blog.getPicture()>0) {
+							img = imgService.getImage(blog.getPicture());
+							System.out.println("old圖片ID:" + img.getImgid());
+						} else {
+							System.out.println("沒有舊圖片");
+							img = new Image(file);
+						}
+						// 更新圖片名稱
+						img.setImage(file);
+						// 更新圖片內容
+						imgService.saveImage(img);
+						blog.setPicture(img.getImgid());
+						System.out.println("圖片儲存完畢,id=" + img.getImgid()+",filename="+img.getFilename());
+
+					} catch (Exception e) {
+						e.printStackTrace();
+						throw new RuntimeException("圖片上傳發生異常: " + e.getMessage());
+					}
+				} else {
+					System.out.println("沒有上傳圖片");
+				}
+				
+				if(blog.getCommentTime()==null) {
+					blog.setCommentTime(sqlDate);
+					blog.setViews(0);
+					blog.setThumbs(0);
+					
+				}	
+				
+			
 				blog.setMember(memberService.getMember(mid));
 				blogService.insertBlog(blog);
-				return "blog/blog";
+				return getAll(model);
 			} catch (Exception ex) {
 				System.out.println(ex.getClass().getName() + ", ex.getMessage()=" + ex.getMessage());
 				return "blog/blogForm";

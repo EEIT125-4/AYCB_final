@@ -1,8 +1,5 @@
 package event.model;
 
-
-
-
 import javax.persistence.CascadeType;
 
 import javax.persistence.Entity;
@@ -17,8 +14,8 @@ import javax.persistence.Table;
 import member.MemberBean;
 
 @Entity
-@Table(name="Attendance")
-public class Attendance{
+@Table(name = "Attendance")
+public class Attendance {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer aid;
@@ -26,16 +23,14 @@ public class Attendance{
 	String mailaddress;
 	String pax;
 
-	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn
 	Event event;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn
 	MemberBean member;
-	
-	
+
 	public MemberBean getMember() {
 		return member;
 	}
@@ -51,8 +46,6 @@ public class Attendance{
 	public void setAid(Integer aid) {
 		this.aid = aid;
 	}
-
-
 
 	public String getPhone() {
 		return phone;
@@ -86,24 +79,26 @@ public class Attendance{
 		this.event = event;
 	}
 
+
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Attendance [aid=");
 		builder.append(aid);
-		builder.append(", memberid=");
-		
 		builder.append(", phone=");
 		builder.append(phone);
 		builder.append(", mailaddress=");
 		builder.append(mailaddress);
 		builder.append(", pax=");
 		builder.append(pax);
+		builder.append(", event=");
+		builder.append(event);
+		builder.append(", member=");
+		builder.append(member);
 		builder.append("]");
 		return builder.toString();
 	}
-
-	
 
 	public Attendance(Integer aid, String phone, String mailaddress, String pax, Event event, MemberBean member) {
 		super();
@@ -118,12 +113,5 @@ public class Attendance{
 	public Attendance() {
 		super();
 	}
-	
-	
-}
-   
-    
-    
-	
 
-	
+}

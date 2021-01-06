@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+
 
 import event.model.Attendance;
 import event.service.AttendanceService;
@@ -133,6 +133,7 @@ public class AttendanceController {
 				@RequestParam(value="aid" ,required = false)Integer aid ) {
 			Attendance attendance = attendanceService.getAttendance(aid);
 			model.addAttribute(attendance);
+			System.out.println("編輯前:"+attendance);
 			
 			
 			
@@ -142,14 +143,19 @@ public class AttendanceController {
 		
 		@PostMapping(value = "event/update")		
 		public String modify(
-				@ModelAttribute("updateattendance") Attendance attendance, 
+				@ModelAttribute("attendance") Attendance attendance, 
 				BindingResult result, 
 				Model model,
 //				@PathVariable Integer id, 
 				HttpServletRequest request,
-				@RequestParam(value="aid",required = false)Integer aid
+				@RequestParam(value="eventid")Integer eventid,
+				@RequestParam(value="memberid")Integer memberid
 				) {
+			
+			System.out.println("報名編輯:"+attendance);
 			AttendanceValidator validator = new AttendanceValidator();
+			attendance.setMember(memberService.getMember(memberid));
+			attendance.setEvent(eventService.getEvent(eventid));
 			validator.validate(attendance, result);
 			if (result.hasErrors()) {
 				System.out.println("result hasErrors(), attendance=" + attendance);
@@ -157,11 +163,13 @@ public class AttendanceController {
 				for (ObjectError error : list) {
 					System.out.println("有錯誤：" + error);
 				}
-				return "event/attendanceForm";
+				return "event/update";
 			}
+									
 			attendanceService.updateAttendance(attendance);
 			return "redirect:/event/showAttendance";
 		}	
+		
 		@GetMapping(value = "event/delete")
 		public String delete(
 			//	@PathVariable("aid") Integer aid

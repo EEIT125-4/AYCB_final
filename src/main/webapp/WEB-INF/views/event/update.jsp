@@ -40,16 +40,16 @@
 		<H1 class='center'>更新報名資料</H1>
 		<hr>
 		<p>
-		<form:form method="POST" modelAttribute="updateattendance">
-			<input type="hidden" name="aid" value="${attendance.aid}"> 
-			<input type="hidden" name="member" value="${member.account}"> 
+		<form:form method="POST" modelAttribute="attendance">
+			<input type="hidden" name="eventid" value="${attendance.event.eventid}"> 
+			<input type="hidden" name="memberid" value="${attendance.member.id}"> 
 			<input type="hidden" name="finalDecision" value="">
 				
 			<Table>
 				<TR>
 					<TD align="RIGHT">活動名稱：</TD>
 					<TD align="LEFT">
-					<input type="text" name="eventid" value="${attendance.event.eventname}${param.event.eventnameS}" size="30" disabled="disabled">
+					<input type="text" name="eventid" value="${attendance.event.eventname}${param.event.eventname}" size="30" disabled="disabled">
 				    <font color='red' size='-3'>${error.eid}</font></TD>
 						
 				</TR>

@@ -8,36 +8,25 @@
 
 
 
-<title>index</title>
+<title>ALL YOU CAN BUY</title>
 
 
 
 <!-- Css Styles -->
 
 
-</head>
-<%@include file="jspf/header.jspf"%>
 
-<div class="wrapper">
+<%@include file="jspf/header.jspf"%>
+<%-- <c:set var="projectPath" value="${pageContext.request.contextPath}" scope="application" /> --%>
+<%-- <c:out value=projectpath/> --%>
+<div >
 
 <div class="adbox" id="adbox">
 	<ul class="adbox_slides" id="slides">
-		<%-- 		<c:forEach var="item" varStatus='vs' items="${list}"> --%>
 
-		<%-- 			<li><a href='<c:url value="/Detail" />?no=${item.productno}'><img --%>
-		<%-- 					src="${pageContext.request.contextPath}/pic/${item.imagepath}" --%>
-		<%-- 					onerror="javascript:this.src='${pageContext.request.contextPath}/image/noImage.jpg'"> --%>
-		<!-- 			</a></li> -->
-
-
-		<%-- 		</c:forEach> --%>
 	</ul>
 	<ul class="adbox_dot" id="dots">
-		<%-- 		<c:forEach var="id" varStatus='vs' items="${list}"> --%>
-
-		<%-- 			<li id="${id.productno}"></li> --%>
-
-		<%-- 		</c:forEach> --%>
+	
 	</ul>
 	<div id="prevbtn" class="adbox_btn">
 		<i class="fa fa-chevron-left"></i>
@@ -47,7 +36,6 @@
 	</div>
 </div>
 </div>
-
 
 <%@include file="jspf/footer.jspf"%>
 </body>
@@ -81,7 +69,7 @@
 				
 				
 				$('#slides').empty();
-// 				$('#slides').width=800*data.length
+// 				$('#slides').width=200*data.length
 				$('#dots').empty();
 				
 				
@@ -91,8 +79,8 @@
 					"<li><a href='${pageContext.request.contextPath}/Detail/?no="+data[i].productno+"'>"
 					+"<img src="+"${pageContext.request.contextPath}/pic/"+data[i].imagepath
 					
-					+" onerror=javascript:this.src='${pageContext.request.contextPath}/image/noImage.jpg' width='150px'" 
-					+" height='150px'></a></li>"
+					+" onerror=javascript:this.src='${pageContext.request.contextPath}/image/noImage.jpg' " 
+					+" ></a></li>"
 					);
 					
 					$('#dots').append("<li id="+data[i].productno+"></li>");
@@ -111,7 +99,7 @@
 	getAds();
 </script>
 <script src="js/Home.js" defer="defer"></script>
-<!-- </body> -->
+
 
 
 </html>

@@ -30,7 +30,7 @@
 			<form:form method="POST" modelAttribute="ProductBean">
 				<div class="rightside">
 					<div class="imgbox">
-						<a href="#"><img src="${pageContext.request.contextPath}/pic/${ProductBean.imagepath}"></a>
+						<a href="#"><img class="proimg" src="${pageContext.request.contextPath}/pic/${ProductBean.imagepath}"></a>
 					</div>
 				</div>
 				<div class="infobox">

@@ -39,8 +39,11 @@
 <br>
 
 <div style="margin-left:270px">
-        <a href="<c:url value="/register"/>" class="btn btn-primary" role="button" aria-pressed="true" >新註冊</a>		
-		<a href="<c:url value="/register"/>" class="btn btn-primary" role="button" aria-pressed="true" >忘記密碼</a><br>
+        <a href="<c:url value="/register"/>" class="btn btn-primary" role="button" aria-pressed="true" >新註冊</a>
+        
+        <button   data-toggle="modal" data-target="#forgot" class="btn btn-primary" role="button" aria-pressed="true" style="width: fit-content;">忘記密碼</button>        
+<%--         		value="${event.eventlocation}" --%>
+<%-- 		<a href="<c:url value="/register"/>" class="btn btn-primary" role="button" aria-pressed="true" >忘記密碼</a><br> --%>
 		</div>
 		<br>
 									
@@ -52,7 +55,7 @@
 								<div class="modal-dialog" role="document">
 									<div class="modal-content">
 										<div class="modal-header">
-											<h1 class="modal-title" id="Title">找回密碼</h1>
+											<h2 class="modal-title" id="Title">找回密碼</h2>
 											<button type="button" class="close" data-dismiss="modal"
 												aria-label="Close">
 												<span aria-hidden="true">&times;</span>
@@ -62,21 +65,17 @@
 											
 											<div class="caption">
 												<label>請輸入您註冊的email</label>
-												<input type="text">
+												<input type="email" id="email" name="email">
 												
 											</div>
 											<div class="modal-footer">
-												<button type="button" class="btn btn-primary"
-													data-dismiss="modal">送出確認信</button>
-												<a
-													href="<c:url value='/event/attendanceForm'/>?eventid=${event.eventid}"
-													class="btn btn-primary"> <span
-													class="glyphicon-info-sigh glyphicon">報名參加</span></a>
+												<button type="button" class="btn btn-primary" data-dismiss="modal" style="width: fit-content;" onclick="forgotPassword()">送出確認信</button>
+
 											</div>
 										</div>
 									</div>
 								</div>
-								</p>
+						
 							</div>
 		
 	
@@ -102,7 +101,7 @@
 </body>
 
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 <!--CLIENT_ID請自己改成從 後端組態檔讀取，例如：ASP.net的Web.config-->
 <script type="text/javascript">
     let CLIENT_ID = "533526937203-8qath3ljf58sr4kk48ffijbo26p0b7lm.apps.googleusercontent.com";
@@ -138,6 +137,43 @@
             Google_disconnect();//和Google 
         });
     });
+    
+    function forgotPassword(){
+    	console.log("執行忘記密碼流程")
+    	let input=document.getElementById('email');
+    	
+    	let email=input.value;
+    	
+    	
+    	 $.ajax({
+     		
+     		type : 'post',
+     		url :   "forgot" ,
+      		datatype:"text",
+     		data : {"email":email},
+//      		contentType : "application/json;charset=utf-8",
+     		
+     		success : function(data) {
+     			
+     			if(data=="ok"){
+     				swal("密碼重置","已寄送新密碼至您信箱","success")
+     				
+     			}else{
+     				
+     				swal("發生錯誤","寄送過程發生錯誤,請稍後再試或撥打客服電話","error")
+     				
+     			}
+     			
+     			
+     		},
+     		error:function(){
+     			alert("controller error");
+     			
+     		}
+     		
+         })
+    	
+    }
 
     function GoogleClientInit() {
         //官網範例寫client:auth2，但本人實測由於待會要呼叫gapi.client.init而不是gapi.auth2.init，所以給client即可
@@ -190,7 +226,11 @@
                      // 但是你下面兩個變數是宣告在這裏面
                      let googlename= res.result.names[0].displayName;
                      let googlegender= res.result.genders[0].value;
-                     let googlemail=res.result.emailAddresses[0].value
+                     let googlemail=res.result.emailAddresses[0].value;
+                     let birthyear=res.result.birthdays[0].year;
+                     let birthmonth=res.result.month;
+                     let birthday=res.result.day;
+                     console.log("googlebirth"+birthyear+"/"+birthmonth+birthday);
                      
                      
                     //↑通常metadata標記primary:true的個資就是你該抓的資料
@@ -200,7 +240,7 @@
 
                     //最終，取得用戶個資後看要填在畫面表單上或是透過Ajax儲存到資料庫(記得是傳id_token給你的Web Server而不是明碼的user_id喔)，本範例就不贅述，請自行努力XD
 
-                    googlelogin2(googlename, googlegender,googlemail);
+                    googlelogin2(googlename, googlegender,googlemail,googlebirth);
                     
                     
                     
@@ -214,7 +254,7 @@
 
     }//end function GoogleLogin
     
-    function googlelogin2(a, b, c){
+    function googlelogin2(a, b, c,d){
     	
     	console.log("result"+result);
     	
@@ -224,7 +264,8 @@
     	let req = JSON.stringify({
     		"name":a,
     		"gender":b,
-    		"email":c
+    		"email":c,
+    		"birth":d
     		});
     	
     	
@@ -232,15 +273,16 @@
     		async : false,
     		type : 'post',
     		url :   "google" ,
-     		datatype:"text",
+     		datatype:"json",
     		data : {"googlename":a,
     			"googlegender":b,
-    			"googleemail":c},
+    			"googleemail":c,
+    			"googlebirth":d},
 //     		contentType : "application/json;charset=utf-8",
     		
     		success : function(data) {
     			
-    			alert("登入成功");
+    			alert("登入成功"+data);
     			
     		},
     		error:function(){
@@ -264,14 +306,14 @@
     
 
     
-    $.ajax({
-		async : false,
-		type : 'post',
-		url :   "accountcheck"    ,
-		dataType : "json",
-		contentType : "application/json;charset=utf-8",
-		success : function(data) {}
-    });
+//     $.ajax({
+// 		async : false,
+// 		type : 'post',
+// 		url :   "accountcheck"    ,
+// 		dataType : "json",
+// 		contentType : "application/json;charset=utf-8",
+// 		success : function(data) {}
+//     });
     
 
     

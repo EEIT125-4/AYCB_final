@@ -1,7 +1,11 @@
 package member.controller;
 
+import java.lang.reflect.Member;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.management.MBeanAttributeInfo;
 import javax.servlet.ServletContext;
@@ -12,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.jasper.tagplugins.jstl.core.Remove;
 import org.hibernate.SessionFactory;
+import org.hibernate.persister.walking.spi.MetamodelGraphWalker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,13 +28,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.wf.captcha.SpecCaptcha;
 import com.wf.captcha.utils.CaptchaUtil;
 
+import javassist.bytecode.Mnemonic;
 import member.MemberBean;
 import member.Service.MemberService;
 import tool.Common;
+import tool.model.Image;
+import tool.service.ImageService;
 
 @Controller
 
@@ -46,6 +55,9 @@ public class MemberController {
 
 	@Autowired
 	MemberService memberService;
+	
+	@Autowired
+	ImageService imgService;
 
 	@GetMapping(value = { "/member/login" })
 	public String login() {
@@ -99,12 +111,36 @@ public class MemberController {
 		List<MemberBean> list = memberService.getAllMembers();
 		for (MemberBean m : list) {
 
-			System.out.println("acc:" + m.getAccount());
+			System.out.println("acc:" + m.getEmail());
 		}
 
 		return list;// memberService.checkDup();
 
 	}
+	
+	
+	@GetMapping(value = "/member/Backstage")
+	
+	public String backstage() {
+		
+		return "member/memberBackstage";
+
+	}
+	
+//	@GetMapping(value = "/member/refresh")
+//	@ResponseBody
+//	public boolean memberData(MemberBean mb) {
+//		System.out.println("ajax request memberData");
+//		
+//		boolean update=false;
+//		
+//		
+//		List<MemberBean> members = memberService.getAllMembers();// 訊息types
+//	
+//
+//		return members;
+//
+//	}
 	
 	
 	
@@ -158,7 +194,6 @@ public class MemberController {
 		SpecCaptcha captcha = new SpecCaptcha(130, 48);
 
 		CaptchaUtil.out(captcha, request, response);
-//        System.out.println("+++++++++++++"+captcha);
 
 	}
 
@@ -179,7 +214,7 @@ public class MemberController {
 			
 			if (!CaptchaUtil.ver(Qcode, request)) {
 				CaptchaUtil.clear(request); // 清除session中的验证码
-//	            return JsonResult.error("验证码不正确");
+
 				System.out.println("驗證碼錯誤");
 				
 
@@ -222,17 +257,46 @@ public class MemberController {
 			@RequestParam(value = "username", required = false) String name,
 			@RequestParam(value = "useraddress", required = false) String address,
 			@RequestParam(value = "userphone", required = false) String phone,
-//			@RequestParam(value = "useremail", required = false) String email,
+			@RequestParam(value="introduce",required=false)String introduce,
 			
+			@RequestParam(value="file",required = false)MultipartFile file,		
 			@RequestParam(value = "birth", required = false) Date birth) {
+		
 		System.out.println("確認更新===============");
 		MemberBean mb = (MemberBean) session.getAttribute("member");
 		mb.setName(name);
 		mb.setAddress(address);
 		mb.setPhone(phone);
+		mb.setIntroduce(introduce);
+		
+		// 更新會員icon
+		if (file != null && file.getSize() > 0) {
+			System.out.println("有收到圖片");
+			Image img = null;
 
-	
-		System.out.println("目前名字是" + mb.getName());
+			try {	
+				if (mb.getIconid() != null && mb.getIconid()>0) {
+					img = imgService.getImage(mb.getIconid());
+					System.out.println("old圖片ID:" + img.getImgid());
+				} else {
+					System.out.println("沒有舊icon");
+					img = new Image(file);
+				}
+				// 更新圖片名稱
+				img.setImage(file);
+				// 更新圖片內容
+				imgService.saveImage(img);
+				mb.setIconid(img.getImgid());
+				System.out.println("圖片儲存完畢,id=" + img.getImgid()+",filename="+img.getFilename());
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException("圖片上傳發生異常: " + e.getMessage());
+			}
+		} else {
+			System.out.println("沒有上傳icon");
+		}
+		
 		memberService.update(mb);
 		return "index";
 
@@ -278,7 +342,7 @@ public class MemberController {
 		boolean kk = false;
 		
 	
-		if(pwd2.equals(pwd3)&& pwd3!="") {
+		if(pwd2.equals(pwd3)&& pwd3!=""&&pwd2!="") {
 			return true;
 			
 		}else {
@@ -306,27 +370,58 @@ public class MemberController {
 	}
 	
 
-	
+//	@GetMapping("member/forgotPassword")
+//	@ResponseBody
+//	public String forgotPassword(@RequestParam(value="email")String email) {
+//		
+//		if(email!=null && !email.equals("")) {
+//			
+//			if(memberService.emailcheck(email)) {
+//				
+//				//如果email存在,才重設密碼並寄出email
+//				MemberBean mb=memberService.getMemberByEmail(email);
+//				
+//				
+//				
+//				
+//				
+//				
+//			}else{
+//				
+//			}
+//			
+//			
+//		}else {
+//			return "email有誤";
+//		}
+//		
+//		
+//		return null;
+//		
+//		
+//	}
 	
 
 
 //google第三方
       @PostMapping("member/google")
      @ResponseBody
-      public String googlelogin (@RequestParam(value = "googlename", required = false) String name ,
+      public boolean googlelogin (@RequestParam(value = "googlename", required = false) String name ,
 		 @RequestParam(value = "googlegender", required = false) String gender,
 		 HttpServletRequest request,
 		 HttpServletResponse response,
 		 HttpSession session,
-		
-		 @RequestParam(value = "googleemail", required = false) String email)
+	  @RequestParam(value = "googleemail", required = false) String email,
+      @RequestParam(value = "googlebirth", required = false) String birth)
 		  {
-    	  System.out.println("");
+    	  System.out.println("birth"+birth);
     	  boolean res=memberService.emailcheck(email);
-    	  if(res==false) 
-    	  {MemberBean memberBean=new MemberBean(0, null, name, null, null, null, null, email, gender, null,null);
+    	  MemberBean mb = new MemberBean();
+    	  if(res==false){
+    		  MemberBean memberBean=new MemberBean(0, null, name, null, null, null, null, email, gender, null,null);
+    		  System.out.println("birth"+birth);
     	  
-    	  		Cookie[] cookies = request.getCookies();
+//    	  		Cookie[] cookies = request.getCookies();
 //    	  		
 //    	  		for(Cookie cookie: cookies) {
 //    	  			System.out.println(cookie.getName());
@@ -338,16 +433,20 @@ public class MemberController {
 //    	  		response.addCookie(cookie);
     	  		
     		  memberService.insertregister(memberBean);
-  
-    	  }else {MemberBean mb = (MemberBean) session.getAttribute("member");
-    	  
-    		 
     		  
-    		  
-    		  
+//    		  MemberBean mb = (MemberBean) session.getAttribute("member");
+//    		  
+//  
+//    	  }else {MemberBean mb = (MemberBean) session.getAttribute("member");
     	  }
-		return email;
-   
+    	  
+    	  MemberBean mbb=memberService.getemail(email);
+    	  
+    	  session.setAttribute("member", mbb);
+    	  
+    	 
+    	  
+    	  return true;
 		  }
      
       @GetMapping("/logout") // 登出
