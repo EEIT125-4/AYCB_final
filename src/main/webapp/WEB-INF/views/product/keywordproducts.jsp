@@ -1,7 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core'%>
+
+<%
+boolean login=false;
+if(session.getAttribute("member")!=null){
+	MemberBean member=(MemberBean)session.getAttribute("member");
+
+	login=true;	
+}
+%>
 
 <!DOCTYPE html>
 <html>
@@ -12,6 +20,17 @@
 	crossorigin="anonymous"></script>
 <script src="js/inside.js" defer="defer"></script>
 <link REL=STYLESHEET HREF="css/inside.css" TYPE="text/css">
+
+<script>
+	function addCart(){
+		if(confirm("加入購物車? ")){
+			return true;
+		} else {
+			return false;
+		}
+}
+</script>
+
 <title>All You Can Buy</title>
 </head>
 <%@include file="../jspf/header.jspf"%>
@@ -72,10 +91,12 @@
 					<div class="buttonbox">
 						<div class="proprice">NT$ ${pro.productprice}</div>
 						<div class="cart">
-							<a
-								href="<c:url value='/cartAdd?productno=${pro.productno}&count=1' />">
-								<img class="cartimg" src="image/bg_cart_b.svg">
+							<% if(login){ %>
+							<a href="<c:url value='/cartAdd?productno=${pro.productno}&count=1' />" onclick="return addCart()"> <img class="cartimg" src="image/bg_cart_b.svg">
 							</a>
+							<% }else{%>
+							<img class="cartimg" src="">
+							<% } %>
 						</div>
 					</div>
 				</div>
