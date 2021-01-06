@@ -16,7 +16,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -88,17 +90,38 @@ public class OrderController {
 		return "redirect:/orderManagement";
 	}
 	
-	@GetMapping("/pickOrderUpdate")
-	public String PickOrderUpdate(Model model,
-							@RequestParam(value = "updateindex", required = false) int updateindex
+	@GetMapping("/pickOrderUpdate/{orderNo}")
+	public @ResponseBody boolean PickOrderUpdate(Model model,
+										@PathVariable String orderNo
 	){
 		System.out.println("PickOrderUpdate");
+		System.out.println("orderNo : "+orderNo);
 		
-		OrderBean pickOrder = os.selectUpdateBean(updateindex);
+		String[] pk = orderNo.split("-");
 		
-		model.addAttribute("pickOrder", pickOrder);
+	    String p	= pk[1];
+	    int i = Integer.parseInt(p);
+	    String s0 = "付款成功";
+	    String s1 = "已出貨";
+	    String s2 = "訂單完成";
+	    
+	    OrderBean pickOrder = os.selectUpdateBean(i);
+	    
+		if( pk[0].equals("2")) {
+			
+			pickOrder.setStatus(s1);
+			
+		}else if( pk[0].equals("3")) {
+			
+			pickOrder.setStatus(s2);
+		} else {
+			
+			pickOrder.setStatus(s0);
+		}
 		
-		return "product/updateOrder";
+		boolean bollean = os.updateOrderBean(pickOrder);
+			
+		return bollean;		
 	}
 	
 	@GetMapping("/orderUpdate")

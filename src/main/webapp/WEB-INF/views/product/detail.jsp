@@ -101,10 +101,15 @@
 							</select>
 
 						</div>
+						<br>
+						<br>
+						<br>
 						<div class="infobtn">
-							<input class="cartbtn" type="submit" value="加入購物車"> <input
+							<input class="btn btn-dark" style="font-size:18px;" type=<%=session.getAttribute("member")!=null?"submit":"hidden"%> value="加入購物車"> <input
 								type="hidden" name="productno" value="${Detail.productno}">
 						</div>
+						<br>
+						
 						<div class="lineshare">
 							<div class="line-it-button" data-lang="zh_Hant"
 								data-type="share-a" data-ver="3"
