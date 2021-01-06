@@ -148,8 +148,12 @@ public class CarWorkingController {
 		theCart.remove(cartIndex); 
 		
 		//session.setAttribute("cart", theCart);
+	
 					
 		return "product/order";
 	}
+	
+	
+	
 
 }

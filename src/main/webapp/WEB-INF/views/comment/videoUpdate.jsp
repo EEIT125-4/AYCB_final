@@ -68,7 +68,6 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 					
 								<button style="width: auto; height: auto; margin-top: 0px;"
 										name="delete">刪除</button>
-								</td>
 							</div>
 						</div>
 					</div>

@@ -165,49 +165,49 @@ public class TestOfProject {
 		
 	}
 	
-	static void uploadVideo() {
-		try {
-			
-			JFrame frame=new JFrame();
-			JFileChooser chooser=new JFileChooser();
-			chooser.setDialogTitle("choose video to upload");
-			FileNameExtensionFilter filter = new FileNameExtensionFilter(
-			        "mp4,wmv,", "mp4", "wmv");
-			    chooser.setFileFilter(filter);
-			    chooser.setMultiSelectionEnabled(true);
-			    int returnVal = chooser.showOpenDialog(frame);
-			    if(returnVal == JFileChooser.APPROVE_OPTION) {
-			    	
-			    	File[] files=chooser.getSelectedFiles();
-			    	for(File f:files) {
-			    		 System.out.println("You chose to open this file: " +
-			 		          f.getName());
-			    		 Video video =new Video();
-			    		
-			    		 FileInputStream fis=new FileInputStream(f);
-			    		 
-			    		 
-			    		 byte[] b=new byte[fis.available()];
-			    		 	fis.close();
-							video.setVideo(new SerialBlob(b));
-							
-							session.save(video);					
-			    	}
-			    	
-    	
-			    	tx.commit();
-			    	System.out.println("上傳影片成功");
-			    	
-			
-		} 
-			    }
-		catch (Exception e) {
-			tx.rollback();
-			System.err.println("上傳圖片失敗");
-			e.printStackTrace();
-			
-		}
-	}
+//	static void uploadVideo() {
+//		try {
+//			
+//			JFrame frame=new JFrame();
+//			JFileChooser chooser=new JFileChooser();
+//			chooser.setDialogTitle("choose video to upload");
+//			FileNameExtensionFilter filter = new FileNameExtensionFilter(
+//			        "mp4,wmv,", "mp4", "wmv");
+//			    chooser.setFileFilter(filter);
+//			    chooser.setMultiSelectionEnabled(true);
+//			    int returnVal = chooser.showOpenDialog(frame);
+//			    if(returnVal == JFileChooser.APPROVE_OPTION) {
+//			    	
+//			    	File[] files=chooser.getSelectedFiles();
+//			    	for(File f:files) {
+//			    		 System.out.println("You chose to open this file: " +
+//			 		          f.getName());
+//			    		 Video video =new Video();
+//			    		
+//			    		 FileInputStream fis=new FileInputStream(f);
+//			    		 
+//			    		 
+//			    		 byte[] b=new byte[fis.available()];
+//			    		 	fis.close();
+//							video.setVideo(new SerialBlob(b));
+//							
+//							session.save(video);					
+//			    	}
+//			    	
+//    	
+//			    	tx.commit();
+//			    	System.out.println("上傳影片成功");
+//			    	
+//			
+//		} 
+//			    }
+//		catch (Exception e) {
+//			tx.rollback();
+//			System.err.println("上傳圖片失敗");
+//			e.printStackTrace();
+//			
+//		}
+//	}
 	
 	static void uploadImage() {
 		try {

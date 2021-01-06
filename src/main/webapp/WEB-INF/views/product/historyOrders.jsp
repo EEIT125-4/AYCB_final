@@ -67,8 +67,16 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="row" items="${orderList}">
-							<tr>
+						<c:forEach var="row" varStatus='vs' items="${orderList}">
+						<c:choose>
+				        	<c:when test='${vs.count % 2 == 0}' >
+				        		<c:set var='color'  value='#FFFFFF' />
+				        	</c:when>
+				        	<c:otherwise>
+				        	   <c:set var='color'  value='#F0F0F0' />
+				        	</c:otherwise>
+				        </c:choose>
+							<tr bgcolor='${color}'>
 								<th style="text-align:center;vertical-align:middle;" scope="row">${row.orderNo}</th>
 								<td style="text-align:center;vertical-align:middle;">${row.customerId}</td>
 								<td style="text-align:center;vertical-align:middle;">${row.totalAmount}</td>

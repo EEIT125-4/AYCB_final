@@ -52,15 +52,7 @@ public class VideoController {
 		return "comment/videoForm";
 	}
 	
-//	// 創一個空白區塊來放影片(update)
-//		@GetMapping("video/update")
-//		public String EmptyForm(Model model) {
-//			Video video = new Video();
-//			model.addAttribute("videolist", video);
-//			return "comment/videoUpdate";
-//		}
-	
-	
+//insert一個新的影片	
 	@PostMapping("video/empty")
 	public String insertNewVideo(Model model,
 			@RequestParam(value = "file") MultipartFile file, @ModelAttribute("video") Video video)
@@ -117,16 +109,22 @@ public class VideoController {
 
 	// 選擇一部需要更新的影片
 	@GetMapping(value = "video/update")
-	public String showDataForm(Model model, @RequestParam(value = "update", required = false) Integer aid) {
-		Video videolist = vs.selectUpdateVideo(aid);
+	public String showDataForm(Model model
+			, @RequestParam(value = "update", required = false) Integer id
+			) {
+		Video videolist = vs.selectUpdateVideo(id);
 		model.addAttribute(videolist);
 		return "comment/videoUpdate";
 	}
 
 	// 更新影片
 	@PostMapping(value = "comment/update")
-	public String modify(@ModelAttribute("updatevideo") Video video, BindingResult result, Model model,
-			HttpServletRequest request, @RequestParam(value = "aid", required = false) Integer aid) {
+	public String modify(@ModelAttribute("updatevideo") Video video
+			, BindingResult result
+			, Model model
+			,HttpServletRequest request,
+			@RequestParam(value = "aid", required = false) Integer aid
+			) {
 		AttendanceValidator validator = new AttendanceValidator();
 		validator.validate(video, result);
 		if (result.hasErrors()) {
@@ -144,7 +142,6 @@ public class VideoController {
 	// 刪除影片
 	@GetMapping(value = "comment/delete")
 	public String delete(
-			// @PathVariable("aid") Integer aid
 			@RequestParam(value = "aid", required = false) Integer aid) {
 		vs.deleteVideo(aid);
 		return "redirect:/comment/video";
