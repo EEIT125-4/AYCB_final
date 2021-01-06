@@ -51,7 +51,6 @@ input[type=text] {
 input[type=text]:focus {
 	width: 100%;
 }
-
 </style>
 
 <jsp:useBean id="videolist" class="comment.model.Video" scope="session" />
@@ -83,7 +82,7 @@ input[type=text]:focus {
 </form>
 
 <!--social media icons -->
-<div class="row" style="float: right">
+<div class="row">
 	<!-- video start -->
 
 	<section class="blog spad container">
@@ -111,36 +110,39 @@ input[type=text]:focus {
 					</div>
 				</div>
 			</c:forEach>
-			<!-- video end -->
+		</div>
+	</section>
+	<!-- video end -->
+<!-- 	social media icons -->
+	<div class="stickyicon-list" style="font-size:30px">
+		<a href="#facebook" class="facebook"> <i class="fa fa-facebook"></i>
+		</a> <a
+			href="http://twitter.com/home/?status=https://www.removal.idv.tw/article.php"
+			class="twitter"> <i class="fa fa-twitter"></i>
+		</a> <a href="#google" class="google"> <i class="fa fa-google"></i></a> <a
+			href="#youtube" class="youtube"> <i class="fa fa-youtube"></i>
+		</a>
+	</div>
+</div>
 
-			<div class="stickyicon-list">
-				<a href="#facebook" class="facebook"> <i class="fa fa-facebook"></i>
-				</a> <a href="http://twitter.com/home/?status=https://www.removal.idv.tw/article.php" class="twitter"> <i class="fa fa-twitter"></i>
-				</a> <a href="#google" class="google"> <i class="fa fa-google"></i>
-					<a href="#youtube" class="youtube"> <i class="fa fa-youtube"></i>
-				</a>
-			</div>
 
-			<%@include file="../jspf/footer.jspf"%>
-			<!-- Blog Section End -->
 
-			<!-- Js Plugins -->
-			<script
-				src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>
-			<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-			<script
-				src="${pageContext.request.contextPath}/js/jquery.nice-select.min.js"></script>
-			<script
-				src="${pageContext.request.contextPath}/js/jquery.nicescroll.min.js"></script>
-			<script
-				src="${pageContext.request.contextPath}/js/jquery.magnific-popup.min.js"></script>
-			<script
-				src="${pageContext.request.contextPath}/js/jquery.countdown.min.js"></script>
-			<script
-				src="${pageContext.request.contextPath}/js/jquery.slicknav.js"></script>
-			<script src="${pageContext.request.contextPath}/js/mixitup.min.js"></script>
-			<script
-				src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
-			<script src="${pageContext.request.contextPath}/js/main.js"></script>
-			</body>
+<%@include file="../jspf/footer.jspf"%>
+<!-- Blog Section End -->
+
+<!-- Js Plugins -->
+<script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/js/jquery.nice-select.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/js/jquery.nicescroll.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/js/jquery.magnific-popup.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/js/jquery.countdown.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.slicknav.js"></script>
+<script src="${pageContext.request.contextPath}/js/mixitup.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/main.js"></script>
 </html>
