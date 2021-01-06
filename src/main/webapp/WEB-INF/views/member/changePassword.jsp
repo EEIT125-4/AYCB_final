@@ -75,7 +75,7 @@
 
 				<br>
 				
-				<button name="update" type="submit" id="send" class="btn btn-dark"
+				<button name="update" type="submit" id="sendd" class="btn btn-dark"
 					style="width: 180px; margin-left: 270px">更新</button>
 <!-- 								<input type="submit" name="update" value="確認更新" -->
 <!-- 									style="margin-left: 300px"> -->
@@ -86,6 +86,7 @@
 
 
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
 
 var p1=false;
@@ -93,8 +94,6 @@ var p2=false;
 var p3=false;
 var p4=false;
 
- 
-	
 
 	$('#oldpwd').blur(function(){
 		console.log("blur");
@@ -116,12 +115,15 @@ var p4=false;
 				if(data){
 					console.log("56+6"+data);
 					sp.innerHTML = "<img src='${pageContext.request.contextPath}\\image/correct.png'>"
-					p1=true;
-
+					p1 = true;
+					return true;
+					
 					
 				}else{
 
 					sp.innerHTML = "<img src='${pageContext.request.contextPath}\\image/cross.png'>"
+						return false;
+		
 				}    			   				
 			}
 		});    		  		
@@ -194,30 +196,33 @@ var p4=false;
 					console.log("56+6"+data);
 					sp.innerHTML = "<img src='${pageContext.request.contextPath}\\image/correct.png'>"
 						p4=true;
-
+                       return true;
 					
 				}else{
 
 					sp.innerHTML = "<img src='${pageContext.request.contextPath}\\image/cross.png'>"
+						return false;
 				}    			   				
 			}
 		});    		  		
 	});
 	
-	$('#send').click(function(){
+	$('#sendd').click(function(){
 		if(p1!=true || p2!=true || p3!=true || p4!=true ){
+
+		
 
 			swal.fire({
 				  title: "oops",
-				  text: "輸入錯誤",
+				  text: "資料輸入有誤",
 				  icon: "error",
 				  button: "OK",
 				});
 			
-			return false;
+	return false;
 		}else{
 			$('form').submit();
-			return true;
+		return true;
 		}
 			
 	});

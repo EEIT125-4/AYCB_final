@@ -142,8 +142,9 @@
 			<form:input type="address" id="address" path="address" blur="address"
 				class="form-control mx-sm-3" aria-describedby="passwordHelpInline"
 				style="width:360px" placeholder="請輸入完整地址"  required="required"/>
-		
-					<label for="gender"
+			<label for="address" id="addresscheck"></label>
+					
+				<label for="gender"
 				style="font-weight: bold; font-size: 25px">性別</label>
 
 			<form:radiobutton style="height:30px; width:30px;" path="gender"
@@ -241,7 +242,7 @@ setInterval(function(){
 
 		if (!address.test(document.getElementById("address").value)){
 			document.getElementById("addresscheck").innerHTML="<img src='image/cross.png'>";
-			p3=false;
+			
 
 		}
 		else{
