@@ -33,10 +33,11 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 		</div>
 	</section>
 	<!-- Breadcrumb Section End -->
-	
+	<c:if test="${not empty member }">
 	<a class="a1" href="${pageContext.request.contextPath}/blog/empty">
-		<h3>我要上傳文章</h3>
+		<h3>我要上傳文章</h3>	
 	</a>
+	</c:if>
 		<!-- Blog Section Begin -->
 		<section class="blog spad">
 			<div class="container">

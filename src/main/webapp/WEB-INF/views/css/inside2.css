@@ -1,9 +1,9 @@
 .leftside {
-    width: 250px;
+    width: 15%;
     position: relative;
     float: left;
 /*     top: 230px; */
-    left: 230px;
+    left: 10%;
 }
 
 .condition {
@@ -85,12 +85,12 @@
 }
 
 .rightoutbox {
-    width: 1350px;
+    width: 60%;
     position: relative;
     float: left;
     margin-left: 100px;
 /*     top: 235px; */
-    left: 230px;
+    left: 10%;
     
 }
 

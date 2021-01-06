@@ -18,7 +18,12 @@ import java.sql.Blob;
 import java.sql.Clob;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -30,6 +35,7 @@ import javax.sql.rowset.serial.SerialClob;
 import javax.swing.JFrame;
 import javax.xml.bind.DatatypeConverter;
 
+import org.hibernate.boot.jaxb.hbm.spi.JaxbHbmNativeQueryReturnType.JaxbHbmReturnDiscriminator;
 import org.springframework.web.multipart.MultipartFile;
 
 public class Common
@@ -48,10 +54,10 @@ public class Common
 	 * 
 	 * Kevin:這個是以博淞主機下的專案路徑設置,如果要在本機測試,記得將以下兩組路徑自己替換掉!!
 	 */
-	public static String UPLOAD_PATH = "C:/Users/Student/git/AYCB_final/src/main/webapp/WEB-INF/views/image";
-//	public static String UPLOAD_PATH = "C:/Users/user/git/AYCB_final/src/main/webapp/WEB-INF/views/image";
-	public static String IMAGE_REAL_PATH = "C:\\Users\\Student\\git\\AYCB_final\\src\\main\\webapp\\WEB-INF\\views\\image";
-//	public static String IMAGE_REAL_PATH = "C:\\Users\\user\\git\\AYCB_final\\src\\main\\webapp\\WEB-INF\\views\\image";
+//	public static String UPLOAD_PATH = "C:/Users/Student/git/AYCB_final/src/main/webapp/WEB-INF/views/image";
+	public static String UPLOAD_PATH = "C:/Users/user/git/AYCB_final/src/main/webapp/WEB-INF/views/image";
+//	public static String IMAGE_REAL_PATH = "C:\\Users\\Student\\git\\AYCB_final\\src\\main\\webapp\\WEB-INF\\views\\image";
+	public static String IMAGE_REAL_PATH = "C:\\Users\\user\\git\\AYCB_final\\src\\main\\webapp\\WEB-INF\\views\\image";
 	public static String UPLOAD_VIDEO="C:/Users/user/git/AYCB_final/src/main/webapp/video";
 	// UPLOAD_PATH="C:/AYCB/AYCB2/src/main/webapp/upload/
 	
@@ -65,6 +71,71 @@ public class Common
 	public static String EMAIL_HOST = "smtp.gmail.com";
 	public static Integer EMAIL_PORT = 587;
 	public static String EMAIL_SENDER = "2020AYCB@gmail.com";
+	
+	
+	/**
+	 * Kevin:以ASCII生成隨機文字,一般從33~126是有意義的符號及英數,起始及結尾顛倒沒關係
+	 * @param length 要生成的數量
+	 * @param start	要生成的文字起始號碼
+	 * @param end	要生成的文字結尾號碼
+	 * @return
+	 */
+	public static String generateRandomPassword(int length) {//,int start,int end
+		
+//		if(start<0 ||start>127 || end<0 || end>127) {
+//			throw new IndexOutOfBoundsException("輸入的數值必須在ASCII碼範圍內");
+//			}
+		
+		
+		/**
+		 * Kevin:基本的防呆..
+		 */
+//		if(start>end) {
+//			int temp=start;
+//			start=end;
+//			
+//			end=temp;
+//			}
+//		
+		
+		
+		 Random rnd = new Random();		 
+		 List<String>password=new ArrayList<String>();
+				
+		//Kevin:打亂順序
+		
+		int numberCount=rnd.nextInt(length)+1;
+		for(int i=0;i<length;i++) {
+			if(i<=numberCount-1) {
+				//Kevin:先取數字
+				password.add(String.valueOf(rnd.nextInt(10)));
+				
+			}else {
+				//再取英文
+				StringBuffer sb = new StringBuffer();
+				if(rnd.nextBoolean()) {
+					
+					sb.append((char) (rnd.nextInt(26) + 65));
+					
+				}else {
+					sb.append((char) (rnd.nextInt(26) + 97));
+				}
+				password.add(sb.toString());
+				
+			}
+			
+		}
+		Collections.shuffle(password);
+		String result="";
+		for(String s:password) {
+			result+=s;
+		}
+		return result;
+				
+		
+	}
+	
+	
 
 	public static boolean deleteFile(String path) {
 		File file = new File(path);

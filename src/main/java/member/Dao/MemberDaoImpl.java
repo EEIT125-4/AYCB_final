@@ -180,6 +180,48 @@ public class MemberDaoImpl implements MemberDao {
 		MemberBean mb = query.setParameter("pk", pk).getSingleResult();
 		return mb;
 	}
+
+	@Override
+	public MemberBean getMemberByEmail(String email) {
+		Session session = factory.getCurrentSession();
+
+		String hql = "FROM MemberBean m WHERE m.email = :email";
+
+		@SuppressWarnings("unchecked")
+		MemberBean mb=null;
+		Query<MemberBean> query = session.createQuery(hql);
+		try {
+			 mb = query.setParameter("email", email).getSingleResult();
+		} catch (Exception e) {
+			System.out.println("email查詢會員發生錯誤");
+			e.printStackTrace();
+			
+		}
+		
+		return mb;
+	}
+
+	@Override
+	/**
+	 * Kevin:不知道改成>1就跳出會不會比較有效率
+	 */
+	public boolean emailDupCheck(String email) {
+		boolean result = false;
+		String hql = "FROM MemberBean m WHERE m.email = :email";
+		Session session = factory.getCurrentSession();
+
+		Query<MemberBean> query = session.createQuery(hql);
+		List<MemberBean> list = query.setParameter("email", email).getResultList();
+		if (list.size() > 0) {
+
+			result = true;
+		}
+
+		return result;
+	}
+	
+	
+		
 	
 	
 }

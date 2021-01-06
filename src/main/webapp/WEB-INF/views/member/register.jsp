@@ -16,6 +16,7 @@
 
 <title>註冊</title>
 </head>
+<%@include file="../jspf/header.jspf"%>
 
 <div style="position: relative; top: 10px;">
 	<!-- 	<fieldset -->

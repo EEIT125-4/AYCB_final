@@ -24,5 +24,7 @@ public interface MemberDao {
 	 boolean emailcheck(String email);
 	 
 	 MemberBean getMember(Integer pk);
+	 MemberBean getMemberByEmail(String email);
+	 boolean emailDupCheck(String email);
 
 }
