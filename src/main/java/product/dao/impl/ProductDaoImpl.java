@@ -3,6 +3,7 @@ package product.dao.impl;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -327,11 +328,15 @@ public class ProductDaoImpl implements ProductDao {
 		return list;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<ProductBean> ra(String cate) {
-		String hql = "SELECT TOP 5 * FROM ProductBean p WHERE p.productcategory = :productcategory";
+	public List<ProductBean> racate(String cate) {
+		String hql = "FROM ProductBean p WHERE p.productcategory = :productcategory";
 		Session session = factory.getCurrentSession();
-		return session.createQuery(hql).setParameter("productcategory", cate).getResultList();
+		Query<ProductBean> query = session.createQuery(hql);
+		int size=query.setParameter("productcategory", cate).list().size();
+		Random r=new Random();
+		return query.setFirstResult(r.nextInt(size-10)+1).setMaxResults(5).getResultList();
 	}
 	
 }
