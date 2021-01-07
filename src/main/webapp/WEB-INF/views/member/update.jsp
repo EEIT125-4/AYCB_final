@@ -45,9 +45,8 @@
 			<form action="${pageContext.request.contextPath}/member/updateComplete" method="post" enctype='multipart/form-data' >
 				
 				
-				<div class="form-inline " style="margin-left:80px;margin-bottom: 10px;">
-					<img id="demo" class="preview" name="icon"
-								src=<c:if test='${not empty member.getId()}'>
+				<div class="form-inline " style="margin-left:300px;margin-bottom: 10px;">
+					<img id="demo" class="preview" name="icon" src=<c:if test='${not empty member.getId()}'>
 							<c:out value="${pageContext.request.contextPath}/pic/${member.iconid}"/>
 							
 							</c:if>
@@ -57,9 +56,9 @@
 								alt=<c:out value='${msg.getImageid()}'/>
 								onerror="javascript:this.src='${pageContext.request.contextPath}/image/noImage.jpg'">
 								</div>
-				<div class="form-inline " style="margin-left:80px">
-				<label for="file" style="font-weight: bold; font-size: 20px;margin-left:0px;margin-bottom:20px">上傳頭像</label>
-				<input type="file" name="file" id="file" style="font-size:15px"/>	
+				<div class="form-inline " style="margin-left:80px ">
+				<label for="file" style="font-weight: bold; font-size: 20px;margin-left:0px;margin-bottom:20px;margin-right: 20px">上傳頭像</label>
+				<input type="file" name="file" id="file" style="font-size:15px;"/>	
 				
 				</div>
 					
