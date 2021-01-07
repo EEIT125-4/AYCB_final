@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -143,14 +142,6 @@ public class OrderController {
 		String sTimeString = sdf.format(new Date());
 		Timestamp tTime = Timestamp.valueOf(sTimeString);
 		
-//		OrderBean updateOrder = new OrderBean(orderNo, customerId, price, tTime, status, items);		
-//		if (os.updateOrderBean(updateOrder)) {
-//			System.out.println("Let orderUpdate done!");
-//			return "product/orderUpdateThanks";
-//		} else{
-//				return "product/orderUpdateThanks";
-//		}
-	
 		return "redirect:/orderManagement";
 	}
 	
