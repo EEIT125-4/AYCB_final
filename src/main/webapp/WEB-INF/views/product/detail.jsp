@@ -71,8 +71,8 @@
 				<input type="hidden" name="todo" value="add">
 				<div class="rightside">
 					<div class="imgbox">
-						<a href="#"> <img
-							src="${pageContext.request.contextPath}/pic/${Detail.imagepath}"></a>
+						<a href="#"> 
+						<img class="proimg" src="${pageContext.request.contextPath}/pic/${Detail.imagepath}"></a>
 					</div>
 				</div>
 
@@ -102,7 +102,7 @@
 
 						</div>
 						<br> <br> <br>
-						<div class="infobtn">
+						<div>
 							<input class="btn btn-dark" style="font-size: 18px;"
 								type=<%=session.getAttribute("member") != null ? "submit" : "hidden"%>
 								value="加入購物車"> <input type="hidden" name="productno"
@@ -110,7 +110,7 @@
 						</div>
 						<br>
 
-						<div class="lineshare">
+						<div>
 							<div class="line-it-button" data-lang="zh_Hant"
 								data-type="share-a" data-ver="3"
 								data-url="http://localhost:8080/AYCB/Detail?no=${Detail.productno}"
