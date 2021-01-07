@@ -117,7 +117,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 
 		<table id="tab" class="table table-hover" class="row">
 			<thead>
-				<tr>
+				<tr bgcolor='#F0F0F0'>
 					<th style="text-align: center; vertical-align: middle;" scope="col">商品</th>
 					<th style="text-align: center; vertical-align: middle;" scope="col">內容</th>
 					<th style="text-align: center; vertical-align: middle;" scope="col">價格</th>
@@ -195,8 +195,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 				%>
 			</div>
 
-	}
-	%>
+	
 </div>
 <%@include file="../jspf/footer.jspf"%>
 </body>
