@@ -20,7 +20,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 <title>資料確認</title>
 </head>
 <%@include file="../jspf/header.jspf"%>
-<div style="position: relative; top: 200px; ; left: 700px;">
+<div style="position: relative ; left: 700px;">
 	
 	<form:form   action="insert" method="POST" modelAttribute="member" > 
 		<fieldset class="confirmfs">

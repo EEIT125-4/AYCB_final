@@ -57,6 +57,9 @@
 								alt=<c:out value='${msg.getImageid()}'/>
 								onerror="javascript:this.src='${pageContext.request.contextPath}/image/noImage.jpg'">
 								</div>
+								
+								
+								
 				<div class="form-inline " style="margin-left:80px">
 				<label for="file" style="font-weight: bold; font-size: 20px;margin-left:0px;margin-bottom:20px">上傳頭像</label>
 				<input type="file" name="file" id="file" style="font-size:15px"/>	
