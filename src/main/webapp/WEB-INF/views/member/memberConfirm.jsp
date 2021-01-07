@@ -49,6 +49,16 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 			<form:hidden path="birth"/>
 				<label>生日:</label> <label name="birth" >${member.birth}</label>
 			</div>
+			<div>
+					<form:hidden path="phone"/>
+				<label>電話:</label> <label name="phone" >${member.phone}</label>
+			</div>
+			
+			<div>
+					<form:hidden path="address"/>
+				<label>地址:</label> <label name="address" >${member.address}</label>
+			</div>
+			
 <!-- 			<button type="submit" name="submit"><a href='memberConfirm'>確認</a></button> -->
 			
 			<input type="submit" name="submit" id="send" value="確認">

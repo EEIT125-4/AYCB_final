@@ -304,7 +304,7 @@ public class MemberController {
 		}
 		
 		memberService.update(mb);
-		return "index";
+		return "redirect:/";
 
 	}
 	
@@ -418,13 +418,14 @@ public class MemberController {
 		 HttpServletResponse response,
 		 HttpSession session,
 	  @RequestParam(value = "googleemail", required = false) String email,
-      @RequestParam(value = "googlebirth", required = false) String birth)
+      @RequestParam(value = "googlebirth", required = false) Date birth)
 		  {
     	  System.out.println("birth"+birth);
     	  boolean res=memberService.emailcheck(email);
     	  MemberBean mb = new MemberBean();
+    	  
     	  if(res==false){
-    		  MemberBean memberBean=new MemberBean(0, null, name, null, null, null, null, email, gender, null,null);
+    		  MemberBean memberBean=new MemberBean(0, null, name, null, null, null, birth, email, gender, null,null);
     		  System.out.println("birth"+birth);
     	  
 //    	  		Cookie[] cookies = request.getCookies();

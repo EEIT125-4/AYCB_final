@@ -89,7 +89,7 @@
 			
 	<div class="d-flex justify-content-center" >
 			 <button type="button" id="btnSignIn" class="btn btn-info" style="width:130px;margin-right:20px">Google登入</button>
-			 <button type="button" class="btn btn-danger" id="btnDisconnect" style="width:130px">斷連Google </button>
+			 <button type="button" class="btn btn-danger" id="btnDisconnect" style="width:130px">Google登出 </button>
     </div>
 <!--      <div id="content" style="background-color: orange;"></div> -->
 		
@@ -218,21 +218,22 @@
 //                     document.getElementById('content').innerHTML = str;
                     console.log(res.result);
                      console.log(res.result.names[0].displayName);
-                     console.log(res.result.genders[0].value);
+//                      console.log(res.result.genders[0].value);
                      console.log(res.result.emailAddresses[0].value);
-                     console.log(res.result.residences[0].value);
-                     console.log(res.result.occupations[0].value);
+//                      console.log(res.result.residences[0].value);
+//                      console.log(res.result.occupations[0].value);
          
                      // 你變數宣告在這 下面的方法當然拿不到
                    
                      // 但是你下面兩個變數是宣告在這裏面
                      let googlename= res.result.names[0].displayName;
-                     let googlegender= res.result.genders[0].value;
+//                      let googlegender= res.result.genders[0].value;
                      let googlemail=res.result.emailAddresses[0].value;
+//                      let googledate=res.result.birthdays[0].date;
 //                      let birthyear=res.result.birthdays[0].year;
 //                      let birthmonth=res.result.month;
 //                      let birthday=res.result.day;
-//                      console.log("googlebirth"+birthyear+"/"+birthmonth+birthday);
+//                       console.log("googlebirth"+googledate);
                      
                      
                     //↑通常metadata標記primary:true的個資就是你該抓的資料
@@ -242,7 +243,7 @@
 
                     //最終，取得用戶個資後看要填在畫面表單上或是透過Ajax儲存到資料庫(記得是傳id_token給你的Web Server而不是明碼的user_id喔)，本範例就不贅述，請自行努力XD
 
-                    googlelogin2(googlename, googlegender,googlemail);
+                    googlelogin2(googlename,googlemail);
                     
                     
                     
@@ -256,17 +257,19 @@
 
     }//end function GoogleLogin
     
-    function googlelogin2(a, b, c){
+    function googlelogin2(a, b){
     	
     	console.log("result"+result);
     	
     	console.log("a="+a);
     	console.log("b="+b);
+    
     	
     	let req = JSON.stringify({
     		"name":a,
-    		"gender":b,
-    		"email":c
+    		"email":b,
+    
+    		
     		
     		});
     	
@@ -277,8 +280,9 @@
     		url :   "google" ,
      		datatype:"json",
     		data : {"googlename":a,
-    			"googlegender":b,
-    			"googleemail":c},
+    			"googleemail":b
+    			
+    			},
 //     		contentType : "application/json;charset=utf-8",
     		
     		success : function(data) {
