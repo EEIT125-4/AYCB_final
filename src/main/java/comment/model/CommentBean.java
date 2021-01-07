@@ -27,11 +27,6 @@ public class CommentBean{
 	@JoinColumn(name = "member")
 	private MemberBean member;
 	
-//	private Integer id;
-//	@Column(columnDefinition= "NVARCHAR(MAX) NOT NULL")
-//	private String name;
-//	private String gender;
-//	private Integer age;
 	@Column(columnDefinition = "smalldatetime")
 	private Timestamp commentTime;
 	private String contentBox;

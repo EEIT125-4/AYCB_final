@@ -50,11 +50,13 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 						
 						<div class="blog__item__pic set-bg" data-setbg="${pageContext.request.contextPath}/pic/${b.picture}" style="background-image: url(&quot;img/blog/blog-1.jpg&quot;);"></div>
 							<div class="blog__item__text">
-								<span><img src="image/icon/calendar.png" alt=""> ${b.commentTime}</span>
+								
 								<h5>${b.title}</h5>
 								<div class="proprice">上傳者:${b.member.name}</div>
 								<span>瀏覽人次:${b.views}</span>	
 								 <span class="thumbsup">按讚次數:${b.thumbs} </span>
+								 <span><img src="${pageContext.request.contextPath}/image/icon/calendar.png" alt="">上傳時間: ${b.commentTime}</span>
+								 <span><img src="${pageContext.request.contextPath}/image/icon/calendar.png" alt="">修改時間: ${b.fixedtime}</span>
 								<a href="${pageContext.request.contextPath}/blog/${b.blogId}">Read More</a>
 								<c:if test="${b.member.id eq member.id}">
 								<br>
