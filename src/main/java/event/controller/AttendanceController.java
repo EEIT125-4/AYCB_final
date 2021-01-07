@@ -59,9 +59,9 @@ public class AttendanceController {
 			System.out.println(id);
 			List<Attendance> attendancelist=attendanceService.getAllAttendancebyID(id);
 			model.addAttribute("attendancelist",attendancelist);
-			System.out.println("+++++++++++++++++++++++++++++++++++++++++++++"+attendancelist);
+			System.out.println("attendancelist"+attendancelist);
 			
-			return "event/showAttendance";
+			return "event/showAttendanceByID";
 		}
 
 		//insert
