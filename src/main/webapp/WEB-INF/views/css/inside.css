@@ -91,6 +91,10 @@
     left: 230px;
 }
 
+.rightbox {
+	height: 550px;
+}
+
 .rightside {
     width: fit-content;
     margin: 20px;

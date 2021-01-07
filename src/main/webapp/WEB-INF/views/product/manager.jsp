@@ -32,7 +32,7 @@
 					class="mbtn" type="button" value="留言板" onclick='location.href="#"'>
 			</div>
 			<div class="format">
-				<input class="mbtn" type="button" value="部落格" onclick='location.href="#"'> 
+				<input class="mbtn" type="button" value="部落格" onclick='location.href="blog/backstage"'> 
 				<input class="mbtn" type="button" value="影音區" onclick='location.href="#"'> 
 			</div>
 		</div>

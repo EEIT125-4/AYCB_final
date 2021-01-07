@@ -77,13 +77,14 @@
 	
 %>
 	<form:form method="POST" modelAttribute="blog" enctype='multipart/form-data'>
-<%-- 	<form:input path="thumbs" type="hidden" value="<%=(blog.getThumbs()!=null && blog.getThumbs()>0)?String.valueOf(blog.getThumbs()):0%>" /> --%>
-		 
-<%-- 	 <form:input path="views" type="hidden" value="<%=(blog.getViews()!=null && blog.getViews()>0)?String.valueOf(blog.getViews()):0 %>"/> --%>
+<%-- 	<form:input path="thumbs" type="hidden" value="${blog.thumbs}" /> --%>
+<%-- 		<form:input path="blogId" type="hidden" value="${blog.blogId}" />  --%>
+<%-- 		<form:input path="picture" type="hidden" value="${blog.picture}" />  --%>
+<%-- 		<form:input path="commentTime" type="hidden" value="${blog.commentTime}" /> --%>
+<%-- 	 <form:input path="views" type="hidden" value="${blog.views}"/> --%>
 	 <form:input path="identify" type="hidden" value="blog"/>
 	 
-	 
-	 
+	 	 
 		<fieldset class="updateform">
 			<legend class="title">部落格文章上傳</legend>
 			<p>
@@ -135,14 +136,9 @@
 			 <div class="blog__details__text">
                             <form:textarea id="editor"  path="reflection"/>
                        </div>
-			
-			
-			
+		
 			<!--隱藏選項共4個 -->
 	
-
-			
-
 			<p>
 				<input type="hidden" name="memberID" value="${member.id}"/>
 			</p>

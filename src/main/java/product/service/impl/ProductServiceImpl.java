@@ -187,7 +187,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public List<ProductBean> ra(String cate) {
-		return dao.ra(cate);
+	public List<ProductBean> racate(String cate) {
+		return dao.racate(cate);		
 	}
 }

@@ -1,8 +1,5 @@
 package comment.model;
 
-import java.io.IOException;
-import java.sql.Blob;
-import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -14,10 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.sql.rowset.serial.SerialBlob;
-import javax.sql.rowset.serial.SerialException;
-
-import org.springframework.web.multipart.MultipartFile;
 
 import member.MemberBean;
 
@@ -32,11 +25,6 @@ public class Video {
 	@ManyToOne
 	@JoinColumn(name = "member")
 	private MemberBean member;
-//	private Integer id;
-//	@Column(columnDefinition= "NVARCHAR(MAX) NOT NULL")
-//	private String name;
-//	private String gender;
-//	private Integer age;
 	@Column(columnDefinition= "smalldatetime")
 	private Timestamp commentTime;
 	@Column(columnDefinition = "NVARCHAR(50) NOT NULL")
@@ -47,11 +35,6 @@ public class Video {
 	private Integer thumbsup;
 	@Column(columnDefinition= "smalldatetime")
 	private Timestamp fixedTime;
-	
-	private Blob video;
-	
-	
-	
 
 	
 	public Video() {
@@ -69,35 +52,6 @@ public class Video {
 		this.thumbsup = thumbsup;
 		this.fixedTime = fixedTime;
 	}
-	
-	
-
-
-	/**
-	 * 上傳檔案並依檔名設定標題
-	 * @param file
-	 * @throws IOException
-	 * @throws SerialException
-	 * @throws SQLException
-	 */
-public void setVideo(MultipartFile file) throws IOException, SerialException, SQLException {
-		
-		byte[] b = file.getBytes();
-		Blob blob = new SerialBlob(b);
-		this.title=file.getOriginalFilename();
-		this.video=blob;
-		
-		
-	}
-
-public void setVideo(Blob blob) {
-
-	
-	this.video=blob;
-	
-	
-}
-
 
 	public Integer getVideoId() {
 		return videoId;
