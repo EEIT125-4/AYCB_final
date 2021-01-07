@@ -44,6 +44,7 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 			<div class="container">
 				<div class="row">
 				<c:forEach var='b' varStatus='bg' items='${blog}'>
+				<c:if test="${b.status==0 }">
 					<div class="col-lg-4 col-md-6 col-sm-6">
 						<div class="blog__item">
 						
@@ -59,9 +60,15 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 								<br>
 								<a href="${pageContext.request.contextPath}/blog/edit/${b.blogId}">edit</a>
 								</c:if>
+								
+								<c:if test="${b.member.id eq member.id}">
+								<br>
+								<a href="${pageContext.request.contextPath}/blog/delete/${b.blogId}">假刪除</a>
+								</c:if>
 							</div>
 						</div>
 					</div>
+					</c:if>
 					</c:forEach>
 				</div>
 			</div>
@@ -69,6 +76,63 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 		
 		<%@include file="../jspf/footer.jspf"%>
 </body>
+
+<script>
+// function deleteBlog() {
+
+// // 	var adbox = document.getElementById('adbox');
+
+// 	$.ajax({
+		
+// //Kevin:async預設是非同步=true,但因為我們需要動態取得圖片,故要等controller將資料帶回來之後才進行,所以這邊用false,其他地方不建議 			
+// 		async : false,
+// 		type : "get",
+// 		url : "${pageContext.request.contextPath}/delete",
+// 		contentType : "application/json; charset=utf-8",
+// 		dataType : "json",
+
+// 		success : function(data) {
+
+// //				alert("get result!(輪播加工中,要手動輸入/index才會有資料,之後要改ajax動態產生)");
+// 			console.log("轉換前:" + data);
+
+// 			console.log("資料數" + data.length);
+			
+			
+			
+// 			$('#slides').empty();
+// //				$('#slides').width=200*data.length
+// 			$('#dots').empty();
+			
+			
+// 			for (let i = 0; i < data.length; i++) {
+// 				console.log("data:" + i + data[i]);
+// 				$('#slides').append(							
+// 				"<li><a href='${pageContext.request.contextPath}/Detail/?no="+data[i].productno+"'>"
+// 				+"<img src="+"${pageContext.request.contextPath}/pic/"+data[i].imagepath
+				
+// 				+" onerror=javascript:this.src='${pageContext.request.contextPath}/image/noImage.jpg' " 
+// 				+" ></a></li>"
+// 				);
+				
+// 				$('#dots').append("<li id="+data[i].productno+"></li>");
+		
+// 			}												
+			
+// 		},
+// 		error : function() {
+// 			alert("fail");
+// 		}
+
+// 	})
+
+// }
+
+// getAds();
+
+
+</script>
+ 
 
 <!-- Js Plugins -->
 <script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -148,81 +149,89 @@ public class BlogController {
 			return "blog/blogForm";
 		}
 
-//	// 更新一篇部落格文章
-//	@PostMapping(value = "blog/edit/{blogid}")
-//	
-//	public String modify(
-//			@ModelAttribute("blog") Blog blog,
-//			Model model,
-//			@PathVariable Integer blogid,
-//			@RequestParam(value = "memberID") Integer mid,
-//			@RequestParam(value = "file") MultipartFile file) {
-//		
-//		
-//		// JAVA的Date轉SQL的Date
-//					Timestamp time = new Timestamp(new Date().getTime());
-//					java.sql.Date sqlDate = new java.sql.Date(time.getTime());
-//			
-//		try {		
-//			// 封面圖更新
-//			if (file != null && file.getSize() > 0) {
-//				System.out.println("有收到圖片");
-//				Image img = null;
-//
-//				try {
-//					if (blog.getPicture() != null && blog.getPicture() > 0) {
-//						img = imgService.getImage(blog.getPicture());
-//						System.out.println("old圖片ID:" + img.getImgid());
-//					} else {
-//						System.out.println("沒有舊圖片");
-//						img = new Image(file);
-//					}
-//					// 更新圖片名稱
-//					img.setImage(file);
-//					// 更新圖片內容
-//					imgService.saveImage(img);
-//					blog.setPicture(img.getImgid());
-//					System.out.println("圖片儲存完畢,id=" + img.getImgid() + ",filename=" + img.getFilename());
-//
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//					throw new RuntimeException("圖片上傳發生異常: " + e.getMessage());
-//				}
-//			} else {
-//				System.out.println("沒有上傳圖片");
-//			}
-//
-//			if (blog.getCommentTime() == null) {
-//				blog.setCommentTime(sqlDate);
-//				blog.setViews(0);
-//				blog.setThumbs(0);
-//
-//			}
-//
-//			blog.setMember(memberService.getMember(mid));
-//			blogService.insertBlog(blog);
-//			return getAll(model);
-//		} catch (Exception ex) {
-//			System.out.println(ex.getClass().getName() + ", ex.getMessage()=" + ex.getMessage());
-//			return "blog/blogForm";
-//		}
-//
-//	}
-//	
-//		blogService.updateBlog(blog);
-//		return "redirect:blog/blog";
-//	}
+	// 更新一篇部落格文章
+	@PostMapping(value = "blog/edit/{blogid}")
 	
+	public String modify(
+			@ModelAttribute("blog") Blog blog,
+			Model model,
+			@PathVariable Integer blogid,
+			@RequestParam(value = "memberID") Integer mid,
+			@RequestParam(value = "file") MultipartFile file) {
+		
+		
+		try {		
+			// 封面圖更新
+			if (file != null && file.getSize() > 0) {
+				System.out.println("有收到圖片");
+				Image img = null;
+
+				try {
+					if (blog.getPicture() != null && blog.getPicture() > 0) {
+						img = imgService.getImage(blog.getPicture());
+						System.out.println("old圖片ID:" + img.getImgid());
+					} else {
+						System.out.println("沒有舊圖片");
+						img = new Image(file);
+					}
+					// 更新圖片名稱
+					img.setImage(file);
+					// 更新圖片內容
+					imgService.saveImage(img);
+					blog.setPicture(img.getImgid());
+					System.out.println("圖片儲存完畢,id=" + img.getImgid() + ",filename=" + img.getFilename());
+
+				} catch (Exception e) {
+					e.printStackTrace();
+					throw new RuntimeException("圖片上傳發生異常: " + e.getMessage());
+				}
+			} else {
+				System.out.println("沒有上傳圖片");
+			}
+
+			Timestamp time = new Timestamp(new Date().getTime());
+			java.sql.Date sqlDate = new java.sql.Date(time.getTime());
+			if (blog.getCommentTime() != null) {
+				// JAVA的Date轉SQL的Date
+				
+				blog.setFixedtime(time);
+				
+			}else {
+				blog.setCommentTime(time);
+				
+			}
+
+			blog.setMember(memberService.getMember(mid));
+			blogService.updateBlog(blog);
+			return getAll(model);
+		} catch (Exception ex) {
+			System.out.println(ex.getClass().getName() + ", ex.getMessage()=" + ex.getMessage());
+			return "blog/blogForm";
+		}
+
+	}
+	
+
+	//假刪除功能
+	@GetMapping(value = "blog/delete/{blogId}")
+//	@ResponseBody
+	public String hideBlog(@PathVariable("blogId") Integer blogId,Model model) {
+		Blog bg=blogService.selectBlog(blogId);
+		bg.setStatus(1);
+		blogService.updateBlog(bg);
+		return getAll(model);
+		
+	}
 	
 
 		
-	
+
 
 	// 刪除一篇文章
-	@DeleteMapping(value = "blog/{blogid}")
-	public String delete(@PathVariable("blogid") Integer blogid) {
-		blogService.deleteBlog(blogid);
-		return "redirect:blog/blog";
-	}
+//	@DeleteMapping(value = "blog/{blogid}")
+//	public String delete(@PathVariable("blogid") Integer blogid) {
+//		blogService.deleteBlog(blogid);
+//		return "redirect:blog/blog";
+//	}
 
 }
