@@ -1,6 +1,7 @@
 package blog.controller;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.ServletContext;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -31,6 +34,7 @@ import tool.model.Image;
 import tool.service.ImageService;
 
 @Controller
+@SessionAttributes({"blog"})
 public class BlogController {
 
 	@Autowired
@@ -142,7 +146,7 @@ public class BlogController {
 	
 	// 編輯部落格
 		@GetMapping("blog/edit/{blogid}")
-		public String editBlog(@PathVariable("blogid") Integer blogid,Model model) {
+		public String editBlog(@PathVariable("blogid") Integer blogid,ModelMap model) {
 			Blog bg = blogService.selectBlog(blogid);
 
 			model.addAttribute("blog", bg);
@@ -155,9 +159,11 @@ public class BlogController {
 	public String modify(
 			@ModelAttribute("blog") Blog blog,
 			Model model,
-			@PathVariable Integer blogid,
-			@RequestParam(value = "memberID") Integer mid,
+//			@PathVariable Integer blogid,
+//			@RequestParam(value = "memberID") Integer mid,
 			@RequestParam(value = "file") MultipartFile file) {
+		
+		System.out.println("檢查ModelAttribute:"+blog);
 		
 		
 		try {		
@@ -201,7 +207,7 @@ public class BlogController {
 				
 			}
 
-			blog.setMember(memberService.getMember(mid));
+//			blog.setMember(memberService.getMember(mid));
 			blogService.updateBlog(blog);
 			return getAll(model);
 		} catch (Exception ex) {
@@ -220,6 +226,15 @@ public class BlogController {
 		bg.setStatus(1);
 		blogService.updateBlog(bg);
 		return getAll(model);
+		
+	}
+	
+	@GetMapping(value="blog/backstage")
+	public String backstage(Model model) {
+		List<Blog>blogs=new ArrayList<Blog>();
+		blogs=blogService.selectAllBlog();
+		model.addAttribute("blogs", blogs);
+		return "blog/blogBackstage";
 		
 	}
 	

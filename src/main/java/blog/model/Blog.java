@@ -40,8 +40,6 @@ public class Blog {
 	private Integer thumbs=0;
 	@Column(columnDefinition= "NVARCHAR(10) NOT NULL default('blog')")
 	private final String identify="blog";
-
-	
 	
 	
 	
@@ -61,6 +59,7 @@ public class Blog {
 	private Integer views;
 
 	public Blog() {
+		
 	}
 
 	public Blog(Integer blogId, MemberBean member, Date commentTime, String title, String reflection, Integer picture,

@@ -43,18 +43,10 @@ public class CommentController {
 	@ResponseBody
 	public String leaveComment(
 			Model model,
-			@ModelAttribute("leave")CommentBean cb) {
-		
-		
+			@ModelAttribute("leave")CommentBean cb) {		
 		System.out.println("leaving comment");
 		Timestamp time = new Timestamp(new Date().getTime());
-		
-		
-		// SQL的Date轉JAVA的Date
-	
-	
-		cb.setCommentTime(time);
-		
+		cb.setCommentTime(time);		
 		System.out.println("cb now:"+cb);
 		commentService.insertComment(cb);
 		
@@ -77,6 +69,7 @@ public class CommentController {
 			@RequestParam(value = "content", required = false) String content,
 			@RequestParam(value = "age", required = false) Integer age,
 			@RequestParam(value = "status", required = false, defaultValue = "0") Integer status,
+			//
 			@RequestParam(value = "id", required = false) Integer id,
 			@RequestParam(value = "commentId", required = false) Integer commentId,
 			@RequestParam(value = "keynumber", required = false) String keynumber,
@@ -158,12 +151,7 @@ public class CommentController {
 //update的確認更新
 		if (confirmupdate != null) {
 			System.out.println("confirmupdate:" + confirmupdate);
-//			java.util.Date now = new java.util.Date();
-			Timestamp time = new Timestamp(new Date().getTime());
-			java.sql.Date sqlDate = new java.sql.Date(time.getTime());
-			java.util.Date utilDate = new java.util.Date();
-			utilDate.setTime(sqlDate.getTime());
-//			String commentTime = String.valueOf(utilDate);
+			Timestamp time = new Timestamp(new Date().getTime());			
 			CommentBean comment = new CommentBean(commentId, (MemberBean) session.getAttribute("member"), time, content,
 					status, keynumber, type);
 			try {
