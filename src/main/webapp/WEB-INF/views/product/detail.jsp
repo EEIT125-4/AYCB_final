@@ -101,15 +101,15 @@
 							</select>
 
 						</div>
-						<br>
-						<br>
-						<br>
+						<br> <br> <br>
 						<div class="infobtn">
-							<input class="btn btn-dark" style="font-size:18px;" type=<%=session.getAttribute("member")!=null?"submit":"hidden"%> value="加入購物車"> <input
-								type="hidden" name="productno" value="${Detail.productno}">
+							<input class="btn btn-dark" style="font-size: 18px;"
+								type=<%=session.getAttribute("member") != null ? "submit" : "hidden"%>
+								value="加入購物車"> <input type="hidden" name="productno"
+								value="${Detail.productno}">
 						</div>
 						<br>
-						
+
 						<div class="lineshare">
 							<div class="line-it-button" data-lang="zh_Hant"
 								data-type="share-a" data-ver="3"
@@ -124,17 +124,16 @@
 					</div>
 				</div>
 			</form>
-
-
+			<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<!-- 		</div> -->
+<!-- 		<div> -->
 			<div class="content">
 				<hr>
 				<div id="post">
 
-					<H1 class="board" style="border-radius: 10px" ALIGN="CENTER">留言佈告欄</H1>
-
-
 					<form:form method="POST" modelAttribute="leave" id="ajaxform"
 						name="ajaxform" enctype='multipart/form-data'>
+					<H1 class="board" style="border-radius: 10px" ALIGN="CENTER">留言佈告欄</H1>
 						<Fieldset class="discussionbox">
 							<div>
 								<label>留言類型:</label>
@@ -143,8 +142,6 @@
 							<div>
 								<label>會員名稱：</label> <span>${member.name}</span> <input
 									type="hidden" id="shangtian" name="mid" value="${member.id}" />
-
-
 							</div>
 
 							<div>
@@ -168,9 +165,6 @@
 								<label for="contentBox"></label>
 								<form:textarea path="contentBox" id="contentBox"
 									class="transition" />
-
-								<!-- 				<INPUT id="postBt" type="submit" name="submit" onclick="leavecomment" -->
-								<!-- 					value="發表留言" />  -->
 							</div>
 							<div>
 								<span>

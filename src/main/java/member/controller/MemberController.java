@@ -67,6 +67,12 @@ public class MemberController {
 
 		return "member/center"; // 請視圖解析器由視圖的邏輯名稱index來找出真正的視圖
 	}
+	
+	@GetMapping(value = { "/index" })
+	public String index() {
+
+		return "/index"; // 請視圖解析器由視圖的邏輯名稱index來找出真正的視圖
+	}
 	// 註冊頁
 	@GetMapping("/register") 
 	public String getregister(Model model) {

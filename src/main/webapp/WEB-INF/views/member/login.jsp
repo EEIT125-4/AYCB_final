@@ -16,7 +16,7 @@
 <%@include file="../jspf/header.jspf"%>
 
 <div class="container">
-<form action="<c:url value="/login"/>" method="post" >
+<form id="fm" action="<c:url value="/login"/>" method="post" >
 	<fieldset class="loginfs" style="margin-left:200px" >
 <!-- 		<div style="margin-top: 20px; margin-left: 580px; width: 700px"> -->
 			<legend style="margin-left: 300px; font-size: 22px">會員登入</legend>
@@ -95,6 +95,8 @@
 		
 	</fieldset>
 </form>
+<form id="test" action="<c:url value="/index" />"></form>
+
 </div>
 <%@include file="../jspf/footer.jspf"%>
 
@@ -123,7 +125,7 @@
 <!--以下請另外放置到 *.js檔案-->
 <script type="text/javascript">
     //jQuery處理button click event 當畫面DOM都載入時....
-    
+    var p1=false;
     var result="";
     
     $(function () {
@@ -227,10 +229,10 @@
                      let googlename= res.result.names[0].displayName;
                      let googlegender= res.result.genders[0].value;
                      let googlemail=res.result.emailAddresses[0].value;
-                     let birthyear=res.result.birthdays[0].year;
-                     let birthmonth=res.result.month;
-                     let birthday=res.result.day;
-                     console.log("googlebirth"+birthyear+"/"+birthmonth+birthday);
+//                      let birthyear=res.result.birthdays[0].year;
+//                      let birthmonth=res.result.month;
+//                      let birthday=res.result.day;
+//                      console.log("googlebirth"+birthyear+"/"+birthmonth+birthday);
                      
                      
                     //↑通常metadata標記primary:true的個資就是你該抓的資料
@@ -240,7 +242,7 @@
 
                     //最終，取得用戶個資後看要填在畫面表單上或是透過Ajax儲存到資料庫(記得是傳id_token給你的Web Server而不是明碼的user_id喔)，本範例就不贅述，請自行努力XD
 
-                    googlelogin2(googlename, googlegender,googlemail,googlebirth);
+                    googlelogin2(googlename, googlegender,googlemail);
                     
                     
                     
@@ -254,7 +256,7 @@
 
     }//end function GoogleLogin
     
-    function googlelogin2(a, b, c,d){
+    function googlelogin2(a, b, c){
     	
     	console.log("result"+result);
     	
@@ -264,8 +266,8 @@
     	let req = JSON.stringify({
     		"name":a,
     		"gender":b,
-    		"email":c,
-    		"birth":d
+    		"email":c
+    		
     		});
     	
     	
@@ -276,13 +278,14 @@
      		datatype:"json",
     		data : {"googlename":a,
     			"googlegender":b,
-    			"googleemail":c,
-    			"googlebirth":d},
+    			"googleemail":c},
 //     		contentType : "application/json;charset=utf-8",
     		
     		success : function(data) {
     			
     			alert("登入成功"+data);
+    			$('#test').submit();
+    			return true;
     			
     		},
     		error:function(){
@@ -362,6 +365,8 @@
 		
 		
 	});
+		
+		
 		
 		
 		
