@@ -130,12 +130,12 @@ function storeAddressChange(){
 <br>
 <br>
 <fieldset
-	style="margin: auto; position: relative; width: 1200px; border: 1px solid transparent;">
+	style="margin: auto; position: relative; width: 1250px; border: 1px solid transparent;">
 	<h4 style="font-weight: bold; text-align: center">購物清單</h4>
 	<br>
 	<table id="tab" class="table table-hover">
 		<thead>
-			<tr>
+			<tr bgcolor='#F0F0F0'>
 				<th style="text-align: center; vertical-align: middle;" scope="col">商品</th>
 				<th style="text-align: center; vertical-align: middle;" scope="col">內容</th>
 				<th style="text-align: center; vertical-align: middle;" scope="col">價格</th>
@@ -165,14 +165,35 @@ function storeAddressChange(){
 			<tr>
 				<th
 					style="text-align: center; vertical-align: middle; font-size: 20px;"
-					colspan="2">總計</th>
+					colspan="2">總計金額：</th>
 				<th
-					style="text-align: center; vertical-align: middle; font-size: 18px;">NT$<%=session.getAttribute("totalPrice")%></th>
+					style="text-align: center; vertical-align: middle; font-size: 18px;">NT$<%=session.getAttribute("totalPrice")%>元</th>
 				<th
 					style="text-align: center; vertical-align: middle; font-size: 18px;"><%=session.getAttribute("totalQtyOrdered")%></th>
 			</tr>
 		</tbody>
 		<tfoot>
+		<tr bgcolor='#F0F0F0'>
+		<td colspan="1" style="text-align: center;vertical-align: middle; font-size: 18px;"><label>付款方式：</label>
+							<select id="paymentType" name="paymentType" required
+							onclick="">
+								<option value="">請選擇...</option>
+								<option value="">超商付款</option>
+								<option value="">信用卡</option>
+		</select></td>
+		<td colspan="1" style="text-align: center;vertical-align: middle; font-size: 18px;"><label>貨運方式：</label>
+							<select id="shippingType" name="shippingType" required
+							onchange="shippingTypeChange()">
+								<option value="">請選擇...</option>
+								<option value="">超商取貨</option>
+						
+								
+		</select></td>
+		<td colspan="2" style="text-align: right;vertical-align: middle; font-size: 18px;">含物流費共： NT$<span
+							id="totalWithFee"><%=session.getAttribute("totalPrice")%></span>元
+		</td>
+		</tr>
+		
 			<tr>
 				<td colspan="2" style="text-align: center; vertical-align: middle;">
 					<fieldset id="recipient">

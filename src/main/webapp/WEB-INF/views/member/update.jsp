@@ -45,9 +45,8 @@
 			<form action="${pageContext.request.contextPath}/member/updateComplete" method="post" enctype='multipart/form-data' >
 				
 				
-				<div class="form-inline " style="margin-left:80px;margin-bottom: 10px;">
-					<img id="demo" class="preview" name="icon"
-								src=<c:if test='${not empty member.getId()}'>
+				<div class="form-inline " style="margin-left:300px;margin-bottom: 10px;">
+					<img id="demo" class="preview" name="icon" src=<c:if test='${not empty member.getId()}'>
 							<c:out value="${pageContext.request.contextPath}/pic/${member.iconid}"/>
 							
 							</c:if>
