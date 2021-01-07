@@ -113,39 +113,39 @@
 					</div>
 					<!--                         內文區 -->
 					<div class="blog__details__text">
-						<textarea id="editor" disabled="disabled">${blog.reflection}</textarea>
+						<p>${blog.reflection}</p>
 					</div>
 					
 <!-- 					<div class="blog__details__text"> -->
 <%-- 						<p>${blog.reflection}</p> --%>
 <!-- 					</div> -->
 					<!--                         引用文章時的格式 -->
-					<div class="blog__details__quote">
-						<i class="fa fa-quote-left"></i>
-						<p>“When designing an advertisement for a particular product
-							many things should be researched like where it should be
-							displayed.”</p>
-						<h6>_ John Smith _</h6>
-					</div>
+<!-- 					<div class="blog__details__quote"> -->
+<!-- 						<i class="fa fa-quote-left"></i> -->
+<!-- 						<p></p> -->
+<!-- 						<h6>_ John Smith _</h6> -->
+<!-- 					</div> -->
 
-					<div class="blog__details__text">
-						<p>Vyo-Serum along with tightening the skin also reduces the
-							fine lines indicating aging of skin. Problems like dark circles,
-							puffiness, and crow’s feet can be control from the strong effects
-							of this serum.</p>
-						<p>Hydroderm is a multi-functional product that helps in
-							reducing the cellulite and giving the body a toned shape, also
-							helps in cleansing the skin from the root and not letting the
-							pores clog, nevertheless also let’s sweeps out the wrinkles and
-							all signs of aging from the sensitive near the eyes.</p>
-					</div>
+<!-- 					<div class="blog__details__text"> -->
+<!-- 						<p>Vyo-Serum along with tightening the skin also reduces the -->
+<!-- 							fine lines indicating aging of skin. Problems like dark circles, -->
+<!-- 							puffiness, and crow’s feet can be control from the strong effects -->
+<!-- 							of this serum.</p> -->
+<!-- 						<p>Hydroderm is a multi-functional product that helps in -->
+<!-- 							reducing the cellulite and giving the body a toned shape, also -->
+<!-- 							helps in cleansing the skin from the root and not letting the -->
+<!-- 							pores clog, nevertheless also let’s sweeps out the wrinkles and -->
+<!-- 							all signs of aging from the sensitive near the eyes.</p> -->
+<!-- 					</div> -->
 
 
 					<div class="blog__details__option">
+						<div style="font-weight:bold;"><h2>作者資訊</h2></div>
 						<div class="row">
 							<div class="col-lg-6 col-md-6 col-sm-6">
 								<div class="blog__details__author">
 									<div class="blog__details__author__pic">
+<!-- 									作者大頭貼 -->
 										<img
 											src="${pageContext.request.contextPath}/pic/${blog.getMember().getIconid()}"
 											alt="">
@@ -156,11 +156,13 @@
 								</div>
 							</div>
 							<div class="col-lg-6 col-md-6 col-sm-6">
-								<div class="blog__details__tags">
-									<a href="#">#Fashion</a> <a href="#">#Trending</a> <a href="#">#2020</a>
-								</div>
-							</div>
+<!-- 							作者標籤
+<!-- 								<div class="blog__details__tags"> -->
+<!-- 									<a href="#">#Fashion</a> <a href="#">#Trending</a> <a href="#">#2020</a> -->
+<!-- 								</div> -->
+							</div>							
 						</div>
+						<div style="border:1px solid #acd6ff;border-radius:10px;">${blog.getMember().getIntroduce()}</div>
 					</div>
 
 					<!--                         操作區 -->
@@ -168,21 +170,20 @@
 					<div class="blog__details__btns">
 						<div class="row">
 							<div class="col-lg-6 col-md-6 col-sm-6">
-								<a href="" class="blog__details__btns__item">
+								<a href="${pageContext.request.contextPath}/blog/${blog.blogId-1}" class="blog__details__btns__item">
 									<p>
 										<span class="arrow_left"></span> 上一篇
 									</p>
-									<h5>It S Classified How To Utilize Free Classified Ad
-										Sites</h5>
+<!-- 									<h5>It S Classified How To Utilize Free Classified Ad Sites</h5> -->
 								</a>
 							</div>
 							<div class="col-lg-6 col-md-6 col-sm-6">
-								<a href=""
+								<a href="${pageContext.request.contextPath}/blog/${blog.blogId+1}"
 									class="blog__details__btns__item blog__details__btns__item--next">
 									<p>
 										下一篇 <span class="arrow_right"></span>
 									</p>
-									<h5>Tips For Choosing The Perfect Gloss For Your Lips</h5>
+<!-- 									<h5>Tips For Choosing The Perfect Gloss For Your Lips</h5> -->
 								</a>
 							</div>
 						</div>

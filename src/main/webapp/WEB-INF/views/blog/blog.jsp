@@ -34,12 +34,13 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 	</section>
 	<!-- Breadcrumb Section End -->
 	<c:if test="${not empty member }">
-	<a class="a1" href="${pageContext.request.contextPath}/blog/empty">
+	<a class="a1" href="${pageContext.request.contextPath}/blog/edit">
 		<h3>我要上傳文章</h3>	
 	</a>
 	</c:if>
 		<!-- Blog Section Begin -->
 		<section class="blog spad">
+		
 			<div class="container">
 				<div class="row">
 				<c:forEach var='b' varStatus='bg' items='${blog}'>
@@ -54,6 +55,10 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 								<span>瀏覽人次:${b.views}</span>	
 								 <span class="thumbsup">按讚次數:${b.thumbs} </span>
 								<a href="${pageContext.request.contextPath}/blog/${b.blogId}">Read More</a>
+								<c:if test="${b.member.id eq member.id}">
+								<br>
+								<a href="${pageContext.request.contextPath}/blog/edit/${b.blogId}">edit</a>
+								</c:if>
 							</div>
 						</div>
 					</div>
