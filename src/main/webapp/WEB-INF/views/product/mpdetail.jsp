@@ -41,9 +41,9 @@
 						<form:input type="hidden" path="producttype" />
 					</div>
 					<div class="infono">
-						商品編號：${ProductBean.brandno}${ProductBean.productno} <input
-							type="hidden" name="productno" value="${ProductBean.productno}" />
-						<input type="hidden" name="brandno" value="${ProductBean.brandno}" />
+						商品編號：${ProductBean.brandno}${ProductBean.productno} 
+						<form:input type="hidden" path="productno" />
+						<form:input type="hidden" path="brandno" />
 
 					</div>
 					<hr>
@@ -55,6 +55,7 @@
 						種類：${ProductBean.productcategory}
 						<form:input type="hidden" path="productcategory" />
 						<form:input type="hidden" path="skintype" />
+						<form:input type="hidden" path="imagepath" />
 					</div>
 					<hr>
 					<div id="infoprice" class="updateprice">NT$：${ProductBean.productprice}</div>

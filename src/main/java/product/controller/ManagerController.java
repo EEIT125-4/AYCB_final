@@ -103,6 +103,7 @@ public class ManagerController {
 			@ModelAttribute("ProductBean") ProductBean pb
 	) {
 		ps.updateProduct(pb);
+		System.out.println("update" + pb);
 		return "redirect:/MProduct";
 	}
 	

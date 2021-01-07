@@ -46,8 +46,8 @@ public class MemberBean implements Serializable {
 	@Column(columnDefinition = "nvarchar(Max)")
 	private String gender;
 	
-	@Column(columnDefinition = "nvarchar(Max)")
-	private String introduce;
+	@Column(columnDefinition = "nvarchar(Max) default=''" )
+	private String introduce="";
 	
 	private Integer level;
 	@Column(columnDefinition="int default 0")
