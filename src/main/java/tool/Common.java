@@ -55,14 +55,14 @@ public class Common
 	
 	
 //	博淞的	
-//	public static String UPLOAD_PATH = "C:/Users/Student/git/AYCB_final/src/main/webapp/WEB-INF/views/image";
-//	public static String IMAGE_REAL_PATH = "C:\\Users\\Student\\git\\AYCB_final\\src\\main\\webapp\\WEB-INF\\views\\image";	
-//	public static String UPLOAD_VIDEO="C:/Users/Student/git/AYCB_final/src/main/webapp/video";
+	public static String UPLOAD_PATH = "C:/Users/Student/git/AYCB_final/src/main/webapp/WEB-INF/views/image";
+	public static String IMAGE_REAL_PATH = "C:\\Users\\Student\\git\\AYCB_final\\src\\main\\webapp\\WEB-INF\\views\\image";	
+	public static String UPLOAD_VIDEO="C:/Users/Student/git/AYCB_final/src/main/webapp/video";
 	
 //	Kevin的環境
-	public static String UPLOAD_PATH = "C:/Users/user/git/AYCB_final/src/main/webapp/WEB-INF/views/image";
-	public static String IMAGE_REAL_PATH = "C:\\Users\\user\\git\\AYCB_final\\src\\main\\webapp\\WEB-INF\\views\\image";
-	public static String UPLOAD_VIDEO="C:/Users/user/git/AYCB_final/src/main/webapp/video";
+//	public static String UPLOAD_PATH = "C:/Users/user/git/AYCB_final/src/main/webapp/WEB-INF/views/image";
+//	public static String IMAGE_REAL_PATH = "C:\\Users\\user\\git\\AYCB_final\\src\\main\\webapp\\WEB-INF\\views\\image";
+//	public static String UPLOAD_VIDEO="C:/Users/user/git/AYCB_final/src/main/webapp/video";
 	
 	
 	

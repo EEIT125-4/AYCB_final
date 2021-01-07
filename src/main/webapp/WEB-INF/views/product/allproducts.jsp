@@ -127,7 +127,9 @@ if(session.getAttribute("member")!=null){
 							<a href="<c:url value='/cartAdd?productno=${pro.productno}&count=1'  />" onclick="return addCart()"> <img class="cartimg" src="image/bg_cart_b.svg">
 							</a>
 							<% }else{%>
-							<img class="cartimg" src="">
+							<a href="${pageContext.request.contextPath}/member/login">
+							<img class="cartimg" src="image/bg_cart_b.svg">
+							</a>
 							<% } %>
 						</div>
 					</div>

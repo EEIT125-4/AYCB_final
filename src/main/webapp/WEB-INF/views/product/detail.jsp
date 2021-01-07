@@ -113,7 +113,7 @@
 						<div>
 							<div class="line-it-button" data-lang="zh_Hant"
 								data-type="share-a" data-ver="3"
-								data-url="http://localhost:8080/AYCB/Detail?no=${Detail.productno}"
+								data-url="http://localhost:8080/AYCB_final/Detail?no=${Detail.productno}"
 								data-color="default" data-size="large" data-count="true"
 								style="display: none;"></div>
 							<script
