@@ -228,7 +228,7 @@
 //                     document.getElementById('content').innerHTML = str;
                     console.log(res.result);
                      console.log(res.result.names[0].displayName);
-//                      console.log(res.result.genders[0].value);
+//                   console.log(res.result.genders[0].value);
                      console.log(res.result.emailAddresses[0].value);
 //                      console.log(res.result.residences[0].value);
 //                      console.log(res.result.occupations[0].value);
@@ -277,9 +277,8 @@
     	
     	let req = JSON.stringify({
     		"name":a,
-    		"email":b,
-    
-    		
+    		"gender":c,
+    		"email":b
     		
     		});
     	
@@ -290,9 +289,8 @@
     		url :   "google" ,
      		datatype:"json",
     		data : {"googlename":a,
-    			"googleemail":b
-    			
-    			},
+    			"googlegender":c,
+    			"googleemail":b},
 //     		contentType : "application/json;charset=utf-8",
     		
     		success : function(data) {

@@ -210,8 +210,7 @@ width:100px;
                             </li>
 							<li><a href="${pageContext.request.contextPath}/event/showEvent">預約活動</a>
 							<ul class="dropdown">
-                                    <li><a href="<c:url value='/event/showAttendance'/>">查詢報名</a></li> 
-                                    <li><a href="<c:url value='/event/showAllAttendanceByID'/>?id=${member.id}">查詢會員報名</a></li>
+                                <li><a href="<c:url value='/event/showAllAttendanceByID'/>?id=${member.id}">查詢會員報名</a></li>
                                 </ul>
 							</li>
 						</ul>
