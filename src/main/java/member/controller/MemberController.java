@@ -411,7 +411,7 @@ public class MemberController {
 	  @RequestParam(value = "googleemail", required = false) String email,
       @RequestParam(value = "googlebirth", required = false) String birth)
 		  {
-    	  System.out.println("birth"+birth);
+    	  System.out.println("birth"+email);
     	  boolean res=memberService.emailcheck(email);
     	  MemberBean mb = new MemberBean();
     	  if(res==false){
@@ -428,7 +428,6 @@ public class MemberController {
 //    	  		cookie.setMaxAge(60*10);
 //    	  		cookie.setPath("/AYCB");
 //    	  		response.addCookie(cookie);
-    	  		
     		  memberService.insertregister(memberBean);
     		  
 //    		  MemberBean mb = (MemberBean) session.getAttribute("member");
@@ -436,7 +435,7 @@ public class MemberController {
 //  
 //    	  }else {MemberBean mb = (MemberBean) session.getAttribute("member");
     	  }
-    	  
+    	  System.out.println(email);
     	  MemberBean mbb=memberService.getemail(email);
     	  
     	  session.setAttribute("member", mbb);

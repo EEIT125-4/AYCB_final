@@ -218,16 +218,16 @@
 //                     document.getElementById('content').innerHTML = str;
                     console.log(res.result);
                      console.log(res.result.names[0].displayName);
-                     console.log(res.result.genders[0].value);
+//                   console.log(res.result.genders[0].value);
                      console.log(res.result.emailAddresses[0].value);
-                     console.log(res.result.residences[0].value);
-                     console.log(res.result.occupations[0].value);
+//                      console.log(res.result.residences[0].value);
+//                      console.log(res.result.occupations[0].value);
          
                      // 你變數宣告在這 下面的方法當然拿不到
                    
                      // 但是你下面兩個變數是宣告在這裏面
                      let googlename= res.result.names[0].displayName;
-                     let googlegender= res.result.genders[0].value;
+//                      let googlegender= res.result.genders[0].value;
                      let googlemail=res.result.emailAddresses[0].value;
 //                      let birthyear=res.result.birthdays[0].year;
 //                      let birthmonth=res.result.month;
@@ -242,7 +242,7 @@
 
                     //最終，取得用戶個資後看要填在畫面表單上或是透過Ajax儲存到資料庫(記得是傳id_token給你的Web Server而不是明碼的user_id喔)，本範例就不贅述，請自行努力XD
 
-                    googlelogin2(googlename, googlegender,googlemail);
+                    googlelogin2(googlename,googlemail);
                     
                     
                     
@@ -265,8 +265,8 @@
     	
     	let req = JSON.stringify({
     		"name":a,
-    		"gender":b,
-    		"email":c
+    		"gender":c,
+    		"email":b
     		
     		});
     	
@@ -277,8 +277,8 @@
     		url :   "google" ,
      		datatype:"json",
     		data : {"googlename":a,
-    			"googlegender":b,
-    			"googleemail":c},
+    			"googlegender":c,
+    			"googleemail":b},
 //     		contentType : "application/json;charset=utf-8",
     		
     		success : function(data) {

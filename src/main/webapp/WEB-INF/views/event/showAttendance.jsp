@@ -15,31 +15,52 @@
 <%@include file="../jspf/header.jspf"%>
 
 <div class="container" style="margin-bottom: 80px">
-		<div>
-			<div
-				style="float: left; width: 20%; text-align: center; margin-left: 220px;">
+<!--  <ul class="nav nav-tabs"> -->
+<!--         <li><a href="#home" data-toggle="tab">所有參加者</a></li> -->
+<!--         <li><a href="#board" data-toggle="tab">留言板</a></li> -->
+<!--         <li><a href="#download" data-toggle="tab">下載區</a></li> -->
+<!--         <li><a href="#config" data-toggle="tab">設定</a></li> -->
+<!--       </ul> -->
+<!--       <div class="tab-content" style="padding:10px;"> -->
+<!--         <div class="tab-pane active" > -->
+<!--           <p>這是首頁</p> -->
+<!--         </div> -->
+<!--         <div class="tab-pane" id="board"> -->
+<!--           <p>這是留言板</p> -->
+<!--         </div> -->
+<!--         <div class="tab-pane" id="download"> -->
+<!--           <p>這是下載區</p> -->
+<!--         </div> -->
+<!--         <div class="tab-pane" id="config"> -->
+<!--           <p>這是設定</p> -->
+<!--         </div> -->
+<!--       </div> -->
+<!--     </div> -->
+<!-- 		<div> -->
+<!-- 			<div -->
+<!-- 				style="float: left; width: 20%; text-align: center; margin-left: 220px;"> -->
 
-				<dl>
-					<dt>
-						<h2>預約活動</h2>
-					</dt>
-					<hr width=70% size=1 color=#BFBFBF
-						style="FILTER: alpha(opacity = 100, finishopacity = 0, style = 3)">
-					<dt class="a1">
-						<A href="showEvent">
-							<h2>活動介紹</h2>
-						</A>
-					</dt>
-					<dt class="a1">
-						<a href="<c:url value='showAllAttendanceByID'/>?id=${member.id}"><h2>查詢會員報名</h2></a>	
-					</dt>
-					<dt class="a1">
-						<A href='showAttendance'><h2>查詢報名</h2></A>	
-					</dt>
+<!-- 				<dl> -->
+<!-- 					<dt> -->
+<!-- 						<h2>預約活動</h2> -->
+<!-- 					</dt> -->
+<!-- 					<hr width=70% size=1 color=#BFBFBF -->
+<!-- 						style="FILTER: alpha(opacity = 100, finishopacity = 0, style = 3)"> -->
+<!-- 					<dt class="a1"> -->
+<!-- 						<A href="showEvent"> -->
+<!-- 							<h2>活動介紹</h2> -->
+<!-- 						</A> -->
+<!-- 					</dt> -->
+<!-- 					<dt class="a1"> -->
+<%-- 						<a href="<c:url value='showAllAttendanceByID'/>?id=${member.id}"><h2>查詢會員報名</h2></a>	 --%>
+<!-- 					</dt> -->
+<!-- 					<dt class="a1"> -->
+<!-- 						<A href='showAttendance'><h2>查詢報名</h2></A>	 -->
+<!-- 					</dt> -->
 
-				</dl>
-			</div>
-		</div>
+<!-- 				</dl> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
 	
 	
 		<h1>報名資料</h1>
@@ -48,7 +69,7 @@
 		查無報名資料<br>
 		</c:when>
 		<c:otherwise>
-			<table border='1' >
+			<table  class="table table-borderless table-dark">
 				<tr>				
 					<td>帳號</td>
 					<td>活動名稱</td>
@@ -75,8 +96,8 @@
 			</table>
 		</c:otherwise>
 		</c:choose>
-		<p />
-		<a href="<c:url value='attendanceForm'/>">回到報名</a>
+	
+<%-- 		<a href="<c:url value='attendanceForm'/>">回到報名</a> --%>
 	
 </div>
 
