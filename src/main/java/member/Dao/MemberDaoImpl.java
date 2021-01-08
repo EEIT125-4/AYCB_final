@@ -51,9 +51,7 @@ public class MemberDaoImpl implements MemberDao {
 		}
 	}
 	
-	
-	
-	
+
 	
 	
 	//帳號密碼登入

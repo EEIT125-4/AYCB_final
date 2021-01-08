@@ -21,13 +21,7 @@
 	integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
 	crossorigin="anonymous">
 <!-- 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> -->
-	<style>
-.swal2-confirm {
 
-width:100px
-}
-	
-</style>
 
 <title>註冊</title>
 </head>

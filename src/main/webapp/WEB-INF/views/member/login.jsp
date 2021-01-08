@@ -156,13 +156,23 @@
 //      		contentType : "application/json;charset=utf-8",
      		
      		success : function(data) {
-     			
      			if(data=="ok"){
-     				swal("密碼重置","已寄送新密碼至您信箱","success")
+     				
+     				swal.fire({
+      				  title: "請到信箱收信",
+      				  text: "成功",
+      				  icon: "success",
+      				  button: "OK",
+      				});
      				
      			}else{
-     				
-     				swal("發生錯誤","寄送過程發生錯誤,請稍後再試或撥打客服電話","error")
+     			
+     				swal.fire({
+      				  title: "oops",
+      				  text: "寄送過程發生錯誤,請稍後再試或撥打客服電話",
+      				  icon: "error",
+      				  button: "OK",
+      				});
      				
      			}
      			

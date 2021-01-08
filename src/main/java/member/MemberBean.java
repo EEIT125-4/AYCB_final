@@ -56,7 +56,7 @@ public class MemberBean implements Serializable {
 	@Column(columnDefinition="int default 0")
 	private Integer iconid;
 	
-	
+	@Column(columnDefinition="bit default 0")
 	private boolean ckpower;
 	
 	
