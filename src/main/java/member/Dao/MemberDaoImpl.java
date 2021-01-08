@@ -1,7 +1,9 @@
 package member.Dao;
 
+import java.time.chrono.IsoChronology;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -17,6 +19,8 @@ public class MemberDaoImpl implements MemberDao {
     @Autowired
 	SessionFactory factory ;
 
+    
+    //判斷帳號重複
 	@SuppressWarnings("unchecked")
 	public boolean isDup(String account) {
 		boolean result = false;
@@ -32,7 +36,7 @@ public class MemberDaoImpl implements MemberDao {
 
 		return result;
 	}
-	
+
 	public List<MemberBean> checkDup() {
 		String hql = "FROM MemberBean";
 		Session session = factory.getCurrentSession();
@@ -52,7 +56,7 @@ public class MemberDaoImpl implements MemberDao {
 	
 	
 	
-
+	//帳號密碼登入
 	public boolean identify(String account, String password) {
 		
 		Session session = factory.getCurrentSession();
@@ -84,6 +88,8 @@ public class MemberDaoImpl implements MemberDao {
 
 	}
 
+	
+	//新增
 	@Override
 	public int insertregister(MemberBean mb) {
 		int count = 0;
@@ -107,7 +113,7 @@ public class MemberDaoImpl implements MemberDao {
 //		
 		return list;
 	}
-
+//取得信箱
 	@Override
 	@SuppressWarnings("unchecked")
 	public MemberBean getemail(String email ) {
@@ -119,6 +125,40 @@ public class MemberDaoImpl implements MemberDao {
 		return mb;
 		
 	}	
+
+//權限
+	@Override
+	@SuppressWarnings("unchecked")
+	public MemberBean ckpower(String account ) {
+		MemberBean mb = new MemberBean();
+		String hql="FROM MemberBean m WHERE m.account =:acc ";
+		Session session = factory.getCurrentSession();
+		Query<MemberBean> query=session.createQuery(hql);
+		List<MemberBean> list =  query.setParameter("account0", account).getResultList();
+		 if (list.size()>0) {
+			 if(list.get(0).isCkpower()) {
+				return list.get(0); 
+			 }else {
+				 mb.setId(0);
+			}
+			 
+	}
+		return mb;
+
+	}
+	
+	
+	//權限
+	@Override
+	@SuppressWarnings("unchecked")
+	public void ckpower2(String account) {
+		
+		MemberBean mb = factory.getCurrentSession().get(MemberBean.class , account);
+		mb.setCkpower(!mb.isCkpower());
+		
+	}
+	
+	
 
 	
 //	@Override
@@ -143,7 +183,7 @@ public class MemberDaoImpl implements MemberDao {
 ////		
 //		return count;
 //	}
-
+//更新
 	@Override
 	public int update(MemberBean mb) {
 		int count = 0;
@@ -154,7 +194,7 @@ public class MemberDaoImpl implements MemberDao {
 		return count;
 	}
 	
-	
+	//會員取得
 	public MemberBean getMember(String account) {
 		
 		Session session = factory.getCurrentSession();
@@ -166,6 +206,7 @@ public class MemberDaoImpl implements MemberDao {
 		return mb;	
 		
 	}
+	//信箱重複確認
 	@Override
 	public boolean emailcheck(String email) {
 		boolean result = false;
@@ -193,7 +234,7 @@ public class MemberDaoImpl implements MemberDao {
 		MemberBean mb = query.setParameter("pk", pk).getSingleResult();
 		return mb;
 	}
-
+//用會員抓信箱
 	@Override
 	public MemberBean getMemberByEmail(String email) {
 		Session session = factory.getCurrentSession();

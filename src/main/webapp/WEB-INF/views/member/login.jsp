@@ -89,7 +89,7 @@
 			
 	<div class="d-flex justify-content-center" >
 			 <button type="button" id="btnSignIn" class="btn btn-info" style="width:130px;margin-right:20px">Google登入</button>
-			 <button type="button" class="btn btn-danger" id="btnDisconnect" style="width:130px">斷連Google </button>
+			 <button type="button" class="btn btn-danger" id="btnDisconnect" style="width:130px">Google登出 </button>
     </div>
 <!--      <div id="content" style="background-color: orange;"></div> -->
 		
@@ -229,10 +229,11 @@
                      let googlename= res.result.names[0].displayName;
 //                      let googlegender= res.result.genders[0].value;
                      let googlemail=res.result.emailAddresses[0].value;
+//                      let googledate=res.result.birthdays[0].date;
 //                      let birthyear=res.result.birthdays[0].year;
 //                      let birthmonth=res.result.month;
 //                      let birthday=res.result.day;
-//                      console.log("googlebirth"+birthyear+"/"+birthmonth+birthday);
+//                       console.log("googlebirth"+googledate);
                      
                      
                     //↑通常metadata標記primary:true的個資就是你該抓的資料
@@ -256,12 +257,13 @@
 
     }//end function GoogleLogin
     
-    function googlelogin2(a, b, c){
+    function googlelogin2(a, b){
     	
     	console.log("result"+result);
     	
     	console.log("a="+a);
     	console.log("b="+b);
+    
     	
     	let req = JSON.stringify({
     		"name":a,

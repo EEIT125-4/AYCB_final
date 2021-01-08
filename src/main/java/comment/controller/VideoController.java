@@ -67,9 +67,6 @@ public class VideoController {
 			if (file != null && file.getSize() > 0) {
 
 				System.out.println("影片路徑" + context.getRealPath("/"));
-
-				
-				
 				video.setCommentTime(new Timestamp(new Date().getTime()));
 				video.setUrl(Common.saveVideo(file));
 				vs.insertVideo(video);
@@ -105,6 +102,12 @@ public class VideoController {
 			return "comment/videoForm";
 		}
 		return "comment/videoForm";
+	}
+	
+	//去到更新的頁面
+	@GetMapping("/uploadedVideo")
+	public String UploadedVideo() { 
+		return "comment/videoUpdate";
 	}
 
 	// 選擇一部需要更新的影片

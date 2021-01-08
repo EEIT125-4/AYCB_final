@@ -72,5 +72,5 @@ public interface ProductService {
 	
 	List<ProductBean> getBrandPage(int pageNo, String brandname);
 	
-	List<ProductBean> ra(String cate);
+	List<ProductBean> racate(String cate);
 }

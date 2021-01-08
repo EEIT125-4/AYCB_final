@@ -46,8 +46,6 @@ public class ProductController {
 		System.out.println("gson parse:"+result);
 		
 		return gson.toJson(products);
-
-		
 	}
 
 	@GetMapping("/AllProducts")
@@ -143,13 +141,17 @@ public class ProductController {
 	
 	@GetMapping("/Detail")
 	public ModelAndView detail(Model model, 
-			@RequestParam(value = "no", required = false) Integer no
+			@RequestParam(value = "no", required = false) Integer no,
+			@RequestParam(value = "cate", required = false) String cate
 	) {
 		ModelAndView mav=new ModelAndView();
 		
 		ProductBean detail = ps.getProduct(no);
 //		model.addAttribute("Detail", detail);
 		mav.addObject("Detail",detail);
+		System.out.println("XXX  " + cate);
+		List<ProductBean> racate = ps.racate(cate);
+		mav.addObject("racate",racate);
 		CommentBean commentBean=new CommentBean();
 //		model.addAttribute("leave",commentBean);
 		mav.addObject("leave",commentBean);

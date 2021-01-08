@@ -32,6 +32,14 @@ body {
 	top: 200px;
 }
 
+.content {
+	clear: both;
+	width: 960px;
+	overflow: hidden;
+	margin-left: 20px;
+	margin-bottom: 50px;
+}
+
 .a1:hover {
 	color: #4D4D4D;
 }

@@ -113,7 +113,7 @@ if(session.getAttribute("member")!=null){
 						<!-- 								class="fa fa-heart-o"></i></a> <a class="like_a" href=""><i -->
 						<!-- 								class="fa fa-heart nopadding"></i></a> -->
 						<!-- 						</div> -->
-						<a href='<c:url value="/Detail" />?no=${pro.productno}'>
+						<a href='<c:url value="/Detail" />?no=${pro.productno}&cate=${pro.productcategory}'>
 						<img class="proimg" src="${pageContext.request.contextPath}/pic/${pro.imagepath}">
 						</a>
 							
