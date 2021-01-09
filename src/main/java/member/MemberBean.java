@@ -32,6 +32,9 @@ public class MemberBean implements Serializable {
 	private Integer id;
 	@Column(columnDefinition = "nvarchar(Max)")
 	private String account;
+	
+
+
 	@Column(columnDefinition = "nvarchar(Max)")
 	private String name;
 	@Column(columnDefinition = "nvarchar(Max)")
@@ -52,6 +55,9 @@ public class MemberBean implements Serializable {
 	private Integer level;
 	@Column(columnDefinition="int default 0")
 	private Integer iconid;
+	
+	@Column(columnDefinition="bit default 0")
+	private boolean ckpower;
 	
 	
 	@Transient
@@ -169,7 +175,13 @@ public class MemberBean implements Serializable {
 	public void setIconid(Integer iconid) {
 		this.iconid = iconid;
 	}
+	public boolean isCkpower() {
+		return ckpower;
+	}
 
+	public void setCkpower(boolean ckpower) {
+		this.ckpower = ckpower;
+	}
 
 
 	public MemberBean(Integer id, String account, String name, String password, String address, String phone,

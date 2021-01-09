@@ -296,7 +296,7 @@ public class MemberController {
 		}
 		
 		memberService.update(mb);
-		return "index";
+		return "redirect:/";
 
 	}
 	
@@ -410,13 +410,14 @@ public class MemberController {
 		 HttpServletResponse response,
 		 HttpSession session,
 	  @RequestParam(value = "googleemail", required = false) String email,
-      @RequestParam(value = "googlebirth", required = false) String birth)
+      @RequestParam(value = "googlebirth", required = false) Date birth)
 		  {
-    	  System.out.println("birth"+birth);
+    	  System.out.println("birth"+email);
     	  boolean res=memberService.emailcheck(email);
     	  MemberBean mb = new MemberBean();
+    	  
     	  if(res==false){
-    		  MemberBean memberBean=new MemberBean(0, null, name, null, null, null, null, email, gender, null,null);
+    		  MemberBean memberBean=new MemberBean(0, null, name, null, null, null, birth, email, gender, null,null);
     		  System.out.println("birth"+birth);
     	  
 //    	  		Cookie[] cookies = request.getCookies();
@@ -425,12 +426,12 @@ public class MemberController {
 //    	  			System.out.println(cookie.getName());
 //    	  			System.out.println(cookie.getValue());
 //    	  		}
-    	  		Cookie cookie = new Cookie("memberCookie", memberBean.getName());
+    	  		//Cookie cookie = new Cookie("memberCookie", memberBean.getName());
     	  		//設定秒數
-    	  		cookie.setMaxAge(60*60*24*365);//存個一年
+    	  		//cookie.setMaxAge(60*60*24*365);//存個一年
     	  		
-    	  		cookie.setPath("/AYCB_final");
-    	  		response.addCookie(cookie);
+    	  		//cookie.setPath("/AYCB_final");
+    	  		//response.addCookie(cookie);
     	  		
     		  memberService.insertregister(memberBean);
     		  
@@ -439,7 +440,7 @@ public class MemberController {
 //  
 //    	  }else {MemberBean mb = (MemberBean) session.getAttribute("member");
     	  }
-    	  
+    	  System.out.println(email);
     	  MemberBean mbb=memberService.getemail(email);
     	  
     	  session.setAttribute("member", mbb);

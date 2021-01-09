@@ -81,10 +81,10 @@
 			xhr2.open("GET", "<c:url value='/GetProductsByBrand' />"
 					+ "?brandname=" + brandname, true);
 			xhr2.send();
-			// 			var pageNo = document.getElementById('pageNo').value;
-			// 			xhr3.open("GET", "<c:url value='/GetgetProductsPage' />"
-			// 					+ "?pageNo=" + pageNo, true);
-			// 			xhr3.send();
+// 						var pageNo = document.getElementById('pageNo').value;
+// 						xhr3.open("GET", "<c:url value='/GetgetProductsPage' />"
+// 								+ "?pageNo=" + pageNo, true);
+// 						xhr3.send();
 		}
 		function display(responseText) {
 			var product = JSON.parse(responseText);
@@ -110,22 +110,22 @@
 						+ "<i class='fa fa-trash fa-2x cartimg' aria-hidden='true'></i>"
 						+ "</a>" + "</div>" + "</div>" + "</div>";
 			}
-			// 			content += "<div class='page'>" + "<ul class='page_ul'>"
-			// 					+ "<li class='page_ul_li'>"
-			// 					+ "<a class='page_ul_li_a' href='<c:url value="/GetBrandPage" />?pageNo=" + Pages-1 + "'>"
-			// 					+ "<i class='fa fa-angle-double-left' aria-hidden='true'></i>"
-			// 					+ "</a>" + "</li>";
-			// 			for (var i = 1; i < TotalPages; i++) {
-			// 				content += "<li class='page_ul_li'>"
-			// 						+ "<a id='pageNo' class='page_ul_li_a' href='<c:url value="/GetBrandPage" />?pageNo=" + i + "'>" 
-			// 						+ i
-			// 						+"</a>" + "</li>";
-			// 			}
-			// 			content += "<li class='page_ul_li'>"
-			// 					+ "<a class='page_ul_li_a' href='<c:url value="/GetBrandPage" />?pageNo=" + Pages+1 + "'>"
-			// 					+ "<i class='fa fa-angle-double-right' aria-hidden='true'></i>"
-			// 					+ "</a>" + "</li>" + "</ul>" + "</div>";
-			// 			content += "</div>";
+// 						content += "<div class='page'>" + "<ul class='page_ul'>"
+// 								+ "<li class='page_ul_li'>"
+// 								+ "<a class='page_ul_li_a' href='<c:url value="/GetBrandPage" />?pageNo=" + Pages-1 + "'>"
+// 								+ "<i class='fa fa-angle-double-left' aria-hidden='true'></i>"
+// 								+ "</a>" + "</li>";
+// 						for (var i = 1; i < TotalPages; i++) {
+// 							content += "<li class='page_ul_li'>"
+// 									+ "<a id='pageNo' class='page_ul_li_a' href='<c:url value="/GetBrandPage" />?pageNo=" + i + "'>" 
+// 									+ i
+// 									+"</a>" + "</li>";
+// 						}
+// 						content += "<li class='page_ul_li'>"
+// 								+ "<a class='page_ul_li_a' href='<c:url value="/GetBrandPage" />?pageNo=" + Pages+1 + "'>"
+// 								+ "<i class='fa fa-angle-double-right' aria-hidden='true'></i>"
+// 								+ "</a>" + "</li>" + "</ul>" + "</div>";
+// 						content += "</div>";
 			area.innerHTML = content;
 			var brandname = selectElement.options[selectElement.selectedIndex].value;
 			if (brandname == "") {
@@ -135,6 +135,27 @@
 						+ " 種產品";
 			}
 		}
+		
+		
+		
+		$(document).ready(function() {
+		      $.ajax({
+		        url : "/Brands",//後臺請求的資料，用的是PHP
+		        dataType : "json",//資料格式
+		        type : "get",//請求方式
+		        async : false,//是否非同步請求
+		        success : function(data) {  //如果請求成功，返回資料。
+		        var html = "";
+		        for(var i=0;i<data.length;i++){  //遍歷data陣列
+		            var ls = data[i];  
+		            html +="<span>測試："+ls.name+"</span>";
+		          }
+		          $("#area").html(html); //在html頁面id=test的標籤裡顯示html內容
+		        },
+		      })
+		    })
+		
+		
 	</script>
 <%@include file="../jspf/footer.jspf"%>
 </body>

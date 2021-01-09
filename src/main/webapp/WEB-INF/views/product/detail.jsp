@@ -25,7 +25,6 @@
 
 <div class="contentoutbox">
 	<div class="contentBox">
-
 		<div class="leftside">
 			<div class="condition">條件篩選</div>
 			<div class="category">
@@ -72,67 +71,100 @@
 		</div>
 
 		<div class="rightoutbox">
-
-			<form name="AddForm"
-				action="${pageContext.request.contextPath}/cartAdd" method="get">
-				<input type="hidden" name="todo" value="add">
-				<div class="rightside">
-					<div class="imgbox">
-						<a href="#"> <img class="proimg"
-							src="${pageContext.request.contextPath}/pic/${Detail.imagepath}"></a>
-					</div>
-				</div>
-
-				<div class="infobox">
-
-					<div class="infoname">${Detail.productname}</div>
-					<div class="infono">商品編號：${Detail.brandno}${Detail.productno}</div>
-					<hr>
-					<div class="infoseries">系列：${Detail.productseries}</div>
-					<div class="infocate">種類：${Detail.productcategory}</div>
-					<hr>
-					<div class="infoprice">NT$：${Detail.productprice}</div>
-					<div>
-						<div class="infocount">
-							數量 : <select name="count" class="countsel">
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>
-								<option value="7">7</option>
-								<option value="8">8</option>
-								<option value="9">9</option>
-								<option value="10">10</option>
-							</select>
-
-						</div>
-						<br> <br> <br>
-						<div>
-							<input class="btn btn-dark" style="font-size: 18px;"
-								type=<%=session.getAttribute("member") != null ? "submit" : "hidden"%>
-								value="加入購物車"> <input type="hidden" name="productno"
-								value="${Detail.productno}">
-						</div>
-						<br>
-
-						<div>
-							<div class="line-it-button" data-lang="zh_Hant"
-								data-type="share-a" data-ver="3"
-								data-url="http://localhost:8080/AYCB_final/Detail?no=${Detail.productno}"
-								data-color="default" data-size="large" data-count="true"
-								style="display: none;"></div>
-							<script
-								src="https://d.line-scdn.net/r/web/social-plugin/js/thirdparty/loader.min.js"
-								async="async" defer="defer"></script>
-							<div id="fb-root"></div>
+			<div class="rightbox">
+				<form name="AddForm"
+					action="${pageContext.request.contextPath}/cartAdd" method="get">
+					<input type="hidden" name="todo" value="add">
+					<div class="rightside">
+						<div class="imgbox">
+							<a href="#"> <img class="proimg"
+								src="${pageContext.request.contextPath}/pic/${Detail.imagepath}"></a>
 						</div>
 					</div>
-				</div>
-			</form>
-			
-			<br>
+
+					<div class="infobox">
+
+						<div class="infoname">${Detail.productname}</div>
+						<div class="infono">商品編號：${Detail.brandno}${Detail.productno}</div>
+						<hr>
+						<div class="infoseries">系列：${Detail.productseries}</div>
+						<div class="infocate">種類：${Detail.productcategory}</div>
+						<hr>
+						<div class="infoprice">NT$：${Detail.productprice}</div>
+						<div>
+							<div class="infocount">
+								數量 : <select name="count" class="countsel">
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+									<option value="8">8</option>
+									<option value="9">9</option>
+									<option value="10">10</option>
+								</select>
+
+							</div>
+							<br> <br> <br>
+							<div>
+								<input class="cartbtn"
+									type=<%=session.getAttribute("member") != null ? "submit" : "hidden"%>
+									value="加入購物車"> <input type="hidden" name="productno"
+									value="${Detail.productno}">
+								<div class="lineshare">
+									<div class="line-it-button" data-lang="zh_Hant"
+										data-type="share-a" data-ver="3"
+										data-url="http://localhost:8080/AYCB_final/Detail?no=${Detail.productno}"
+										data-color="default" data-size="large" data-count="true"
+										style="display: none;"></div>
+									<script
+										src="https://d.line-scdn.net/r/web/social-plugin/js/thirdparty/loader.min.js"
+										async="async" defer="defer"></script>
+									<div id="fb-root"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="maybelike">
+				<div class="maybeliketext">你可能也喜歡</div>
+				<c:forEach var="ra" items="${racate}">
+					<div class="raside">
+						<div class="imgbox">
+							<a
+								href='<c:url value="/Detail" />?no=${ra.productno}&cate=${ra.productcategory}'>
+								<img class="raimg"
+								src="${pageContext.request.contextPath}/pic/${ra.imagepath}">
+							</a>
+						</div>
+						<div class="raname">${ra.productname}</div>
+						<div class="rabuttonbox">
+							<div class="raprice">NT$ ${ra.productprice}</div>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+			<!-- 		</div> -->
+			<!-- 		<div> -->
+			<div class="content">
+				<hr>
+				<div id="post">
+
+					<form:form method="POST" modelAttribute="leave" id="ajaxform"
+						name="ajaxform" enctype='multipart/form-data'>
+						<H1 class="board" style="border-radius: 10px" ALIGN="CENTER">留言佈告欄</H1>
+						<Fieldset class="discussionbox">
+							<div>
+								<label>留言類型:</label>
+								<form:input path="type" value="product" disabled="true" />
+							</div>
+							<div>
+								<label>會員名稱：</label> <span>${member.name}</span> <input
+									type="hidden" id="shangtian" name="mid" value="${member.id}" />
+							</div>
 
 			<!--                         留言 -->
 			<div>

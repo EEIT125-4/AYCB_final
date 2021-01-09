@@ -69,8 +69,8 @@ public class Common
 	// UPLOAD_PATH="C:/AYCB/AYCB2/src/main/webapp/upload/
 	
 	//Server所在IP位置
-	public static String DOMAIN="http://localhost:8080";
-//	public static String DOMAIN="http://10.31.25.143:8080";
+//	public static String DOMAIN="http://localhost:8080";
+	public static String DOMAIN="http://10.31.25.143:8080";
 
 	public static String UPLOAD_DIALOG = "上傳單一檔案";
 	// "C:\\AYCB\\AYCB2\\src\\main\\webapp\\upload"
