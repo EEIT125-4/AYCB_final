@@ -17,7 +17,7 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 <%@include file="../jspf/header.jspf"%>
 
 
-		<div>
+	<div>
 		<h1>網誌後台</h1>
 		<table>
 		    <thead>
@@ -33,19 +33,24 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
                    <th>分類</th>
             </tr>
         </thead>
+<%--         <c:set var="status" value="{'顯示','審核中','維護中','用戶刪除'}"/> --%>
+    
+     
 		<c:forEach var='b' varStatus='bg' items='${blogs}'>
-		<tr>
-		
-		<td>${b.blogId}</td>
+		<tr>		
+		<td name="blogId">${b.blogId}</td>
 		<td>${b.commentTime}</td>
 		<td>${b.fixedtime}</td>
 		<td>
-<%-- 		${b.status} --%>
-			<select>
-				<option value="0">顯示</option>
-				<option value="1">審核中</option>
-				<option value="2">維護中</option>
-				<option value="3">用戶刪除</option>
+
+			<select class="status">
+			
+	
+			<option disabled selected>${b.status}</option>
+				<option value="顯示">顯示</option>
+				<option value="審核中">審核中</option>
+				<option value="維護中">維護中</option>
+				<option value="用戶刪除">用戶刪除</option>
 			</select>
 			
 		</td>
@@ -53,71 +58,80 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 		<td>${b.member.name}</td>
 		<td>${b.thumbs}</td>
 		<td>${b.views}</td>	
+	
 		</tr>
 		
 		</c:forEach>
 		</table>
+		<div 	style="width: 600px;"><canvas id="myChart"></canvas></div>
+		
 		</div>
 		
 		
+		
 		<%@include file="../jspf/footer.jspf"%>
-</body>
-
+		
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+		
+		<script src="https://code.jquery.com/jquery-3.5.1.js"
+	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+	crossorigin="anonymous"></script>
 <script>
-// function deleteBlog() {
 
-// // 	var adbox = document.getElementById('adbox');
+$(document).ready(function() {
+    $(".status").change(function() { 
+    	
+    	var blogId=$(this).parent().siblings("td[name='blogId']").text();
+//     	blog.css({"color":"red","border":"2px solid red"});
+//     	var blogId=blog.text();
+		var state=$(this).val();
+//     	console.log($(this).val());
+    	console.log("blogId="+blogId+",state="+state);
+        $.ajax({
+            type: "GET", //傳送方式
+            url: "${pageContext.request.contextPath}/blog/adjust/", 
+            dataType: "json", //資料格式
+            data: { //傳送資料            	
+            	"blogId":blogId,
+            	"state":state                
+            },
+            success: function(data) {
+            	swal("OK","","success");
+              
+            },
+            error: function(data) {
+            	swal("fail!","","error");
+              
+            }
+        })
+    })        
+});
 
-// 	$.ajax({
-		
-// //Kevin:async預設是非同步=true,但因為我們需要動態取得圖片,故要等controller將資料帶回來之後才進行,所以這邊用false,其他地方不建議 			
-// 		async : false,
-// 		type : "get",
-// 		url : "${pageContext.request.contextPath}/delete",
-// 		contentType : "application/json; charset=utf-8",
-// 		dataType : "json",
 
-// 		success : function(data) {
+var ctx = document.getElementById('myChart').getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'line',
 
-// //				alert("get result!(輪播加工中,要手動輸入/index才會有資料,之後要改ajax動態產生)");
-// 			console.log("轉換前:" + data);
+    // The data for our dataset
+    data: {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        datasets: [{
+            label: 'My First dataset',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: [0, 10, 5, 2, 20, 30, 45]
+        }]
+    },
 
-// 			console.log("資料數" + data.length);
-			
-			
-			
-// 			$('#slides').empty();
-// //				$('#slides').width=200*data.length
-// 			$('#dots').empty();
-			
-			
-// 			for (let i = 0; i < data.length; i++) {
-// 				console.log("data:" + i + data[i]);
-// 				$('#slides').append(							
-// 				"<li><a href='${pageContext.request.contextPath}/Detail/?no="+data[i].productno+"'>"
-// 				+"<img src="+"${pageContext.request.contextPath}/pic/"+data[i].imagepath
-				
-// 				+" onerror=javascript:this.src='${pageContext.request.contextPath}/image/noImage.jpg' " 
-// 				+" ></a></li>"
-// 				);
-				
-// 				$('#dots').append("<li id="+data[i].productno+"></li>");
-		
-// 			}												
-			
-// 		},
-// 		error : function() {
-// 			alert("fail");
-// 		}
-
-// 	})
-
-// }
-
-// getAds();
+    // Configuration options go here
+    options: {}
+});
 
 
 </script>
+</body>
+
  
 
 <!-- Js Plugins -->

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import comment.dao.CommentDao;
 import comment.model.CommentBean;
+import member.MemberBean;
 
 @Service
 @Transactional
@@ -26,43 +27,17 @@ public class CommentServiceImpl implements CommentService {
 	// 新增一筆留言(save=insert)
 	@Override
 	public int insertComment(CommentBean cb) {
-//		int count = 0;
-//		Session session = factory.getCurrentSession();
-//		Transaction tx = null;
-//		try {
-//			tx = session.beginTransaction();
+
 		return dao.insertComment(cb);
-//		count++;
-//			tx.commit();
-//		} catch(Exception e) {
-//			if (tx != null) {
-//				tx.rollback();
-//			}
-//			e.printStackTrace();
-//		}
-//		return count;
+
 	}
 
 	// 查詢所有留言
 	@Override
 	public List<CommentBean> selectAll() {
-//		System.out.println("dao"+dao);
-//		List<CommentBean> list = new ArrayList<>();
-//		Session session = factory.getCurrentSession();
-//		Transaction tx = null;
-//		
-//		try {
-//			tx = session.beginTransaction();
+
 		return dao.selectAll();
-//			System.out.println("dao result"+list);
-//			tx.commit();
-//		} catch(Exception e) {
-//			if (tx != null) {
-//				tx.rollback();
-//			}
-//			e.printStackTrace();
-//		}	
-//		return list;
+
 	}
 
 	// 刪除一筆留言
@@ -76,41 +51,29 @@ public class CommentServiceImpl implements CommentService {
 //選擇一筆需要更新的留言
 	@Override
 	public CommentBean selectUpdateitem(Integer commentId) {
-//
-//		Session session = factory.getCurrentSession();
-//		Transaction tx = null;
-//		CommentBean cb = null;
-//		try {
-//			tx = session.beginTransaction();
+
 			return dao.selectUpdateitem(commentId);
-//			tx.commit();
-//		} catch (Exception e) {
-//			if (tx != null) {
-//				tx.rollback();
-//			}
-//			e.printStackTrace();
-//		}
-//		return cb;
+
 	}
 
 	// 更新留言
 	@Override
 	public int updateComment(CommentBean cb) {
-//		int count = 0;
-//		Session session = factory.getCurrentSession();
-//		Transaction tx = null;
-//		try {
-//			tx = session.beginTransaction();
+
 			return dao.updateComment(cb);
-//			count++;
-//			tx.commit();
-//		} catch (Exception e) {
-//			if (tx != null) {
-//				tx.rollback();
-//			}
-//			e.printStackTrace();
-//		}
-//		return count;
+
+	}
+
+	@Override
+	public List<CommentBean> queryComment(String type, String key) {
+		
+		return dao.queryComment(type, key);
+	}
+
+	@Override
+	public List<CommentBean> queryByMember(MemberBean member) {
+		
+		return dao.queryByMember(member);
 	}
 
 }
