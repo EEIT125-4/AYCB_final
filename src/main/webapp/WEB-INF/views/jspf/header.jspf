@@ -193,7 +193,7 @@ width:100px;
 					<nav class="header__menu mobile-menu">
 						<ul>
 							<li><a href="${pageContext.request.contextPath}/message/query">訊息中心</a>
-							<li><a href='<c:url value="/AllProducts"/>'>保養品</a>
+							<li><a href='<c:url value="/All"/>' >保養品</a>
 									<ul class="dropdown">
 										<c:forEach var="cate" varStatus='vs' items="${cate}">
 											<li>

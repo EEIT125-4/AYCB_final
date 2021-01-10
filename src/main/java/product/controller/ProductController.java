@@ -3,7 +3,9 @@ package product.controller;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -49,8 +51,14 @@ public class ProductController {
 		return gson.toJson(products);
 	}
 
-	@GetMapping("/AllProducts")
-	public String allProducts(Model model,
+	@GetMapping("/All")
+	public String all() {
+		return "product/allproducts";
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@GetMapping(value = "/AllProducts", produces = "application/json")
+	public @ResponseBody Map allProducts(Model model,
 			@RequestParam(value = "pageNo", defaultValue = "1", required = false) Integer pageNo
 	) {
 		if (pageNo == 0) {
@@ -59,12 +67,15 @@ public class ProductController {
 			pageNo = ps.getTotalPages();
 		}
 		List<ProductBean> list = ps.getPage(pageNo);
-		model.addAttribute("Products", list);
-		model.addAttribute("Pages", String.valueOf(pageNo));
-		model.addAttribute("TotalPages", ps.getTotalPages());
-		return "product/allproducts";
-	}
+		
+		Map map = new HashMap();
+		map.put("Products", list);
+		map.put("Pages", String.valueOf(pageNo));
+		map.put("TotalPages", ps.getTotalPages());
 
+		return map;
+	}
+	
 	@GetMapping("/Brand")
 	public String brand(Model model, 
 			@RequestParam(value = "pageNo", defaultValue = "1", required = false) Integer pageNo,

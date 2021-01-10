@@ -21,7 +21,7 @@ public class ProductDaoImpl implements ProductDao {
 	@Autowired
 	SessionFactory factory;
 
-	private int recordsPerPage = 20;
+	private int recordsPerPage = 18;
 
 	@Override
 	public void saveProduct(ProductBean pb) {
