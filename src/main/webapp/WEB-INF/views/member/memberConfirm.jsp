@@ -57,6 +57,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 			<div>
 					<form:hidden path="address"/>
 				<label>地址:</label> <label name="address" >${member.address}</label>
+				<form:hidden path="iconid"/>
 			</div>
 			
 <!-- 			<button type="submit" name="submit"><a href='memberConfirm'>確認</a></button> -->
@@ -69,9 +70,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
 
-document.getElementById("send").addEventListener("click",function(){
-	  swal("Good job!", "You clicked the button!", "success");
-	});
+
 
 
 

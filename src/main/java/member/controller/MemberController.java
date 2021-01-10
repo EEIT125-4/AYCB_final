@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.context.annotation.SessionScope;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.wf.captcha.SpecCaptcha;
@@ -33,7 +37,7 @@ import tool.service.ImageService;
 
 @Controller
 
-@SessionAttributes("memberBean")
+//@SessionAttributes("member")
 
 
 public class MemberController {
@@ -49,7 +53,9 @@ public class MemberController {
 	
 	@Autowired
 	ImageService imgService;
+	
 
+	
 	@GetMapping(value = { "/member/login" })
 	public String login() {
 
@@ -147,7 +153,7 @@ public class MemberController {
 	// 確認頁
 	@PostMapping("/memberConfirm") 
 	public String register(@ModelAttribute("member") MemberBean member, BindingResult result, Model model,
-			HttpServletRequest request)
+			HttpServletRequest request,HttpSession session)
 	{
 
 		member.setId(null);
@@ -157,6 +163,8 @@ public class MemberController {
 		model.addAttribute("member", member);
 
 		if (memberService.isDup(member.getAccount())) {
+	
+			
 			return "member/register";
 
 		} else {
@@ -166,9 +174,9 @@ public class MemberController {
 	}
 	// 新增
 	@PostMapping("/insert") 
+	
 	public String insert(@ModelAttribute("member") MemberBean member, BindingResult result, Model model
-	// HttpServletRequest request
-
+			,HttpServletRequest request,HttpSession session
 	) {
 		
 		System.out.println("取得" + member.getAccount());
@@ -178,9 +186,10 @@ public class MemberController {
 //		System.out.println("加密後密碼:"+password);
 		member.setPassword(password);
 		memberService.insertregister(member);
-		
-		
-		return "member/login";
+    
+		System.out.println(member);
+		session.removeAttribute("member");
+		return "redirect:member/login";
 
 	}
 	
@@ -236,7 +245,7 @@ public class MemberController {
 
 		} else {
 			System.out.println("驗證失敗");
-			return "member/login";
+			return "redirect:member/login";
 		}
 
 	}
@@ -448,8 +457,11 @@ public class MemberController {
      
       @GetMapping("/logout") // 登出
   	public String logout(@ModelAttribute("member") MemberBean member, BindingResult result, Model model,
-  			HttpSession session, HttpServletRequest request) {
+  			HttpSession session, HttpServletRequest request,SessionStatus status,WebRequest webRequest) {
   		session.removeAttribute("member");
+//  		status.setComplete();
+//    	  webRequest.removeAttribute("member", 0);
+//    	  session.removeAttribute("member");
 
   		return "redirect:index";
 
