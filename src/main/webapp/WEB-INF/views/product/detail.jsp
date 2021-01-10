@@ -154,7 +154,7 @@
 				<div id="post">
 
 					<form:form method="POST" modelAttribute="leave" id="ajaxform"
-						name="ajaxform" enctype='multipart/form-data'>
+ 						name="ajaxform" enctype='multipart/form-data'> 
 						<H1 class="board" style="border-radius: 10px" ALIGN="CENTER">留言佈告欄</H1>
 						<Fieldset class="discussionbox">
 							<div>

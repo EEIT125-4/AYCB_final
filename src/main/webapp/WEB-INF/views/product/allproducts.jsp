@@ -41,13 +41,13 @@ if(session.getAttribute("member")!=null){
 		<div class="leftside">
 			<div class="condition">條件篩選</div>
 			<div class="category">
-				<div class="catediv">
-					廠商分類<a id="a1" class="catea" href="#" onclick="show1()">+</a>
+				<div id="nameb" class="flip">
+					廠商分類
 				</div>
-				<div id="brandarea">
+				<div id="brand" class="panel">
 					<c:forEach var="brand" varStatus='vs' items="${brand}">
 						<c:if test='${vs.first }'>
-							<c:out value="<ul id='ul1' class='cateul'>" escapeXml='false' />
+							<c:out value="<ul id='ul1'>" escapeXml='false' />
 						</c:if>
 						<li class="cateul_li"><a class="cateul_li_a"
 							href='<c:url value="/Brand" />?brand=${brand}'>${brand}</a></li>
@@ -56,13 +56,13 @@ if(session.getAttribute("member")!=null){
 						</c:if>
 					</c:forEach>
 				</div>
-				<div class="catediv">
-					系列分類<a id="a2" class="catea" href="#" onclick="show2()">+</a>
+				<div id="names" class="flip">
+					系列分類
 				</div>
-				<div id="series">
+				<div id="series" class="panel">
 					<c:forEach var="series" varStatus='vs' items="${series}">
 						<c:if test='${vs.first }'>
-							<c:out value="<ul id='ul2' class='cateul'>" escapeXml='false' />
+							<c:out value="<ul id='ul2'>" escapeXml='false' />
 						</c:if>
 						<li class="cateul_li"><a class="cateul_li_a"
 							href='<c:url value="/Series" />?series=${series}'>${series}</a></li>
@@ -71,13 +71,13 @@ if(session.getAttribute("member")!=null){
 						</c:if>
 					</c:forEach>
 				</div>
-				<div class="catediv">
-					種類分類<a id="a3" class="catea" href="#" onclick="show3()">+</a>
+				<div id="namec" class="flip">
+					種類分類
 				</div>
-				<div id="cate">
+				<div id="cate" class="panel">
 					<c:forEach var="cate" varStatus='vs' items="${cate}">
 						<c:if test='${vs.first }'>
-							<c:out value="<ul id='ul3' class='cateul'>" escapeXml='false' />
+							<c:out value="<ul id='ul3'>" escapeXml='false' />
 						</c:if>
 						<li class="cateul_li"><a class="cateul_li_a"
 							href='<c:url value="/Cate" />?cate=${cate}'>${cate}</a></li>
