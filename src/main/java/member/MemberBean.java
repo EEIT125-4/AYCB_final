@@ -57,7 +57,7 @@ public class MemberBean implements Serializable {
 	private Integer iconid;
 	
 	
-	private boolean ckpower;
+//	private boolean ckpower;
 	
 	
 	@Transient
@@ -175,14 +175,14 @@ public class MemberBean implements Serializable {
 	public void setIconid(Integer iconid) {
 		this.iconid = iconid;
 	}
-	public boolean isCkpower() {
-		return ckpower;
-	}
-
-	public void setCkpower(boolean ckpower) {
-		this.ckpower = ckpower;
-	}
-
+//	public boolean isCkpower() {
+//		return ckpower;
+//	}
+//
+//	public void setCkpower(boolean ckpower) {
+//		this.ckpower = ckpower;
+//	}
+//
 
 	public MemberBean(Integer id, String account, String name, String password, String address, String phone,
 			Date birthday, String email, String gender) {
