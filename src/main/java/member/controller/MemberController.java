@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -425,10 +426,13 @@ public class MemberController {
 //    	  			System.out.println(cookie.getName());
 //    	  			System.out.println(cookie.getValue());
 //    	  		}
-//    	  		Cookie cookie = new Cookie("abc", "123");
-//    	  		cookie.setMaxAge(60*10);
-//    	  		cookie.setPath("/AYCB");
-//    	  		response.addCookie(cookie);
+    	  		//Cookie cookie = new Cookie("memberCookie", memberBean.getName());
+    	  		//設定秒數
+    	  		//cookie.setMaxAge(60*60*24*365);//存個一年
+    	  		
+    	  		//cookie.setPath("/AYCB_final");
+    	  		//response.addCookie(cookie);
+    	  		
     		  memberService.insertregister(memberBean);
     		  
 //    		  MemberBean mb = (MemberBean) session.getAttribute("member");

@@ -1,5 +1,6 @@
 package blog.controller;
 
+import java.awt.Adjustable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -217,13 +218,37 @@ public class BlogController {
 
 	}
 	
+	@GetMapping(value="blog/adjust/")
+	@ResponseBody
+	public boolean adjustable(
+			@RequestParam(value="blogId")Integer blogId,
+			@RequestParam(value="state")String state)
+	{
+		System.out.println("修改部落格狀態");
+		try {
+			Blog blog=blogService.selectBlog(blogId);
+			blog.setStatus(state);
+			blogService.updateBlog(blog);
+			
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		
+		
+		
+	}
+	
+	
 
 	//假刪除功能
 	@GetMapping(value = "blog/delete/{blogId}")
 //	@ResponseBody
 	public String hideBlog(@PathVariable("blogId") Integer blogId,Model model) {
 		Blog bg=blogService.selectBlog(blogId);
-		bg.setStatus(1);
+		bg.setStatus(Blog.STATUS[3]);
 		blogService.updateBlog(bg);
 		return getAll(model);
 		

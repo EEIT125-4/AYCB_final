@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import member.MemberBean;
 
 @Entity
@@ -51,19 +53,25 @@ public class Blog {
 	 * 3=用戶設置刪除
 	 * 
 	 */
-	@Column(columnDefinition="int default 0")
-	private Integer status=0;
+//	"顯示","審核中","維護中","用戶刪除"
+	
+	@Column(columnDefinition="NVARCHAR(10) NOT NULL default('顯示')")
+	private String status;
 	@Column(columnDefinition= "smalldatetime")
 	private Date fixedtime;
 	@Column(columnDefinition="int default 0")
 	private Integer views;
+	
+	@Transient
+	@JsonIgnore
+	public final static String STATUS[]= {"顯示","審核中","維護中","用戶刪除"};
 
 	public Blog() {
 		
 	}
 
 	public Blog(Integer blogId, MemberBean member, Date commentTime, String title, String reflection, Integer picture,
-			Integer status, Date fixedtime) {
+			String status, Date fixedtime) {
 		super();
 		this.blogId = blogId;
 		this.member = member;
@@ -140,11 +148,11 @@ public class Blog {
 		this.picture = picture;
 	}
 
-	public Integer getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(Integer status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 

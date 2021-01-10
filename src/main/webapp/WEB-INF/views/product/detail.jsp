@@ -8,11 +8,18 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"
 	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 	crossorigin="anonymous"></script>
-<script src="${pageContext.request.contextPath}/js/inside.js" defer="defer"></script>
-<link REL=STYLESHEET HREF="${pageContext.request.contextPath}/css/inside.css" TYPE="text/css">
-<link REL=STYLESHEET HREF="${pageContext.request.contextPath}/css/ProductDetail.css" TYPE="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/comment.css" />
-<title>All You Can Buy</title>
+<script src="${pageContext.request.contextPath}/js/inside.js"
+	defer="defer"></script>
+<link REL=STYLESHEET
+	HREF="${pageContext.request.contextPath}/css/inside.css"
+	TYPE="text/css">
+<link REL=STYLESHEET
+	HREF="${pageContext.request.contextPath}/css/ProductDetail.css"
+	TYPE="text/css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/comment.css" />
+	
+<title>${Detail.productname}</title>
 </head>
 <%@include file="../jspf/header.jspf"%>
 
@@ -147,7 +154,7 @@
 				<div id="post">
 
 					<form:form method="POST" modelAttribute="leave" id="ajaxform"
-						name="ajaxform" enctype='multipart/form-data'>
+ 						name="ajaxform" enctype='multipart/form-data'> 
 						<H1 class="board" style="border-radius: 10px" ALIGN="CENTER">留言佈告欄</H1>
 						<Fieldset class="discussionbox">
 							<div>
@@ -159,40 +166,31 @@
 									type="hidden" id="shangtian" name="mid" value="${member.id}" />
 							</div>
 
-							<div>
-								<label>性別:</label> <span>${member.gender}</span>
+			<!--                         留言 -->
+			<div>
+				<c:if test='${not empty member}'>
+
+					<div class="blog__details__comment">
+						<h4>Leave A Comment</h4>
+						<form id="commentform">
+
+							<div class="col-lg-12 text-center">
+
+								<textarea id="comment" placeholder="Comment"></textarea>
+								<button id="postComment" type="button" class="site-btn"	style="width: fit-content;">Post
+									Comment</button>
 							</div>
+						</form>
+					</div>
+				</c:if>
 
-
-							<div>
-								Age:<label for="age">(between 0 and 100):</label> <input
-									type="number" id="age" name="age" min="0" max="100">
-								<%!int st = 0;%>
-
-								<label for="status"></label>
-								<%-- 					<form:input type="hidden" path="status" value=<%=st%>/>					 --%>
-								<!-- 					<label for="commentId"></label> -->
-								<!-- 					<input type="hidden" name="commentId">  -->
-								<!-- 					<label for="commentTime"></label> -->
-								<!-- 					<input type="hidden" name="commentTime"> -->
-							</div>
-							<div>
-								<label for="contentBox"></label>
-								<form:textarea path="contentBox" id="contentBox"
-									class="transition" />
-							</div>
-							<div>
-								<span>
-									<button id="postBt" type="button">發表留言</button> <!-- 				 onclick="leavecomment()" -->
-									<button id="clear" type="reset">清除</button>
-								</span>
-							</div>
-						</Fieldset>
-
-					</form:form>
-
-				</div>
+				<c:if test='${ empty member}'>
+					<a href="${pageContext.request.contextPath}/member/login">若欲留言請先登入</a>
+				</c:if>
 			</div>
+
+			<!-- 					留言列 -->
+			<div id="board"></div>
 		</div>
 	</div>
 	<%@include file="../jspf/footer.jspf"%>
@@ -204,63 +202,20 @@
 
 
 
-<!-- 長出留言 -->
+<!-- 留言功能初始化 -->
 <script>
-	var productno = $
-	{
-		Detail.productno
-	};
-	$(document).ready(function() {
+	var object = "product";
+	var pk=${Detail.productno};
+	var path="${pageContext.request.contextPath}";
+	var board = document.getElementById("board");
+	var postUrl=path+"/leaveComment?memberid=${member.id}&key="+pk+"&type="+object;
+	var getUrl=path+"/loadComment?key="+pk+"&type="+object;
+	
 
-		console.log("productno=" + productno);
-
-		$("#postBt").on("click", function() {
-			leavecomment();
-
-		});
-
-		function leavecomment() {
-			alert("btn click");
-
-			$.ajax({
-
-				type : "post",
-				url : "${pageContext.request.contextPath}/leaveComment",
-				// 			contentType: "application/json; charset=utf-8",
-				dataType : "text",
-				data : $("#ajaxform").serialize(),
-				success : function(data) {
-
-					alert("leave comment!" + data);
-					console.log("leave comment");
-					console.log(data);
-					console.log(typeof (data));
-
-					// 				display();
-
-				},
-				error : function() {
-					alert("留言失敗,請重新留言");
-				}
-			})
-
-		}
-
-		function display() {
-
-			$('#productno').empty();
-			$('#productno').append();
-
-		}
-	});
-	// 				"<option value='' disabled='' selected='' hidden=''>留言訊息</option>"
-	// 						+ "<option value=''>All</option>");
-
-	// 		for (let i = 0; i < data.length; i++) {
-	// 			console.log("data:" + i + data[i]);
-	// 			$('#productno').append(
-	// 					"<option value="+data[i]+">" + data[i]
-	// 							+ "</option>");
 </script>
+
+<script src="${pageContext.request.contextPath}/js/comment.js"
+	defer="defer" charset="big5"></script>
+
 </body>
 </html>

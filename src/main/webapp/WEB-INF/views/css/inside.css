@@ -71,12 +71,12 @@
 
 .cateul_li_a:link {
 	color: black;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .cateul_li_a:visited {
     color: black;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .cateul_li_a:visited:hover {
@@ -213,10 +213,34 @@
     color: red;
 }
 
-.like_a:visited{
+.like_a:visited {
     color: red;
 }
 
-.imgbox:hover .like{
+.imgbox:hover .like {
     display: block;
+}
+
+.flip {
+	margin: 0px;
+	padding: 5px;
+	font-size: 18px;
+    font-weight: bold;
+	background: #ffffff;
+	cursor: pointer;
+	font-family: 'Arial';
+}
+
+.flip:hover {
+	color: tomato;
+}
+
+.panel {
+	margin: 0px;
+	padding-top: 10px;
+	padding-left: 25px;
+	background: #ffffff;
+	display: none;
+	font-family: 'Arial';
+	border-top: solid 1px #000000;
 }
