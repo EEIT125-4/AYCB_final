@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import product.dao.ProductDao;
+import product.model.CollectBean;
 import product.model.ProductBean;
 import product.service.ProductService;
 
@@ -189,5 +190,15 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<ProductBean> racate(String cate) {
 		return dao.racate(cate);		
+	}
+	
+	@Override
+	public void addcollection(int mid, int pid) {
+		dao.addcollection(mid, pid);
+	}
+	
+	@Override
+	public List<CollectBean> findcollection(int id) {
+		return dao.findcollection(id);
 	}
 }

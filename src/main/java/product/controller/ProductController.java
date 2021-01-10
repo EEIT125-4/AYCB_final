@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 
 import comment.model.CommentBean;
 import comment.service.CommentService;
+import product.model.CollectBean;
 import product.model.ProductBean;
 import product.service.ProductService;
 
@@ -200,5 +201,22 @@ public class ProductController {
 	public @ResponseBody List<String> getBrand(){
 		List<String> list = ps.getBrand();
 		return list;
+	}
+	
+	@GetMapping(value = "/Collect", produces = "application/json")
+	public @ResponseBody boolean collect(
+			@RequestParam("mid") Integer mid,
+			@RequestParam("pid") Integer pid
+	) {
+		System.out.println("XXX " + ps.findcollection(mid));
+		List<CollectBean> list = ps.findcollection(mid);
+//		for(int i=0 ; i<=list.size() ; i++) {
+//			System.out.println("AAA " + list.get(i).getPid());
+//			if(list.get(i) == pid) {
+//				return 0;
+//			} 
+//		}
+		ps.addcollection(mid, pid);
+		return true;
 	}
 }
