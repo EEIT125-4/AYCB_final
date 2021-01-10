@@ -336,7 +336,7 @@ public class ProductDaoImpl implements ProductDao {
 		Query<ProductBean> query = session.createQuery(hql);
 		int size=query.setParameter("productcategory", cate).list().size();
 		Random r=new Random();
-		return query.setFirstResult(r.nextInt(size-10)+1).setMaxResults(5).getResultList();
+		return query.setFirstResult(r.nextInt(size-1)+1).setMaxResults(5).getResultList();
 	}
 	
 }

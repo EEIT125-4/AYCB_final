@@ -147,24 +147,9 @@
 					</div>
 				</c:forEach>
 			</div>
-			<!-- 		</div> -->
-			<!-- 		<div> -->
-			<div class="content">
-				<hr>
-				<div id="post">
 
-					<form:form method="POST" modelAttribute="leave" id="ajaxform"
-						name="ajaxform" enctype='multipart/form-data'>
-						<H1 class="board" style="border-radius: 10px" ALIGN="CENTER">留言佈告欄</H1>
-						<Fieldset class="discussionbox">
-							<div>
-								<label>留言類型:</label>
-								<form:input path="type" value="product" disabled="true" />
-							</div>
-							<div>
-								<label>會員名稱：</label> <span>${member.name}</span> <input
-									type="hidden" id="shangtian" name="mid" value="${member.id}" />
-							</div>
+			<div class="content">
+			
 
 			<!--                         留言 -->
 			<div>
