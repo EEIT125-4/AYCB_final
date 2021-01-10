@@ -199,7 +199,9 @@ public class MailController {
 					// second part (the image)
 					messageBodyPart = new MimeBodyPart();
 					DataSource fds = new FileDataSource(
-							new File("C:\\Users\\user\\OneDrive\\桌面\\pics\\可愛動圖\\tedXr7Y.gif"));
+//							new File("C:\\Users\\user\\OneDrive\\桌面\\pics\\可愛動圖\\tedXr7Y.gif")
+							new File("/AYCB_final/src/main/webapp/WEB-INF/images/noImage.jpg")
+							);
 
 					messageBodyPart.setDataHandler(new DataHandler(fds));
 					messageBodyPart.setHeader("Content-ID", "<image>");

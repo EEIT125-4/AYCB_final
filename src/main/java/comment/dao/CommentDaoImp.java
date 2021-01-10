@@ -1,13 +1,17 @@
 package comment.dao;
 
+import java.util.ArrayList;
 //專責與Comment Table之新增,修改,刪除與查詢
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import comment.model.CommentBean;
+import member.MemberBean;
+import message.model.MessageBean;
 
 @Repository
 public class CommentDaoImp implements CommentDao {
@@ -41,7 +45,7 @@ public class CommentDaoImp implements CommentDao {
 //		System.out.println("dao impl list:" + list);
 		Session session = getSession();
 		List<CommentBean> list = session.createQuery(hql).getResultList();
-		System.out.println("++++++++++++++++++"+list);
+		System.out.println("查所有留言"+list);
 		return list;
 	}
 
@@ -84,15 +88,40 @@ public class CommentDaoImp implements CommentDao {
 	@Override
 	public Integer updateComment(CommentBean cb) {
 		Integer count = 0;
-//		Session session = factory.getCurrentSession();
 		Session session = getSession();
-		System.out.println("go to saveOrUpdate");
 		session.saveOrUpdate(cb);
 		System.out.println("finish updatecomment");
 		count++;
-//		System.out.println("更新數:" + count);
 		return count;
 		
+	}
+
+	@Override
+	public List<CommentBean> queryComment(String type, String key) {
+		Session session=getSession();
+		String hql="FROM CommentBean cb Where cb.type = :type and cb.keynumber=:key order by commentTime asc";
+		//List<CommentBean> list = new ArrayList<>();
+		@SuppressWarnings("unchecked")
+		
+		Query<CommentBean> query=session.createQuery(hql );
+		query.setParameter("type", type);
+		query.setParameter("key", key);
+		List<CommentBean> list = query.getResultList();
+		//list = query.getResultList();	
+		
+		return list;
+	}
+
+	@Override
+	public List<CommentBean> queryByMember(MemberBean member) {
+		Session session=getSession();
+		String hql="From CommentBean cb where cb.member=:member ";
+		@SuppressWarnings("unchecked")
+		Query<CommentBean> query=session.createQuery(hql );
+		query.setParameter("member", member);
+		
+		
+		return query.getResultList();
 	}
 
 

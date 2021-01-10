@@ -5,30 +5,27 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+
 import blog.model.Blog;
 import blog.service.BlogService;
-import event.validator.EventValidator;
+import member.MemberBean;
 import member.Service.MemberService;
 import tool.model.Image;
 import tool.service.ImageService;
@@ -196,7 +193,7 @@ public class BlogController {
 			}
 
 			Timestamp time = new Timestamp(new Date().getTime());
-			java.sql.Date sqlDate = new java.sql.Date(time.getTime());
+			
 			if (blog.getCommentTime() != null) {
 				// JAVA的Date轉SQL的Date
 				
@@ -217,26 +214,85 @@ public class BlogController {
 
 	}
 	
+	@GetMapping(value="blog/adjust/")
+	@ResponseBody
+	public boolean adjustable(
+			@RequestParam(value="blogId")Integer blogId,
+			@RequestParam(value="state")String state)
+	{
+		System.out.println("修改部落格狀態");
+		try {
+			Blog blog=blogService.selectBlog(blogId);
+			blog.setStatus(state);
+			blogService.updateBlog(blog);
+			
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		
+		
+		
+	}
+	
+	
 
 	//假刪除功能
 	@GetMapping(value = "blog/delete/{blogId}")
 //	@ResponseBody
 	public String hideBlog(@PathVariable("blogId") Integer blogId,Model model) {
 		Blog bg=blogService.selectBlog(blogId);
-		bg.setStatus(1);
+		bg.setStatus(Blog.STATUS[3]);
 		blogService.updateBlog(bg);
 		return getAll(model);
 		
 	}
 	
 	@GetMapping(value="blog/backstage")
-	public String backstage(Model model) {
-		List<Blog>blogs=new ArrayList<Blog>();
-		blogs=blogService.selectAllBlog();
-		model.addAttribute("blogs", blogs);
-		return "blog/blogBackstage";
+	
+	
+	public String backstage(Model model,HttpSession session) {
+		MemberBean member=(MemberBean)session.getAttribute("member");
+		if(member!=null && member.getLevel()==999) {
+			List<Blog>blogs=new ArrayList<Blog>();
+			blogs=blogService.selectAllBlog();
+			model.addAttribute("blogs", blogs);
+			List<String>titles=new ArrayList<String>();
+			List<String>views=new ArrayList<String>();
+			List<String>blogJson=new ArrayList<String>();
+			Gson gson=new Gson();
+			for(Blog b:blogs) {
+				
+				titles.add(gson.toJson(b.getTitle()));
+				views.add(gson.toJson(b.getViews()));
+				blogJson.add(gson.toJson(b));
+			}
+			model.addAttribute("titles",titles);
+			model.addAttribute("views",views);
+			model.addAttribute("blogJson",blogJson);
+			
+			return "blog/blogBackstage";
+			
+		}else {
+			
+			return "redirect:"+"/member/login";
+		}
+	
+		
 		
 	}
+	
+//	@GetMapping(value="blog/getTitle")
+//	public String getTitle(Model model) {
+//		List<String>titles=new ArrayList<String>();
+//		
+//		blogs=blogService.selectAllBlog();
+//		model.addAttribute("blogs", blogs);
+//		return "blog/blogBackstage";
+//		
+//	}
 	
 
 		

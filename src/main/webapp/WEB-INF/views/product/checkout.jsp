@@ -129,10 +129,12 @@ function storeAddressChange(){
 </div>
 <br>
 <br>
+<form name="checkoutForm" action="<c:url value='/orderInsert' />" method="get">
 <fieldset
 	style="margin: auto; position: relative; width: 1250px; border: 1px solid transparent;">
 	<h4 style="font-weight: bold; text-align: center">購物清單</h4>
 	<br>
+	
 	<table id="tab" class="table table-hover">
 		<thead>
 			<tr bgcolor='#F0F0F0'>
@@ -232,13 +234,14 @@ function storeAddressChange(){
 	</table>
 	<br>
 	<div style="text-align: center;">
-		<form name="checkoutForm" action="<c:url value='/orderInsert' />"
-			method="get">
+		
+			
 			<input type="hidden" name="todo" value="commit">
 			<!-- hidden隱藏欄位 -->
 			<input class="btn btn-dark" type="submit" value="送出訂單">
 
-		</form>
+		
 	</div>
 </fieldset>
+</form>
 <%@include file="../jspf/footer.jspf"%>

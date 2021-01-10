@@ -2,6 +2,7 @@ package product.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,6 +15,10 @@ import org.springframework.web.multipart.MultipartFile;
 @Entity
 @Table(name = "Product")
 public class ProductBean implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer productno;
@@ -26,6 +31,9 @@ public class ProductBean implements Serializable{
 	private String skintype;
 	private Double productprice;
 	private String imagepath;
+	@Column(columnDefinition= "NVARCHAR(10) NOT NULL default('product')")
+	private final String identify="product";
+	
 
 	@Transient
 	private MultipartFile productimage;  	
@@ -58,6 +66,11 @@ public class ProductBean implements Serializable{
 		this.productprice = productprice;
 	}
 
+	
+
+	
+
+		
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -79,11 +92,19 @@ public class ProductBean implements Serializable{
 		builder.append(skintype);
 		builder.append(", productprice=");
 		builder.append(productprice);
+		builder.append(", imagepath=");
+		builder.append(imagepath);
+		builder.append(", identify=");
+		builder.append(identify);
+		builder.append(", productimage=");
+		builder.append(productimage);
 		builder.append("]");
 		return builder.toString();
 	}
 
-	
+	public String getIdentify() {
+		return identify;
+	}
 
 	public Integer getProductno() {
 		return productno;

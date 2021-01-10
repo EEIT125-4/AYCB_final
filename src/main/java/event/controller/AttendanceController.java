@@ -1,9 +1,12 @@
 package event.controller;
 
+
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import event.model.Attendance;
@@ -50,8 +54,20 @@ public class AttendanceController {
 			
 			return "event/showAttendance";
 		}
+	
+		@GetMapping("event/ajaxShowAttendance")
+		public@ResponseBody List<Attendance> ajaxlist(
+//				Model model
+				) {	
+			List<Attendance> list = new ArrayList<Attendance>();
+			list = attendanceService.getAllAttendance();
+			return list;
+			
+			
+//			return attendanceService.getAllAttendance();
+		}
 		
-		
+		//查詢會員報名的活動
 		@GetMapping("event/showAllAttendanceByID")
 		public String attendancelist(Model model,
 				@RequestParam (value="id" ) Integer id

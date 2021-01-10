@@ -22,181 +22,96 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import comment.model.CommentBean;
 import comment.service.CommentService;
 import member.MemberBean;
+import member.Service.MemberService;
 
-@SessionAttributes({ "comment", "dis_board", "member" })
+@SessionAttributes({ "comment","commentList" })
 @Controller
 public class CommentController {
 
 	@Autowired
 	ServletContext servletContext;
+	
+	@Autowired
+	MemberService memberService;
 
 	@Autowired
 	CommentService commentService;
 
-	@GetMapping("/comment/")
-	public String home(Model model) {
-		model.addAttribute("member");
-		return "comment/displayBoard"; // 請視圖解析器由視圖的邏輯名稱index來找出真正的視圖
-	}
+//	@GetMapping("/comment/")
+//	public String home(Model model) {
+//		model.addAttribute("member");
+//		return "comment/displayBoard"; // 請視圖解析器由視圖的邏輯名稱index來找出真正的視圖
+//	}
 
 	@PostMapping("/leaveComment")
 	@ResponseBody
-	public String leaveComment(
-			Model model,
-			@ModelAttribute("leave")CommentBean cb) {		
+	public boolean leaveComment(
+			@RequestParam(value = "comment")String s,
+			@RequestParam(value="memberid")Integer memberid,
+			@RequestParam(value="key")Integer key,
+			@RequestParam(value="type")String type
+	)
+	{//Model model, @ModelAttribute("comment") CommentBean cb
 		System.out.println("leaving comment");
-		Timestamp time = new Timestamp(new Date().getTime());
-		cb.setCommentTime(time);		
-		System.out.println("cb now:"+cb);
-		commentService.insertComment(cb);
+		try {
+			
+			System.out.println("mb id="+memberid);
+			System.out.println("key="+key);
+			System.out.println("type="+type);
 		
-		return "OK";
-		
-
-	}
-
-	@PostMapping("comment/CommentController")
-	public String steps(Model model, HttpSession session,
-			@RequestParam(value = "submit", required = false) String submit,
-			@RequestParam(value = "confirm", required = false) String confirm,
-			@RequestParam(value = "delete", required = false) String delete,
-			@RequestParam(value = "update", required = false) String update,
-			@RequestParam(value = "confirmupdate", required = false) String confirmupdate,
-			@RequestParam(value = "cheat", required = false) String cheat,
-			@RequestParam(value = "category", required = false) String category,
-			@RequestParam(value = "name", required = false) String name,
-			@RequestParam(value = "gender", required = false) String gender,
-			@RequestParam(value = "content", required = false) String content,
-			@RequestParam(value = "age", required = false) Integer age,
-			@RequestParam(value = "status", required = false, defaultValue = "0") Integer status,
-			//
-			@RequestParam(value = "id", required = false) Integer id,
-			@RequestParam(value = "commentId", required = false) Integer commentId,
-			@RequestParam(value = "keynumber", required = false) String keynumber,
-			@RequestParam(value = "type", required = false) String type
-
-	) {
-		System.out.println("update~~~:" + update);
-		System.out.println("confirmupdate:" + confirmupdate);
-		System.out.println("delete" + delete);
-//送出一筆留言(insert)
-
-		if (submit != null) {
-			CommentBean comment = new CommentBean(null, (MemberBean) session.getAttribute("member"), null, content,
-					status, keynumber, type);
-			model.addAttribute("comment", comment);
-			return "comment/displayTest";
-		}
-//insert的確認送出的留言
-		if (confirm != null) {
-
-			System.out.println("comment confirm");
-			// JAVA的Date轉SQL的Date
+			CommentBean cb=new CommentBean();
 			Timestamp time = new Timestamp(new Date().getTime());
-			java.sql.Date sqlDate = new java.sql.Date(time.getTime());
-			// SQL的Date轉JAVA的Date
-			java.util.Date utilDate = new java.util.Date();
-			utilDate.setTime(sqlDate.getTime());
-//			Timestamp commentTime = String.valueOf(utilDate);
-			CommentBean comment = new CommentBean(commentId, (MemberBean) session.getAttribute("member"), time, content,
-					status, keynumber, type);
-
-//			model.addAttribute("comment", comment);
-			try {
-				System.out.println("一筆資料" + comment);
-				System.out.println("comment:" + comment.getMember().getName());
-
-				commentService.insertComment(comment);
-				List<CommentBean> cb = commentService.selectAll();
-				model.addAttribute("dis_board", cb);
-				return "/comment/select";
-				// request.getRequestDispatcher("CommentThanks.jsp").forward(request, response);
-				// response.sendRedirect(request.getContextPath() + "/CommentThanks.jsp");
-			} catch (Exception e) {
-				return "comment/CommentCancel";
-			}
+			cb.setMember(memberService.getMember(memberid));
+			cb.setType(type);
+			cb.setKeynumber(String.valueOf(key));
+			cb.setCommentTime(time);
+			cb.setContentBox(s);
+			System.out.println("cb now:" + cb);
+			commentService.insertComment(cb);
+			System.out.println("留言成功:"+cb);
+			return true;
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			return false;
 		}
-
-//刪除一筆留言
-		if (delete != null) {
-
-			System.out.println("delete id:" + commentId);
-			System.out.println("deleteComment");
-			commentService.deleteComment(commentId);
-
-			try {
-				List<CommentBean> cb = commentService.selectAll();
-				model.addAttribute("dis_board", cb);
-				if (cheat != null && cheat.equals("cheat")) {
-					return "comment/select";
-				} else {
-					return "comment/select";
-				}
-
-			} catch (Exception e) {
-				System.out.println("error");
-				e.printStackTrace();
-			}
-		}
-//按下更新鍵,到另一個頁面去做修改
-		if (update != null) {
-			System.out.println("commentID:" + commentId);
-
-			CommentBean comment = commentService.selectUpdateitem(commentId);
-			System.out.println("comment" + comment);
-			System.out.println("update page" + comment);
-			model.addAttribute("comment", comment);
-			return "comment/commentUpdate";
-		}
-//update的確認更新
-		if (confirmupdate != null) {
-			System.out.println("confirmupdate:" + confirmupdate);
-			Timestamp time = new Timestamp(new Date().getTime());			
-			CommentBean comment = new CommentBean(commentId, (MemberBean) session.getAttribute("member"), time, content,
-					status, keynumber, type);
-			try {
-				commentService.updateComment(comment);
-				System.out.println("updateComment" + comment);
-				List<CommentBean> cb = commentService.selectAll();
-				model.addAttribute("dis_board", cb);
-				if (cheat != null && cheat.equals("cheat")) {
-					return "comment/select";
-				} else {
-					return "comment/select";
-				}
-			} catch (Exception e) {
-				System.out.println("error");
-
-				e.printStackTrace();
-			}
-
-		}
-		if (category != null) {
-			List<CommentBean> cb = commentService.selectAll();
-			model.addAttribute("dis_board", cb);
-			return "comment/select";
-		}
-		return "comment/select";
-
+		
 	}
+	
+	@PostMapping("/loadComment")
+	@ResponseBody
+	public List<CommentBean> loadComment(
 
-//選擇所有留言資料顯現出來(select all)
-	@GetMapping("/comment/select")
-	public String getAll(Model model) {
-		List<CommentBean> cb = commentService.selectAll();
-		model.addAttribute("dis_board", cb);
-		return "comment/select";
+			@RequestParam(value="type")String type,
+			@RequestParam(value="key")String key						
+			) {
+		System.out.printf("查尋條件 type=%s,key=%s",type,key);
+		
+		
+		
+		return commentService.queryComment(type, key);
+		
 	}
+	
+	
+	@PostMapping("/deleteComment")
+	@ResponseBody
+	public boolean editComment(@RequestParam(value="commentId")Integer commentId) {
+		try {
+		System.out.println("delete comment");
+		
+		
+		
+		commentService.deleteComment(commentId);
+		return true;
+		}catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	
+	}
+	
 
-//controller控制跳轉頁面	
-	@RequestMapping("/comment/article")
-	public String gotoArticle(Model model) {
-		return "comment/article";
-	}
 
-	@RequestMapping("/video")
-	public String gotoVideo(Model model) {
-		return "comment/video";
-	}
 
 }
