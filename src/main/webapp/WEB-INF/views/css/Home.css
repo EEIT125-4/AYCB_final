@@ -138,15 +138,15 @@ a:link {
     width: 300px;
 }
 
-.searchinput {
-    float: left;
-    width: 250px;
-    height: 34px;
-    margin-top: 15px;
-    font-size: 18px;
-    font-weight: bold;
-    outline: none;
-}
+/* .searchinput { */
+/*     float: left; */
+/*     width: 250px; */
+/*     height: 34px; */
+/*     margin-top: 15px; */
+/*     font-size: 18px; */
+/*     font-weight: bold; */
+/*     outline: none; */
+/* } */
 
 button {
     width: 40px;

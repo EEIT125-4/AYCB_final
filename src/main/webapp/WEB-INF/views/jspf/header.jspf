@@ -219,10 +219,10 @@ width:100px;
 				<div class="col-lg-3 col-md-3">
 					<div class="header__nav__option">
 					<form action="Keyword" style="height:0">
-						<input type="text" name="keyword" style="width: 150px">
-							<button class="search-switch">
-								<img src="${pageContext.request.contextPath}/image/icon/search.png" alt="">
-							</button>				
+<!-- 						<input type="text" name="keyword" style="width: 150px"> -->
+<!-- 							<button class="search-switch"> -->
+<%-- 								<img src="${pageContext.request.contextPath}/image/icon/search.png" alt=""> --%>
+<!-- 							</button>				 -->
 						<a href="#"><img src="${pageContext.request.contextPath}/image/icon/heart.png" alt=""></a>						
 						<a href="<c:url value='/car'/>"><img src="${pageContext.request.contextPath}/image/icon/cart.png" alt=""><span>0</span></a>	
 						<div class="search">
