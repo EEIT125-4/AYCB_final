@@ -56,7 +56,7 @@ public class Blog {
 //	"顯示","審核中","維護中","用戶刪除"
 	
 	@Column(columnDefinition="NVARCHAR(10) NOT NULL default('顯示')")
-	private String status;
+	private String status="顯示";
 	@Column(columnDefinition= "smalldatetime")
 	private Date fixedtime;
 	@Column(columnDefinition="int default 0")

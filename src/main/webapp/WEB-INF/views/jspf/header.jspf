@@ -194,13 +194,13 @@ width:100px;
 						<ul>
 							<li><a href="${pageContext.request.contextPath}/message/query">訊息中心</a>
 							<li><a href='<c:url value="/All"/>' >保養品</a>
-									<ul class="dropdown">
-										<c:forEach var="cate" varStatus='vs' items="${cate}">
-											<li>
-											<a  href='<c:url value="/Cate" />?cate=${cate}'>${cate}</a>
-											</li>
-										</c:forEach>									
-									</ul>
+<!-- 									<ul class="dropdown"> -->
+<%-- 										<c:forEach var="cate" varStatus='vs' items="${cate}"> --%>
+<!-- 											<li> -->
+<%-- 											<a  href='<c:url value="/Cate" />?cate=${cate}'>${cate}</a> --%>
+<!-- 											</li> -->
+<%-- 										</c:forEach>									 --%>
+<!-- 									</ul> -->
 								
 					        <li><a href="${pageContext.request.contextPath}/comment/">討論區</a>
 							<ul class="dropdown">
@@ -219,10 +219,10 @@ width:100px;
 				<div class="col-lg-3 col-md-3">
 					<div class="header__nav__option">
 					<form action="Keyword" style="height:0">
-						<input type="text" name="keyword" style="width: 150px">
-							<button class="search-switch">
-								<img src="${pageContext.request.contextPath}/image/icon/search.png" alt="">
-							</button>				
+<!-- 						<input type="text" name="keyword" style="width: 150px"> -->
+<!-- 							<button class="search-switch"> -->
+<%-- 								<img src="${pageContext.request.contextPath}/image/icon/search.png" alt=""> --%>
+<!-- 							</button>				 -->
 						<a href="#"><img src="${pageContext.request.contextPath}/image/icon/heart.png" alt=""></a>						
 						<a href="<c:url value='/car'/>"><img src="${pageContext.request.contextPath}/image/icon/cart.png" alt=""><span>0</span></a>	
 						<div class="search">

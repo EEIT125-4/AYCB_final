@@ -64,7 +64,7 @@ function refresh(){
 						
         		 
         		 "<div class='leavecomment'>"
-			     + "<li>"
+			     
 			     +  "<div class='picform'>"
 
 			     +  "<img class='headpic' src="+path+"/pic/"+data[i].member.iconid
@@ -76,7 +76,7 @@ function refresh(){
 			                +"<p>"+data[i].contentBox+"</p>"
 			               +"<p><a href='#' class='reply'>回覆</a></p>"
 			            +"</div>"
-			       +"</li>"
+			      
 			    +"</div>"
 			    +"<br>"
 			    );

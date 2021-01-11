@@ -1,5 +1,6 @@
 package product.controller;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,6 +51,28 @@ public class ProductController {
 		
 		return gson.toJson(products);
 	}
+	
+	public class PageData implements Serializable{	
+		
+		private static final long serialVersionUID = 1L;
+		int page;
+		List<ProductBean> list;
+		public int getPageNo() {
+			return page;
+		}
+		public void setPage(int page) {
+			this.page = page;
+		}
+		public List<ProductBean> getList() {
+			return list;
+		}
+		public void setList(List<ProductBean> list) {
+			this.list = list;
+		}
+		public PageData() {};
+		
+		
+	}
 
 	@GetMapping("/All")
 	public String all() {
@@ -75,11 +98,6 @@ public class ProductController {
 
 		return map;
 	}
-	
-//	@GetMapping("/bp")
-//	public String brand() {
-//		return "product/brandproduct";
-//	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@GetMapping(value = "/Brand", produces = "application/json")
@@ -148,8 +166,9 @@ public class ProductController {
 		return map;
 	}
 	
-	@GetMapping("/Keyword")
-	public String keyword(Model model,
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@GetMapping(value = "/Keyword", produces = "application/json")
+	public @ResponseBody Map keyword(Model model,
 			@RequestParam(value = "pageNo", defaultValue = "1", required = false) Integer pageNo,
 			@RequestParam(value = "keyword", required = false) String keyword
 	) {
@@ -159,11 +178,13 @@ public class ProductController {
 			pageNo = ps.getKeywordTotalPages(keyword);
 		}
 		List<ProductBean> list = ps.getKeywordPage(keyword, pageNo);
-		model.addAttribute("Products", list);
-		model.addAttribute("Keyword", keyword);
-		model.addAttribute("Pages", String.valueOf(pageNo));
-		model.addAttribute("TotalPages", ps.getKeywordTotalPages(keyword));
-		return "product/keywordproducts";
+		
+		Map map = new HashMap();
+		map.put("Products", list);
+		map.put("Keyword", keyword);
+		map.put("Pages", String.valueOf(pageNo));
+		map.put("TotalPages", ps.getKeywordTotalPages(keyword));
+		return map;
 	}
 	
 	@GetMapping("/Detail")
@@ -230,19 +251,24 @@ public class ProductController {
 	}
 	
 	@GetMapping(value = "/Collect", produces = "application/json")
-	public @ResponseBody boolean collect(
+	@ResponseBody
+	public  boolean collect(
 			@RequestParam("mid") Integer mid,
 			@RequestParam("pid") Integer pid
 	) {
 		System.out.println("XXX " + ps.findcollection(mid));
-		List<CollectBean> list = ps.findcollection(mid);
-//		for(int i=0 ; i<=list.size() ; i++) {
-//			System.out.println("AAA " + list.get(i).getPid());
-//			if(list.get(i) == pid) {
-//				return 0;
-//			} 
-//		}
-		ps.addcollection(mid, pid);
-		return true;
+		try {
+			List<CollectBean> list = ps.findcollection(mid);
+
+			ps.addcollection(mid, pid);
+			System.out.println("加入收藏");
+			return true;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.err.println("加入收藏失敗!");
+			return false;
+		}
+		
 	}
 }
