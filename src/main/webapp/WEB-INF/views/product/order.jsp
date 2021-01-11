@@ -188,7 +188,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 
 				<%		
 				System.out.println(request.getContextPath());
-				String path=request.getContextPath()+"/AllProducts";
+				String path=request.getContextPath()+"/All";
 						response.setHeader("Refresh", "2;"+path);
 					
 					}

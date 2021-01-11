@@ -44,7 +44,7 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 			<div class="container">
 				<div class="row">
 				<c:forEach var='b' varStatus='bg' items='${blog}'>
-				<c:if test="${b.status==0 }">
+				<c:if test="${b.status=='顯示' }">
 					<div class="col-lg-4 col-md-6 col-sm-6">
 						<div class="blog__item">
 						
