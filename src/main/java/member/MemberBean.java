@@ -175,6 +175,8 @@ public class MemberBean implements Serializable {
 	public void setIconid(Integer iconid) {
 		this.iconid = iconid;
 	}
+
+	
 	public boolean isCkpower() {
 		return ckpower;
 	}
@@ -245,9 +247,6 @@ public class MemberBean implements Serializable {
 		builder.append("]");
 		return builder.toString();
 	}
-	
-	
-	
-	
+
 
 }
