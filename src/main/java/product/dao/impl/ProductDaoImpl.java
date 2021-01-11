@@ -41,11 +41,6 @@ public class ProductDaoImpl implements ProductDao {
 	public ProductBean getProduct(int no) {
 		Session session = factory.getCurrentSession();
 		return session.get(ProductBean.class, no);
-//		String hql = "FROM ProductBean WHERE productno = :productno";
-//		Session session = factory.getCurrentSession();
-//		Query<ProductBean> query = session.createQuery(hql);
-//		List<ProductBean> list = query.setParameter("productno", no).getResultList();
-//		return list;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -350,6 +345,21 @@ public class ProductDaoImpl implements ProductDao {
 		cb.setPid(pid);
 		Session session = factory.getCurrentSession();
 		session.save(cb);
+	}
+	
+	@Override
+	public void delcollection(int no) {
+		Session session = factory.getCurrentSession();
+		CollectBean cb = new CollectBean();
+		cb.setCid(no);
+		session.delete(cb);
+	}
+	
+	@Override
+	public int pkcollection(int mid, int pid) {
+		String hql = "SELECT c.cid FROM CollectBean c WHERE c.mid = :mid and c.pid = :pid";
+		Session session = factory.getCurrentSession();
+		return (int) session.createQuery(hql).setParameter("mid", mid).setParameter("pid", pid).uniqueResult();
 	}
 	
 	@SuppressWarnings("unchecked")

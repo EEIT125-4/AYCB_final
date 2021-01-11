@@ -198,6 +198,16 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
+	public void delcollection(int no) {
+		dao.delcollection(no);
+	}
+	
+	@Override
+	public int pkcollection(int mid, int pid) {
+		return dao.pkcollection(mid, pid);
+	}
+	
+	@Override
 	public List<CollectBean> findcollection(int id) {
 		return dao.findcollection(id);
 	}
