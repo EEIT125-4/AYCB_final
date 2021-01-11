@@ -1,9 +1,12 @@
 package product.controller;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -48,6 +51,28 @@ public class ProductController {
 		
 		return gson.toJson(products);
 	}
+	
+	public class PageData implements Serializable{	
+		
+		private static final long serialVersionUID = 1L;
+		int page;
+		List<ProductBean> list;
+		public int getPageNo() {
+			return page;
+		}
+		public void setPage(int page) {
+			this.page = page;
+		}
+		public List<ProductBean> getList() {
+			return list;
+		}
+		public void setList(List<ProductBean> list) {
+			this.list = list;
+		}
+		public PageData() {};
+		
+		
+	}
 
 	@GetMapping("/AllProducts")
 	public String allProducts(Model model,
@@ -62,6 +87,18 @@ public class ProductController {
 		model.addAttribute("Products", list);
 		model.addAttribute("Pages", String.valueOf(pageNo));
 		model.addAttribute("TotalPages", ps.getTotalPages());
+		
+		
+		//模擬AJAX
+		Gson gson=new Gson();
+		PageData pageData=new PageData();
+		pageData.setList(list);
+		pageData.setPage(pageNo);
+		
+	
+		String ajaxData=gson.toJson(pageData);
+		model.addAttribute("ajax", ajaxData);
+		
 		return "product/allproducts";
 	}
 
@@ -204,19 +241,24 @@ public class ProductController {
 	}
 	
 	@GetMapping(value = "/Collect", produces = "application/json")
-	public @ResponseBody boolean collect(
+	@ResponseBody
+	public  boolean collect(
 			@RequestParam("mid") Integer mid,
 			@RequestParam("pid") Integer pid
 	) {
 		System.out.println("XXX " + ps.findcollection(mid));
-		List<CollectBean> list = ps.findcollection(mid);
-//		for(int i=0 ; i<=list.size() ; i++) {
-//			System.out.println("AAA " + list.get(i).getPid());
-//			if(list.get(i) == pid) {
-//				return 0;
-//			} 
-//		}
-		ps.addcollection(mid, pid);
-		return true;
+		try {
+			List<CollectBean> list = ps.findcollection(mid);
+
+			ps.addcollection(mid, pid);
+			System.out.println("加入收藏");
+			return true;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.err.println("加入收藏失敗!");
+			return false;
+		}
+		
 	}
 }

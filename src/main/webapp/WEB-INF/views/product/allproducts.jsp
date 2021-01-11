@@ -104,14 +104,18 @@ if (session.getAttribute("member") != null) {
 					<div class="rightside">
 						<div class="imgbox">
 							<div class="like">
-							<a class="like_a" href="" onclick="collect(${member.id}, ${pro.productno})"><i id="heart" class="fa fa-heart-o"></i></a> 
+							<button class="like_a"  onclick="collect(${member.id}, ${pro.productno})">
+							
+							<i id="heart" class="fa fa-heart-o"></i></button> 
 <!-- 						<a class="like_a" href=""><i class="fa fa-heart nopadding"></i></a>    -->
 							</div>
+							<div>
 							<a
 								href='<c:url value="/Detail" />?no=${pro.productno}&cate=${pro.productcategory}'>
 								<img class="proimg"
 								src="${pageContext.request.contextPath}/pic/${pro.imagepath}">
 							</a>
+							</div>
 
 
 						</div>
@@ -160,6 +164,17 @@ if (session.getAttribute("member") != null) {
 	</div>
 </div>
 <script>
+var pageData=${ajax};
+console.log("ajax="+${ajax});
+var page=pageData.page;
+console.log("ajax pageNo="+page);
+var list=pageData.list;
+// console.log("ajax list"+list);
+for(let i=0;i<list.length;i++){
+	
+	console.log("product:"+list[i].productname);
+}
+
 function collect(mid, pid) {
 	$("#heart").removeClass();
 	$.ajax({
