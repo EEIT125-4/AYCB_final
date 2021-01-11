@@ -3,7 +3,9 @@ package product.controller;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,7 @@ import com.google.gson.Gson;
 
 import comment.model.CommentBean;
 import comment.service.CommentService;
+import product.model.CollectBean;
 import product.model.ProductBean;
 import product.service.ProductService;
 
@@ -48,8 +51,14 @@ public class ProductController {
 		return gson.toJson(products);
 	}
 
-	@GetMapping("/AllProducts")
-	public String allProducts(Model model,
+	@GetMapping("/All")
+	public String all() {
+		return "product/allproducts";
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@GetMapping(value = "/AllProducts", produces = "application/json")
+	public @ResponseBody Map allProducts(Model model,
 			@RequestParam(value = "pageNo", defaultValue = "1", required = false) Integer pageNo
 	) {
 		if (pageNo == 0) {
@@ -58,12 +67,15 @@ public class ProductController {
 			pageNo = ps.getTotalPages();
 		}
 		List<ProductBean> list = ps.getPage(pageNo);
-		model.addAttribute("Products", list);
-		model.addAttribute("Pages", String.valueOf(pageNo));
-		model.addAttribute("TotalPages", ps.getTotalPages());
-		return "product/allproducts";
-	}
+		
+		Map map = new HashMap();
+		map.put("Products", list);
+		map.put("Pages", String.valueOf(pageNo));
+		map.put("TotalPages", ps.getTotalPages());
 
+		return map;
+	}
+	
 	@GetMapping("/Brand")
 	public String brand(Model model, 
 			@RequestParam(value = "pageNo", defaultValue = "1", required = false) Integer pageNo,
@@ -200,5 +212,22 @@ public class ProductController {
 	public @ResponseBody List<String> getBrand(){
 		List<String> list = ps.getBrand();
 		return list;
+	}
+	
+	@GetMapping(value = "/Collect", produces = "application/json")
+	public @ResponseBody boolean collect(
+			@RequestParam("mid") Integer mid,
+			@RequestParam("pid") Integer pid
+	) {
+		System.out.println("XXX " + ps.findcollection(mid));
+		List<CollectBean> list = ps.findcollection(mid);
+//		for(int i=0 ; i<=list.size() ; i++) {
+//			System.out.println("AAA " + list.get(i).getPid());
+//			if(list.get(i) == pid) {
+//				return 0;
+//			} 
+//		}
+		ps.addcollection(mid, pid);
+		return true;
 	}
 }

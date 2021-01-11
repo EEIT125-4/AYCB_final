@@ -12,70 +12,91 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">
 
 <title>網誌後台</title>
 <%@include file="../jspf/header.jspf"%>
 
 
-	<div>
-		<h1>網誌後台</h1>
-		<table>
-		    <thead>
-            <tr>
-                <th>id</th>
-                <th>上傳時間</th>
-                <th>修改時間</th>
-                <th>狀態列</th>
-                <th>標題</th>
-                <th>上傳會員</th>
-                 <th>點讚次數</th>
-                  <th>觀看次數</th>
-                   <th>分類</th>
-            </tr>
-        </thead>
-<%--         <c:set var="status" value="{'顯示','審核中','維護中','用戶刪除'}"/> --%>
-    
-     
-		<c:forEach var='b' varStatus='bg' items='${blogs}'>
-		<tr>		
-		<td name="blogId">${b.blogId}</td>
-		<td>${b.commentTime}</td>
-		<td>${b.fixedtime}</td>
-		<td>
+<div>
+	<h1>網誌後台</h1>
+	<table id="myDataTable" class="display">
+		<thead>
+			<tr>
+				<th>id</th>
+				<th>上傳時間</th>
+				<th>修改時間</th>
+				<th>狀態列</th>
+				<th>標題</th>
+				<th>上傳會員</th>
+				<th>點讚次數</th>
+				<th>觀看次數</th>
 
-			<select class="status">
-			
-	
-			<option disabled selected>${b.status}</option>
-				<option value="顯示">顯示</option>
-				<option value="審核中">審核中</option>
-				<option value="維護中">維護中</option>
-				<option value="用戶刪除">用戶刪除</option>
-			</select>
-			
-		</td>
-		<td>${b.title}</td>
-		<td>${b.member.name}</td>
-		<td>${b.thumbs}</td>
-		<td>${b.views}</td>	
-	
-		</tr>
-		
-		</c:forEach>
-		</table>
-		<div 	style="width: 600px;"><canvas id="myChart"></canvas></div>
-		
-		</div>
-		
-		
-		
-		<%@include file="../jspf/footer.jspf"%>
-		
-		<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-		
-		<script src="https://code.jquery.com/jquery-3.5.1.js"
-	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-	crossorigin="anonymous"></script>
+			</tr>
+		</thead>
+		<%--         <c:set var="status" value="{'顯示','審核中','維護中','用戶刪除'}"/> --%>
+
+		<tbody>
+			<c:forEach var='b' varStatus='bg' items='${blogs}'>
+				<tr>
+					<td name="blogId">${b.blogId}</td>
+					<td>${b.commentTime}</td>
+					<td>${b.fixedtime}</td>
+					<td><select class="status">
+
+
+							<option disabled selected>${b.status}</option>
+							<option value="顯示">顯示</option>
+							<option value="審核中">審核中</option>
+							<option value="維護中">維護中</option>
+							<option value="用戶刪除">用戶刪除</option>
+					</select></td>
+					<td>${b.title}</td>
+					<td>${b.member.name}</td>
+					<td>${b.thumbs}</td>
+					<td>${b.views}</td>
+
+
+				</tr>
+
+			</c:forEach>
+		</tbody>
+	</table>
+	<div style="width: 600px;">
+		<canvas id="myChart"></canvas>
+	</div>
+	<div style="width: 600px;">
+		<canvas id="myChart2"></canvas>
+	</div>
+</div>
+
+
+
+<%@include file="../jspf/footer.jspf"%>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+<!-- 		<script src="https://code.jquery.com/jquery-3.5.1.js" -->
+<!-- 	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" -->
+<!-- 	crossorigin="anonymous"></script> -->
+
+<!-- 	Kevin:datatable -->
+<script type="text/javascript" charset="utf8"
+	src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
+<script type="text/javascript">
+        $(function () {
+
+            $("#myDataTable").DataTable({
+                searching: true, 
+                columnDefs: [{
+//                     targets: [10],
+                    orderable: true,
+                }]
+            });
+        });
+    </script>
+
 <script>
 
 $(document).ready(function() {
@@ -96,11 +117,27 @@ $(document).ready(function() {
             	"state":state                
             },
             success: function(data) {
-            	swal("OK","","success");
+
+     				
+     				swal.fire({
+      				  title: "已更新",
+      				  text: "狀態變更",
+      				  icon: "success",
+      				  button: "OK",
+      				});
+     				
+     			
               
             },
             error: function(data) {
-            	swal("fail!","","error");
+            	
+            	
+            	swal.fire({
+    				  title: "oops",
+    				  text: "狀態未變更",
+    				  icon: "error",
+    				  button: "OK",
+    				});
               
             }
         })
@@ -109,6 +146,7 @@ $(document).ready(function() {
 
 
 var ctx = document.getElementById('myChart').getContext('2d');
+var ctx2 = document.getElementById('myChart2').getContext('2d');
 var chart = new Chart(ctx, {
     // The type of chart we want to create
     type: 'line',
@@ -127,12 +165,114 @@ var chart = new Chart(ctx, {
     // Configuration options go here
     options: {}
 });
+var titles=${titles};
+var views=${views};
+var blogJson=${blogJson};
+var mTitles=[];
+var mViews=[];
+var colors=[];
+var lines=[];
 
+for(let i=0;i<blogJson.length;i++){
+	 mTitles.push(blogJson[i].title);	
+	 mViews.push(blogJson[i].views);
+	 let rgb = [];
+	 for (let i = 0; i < 3; i++) {
+         rgb[i] = parseInt(Math.random() * 256);
+//          console.log(rgb[i]);
+     };
+     let color="rgba("+rgb[0]+","+rgb[1]+","+rgb[2]+",0.2)";
+     
+     
+	 colors.push(color);
+	 color="rgba("+rgb[0]+","+rgb[1]+","+rgb[2]+",1.0)";
+	 lines.push(color);
+	 
+// 	 console.log("json_title"+blogJson[i].title);
+}
+
+var chart2 = new Chart(ctx2, {
+    // The type of chart we want to create
+    type: 'bar',
+    data: {
+        //標題
+        labels: mTitles,
+        datasets: [{
+          label: '瀏覽人次', //標籤
+          data: mViews, //資料
+          //圖表背景色
+          backgroundColor: colors
+//         	  [
+//             'rgba(255, 99, 132, 0.2)',
+//             'rgba(54, 162, 235, 0.2)',
+//             'rgba(255, 206, 86, 0.2)',
+//             'rgba(75, 192, 192, 0.2)',
+//             'rgba(153, 102, 255, 0.2)',
+//             'rgba(255, 159, 64, 0.2)'
+//           ]
+        ,
+          //圖表外框線色
+          borderColor: lines
+//         	  [
+//             'rgba(255, 99, 132, 1)',
+//             'rgba(54, 162, 235, 1)',
+//             'rgba(255, 206, 86, 1)',
+//             'rgba(75, 192, 192, 1)',
+//             'rgba(153, 102, 255, 1)',
+//             'rgba(255, 159, 64, 1)'
+//           ]
+        ,
+          //外框線寬度
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true,
+              responsive: true //符合響應式
+            }
+          }]
+        }
+      }
+    });
+   
+   
+
+
+
+</script>
+<script>
+// var data=[];
+// var titles=${titles};
+// console.log("titles size"+${blogs.size()});
+// titles.forEach(function(item,i){
+// 	console.log("title:"+item);
+	
+// });
+
+// function getTitle(){
+// $.ajax({
+//     type: "GET", //傳送方式
+//     url: "${pageContext.request.contextPath}/blog/adjust/", 
+//     dataType: "json", //資料格式
+
+//     success: function(data) {
+
+
+//     },
+//     error: function(data) {
+    	    	
+     
+//     }
+// });
+// }
 
 </script>
 </body>
 
- 
+
 
 <!-- Js Plugins -->
 <%-- <script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script> --%>
