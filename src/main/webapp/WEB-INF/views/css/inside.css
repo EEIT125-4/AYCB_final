@@ -202,7 +202,7 @@
 	color: red;
 	border-radius: 25px;
 	border: 2px solid gray;
-	background-color: transparent
+	background-color: transparent;
 }
 
 .like_button:hover {
@@ -235,4 +235,24 @@
 	display: none;
 	font-family: 'Arial';
 	border-top: solid 1px #000000;
+}
+
+.searchbox {
+	width: 223px;
+	margin-left: 68.6%;
+	border-radius: 5px;
+	border: 1px solid gray;
+}
+
+.searchinput {
+	width: 178px;
+	height: 40px;
+	float: left;
+	border: none;
+	margin-left: 2px;
+}
+
+.searchbtn {
+	border: none;
+	background-color: transparent;
 }

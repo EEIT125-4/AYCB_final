@@ -43,6 +43,13 @@ if (session.getAttribute("member") != null) {
 <div class="wrapper">
 	<div class="contentoutbox">
 		<div class="contentbox">
+			<div class="searchbox">
+				<input class="searchinput" type="text" name="keyword">
+				<button class="searchbtn">
+					<img src="${pageContext.request.contextPath}/image/icon/search.png"
+						alt="">
+				</button>
+			</div>
 			<div class="leftside">
 				<div class="condition">條件篩選</div>
 				<div class="category">
@@ -52,8 +59,10 @@ if (session.getAttribute("member") != null) {
 							<c:if test='${vs.first }'>
 								<c:out value="<ul id='ul1'>" escapeXml='false' />
 							</c:if>
-							<li class="cateul_li" >
-							<button class="cateul_li_button" onclick="Brandproducts('${brand}',1)">${brand}</button></li>
+							<li class="cateul_li">
+								<button class="cateul_li_button"
+									onclick="Brandproducts('${brand}',1)">${brand}</button>
+							</li>
 							<c:if test='${vs.last }'>
 								<c:out value="</ul>" escapeXml='false' />
 							</c:if>
@@ -66,7 +75,9 @@ if (session.getAttribute("member") != null) {
 								<c:out value="<ul id='ul2'>" escapeXml='false' />
 							</c:if>
 							<li class="cateul_li">
-							<button class="cateul_li_button" onclick="Seriesproducts('${series}',1)">${series}</button></li>
+								<button class="cateul_li_button"
+									onclick="Seriesproducts('${series}',1)">${series}</button>
+							</li>
 							<c:if test='${vs.last }'>
 								<c:out value="</ul>" escapeXml='false' />
 							</c:if>
@@ -79,7 +90,9 @@ if (session.getAttribute("member") != null) {
 								<c:out value="<ul id='ul3'>" escapeXml='false' />
 							</c:if>
 							<li class="cateul_li">
-							<button class="cateul_li_button" onclick="Cateproducts('${cate}',1)">${cate}</button></li>
+								<button class="cateul_li_button"
+									onclick="Cateproducts('${cate}',1)">${cate}</button>
+							</li>
 							<c:if test='${vs.last }'>
 								<c:out value="</ul>" escapeXml='false' />
 							</c:if>
@@ -91,12 +104,8 @@ if (session.getAttribute("member") != null) {
 					<!-- 				<div> -->
 				</div>
 			</div>
-			<div id="proarea" class="rightoutbox">
-
-			</div>
-			<div id="pagearea" class="page">
-
-			</div>
+			<div id="proarea" class="rightoutbox"></div>
+			<div id="pagearea" class="page"></div>
 		</div>
 	</div>
 </div>
@@ -122,7 +131,7 @@ function Allproducts(i) {
 						+  "<div class='buttonbox'>"
 						+  "<div class='proprice'>NT$"+data.Products[i].productprice+"</div>"
 						+  "<div class='cart'>"
-						+  "<%if(login) {%>"
+						+  "<%if (login) {%>"
 						+  "<a href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
 						+  "<img class='cartimg' src='image/bg_cart_b.svg'></a>"
 						+  "<%} else {%>"
@@ -268,46 +277,48 @@ function Cateproducts(cate, i) {
 						+  "<%} else {%>"
 						+  "<a href='${pageContext.request.contextPath}/member/login'>"
 						+  "<img class='cartimg' src='image/bg_cart_b.svg'></a>"
-						+  "<%}%>"
-						+  "</div></div></div>";
-			}
-			$("#proarea").html(content);
-			
-			var page = "<ul class='page_ul'>"
-			for (let i = 1; i <= data.TotalPages; i++) {
-				page += "<li class='page_ul_li'>"
-					 +  "<button class='page_ul_li_button' type='submit' onclick='Brandproducts("+'"'+data.OneCate+'"'+","+i+")'>"+i+"</button></li>";
-				
-			}
-			page += "</ul>";
-			$("#pagearea").html(page);
-		}
-	});
-}
+						+  "<%}%>" 
+						+ "</div></div></div>";
+						}
+						$("#proarea").html(content);
 
-function collect(mid, pid) {
-	$("#heart").removeClass();
-	$.ajax({
-		async : true,
-		type : 'GET',
-		url : 'Collect',
-		data : { 
-			"mid":mid,
-        	"pid":pid 
-		},
-		dataType : "json",
-		success : function(data) {
-		alert(data);
-			if (data) {
-				swal("收藏成功", "","success");
-				$("#heart").addClass("fa fa-heart");
-			}else {
-				swal("取消收藏", "","error");
-				$("#heart").addClass("fa fa-heart-o");
+						var page = "<ul class='page_ul'>"
+						for (let i = 1; i <= data.TotalPages; i++) {
+							page += "<li class='page_ul_li'>"
+									+ "<button class='page_ul_li_button' type='submit' onclick='Brandproducts("
+									+ '"' + data.OneCate + '"' + "," + i
+									+ ")'>" + i + "</button></li>";
+
+						}
+						page += "</ul>";
+						$("#pagearea").html(page);
+					}
+				});
+	}
+
+	function collect(mid, pid) {
+		$("#heart").removeClass();
+		$.ajax({
+			async : true,
+			type : 'GET',
+			url : 'Collect',
+			data : {
+				"mid" : mid,
+				"pid" : pid
+			},
+			dataType : "json",
+			success : function(data) {
+				alert(data);
+				if (data) {
+					swal("收藏成功", "", "success");
+					$("#heart").addClass("fa fa-heart");
+				} else {
+					swal("取消收藏", "", "error");
+					$("#heart").addClass("fa fa-heart-o");
+				}
 			}
-		}
-	});
-}
+		});
+	}
 </script>
 <%@include file="../jspf/footer.jspf"%>
 </body>
