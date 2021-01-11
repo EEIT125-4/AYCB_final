@@ -59,8 +59,10 @@ public class AttendanceController {
 		public@ResponseBody List<Attendance> ajaxlist(
 //				Model model
 				) {	
+			System.out.println("成功進入ajaxshowattendancce");
 			List<Attendance> list = new ArrayList<Attendance>();
 			list = attendanceService.getAllAttendance();
+			System.out.println("印出"+list);
 			return list;
 			
 			

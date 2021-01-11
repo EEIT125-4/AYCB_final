@@ -74,8 +74,14 @@ public class ProductController {
 		
 	}
 
-	@GetMapping("/AllProducts")
-	public String allProducts(Model model,
+	@GetMapping("/All")
+	public String all() {
+		return "product/allproducts";
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@GetMapping(value = "/AllProducts", produces = "application/json")
+	public @ResponseBody Map allProducts(Model model,
 			@RequestParam(value = "pageNo", defaultValue = "1", required = false) Integer pageNo
 	) {
 		if (pageNo == 0) {
@@ -84,26 +90,23 @@ public class ProductController {
 			pageNo = ps.getTotalPages();
 		}
 		List<ProductBean> list = ps.getPage(pageNo);
-		model.addAttribute("Products", list);
-		model.addAttribute("Pages", String.valueOf(pageNo));
-		model.addAttribute("TotalPages", ps.getTotalPages());
 		
-		
-		//模擬AJAX
-		Gson gson=new Gson();
-		PageData pageData=new PageData();
-		pageData.setList(list);
-		pageData.setPage(pageNo);
-		
-	
-		String ajaxData=gson.toJson(pageData);
-		model.addAttribute("ajax", ajaxData);
-		
-		return "product/allproducts";
-	}
+		Map map = new HashMap();
+		map.put("Products", list);
+		map.put("Pages", String.valueOf(pageNo));
+		map.put("TotalPages", ps.getTotalPages());
 
-	@GetMapping("/Brand")
-	public String brand(Model model, 
+		return map;
+	}
+	
+//	@GetMapping("/bp")
+//	public String brand() {
+//		return "product/brandproduct";
+//	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@GetMapping(value = "/Brand", produces = "application/json")
+	public @ResponseBody Map brand(Model model, 
 			@RequestParam(value = "pageNo", defaultValue = "1", required = false) Integer pageNo,
 			@RequestParam(value = "brand", required = false) String brandname
 	) {
@@ -114,15 +117,19 @@ public class ProductController {
 		}
 		List<ProductBean> list = ps.getBrandPage(brandname, pageNo);
 		List<String> brand = ps.getOneBrand(brandname);
-		model.addAttribute("Products", list);
-		model.addAttribute("OneBrand", brand);
-		model.addAttribute("Pages", String.valueOf(pageNo));
-		model.addAttribute("TotalPages", ps.getBrandTotalPages(brandname));
-		return "product/brandproduct";
+		
+		Map map = new HashMap();
+		map.put("Products", list);
+		map.put("OneBrand", brand);
+		map.put("Pages", String.valueOf(pageNo));
+		map.put("TotalPages", ps.getBrandTotalPages(brandname));
+				
+		return map;
 	}
 
-	@GetMapping("/Series")
-	public String series(Model model,
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@GetMapping(value = "/Series", produces = "application/json")
+	public @ResponseBody Map series(Model model,
 			@RequestParam(value = "pageNo", defaultValue = "1", required = false) Integer pageNo,
 			@RequestParam(value = "series", required = false) String productseries
 	) {
@@ -133,15 +140,18 @@ public class ProductController {
 		}
 		List<ProductBean> list = ps.getSeriesPage(productseries, pageNo);
 		List<String> series = ps.getOneSeries(productseries);
-		model.addAttribute("Products", list);
-		model.addAttribute("OneSeries", series);
-		model.addAttribute("Pages", String.valueOf(pageNo));
-		model.addAttribute("TotalPages", ps.getSeriesTotalPages(productseries));
-		return "product/seriesproduct";
+		
+		Map map = new HashMap();
+		map.put("Products", list);
+		map.put("OneSeries", series);
+		map.put("Pages", String.valueOf(pageNo));
+		map.put("TotalPages", ps.getSeriesTotalPages(productseries));
+		return map;
 	}
 
-	@GetMapping("/Cate")
-	public String cate(Model model, 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@GetMapping(value = "/Cate", produces = "application/json")
+	public @ResponseBody Map cate(Model model, 
 			@RequestParam(value = "pageNo", defaultValue = "1", required = false) Integer pageNo,
 			@RequestParam(value = "cate", required = false) String productcategory
 	) {
@@ -152,11 +162,13 @@ public class ProductController {
 		}
 		List<ProductBean> list = ps.getCatePage(productcategory, pageNo);
 		List<String> cate = ps.getOneCate(productcategory);
-		model.addAttribute("Products", list);
-		model.addAttribute("OneCate", cate);
-		model.addAttribute("Pages", String.valueOf(pageNo));
-		model.addAttribute("TotalPages", ps.getCateTotalPages(productcategory));
-		return "product/cateproduct";
+		
+		Map map = new HashMap();
+		map.put("Products", list);
+		map.put("OneCate", cate);
+		map.put("Pages", String.valueOf(pageNo));
+		map.put("TotalPages", ps.getCateTotalPages(productcategory));
+		return map;
 	}
 	
 	@GetMapping("/Keyword")
