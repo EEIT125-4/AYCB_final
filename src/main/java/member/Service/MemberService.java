@@ -30,9 +30,9 @@ public interface MemberService {
 	
 	 MemberBean getemail(String email );
 	 
-	 void ckpower2(String account);
-	 
 	 MemberBean ckpower(String account);
+
+	void ckpower2(Integer id);
 	 
 	 
 	 

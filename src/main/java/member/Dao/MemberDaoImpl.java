@@ -149,9 +149,9 @@ public class MemberDaoImpl implements MemberDao {
 	//權限
 	@Override
 	@SuppressWarnings("unchecked")
-	public void ckpower2(String account) {
+	public void ckpower2(Integer id) {
 		
-		MemberBean mb = factory.getCurrentSession().get(MemberBean.class , account);
+		MemberBean mb = factory.getCurrentSession().get(MemberBean.class , id);
 		mb.setCkpower(!mb.isCkpower());
 		
 	}
