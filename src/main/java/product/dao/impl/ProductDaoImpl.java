@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import product.dao.ProductDao;
+import product.model.CollectBean;
 import product.model.ProductBean;
 
 @Repository
@@ -20,7 +21,7 @@ public class ProductDaoImpl implements ProductDao {
 	@Autowired
 	SessionFactory factory;
 
-	private int recordsPerPage = 20;
+	private int recordsPerPage = 18;
 
 	@Override
 	public void saveProduct(ProductBean pb) {
@@ -340,6 +341,23 @@ public class ProductDaoImpl implements ProductDao {
 			return query.setMaxResults(size).getResultList();
 		}
 		return query.setFirstResult(r.nextInt(size-5)+1).setMaxResults(5).getResultList();
+	}
+	
+	@Override
+	public void addcollection(int mid, int pid) {
+		CollectBean cb = new CollectBean();
+		cb.setMid(mid);
+		cb.setPid(pid);
+		Session session = factory.getCurrentSession();
+		session.save(cb);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<CollectBean> findcollection(int id) {
+		String hql = "SELECT c.pid FROM CollectBean c WHERE c.mid = :mid";
+		Session session = factory.getCurrentSession();
+		return session.createQuery(hql).setParameter("mid", id).getResultList();
 	}
 	
 }

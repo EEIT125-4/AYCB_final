@@ -69,18 +69,14 @@
    font-weight: bold;
 }
 
-.cateul_li_a:link {
+.cateul_li_button {
+	width: fit-content;
+	height: 30px;
+    font-size: 16px;
+    font-weight: bold;
+	border: none;
 	color: black;
-    font-size: 16px;
-}
-
-.cateul_li_a:visited {
-    color: black;
-    font-size: 16px;
-}
-
-.cateul_li_a:visited:hover {
-    color: tomato;
+	background-color: transparent;
 }
 
 .rightoutbox {
@@ -160,8 +156,9 @@
 .page {
     clear: both;
     width: fit-content;
-    margin: 0 auto;
-    padding: 80px;
+    margin-left: 50%;
+    padding-top: 40px;
+    padding-bottom: 100px;
 }
 
 .page_ul {
@@ -170,30 +167,24 @@
 
 .page_ul_li {
     float: left;
-    padding: 0 20px;
     list-style-type: none;
-    font-size: 20px;
-    font-weight: bold;
     color: black;
-    cursor: pointer;
     border: 2px solid gray;
     border-radius: 5px;
 }
 
-.page_ul_li:hover {
+.page_ul_li_button {
+	width: 84px;
+	height: 44px;
+	font-size: 20px;
+    font-weight: bold;
+	border: none;
+	color: gray;
+	background-color: transparent;
+}
+
+.page_ul_li_button:hover {
 	color: tomato;	
-}
-
-.page_ul_li_a:link {
-    color: gray;
-}
-
-.page_ul_li_a:visited {
-    color: gray;
-}
-
-.page_ul_li_a:visited:hover {
-    color: tomato;
 }
 
 .like {
@@ -203,18 +194,19 @@
     margin-left: 80%;
     line-height: 40px;
     text-align: center;
-    border: 2px solid gray;
-    border-radius: 25px;
     background-color: white;
     display: none;
 }
 
-.like_a:link {
-    color: red;
+.like_button {
+	color: red;
+	border-radius: 25px;
+	border: 2px solid gray;
+	background-color: transparent
 }
 
-.like_a:visited {
-    color: red;
+.like_button:hover {
+	border-color: red;
 }
 
 .imgbox:hover .like {
