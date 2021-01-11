@@ -44,8 +44,8 @@ if (session.getAttribute("member") != null) {
 	<div class="contentoutbox">
 		<div class="contentbox">
 			<div class="searchbox">
-				<input class="searchinput" type="text" name="keyword">
-				<button class="searchbtn">
+				<input id="keyword" class="searchinput" type="text">
+				<button class="searchbtn" onclick="Keywordproducts(1)">
 					<img src="${pageContext.request.contextPath}/image/icon/search.png"
 						alt="">
 				</button>
@@ -192,7 +192,6 @@ function Brandproducts(brand, i) {
 			for (let i = 1; i <= data.TotalPages; i++) {
 				page += "<li class='page_ul_li'>"
 					 +  "<button class='page_ul_li_button' type='submit' onclick='Brandproducts("+'"'+data.OneBrand+'"'+","+i+")'>"+i+"</button></li>";
-				
 			}
 			page += "</ul>";
 			$("#pagearea").html(page);
@@ -238,8 +237,7 @@ function Seriesproducts(series, i) {
 			var page = "<ul class='page_ul'>"
 			for (let i = 1; i <= data.TotalPages; i++) {
 				page += "<li class='page_ul_li'>"
-					 +  "<button class='page_ul_li_button' type='submit' onclick='Brandproducts("+'"'+data.OneSeries+'"'+","+i+")'>"+i+"</button></li>";
-				
+					 +  "<button class='page_ul_li_button' type='submit' onclick='Seriesproducts("+'"'+data.OneSeries+'"'+","+i+")'>"+i+"</button></li>";
 			}
 			page += "</ul>";
 			$("#pagearea").html(page);
@@ -279,22 +277,68 @@ function Cateproducts(cate, i) {
 						+  "<img class='cartimg' src='image/bg_cart_b.svg'></a>"
 						+  "<%}%>" 
 						+ "</div></div></div>";
-						}
-						$("#proarea").html(content);
+			}
+			$("#proarea").html(content);
 
-						var page = "<ul class='page_ul'>"
-						for (let i = 1; i <= data.TotalPages; i++) {
-							page += "<li class='page_ul_li'>"
-									+ "<button class='page_ul_li_button' type='submit' onclick='Brandproducts("
-									+ '"' + data.OneCate + '"' + "," + i
-									+ ")'>" + i + "</button></li>";
+			var page = "<ul class='page_ul'>"
+			for (let i = 1; i <= data.TotalPages; i++) {
+				page += "<li class='page_ul_li'>"
+					 + "<button class='page_ul_li_button' type='submit' onclick='Cateproducts("
+					 + '"' + data.OneCate + '"' + "," + i
+					 + ")'>" + i + "</button></li>";
+			}
+			page += "</ul>";
+			$("#pagearea").html(page);
+		}
+	});
+}
 
-						}
-						page += "</ul>";
-						$("#pagearea").html(page);
-					}
-				});
-	}
+function Keywordproducts(i) {
+	var keyword = $("#keyword").val();
+	$.ajax({
+		async : false,
+		type : 'GET',
+		url : "Keyword",
+		data : {
+			"pageNo":i,
+			"keyword":keyword
+		},
+		dataType : "json",
+		success : function(data) {
+			var content = "";
+			for (let i = 0; i < data.Products.length; i++) {
+				content += "<div class='rightside'>"
+						+  "<div class='imgbox'>"
+						+  "<div class='like'>"
+						+  "<button class='like_button' onclick='collect(${member.id}, ${pro.productno})'>"
+						+  "<i id='heart' class='fa fa-heart-o'></i></button></div>"
+						+  "<a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
+						+  "<img class='proimg' src='${pageContext.request.contextPath}/pic/"+data.Products[i].imagepath+"'></a></div>"
+						+  "<div class='proname'>"+data.Products[i].productname+"</div>"
+						+  "<div class='buttonbox'>"
+						+  "<div class='proprice'>NT$"+data.Products[i].productprice+"</div>"
+						+  "<div class='cart'>"
+						+  "<%if (login) {%>"
+						+  "<a href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
+						+  "<img class='cartimg' src='image/bg_cart_b.svg'></a>"
+						+  "<%} else {%>"
+						+  "<a href='${pageContext.request.contextPath}/member/login'>"
+						+  "<img class='cartimg' src='image/bg_cart_b.svg'></a>"
+						+  "<%}%>" 
+						+ "</div></div></div>";
+			}
+			$("#proarea").html(content);
+
+			var page = "<ul class='page_ul'>"
+			for (let i = 1; i <= data.TotalPages; i++) {
+				page += "<li class='page_ul_li'>"
+					 + "<button class='page_ul_li_button' type='submit' onclick='Keywordproducts("+i+")'>" + i + "</button></li>";
+			}
+			page += "</ul>";
+			$("#pagearea").html(page);
+		}
+	});
+}
 
 	function collect(mid, pid) {
 		$("#heart").removeClass();

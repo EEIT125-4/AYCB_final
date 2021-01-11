@@ -99,11 +99,6 @@ public class ProductController {
 		return map;
 	}
 	
-//	@GetMapping("/bp")
-//	public String brand() {
-//		return "product/brandproduct";
-//	}
-	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@GetMapping(value = "/Brand", produces = "application/json")
 	public @ResponseBody Map brand(Model model, 
@@ -171,8 +166,9 @@ public class ProductController {
 		return map;
 	}
 	
-	@GetMapping("/Keyword")
-	public String keyword(Model model,
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@GetMapping(value = "/Keyword", produces = "application/json")
+	public @ResponseBody Map keyword(Model model,
 			@RequestParam(value = "pageNo", defaultValue = "1", required = false) Integer pageNo,
 			@RequestParam(value = "keyword", required = false) String keyword
 	) {
@@ -182,11 +178,13 @@ public class ProductController {
 			pageNo = ps.getKeywordTotalPages(keyword);
 		}
 		List<ProductBean> list = ps.getKeywordPage(keyword, pageNo);
-		model.addAttribute("Products", list);
-		model.addAttribute("Keyword", keyword);
-		model.addAttribute("Pages", String.valueOf(pageNo));
-		model.addAttribute("TotalPages", ps.getKeywordTotalPages(keyword));
-		return "product/keywordproducts";
+		
+		Map map = new HashMap();
+		map.put("Products", list);
+		map.put("Keyword", keyword);
+		map.put("Pages", String.valueOf(pageNo));
+		map.put("TotalPages", ps.getKeywordTotalPages(keyword));
+		return map;
 	}
 	
 	@GetMapping("/Detail")
