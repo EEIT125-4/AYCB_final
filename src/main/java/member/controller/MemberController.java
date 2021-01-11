@@ -80,6 +80,21 @@ public class MemberController {
 
 		return "/index"; // 請視圖解析器由視圖的邏輯名稱index來找出真正的視圖
 	}
+	
+	
+	
+	
+	//select 後臺查詢
+	@GetMapping("member/memberBackstage")
+	public String list(Model model) {
+		model.addAttribute("memberBackstage", memberService.getAllMembers());
+		
+		return "member/memberBackstage";
+	}
+	
+	
+	
+	
 	// 註冊頁
 	@GetMapping("/register") 
 	public String getregister(Model model) {

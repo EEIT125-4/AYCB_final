@@ -20,6 +20,59 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 <title>會員後台管理</title>
 <%@include file="../jspf/header.jspf"%>
 
+
+
+
+    <table class="table">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">會員ID</th>
+            
+            <th scope="col">名稱</th>
+            <th scope="col">帳號</th>
+            <th scope="col">信箱</th>
+            <th scope="col">手機</th>
+            <th scope="col">生日</th>
+            <th scope="col">地址</th>
+          </tr>
+        </thead>
+        <tbody>
+        
+        <c:forEach  items='${memberBackstage}'>
+          <tr>
+            <th scope="row"></th>
+            <td>${member.account}</td>
+            <td>${member.name}</td>
+            <td>kk</td>
+            <td>kk</td>
+            <td>ff</td>
+            <td>123</td>
+        </c:forEach>
+       
+        
+          </tr>
+        </tbody>
+      </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <c:if test="${not empty member }">
 
 </c:if>
