@@ -18,6 +18,14 @@ MemberBean mb = (MemberBean) session.getAttribute("member");
 // }
 %>
 
+	<style>
+.swal2-confirm {
+
+width:100px;
+}
+	
+</style>
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">	
 <link REL=STYLESHEET HREF="${pageContext.request.contextPath}/css/Home.css" TYPE="text/css">	
 <link rel="icon" href="${pageContext.request.contextPath}/image/logo.ico" type="image/x-icon">
@@ -51,7 +59,9 @@ MemberBean mb = (MemberBean) session.getAttribute("member");
     <script src="${pageContext.request.contextPath}/js/mixitup.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/main.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<!--     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
+
 </head>    
 <body>
 	<!-- Page Preloder -->
@@ -183,7 +193,7 @@ MemberBean mb = (MemberBean) session.getAttribute("member");
 					<nav class="header__menu mobile-menu">
 						<ul>
 							<li><a href="${pageContext.request.contextPath}/message/query">訊息中心</a>
-							<li><a href='<c:url value="/AllProducts"/>'>保養品</a>
+							<li><a href='<c:url value="/All"/>' >保養品</a>
 									<ul class="dropdown">
 										<c:forEach var="cate" varStatus='vs' items="${cate}">
 											<li>
@@ -200,8 +210,7 @@ MemberBean mb = (MemberBean) session.getAttribute("member");
                             </li>
 							<li><a href="${pageContext.request.contextPath}/event/showEvent">預約活動</a>
 							<ul class="dropdown">
-                                    <li><a href="<c:url value='/event/showAttendance'/>">查詢報名</a></li> 
-                                    <li><a href="<c:url value='/event/showAllAttendanceByID'/>?id=${member.id}">查詢會員報名</a></li>
+                                <li><a href="<c:url value='/event/showAllAttendanceByID'/>?id=${member.id}">查詢會員報名</a></li>
                                 </ul>
 							</li>
 						</ul>

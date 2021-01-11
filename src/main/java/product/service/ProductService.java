@@ -2,6 +2,7 @@ package product.service;
 
 import java.util.List;
 
+import product.model.CollectBean;
 import product.model.ProductBean;
 
 public interface ProductService {
@@ -72,5 +73,9 @@ public interface ProductService {
 	
 	List<ProductBean> getBrandPage(int pageNo, String brandname);
 	
-	List<ProductBean> ra(String cate);
+	List<ProductBean> racate(String cate);
+	
+	void addcollection(int mid, int pid);
+	
+	List<CollectBean> findcollection(int id);
 }

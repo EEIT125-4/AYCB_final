@@ -14,11 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import comment.model.Video;
@@ -27,7 +29,7 @@ import event.validator.AttendanceValidator;
 import tool.Common;
 
 @Controller
-
+@SessionAttributes({ "video" })
 public class VideoController {
 
 	@Autowired
@@ -38,7 +40,7 @@ public class VideoController {
 
 	// select all 秀出所有影片
 	@GetMapping("comment/videolist")
-	public String list(Model model) {//,RedirectAttributes redirectAttributes
+	public String list(Model model) {// ,RedirectAttributes redirectAttributes
 		model.addAttribute("videolist", vs.selectAllVideo());
 //		redirectAttributes.addFlashAttribute("videolist",vs.selectAllVideo());
 		return "comment/video";
@@ -51,40 +53,48 @@ public class VideoController {
 		model.addAttribute("video", video);
 		return "comment/videoForm";
 	}
-	
+
 //insert一個新的影片	
 	@PostMapping("video/empty")
-	public String insertNewVideo(Model model,
+	
+	public String insertNewVideo(Model model, //@RequestParam(value = "option") Integer option,
 			@RequestParam(value = "file") MultipartFile file, @ModelAttribute("video") Video video)
 			throws IOException, ServletException {
 
-		System.out.println("file:" + file.getSize());
-		System.out.println("MultipartFile 影片名稱:" + file.getOriginalFilename());
-
-		// 如果有傳影片過來
-
-		try {
-			if (file != null && file.getSize() > 0) {
-
-				System.out.println("影片路徑" + context.getRealPath("/"));
-
-				
-				
-				video.setCommentTime(new Timestamp(new Date().getTime()));
-				video.setUrl(Common.saveVideo(file));
-				vs.insertVideo(video);
-
-				System.out.println("video upload done");
-			} else {
-				System.out.println("no video");
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("error occur while video upload: " + e.getMessage());
-		}
-
 		
+		System.out.println("video:"+video);
+		
+		
+		
+//		如果是傳網址
+//		if(option==1) {
+//			vs.insertVideo(video);
+//			System.out.println("上傳分享網址OK");
+//			
+//			
+//		}
+//		 如果有傳影片過來
+//		if (option == 2) {
+			try {
+
+				if (file != null && file.getSize() > 0) {
+
+					System.out.println("影片路徑" + context.getRealPath("/"));
+					video.setCommentTime(new Timestamp(new Date().getTime()));
+					video.setUrl(Common.saveVideo(file));
+					vs.insertVideo(video);
+
+					System.out.println("video upload done");
+				} else {
+					System.out.println("no video");
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException("error occur while video upload: " + e.getMessage());
+			}
+		
+
 		return "redirect:/comment/videolist";
 	}
 
@@ -107,11 +117,15 @@ public class VideoController {
 		return "comment/videoForm";
 	}
 
+	// 去到更新的頁面
+	@GetMapping("/uploadedVideo")
+	public String UploadedVideo() {
+		return "comment/videoUpdate";
+	}
+
 	// 選擇一部需要更新的影片
 	@GetMapping(value = "video/update")
-	public String showDataForm(Model model
-			, @RequestParam(value = "update", required = false) Integer id
-			) {
+	public String showDataForm(Model model, @RequestParam(value = "update", required = false) Integer id) {
 		Video videolist = vs.selectUpdateVideo(id);
 		model.addAttribute(videolist);
 		return "comment/videoUpdate";
@@ -119,12 +133,8 @@ public class VideoController {
 
 	// 更新影片
 	@PostMapping(value = "comment/update")
-	public String modify(@ModelAttribute("updatevideo") Video video
-			, BindingResult result
-			, Model model
-			,HttpServletRequest request,
-			@RequestParam(value = "aid", required = false) Integer aid
-			) {
+	public String modify(@ModelAttribute("updatevideo") Video video, BindingResult result, Model model,
+			HttpServletRequest request, @RequestParam(value = "aid", required = false) Integer aid) {
 		AttendanceValidator validator = new AttendanceValidator();
 		validator.validate(video, result);
 		if (result.hasErrors()) {
@@ -141,8 +151,7 @@ public class VideoController {
 
 	// 刪除影片
 	@GetMapping(value = "comment/delete")
-	public String delete(
-			@RequestParam(value = "aid", required = false) Integer aid) {
+	public String delete(@RequestParam(value = "aid", required = false) Integer aid) {
 		vs.deleteVideo(aid);
 		return "redirect:/comment/video";
 	}

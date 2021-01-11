@@ -24,6 +24,43 @@
 
 
 <title>${blog.title}</title>
+ <style>
+        .headpic {
+            vertical-align: middle;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+        }
+    
+        .reply {
+            padding: 5px 10px;
+            background: #e6e6e6;
+            color: #000000;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: .1em;
+            font-weight: 400;
+            border-radius: 4px;
+        }
+    
+        .commentdate {
+            font-size: 15px;
+            color: #589167;
+        }
+    
+        .picform {
+            width: 80px;
+            float: left;
+            list-style: none;
+        }
+    
+        .leavecomment {
+            border-color: grey;
+            border-style: solid;
+            border-width: 1px;
+            width: 800px;
+        }
+    </style>
 
 <!-- Google Font -->
 <!--     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap" -->
@@ -46,7 +83,7 @@
 
 
 <!-- Blog Details Hero Begin -->
-<section class="blog-hero spad">
+<section class="breadcrumb-blog set-bg" data-setbg="${pageContext.request.contextPath}/pic/${blog.picture}">
 	<div class="container">
 		<div class="row d-flex justify-content-center">
 			<div class="col-lg-9 text-center">
@@ -56,6 +93,7 @@
 					<ul>
 						<li>文章作者:${blog.member.name}</li>
 						<li>發布時間:${blog.commentTime}</li>
+						<li>編輯時間:${blog.fixedtime}</li>
 						<li>瀏覽次數:${blog.views}</li>
 					</ul>
 				</div>
@@ -70,6 +108,7 @@
 	<div class="container">
 
 		<div class="row d-flex justify-content-center">
+		
 			<!--         圖片區 -->
 			<div class="col-lg-12">
 				<div class="blog__details__pic">
@@ -78,6 +117,8 @@
 						alt="">
 				</div>
 			</div>
+			
+			
 			<div class="col-lg-8">
 				<div class="blog__details__content">
 					<!--                     分享區 -->
@@ -113,39 +154,41 @@
 					</div>
 					<!--                         內文區 -->
 					<div class="blog__details__text">
-						<textarea id="editor" disabled="disabled">${blog.reflection}</textarea>
-					</div>
-					
-<!-- 					<div class="blog__details__text"> -->
-<%-- 						<p>${blog.reflection}</p> --%>
-<!-- 					</div> -->
-					<!--                         引用文章時的格式 -->
-					<div class="blog__details__quote">
-						<i class="fa fa-quote-left"></i>
-						<p>“When designing an advertisement for a particular product
-							many things should be researched like where it should be
-							displayed.”</p>
-						<h6>_ John Smith _</h6>
+						<p>${blog.reflection}</p>
 					</div>
 
-					<div class="blog__details__text">
-						<p>Vyo-Serum along with tightening the skin also reduces the
-							fine lines indicating aging of skin. Problems like dark circles,
-							puffiness, and crow’s feet can be control from the strong effects
-							of this serum.</p>
-						<p>Hydroderm is a multi-functional product that helps in
-							reducing the cellulite and giving the body a toned shape, also
-							helps in cleansing the skin from the root and not letting the
-							pores clog, nevertheless also let’s sweeps out the wrinkles and
-							all signs of aging from the sensitive near the eyes.</p>
-					</div>
+					<!-- 					<div class="blog__details__text"> -->
+					<%-- 						<p>${blog.reflection}</p> --%>
+					<!-- 					</div> -->
+					<!--                         引用文章時的格式 -->
+					<!-- 					<div class="blog__details__quote"> -->
+					<!-- 						<i class="fa fa-quote-left"></i> -->
+					<!-- 						<p></p> -->
+					<!-- 						<h6>_ John Smith _</h6> -->
+					<!-- 					</div> -->
+
+					<!-- 					<div class="blog__details__text"> -->
+					<!-- 						<p>Vyo-Serum along with tightening the skin also reduces the -->
+					<!-- 							fine lines indicating aging of skin. Problems like dark circles, -->
+					<!-- 							puffiness, and crow’s feet can be control from the strong effects -->
+					<!-- 							of this serum.</p> -->
+					<!-- 						<p>Hydroderm is a multi-functional product that helps in -->
+					<!-- 							reducing the cellulite and giving the body a toned shape, also -->
+					<!-- 							helps in cleansing the skin from the root and not letting the -->
+					<!-- 							pores clog, nevertheless also let’s sweeps out the wrinkles and -->
+					<!-- 							all signs of aging from the sensitive near the eyes.</p> -->
+					<!-- 					</div> -->
 
 
 					<div class="blog__details__option">
+						<div style="font-weight: bold;">
+							<h2>作者資訊</h2>
+						</div>
 						<div class="row">
 							<div class="col-lg-6 col-md-6 col-sm-6">
 								<div class="blog__details__author">
 									<div class="blog__details__author__pic">
+										<!-- 									作者大頭貼 -->
 										<img
 											src="${pageContext.request.contextPath}/pic/${blog.getMember().getIconid()}"
 											alt="">
@@ -156,11 +199,13 @@
 								</div>
 							</div>
 							<div class="col-lg-6 col-md-6 col-sm-6">
-								<div class="blog__details__tags">
-									<a href="#">#Fashion</a> <a href="#">#Trending</a> <a href="#">#2020</a>
-								</div>
+								<!-- 							作者標籤
+<!-- 								<div class="blog__details__tags"> -->
+								<!-- 									<a href="#">#Fashion</a> <a href="#">#Trending</a> <a href="#">#2020</a> -->
+								<!-- 								</div> -->
 							</div>
 						</div>
+						<div style="border: 1px solid #acd6ff; border-radius: 10px;">${blog.getMember().getIntroduce()}</div>
 					</div>
 
 					<!--                         操作區 -->
@@ -168,52 +213,64 @@
 					<div class="blog__details__btns">
 						<div class="row">
 							<div class="col-lg-6 col-md-6 col-sm-6">
-								<a href="" class="blog__details__btns__item">
-									<p>
-										<span class="arrow_left"></span> 上一篇
-									</p>
-									<h5>It S Classified How To Utilize Free Classified Ad
-										Sites</h5>
+								<a
+									href="${pageContext.request.contextPath}/blog/${blog.blogId-1}"
+									class="blog__details__btns__item">
+									<p><span class="arrow_left"></span> 上一篇</p>
+										
+									 <!-- 									<h5>It S Classified How To Utilize Free Classified Ad Sites</h5> -->
 								</a>
 							</div>
 							<div class="col-lg-6 col-md-6 col-sm-6">
-								<a href=""
+								<a
+									href="${pageContext.request.contextPath}/blog/${blog.blogId+1}"
 									class="blog__details__btns__item blog__details__btns__item--next">
-									<p>
-										下一篇 <span class="arrow_right"></span>
-									</p>
-									<h5>Tips For Choosing The Perfect Gloss For Your Lips</h5>
+									<p>下一篇 <span class="arrow_right"></span></p>
+									 <!-- 									<h5>Tips For Choosing The Perfect Gloss For Your Lips</h5> -->
 								</a>
 							</div>
 						</div>
 					</div>
 					<!--                         留言 -->
+					<div>
 					<c:if test='${not empty member}'>
 
 						<div class="blog__details__comment">
 							<h4>Leave A Comment</h4>
-							<form action="#">
-								<div class="row">
-									<div class="col-lg-4 col-md-4">
-										<input type="text" placeholder="Name">
-									</div>
-									<div class="col-lg-4 col-md-4">
-										<input type="text" placeholder="Email">
-									</div>
-									<div class="col-lg-4 col-md-4">
-										<input type="text" placeholder="Phone">
-									</div>
+							<form id="commentform" >
+<!-- 							action="#" -->
+<!-- 								<div class="row"> -->
+<!-- 									<div class="col-lg-4 col-md-4"> -->
+<!-- 										<input type="text" placeholder="Name"> -->
+<!-- 									</div> -->
+<!-- 									<div class="col-lg-4 col-md-4"> -->
+<!-- 										<input type="text" placeholder="Email"> -->
+<!-- 									</div> -->
+<!-- 									<div class="col-lg-4 col-md-4"> -->
+<!-- 										<input type="text" placeholder="Phone"> -->
+<!-- 									</div> -->
 									<div class="col-lg-12 text-center">
-										<textarea placeholder="Comment"></textarea>
-										<button type="submit" class="site-btn">Post Comment</button>
+									
+										<textarea id="comment" placeholder="Comment"></textarea>
+										<button id="postComment" type="button" class="site-btn" style="width: fit-content;" 
+										onclick="postComment()">Post Comment</button>
 									</div>
+									</form>
 								</div>
-							</form>
-						</div>
-					</c:if>
+							</c:if>
+					
 					<c:if test='${ empty member}'>
 						<a href="${pageContext.request.contextPath}/member/login">若欲留言請先登入</a>
 					</c:if>
+					</div>
+					
+<!-- 					留言列 -->
+					<div id="board">
+					
+					
+					
+					</div>
+					
 
 				</div>
 			</div>
@@ -237,32 +294,149 @@
 
 
 <script>
-	$('#file').change(function() {
+var board=document.getElementById("board");
 
-		var file = $('#file')[0].files[0];
-		var reader = new FileReader;
-		reader.onload = function(e) {
-			$('#demo').attr('src', e.target.result);
-		};
-		reader.readAsDataURL(file);
-	});
-	
-	
-
-    ClassicEditor
-            .create(document.querySelector('#editor'),{
-            	ckfinder: {
-                    uploadUrl: "${pageContext.request.contextPath}/uploadImage.do"
+$(document).ready(function() {
+    $("#postComment").click(function() { 
+        $.ajax({
+            type: "POST", //傳送方式
+            url: "${pageContext.request.contextPath}/leaveComment?memberid=${member.id}&key=${blog.blogId}&type=blog", //傳送目的地
+            dataType: "json", //資料格式
+            data: { //傳送資料
+                comment: $("#comment").val() //表單欄位 ID nickname
+//                 gender: $("#gender").val() //表單欄位 ID gender
+            },
+            success: function(data) {
+            	$("#commentform")[0].reset();
+                if (data) {
+                	
+                	swal("留言成功!","","success");
+                	refresh();
+                	
+                } else { 
+                	swal("留言失敗!","","error");
+                	
                 }
+            },
+            error: function(data) {
+            	swal("留言失敗!","","error");
+              
+            }
+        })
+    })        
+});
+
+function formatTimeStamp(time){
+	   var time = new Date(time);
+	   var date = (
+			   	   (time.getFullYear())  + "-" +
+	               (time.getMonth() + 1) + "-" +
+	               (time.getDate()) + " " +
+	               (time.getHours()) + ":" +
+	               (time.getMinutes())
+// 	               + ":" +(time.getSeconds())
+	              );
+	   return date;
+	}
+
+function refresh(){
+	
+	 $.ajax({
+         type: "POST", //傳送方式
+         url: "${pageContext.request.contextPath}/loadComment?type=${blog.identify}&key=${blog.blogId}", //傳送目的地
+         dataType: "json", //資料格式
+//          data: { //傳送資料
+//              comment: $("#comment").val()
+
+//          },
+
+         success: function(data) {
+         	
+        	 console.log("取得留言!");
+        	 console.log(data);  
+        	 $('#board').empty();
+        	 for(let i=0;i<data.length;i++){
+        		 
+        		 $('#board').append(
+        					        	
+						
+        		 
+        		 "<div class='leavecomment'>"
+			     + "<li>"
+			     +  "<div class='picform'>"
+
+			     +  "<img class='headpic' src="+"${pageContext.request.contextPath}/pic/"+data[i].member.iconid
+			     +" alt='Image placeholder'>"
+			     +"</div>"
+			      +"<div>"
+			       +"<h3>"+data[i].member.name+"</h3>"
+			                +"<div class='commentdate'>"+formatTimeStamp(data[i].commentTime)+"</div>"
+			                +"<p>"+data[i].contentBox+"</p>"
+			               +"<p><a href='#' class='reply'>回覆</a></p>"
+			            +"</div>"
+			       +"</li>"
+			    +"</div>"
+			    +"<br>"
+			    );
+	 
+        	 }
+        	 
+         
+         },
+         error: function(data) {
+        	 console.log("取得失敗!");
+           
+         }
+     })
+	
+}
+refresh();
+
+// 	$('#file').change(function() {
+
+// 		var file = $('#file')[0].files[0];
+// 		var reader = new FileReader;
+// 		reader.onload = function(e) {
+// 			$('#demo').attr('src', e.target.result);
+// 		};
+// 		reader.readAsDataURL(file);
+// 	});
+	
+// 	function postComment(){
+		
+// 		$.ajax({
+// 			async : false,
+// 			type : "post",
+// 			url : "${pageContext.request.contextPath}/leaveComment",
+// 			contentType : "application/json; charset=utf-8",
+// 			dataType : "json",
+// 			success : function(data) {
+// 				console.log("留言成功" + data);
+																				
+// 			},
+// 			error : function() {
+// 				console.log("留言成功" + data);			
+			
+// 			}
+
+// 		})
+		
+// 	}
+	
+//     ClassicEditor
+//             .create(document.querySelector('#editor'),{
+//             	ckfinder: {
+//                     uploadUrl: "${pageContext.request.contextPath}/uploadImage.do"
+//                 }
             	
             	
-            })
-            .then(editor=>{
-                   console.log(editor);
-            })
-            .catch(error=>{
-                   console.error(error);
-            });
+//             })
+//             .then(editor=>{
+//                    console.log(editor);
+//             })
+//             .catch(error=>{
+//                    console.error(error);
+//             });
 	
 </script>
 

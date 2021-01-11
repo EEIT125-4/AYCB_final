@@ -1,22 +1,16 @@
 package member.controller;
 
-import java.lang.reflect.Member;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import javax.management.MBeanAttributeInfo;
 import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.jasper.tagplugins.jstl.core.Remove;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.persister.walking.spi.MetamodelGraphWalker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,12 +22,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.context.annotation.SessionScope;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.wf.captcha.SpecCaptcha;
 import com.wf.captcha.utils.CaptchaUtil;
 
-import javassist.bytecode.Mnemonic;
 import member.MemberBean;
 import member.Service.MemberService;
 import tool.Common;
@@ -42,7 +38,7 @@ import tool.service.ImageService;
 
 @Controller
 
-@SessionAttributes("memberBean")
+//@SessionAttributes("member")
 
 
 public class MemberController {
@@ -58,7 +54,9 @@ public class MemberController {
 	
 	@Autowired
 	ImageService imgService;
+	
 
+	
 	@GetMapping(value = { "/member/login" })
 	public String login() {
 
@@ -156,7 +154,7 @@ public class MemberController {
 	// 確認頁
 	@PostMapping("/memberConfirm") 
 	public String register(@ModelAttribute("member") MemberBean member, BindingResult result, Model model,
-			HttpServletRequest request)
+			HttpServletRequest request,HttpSession session)
 	{
 
 		member.setId(null);
@@ -166,6 +164,8 @@ public class MemberController {
 		model.addAttribute("member", member);
 
 		if (memberService.isDup(member.getAccount())) {
+	
+			
 			return "member/register";
 
 		} else {
@@ -175,9 +175,9 @@ public class MemberController {
 	}
 	// 新增
 	@PostMapping("/insert") 
+	
 	public String insert(@ModelAttribute("member") MemberBean member, BindingResult result, Model model
-	// HttpServletRequest request
-
+			,HttpServletRequest request,HttpSession session
 	) {
 		
 		System.out.println("取得" + member.getAccount());
@@ -187,9 +187,10 @@ public class MemberController {
 //		System.out.println("加密後密碼:"+password);
 		member.setPassword(password);
 		memberService.insertregister(member);
-		
-		
-		return "member/login";
+    
+		System.out.println(member);
+		session.removeAttribute("member");
+		return "redirect:member/login";
 
 	}
 	
@@ -245,7 +246,7 @@ public class MemberController {
 
 		} else {
 			System.out.println("驗證失敗");
-			return "member/login";
+			return "redirect:member/login";
 		}
 
 	}
@@ -304,7 +305,7 @@ public class MemberController {
 		}
 		
 		memberService.update(mb);
-		return "index";
+		return "redirect:/";
 
 	}
 	
@@ -418,13 +419,14 @@ public class MemberController {
 		 HttpServletResponse response,
 		 HttpSession session,
 	  @RequestParam(value = "googleemail", required = false) String email,
-      @RequestParam(value = "googlebirth", required = false) String birth)
+      @RequestParam(value = "googlebirth", required = false) Date birth)
 		  {
-    	  System.out.println("birth"+birth);
+    	  System.out.println("birth"+email);
     	  boolean res=memberService.emailcheck(email);
     	  MemberBean mb = new MemberBean();
+    	  
     	  if(res==false){
-    		  MemberBean memberBean=new MemberBean(0, null, name, null, null, null, null, email, gender, null,null);
+    		  MemberBean memberBean=new MemberBean(0, null, name, null, null, null, birth, email, gender, null,null);
     		  System.out.println("birth"+birth);
     	  
 //    	  		Cookie[] cookies = request.getCookies();
@@ -433,10 +435,12 @@ public class MemberController {
 //    	  			System.out.println(cookie.getName());
 //    	  			System.out.println(cookie.getValue());
 //    	  		}
-//    	  		Cookie cookie = new Cookie("abc", "123");
-//    	  		cookie.setMaxAge(60*10);
-//    	  		cookie.setPath("/AYCB");
-//    	  		response.addCookie(cookie);
+    	  		//Cookie cookie = new Cookie("memberCookie", memberBean.getName());
+    	  		//設定秒數
+    	  		//cookie.setMaxAge(60*60*24*365);//存個一年
+    	  		
+    	  		//cookie.setPath("/AYCB_final");
+    	  		//response.addCookie(cookie);
     	  		
     		  memberService.insertregister(memberBean);
     		  
@@ -445,7 +449,7 @@ public class MemberController {
 //  
 //    	  }else {MemberBean mb = (MemberBean) session.getAttribute("member");
     	  }
-    	  
+    	  System.out.println(email);
     	  MemberBean mbb=memberService.getemail(email);
     	  
     	  session.setAttribute("member", mbb);
@@ -457,8 +461,11 @@ public class MemberController {
      
       @GetMapping("/logout") // 登出
   	public String logout(@ModelAttribute("member") MemberBean member, BindingResult result, Model model,
-  			HttpSession session, HttpServletRequest request) {
+  			HttpSession session, HttpServletRequest request,SessionStatus status,WebRequest webRequest) {
   		session.removeAttribute("member");
+//  		status.setComplete();
+//    	  webRequest.removeAttribute("member", 0);
+//    	  session.removeAttribute("member");
 
   		return "redirect:index";
 

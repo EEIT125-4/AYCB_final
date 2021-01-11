@@ -52,15 +52,25 @@ public class Common
 	 * 
 	 * Kevin:這個是以博淞主機下的專案路徑設置,如果要在本機測試,記得將以下兩組路徑自己替換掉!!
 	 */
-	public static String UPLOAD_PATH = "C:/Users/Student/git/AYCB_final/src/main/webapp/WEB-INF/views/image";
-//	public static String UPLOAD_PATH = "C:/Users/user/git/AYCB_final/src/main/webapp/WEB-INF/views/image";
-	public static String IMAGE_REAL_PATH = "C:\\Users\\Student\\git\\AYCB_final\\src\\main\\webapp\\WEB-INF\\views\\image";
-//	public static String IMAGE_REAL_PATH = "C:\\Users\\user\\git\\AYCB_final\\src\\main\\webapp\\WEB-INF\\views\\image";
+	
+	
+//	博淞的	
+//	public static String UPLOAD_PATH = "C:/Users/Student/git/AYCB_final/src/main/webapp/WEB-INF/views/image";
+//	public static String IMAGE_REAL_PATH = "C:\\Users\\Student\\git\\AYCB_final\\src\\main\\webapp\\WEB-INF\\views\\image";	
+//	public static String UPLOAD_VIDEO="C:/Users/Student/git/AYCB_final/src/main/webapp/video";
+	
+//	Kevin的環境
+	public static String UPLOAD_PATH = "C:/Users/user/git/AYCB_final/src/main/webapp/WEB-INF/views/image";
+	public static String IMAGE_REAL_PATH = "C:\\Users\\user\\git\\AYCB_final\\src\\main\\webapp\\WEB-INF\\views\\image";
 	public static String UPLOAD_VIDEO="C:/Users/user/git/AYCB_final/src/main/webapp/video";
+	
+	
+	
 	// UPLOAD_PATH="C:/AYCB/AYCB2/src/main/webapp/upload/
 	
 	//Server所在IP位置
-	public static String DOMAIN="http://localhost:8080";
+//	public static String DOMAIN="http://localhost:8080";
+	public static String DOMAIN="http://10.31.25.143:8080";
 
 	public static String UPLOAD_DIALOG = "上傳單一檔案";
 	// "C:\\AYCB\\AYCB2\\src\\main\\webapp\\upload"

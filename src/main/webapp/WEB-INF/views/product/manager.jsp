@@ -19,7 +19,8 @@
 			<div class="title">後臺管理</div>
 			<div class="format">
 				<input class="mbtn" type="button" value="會員"
-					onclick='location.href="${pageContext.request.contextPath}/member/Backstage"'> <input class="mbtn"
+					onclick='location.href="${pageContext.request.contextPath}/member/Backstage"'> 
+			    <input class="mbtn"
 					type="button" value="商品"
 					onclick='location.href="${pageContext.request.contextPath}/MProduct"'>
 				<input class="mbtn" type="button" value="訂單"
@@ -28,11 +29,11 @@
 			<div class="format">
 				<input class="mbtn" type="button" value="訊息"
 					onclick='location.href="#"'> <input class="mbtn"
-					type="button" value="活動" onclick='location.href="#"'> <input
+					type="button" value="活動" onclick='location.href="${pageContext.request.contextPath}/event/showAttendance"'> <input
 					class="mbtn" type="button" value="留言板" onclick='location.href="#"'>
 			</div>
 			<div class="format">
-				<input class="mbtn" type="button" value="部落格" onclick='location.href="#"'> 
+				<input class="mbtn" type="button" value="部落格" onclick='location.href="blog/backstage"'> 
 				<input class="mbtn" type="button" value="影音區" onclick='location.href="#"'> 
 			</div>
 		</div>

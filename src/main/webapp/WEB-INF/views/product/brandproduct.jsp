@@ -86,8 +86,9 @@ function addCart(){
 				<div class="rightside">
 					<div class="imgbox">
 <!-- 						<div class="like"><a class="like_a" href=""><i class="fa fa-heart nopadding"></i></a></div> -->
-						<a href='<c:url value="/Detail" />?no=${pro.productno}'><img
-							class="proimg" src="${pageContext.request.contextPath}/pic/${pro.imagepath}"></a>
+						<a href='<c:url value="/Detail" />?no=${pro.productno}&cate=${pro.productcategory}'>
+						<img class="proimg" src="${pageContext.request.contextPath}/pic/${pro.imagepath}">
+						</a>
 					</div>
 					<div class="proname">${pro.productname}</div>
 					<div class="buttonbox">
@@ -97,7 +98,9 @@ function addCart(){
 							<a href="<c:url value='/cartAdd?productno=${pro.productno}&count=1' />" onclick="return addCart()"> <img class="cartimg" src="image/bg_cart_b.svg">
 							</a>
 							<% }else{%>
-							<img class="cartimg" src="">
+							<a href="${pageContext.request.contextPath}/member/login">
+							<img class="cartimg" src="image/bg_cart_b.svg">
+							</a>
 							<% } %>
 						</div>
 					</div>

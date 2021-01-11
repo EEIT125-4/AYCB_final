@@ -6,8 +6,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.TimeZone;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -22,6 +22,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.mchange.net.MailSender;
+
+import mail.MyMailSender;
 import member.MemberBean;
 import product.cartModel.CartItem;
 import product.cartModel.OrderBean;
@@ -37,7 +40,17 @@ public class OrderController {
 	
 	@SuppressWarnings("unchecked")
 	@GetMapping("/orderInsert")
-	public String OrderInsert(Model model,SessionStatus sessionStatus, HttpSession session, HttpServletRequest request) {
+	public String OrderInsert(
+			Model model,
+			SessionStatus sessionStatus,
+			HttpSession session, 
+			HttpServletRequest request,
+			@RequestParam(value="recipientEmail",required = false)String email,
+			@RequestParam(value="recipientName",required=false)String receiveName
+			
+			) {
+		System.out.println("檢查郵件:"+email);
+		System.out.println("檢查收件人名稱:"+receiveName);
 		
 		Double totalPrice = (Double) model.getAttribute("totalPrice");
 		//Integer totalQtyOrder = (Integer) model.getAttribute("totalQtyOrdered");
@@ -68,6 +81,18 @@ public class OrderController {
 		
 	
 		os.insertOrderBean(order);
+		
+		if(email!=null && !email.equals("")) {
+			try {
+				MyMailSender.sendEmail(email, receiveName,"=====內容====",String.valueOf(order.getOrderNo()));
+				System.out.println("郵件send成功");
+			} catch (MessagingException e) {
+				
+				e.printStackTrace();
+				System.err.println("郵件send失敗");
+			}
+		}
+		
 		
 		//session.removeAttribute("cart");
 		//session.invalidate();
@@ -143,14 +168,6 @@ public class OrderController {
 		String sTimeString = sdf.format(new Date());
 		Timestamp tTime = Timestamp.valueOf(sTimeString);
 		
-//		OrderBean updateOrder = new OrderBean(orderNo, customerId, price, tTime, status, items);		
-//		if (os.updateOrderBean(updateOrder)) {
-//			System.out.println("Let orderUpdate done!");
-//			return "product/orderUpdateThanks";
-//		} else{
-//				return "product/orderUpdateThanks";
-//		}
-	
 		return "redirect:/orderManagement";
 	}
 	

@@ -36,15 +36,16 @@
 	
 	
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-
+<script src="${pageContext.request.contextPath}/js/main.js"></script>
 <title></title>
 
 <%@include file="../jspf/header.jspf"%>
 
 <div style="text-align: center">
 	<h3>活動資料</h3>
-	<a href="<c:url value='/event/eventForm'/>">新增活動</a> &nbsp;&nbsp;<a
-		href="<c:url value='/'/> ">回前頁</a>
+	<a class="manager" href="<c:url value='/event/eventForm'/>">新增活動</a> &nbsp;&nbsp;
+	
+		
 
 	<form method='POST'>
 		<input type='hidden' name='_method' value='DELETE'>
@@ -223,6 +224,17 @@
 	
 	
 </script>
+<script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/jquery.nice-select.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/jquery.nicescroll.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/jquery.magnific-popup.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/jquery.countdown.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/jquery.slicknav.js"></script>
+    <script src="${pageContext.request.contextPath}/js/mixitup.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/main.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
 </html>

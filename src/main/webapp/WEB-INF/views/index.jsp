@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-
+<script src="${pageContext.request.contextPath}/js/main.js"></script>
 
 <title>ALL YOU CAN BUY</title>
 
@@ -76,7 +76,7 @@
 				for (let i = 0; i < data.length; i++) {
 					console.log("data:" + i + data[i]);
 					$('#slides').append(							
-					"<li><a href='${pageContext.request.contextPath}/Detail/?no="+data[i].productno+"'>"
+					"<li><a href='${pageContext.request.contextPath}/Detail/?no="+data[i].productno+"&cate="+data[i].productcategory+"'>"
 					+"<img src="+"${pageContext.request.contextPath}/pic/"+data[i].imagepath
 					
 					+" onerror=javascript:this.src='${pageContext.request.contextPath}/image/noImage.jpg' " 

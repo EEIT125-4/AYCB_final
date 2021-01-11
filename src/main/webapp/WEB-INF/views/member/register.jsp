@@ -4,7 +4,11 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
-<head>
+
+
+
+
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -16,8 +20,8 @@
 	rel="stylesheet"
 	integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
 	crossorigin="anonymous">
-	
-	
+<!-- 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> -->
+
 
 <title>註冊</title>
 </head>
@@ -165,11 +169,9 @@
 				style="font-weight: bold; font-size: 25px">自我介紹</label>
 		</div>
 		<div class="d-flex justify-content-center">			
-			<form:textarea id="introduce" path="introduce" cols="100" rows="10" />
+			<form:textarea id="introduce" path="introduce" cols="70" rows="10" />
 
 		</div>
-		
-		
 		
 		<label for="address" id="addresscheck"
 			class="col-sm-3 col-form-label col-form-label-lg"></label>
@@ -393,9 +395,6 @@ $('#cpwd').blur(function() {
 	p7=false;
 	}
 	})
-
-    
-
 
 
     	$('#send').click(function(){
