@@ -89,7 +89,7 @@ public class CarWorkingController {
 		}
 
 		System.out.println("準備前往購物車");
-		return "redirect:AllProducts";//"+context.getContextPath()+"/
+		return "redirect:All";//"+context.getContextPath()+"/
 	}
 
 	@GetMapping("/add")
@@ -105,7 +105,7 @@ public class CarWorkingController {
 
 		if (todo.equals("shop")) {
 
-			return "redirect:AllProducts";
+			return "redirect:All";
 
 		} else if (todo.equals("checkout")) {
 
