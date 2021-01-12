@@ -104,7 +104,7 @@
 									allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
 								<!--                                 <a href="#"><i class="fa fa-facebook"></i></a> -->
 							</li>
-							<li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
+							<li><a href="http://twitter.com/home/?status=https://www.removal.idv.tw/article.php" class="twitter"><i class="fa fa-twitter"></i></a></li>
 							<li><a href="#" class="youtube"><i
 									class="fa fa-youtube-play"></i></a></li>
 							<li><a href="#" class="linkedin"><i

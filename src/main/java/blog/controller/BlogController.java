@@ -5,36 +5,28 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import blog.model.Blog;
 import blog.service.BlogService;
-import event.validator.EventValidator;
 import member.Service.MemberService;
 import tool.model.Image;
 import tool.service.ImageService;
 
 @Controller
-@SessionAttributes({"blog"})
+@SessionAttributes({ "blog" })
 public class BlogController {
 
 	@Autowired
@@ -63,6 +55,17 @@ public class BlogController {
 		return "blog/blog";
 	}
 
+	// 搜尋欄select search bar
+	@GetMapping("/SelectSearchBar")
+	public String selectSearchBar(Model model, 
+			@RequestParam(value = "search") String search) {
+		System.out.println("SelectSearchBar");
+		List<Blog> bg = blogService.selectArticle(search);
+		model.addAttribute("bg", bg);
+		return "blog/BlogSearch";
+	}
+
+	
 	// 空白的表格
 	@GetMapping("blog/edit")
 	public String showEmptyForm(Model model) {
@@ -142,31 +145,27 @@ public class BlogController {
 
 		return mav;
 	}
-	
-	
-	// 編輯部落格
-		@GetMapping("blog/edit/{blogid}")
-		public String editBlog(@PathVariable("blogid") Integer blogid,ModelMap model) {
-			Blog bg = blogService.selectBlog(blogid);
 
-			model.addAttribute("blog", bg);
-			return "blog/blogForm";
-		}
+	// 編輯部落格
+	@GetMapping("blog/edit/{blogid}")
+	public String editBlog(@PathVariable("blogid") Integer blogid, ModelMap model) {
+		Blog bg = blogService.selectBlog(blogid);
+
+		model.addAttribute("blog", bg);
+		return "blog/blogForm";
+	}
 
 	// 更新一篇部落格文章
 	@PostMapping(value = "blog/edit/{blogid}")
-	
-	public String modify(
-			@ModelAttribute("blog") Blog blog,
-			Model model,
+
+	public String modify(@ModelAttribute("blog") Blog blog, Model model,
 //			@PathVariable Integer blogid,
 //			@RequestParam(value = "memberID") Integer mid,
 			@RequestParam(value = "file") MultipartFile file) {
-		
-		System.out.println("檢查ModelAttribute:"+blog);
-		
-		
-		try {		
+
+		System.out.println("檢查ModelAttribute:" + blog);
+
+		try {
 			// 封面圖更新
 			if (file != null && file.getSize() > 0) {
 				System.out.println("有收到圖片");
@@ -199,12 +198,12 @@ public class BlogController {
 			java.sql.Date sqlDate = new java.sql.Date(time.getTime());
 			if (blog.getCommentTime() != null) {
 				// JAVA的Date轉SQL的Date
-				
+
 				blog.setFixedtime(time);
-				
-			}else {
+
+			} else {
 				blog.setCommentTime(time);
-				
+
 			}
 
 //			blog.setMember(memberService.getMember(mid));
@@ -216,31 +215,26 @@ public class BlogController {
 		}
 
 	}
-	
 
-	//假刪除功能
+	// 假刪除功能
 	@GetMapping(value = "blog/delete/{blogId}")
 //	@ResponseBody
-	public String hideBlog(@PathVariable("blogId") Integer blogId,Model model) {
-		Blog bg=blogService.selectBlog(blogId);
+	public String hideBlog(@PathVariable("blogId") Integer blogId, Model model) {
+		Blog bg = blogService.selectBlog(blogId);
 		bg.setStatus(1);
 		blogService.updateBlog(bg);
 		return getAll(model);
-		
+
 	}
-	
-	@GetMapping(value="blog/backstage")
+
+	@GetMapping(value = "blog/backstage")
 	public String backstage(Model model) {
-		List<Blog>blogs=new ArrayList<Blog>();
-		blogs=blogService.selectAllBlog();
+		List<Blog> blogs = new ArrayList<Blog>();
+		blogs = blogService.selectAllBlog();
 		model.addAttribute("blogs", blogs);
 		return "blog/blogBackstage";
-		
+
 	}
-	
-
-		
-
 
 	// 刪除一篇文章
 //	@DeleteMapping(value = "blog/{blogid}")
