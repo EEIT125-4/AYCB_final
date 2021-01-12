@@ -3,6 +3,7 @@
 	pageEncoding="UTF-8"
 	import="java.util.*,product.*,product.cartModel.CartItem,member.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
 response.setContentType("text/html;charset=UTF-8");
 response.setHeader("Cache-Control", "no-cache"); // HTTP 1.1
@@ -135,7 +136,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 						class="img"
 						src="${pageContext.request.contextPath}/pic/<%=aCartItem.getProductImage()%>"></td>
 					<td style="text-align: center; vertical-align: middle;"><%=aCartItem.getProductName()%></td>
-					<td style="text-align: center; vertical-align: middle;">NT$<%=aCartItem.getProductPrice()%></td>
+					<td style="text-align: center; vertical-align: middle;">NT$ <fmt:formatNumber value="<%=aCartItem.getProductPrice()%>"  pattern="###,###" /></td>
 					
 					<td style="text-align: center; vertical-align: middle;">	
 					<input type="number" name="quantity" id="<%=i%>" 

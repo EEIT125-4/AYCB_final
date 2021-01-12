@@ -41,15 +41,15 @@ public class CartItem {
 	}
 
 	public String getProductName() {
-		return ProductDB.getProductName(productNo-2);
+		return ProductDB.getProductName(productNo-1);
 	}
 
 	public Double getProductPrice() {
-		return ProductDB.getProductPrice(productNo-2);
+		return ProductDB.getProductPrice(productNo-1);
 	}
 	
 	public String getProductImage() {
-		return ProductDB.getProductImage(productNo-2);
+		return ProductDB.getProductImage(productNo-1);
 	}
 
 }

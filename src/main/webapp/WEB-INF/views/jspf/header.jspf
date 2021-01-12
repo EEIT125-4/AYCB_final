@@ -224,7 +224,7 @@ width:100px;
 <%-- 								<img src="${pageContext.request.contextPath}/image/icon/search.png" alt=""> --%>
 <!-- 							</button>				 -->
 						<a href="#"><img src="${pageContext.request.contextPath}/image/icon/heart.png" alt=""></a>						
-						<a href="<c:url value='/car'/>"><img src="${pageContext.request.contextPath}/image/icon/cart.png" alt=""><span>0</span></a>	
+						<a href="<c:url value='/car'/>"><img src="${pageContext.request.contextPath}/image/icon/cart.png" alt=""><span></span></a>	
 						<div class="search">
 				    </div>
 				   </form>

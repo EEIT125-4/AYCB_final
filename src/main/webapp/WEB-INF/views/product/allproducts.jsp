@@ -24,11 +24,18 @@ if (session.getAttribute("member") != null) {
 
 <script>
 	function addCart() {
-		if (confirm("加入購物車? ")) {
-			return true;
-		} else {
-			return false;
-		}
+// 		if (confirm("加入購物車? ")) {
+// 			return true;
+// 		} else {
+// 			return false;
+// 		}
+		Swal.fire({
+// 		  position: 'top-end',
+		  icon: 'success',
+		  title: '加入購物車',
+		  showConfirmButton: false,
+		  timer: 30000
+		})
 	}
 	
 	$(document).ready(function() {
@@ -134,7 +141,7 @@ function Allproducts(i) {
 						+  "<div class='proprice'>NT$"+data.Products[i].productprice+"</div>"
 						+  "<div class='cart'>"
 						+  "<%if (login) {%>"
-						+  "<a href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
+						+  "<a href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='addCart()'>"
 						+  "<img class='cartimg' src='image/bg_cart_b.svg'></a>"
 						+  "<%} else {%>"
 						+  "<a href='${pageContext.request.contextPath}/member/login'>"

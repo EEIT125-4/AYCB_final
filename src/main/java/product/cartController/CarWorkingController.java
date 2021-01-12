@@ -133,11 +133,16 @@ public class CarWorkingController {
 				totalPrice += price * qtyOrdered;
 				totalQtyOrdered += qtyOrdered;
 			}
-
-			session.setAttribute("totalPrice", totalPrice);
-			session.setAttribute("totalQtyOrdered", totalQtyOrdered);
 			
-			System.out.println("totalPrice" + totalPrice);
+			Double totalAmount = (double) Math.round(totalPrice);//round四捨五入
+			Double Shipping = totalAmount + 50;
+			
+			model.addAttribute("totalPrice", totalAmount);
+			model.addAttribute("totalQtyOrdered", totalQtyOrdered);
+			model.addAttribute("Shipping", Shipping);
+			
+			
+			System.out.println("totalPrice" + totalAmount);
 			System.out.println("totalQtyOrdered" + totalQtyOrdered);
 
 			return "product/checkout";
