@@ -126,14 +126,10 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public MemberBean ckpower(String account) {
+	public boolean ckpower(String account) {
+		
 		return memberDao.ckpower(account);
+		
 	}
-
-
-
-	
-	
-	
 	
 }
