@@ -1,7 +1,9 @@
 package member.controller;
 
+import java.beans.beancontext.BeanContextMembershipEvent;
 import java.sql.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.management.MBeanAttributeInfo;
 import javax.servlet.ServletContext;
@@ -32,6 +34,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.wf.captcha.SpecCaptcha;
 import com.wf.captcha.utils.CaptchaUtil;
 
+ 
+import member.LoginBean;
 import member.MemberBean;
 import member.Service.MemberService;
 import tool.Common;
@@ -58,10 +62,10 @@ public class MemberController {
 
 	@GetMapping(value = { "/member/login" })
 	public String login(Model model) {
-		
-		System.out.println("model= "+model.getAttribute("msg"));
-		String msg=(String) model.getAttribute("msg");
-		model.addAttribute("msg",msg);	
+
+		System.out.println("model= " + model.getAttribute("msg"));
+		String msg = (String) model.getAttribute("msg");
+		model.addAttribute("msg", msg);
 		return "member/login"; // 請視圖解析器由視圖的邏輯名稱index來找出真正的視圖
 	}
 
@@ -189,6 +193,7 @@ public class MemberController {
 		password = Common.getMD5Endocing(password);
 //		System.out.println("加密後密碼:"+password);
 		member.setPassword(password);
+		member.setCkpower(true);
 		memberService.insertregister(member);
 
 		System.out.println(member);
@@ -211,12 +216,13 @@ public class MemberController {
 	@PostMapping("/login")
 	public String checklogin(@RequestParam(value = "user", required = false) String user,
 			@RequestParam(value = "pwd", required = false) String pwd, Model model, String Qcode, HttpSession session,
-			HttpServletRequest request) {
+			HttpServletRequest request,HttpServletResponse response) {
+		MemberBean mc = new MemberBean();
 
 		System.out.println("驗證中,輸入值為" + Qcode);
 		boolean login = false;
 		if (user.equals("") || pwd.equals("") || Qcode.equals("")) {
-			
+
 			model.addAttribute("msg", "請輸入帳號密碼");
 			System.out.println("有輸入值為空");
 
@@ -240,7 +246,7 @@ public class MemberController {
 				} else {
 					login = false;
 					model.addAttribute("msg", "帳號被停權");
-					System.out.println("model value="+model.getAttribute("msg"));
+					System.out.println("model value=" + model.getAttribute("msg"));
 					session.setAttribute("msg", "帳號被停權");
 					System.out.println("帳號被停權");
 
@@ -258,6 +264,10 @@ public class MemberController {
 
 			System.out.println("驗證成功");
 			MemberBean mb = memberService.getMember(user);
+			LoginBean loginbean = new LoginBean();
+			loginbean.setUserId(user);
+			loginbean.setPassword(pwd);
+			processCookies(loginbean, request, response);
 			session.setAttribute("member", mb);
 			return "index";
 
@@ -431,8 +441,10 @@ public class MemberController {
 		MemberBean mb = new MemberBean();
 
 		if (res == false) {
-			MemberBean memberBean = new MemberBean(0, null, name, null, null, null, birth, email, gender, null, null);
+			MemberBean memberBean = new MemberBean(0, null, name, null, null, null, birth, email, gender, null, 0);
+
 			System.out.println("birth" + birth);
+			memberBean.setCkpower(true);
 
 //    	  		Cookie[] cookies = request.getCookies();
 //    	  		
@@ -478,10 +490,55 @@ public class MemberController {
 	@PostMapping("member/ckpower2")
 	@ResponseBody
 	public void power(@RequestParam("id") Integer id) {
-		System.out.println("account+++++++++++++" + id);
-		memberService.ckpower2(id);
+		MemberBean mb = new MemberBean();
 		System.out.println("account+++++++++++++" + id);
 
+		memberService.ckpower2(id);
+
+		System.out.println("account+++++++++++++" + id);
+
+	}
+//cookies
+	private void processCookies(LoginBean bean, HttpServletRequest request, HttpServletResponse response) {
+		Cookie cookieUser = null;
+		Cookie cookiePassword = null;
+//		Cookie cookieRememberMe = null;
+		String userId = bean.getUserId();
+		String password = bean.getPassword();
+//		Boolean rm = bean.isRememberMe();
+
+		if (bean.isRememberMe()) {
+			cookieUser = new Cookie("user", userId);
+			cookieUser.setMaxAge(7 * 24 * 60 * 60); // Cookie的存活期: 七天
+			cookieUser.setPath(request.getContextPath());
+      System.out.println("++++++++++++++++++++++++"+cookieUser);
+			String encodePassword = Common.getMD5Endocing(password);
+			cookiePassword = new Cookie("password", encodePassword);
+			cookiePassword.setMaxAge(7 * 24 * 60 * 60);
+			cookiePassword.setPath(request.getContextPath());
+//			System.out.println("++++++++++++++++++++++++"+cookieUser);
+//			cookieRememberMe = new Cookie("rm", "true");
+//			cookieRememberMe.setMaxAge(7 * 24 * 60 * 60);
+//			cookieRememberMe.setPath(request.getContextPath());
+		} else {
+
+			cookieUser = new Cookie("user", userId);
+			cookieUser.setMaxAge(0); // MaxAge==0 表示要請瀏覽器刪除此Cookie
+			cookieUser.setPath(request.getContextPath());
+			System.out.println("++++++++++++++++++++++++"+cookieUser);
+			String encodePassword = Common.getMD5Endocing(password);
+			cookiePassword = new Cookie("password", encodePassword);
+			cookiePassword.setMaxAge(0);
+			cookiePassword.setPath(request.getContextPath());
+			System.out.println("++++++++++++++++++++++++"+cookieUser);
+//			cookieRememberMe = new Cookie("rm", "true");
+//			cookieRememberMe.setMaxAge(0);
+//			cookieRememberMe.setPath(request.getContextPath());
+//			System.out.println("++++++++++++++++++++++++"+cookieUser);
+		}
+		response.addCookie(cookieUser);
+		response.addCookie(cookiePassword);
+//		response.addCookie(cookieRememberMe);
 	}
 
 }
