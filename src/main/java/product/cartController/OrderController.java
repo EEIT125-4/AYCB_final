@@ -7,6 +7,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.mail.MessagingException;
+import javax.mail.search.IntegerComparisonTerm;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -21,11 +24,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.mchange.net.MailSender;
+import com.sun.xml.bind.CycleRecoverable.Context;
+
+import ecpay.payment.integration.AllInOne;
+import ecpay.payment.integration.domain.AioCheckOutALL;
+import mail.MyMailSender;
 import member.MemberBean;
 import product.cartModel.CartItem;
 import product.cartModel.OrderBean;
 import product.cartModel.OrderItemBean;
 import product.cartService.OrderService;
+import tool.Common;
 
 @Controller
 @SessionAttributes({ "cart","totalPrice","totalQtyOrdered","member"})
@@ -34,9 +44,60 @@ public class OrderController {
 	@Autowired
 	OrderService os;
 	
+	@Autowired
+	ServletContext context;
+
+	
+	
+	
+	public static String genAioCheckOutALL(Integer order,Double amount,String url,String itemDetail,String clentBackURL){
+		
+		AllInOne all = new AllInOne("");
+		AioCheckOutALL obj = new AioCheckOutALL();
+		obj.setMerchantTradeNo("AYCBOrder"+order);
+		
+		SimpleDateFormat sd=new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		//設定時間
+		obj.setMerchantTradeDate(sd.format(new Date()));
+	
+		Integer total=amount.intValue();
+		obj.setTotalAmount(String.valueOf(total));
+		obj.setTradeDesc("test Description");
+		
+		/**
+		 * 
+		 */
+		obj.setItemName(itemDetail);
+		//Kevin:這裡實際上沒有效果,因為外網打不進來
+		obj.setReturnURL(url);
+		obj.setNeedExtraPaidInfo("N");
+		obj.setClientBackURL(clentBackURL);
+		String form = all.aioCheckOut(obj, null);
+		
+		System.out.println("form=/n"+form);
+		return form;
+	}
+	
+	
 	@SuppressWarnings("unchecked")
 	@GetMapping("/orderInsert")
-	public String OrderInsert(Model model,SessionStatus sessionStatus, HttpSession session, HttpServletRequest request) {
+//	@ResponseBody
+	public String OrderInsert(
+			
+			Model model,
+			SessionStatus sessionStatus,
+			HttpSession session, 
+			HttpServletRequest request,
+			@RequestParam(value="recipientEmail",required = false)String email,
+			@RequestParam(value="recipientName",required=false)String receiveName
+			
+			) {
+		
+		
+		
+		
+		System.out.println("檢查郵件:"+email);
+		System.out.println("檢查收件人名稱:"+receiveName);
 		
 		Double totalPrice = (Double) model.getAttribute("totalPrice");
 		//Integer totalQtyOrder = (Integer) model.getAttribute("totalQtyOrdered");
@@ -46,9 +107,11 @@ public class OrderController {
 		String name = memberBean.getName();
 		
 		Set<OrderItemBean> details = new HashSet<OrderItemBean>();
+		String itemDetail="";
 		for(CartItem cart : items) {
 			OrderItemBean oib = new OrderItemBean(null, cart.getProductImage(), cart.getProductNo(), cart.getProductName(), cart.getProductPrice(), cart.getQtyOrdered());
 			details.add(oib);
+			itemDetail+=cart.getProductName()+" : "+cart.getProductPrice()+" * "+cart.getQtyOrdered()+" = $"+cart.getProductPrice()*cart.getQtyOrdered()+"#";
 		}
 	
 //		java.util.Date date = new Date(); 
@@ -68,13 +131,31 @@ public class OrderController {
 	
 		os.insertOrderBean(order);
 		
+		if(email!=null && !email.equals("")) {
+			try {
+				MyMailSender.sendEmail(email, receiveName,"=====內容====",String.valueOf(order.getOrderNo()));
+				System.out.println("郵件send成功");
+			} catch (MessagingException e) {
+				
+				e.printStackTrace();
+				System.err.println("郵件send失敗");
+			}
+		}
+		
+		session.removeAttribute("cart");
+		session.removeAttribute("totalPrice");
+		session.removeAttribute("totalQtyOrdered");
+		String clientBackURL="http://localhost:8080/AYCB_final/";
+		String form=genAioCheckOutALL(order.getOrderNo(), order.getTotalAmount(), context.getContextPath(),itemDetail,clientBackURL)	;
+		session.setAttribute("form", form);
+		
 		//session.removeAttribute("cart");
 		//session.invalidate();
 		
 		//sessionStatus.setComplete();
 		//request.getSession(true).removeAttribute("cart");//移除session
 		
-		return "product/commit";		
+		return "product/commit";
 	}
 	
 

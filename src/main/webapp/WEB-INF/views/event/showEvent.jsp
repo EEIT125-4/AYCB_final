@@ -44,7 +44,7 @@
 <div style="text-align: center">
 	<h3>活動資料</h3>
 	<a class="manager" href="<c:url value='/event/eventForm'/>">新增活動</a> &nbsp;&nbsp;
-	<a href="<c:url value='/'/> ">回前頁</a>
+	
 		
 
 	<form method='POST'>

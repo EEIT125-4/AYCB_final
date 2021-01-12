@@ -1,18 +1,29 @@
 package product.cartModel;
 
-import java.io.Serializable;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
 
-public class CartItem implements Serializable{
+
+public class CartItem {
 	
+	private Map<Integer, OrderItemBean> cart = new LinkedHashMap< >();
 	private int productNo;
 	private int qtyOrdered;// 採購數量
+
+	
+	public CartItem() {
+		
+	}
 
 	public CartItem(int productNo, int qtyOrdered) {
 
 		this.productNo = productNo;
 		this.qtyOrdered = qtyOrdered;
 	}
-
+	
+	
+	
 	public int getProductNo() {
 		return productNo;
 	}
@@ -30,15 +41,15 @@ public class CartItem implements Serializable{
 	}
 
 	public String getProductName() {
-		return ProductDB.getProductName(productNo-1);
+		return ProductDB.getProductName(productNo-2);
 	}
 
 	public Double getProductPrice() {
-		return ProductDB.getProductPrice(productNo-1);
+		return ProductDB.getProductPrice(productNo-2);
 	}
 	
 	public String getProductImage() {
-		return ProductDB.getProductImage(productNo-1);
+		return ProductDB.getProductImage(productNo-2);
 	}
 
 }

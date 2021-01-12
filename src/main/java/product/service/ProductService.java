@@ -72,5 +72,13 @@ public interface ProductService {
 	
 	List<ProductBean> getBrandPage(int pageNo, String brandname);
 	
-	List<ProductBean> ra(String cate);
+	List<ProductBean> racate(String cate);
+	
+	void addcollection(int mid, int pid);
+	
+	void delcollection(int no);
+	
+	int pkcollection(int mid, int pid);
+	
+	List<Integer> findcollection(int id);
 }

@@ -54,7 +54,7 @@
 								<c:if test='${empty member.id}'>
 							<c:out value=""/>
 							</c:if>
-								alt=<c:out value='${msg.getImageid()}'/>
+								alt=""
 								onerror="javascript:this.src='${pageContext.request.contextPath}/image/noImage.jpg'">
 								</div>
 								

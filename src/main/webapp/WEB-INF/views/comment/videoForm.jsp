@@ -52,28 +52,44 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 					<form:input type="text" path="member" value="${member.name}"
 						disabled='true' />
 				</p>
+
+
+
 				<p>
 					<label for="" class="t1">影片標題:</label>
 					<form:input type="text" path="title" value="${title}" />
 
 				</p>
-				<p>
-					<label for="" class="t1">上傳網址:</label>
-					<form:input type="text" path="url" value="${url}" placeholder="https://www.youtube.com/embed/gacTr733e5U"/>
 
+				<!-- 				<div> -->
+				<!-- 					<label for="option" class="t1">上傳方式:</label> -->
+				<!-- 					<select id="option" name="option" onchange="refresh()"> -->
+				<!-- 						<option value=1>分享網址</option> -->
+				<!-- 						<option value=2>上傳檔案</option> -->
+				<!-- 					</select> -->
+
+
+				<!-- 				</div> -->
+
+
+				<!-- 				<div> -->
+
+				<%-- 					<form:input id="link" type="text" path="url" value="${url}" --%>
+				<%-- 						placeholder="ex:https://www.youtube.com/embed/gacTr733e5U" /> --%>
+
+				<!-- 				</div> -->
+
+				<p>
+					<input type="file" id="file" name="file" accept=".mp4">
 				</p>
 
 
-				<p>
-					<form:input type="hidden" path="status" value="0" />
-				</p>
 
-				<p>
-					<form:input type="hidden" path="videoId" value="${videoId}" />
-				</p>
-				<p>
-					<input id="file" type="file" name="file" />
-				</p>
+
+				<!-- 				<p> -->
+				<%-- 					<form:input type="hidden" path="videoId" value="${videoId}" /> --%>
+				<!-- 				</p> -->
+
 
 				<input type="submit" name="confirmupdate" value="送出">
 
@@ -95,6 +111,29 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 <!-- 	Kevin:這裡非常奇怪,header已經載入過的js失效,且必須在body末端加入才有效?? -->
 <script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/main.js"></script>
+
+<script>
+// 	var link_area = document.getElementById('link');
+// 	var file_area = document.getElementById('file');
+
+// 	function refresh() {
+
+// 		let choice = document.getElementById("option");
+// 		let result = choice.value;
+// 		console.log("value=" + result);
+
+// 		if (choice.value == 1) {
+// 			link_area.style.display = "block";
+// 			file_area.style.display = "none";
+
+// 		} else {
+// 			link_area.style.display = "none";
+// 			file_area.style.display = "block";
+
+// 		}
+
+// 	}
+</script>
 
 </body>
 </html>

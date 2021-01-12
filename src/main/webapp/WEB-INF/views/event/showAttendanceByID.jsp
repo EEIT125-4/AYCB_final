@@ -15,59 +15,64 @@
 <%@include file="../jspf/header.jspf"%>
 
 <div class="container" style="margin-bottom: 80px">
-		<div>
-			<div
-				style="float: left; width: 20%; text-align: center; margin-left: 220px;">
+<!-- 		<div> -->
+<!-- 			<div -->
+<!-- 				style="float: left; width: 20%; text-align: center; margin-left: 220px;"> -->
 
-				<dl>
-					<dt>
-						<h2>預約活動</h2>
-					</dt>
-					<hr width=70% size=1 color=#BFBFBF
-						style="FILTER: alpha(opacity = 100, finishopacity = 0, style = 3)">
-					<dt class="a1">
-						<A href="showEvent">
-							<h2>活動介紹</h2>
-						</A>
-					</dt>
-					<dt class="a1">
-						<a href="<c:url value='showAllAttendanceByID'/>?id=${member.id}"><h2>查詢會員報名</h2></a>	
-					</dt>
-					<dt class="a1">
-						<A href='showAttendance'><h2>查詢報名</h2></A>	
-					</dt>
+<!-- 				<dl> -->
+<!-- 					<dt> -->
+<!-- 						<h2>預約活動</h2> -->
+<!-- 					</dt> -->
+<!-- 					<hr width=70% size=1 color=#BFBFBF -->
+<!-- 						style="FILTER: alpha(opacity = 100, finishopacity = 0, style = 3)"> -->
+<!-- 					<dt class="a1"> -->
+<!-- 						<A href="showEvent"> -->
+<!-- 							<h2>活動介紹</h2> -->
+<!-- 						</A> -->
+<!-- 					</dt> -->
+<!-- 					<dt class="a1"> -->
+<%-- 						<a href="<c:url value='showAllAttendanceByID'/>?id=${member.id}"><h2>查詢會員報名</h2></a>	 --%>
+<!-- 					</dt> -->
+<!-- 					<dt class="a1"> -->
+<!-- 						<A href='showAttendance'><h2>查詢報名</h2></A>	 -->
+<!-- 					</dt> -->
 
-				</dl>
-			</div>
-		</div>
+<!-- 				</dl> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
 	
 	
-		<h1>報名資料</h1>
+		<h2>已報名活動</h2>
 		<c:choose>
 		<c:when test='${empty attendancelist}'>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
 		查無報名資料<br>
 		</c:when>
 		<c:otherwise>
-			<table border='1' >
-				<tr>				
-					<td>帳號</td>
-					<td>活動名稱</td>
-					<td>mail</td>
-					<td>電話號碼</td>
-					<td>參加人數</td>
-					<td colspan="2">修改報名資料</td>
+			<table class="table table-borderless table-dark" >
+				<tr>
+					<td align="center" valign="middle">活動圖片</td>
+					<td align="center" valign="middle" width="">活動名稱</td>			
+					<td align="center" valign="middle">日期</td>
+					<td align="center" valign="middle">地點</td>								
+<!-- 					<td align="center" valign="middle">帳號</td>	 -->
+					<td align="center" valign="middle">mail</td>
+					<td align="center" valign="middle">電話號碼</td>
+					<td align="center" valign="middle">參加人數</td>
+					<td align="center" valign="middle" colspan="2">修改報名資料</td>
 					
 				</tr>
 				<c:forEach var='Attendance' varStatus='vs' items='${attendancelist}'>
 					<tr>
-						<td>${Attendance.member.account}</td>
-						<td>${Attendance.event.eventname}</td>
-						<td>${Attendance.mailaddress}</td>
-						<td>${Attendance.phone}</td>
-						<td>${Attendance.pax}</td>
-
-						<td><a href="<c:url value='update'/>?aid=${Attendance.aid}">編輯</a></td>
-                        <td><a href="<c:url value='delete'/>?aid=${Attendance.aid}">刪除</a></td>
+						<td align="center" style="vertical-align:middle;"><img width='180' height='200' src='${Attendance.event.filename}' /></td>
+						<td align="center" style="vertical-align:middle;">${Attendance.event.eventname}</td>
+						<td align="center" style="vertical-align:middle;">${Attendance.event.eventdate}</td>
+						<td align="center" style="vertical-align:middle;">${Attendance.event.eventlocation}</td>
+<%-- 						<td align="center" style="vertical-align:middle;">${Attendance.member.account}</td> --%>
+						<td align="center" style="vertical-align:middle;">${Attendance.mailaddress}</td>
+						<td align="center" style="vertical-align:middle;">${Attendance.phone}</td>
+						<td align="center" style="vertical-align:middle;">${Attendance.pax}</td>
+						<td align="center" style="vertical-align:middle;"><a href="<c:url value='update'/>?aid=${Attendance.aid}" class="btn btn-primary" style="width: 150px ;background-color: grey; border: none;">更改聯絡資訊</a></td>
+                        <td align="center" style="vertical-align:middle;"><a href="<c:url value='delete'/>?aid=${Attendance.aid}" class="btn btn-primary" style="width: 100px ;background-color: grey;border: none;">取消報名</a></td>
 <%--                class='deletelink'         ${Attendance.aid} --%>
 					</tr>
 					
@@ -76,7 +81,7 @@
 		</c:otherwise>
 		</c:choose>
 		<p />
-		<a href="<c:url value='attendanceForm'/>">回到報名</a>
+<%-- 		<a href="<c:url value='attendanceForm'/>">回到報名</a> --%>
 	
 </div>
 

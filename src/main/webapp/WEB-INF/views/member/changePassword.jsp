@@ -20,6 +20,18 @@
 	crossorigin="anonymous">
 	
 </script>
+<style>
+
+.swal2-confirm {
+
+width:100px;
+}
+.form-control{
+font-size:20px
+}
+
+</style>
+
 
 <link REL=STYLESHEET
 	HREF="${pageContext.request.contextPath}/css/inside2.css"
@@ -35,42 +47,53 @@
 		<%@include file="../jspf/memberPanel.jspf"%>
 
 		<div class="rightoutbox">
+		
 			<form action="passwordgo" method="post">
 
+ 
 				<div style="font-size: 300px">
 
-					<p style="font-size: 10%; margin-left: 295px; margin-top: 40px; font-weight:bold">密碼更改</p>
+					<p style="font-size: 10%; margin-left: 295px; margin-top: 0px; font-weight:bold">密碼更改</p>
 				</div>
-
-<br>
-   
+                  <br>
+				
+			
+ 
 				<div class="form-inline">
-					<label for="oldpwd" style="font-weight: bold; font-size: 20px; margin-left:180px">舊密碼 </label>
+					<label for="oldpwd" style="font-weight: bold; font-size: 20px; margin-left:320px">舊密碼 </label>
+					</div>
+					<div class="form-inline" style=" margin-left:220px">
 					<input type=password name="oldpwd" class="form-control mx-sm-3"  id="oldpwd"
-						     style="width: 230px" aria-describedby="passwordHelpInline" required/>
+						     style="width: 250px"  aria-describedby="passwordHelpInline" required/>
 						     <label for="oldpwd1" id="oldpwd1"></label> 
-						     
-						     
+						 
 						</div>
 					<br>	
 
-					<div class="form-inline">
-					<label for="pw2" style="font-weight: bold; font-size: 20px;margin-left:180px">新密碼 </label>
 
+
+
+					<div class="form-inline">
+					<label for="pw2" style="font-weight: bold; font-size: 20px;margin-left:320px">新密碼 </label>
+                      </div>
+                      <div class="form-inline" style=" margin-left:220px">
 					<input type=password placeholder="請輸入6-12數英混合" name="pwd2" id="pwd2" class="form-control mx-sm-3"
-						style="width: 230px" aria-describedby="passwordHelpInline" required/>
+						style="width: 250px" aria-describedby="passwordHelpInline" required/>
 						<label for="newpwd2" id="newpwd2"></label> 
-						
-						
 						</div>
 						<br>
 						
+						
+						
+						
 							<div class="form-inline">
-					<label for="pwd3" style="font-weight: bold; font-size:20px;;margin-left:170px">確認密碼</label>
-
+					<label for="pwd3" style="font-weight: bold; font-size:20px;;margin-left:320px">確認密碼</label>
+                 </div>
+                 
+                  <div class="form-inline"   style=" margin-left:220px">
 					<input type=password name="pwd3" id="pwd3" class="form-control mx-sm-3"
-						style="width: 230px" aria-describedby="passwordHelpInline" required/>
-						<label for="newpwd3" id="newpwd3"></label>
+						style="width: 250px" aria-describedby="passwordHelpInline" required/><span for="newpwd3" id="newpwd3"></span>
+						
 						</div>
 
 				<br>
@@ -79,13 +102,15 @@
 					style="width: 180px; margin-left: 270px">更新</button>
 <!-- 								<input type="submit" name="update" value="確認更新" -->
 <!-- 									style="margin-left: 300px"> -->
-				
+			
 			</form>
+			
 		</div>
 	</div>
 
 
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
 

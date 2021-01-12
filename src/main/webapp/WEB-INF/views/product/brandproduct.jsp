@@ -4,11 +4,11 @@
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core'%>
 
 <%
-boolean login=false;
-if(session.getAttribute("member")!=null){
-	MemberBean member=(MemberBean)session.getAttribute("member");
+	boolean login = false;
+if (session.getAttribute("member") != null) {
+	MemberBean member = (MemberBean) session.getAttribute("member");
 
-	login=true;	
+	login = true;
 }
 %>
 
@@ -40,98 +40,100 @@ function addCart(){
 		<div class="leftside">
 			<div class="condition">條件篩選</div>
 			<div class="category">
-				<div class="catediv">
-					廠商分類<a id="a1" class="catea" href="#" onclick="show1()">+</a>
-				</div>
-				<c:forEach var="brand" varStatus='vs' items="${brand}">
-					<c:if test='${vs.first }'>
-						<c:out value="<ul id='ul1' class='cateul'>" escapeXml='false' />
-					</c:if>
-					<li class="cateul_li"><a class="cateul_li_a"
-						href='<c:url value="/Brand" />?brand=${brand}'>${brand}</a></li>
-					<c:if test='${vs.last }'>
-						<c:out value="</ul>" escapeXml='false' />
-					</c:if>
-				</c:forEach>
-				<div class="catediv">
-					系列分類<a id="a2" class="catea" href="#" onclick="show2()">+</a>
-				</div>
-				<c:forEach var="series" varStatus='vs' items="${series}">
-					<c:if test='${vs.first }'>
-						<c:out value="<ul id='ul2' class='cateul'>" escapeXml='false' />
-					</c:if>
-					<li class="cateul_li"><a class="cateul_li_a"
-						href='<c:url value="/Series" />?series=${series}'>${series}</a></li>
-					<c:if test='${vs.last }'>
-						<c:out value="</ul>" escapeXml='false' />
-					</c:if>
-				</c:forEach>
-				<div class="catediv">
-					種類分類<a id="a3" class="catea" href="#" onclick="show3()">+</a>
-				</div>
-				<c:forEach var="cate" varStatus='vs' items="${cate}">
-					<c:if test='${vs.first }'>
-						<c:out value="<ul id='ul3' class='cateul'>" escapeXml='false' />
-					</c:if>
-					<li class="cateul_li"><a class="cateul_li_a"
-						href='<c:url value="/Cate" />?cate=${cate}'>${cate}</a></li>
-					<c:if test='${vs.last }'>
-						<c:out value="</ul>" escapeXml='false' />
-					</c:if>
-				</c:forEach>
-			</div>
-		</div>
-		<div class="rightoutbox">
-			<c:forEach var="pro" items="${Products}">
-				<div class="rightside">
-					<div class="imgbox">
-<!-- 						<div class="like"><a class="like_a" href=""><i class="fa fa-heart nopadding"></i></a></div> -->
-						<a href='<c:url value="/Detail" />?no=${pro.productno}'><img
-							class="proimg" src="${pageContext.request.contextPath}/pic/${pro.imagepath}"></a>
-					</div>
-					<div class="proname">${pro.productname}</div>
-					<div class="buttonbox">
-						<div class="proprice">NT$ ${pro.productprice}</div>
-						<div class="cart">							
-							<% if(login){ %>
-							<a href="<c:url value='/cartAdd?productno=${pro.productno}&count=1' />" onclick="return addCart()"> <img class="cartimg" src="image/bg_cart_b.svg">
-							</a>
-							<% }else{%>
-							<img class="cartimg" src="">
-							<% } %>
-						</div>
-					</div>
-				</div>
-			</c:forEach>
-			<div class="page">
-				<ul class="page_ul">
-<%-- 					<c:forEach var="brand" varStatus='vs' items="${OneBrand}"> --%>
-<%-- 						<c:if test='${vs.first }'> --%>
-<!-- 							<li class="page_ul_li"><a class="page_ul_li_a" -->
-<%-- 								href='<c:url value="/Brand" />?brand=${brand}&pageNo=${Pages - 1}'><i --%>
-<!-- 									class="fa fa-angle-double-left" aria-hidden="true"></i></a></li> -->
-<%-- 						</c:if> --%>
-<%-- 					</c:forEach> --%>
-					<c:forEach var='i' begin='1' end='${TotalPages}'>
-						<c:forEach var="brand" varStatus='vs' items="${OneBrand}">
-							<c:if test='${vs.first }'>
-								<li class="page_ul_li"><a class="page_ul_li_a"
-									href='<c:url value="/Brand" />?brand=${brand}&pageNo=${i}'>${i}</a></li>
-							</c:if>
-						</c:forEach>
+				<div id="nameb" class="flip">廠商分類</div>
+				<div id="brand" class="panel">
+					<c:forEach var="brand" varStatus='vs' items="${brand}">
+						<c:if test='${vs.first }'>
+							<c:out value="<ul id='ul1'>" escapeXml='false' />
+						</c:if>
+						<li class="cateul_li">
+						<button class="cateul_li_a" onclick="Brandproducts('${brand}',1)">${brand}</button>
+						</li>
+						<c:if test='${vs.last }'>
+							<c:out value="</ul>" escapeXml='false' />
+						</c:if>
 					</c:forEach>
-<%-- 					<c:forEach var="brand" varStatus='vs' items="${OneBrand}"> --%>
-<%-- 						<c:if test='${vs.first }'> --%>
-<!-- 							<li class="page_ul_li"><a class="page_ul_li_a" -->
-<%-- 								href='<c:url value="/Brand" />?brand=${brand}&pageNo=${Pages + 1}'><i --%>
-<!-- 									class="fa fa-angle-double-right" aria-hidden="true"></i></a></li> -->
-<%-- 						</c:if> --%>
-<%-- 					</c:forEach> --%>
-				</ul>
+				</div>
+				<div id="names" class="flip">系列分類</div>
+				<div id="series" class="panel">
+					<c:forEach var="series" varStatus='vs' items="${series}">
+						<c:if test='${vs.first }'>
+							<c:out value="<ul id='ul2'>" escapeXml='false' />
+						</c:if>
+						<li class="cateul_li"><a class="cateul_li_a"
+							href='<c:url value="/Series" />?series=${series}'>${series}</a></li>
+						<c:if test='${vs.last }'>
+							<c:out value="</ul>" escapeXml='false' />
+						</c:if>
+					</c:forEach>
+				</div>
+				<div id="namec" class="flip">種類分類</div>
+				<div id="cate" class="panel">
+					<c:forEach var="cate" varStatus='vs' items="${cate}">
+						<c:if test='${vs.first }'>
+							<c:out value="<ul id='ul3'>" escapeXml='false' />
+						</c:if>
+						<li class="cateul_li"><a class="cateul_li_a"
+							href='<c:url value="/Cate" />?cate=${cate}'>${cate}</a></li>
+						<c:if test='${vs.last }'>
+							<c:out value="</ul>" escapeXml='false' />
+						</c:if>
+					</c:forEach>
+				</div>
 			</div>
 		</div>
+		<div id="proarea" class="rightoutbox"></div>
+		<div id="pagearea" class="page"></div>
 	</div>
 </div>
+<script>
+function Brandproducts(brand, i) {
+	$.ajax({
+		async : false,
+		type : 'GET',
+		url : "Brand",
+		data : {
+			"pageNo":i,
+			"brand":brand
+		},
+		dataType : "json",
+		success : function(data) {
+			var content = "";
+			for (let i = 0; i < data.Products.length; i++) {
+				content += "<div class='rightside'>"
+						+  "<div class='imgbox'>"
+						+  "<div class='like'>"
+						+  "<button class='like_button' onclick='collect(${member.id}, ${pro.productno})'>"
+						+  "<i id='heart' class='fa fa-heart-o'></i></button></div>"
+						+  "<a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
+						+  "<img class='proimg' src='${pageContext.request.contextPath}/pic/"+data.Products[i].imagepath+"'></a></div>"
+						+  "<div class='proname'>"+data.Products[i].productname+"</div>"
+						+  "<div class='buttonbox'>"
+						+  "<div class='proprice'>NT$"+data.Products[i].productprice+"</div>"
+						+  "<div class='cart'>"
+						+  "<%if (login) {%>"
+						+  "<a href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
+						+  "<img class='cartimg' src='image/bg_cart_b.svg'></a>"
+						+  "<%} else {%>"
+						+  "<a href='${pageContext.request.contextPath}/member/login'>"
+						+  "<img class='cartimg' src='image/bg_cart_b.svg'></a>"
+						+  "<%}%>"
+						+  "</div></div></div>";
+			}
+			$("#proarea").html(content);
+			
+			var page = "<ul class='page_ul'>"
+			for (let i = 1; i <= data.TotalPages; i++) {
+				page += "<li class='page_ul_li'>"
+					 +  "<button class='page_ul_li_button' type='submit' onclick='Brandproducts("+'"'+data.OneBrand+'"'+","+i+")'>"+i+"</button></li>";
+				
+			}
+			page += "</ul>";
+			$("#pagearea").html(page);
+		}
+	});
+}
+</script>
 <%@include file="../jspf/footer.jspf"%>
 </body>
 </html>

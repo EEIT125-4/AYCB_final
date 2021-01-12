@@ -187,7 +187,27 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public List<ProductBean> ra(String cate) {
-		return dao.ra(cate);
+	public List<ProductBean> racate(String cate) {
+		return dao.racate(cate);		
+	}
+	
+	@Override
+	public void addcollection(int mid, int pid) {
+		dao.addcollection(mid, pid);
+	}
+	
+	@Override
+	public void delcollection(int no) {
+		dao.delcollection(no);
+	}
+	
+	@Override
+	public int pkcollection(int mid, int pid) {
+		return dao.pkcollection(mid, pid);
+	}
+	
+	@Override
+	public List<Integer> findcollection(int id) {
+		return dao.findcollection(id);
 	}
 }

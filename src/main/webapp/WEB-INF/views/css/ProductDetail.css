@@ -1,6 +1,34 @@
+.detailbox {
+    width: fit-content;
+    margin: 20px auto;
+/*     position: relative; */
+/*     left: 500px; */
+}
+
+.pddetail {
+	height: 550px;
+}
+
+.detailimg {
+    width: fit-content;
+    margin: 20px;
+    float: left;
+    border: 1px solid gray;
+}
+
+.detailimgbox {
+	position: relative;
+    margin: 10px;
+}
+
+.pdimg{
+    width: 400px;
+    height: 400px;
+}
+
 .infobox {
     float: left;
-    margin-top: 16px;
+    margin-top: 10px;
     margin-left: 50px;
     width: 600px;
 }
@@ -52,15 +80,10 @@
     padding-left: 15px;
 }
 
-.infobtn {
-	float: left;
-}
-
 .cartbtn {
     width: 150px;
     height: 40px;
-    margin-top: 7px;
-    margin-left: 30px;
+    float: left;
     font-size: 24px;
     font-weight: bold;
     background-color: white;
@@ -73,6 +96,52 @@
 
 .lineshare {
 	float: left;
-	margin-top: 12px;
-	margin-left: 120px;
+	margin-top: 10px;
+	margin-left: 250px;
+}
+
+.maybelike {
+	margin-left: 20px;
+	margin-bottom: 50px;
+	width: fit-content;
+	height: 350px;
+	clear: both;
+	border: 2px solid gray;
+}
+
+.maybeliketext {
+	margin-top: 10px;
+	margin-left: 10px;
+	font-size: 24px;
+    font-weight: bold;
+}
+
+.raside {
+    width: 200px;
+    margin: 10px;
+    float: left;
+    border: 1px solid gray;
+}
+
+.raimg{
+    width: 200px;
+    height: 150px;
+}
+
+.raname {
+    width: 180px;
+    height: 50px;
+    margin: 10px;
+}
+
+.rabuttonbox {
+    width: 198px;
+    height: 35px;
+    margin: 10px auto;
+    border-top: 1px solid gray;
+}
+
+.raprice {
+    height: 20px;
+    margin: 10px 50px;
 }

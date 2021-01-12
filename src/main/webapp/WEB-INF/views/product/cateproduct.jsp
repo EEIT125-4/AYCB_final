@@ -4,11 +4,11 @@
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core'%>
 
 <%
-boolean login=false;
-if(session.getAttribute("member")!=null){
-	MemberBean member=(MemberBean)session.getAttribute("member");
+	boolean login = false;
+if (session.getAttribute("member") != null) {
+	MemberBean member = (MemberBean) session.getAttribute("member");
 
-	login=true;	
+	login = true;
 }
 %>
 
@@ -23,13 +23,13 @@ if(session.getAttribute("member")!=null){
 <link REL=STYLESHEET HREF="css/inside.css" TYPE="text/css">
 
 <script>
-function addCart(){
-	if(confirm("加入購物車? ")){
-		return true;
-	} else {
-		return false;
+	function addCart() {
+		if (confirm("加入購物車? ")) {
+			return true;
+		} else {
+			return false;
+		}
 	}
-}
 </script>
 
 <title>All You Can Buy</title>
@@ -86,33 +86,45 @@ function addCart(){
 			<c:forEach var="pro" items="${Products}">
 				<div class="rightside">
 					<div class="imgbox">
-<!-- 						<div class="like"><a class="like_a" href=""><i class="fa fa-heart nopadding"></i></a></div> -->
-						<a href='<c:url value="/Detail" />?no=${pro.productno}'><img
-							class="proimg" src="${pageContext.request.contextPath}/pic/${pro.imagepath}"></a>
+						<!-- 						<div class="like"><a class="like_a" href=""><i class="fa fa-heart nopadding"></i></a></div> -->
+						<a href='<c:url value="/Detail" />?no=${pro.productno}&cate=${pro.productcategory}'>
+						<img class="proimg" src="${pageContext.request.contextPath}/pic/${pro.imagepath}">
+						</a>
 					</div>
 					<div class="proname">${pro.productname}</div>
 					<div class="buttonbox">
 						<div class="proprice">NT$ ${pro.productprice}</div>
 						<div class="cart">
-							<% if(login){ %>
-							<a href="<c:url value='/cartAdd?productno=${pro.productno}&count=1' />" onclick="return addCart()"> <img class="cartimg" src="image/bg_cart_b.svg">
+							<%
+								if (login) {
+							%>
+							<a
+								href="<c:url value='/cartAdd?productno=${pro.productno}&count=1' />"
+								onclick="return addCart()"> <img class="cartimg"
+								src="image/bg_cart_b.svg">
 							</a>
-							<% }else{%>
-							<img class="cartimg" src="">
-							<% } %>
+							<%
+								} else {
+							%>
+							<a href="${pageContext.request.contextPath}/member/login">
+							<img class="cartimg" src="image/bg_cart_b.svg">
+							</a>
+							<%
+								}
+							%>
 						</div>
 					</div>
 				</div>
 			</c:forEach>
 			<div class="page">
 				<ul class="page_ul">
-<%-- 					<c:forEach var="cate" varStatus='vs' items="${OneCate}"> --%>
-<%-- 						<c:if test='${vs.first }'> --%>
-<!-- 							<li class="page_ul_li"><a class="page_ul_li_a" -->
-<%-- 								href='<c:url value="/Cate" />?cate=${cate}&pageNo=${Pages - 1}'><i --%>
-<!-- 									class="fa fa-angle-double-left" aria-hidden="true"></i></a></li> -->
-<%-- 						</c:if> --%>
-<%-- 					</c:forEach> --%>
+					<%-- 					<c:forEach var="cate" varStatus='vs' items="${OneCate}"> --%>
+					<%-- 						<c:if test='${vs.first }'> --%>
+					<!-- 							<li class="page_ul_li"><a class="page_ul_li_a" -->
+					<%-- 								href='<c:url value="/Cate" />?cate=${cate}&pageNo=${Pages - 1}'><i --%>
+					<!-- 									class="fa fa-angle-double-left" aria-hidden="true"></i></a></li> -->
+					<%-- 						</c:if> --%>
+					<%-- 					</c:forEach> --%>
 					<c:forEach var='i' begin='1' end='${TotalPages}'>
 						<c:forEach var="cate" varStatus='vs' items="${OneCate}">
 							<c:if test='${vs.first }'>
@@ -121,17 +133,17 @@ function addCart(){
 							</c:if>
 						</c:forEach>
 					</c:forEach>
-<%-- 					<c:forEach var="cate" varStatus='vs' items="${OneCate}"> --%>
-<%-- 						<c:if test='${vs.first }'> --%>
-<!-- 							<li class="page_ul_li"><a class="page_ul_li_a" -->
-<%-- 								href='<c:url value="/Cate" />?cate=${cate}&pageNo=${Pages + 1}'><i --%>
-<!-- 									class="fa fa-angle-double-right" aria-hidden="true"></i></a></li> -->
-<%-- 						</c:if> --%>
-<%-- 					</c:forEach> --%>
+					<%-- 					<c:forEach var="cate" varStatus='vs' items="${OneCate}"> --%>
+					<%-- 						<c:if test='${vs.first }'> --%>
+					<!-- 							<li class="page_ul_li"><a class="page_ul_li_a" -->
+					<%-- 								href='<c:url value="/Cate" />?cate=${cate}&pageNo=${Pages + 1}'><i --%>
+					<!-- 									class="fa fa-angle-double-right" aria-hidden="true"></i></a></li> -->
+					<%-- 						</c:if> --%>
+					<%-- 					</c:forEach> --%>
 				</ul>
 			</div>
 		</div>
-		
+
 	</div>
 </div>
 

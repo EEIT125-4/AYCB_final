@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import member.MemberBean;
@@ -63,7 +64,6 @@ public class CarWorkingController {
 			
 			session.setAttribute("cart",theCart);
 			
-
 			//System.out.println("cart" + theCart);
 
 		} else {
@@ -89,13 +89,27 @@ public class CarWorkingController {
 		}
 
 		System.out.println("準備前往購物車");
-		return "redirect:AllProducts";//"+context.getContextPath()+"/
+		return "redirect:All";//"+context.getContextPath()+"/
 	}
 
-	@GetMapping("/add")
+	@GetMapping("/add")	
 	public String Add() {
 		return "product/order";
 	}
+	
+	@SuppressWarnings("unchecked")
+	@GetMapping("/setQtyAjax")
+	public @ResponseBody boolean setQty(Model model,
+														@RequestParam Integer id,
+														@RequestParam Integer Qty
+			){
+		List<CartItem> theCart = (List<CartItem>) model.getAttribute("cart");
+		theCart.get(id).setQtyOrdered(Qty);
+		System.out.println("id"+id);
+		System.out.println("qty"+Qty);
+		return true;
+	}
+	
 
 	@SuppressWarnings("unchecked")
 	@GetMapping("/shopping")
@@ -105,7 +119,7 @@ public class CarWorkingController {
 
 		if (todo.equals("shop")) {
 
-			return "redirect:AllProducts";
+			return "redirect:All";
 
 		} else if (todo.equals("checkout")) {
 

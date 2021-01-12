@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -23,6 +24,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -60,6 +62,15 @@ public class EventController {
 			model.addAttribute("events", eventService.getAllEvent());
 			return "event/showEvent";
 		}
+		
+		@GetMapping("/ajaxShowEvent")
+		public @ResponseBody List<Event> ajaxlist(
+				Model model) {			
+			List<Event> list= new ArrayList<Event>();
+			list= eventService.getAllEvent();
+			return list;
+		}
+		
 		//insert event 
 		@GetMapping("/eventForm")
 		public String showEmptyForm(Model model) {

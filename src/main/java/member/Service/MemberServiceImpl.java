@@ -120,5 +120,16 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.getemail(email);
 	}
 	
+	@Override
+	public void ckpower2(Integer id) {
+		 memberDao.ckpower2(id);
+	}
+	
+	@Override
+	public boolean ckpower(String account) {
+		
+		return memberDao.ckpower(account);
+		
+	}
 	
 }

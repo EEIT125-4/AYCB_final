@@ -8,7 +8,6 @@
 	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 	crossorigin="anonymous"></script>
 <script src="js/inside.js" defer="defer"></script>
-<link REL=STYLESHEET HREF="css/inside.css" TYPE="text/css">
 <link REL=STYLESHEET HREF="css/manager.css" TYPE="text/css">
 <title>Manager</title>
 </head>
@@ -17,27 +16,40 @@
 	<div class="contentbox">
 		<div class="back">
 			<div class="title">後臺管理</div>
-			<div class="format">
+			<div class="mbtnbox">
 				<input class="mbtn" type="button" value="會員"
-					onclick='location.href="${pageContext.request.contextPath}/member/Backstage"'> <input class="mbtn"
-					type="button" value="商品"
+					onclick='location.href="${pageContext.request.contextPath}/member/Backstage"'>
+			</div>
+			<div class="mbtnbox">
+				<input class="mbtn" type="button" value="商品"
 					onclick='location.href="${pageContext.request.contextPath}/MProduct"'>
+			</div>
+			<div class="mbtnbox">
 				<input class="mbtn" type="button" value="訂單"
 					onclick='location.href="${pageContext.request.contextPath}/orderManager"'>
 			</div>
-			<div class="format">
+			<div class="mbtnbox">
 				<input class="mbtn" type="button" value="訊息"
-					onclick='location.href="#"'> <input class="mbtn"
-					type="button" value="活動" onclick='location.href="#"'> <input
-					class="mbtn" type="button" value="留言板" onclick='location.href="#"'>
+					onclick='location.href="#"'>
 			</div>
-			<div class="format">
-				<input class="mbtn" type="button" value="部落格" onclick='location.href="blog/backstage"'> 
-				<input class="mbtn" type="button" value="影音區" onclick='location.href="#"'> 
+			<div class="mbtnbox">
+				<input class="mbtn" type="button" value="活動"
+					onclick='location.href="${pageContext.request.contextPath}/event/showAttendance"'>
+			</div>
+			<div class="mbtnbox">
+				<input class="mbtn" type="button" value="留言板"
+					onclick='location.href="#"'>
+			</div >
+			<div class="mbtnbox">
+				<input class="mbtn" type="button" value="部落格"
+					onclick='location.href="blog/backstage"'>
+			</div>
+			<div class="mbtnbox">
+				<input class="mbtn" type="button" value="影音區"
+					onclick='location.href="#"'>
 			</div>
 		</div>
 	</div>
 </div>
-<%@include file="../jspf/footer.jspf"%>
 </body>
 </html>

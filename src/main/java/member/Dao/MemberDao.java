@@ -28,4 +28,7 @@ public interface MemberDao {
 	 boolean emailDupCheck(String email);
 	 MemberBean getemail(String email );
 
+	void ckpower2(Integer id);
+	boolean ckpower(String account);
+
 }
