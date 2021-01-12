@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import product.service.ProductService;
 
 @Controller
-@SessionAttributes({"brand", "series", "cate"})
+@SessionAttributes({"brand", "series", "cate", "recordlist"})
 public class Home {
 
 	@Autowired
@@ -24,9 +24,11 @@ public class Home {
 		List<String> brand = (List<String>) model.getAttribute("brand");
 		List<String> series = (List<String>) model.getAttribute("series");
 		List<String> cate = (List<String>) model.getAttribute("cate");
+//		List<ProductBean> recordlist = (List<ProductBean>) model.getAttribute("recordlist");
 		model.addAttribute("Brands", brand);
 		model.addAttribute("Series", series);
 		model.addAttribute("Cates", cate);
+//		model.addAttribute("Recordlist", recordlist);
 		return "index";
 	}
 	
@@ -47,4 +49,12 @@ public class Home {
 		List<String> cate = ps.getCate();
 		return cate;
 	}
+	
+//	@SuppressWarnings("unchecked")
+//	@ModelAttribute("recordlist")
+//	public List<ProductBean> initrecordlist(Model model){
+//		List<ProductBean> pb = (List<ProductBean>) new ProductBean();
+//		return pb;
+//	}
+	
 }

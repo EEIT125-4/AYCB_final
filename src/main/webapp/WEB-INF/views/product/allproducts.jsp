@@ -51,7 +51,7 @@ if (session.getAttribute("member") != null) {
 				</button>
 			</div>
 			<div class="leftside">
-				<div class="condition">條件篩選</div>
+				<div class="condition">條件篩選${recordlist}</div>
 				<div class="category">
 					<div id="nameb" class="flip">廠商分類</div>
 					<div id="brand" class="panel">
@@ -123,8 +123,8 @@ function Allproducts(i) {
 				content += "<div class='rightside'>"
 						+  "<div class='imgbox'>"
 						+  "<div class='like'>"
-						+  "<button class='like_button' onclick='collect(${member.id}, ${pro.productno})'>"
-						+  "<i id='heart' class='fa fa-heart-o'></i></button></div>"
+						+  "<button class='like_button' >"
+						+  "<i id='heart' class='fa fa-heart-o' onclick='Collect("+${member.id}+","+data.Products[i].productno+")'></i></button></div>"
 						+  "<a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
 						+  "<img class='proimg' src='${pageContext.request.contextPath}/pic/"+data.Products[i].imagepath+"'></a></div>"
 						+  "<div class='proname'>"+data.Products[i].productname+"</div>"
@@ -340,29 +340,26 @@ function Keywordproducts(i) {
 	});
 }
 
-	function collect(mid, pid) {
-		$("#heart").removeClass();
-		$.ajax({
-			async : true,
-			type : 'GET',
-			url : 'Collect',
-			data : {
-				"mid" : mid,
-				"pid" : pid
-			},
-			dataType : "json",
-			success : function(data) {
-				alert(data);
-				if (data) {
-					swal("收藏成功", "", "success");
-					$("#heart").addClass("fa fa-heart");
-				} else {
-					swal("取消收藏", "", "error");
-					$("#heart").addClass("fa fa-heart-o");
-				}
+function Collect(mid, pid) {
+	$.ajax({
+		async : true,
+		type : 'GET',
+		url : 'Collect',
+		data : {
+			"mid" : mid,
+			"pid" : pid
+		},
+		dataType : "json",
+		success : function(data) {
+			alert(data);
+			if (data) {
+				swal.fire("收藏成功", "", "success");
+			} else {
+				swal.fire("取消收藏", "", "error");
 			}
-		});
-	}
+		}
+	});
+}
 </script>
 <%@include file="../jspf/footer.jspf"%>
 </body>
