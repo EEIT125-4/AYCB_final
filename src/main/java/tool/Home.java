@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import product.model.CollectBean;
 import product.model.ProductBean;
 import product.service.ProductService;
 
 @Controller
-@SessionAttributes({ "brand", "series", "cate", "recordlist" })
+@SessionAttributes({ "brand", "series", "cate", "recordlist", "collection"})
 public class Home {
 
 	@Autowired
@@ -28,6 +29,10 @@ public class Home {
 			List<ProductBean> list = new ArrayList<>();
 			session.setAttribute("recordlist", list);
 		}
+//		if (session.getAttribute("collection") == null) {
+//			List<CollectBean> list = new ArrayList<>();
+//			session.setAttribute("collection", list);
+//		}
 		return "index";
 	}
 
