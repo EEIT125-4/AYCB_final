@@ -43,9 +43,9 @@ if (session.getAttribute("member") != null) {
 <div class="wrapper">
 	<div class="contentoutbox">
 		<div class="contentbox">
-			
+
 			<div id="menu" class="leftside">
-				<div class="condition">條件篩選${recordlist}</div>
+				<div class="condition">條件篩選</div>
 				<div class="category">
 					<div id="nameb" class="flip">廠商分類</div>
 					<div id="brand" class="panel">
@@ -98,7 +98,6 @@ if (session.getAttribute("member") != null) {
 					<!-- 				<div> -->
 				</div>
 			</div>
-			<div id="proarea" class="rightoutbox">
 			<div class="searchbox">
 				<input id="keyword" class="searchinput" type="text">
 				<button class="searchbtn" onclick="Keywordproducts(1)">
@@ -106,7 +105,7 @@ if (session.getAttribute("member") != null) {
 						alt="">
 				</button>
 			</div>
-			</div>
+			<div id="proarea" class="rightoutbox"></div>
 			<div id="pagearea" class="page"></div>
 		</div>
 	</div>
@@ -142,7 +141,7 @@ function Allproducts(i) {
 						+  "<%}%>"
 						+  "</div></div></div>";
 			}
-			$("#proarea").append(content);
+			$("#proarea").html(content);
 			
 			var page = "<ul class='page_ul'>"
 			for (let i = 1; i <= data.TotalPages; i++) {
@@ -328,52 +327,52 @@ function Keywordproducts(i) {
 						+  "<img class='cartimg' src='image/bg_cart_b.svg'></a>"
 						+  "<%}%>" 
 						+ "</div></div></div>";
-			}
-			$("#proarea").html(content);
+						}
+						$("#proarea").html(content);
 
-			var page = "<ul class='page_ul'>"
-			for (let i = 1; i <= data.TotalPages; i++) {
-				page += "<li class='page_ul_li'>"
-					 + "<button class='page_ul_li_button' type='submit' onclick='Keywordproducts("+i+")'>" + i + "</button></li>";
+						var page = "<ul class='page_ul'>"
+						for (let i = 1; i <= data.TotalPages; i++) {
+							page += "<li class='page_ul_li'>"
+									+ "<button class='page_ul_li_button' type='submit' onclick='Keywordproducts("
+									+ i + ")'>" + i + "</button></li>";
+						}
+						page += "</ul>";
+						$("#pagearea").html(page);
+					}
+				});
+	}
+
+	function Collect(mid, pid) {
+		$.ajax({
+			async : true,
+			type : 'GET',
+			url : 'Collect',
+			data : {
+				"mid" : mid,
+				"pid" : pid
+			},
+			dataType : "json",
+			success : function(data) {
+				if (data) {
+					swal.fire("收藏成功", "", "success");
+					$('#heart' + pid).attr('class', 'fa fa-heart');
+				} else {
+					swal.fire("取消收藏", "", "error");
+					$('#heart' + pid).attr('class', 'fa fa-heart-o');
+				}
 			}
-			page += "</ul>";
-			$("#pagearea").html(page);
+		});
+	}
+
+	function navwheel() {
+		if (window.scrollY < 150) {
+			document.getElementById("menu").style.removeProperty("top");
 		}
-	});
-}
-
-function Collect(mid, pid) {
-	$.ajax({
-		async : true,
-		type : 'GET',
-		url : 'Collect',
-		data : {
-			"mid" : mid,
-			"pid" : pid
-		},
-		dataType : "json",
-		success : function(data) {
-			alert(data);
-			if (data) {
-				swal.fire("收藏成功", "", "success");
-				$('#heart'+pid).attr('class','fa fa-heart');
-			} else {
-				swal.fire("取消收藏", "", "error");
-				$('#heart'+pid).attr('class','fa fa-heart-o');
-			}
+		if (window.scrollY > 150) {
+			document.getElementById("menu").style.setProperty("top", "10px");
 		}
-	});
-}
-
-function navwheel() {
-    if (window.scrollY < 150) {
-    	document.getElementById("menu").style.removeProperty("top");
-    }
-    if (window.scrollY > 150) {
-    	document.getElementById("menu").style.setProperty("top", "10px");
-    }
-}
-document.body.onwheel = navwheel;
+	}
+	document.body.onwheel = navwheel;
 </script>
 <%@include file="../jspf/footer.jspf"%>
 </body>

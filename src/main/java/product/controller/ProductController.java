@@ -23,7 +23,6 @@ import com.google.gson.Gson;
 
 import comment.model.CommentBean;
 import comment.service.CommentService;
-import product.model.CollectBean;
 import product.model.ProductBean;
 import product.service.ProductService;
 
@@ -189,6 +188,7 @@ public class ProductController {
 		return map;
 	}
 
+	@SuppressWarnings("unchecked")
 	@GetMapping("/Detail")
 	public ModelAndView detail(Model model, @RequestParam(value = "no", required = false) Integer no,
 			@RequestParam(value = "cate", required = false) String cate) {
@@ -200,10 +200,37 @@ public class ProductController {
 
 		List<ProductBean> racate = ps.racate(cate);
 		mav.addObject("racate", racate);
-
-//		List<ProductBean> list = (List<ProductBean>) model.getAttribute("recordlist");
-//		list.add(detail);
-//		mav.addObject("recordlist", list);
+		
+		boolean history = true;
+		List<ProductBean> list = (List<ProductBean>) model.getAttribute("recordlist");
+		System.out.println("LLL1 " + list);
+		if (list != null) {
+			
+			for (int i = 0; i < list.size(); i++) {
+				if (detail.getProductno() != list.get(i).getProductno()) {
+					history=true;
+					
+				} else {
+					history=false;
+					break;
+					
+					
+				}
+			}
+			
+		} 
+	
+		
+		if(history) {
+			list.add(detail);	
+			System.out.println("LLL2 " + list);
+//			mav.addObject("recordlist", list);
+			
+			
+		}
+		System.out.println("list"+list);
+		
+		
 
 		CommentBean commentBean = new CommentBean();
 //		model.addAttribute("leave",commentBean);
@@ -250,10 +277,7 @@ public class ProductController {
 	}
 
 	@GetMapping(value = "/Collect", produces = "application/json")
-	public @ResponseBody boolean collect(
-			@RequestParam("mid") Integer mid, 
-			@RequestParam("pid") Integer pid
-	) {
+	public @ResponseBody boolean collect(@RequestParam("mid") Integer mid, @RequestParam("pid") Integer pid) {
 		System.out.println("MMM " + mid);
 		System.out.println("PPP " + pid);
 		List<Integer> list = ps.findcollection(mid);
@@ -271,5 +295,10 @@ public class ProductController {
 		}
 		ps.addcollection(mid, pid);
 		return true;
+	}
+
+	@GetMapping("/History")
+	public String mproduct() {
+		return "product/history";
 	}
 }
