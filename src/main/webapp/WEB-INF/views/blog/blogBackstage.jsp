@@ -32,6 +32,7 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 				<th>上傳會員</th>
 				<th>點讚次數</th>
 				<th>觀看次數</th>
+				<th>刪除</th>
 
 			</tr>
 		</thead>
@@ -56,6 +57,7 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 					<td>${b.member.name}</td>
 					<td>${b.thumbs}</td>
 					<td>${b.views}</td>
+					<td><button class='delete_btn'>刪除</button></td>
 
 
 				</tr>
@@ -99,7 +101,10 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 
 <script>
 
+
 $(document).ready(function() {
+	
+	var tb= document.getElementById('myDataTable');
     $(".status").change(function() { 
     	
     	var blogId=$(this).parent().siblings("td[name='blogId']").text();
@@ -117,8 +122,7 @@ $(document).ready(function() {
             	"state":state                
             },
             success: function(data) {
-
-     				
+   				
      				swal.fire({
       				  title: "已更新",
       				  text: "狀態變更",
@@ -126,8 +130,6 @@ $(document).ready(function() {
       				  button: "OK",
       				});
      				
-     			
-              
             },
             error: function(data) {
             	
@@ -141,7 +143,72 @@ $(document).ready(function() {
               
             }
         })
-    })        
+    })  
+    //刪除blog按鈕
+    $(".delete_btn").click(function() {
+    
+    	var blogId=$(this).parent().siblings("td[name='blogId']").text();
+    	
+    	
+    	swal.fire({ 
+    		  title: '確定刪除?', 
+    		  text: '將無法恢復此筆資料', 
+    		  type: 'warning',
+    		  showCancelButton: true, 
+    		  confirmButtonColor: '#3085d6',
+    		  cancelButtonColor: '#d33',
+    		  confirmButtonText: '確定刪除', 
+    		}).then(function(){
+    			
+    			
+    			 $.ajax({
+    		            type: "POST", //傳送方式
+    		            url: "${pageContext.request.contextPath}/blog/delete/"+blogId, 
+    		            dataType: "json", //資料格式
+//     		            data: { //傳送資料            	
+//     		            	"blogId":blogId,
+//     		            	"state":state                
+//     		            },
+    		            success: function(data) {
+    		            	if(data){
+    		            		swal.fire({
+      		      				  title: "已刪除",
+      		      				  text: "狀態變更",
+      		      				  icon: "success",
+      		      				  button: "OK",
+      		      				});
+    		            		
+    		            		
+//     		            		var target=$(this).parent().parent();
+//     		            		target.css({"color":"red","border":"2px solid red"});
+    		            		
+    		            	}else{
+    		            		
+    		            	 	swal.fire({
+      		    				  title:'刪除失敗',
+      		    				  text: '資料刪除過程中現異常,請聯絡管理員',
+      		    				  icon: "error",
+      		    				  button: "OK",
+      		    				});        		
+    		            	}
+			   		     				
+    		            },
+    		            error: function(data) {
+    		            	
+    		            	swal.fire({
+    		    				  title:'請求錯誤',
+    		    				  text: 'server無回應,聯絡管理員',
+    		    				  icon: "error",
+    		    				  button: "OK",
+    		    				});        		
+  		            	}   		            	            	    		              		           
+    		        })  			
+    		});
+    	
+    })
+    
+    
+    
 });
 
 
@@ -181,13 +248,10 @@ for(let i=0;i<blogJson.length;i++){
          rgb[i] = parseInt(Math.random() * 256);
 //          console.log(rgb[i]);
      };
-     let color="rgba("+rgb[0]+","+rgb[1]+","+rgb[2]+",0.2)";
-     
-     
+     let color="rgba("+rgb[0]+","+rgb[1]+","+rgb[2]+",0.2)";         
 	 colors.push(color);
 	 color="rgba("+rgb[0]+","+rgb[1]+","+rgb[2]+",1.0)";
-	 lines.push(color);
-	 
+	 lines.push(color);	 
 // 	 console.log("json_title"+blogJson[i].title);
 }
 
@@ -237,6 +301,8 @@ var chart2 = new Chart(ctx2, {
         }
       }
     });
+    
+
    
    
 

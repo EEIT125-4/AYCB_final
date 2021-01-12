@@ -13,6 +13,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -80,6 +81,23 @@ public class MemberController {
 
 		return "/index"; // 請視圖解析器由視圖的邏輯名稱index來找出真正的視圖
 	}
+	
+	
+	
+	
+	//select 後臺查詢
+	@GetMapping("member/Backstage")
+	public String list(Model model) {
+		System.out.println("111111111111111111111");
+		model.addAttribute("memberBackstage", memberService.getAllMembers());
+		System.out.println(memberService.getAllMembers());
+		
+		return "member/memberBackstage";
+	}
+	
+	
+	
+	
 	// 註冊頁
 	@GetMapping("/register") 
 	public String getregister(Model model) {
@@ -123,13 +141,13 @@ public class MemberController {
 	}
 	
 	
-	@GetMapping(value = "/member/Backstage")
-	
-	public String backstage() {
-		
-		return "member/memberBackstage";
-
-	}
+//	@GetMapping(value = "/member/Backstage")
+//	
+//	public String backstage() {
+//		
+//		return "member/memberBackstage";
+//
+//	}
 	
 //	@GetMapping(value = "/member/refresh")
 //	@ResponseBody
@@ -212,6 +230,7 @@ public class MemberController {
 		System.out.println("驗證中,輸入值為"+Qcode);
 		boolean login = false;
 		if (user.equals("") || pwd.equals("") || Qcode.equals("")) {
+			model.addAttribute("msg", "請輸入帳號密碼");
 			System.out.println("有輸入值為空");
 
 			login=false;
@@ -471,9 +490,16 @@ public class MemberController {
 
   	}
 
+//權限管理
+      @PostMapping("member/ckpower2")
+      @ResponseBody
+  	public  void power(@RequestParam("id")Integer id ) {
+    	  System.out.println("account+++++++++++++"+id);
+    	  memberService.ckpower2(id);
+    	  System.out.println("account+++++++++++++"+id);
+  		
+  	}
 
-      
-      
       
 }
 	

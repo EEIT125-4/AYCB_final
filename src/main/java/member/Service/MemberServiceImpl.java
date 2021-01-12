@@ -121,14 +121,17 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public void ckpower2(String account) {
-		 memberDao.ckpower2(account);
+	public void ckpower2(Integer id) {
+		 memberDao.ckpower2(id);
 	}
 	
 	@Override
 	public MemberBean ckpower(String account) {
 		return memberDao.ckpower(account);
 	}
+
+
+
 	
 	
 	

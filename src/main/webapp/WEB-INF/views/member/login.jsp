@@ -277,7 +277,7 @@
     	
     	let req = JSON.stringify({
     		"name":a,
-    		"gender":c,
+
     		"email":b
     		
     		});
@@ -289,7 +289,6 @@
     		url :   "google" ,
      		datatype:"json",
     		data : {"googlename":a,
-    			"googlegender":c,
     			"googleemail":b},
 //     		contentType : "application/json;charset=utf-8",
     		

@@ -295,14 +295,23 @@ public class BlogController {
 //	}
 	
 
-		
-
-
 	// 刪除一篇文章
-//	@DeleteMapping(value = "blog/{blogid}")
-//	public String delete(@PathVariable("blogid") Integer blogid) {
-//		blogService.deleteBlog(blogid);
-//		return "redirect:blog/blog";
-//	}
+	@PostMapping(value = "blog/delete/{blogid}")
+	@ResponseBody
+	public boolean delete(@PathVariable("blogid") Integer blogid) {
+		
+		System.out.println("嘗試刪除blog");
+		try {
+			blogService.deleteBlog(blogid);
+			return true;
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return false;
+		}
+		
+		
+	}
 
 }
