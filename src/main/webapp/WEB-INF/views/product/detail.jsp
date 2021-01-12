@@ -18,57 +18,63 @@
 	TYPE="text/css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/comment.css" />
-	
+
 <title>${Detail.productname}</title>
 </head>
 <%@include file="../jspf/header.jspf"%>
 
 <div class="contentoutbox">
 	<div class="contentBox">
-		<div class="leftside">
-			<div class="condition">條件篩選</div>
-			<div class="category">
-				<div class="catediv">
-					廠商分類<a id="a1" class="catea" href="#" onclick="show1()">+</a>
-				</div>
-				<c:forEach var="brand" varStatus='vs' items="${brand}">
-					<c:if test='${vs.first }'>
-						<c:out value="<ul id='ul1' class='cateul'>" escapeXml='false' />
-					</c:if>
-					<li class="cateul_li"><a class="cateul_li_a"
-						href='<c:url value="/Brand" />?brand=${brand}'>${brand}</a></li>
-					<c:if test='${vs.last }'>
-						<c:out value="</ul>" escapeXml='false' />
-					</c:if>
-				</c:forEach>
-				<div class="catediv">
-					系列分類<a id="a2" class="catea" href="#" onclick="show2()">+</a>
-				</div>
-				<c:forEach var="series" varStatus='vs' items="${series}">
-					<c:if test='${vs.first }'>
-						<c:out value="<ul id='ul2' class='cateul'>" escapeXml='false' />
-					</c:if>
-					<li class="cateul_li"><a class="cateul_li_a"
-						href='<c:url value="/Series" />?series=${series}'>${series}</a></li>
-					<c:if test='${vs.last }'>
-						<c:out value="</ul>" escapeXml='false' />
-					</c:if>
-				</c:forEach>
-				<div class="catediv">
-					種類分類<a id="a3" class="catea" href="#" onclick="show3()">+</a>
-				</div>
-				<c:forEach var="cate" varStatus='vs' items="${cate}">
-					<c:if test='${vs.first }'>
-						<c:out value="<ul id='ul3' class='cateul'>" escapeXml='false' />
-					</c:if>
-					<li class="cateul_li"><a class="cateul_li_a"
-						href='<c:url value="/Cate" />?cate=${cate}'>${cate}</a></li>
-					<c:if test='${vs.last }'>
-						<c:out value="</ul>" escapeXml='false' />
-					</c:if>
-				</c:forEach>
-			</div>
-		</div>
+<!-- 		<div class="leftside"> -->
+<!-- 			<div class="condition">條件篩選</div> -->
+<!-- 			<div class="category"> -->
+<!-- 				<div id="nameb" class="flip">廠商分類</div> -->
+<!-- 				<div id="brand" class="panel"> -->
+<%-- 					<c:forEach var="brand" varStatus='vs' items="${brand}"> --%>
+<%-- 						<c:if test='${vs.first }'> --%>
+<%-- 							<c:out value="<ul id='ul1'>" escapeXml='false' /> --%>
+<%-- 						</c:if> --%>
+<!-- 						<li class="cateul_li"> -->
+<!-- 							<button class="cateul_li_button" -->
+<%-- 								onclick="Brandproducts('${brand}',1)">${brand}</button> --%>
+<!-- 						</li> -->
+<%-- 						<c:if test='${vs.last }'> --%>
+<%-- 							<c:out value="</ul>" escapeXml='false' /> --%>
+<%-- 						</c:if> --%>
+<%-- 					</c:forEach> --%>
+<!-- 				</div> -->
+<!-- 				<div id="names" class="flip">系列分類</div> -->
+<!-- 				<div id="series" class="panel"> -->
+<%-- 					<c:forEach var="series" varStatus='vs' items="${series}"> --%>
+<%-- 						<c:if test='${vs.first }'> --%>
+<%-- 							<c:out value="<ul id='ul2'>" escapeXml='false' /> --%>
+<%-- 						</c:if> --%>
+<!-- 						<li class="cateul_li"> -->
+<!-- 							<button class="cateul_li_button" -->
+<%-- 								onclick="Seriesproducts('${series}',1)">${series}</button> --%>
+<!-- 						</li> -->
+<%-- 						<c:if test='${vs.last }'> --%>
+<%-- 							<c:out value="</ul>" escapeXml='false' /> --%>
+<%-- 						</c:if> --%>
+<%-- 					</c:forEach> --%>
+<!-- 				</div> -->
+<!-- 				<div id="namec" class="flip">種類分類</div> -->
+<!-- 				<div id="cate" class="panel"> -->
+<%-- 					<c:forEach var="cate" varStatus='vs' items="${cate}"> --%>
+<%-- 						<c:if test='${vs.first }'> --%>
+<%-- 							<c:out value="<ul id='ul3'>" escapeXml='false' /> --%>
+<%-- 						</c:if> --%>
+<!-- 						<li class="cateul_li"> -->
+<!-- 							<button class="cateul_li_button" -->
+<%-- 								onclick="Cateproducts('${cate}',1)">${cate}</button> --%>
+<!-- 						</li> -->
+<%-- 						<c:if test='${vs.last }'> --%>
+<%-- 							<c:out value="</ul>" escapeXml='false' /> --%>
+<%-- 						</c:if> --%>
+<%-- 					</c:forEach> --%>
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
 
 		<div class="rightoutbox">
 			<div class="rightbox">
@@ -149,58 +155,60 @@
 			</div>
 
 			<div class="content">
-			
 
-			<!--                         留言 -->
-			<div>
-				<c:if test='${not empty member}'>
 
-					<div class="blog__details__comment">
-						<h4>Leave A Comment</h4>
-						<form id="commentform">
+				<!--                         留言 -->
+				<div>
+					<c:if test='${not empty member}'>
 
-							<div class="col-lg-12 text-center">
+						<div class="blog__details__comment">
+							<h4>Leave A Comment</h4>
+							<form id="commentform">
 
-								<textarea id="comment" placeholder="Comment"></textarea>
-								<button id="postComment" type="button" class="site-btn"	style="width: fit-content;">Post
-									Comment</button>
-							</div>
-						</form>
-					</div>
-				</c:if>
+								<div class="col-lg-12 text-center">
 
-				<c:if test='${ empty member}'>
-					<a href="${pageContext.request.contextPath}/member/login">若欲留言請先登入</a>
-				</c:if>
+									<textarea id="comment" placeholder="Comment"></textarea>
+									<button id="postComment" type="button" class="site-btn"
+										style="width: fit-content;">Post Comment</button>
+								</div>
+							</form>
+						</div>
+					</c:if>
+
+					<c:if test='${ empty member}'>
+						<a href="${pageContext.request.contextPath}/member/login">若欲留言請先登入</a>
+					</c:if>
+				</div>
+
+				<!-- 					留言列 -->
+				<div id="board"></div>
 			</div>
-
-			<!-- 					留言列 -->
-			<div id="board"></div>
 		</div>
+		<%@include file="../jspf/footer.jspf"%>
+
 	</div>
-	<%@include file="../jspf/footer.jspf"%>
-
-</div>
 
 
 
 
 
 
-<!-- 留言功能初始化 -->
-<script>
-	var object = "product";
-	var pk=${Detail.productno};
-	var path="${pageContext.request.contextPath}";
-	var board = document.getElementById("board");
-	var postUrl=path+"/leaveComment?memberid=${member.id}&key="+pk+"&type="+object;
-	var getUrl=path+"/loadComment?key="+pk+"&type="+object;
-	
+	<!-- 留言功能初始化 -->
+	<script>
+		var object = "product";
+		var pk = $
+		{
+			Detail.productno
+		};
+		var path = "${pageContext.request.contextPath}";
+		var board = document.getElementById("board");
+		var postUrl = path + "/leaveComment?memberid=${member.id}&key=" + pk
+				+ "&type=" + object;
+		var getUrl = path + "/loadComment?key=" + pk + "&type=" + object;
+	</script>
 
-</script>
+	<script src="${pageContext.request.contextPath}/js/comment.js"
+		defer="defer" charset="big5"></script>
 
-<script src="${pageContext.request.contextPath}/js/comment.js"
-	defer="defer" charset="big5"></script>
-
-</body>
+	</body>
 </html>

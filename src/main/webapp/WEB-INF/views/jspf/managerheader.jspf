@@ -211,13 +211,13 @@ MemberBean mb = (MemberBean) session.getAttribute("member");
 				</div>
 			</div>
 		</div>
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-3 col-md-3">
-					<div class="header__logo">
+<!-- 		<div class="container"> -->
+<!-- 			<div class="row"> -->
+<!-- 				<div class="col-lg-3 col-md-3"> -->
+<!-- 					<div class="header__logo"> -->
 						<%-- 						<a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/image/logo.png"></a> --%>
-					</div>
-				</div>
+<!-- 					</div> -->
+<!-- 				</div> -->
 <!-- 				<div class="col-lg-6 col-md-6"> -->
 <!-- 					<nav class="header__menu mobile-menu"> -->
 <!-- 						<ul> -->
@@ -273,9 +273,9 @@ MemberBean mb = (MemberBean) session.getAttribute("member");
 <!-- 						<div class="price"></div> -->
 <!-- 					</div> -->
 <!-- 				</div> -->
-			</div>
-			<div class="canvas__open">
-				<i class="fa fa-bars"></i>
-			</div>
-		</div>
+<!-- 			</div> -->
+<!-- 			<div class="canvas__open"> -->
+<!-- 				<i class="fa fa-bars"></i> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
 	</header>

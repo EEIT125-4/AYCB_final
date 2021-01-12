@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
 	import="java.util.*,product.*,product.cartModel.CartItem,member.*"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 response.setContentType("text/html;charset=UTF-8");
 response.setHeader("Cache-Control", "no-cache"); // HTTP 1.1
@@ -84,14 +85,11 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 </head>
 <%@include file="../jspf/header.jspf"%>
 <div style="text-align: center">
-<!-- <div style="position: relative; left: 30px; width: 150px;"> -->
+
  	<% 
  		MemberBean member = (MemberBean) session.getAttribute("member");
  	%>  
 
-<!--   	<span style="border-bottom: 2px solid gray; width: 150px;">  -->
-<%-- 	<strong><h5><%=member.getName() +  "   "%>您好!</h5></strong></span><br> <A style="color: black;" href="<c:url value='orderManagement' />"><h5>查詢歷史清單</h5></A>  --%>
-<!--  </div>  -->
 <div>
 	<ol class="progress_bar">
 		<li class="active">購物車</li>
@@ -133,34 +131,23 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 					CartItem aCartItem = cart.get(i); //list的寫法
 				%>
 				<tr>
-
-					<%-- 					<form name="removeForm" action="${pageContext.request.contextPath}/cartRemove" method="get"> --%>
-					<!-- 						<input type="hidden" name="todo" value="remove"> -->
-					<!-- 移除商品 -->
-					<%-- 						<input type="hidden" name="cartIndex" value="<%=i%>"> --%>
 					<td style="text-align: center; vertical-align: middle;" scope="row"><img
 						class="img"
 						src="${pageContext.request.contextPath}/pic/<%=aCartItem.getProductImage()%>"></td>
 					<td style="text-align: center; vertical-align: middle;"><%=aCartItem.getProductName()%></td>
 					<td style="text-align: center; vertical-align: middle;">NT$<%=aCartItem.getProductPrice()%></td>
-<%-- 					<td style="text-align: center; vertical-align: middle;"><%=aCartItem.getQtyOrdered()%></td> --%>
 					
 					<td style="text-align: center; vertical-align: middle;">	
-								<input type="number" 
-								onchange="checkQuantity(this)" name="quantity" 
-								min="1" max="10"
-								value="<%=aCartItem.getQtyOrdered()%>" style="width: 3em">
+					<input type="number" name="quantity" id="<%=i%>" 
+							min="1" max="10" value="<%=aCartItem.getQtyOrdered()%>" style="width: 3em" onblur="checkQty(<%=i %>);">
 					</td>
 					
-					<td style="text-align: center; vertical-align: middle;">
-						<!-- 						<input style="margin-bottom: 6px;" type="button" value="追蹤"> -->
-						<%-- 						<img class="" src="${pageContext.request.contextPath}/image/icon/heart.png"> --%>
-						<!-- 						<br> --> <!-- 						<input type="submit" value="刪除"> -->
+					<td style="text-align: center; vertical-align: middle;">						
+						<%--<img class="" src="${pageContext.request.contextPath}/image/icon/heart.png"><br> --%>
 						<a href="${pageContext.request.contextPath}/cartRemove/<%=i%>"><img
 							class=""
 							src="${pageContext.request.contextPath}/image/icon/trash.png"></a>
 					</td>
-					<!-- 					</form> -->
 				</tr>
 				<%
 					} // for loop
@@ -180,23 +167,41 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 			<br>
 		</fieldset>
 		</div>
-			<div>
+			
 			<%
 				} else {
 			%>
+			<div>
 			<h4>目前無商品加入</h4>
-
-				<%		
+			</div>
+			<%
 				System.out.println(request.getContextPath());
 				String path=request.getContextPath()+"/All";
 						response.setHeader("Refresh", "2;"+path);
 					
 					}
-				%>
-			</div>
+			%>
+			
 
 	
 </div>
 <%@include file="../jspf/footer.jspf"%>
+<script>
+function checkQty(e){
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", '<c:url value="/setQtyAjax" />?id='+e+"&Qty="+$("#"+e).val()
+			, true);
+	xhr.send();
+	xhr.onload = function() {
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			alert("success")
+		}else{
+			alert("fail")
+		}
+	
+	console.log($("#"+e).val())
+	}
+}
+</script>
 </body>
 </html>
