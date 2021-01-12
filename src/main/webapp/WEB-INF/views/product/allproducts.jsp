@@ -43,14 +43,8 @@ if (session.getAttribute("member") != null) {
 <div class="wrapper">
 	<div class="contentoutbox">
 		<div class="contentbox">
-			<div class="searchbox">
-				<input id="keyword" class="searchinput" type="text">
-				<button class="searchbtn" onclick="Keywordproducts(1)">
-					<img src="${pageContext.request.contextPath}/image/icon/search.png"
-						alt="">
-				</button>
-			</div>
-			<div class="leftside">
+			
+			<div id="menu" class="leftside">
 				<div class="condition">條件篩選${recordlist}</div>
 				<div class="category">
 					<div id="nameb" class="flip">廠商分類</div>
@@ -104,7 +98,15 @@ if (session.getAttribute("member") != null) {
 					<!-- 				<div> -->
 				</div>
 			</div>
-			<div id="proarea" class="rightoutbox"></div>
+			<div id="proarea" class="rightoutbox">
+			<div class="searchbox">
+				<input id="keyword" class="searchinput" type="text">
+				<button class="searchbtn" onclick="Keywordproducts(1)">
+					<img src="${pageContext.request.contextPath}/image/icon/search.png"
+						alt="">
+				</button>
+			</div>
+			</div>
 			<div id="pagearea" class="page"></div>
 		</div>
 	</div>
@@ -123,8 +125,8 @@ function Allproducts(i) {
 				content += "<div class='rightside'>"
 						+  "<div class='imgbox'>"
 						+  "<div class='like'>"
-						+  "<button class='like_button' >"
-						+  "<i id='heart' class='fa fa-heart-o' onclick='Collect("+${member.id}+","+data.Products[i].productno+")'></i></button></div>"
+						+  "<button class='like_button' onclick='Collect("+${member.id}+","+data.Products[i].productno+")'>"
+						+  "<i id='heart"+data.Products[i].productno+"' class='fa fa-heart-o'></i></button></div>"
 						+  "<a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
 						+  "<img class='proimg' src='${pageContext.request.contextPath}/pic/"+data.Products[i].imagepath+"'></a></div>"
 						+  "<div class='proname'>"+data.Products[i].productname+"</div>"
@@ -140,7 +142,7 @@ function Allproducts(i) {
 						+  "<%}%>"
 						+  "</div></div></div>";
 			}
-			$("#proarea").html(content);
+			$("#proarea").append(content);
 			
 			var page = "<ul class='page_ul'>"
 			for (let i = 1; i <= data.TotalPages; i++) {
@@ -354,12 +356,24 @@ function Collect(mid, pid) {
 			alert(data);
 			if (data) {
 				swal.fire("收藏成功", "", "success");
+				$('#heart'+pid).attr('class','fa fa-heart');
 			} else {
 				swal.fire("取消收藏", "", "error");
+				$('#heart'+pid).attr('class','fa fa-heart-o');
 			}
 		}
 	});
 }
+
+function navwheel() {
+    if (window.scrollY < 150) {
+    	document.getElementById("menu").style.removeProperty("top");
+    }
+    if (window.scrollY > 150) {
+    	document.getElementById("menu").style.setProperty("top", "10px");
+    }
+}
+document.body.onwheel = navwheel;
 </script>
 <%@include file="../jspf/footer.jspf"%>
 </body>

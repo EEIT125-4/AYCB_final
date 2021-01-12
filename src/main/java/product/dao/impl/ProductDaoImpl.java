@@ -364,7 +364,7 @@ public class ProductDaoImpl implements ProductDao {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<CollectBean> findcollection(int id) {
+	public List<Integer> findcollection(int id) {
 		String hql = "SELECT c.pid FROM CollectBean c WHERE c.mid = :mid";
 		Session session = factory.getCurrentSession();
 		return session.createQuery(hql).setParameter("mid", id).getResultList();
