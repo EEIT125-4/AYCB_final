@@ -11,9 +11,6 @@
 <script src="${pageContext.request.contextPath}/js/inside.js"
 	defer="defer"></script>
 <link REL=STYLESHEET
-	HREF="${pageContext.request.contextPath}/css/inside.css"
-	TYPE="text/css">
-<link REL=STYLESHEET
 	HREF="${pageContext.request.contextPath}/css/ProductDetail.css"
 	TYPE="text/css">
 <link rel="stylesheet"
@@ -25,71 +22,18 @@
 
 <div class="contentoutbox">
 	<div class="contentBox">
-<!-- 		<div class="leftside"> -->
-<!-- 			<div class="condition">條件篩選</div> -->
-<!-- 			<div class="category"> -->
-<!-- 				<div id="nameb" class="flip">廠商分類</div> -->
-<!-- 				<div id="brand" class="panel"> -->
-<%-- 					<c:forEach var="brand" varStatus='vs' items="${brand}"> --%>
-<%-- 						<c:if test='${vs.first }'> --%>
-<%-- 							<c:out value="<ul id='ul1'>" escapeXml='false' /> --%>
-<%-- 						</c:if> --%>
-<!-- 						<li class="cateul_li"> -->
-<!-- 							<button class="cateul_li_button" -->
-<%-- 								onclick="Brandproducts('${brand}',1)">${brand}</button> --%>
-<!-- 						</li> -->
-<%-- 						<c:if test='${vs.last }'> --%>
-<%-- 							<c:out value="</ul>" escapeXml='false' /> --%>
-<%-- 						</c:if> --%>
-<%-- 					</c:forEach> --%>
-<!-- 				</div> -->
-<!-- 				<div id="names" class="flip">系列分類</div> -->
-<!-- 				<div id="series" class="panel"> -->
-<%-- 					<c:forEach var="series" varStatus='vs' items="${series}"> --%>
-<%-- 						<c:if test='${vs.first }'> --%>
-<%-- 							<c:out value="<ul id='ul2'>" escapeXml='false' /> --%>
-<%-- 						</c:if> --%>
-<!-- 						<li class="cateul_li"> -->
-<!-- 							<button class="cateul_li_button" -->
-<%-- 								onclick="Seriesproducts('${series}',1)">${series}</button> --%>
-<!-- 						</li> -->
-<%-- 						<c:if test='${vs.last }'> --%>
-<%-- 							<c:out value="</ul>" escapeXml='false' /> --%>
-<%-- 						</c:if> --%>
-<%-- 					</c:forEach> --%>
-<!-- 				</div> -->
-<!-- 				<div id="namec" class="flip">種類分類</div> -->
-<!-- 				<div id="cate" class="panel"> -->
-<%-- 					<c:forEach var="cate" varStatus='vs' items="${cate}"> --%>
-<%-- 						<c:if test='${vs.first }'> --%>
-<%-- 							<c:out value="<ul id='ul3'>" escapeXml='false' /> --%>
-<%-- 						</c:if> --%>
-<!-- 						<li class="cateul_li"> -->
-<!-- 							<button class="cateul_li_button" -->
-<%-- 								onclick="Cateproducts('${cate}',1)">${cate}</button> --%>
-<!-- 						</li> -->
-<%-- 						<c:if test='${vs.last }'> --%>
-<%-- 							<c:out value="</ul>" escapeXml='false' /> --%>
-<%-- 						</c:if> --%>
-<%-- 					</c:forEach> --%>
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-
-		<div class="rightoutbox">
-			<div class="rightbox">
+		<div class="detailbox">
+			<div class="pddetail">
 				<form name="AddForm"
 					action="${pageContext.request.contextPath}/cartAdd" method="get">
 					<input type="hidden" name="todo" value="add">
-					<div class="rightside">
-						<div class="imgbox">
-							<a href="#"> <img class="proimg"
+					<div class="detailimg">
+						<div class="detailimgbox">
+							<a href="#"> <img class="pdimg"
 								src="${pageContext.request.contextPath}/pic/${Detail.imagepath}"></a>
 						</div>
 					</div>
-
 					<div class="infobox">
-
 						<div class="infoname">${Detail.productname}</div>
 						<div class="infono">商品編號：${Detail.brandno}${Detail.productno}</div>
 						<hr>
@@ -111,7 +55,6 @@
 									<option value="9">9</option>
 									<option value="10">10</option>
 								</select>
-
 							</div>
 							<br> <br> <br>
 							<div>
@@ -137,25 +80,25 @@
 			</div>
 			<div class="maybelike">
 				<div class="maybeliketext">你可能也喜歡</div>
-				<c:forEach var="ra" items="${racate}">
-					<div class="raside">
-						<div class="imgbox">
-							<a
-								href='<c:url value="/Detail" />?no=${ra.productno}&cate=${ra.productcategory}'>
-								<img class="raimg"
-								src="${pageContext.request.contextPath}/pic/${ra.imagepath}">
-							</a>
+				<div>
+					<c:forEach var="ra" items="${racate}">
+						<div class="raside">
+							<div class="imgbox">
+								<a
+									href='<c:url value="/Detail" />?no=${ra.productno}&cate=${ra.productcategory}'>
+									<img class="raimg"
+									src="${pageContext.request.contextPath}/pic/${ra.imagepath}">
+								</a>
+							</div>
+							<div class="raname">${ra.productname}</div>
+							<div class="rabuttonbox">
+								<div class="raprice">NT$ ${ra.productprice}</div>
+							</div>
 						</div>
-						<div class="raname">${ra.productname}</div>
-						<div class="rabuttonbox">
-							<div class="raprice">NT$ ${ra.productprice}</div>
-						</div>
-					</div>
-				</c:forEach>
+					</c:forEach>
+				</div>
 			</div>
-
 			<div class="content">
-
 
 				<!--                         留言 -->
 				<div>
@@ -185,30 +128,30 @@
 			</div>
 		</div>
 		<%@include file="../jspf/footer.jspf"%>
-
 	</div>
+</div>
 
 
 
 
 
 
-	<!-- 留言功能初始化 -->
-	<script>
-		var object = "product";
-		var pk = $
-		{
-			Detail.productno
-		};
-		var path = "${pageContext.request.contextPath}";
-		var board = document.getElementById("board");
-		var postUrl = path + "/leaveComment?memberid=${member.id}&key=" + pk
-				+ "&type=" + object;
-		var getUrl = path + "/loadComment?key=" + pk + "&type=" + object;
-	</script>
+<!-- 留言功能初始化 -->
+<script>
+	var object = "product";
+	var pk = $
+	{
+		Detail.productno
+	};
+	var path = "${pageContext.request.contextPath}";
+	var board = document.getElementById("board");
+	var postUrl = path + "/leaveComment?memberid=${member.id}&key=" + pk
+			+ "&type=" + object;
+	var getUrl = path + "/loadComment?key=" + pk + "&type=" + object;
+</script>
 
-	<script src="${pageContext.request.contextPath}/js/comment.js"
-		defer="defer" charset="big5"></script>
+<script src="${pageContext.request.contextPath}/js/comment.js"
+	defer="defer" charset="big5"></script>
 
-	</body>
+</body>
 </html>
