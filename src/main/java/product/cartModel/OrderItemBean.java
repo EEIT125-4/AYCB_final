@@ -19,12 +19,13 @@ public class OrderItemBean {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer seqno;//單筆訂單編號
 	private String productImg;
-	//private String brandNo;
-	//private String brandName;
+	private String brandNo;
+	private String brandName;
 	private Integer productNo;
 	private String productName;
 	private Double productPrice;//單價
 	private Integer quantity;//數量
+	
 	//private Double discount;//折扣
 	//private String description;//描述
 //	@ManyToOne
