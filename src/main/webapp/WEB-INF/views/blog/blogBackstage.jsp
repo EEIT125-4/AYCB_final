@@ -87,6 +87,11 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 <script type="text/javascript" charset="utf8"
 	src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
 <script type="text/javascript">
+
+var table=document.getElementById("myDataTable");
+
+
+
         $(function () {
 
             $("#myDataTable").DataTable({
@@ -177,8 +182,8 @@ $(document).ready(function() {
       		      				  icon: "success",
       		      				  button: "OK",
       		      				});
-    		            		
-    		            		
+    		            		console.log("this="+$(this));
+    		            		$(this).parent().parent().remove();
 //     		            		var target=$(this).parent().parent();
 //     		            		target.css({"color":"red","border":"2px solid red"});
     		            		
