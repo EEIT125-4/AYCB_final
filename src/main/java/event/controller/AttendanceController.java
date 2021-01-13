@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -72,23 +73,39 @@ public class AttendanceController {
 		//查詢會員報名的活動
 		@GetMapping("event/showAllAttendanceByID")
 		public String attendancelist(Model model,
-				@RequestParam (value="id" ) Integer id
+			 @RequestParam (value="id") Integer id
 			) {
-			System.out.println(id);
+//			System.out.println(id);
+//			Integer id=memberService.getMember(account).getId();
 			List<Attendance> attendancelist=attendanceService.getAllAttendancebyID(id);
 			model.addAttribute("attendancelist",attendancelist);
 			System.out.println("attendancelist"+attendancelist);
 			
 			return "event/showAttendanceByID";
 		}
+		
+		//查詢參加活動的會員
+		@GetMapping("event/showAllAttendanceByEvent")
+		public String attendanceOfEvent(Model model,
+				@RequestParam(value="eventid") Integer eventid
+				) {
+			System.out.println("查詢參加活動的會員");
+			List<Attendance> attendanceOfEvent=attendanceService.getAllAttendancebyEvent(eventid);
+			model.addAttribute("attendanceOfEvent", attendanceOfEvent);
+			System.out.println(attendanceOfEvent);
+			
+			return "event/showAttendanceByEvent";
+		}
+		
 
-		//insert
+		//新增報名
 		@GetMapping("event/attendanceForm")
 		public String showEmptyForm(Model model,
 				@RequestParam(value="eventid" ) Integer eventid //取得attendanceForm值
-//			    ,@RequestParam(value="account") String account //取得attendanceForm值
+			    ,@RequestParam(value="membercatcher" ,required = false) String membercatcher //取得member值
 				) {
-			
+			System.out.println("--------------"+ membercatcher);
+			if(membercatcher!="") {
 		   //加入event
 			System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++"+eventid);
 //			System.out.println("==================================="+account);
@@ -114,6 +131,10 @@ public class AttendanceController {
 //			attendance.setPax("2");
 			
 			return "event/attendanceForm";
+			
+		}else {
+			return "member/login";
+		}
 		}
 		
 		@PostMapping("event/attendanceForm")
@@ -142,8 +163,17 @@ public class AttendanceController {
 				return "event/attendanceForm";
 			}
 			
-			return "redirect:/event/showAttendance";
+			Integer id=memberService.getMember(account).getId();
+			List<Attendance> attendancelist=attendanceService.getAllAttendancebyID(id);
+			model.addAttribute("attendancelist",attendancelist);
+			System.out.println("attendancelist"+attendancelist);
+			
+			return "event/showAttendanceByID";
+			
+			
 		}
+		
+		//更新報名資料
 		@GetMapping(value = "event/update")
 		public String showDataForm(				
 				//@PathVariable("aid") Integer aid, 
@@ -152,9 +182,6 @@ public class AttendanceController {
 			Attendance attendance = attendanceService.getAttendance(aid);
 			model.addAttribute(attendance);
 			System.out.println("編輯前:"+attendance);
-			
-			
-			
 			return "event/update";
 		}
 		
@@ -187,6 +214,7 @@ public class AttendanceController {
 			attendanceService.updateAttendance(attendance);
 			return "redirect:/event/showAttendance";
 		}	
+		
 		
 		@GetMapping(value = "event/delete")
 		public String delete(

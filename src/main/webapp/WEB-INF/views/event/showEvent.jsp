@@ -102,36 +102,26 @@
 									</div>
 									<div class="modal-body">
 										<img width='180' height='200' src='${event.filename}' />
-
-
-
 										<div class="caption">
 											<p>
-												<b style='font-size: 16px;'>${event.eventname}</b>
+												<b style='font-size: 16px;'>活動名稱:${event.eventname}</b>
 											</p>
-											<p>${event.eventid}</p>
+<%-- 											<p>${event.eventid}</p> --%>
 											<p>活動日期:${event.eventdate}</p>
-											<p>${event.eventlocation}</p>
-											<p>${event.eventdescription}</p>
-											<p>${event.host}</p>
-											<p>${event.hostphone}</p>
-											<p>${event.pax}</p>
-											<p>${event.hostphone}</p>
-<%-- 											<div id="map" value="${event.eventid}" style="width: 465px; height: 500px"></div> --%>
+											<p>活動地點:${event.eventlocation}</p>
+											<p>主辦人${event.host}</p>
+											<p>連絡電話${event.hostphone}</p>
+											<p>可報名人數${event.pax}</p>
+											<p>活動介紹${event.eventdescription}</p>	
 										</div>
-										<div class="modal-footer">
-											<button type="button" style="width: 100px;"
-												class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-												<form action="<c:url value='/event/attendanceForm'/>" id="trans">
-												<input type="hidden" name="eventid" value="${event.eventid}">
-												<button type="button" id="attend" class="btn btn-primary attend" style="width: 100px;">報名參加</button>
-												</form>
-												
-<%-- 												<a id="trans" href="<c:url value='/event/attendanceForm'/>?eventid=${event.eventid}"> --%>
-<!-- 												<button id="attend" type="submit" class="btn btn-primary" style="width: 100px;">報名參加</button></a>  -->
-											<input type="hidden" id="membercatcher" value="${member}"> 
-
+							<div class="modal-footer">
+									<button type="button" style="width: 100px;" class="btn btn-secondary" data-dismiss="modal">Close</button>
+<%-- 												<form action="<c:url value='/event/attendanceForm'/>" id="trans"> --%>
+<%-- 												<input type="hidden" name="eventid" value="${event.eventid}"> --%>
+<%-- 												<input type="button" id="attend" value="報名參加" class="btn btn-primary attend${event.eventid}" style="width: 100px;"> --%>
+<!-- 												</form> -->
+												<a id="trans" href="<c:url value='/event/attendanceForm'/>?eventid=${event.eventid}&membercatcher=${member.account}">
+												<button id="attend" type="submit" class="btn btn-primary attend" style="width: 100px;">報名參加</button></a> 
 										</div>
 									</div>
 								</div>
@@ -170,8 +160,9 @@
 </div>
 <%@include file="../jspf/footer.jspf"%>
 </body>
-<script>
+<script type="text/javascript">
    //googlemap
+   
 	var map, geocoder;
 	var mapId = "";
 	$('button').click(function(){
@@ -200,16 +191,18 @@
 	});
 	//判斷是否為會員
 	
-	let membercatcher = $('#membercatcher').val();
-	console.log(membercatcher)
+// 	let membercatcher = $('#membercatcher').val();
+// 	console.log(membercatcher)
 	
-	$('.attend').click(function(){
-		if(membercatcher == ""){
-			window.location.href="${pageContext.request.contextPath}/member/login";
-		}else{
-			$('#trans').submit();
-		}
-	})
+// 	$('.attend').click(function(){	
+// 		if(membercatcher == ""){
+// 			console.log("456")
+// 			window.location.href="${pageContext.request.contextPath}/member/login";
+// 		}else{
+// 			console.log("789")
+// 			$('#trans').submit();
+// 		}
+// })
 	
 	//判斷是否為管理員
 	let aa =$('.aa').val();

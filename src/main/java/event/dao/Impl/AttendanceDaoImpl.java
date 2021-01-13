@@ -90,13 +90,22 @@ public class AttendanceDaoImpl implements AttendanceDAO {
     @SuppressWarnings("unchecked")
 	@Override
 	public  List<Attendance> getAllAttendancebyID(Integer id) {		
-    	System.out.println("bbbbbbbbbbbbbbb");
+    	
 		String hql = "FROM Attendance WHERE member_id=:id";
 		Session session = factory.getCurrentSession();
 		List<Attendance> list = session.createQuery(hql)
 				.setParameter("id", id)
 				.getResultList();
-     System.out.println("aaaaaaaaaaaaaaaaaa");
+		return list;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Attendance> getAllAttendancebyEvent(Integer eventid) {
+		String hql="FROM Attendance WHERE event_eventid=:id";
+		Session session = factory.getCurrentSession();
+		List<Attendance> list = session.createQuery(hql).setParameter("id", eventid).getResultList();
+		
 		return list;
 	}
 

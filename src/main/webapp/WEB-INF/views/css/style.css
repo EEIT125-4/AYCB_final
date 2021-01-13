@@ -71,6 +71,9 @@ h2 {
 
 h3 {
 	font-size: 30px;
+    text-decoration: underline;
+    margin-left: 300px;
+    padding: 40px;
 }
 
 h4 {
@@ -149,10 +152,6 @@ ol {
 	background-position: top center;
 }
 
-.spad {
-	padding-top: 100px;
-	padding-bottom: 100px;
-}
 
 .text-white h1,
 .text-white h2,
@@ -682,10 +681,6 @@ ol {
 /*---------------------
   Banner
 -----------------------*/
-
-.blog {
-	padding-bottom: 55px;
-}
 
 .banner__item {
 	position: relative;
@@ -2749,6 +2744,7 @@ ol {
 
 .blog {
 	padding-bottom: 55px;
+	padding-top:100px;
 }
 
 .latest {

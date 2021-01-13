@@ -72,7 +72,7 @@ input[type=text]:focus {
 <a class="a1" href="${pageContext.request.contextPath}/video/empty">
 	<button style="width: auto; height: auto; margin-top: 0px;">上傳影片</button>
 </a>
-<%-- <a class="a1" href="${pageContext.request.contextPath}/video/update"> --%>
+
 <a class="a1" href="#">
 	<button style="width: auto; height: auto; margin-top: 0px;"
 		onclick="alert('更新影片')">更新影片</button>

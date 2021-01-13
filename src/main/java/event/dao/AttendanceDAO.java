@@ -27,6 +27,8 @@ public interface AttendanceDAO {
 	        
 	        List<Attendance> getAllAttendancebyID(Integer id);
 	        
+	        List<Attendance> getAllAttendancebyEvent(Integer eventid);
+	        
 	      
 
 	        

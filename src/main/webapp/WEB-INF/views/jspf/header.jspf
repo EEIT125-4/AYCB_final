@@ -4,8 +4,6 @@
 <%@ page import="member.*"%>
 <%@ page import="product.*"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-
 <%
 response.setContentType("text/html;charset=UTF-8");
 response.setHeader("Cache-Control", "no-cache"); // HTTP 1.1
@@ -203,17 +201,9 @@ width:100px;
 <%-- 										</c:forEach>									 --%>
 <!-- 									</ul> -->
 								
-					        <li><a href="${pageContext.request.contextPath}/comment/">討論區</a>
-							<ul class="dropdown">
-                                <li><a href="${pageContext.request.contextPath}/blog/">美誌分享</a></li>
-                                <li><a href="${pageContext.request.contextPath}/comment/videolist/">影音分享</a></li>
-                            </ul>
-                            </li>
+					        <li><a href="${pageContext.request.contextPath}/blog/">美誌分享</a>	
+                            <li><a href="${pageContext.request.contextPath}/comment/videolist/">影音分享</a>
 							<li><a href="${pageContext.request.contextPath}/event/showEvent">預約活動</a>
-							<ul class="dropdown">
-                                <li><a href="<c:url value='/event/showAllAttendanceByID'/>?id=${member.id}">查詢會員報名</a></li>
-                                </ul>
-							</li>
 						</ul>
 					</nav>
 				</div>
@@ -236,6 +226,9 @@ width:100px;
 			<div class="canvas__open"><i class="fa fa-bars"></i></div>
 		</div>
 </header>
+
+	
+
 <script>
 console.log("ddd"+document.cookie);
 // console.log("ddd2"+document.cookie("user"));
@@ -243,3 +236,4 @@ console.log("cookie="+$.cookie("user"));
 console.log("cookie="+$.cookie("password"));
 </script>
 	
+

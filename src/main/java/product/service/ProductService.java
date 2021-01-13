@@ -2,6 +2,7 @@ package product.service;
 
 import java.util.List;
 
+import product.model.CollectBean;
 import product.model.ProductBean;
 
 public interface ProductService {
@@ -77,6 +78,8 @@ public interface ProductService {
 	void addcollection(int mid, int pid);
 	
 	void delcollection(int no);
+	
+	List<CollectBean> collection(int mid);
 	
 	int pkcollection(int mid, int pid);
 	
