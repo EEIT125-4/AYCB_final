@@ -2,6 +2,7 @@ package product.service;
 
 import java.util.List;
 
+import product.model.CollectBean;
 import product.model.ProductBean;
 
 public interface ProductService {

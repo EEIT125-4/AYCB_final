@@ -2,6 +2,7 @@ package product.dao;
 
 import java.util.List;
 
+import product.model.CollectBean;
 import product.model.ProductBean;
 
 

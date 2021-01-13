@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import product.dao.ProductDao;
+import product.model.CollectBean;
 import product.model.ProductBean;
 import product.service.ProductService;
 
