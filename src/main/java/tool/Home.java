@@ -29,10 +29,10 @@ public class Home {
 			List<ProductBean> list = new ArrayList<>();
 			session.setAttribute("recordlist", list);
 		}
-//		if (session.getAttribute("collection") == null) {
-//			List<CollectBean> list = new ArrayList<>();
-//			session.setAttribute("collection", list);
-//		}
+		if (session.getAttribute("collection") == null) {
+			List<CollectBean> list = new ArrayList<>();
+			session.setAttribute("collection", list);
+		}
 		return "index";
 	}
 

@@ -23,23 +23,15 @@
 
 <script>
 	function addCart() {
-// 		if (confirm("加入購物車? ")) {
-// 			return true;
-// 		} else {
-// 			return false;
-// 		}
-		Swal.fire({
-// 		  position: 'top-end',
-		  icon: 'success',
-		  title: '加入購物車',
-		  showConfirmButton: false,
-		  timer: 1500
-		})
+		if (confirm("加入購物車? ")) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	$(document).ready(function() {
 		Allproducts();
-// 		Collectcheck();
 	});
 </script>
 
@@ -118,6 +110,7 @@
 </div>
 <script>
 function Allproducts(i) {
+	Collectcheck();
 	$.ajax({
 		async : false,
 		type : 'GET',
@@ -141,7 +134,7 @@ function Allproducts(i) {
 						+  "<div class='proprice'>NT$"+data.Products[i].productprice+"</div>"
 						+  "<div class='cart'>"
 						+  "<%if (login) {%>"
-						+  "<a href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='addCart()'>"
+						+  "<a href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
 						+  "<img class='cartimg' src='image/bg_cart_b.svg'></a>"
 						+  "<%} else {%>"
 						+  "<a href='${pageContext.request.contextPath}/member/login'>"
@@ -382,32 +375,26 @@ function Collect(mid, pid) {
 				$('#like' + pid).removeAttr("style");
 				$('#likebtn' + pid).css('border', '2px solid gray');
 			}
-		});
-	}
-
-	function navwheel() {
-		if (window.scrollY < 150) {
-			document.getElementById("menu").style.removeProperty("top");
 		}
 	});
 }
 
-// function Collectcheck() {
-// 	$.ajax({
-// 		async : true,
-// 		type : 'GET',
-// 		url : 'Collectcheck',
-// 		dataType : "json",
-// 		success : function(data) {
-// 			alert(data);
-// 			for (let i = 0; i < data.length; i++) {
-// 				$('#heart' + data[i]).attr('class', 'fa fa-heart');
-// 				$('#like' + data[i]).css('display', 'block');
-// 				$('#likebtn' + data[i]).css('border', 'none');
-// 			}
-// 		}
-// 	});
-// }
+function Collectcheck() {
+	$.ajax({
+		async : true,
+		type : 'GET',
+		url : 'Collectcheck',
+		dataType : "json",
+		success : function(data) {
+			alert(data);
+			for (let i = 0; i < data.length; i++) {
+				$('#heart' + data[i]).attr('class', 'fa fa-heart');
+				$('#like' + data[i]).css('display', 'block');
+				$('#likebtn' + data[i]).css('border', 'none');
+			}
+		}
+	});
+}
 
 function navwheel() {
 	if (window.scrollY < 150) {

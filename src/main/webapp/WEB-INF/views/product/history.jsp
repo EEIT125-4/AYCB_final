@@ -28,10 +28,6 @@ if (session.getAttribute("member") != null) {
 	<div class="historybox">
 		<table class="historytb">
 			<caption class="ct">最近看過的商品</caption>
-			<%
-				List<ProductBean> list = (List<ProductBean>) session.getAttribute("recordlist");
-				if (list.size() > 0 && list != null) {
-			%>
 			<thead>
 				<tr>
 					<th class="historyth">圖片</th>
@@ -42,6 +38,10 @@ if (session.getAttribute("member") != null) {
 				</tr>
 			</thead>
 			<tbody>
+			<%
+				List<ProductBean> list = (List<ProductBean>) session.getAttribute("recordlist");
+				if (list.size() > 0 && list != null) {
+			%>
 				<c:forEach var="history" items="${recordlist}">
 					<tr>
 						<td class="historytd"><img class="historyimg"
@@ -56,11 +56,10 @@ if (session.getAttribute("member") != null) {
 								src='image/bg_cart_b.svg'></a></td>
 					</tr>
 				</c:forEach>
-			</tbody>
-			</table>
 			<%
 				} else {
 			%>
+			</tbody>
 			</table>
 			<div class="nolist">
 				<b>目前無瀏覽紀錄</b>

@@ -218,20 +218,6 @@ public class ProductController {
 				}
 			}
 			
-		} else{
-			
-			list=new ArrayList<ProductBean>();
-			model.addAttribute("recordlist",list);
-
-		}
-	
-		
-		if(history) {
-			list.add(detail);	
-			System.out.println("LLL2 " + list);
-//			mav.addObject("recordlist", list);
-			
-			
 		}
 		if (history) {
 			list.add(detail);
@@ -240,8 +226,6 @@ public class ProductController {
 			list.remove(list.get(0));
 		}
 		
-		
-
 		CommentBean commentBean = new CommentBean();
 //		model.addAttribute("leave",commentBean);
 		mav.addObject("leave", commentBean);
@@ -286,7 +270,6 @@ public class ProductController {
 		return list;
 	}
 
-	@SuppressWarnings("unchecked")
 	@GetMapping(value = "/Collect", produces = "application/json")
 	public @ResponseBody boolean collect(Model model, HttpSession session,
 			@RequestParam("mid") Integer mid, 
@@ -303,40 +286,22 @@ public class ProductController {
 			}
 		}
 		ps.addcollection(mid, pid);
-//		System.out.println("mid" + mid);
-//		List<CollectBean> clist = ps.collection(mid);
-//		System.out.println("clist" + clist);
-//		List<CollectBean> collection = (List<CollectBean>) model.getAttribute("collection");
-//		collection = clist;
-//		session.setAttribute("collection", collection);
-//		System.out.println("collection" + collection);
-		
 		return true;
 	}
 	
-//	@SuppressWarnings("unchecked")
-//	@GetMapping(value = "/Collectcheck", produces = "application/json")
-//	public @ResponseBody List<Integer> collectcheck(Model model, HttpSession session
-//	) {
-//		List<Integer> list = new ArrayList<>();
-//		List<CollectBean> collection = (List<CollectBean>) model.getAttribute("collection");
-//		System.out.println("CCC " + collection);
-//		MemberBean member = (MemberBean) session.getAttribute("member");
-//		if(collection != null && member != null) {
-//			for (int i = 0; i < collection.size(); i++) {
-//				System.out.println("MMM1 " + collection.get(i).getMid());
-//				System.out.println("MMM2 " + member.getId());
-//				if(collection.get(i).getMid() == member.getId()) {
-//					System.out.println("123~~~~");
-//					System.out.println("pid" + collection.get(i).getPid());
-//					list.add(collection.get(i).getPid());
-//				}
-//			}
-//		}
-//		System.out.println("LLL " + list);
-//		return list;
-//	}
-			
+	@GetMapping(value = "/Collectcheck", produces = "application/json")
+	public @ResponseBody List<Integer> collectcheck(Model model, HttpSession session
+	) {
+		List<Integer> list = new ArrayList<>();
+		MemberBean member = (MemberBean) session.getAttribute("member");
+		List<CollectBean> collection = ps.collection(member.getId());
+		if(collection != null && member != null) {
+			for (int i = 0; i < collection.size(); i++) {
+				list.add(collection.get(i).getPid());
+			}
+		}
+		return list;
+	}		
 
 	@GetMapping("/History")
 	public String mproduct() {
