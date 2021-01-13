@@ -20,5 +20,8 @@ public interface BlogService {
 
 	// 更新一筆部落格文章
 	int updateBlog(Blog bg);
+	
+	//search bar
+	List<Blog> selectArticle(String title);
 
 }

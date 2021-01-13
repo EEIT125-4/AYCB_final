@@ -41,7 +41,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 
 
 
-
+<div>
 <c:choose>
 	<c:when test="${empty orderList}">
 	查無資料<br>
@@ -54,7 +54,6 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 				<br>
 				<table class="table table-hover" class="row">
 					<thead>
-
 						<tr>
 							<th style="text-align:center;vertical-align:middle;" scope="col">訂單編號</th>
 							<th style="text-align:center;vertical-align:middle;" scope="col">顧客姓名</th>
@@ -94,9 +93,11 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 					<input class="btn btn-dark" type="submit" value="回會員中心">
 				</div>
 
-		</fieldset>
-		</form>
-	</c:when>
-</c:choose>
-
+		        </fieldset>
+			</form>
+	    </c:when>
+  </c:choose>
+</div>
 <%@include file="../jspf/footer.jspf"%>
+
+</body>

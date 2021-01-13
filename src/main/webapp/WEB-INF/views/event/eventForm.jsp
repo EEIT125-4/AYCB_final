@@ -25,6 +25,10 @@
 				<form:input type='text' path="eventname"/><br>					
 			</div>
 			<div class="form1">
+				<label class="label1" >活動名稱:</label> 
+				<form:input type='text' path="eventcategory"/><br>					
+			</div>
+			<div class="form1">
 				<label class="label1">活動日期:</label> 
 				<form:input type='date'  path="eventdate"/><br>
 			</div>
@@ -42,8 +46,7 @@
 			</div>
 			<div class="form1">
 				<label class="label1">參加人數:</label> 
-				<form:input type='text' path="pax"/><br>
-					
+				<form:input type='text' path="pax"/><br>					
 			</div>
 			<div class="form1">
 				<label class="label1">活動詳情:</label> 

@@ -40,6 +40,25 @@ public class BlogDaoImp implements BlogDao {
 		List<Blog> list = session.createQuery(hql).getResultList();
 		return list;
 	}
+	
+	
+	
+
+	//查詢search bar
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Blog>selectArticle(String title){
+		Session session = getSession();
+		String hql = "FROM Blog where title like :title";
+		System.out.println("title1");
+		List<Blog> list= session.createQuery(hql).setParameter("title", "%"+title+"%").getResultList();
+		
+		System.out.println("title2");
+		for(Blog b:list) {
+			System.out.println("title"+b.getTitle());
+		}
+		return list;
+	}
 
 	// 刪除一筆部落格文章
 	// commentBean 的 get(id)方法在下方(此id為blogId)
@@ -48,7 +67,6 @@ public class BlogDaoImp implements BlogDao {
 		int count = 0;
 		Session session = getSession();
 		Blog bg = get(id);
-
 		session.delete(bg);
 		count++;
 		return count;

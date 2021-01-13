@@ -17,6 +17,7 @@ public interface BlogDao {
 	// 查詢所有留言
 	List<Blog> selectAllBlog();
 
+
 	// 刪除一筆部落格文章
 	// commentBean 的 get(id)方法在下方(此id為commentId)
 	int deleteBlog(int id);
@@ -30,6 +31,9 @@ public interface BlogDao {
 
 	// 更新一筆部落格文章
 	Integer updateBlog(Blog bg);
+
+	//search bar
+	List<Blog> selectArticle(String title);
 	
 
 	

@@ -25,6 +25,8 @@ public interface AttendanceService {
 	
 	List<Attendance> getAllAttendancebyID(Integer memberid);
 	
+	 List<Attendance> getAllAttendancebyEvent(Integer eventid);
+	
 
 
 
