@@ -218,7 +218,12 @@ public class ProductController {
 				}
 			}
 			
-		} 
+		} else{
+			
+			list=new ArrayList<ProductBean>();
+			model.addAttribute("recordlist",list);
+
+		}
 	
 		
 		if(history) {

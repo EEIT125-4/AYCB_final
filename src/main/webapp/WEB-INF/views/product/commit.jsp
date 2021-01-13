@@ -14,7 +14,7 @@ MemberBean member = (MemberBean) session.getAttribute("member");
 // session.removeAttribute("totalPrice");
 // session.removeAttribute("totalQtyOrdered");
 String path=request.getContextPath()+"/orderManagement";
-response.setHeader("Refresh", "10;"+path);
+response.setHeader("Refresh", "3;"+path);
 %>
 
 <CENTER>

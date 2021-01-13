@@ -34,7 +34,7 @@ if (session.getAttribute("member") != null) {
 		  icon: 'success',
 		  title: '加入購物車',
 		  showConfirmButton: false,
-		  timer: 30000
+		  timer: 1500
 		})
 	}
 	

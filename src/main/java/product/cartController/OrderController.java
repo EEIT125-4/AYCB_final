@@ -35,6 +35,8 @@ import product.cartModel.CartItem;
 import product.cartModel.OrderBean;
 import product.cartModel.OrderItemBean;
 import product.cartService.OrderService;
+import product.model.ProductBean;
+import product.service.ProductService;
 import tool.Common;
 
 @Controller
@@ -43,6 +45,9 @@ public class OrderController {
 	
 	@Autowired
 	OrderService os;
+	
+	@Autowired
+	ProductService ps;
 	
 	@Autowired
 	ServletContext context;
@@ -94,15 +99,13 @@ public class OrderController {
 	@SuppressWarnings("unchecked")
 	@GetMapping("/orderInsert")
 //	@ResponseBody
-	public String OrderInsert(
-			
-			Model model,
-			SessionStatus sessionStatus,
-			HttpSession session, 
-			HttpServletRequest request,
-			@RequestParam(value="recipientEmail",required = false)String email,
-			@RequestParam(value="recipientName",required=false)String receiveName
-			
+	public String OrderInsert(			
+									Model model,
+									SessionStatus sessionStatus,
+									HttpSession session, 
+									HttpServletRequest request,
+									@RequestParam(value="recipientEmail",required = false)String email,
+									@RequestParam(value="recipientName",required=false)String receiveName			
 			) {
 
 		System.out.println("檢查郵件:"+email);
@@ -117,10 +120,17 @@ public class OrderController {
 		
 		Set<OrderItemBean> details = new HashSet<OrderItemBean>();
 		String itemDetail="";
+		
+		
 		for(CartItem cart : items) {
-			OrderItemBean oib = new OrderItemBean(null, cart.getProductImage(), cart.getProductNo(), cart.getProductName(), cart.getProductPrice(), cart.getQtyOrdered());
+			
+			int productNo = cart.getProductNo();
+			ProductBean bean = ps.getProduct(productNo);			
+			
+			OrderItemBean oib = new OrderItemBean(null, bean.getImagepath(), productNo, bean.getProductname(), bean.getProductprice(), cart.getQtyOrdered());
 			details.add(oib);
-			itemDetail+=cart.getProductName()+" : "+cart.getProductPrice()+" * "+cart.getQtyOrdered()+" = $"+cart.getProductPrice()*cart.getQtyOrdered()+"#";
+			
+			itemDetail+=bean.getProductname()+" : "+bean.getProductprice()+" * "+cart.getQtyOrdered()+" = $"+bean.getProductprice()*cart.getQtyOrdered()+"#";
 		}
 	
 		
@@ -148,7 +158,7 @@ public class OrderController {
 		session.removeAttribute("totalPrice");
 		session.removeAttribute("totalQtyOrdered");
 		
-		String clientBackURL="http://localhost:8080/AYCB_final/";
+		String clientBackURL="http://localhost:8080/AYCB_final/orderManagement";
 		String form=genAioCheckOutALL(order.getOrderNo(), order.getTotalAmount(), context.getContextPath(),itemDetail,clientBackURL)	;
 		session.setAttribute("form", form);
 		

@@ -470,6 +470,7 @@ public class MemberController {
 //    	  webRequest.removeAttribute("member", 0);
 //    	  session.removeAttribute("member");
 		status.setComplete();
+		session.invalidate();
 		return "redirect:index";
 
 	}
