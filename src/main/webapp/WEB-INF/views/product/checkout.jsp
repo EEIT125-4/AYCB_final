@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
 	import="java.util.*, product.*, product.cartModel.CartItem"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 response.setContentType("text/html;charset=UTF-8");
 response.setHeader("Cache-Control", "no-cache"); // HTTP 1.1
@@ -129,7 +130,8 @@ function storeAddressChange(){
 </div>
 <br>
 <br>
-<form name="checkoutForm" action="<c:url value='/orderInsert' />" method="get">
+<form name="checkoutForm" action="<c:url value="/orderInsert"/>" method="get">
+
 <fieldset
 	style="margin: auto; position: relative; width: 1250px; border: 1px solid transparent;">
 	<h4 style="font-weight: bold; text-align: center">購物清單</h4>
@@ -238,10 +240,69 @@ function storeAddressChange(){
 			
 			<input type="hidden" name="todo" value="commit">
 			<!-- hidden隱藏欄位 -->
-			<input class="btn btn-dark" type="submit" value="送出訂單">
+			<input class="btn btn-dark" type="submit" value="送出訂單" >
+			
+<!-- 				<button class="btn btn-dark" type="button"  value="送出訂單" onclick="getForm()">送出訂單</button> -->
 
 		
 	</div>
 </fieldset>
 </form>
+
+
+<script>
+
+function getForm(){
+	
+	
+	$.ajax({
+		
+		 type: "GET", //傳送方式
+         url: "${pageContext.request.contextPath}/orderInsert", 
+         dataType: "text", //資料格式
+//          data: { //傳送資料            	
+//          	"blogId":blogId,
+//          	"state":state                
+//          },
+//          success: function(data) {
+//          	if(data){
+//          		swal.fire({
+//      				  title: "已刪除",
+//      				  text: "狀態變更",
+//      				  icon: "success",
+//      				  button: "OK",
+//      				});
+//          		console.log("this="+$(this));
+//          		$(this).parent().parent().remove();
+//          		var target=$(this).parent().parent();
+//          		target.css({"color":"red","border":"2px solid red"});
+         		
+//          	}else{
+         		
+//          	 	swal.fire({
+//    				  title:'刪除失敗',
+//    				  text: '資料刪除過程中現異常,請聯絡管理員',
+//    				  icon: "error",
+//    				  button: "OK",
+//    				});        		
+//          	}
+		     				
+//          },
+//          error: function(data) {
+         	
+//          	swal.fire({
+//  				  title:'請求錯誤',
+//  				  text: 'server無回應,聯絡管理員',
+//  				  icon: "error",
+//  				  button: "OK",
+//  				});        		
+//        	}  
+		
+		
+		
+		
+	})
+}
+
+</script>
 <%@include file="../jspf/footer.jspf"%>

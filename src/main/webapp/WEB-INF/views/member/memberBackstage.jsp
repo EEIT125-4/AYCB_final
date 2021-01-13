@@ -82,7 +82,7 @@ transform: translateX(26px);
 
 
 
-    <table class="table">
+    <table class="table" style="width:1600px;margin-left:180px">
         <thead class="thead-light">
           <tr>
             <th scope="col">會員ID</th>

@@ -81,7 +81,7 @@ public class MyMailSender {
             }  
         });  
 	    
-	    try {  
+ 
 	    	 
 	    	String orderID=others[0];
             Message message = new MimeMessage(session);  
@@ -114,9 +114,7 @@ public class MyMailSender {
             System.out.println("Done");  
                        
   
-        } catch (MessagingException e) {  
-            throw new RuntimeException(e);  
-        }  
+      
 		
 		//
 		

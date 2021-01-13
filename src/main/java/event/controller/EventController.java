@@ -65,7 +65,8 @@ public class EventController {
 		
 		@GetMapping("/ajaxShowEvent")
 		public @ResponseBody List<Event> ajaxlist(
-				Model model) {			
+//				Model model
+				) {			
 			List<Event> list= new ArrayList<Event>();
 			list= eventService.getAllEvent();
 			return list;

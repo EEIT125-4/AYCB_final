@@ -23,7 +23,6 @@ import com.google.gson.Gson;
 
 import comment.model.CommentBean;
 import comment.service.CommentService;
-import product.model.CollectBean;
 import product.model.ProductBean;
 import product.service.ProductService;
 
@@ -189,23 +188,50 @@ public class ProductController {
 		return map;
 	}
 
+	@SuppressWarnings("unchecked")
 	@GetMapping("/Detail")
-	public ModelAndView detail(Model model,
-			@RequestParam(value = "no", required = false) Integer no,
+	public ModelAndView detail(Model model, @RequestParam(value = "no", required = false) Integer no,
 			@RequestParam(value = "cate", required = false) String cate) {
 		ModelAndView mav = new ModelAndView();
 
 		ProductBean detail = ps.getProduct(no);
 //		model.addAttribute("Detail", detail);
 		mav.addObject("Detail", detail);
-		
+
 		List<ProductBean> racate = ps.racate(cate);
 		mav.addObject("racate", racate);
 		
-//		List<ProductBean> list = (List<ProductBean>) model.getAttribute("recordlist");
-//		list.add(detail);
-//		mav.addObject("recordlist", list);
+		boolean history = true;
+		List<ProductBean> list = (List<ProductBean>) model.getAttribute("recordlist");
+		System.out.println("LLL1 " + list);
+		if (list != null) {
+			
+			for (int i = 0; i < list.size(); i++) {
+				if (detail.getProductno() != list.get(i).getProductno()) {
+					history=true;
+					
+				} else {
+					history=false;
+					break;
+					
+					
+				}
+			}
+			
+		} 
+	
 		
+		if(history) {
+			list.add(detail);	
+			System.out.println("LLL2 " + list);
+//			mav.addObject("recordlist", list);
+			
+			
+		}
+		System.out.println("list"+list);
+		
+		
+
 		CommentBean commentBean = new CommentBean();
 //		model.addAttribute("leave",commentBean);
 		mav.addObject("leave", commentBean);
@@ -251,24 +277,28 @@ public class ProductController {
 	}
 
 	@GetMapping(value = "/Collect", produces = "application/json")
-	public @ResponseBody boolean collect(
-			@RequestParam("mid") Integer mid,
-			@RequestParam("pid") Integer pid
-	) {
+	public @ResponseBody boolean collect(@RequestParam("mid") Integer mid, @RequestParam("pid") Integer pid) {
+		System.out.println("MMM " + mid);
 		System.out.println("PPP " + pid);
-		List<CollectBean> list = ps.findcollection(mid);
+		List<Integer> list = ps.findcollection(mid);
 		System.out.println("list " + list);
-		int pk = ps.pkcollection(mid, pid);
-		System.out.println("pk " + pk);
-		for(int i=0 ; i<list.size() ; i++) {
-			System.out.println("XXX " + list.get(i));
-//			if(pid == list.get(i)) {
-//				ps.delcollection(pk);
-//				return false;
-//			}
+		if (list != null) {
+			for (int i = 0; i < list.size(); i++) {
+				System.out.println("XXX " + list.get(i));
+				if (pid == list.get(i)) {
+					int pk = ps.pkcollection(mid, pid);
+					System.out.println("pk " + pk);
+					ps.delcollection(pk);
+					return false;
+				}
+			}
 		}
 		ps.addcollection(mid, pid);
-		return false;
+		return true;
+	}
 
+	@GetMapping("/History")
+	public String mproduct() {
+		return "product/history";
 	}
 }

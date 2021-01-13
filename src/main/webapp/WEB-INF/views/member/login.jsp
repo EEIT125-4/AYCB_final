@@ -20,6 +20,12 @@
 	<fieldset class="loginfs" style="margin-left:200px" >
 <!-- 		<div style="margin-top: 20px; margin-left: 580px; width: 700px"> -->
 			<legend style="margin-left: 300px; font-size: 22px">會員登入</legend>
+			<div style="margin-left:275px;font">
+			<% if(request.getAttribute("msg") !=null) {%>
+			<p style="color:BLUE;font-size:25px"><%= request.getAttribute("msg") %></p>
+			<% } %>
+		
+			</div>
 			<div>
 			<input class="bbb" type="text" name="user" id="ac" required  placeholder="請輸入帳號" onblur="Ckac();" style="outline:none;">
 			<span id="idsp" style="color: red;"></span>
@@ -126,6 +132,10 @@
 <script type="text/javascript">
     //jQuery處理button click event 當畫面DOM都載入時....
     var p1=false;
+    var p2=false;
+    var p3=false;
+    var p4=false;
+    
     var result="";
     
     $(function () {
