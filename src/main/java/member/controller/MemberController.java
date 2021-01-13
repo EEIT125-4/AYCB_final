@@ -268,6 +268,30 @@ public class MemberController {
 			loginbean.setUserId(user);
 			loginbean.setPassword(pwd);
 			processCookies(loginbean, request, response);
+			//TEST
+			
+			Cookie[] cookies = request.getCookies();
+//	  		
+	  		for(Cookie cookie: cookies) {
+	  			System.out.println("cookie name"+cookie.getName());
+	  			System.out.println("cookie.value"+cookie.getValue());
+	  		}
+		// Cookie cookie = new Cookie("memberCookie", memberBean.getName());
+		// 設定秒數
+		// cookie.setMaxAge(60*60*24*365);//存個一年
+
+		// cookie.setPath("/AYCB_final");
+		// response.addCookie(cookie);
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			session.setAttribute("member", mb);
 			return "index";
 
@@ -504,10 +528,12 @@ public class MemberController {
 		Cookie cookiePassword = null;
 //		Cookie cookieRememberMe = null;
 		String userId = bean.getUserId();
+		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++");
+		System.out.println(userId);
 		String password = bean.getPassword();
 //		Boolean rm = bean.isRememberMe();
 
-		if (bean.isRememberMe()) {
+		if (!bean.isRememberMe()) {
 			cookieUser = new Cookie("user", userId);
 			cookieUser.setMaxAge(7 * 24 * 60 * 60); // Cookie的存活期: 七天
 			cookieUser.setPath(request.getContextPath());

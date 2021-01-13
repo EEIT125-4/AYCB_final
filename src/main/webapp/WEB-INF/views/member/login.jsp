@@ -39,8 +39,15 @@
 				<img src="<c:url value="/captcha"/>">
 <!-- 				</a> -->
 			<input name="Qcode" required style="font-size:10px;outline:none;height:28px;margin-top:15px">	
-<!-- 				  <input class="aaaa" -->
-<!-- 				type="checkbox" style="margin-left: 40px; "><span>記住我</span> -->
+			
+<!-- 				  <div class="col-auto my-1"> -->
+<!--       <div class="custom-control custom-checkbox mr-sm-2"> -->
+<!--         <input type="checkbox" class="custom-control-input" id="customControlAutosizing"> -->
+<!--         <label class="custom-control-label" for="customControlAutosizing">Remember my preference</label> -->
+<!--       </div> -->
+    </div>
+				
+				
 				</div>
 <br>
 
@@ -48,13 +55,10 @@
         <a href="<c:url value="/register"/>" class="btn btn-primary" role="button" aria-pressed="true" >新註冊</a>
         
         <button   data-toggle="modal" data-target="#forgot" class="btn btn-primary" role="button" aria-pressed="true" style="width: fit-content;">忘記密碼</button>        
-<%--         		value="${event.eventlocation}" --%>
-<%-- 		<a href="<c:url value="/register"/>" class="btn btn-primary" role="button" aria-pressed="true" >忘記密碼</a><br> --%>
+
 		</div>
 		<br>
-									
-<%-- 		<a href="<c:url value="/register"/>" class="btn btn-primary btn-lg active" role="button" aria-pressed="true" >忘記密碼</a> --%>
-	<!-- Modal -->
+
 							<div class="modal fade" id="forgot" tabindex="-1"
 								role="dialog" aria-labelledby="exampleModalLongTitle"
 								aria-hidden="true">
