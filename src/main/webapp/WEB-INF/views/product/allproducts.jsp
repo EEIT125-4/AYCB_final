@@ -205,6 +205,7 @@ function Brandproducts(brand, i) {
 }
 
 function Seriesproducts(series, i) {
+	Collectcheck();
 	$.ajax({
 		async : false,
 		type : 'GET',
@@ -253,6 +254,7 @@ function Seriesproducts(series, i) {
 }
 
 function Cateproducts(cate, i) {
+	Collectcheck();
 	$.ajax({
 		async : false,
 		type : 'GET',
@@ -303,6 +305,7 @@ function Cateproducts(cate, i) {
 }
 
 function Keywordproducts(i) {
+	Collectcheck();
 	var keyword = $("#keyword").val();
 	$.ajax({
 		async : false,
@@ -386,7 +389,6 @@ function Collectcheck() {
 		url : 'Collectcheck',
 		dataType : "json",
 		success : function(data) {
-			alert(data);
 			for (let i = 0; i < data.length; i++) {
 				$('#heart' + data[i]).attr('class', 'fa fa-heart');
 				$('#like' + data[i]).css('display', 'block');

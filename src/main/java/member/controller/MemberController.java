@@ -61,8 +61,8 @@ public class MemberController {
 	ImageService imgService;
 
 	@GetMapping(value = { "/member/login" })
-	public String login(Model model) {
-
+	public String login(Model model, SessionStatus status) {
+		status.setComplete();
 		System.out.println("model= " + model.getAttribute("msg"));
 		String msg = (String) model.getAttribute("msg");
 		model.addAttribute("msg", msg);
