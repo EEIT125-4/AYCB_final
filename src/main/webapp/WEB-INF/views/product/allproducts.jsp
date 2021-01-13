@@ -4,11 +4,10 @@
 
 <%
 	boolean login = false;
-if (session.getAttribute("member") != null) {
-	MemberBean member = (MemberBean) session.getAttribute("member");
-
-	login = true;
-}
+	if (session.getAttribute("member") != null) {
+		MemberBean member = (MemberBean) session.getAttribute("member");
+		login = true;
+	}
 %>
 
 <!DOCTYPE html>
@@ -33,6 +32,7 @@ if (session.getAttribute("member") != null) {
 	
 	$(document).ready(function() {
 		Allproducts();
+// 		Collectcheck();
 	});
 </script>
 
@@ -43,7 +43,6 @@ if (session.getAttribute("member") != null) {
 <div class="wrapper">
 	<div class="contentoutbox">
 		<div class="contentbox">
-
 			<div id="menu" class="leftside">
 				<div class="condition">條件篩選</div>
 				<div class="category">
@@ -123,10 +122,12 @@ function Allproducts(i) {
 			for (let i = 0; i < data.Products.length; i++) {
 				content += "<div class='rightside'>"
 						+  "<div class='imgbox'>"
-						+  "<div class='like'>"
-						+  "<button class='like_button' onclick='Collect("+${member.id}+","+data.Products[i].productno+")'>"
-						+  "<i id='heart"+data.Products[i].productno+"' class='fa fa-heart-o'></i></button></div>"
-						+  "<a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
+						+  "<div id='like"+data.Products[i].productno+"' class='like'>"
+						+  "<%if (session.getAttribute("member") != null) {%>"
+						+  "<button id='likebtn"+data.Products[i].productno+"' class='like_button' onclick='Collect("+${member.id}+","+data.Products[i].productno+")'>"
+						+  "<i id='heart"+data.Products[i].productno+"' class='fa fa-heart-o'></i></button>"
+						+  "<%}%>"
+						+  "</div><a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
 						+  "<img class='proimg' src='${pageContext.request.contextPath}/pic/"+data.Products[i].imagepath+"'></a></div>"
 						+  "<div class='proname'>"+data.Products[i].productname+"</div>"
 						+  "<div class='buttonbox'>"
@@ -155,6 +156,7 @@ function Allproducts(i) {
 }
 
 function Brandproducts(brand, i) {
+	Collectcheck();
 	$.ajax({
 		async : false,
 		type : 'GET',
@@ -169,10 +171,12 @@ function Brandproducts(brand, i) {
 			for (let i = 0; i < data.Products.length; i++) {
 				content += "<div class='rightside'>"
 						+  "<div class='imgbox'>"
-						+  "<div class='like'>"
-						+  "<button class='like_button' onclick='collect(${member.id}, ${pro.productno})'>"
-						+  "<i id='heart' class='fa fa-heart-o'></i></button></div>"
-						+  "<a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
+						+  "<div id='like"+data.Products[i].productno+"' class='like'>"
+						+  "<%if (session.getAttribute("member") != null) {%>"
+						+  "<button id='likebtn"+data.Products[i].productno+"' class='like_button' onclick='Collect("+${member.id}+","+data.Products[i].productno+")'>"
+						+  "<i id='heart"+data.Products[i].productno+"' class='fa fa-heart-o'></i></button>"
+						+  "<%}%>"
+						+  "</div><a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
 						+  "<img class='proimg' src='${pageContext.request.contextPath}/pic/"+data.Products[i].imagepath+"'></a></div>"
 						+  "<div class='proname'>"+data.Products[i].productname+"</div>"
 						+  "<div class='buttonbox'>"
@@ -215,10 +219,12 @@ function Seriesproducts(series, i) {
 			for (let i = 0; i < data.Products.length; i++) {
 				content += "<div class='rightside'>"
 						+  "<div class='imgbox'>"
-						+  "<div class='like'>"
-						+  "<button class='like_button' onclick='collect(${member.id}, ${pro.productno})'>"
-						+  "<i id='heart' class='fa fa-heart-o'></i></button></div>"
-						+  "<a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
+						+  "<div id='like"+data.Products[i].productno+"' class='like'>"
+						+  "<%if (session.getAttribute("member") != null) {%>"
+						+  "<button id='likebtn"+data.Products[i].productno+"' class='like_button' onclick='Collect("+${member.id}+","+data.Products[i].productno+")'>"
+						+  "<i id='heart"+data.Products[i].productno+"' class='fa fa-heart-o'></i></button>"
+						+  "<%}%>"
+						+  "</div><a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
 						+  "<img class='proimg' src='${pageContext.request.contextPath}/pic/"+data.Products[i].imagepath+"'></a></div>"
 						+  "<div class='proname'>"+data.Products[i].productname+"</div>"
 						+  "<div class='buttonbox'>"
@@ -261,10 +267,12 @@ function Cateproducts(cate, i) {
 			for (let i = 0; i < data.Products.length; i++) {
 				content += "<div class='rightside'>"
 						+  "<div class='imgbox'>"
-						+  "<div class='like'>"
-						+  "<button class='like_button' onclick='collect(${member.id}, ${pro.productno})'>"
-						+  "<i id='heart' class='fa fa-heart-o'></i></button></div>"
-						+  "<a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
+						+  "<div id='like"+data.Products[i].productno+"' class='like'>"
+						+  "<%if (session.getAttribute("member") != null) {%>"
+						+  "<button id='likebtn"+data.Products[i].productno+"' class='like_button' onclick='Collect("+${member.id}+","+data.Products[i].productno+")'>"
+						+  "<i id='heart"+data.Products[i].productno+"' class='fa fa-heart-o'></i></button>"
+						+  "<%}%>"
+						+  "</div><a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
 						+  "<img class='proimg' src='${pageContext.request.contextPath}/pic/"+data.Products[i].imagepath+"'></a></div>"
 						+  "<div class='proname'>"+data.Products[i].productname+"</div>"
 						+  "<div class='buttonbox'>"
@@ -310,10 +318,12 @@ function Keywordproducts(i) {
 			for (let i = 0; i < data.Products.length; i++) {
 				content += "<div class='rightside'>"
 						+  "<div class='imgbox'>"
-						+  "<div class='like'>"
-						+  "<button class='like_button' onclick='collect(${member.id}, ${pro.productno})'>"
-						+  "<i id='heart' class='fa fa-heart-o'></i></button></div>"
-						+  "<a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
+						+  "<div id='like"+data.Products[i].productno+"' class='like'>"
+						+  "<%if (session.getAttribute("member") != null) {%>"
+						+  "<button id='likebtn"+data.Products[i].productno+"' class='like_button' onclick='Collect("+${member.id}+","+data.Products[i].productno+")'>"
+						+  "<i id='heart"+data.Products[i].productno+"' class='fa fa-heart-o'></i></button>"
+						+  "<%}%>"
+						+  "</div><a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
 						+  "<img class='proimg' src='${pageContext.request.contextPath}/pic/"+data.Products[i].imagepath+"'></a></div>"
 						+  "<div class='proname'>"+data.Products[i].productname+"</div>"
 						+  "<div class='buttonbox'>"
@@ -338,28 +348,32 @@ function Keywordproducts(i) {
 						}
 						page += "</ul>";
 						$("#pagearea").html(page);
-					}
-				});
-	}
+		}
+	});
+}
 
-	function Collect(mid, pid) {
-		$.ajax({
-			async : true,
-			type : 'GET',
-			url : 'Collect',
-			data : {
-				"mid" : mid,
-				"pid" : pid
-			},
-			dataType : "json",
-			success : function(data) {
-				if (data) {
-					swal.fire("收藏成功", "", "success");
-					$('#heart' + pid).attr('class', 'fa fa-heart');
-				} else {
-					swal.fire("取消收藏", "", "error");
-					$('#heart' + pid).attr('class', 'fa fa-heart-o');
-				}
+function Collect(mid, pid) {
+	$.ajax({
+		async : true,
+		type : 'GET',
+		url : 'Collect',
+		data : {
+			"mid" : mid,
+			"pid" : pid
+		},
+		dataType : "json",
+		success : function(data) {
+			if (data) {
+				swal.fire("收藏成功", "", "success");
+				$('#heart' + pid).attr('class', 'fa fa-heart');
+				$('#like' + pid).css('display', 'block');
+				$('#likebtn' + pid).css('border', 'none');
+			} else {
+				swal.fire("取消收藏", "", "error");
+				$('#heart' + pid).attr('class', 'fa fa-heart-o');
+				$('#like' + pid).css('display', 'none');
+				$('#like' + pid).removeAttr("style");
+				$('#likebtn' + pid).css('border', '2px solid gray');
 			}
 		});
 	}
@@ -368,11 +382,35 @@ function Keywordproducts(i) {
 		if (window.scrollY < 150) {
 			document.getElementById("menu").style.removeProperty("top");
 		}
-		if (window.scrollY > 150) {
-			document.getElementById("menu").style.setProperty("top", "10px");
-		}
+	});
+}
+
+// function Collectcheck() {
+// 	$.ajax({
+// 		async : true,
+// 		type : 'GET',
+// 		url : 'Collectcheck',
+// 		dataType : "json",
+// 		success : function(data) {
+// 			alert(data);
+// 			for (let i = 0; i < data.length; i++) {
+// 				$('#heart' + data[i]).attr('class', 'fa fa-heart');
+// 				$('#like' + data[i]).css('display', 'block');
+// 				$('#likebtn' + data[i]).css('border', 'none');
+// 			}
+// 		}
+// 	});
+// }
+
+function navwheel() {
+	if (window.scrollY < 150) {
+		document.getElementById("menu").style.removeProperty("top");
 	}
-	document.body.onwheel = navwheel;
+	if (window.scrollY > 150) {
+		document.getElementById("menu").style.setProperty("top", "10px");
+	}
+}
+document.body.onwheel = navwheel;
 </script>
 <%@include file="../jspf/footer.jspf"%>
 </body>

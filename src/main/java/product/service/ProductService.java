@@ -78,6 +78,8 @@ public interface ProductService {
 	
 	void delcollection(int no);
 	
+	List<CollectBean> collection(int mid);
+	
 	int pkcollection(int mid, int pid);
 	
 	List<Integer> findcollection(int id);

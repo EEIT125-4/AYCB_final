@@ -41,6 +41,11 @@ public class BlogServiceImpl implements BlogService {
 			return dao.selectBlog(BlogId);
 	}
 
+	//search bar
+	public List<Blog> selectArticle(String title) {
+		return dao.selectArticle(title);
+	}
+	
 	// 更新一筆部落格文章
 	@Override
 	public int updateBlog(Blog bg) {

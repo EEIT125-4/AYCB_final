@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,11 +25,13 @@ import com.google.gson.Gson;
 
 import comment.model.CommentBean;
 import comment.service.CommentService;
+import member.MemberBean;
+import product.model.CollectBean;
 import product.model.ProductBean;
 import product.service.ProductService;
 
 @Controller
-@SessionAttributes("recordlist")
+@SessionAttributes({"recordlist", "collection"})
 public class ProductController {
 
 	@Autowired
@@ -190,45 +194,37 @@ public class ProductController {
 
 	@SuppressWarnings("unchecked")
 	@GetMapping("/Detail")
-	public ModelAndView detail(Model model, @RequestParam(value = "no", required = false) Integer no,
-			@RequestParam(value = "cate", required = false) String cate) {
+	public ModelAndView detail(Model model, 
+			@RequestParam(value = "no", required = false) Integer no,
+			@RequestParam(value = "cate", required = false) String cate
+	) {
 		ModelAndView mav = new ModelAndView();
 
 		ProductBean detail = ps.getProduct(no);
-//		model.addAttribute("Detail", detail);
 		mav.addObject("Detail", detail);
 
 		List<ProductBean> racate = ps.racate(cate);
 		mav.addObject("racate", racate);
-		
+
 		boolean history = true;
 		List<ProductBean> list = (List<ProductBean>) model.getAttribute("recordlist");
-		System.out.println("LLL1 " + list);
 		if (list != null) {
-			
 			for (int i = 0; i < list.size(); i++) {
 				if (detail.getProductno() != list.get(i).getProductno()) {
-					history=true;
-					
+					history = true;
 				} else {
-					history=false;
+					history = false;
 					break;
-					
-					
 				}
 			}
 			
-		} 
-	
-		
-		if(history) {
-			list.add(detail);	
-			System.out.println("LLL2 " + list);
-//			mav.addObject("recordlist", list);
-			
-			
 		}
-		System.out.println("list"+list);
+		if (history) {
+			list.add(detail);
+		}
+		if(list.size()>10) {
+			list.remove(list.get(0));
+		}
 		
 		
 
@@ -276,26 +272,57 @@ public class ProductController {
 		return list;
 	}
 
+	@SuppressWarnings("unchecked")
 	@GetMapping(value = "/Collect", produces = "application/json")
-	public @ResponseBody boolean collect(@RequestParam("mid") Integer mid, @RequestParam("pid") Integer pid) {
-		System.out.println("MMM " + mid);
-		System.out.println("PPP " + pid);
+	public @ResponseBody boolean collect(Model model, HttpSession session,
+			@RequestParam("mid") Integer mid, 
+			@RequestParam("pid") Integer pid
+	) {
 		List<Integer> list = ps.findcollection(mid);
-		System.out.println("list " + list);
 		if (list != null) {
 			for (int i = 0; i < list.size(); i++) {
-				System.out.println("XXX " + list.get(i));
 				if (pid == list.get(i)) {
 					int pk = ps.pkcollection(mid, pid);
-					System.out.println("pk " + pk);
 					ps.delcollection(pk);
 					return false;
 				}
 			}
 		}
 		ps.addcollection(mid, pid);
+//		System.out.println("mid" + mid);
+//		List<CollectBean> clist = ps.collection(mid);
+//		System.out.println("clist" + clist);
+//		List<CollectBean> collection = (List<CollectBean>) model.getAttribute("collection");
+//		collection = clist;
+//		session.setAttribute("collection", collection);
+//		System.out.println("collection" + collection);
+		
 		return true;
 	}
+	
+//	@SuppressWarnings("unchecked")
+//	@GetMapping(value = "/Collectcheck", produces = "application/json")
+//	public @ResponseBody List<Integer> collectcheck(Model model, HttpSession session
+//	) {
+//		List<Integer> list = new ArrayList<>();
+//		List<CollectBean> collection = (List<CollectBean>) model.getAttribute("collection");
+//		System.out.println("CCC " + collection);
+//		MemberBean member = (MemberBean) session.getAttribute("member");
+//		if(collection != null && member != null) {
+//			for (int i = 0; i < collection.size(); i++) {
+//				System.out.println("MMM1 " + collection.get(i).getMid());
+//				System.out.println("MMM2 " + member.getId());
+//				if(collection.get(i).getMid() == member.getId()) {
+//					System.out.println("123~~~~");
+//					System.out.println("pid" + collection.get(i).getPid());
+//					list.add(collection.get(i).getPid());
+//				}
+//			}
+//		}
+//		System.out.println("LLL " + list);
+//		return list;
+//	}
+			
 
 	@GetMapping("/History")
 	public String mproduct() {

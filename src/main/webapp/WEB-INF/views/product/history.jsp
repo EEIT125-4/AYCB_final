@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="java.util.*,product.*,product.model.*"%>
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core'%>
 
 <%
@@ -28,6 +28,10 @@ if (session.getAttribute("member") != null) {
 	<div class="historybox">
 		<table class="historytb">
 			<caption class="ct">最近看過的商品</caption>
+			<%
+				List<ProductBean> list = (List<ProductBean>) session.getAttribute("recordlist");
+				if (list.size() > 0 && list != null) {
+			%>
 			<thead>
 				<tr>
 					<th class="historyth">圖片</th>
@@ -53,7 +57,17 @@ if (session.getAttribute("member") != null) {
 					</tr>
 				</c:forEach>
 			</tbody>
-		</table>
+			</table>
+			<%
+				} else {
+			%>
+			</table>
+			<div class="nolist">
+				<b>目前無瀏覽紀錄</b>
+			</div>
+			<%
+				}
+			%>
 	</div>
 	<div class="backbtn">
 		<input class="btn btn-dark" type="submit" value="回會員中心">
