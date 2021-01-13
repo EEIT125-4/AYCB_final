@@ -43,7 +43,7 @@ import tool.model.Image;
 import tool.service.ImageService;
 
 @Controller
-
+@SessionAttributes({"recordlist", "collection"})
 //@SessionAttributes("member")
 
 public class MemberController {
@@ -481,7 +481,7 @@ public class MemberController {
 //  		status.setComplete();
 //    	  webRequest.removeAttribute("member", 0);
 //    	  session.removeAttribute("member");
-
+		status.setComplete();
 		return "redirect:index";
 
 	}

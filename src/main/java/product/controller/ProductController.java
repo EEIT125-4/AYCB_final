@@ -31,7 +31,7 @@ import product.model.ProductBean;
 import product.service.ProductService;
 
 @Controller
-@SessionAttributes({ "recordlist", "collection" })
+@SessionAttributes({"recordlist", "collection"})
 public class ProductController {
 
 	@Autowired
@@ -194,9 +194,10 @@ public class ProductController {
 
 	@SuppressWarnings("unchecked")
 	@GetMapping("/Detail")
-	public ModelAndView detail(Model model, HttpSession session,
+	public ModelAndView detail(Model model, 
 			@RequestParam(value = "no", required = false) Integer no,
-			@RequestParam(value = "cate", required = false) String cate) {
+			@RequestParam(value = "cate", required = false) String cate
+	) {
 		ModelAndView mav = new ModelAndView();
 
 		ProductBean detail = ps.getProduct(no);
@@ -207,7 +208,6 @@ public class ProductController {
 
 		boolean history = true;
 		List<ProductBean> list = (List<ProductBean>) model.getAttribute("recordlist");
-		System.out.println("123ooo " + list);
 		if (list != null) {
 			for (int i = 0; i < list.size(); i++) {
 				if (detail.getProductno() != list.get(i).getProductno()) {
@@ -217,21 +217,15 @@ public class ProductController {
 					break;
 				}
 			}
-		} else {
-			list = new ArrayList<>();
-			list.add(detail);
-			session.setAttribute("recordlist", list);
-			history = false;
-			System.out.println("new " + list);
+			
 		}
 		if (history) {
 			list.add(detail);
-			System.out.println(" 123 " + list);
 		}
-		if (list.size() > 10) {
+		if(list.size()>10) {
 			list.remove(list.get(0));
 		}
-
+		
 		CommentBean commentBean = new CommentBean();
 //		model.addAttribute("leave",commentBean);
 		mav.addObject("leave", commentBean);
@@ -277,8 +271,10 @@ public class ProductController {
 	}
 
 	@GetMapping(value = "/Collect", produces = "application/json")
-	public @ResponseBody boolean collect(Model model, HttpSession session, @RequestParam("mid") Integer mid,
-			@RequestParam("pid") Integer pid) {
+	public @ResponseBody boolean collect(Model model, HttpSession session,
+			@RequestParam("mid") Integer mid, 
+			@RequestParam("pid") Integer pid
+	) {
 		List<Integer> list = ps.findcollection(mid);
 		if (list != null) {
 			for (int i = 0; i < list.size(); i++) {
@@ -292,19 +288,20 @@ public class ProductController {
 		ps.addcollection(mid, pid);
 		return true;
 	}
-
+	
 	@GetMapping(value = "/Collectcheck", produces = "application/json")
-	public @ResponseBody List<Integer> collectcheck(Model model, HttpSession session) {
+	public @ResponseBody List<Integer> collectcheck(Model model, HttpSession session
+	) {
 		List<Integer> list = new ArrayList<>();
 		MemberBean member = (MemberBean) session.getAttribute("member");
 		List<CollectBean> collection = ps.collection(member.getId());
-		if (collection != null && member != null) {
+		if(collection != null && member != null) {
 			for (int i = 0; i < collection.size(); i++) {
 				list.add(collection.get(i).getPid());
 			}
 		}
 		return list;
-	}
+	}		
 
 	@GetMapping("/History")
 	public String mproduct() {
