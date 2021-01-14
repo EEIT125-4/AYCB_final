@@ -61,13 +61,42 @@
 							<td><label for="sourcetype">分類</label></td>	
 							<td>
 							
-							<input id="sourcetype" type="text" name="sourcetype" value="image" path="advsourcetype" />
+							<input id="sourcetype" type="text" name="sourcetype" value="image"  />
+							<form:input id="type" type="text" path="advsourcetype" value="image" disabled="true"/>
 <!-- 							disabled="true" -->
 <!-- 							<label for="cbox1">圖片</label> -->
 <%-- 							<form:input type="checkbox" id="cbox2" value="video" path="advsourcetype"/><label for="cbox2">影片</label> --%>
 <%-- 							<form:input type="checkbox" id="cbox3" value="youtube" path="advsourcetype"/><label for="cbox3">youtube</label> --%>
 <%-- 							<form:input type="checkbox" id="cbox4" value="url" path="advsourcetype"/><label for="cbox4">網址</label> --%>
 								</td>
+						</tr>
+						<tr>
+							<td>
+							<label for="advOwner">廣告業主</label>
+							</td>
+							<td>
+							<form:input id="advOwner" type="text" path="owner"/>
+							
+							</td>
+						</tr>
+						<tr>
+							<td>
+							<label for="advCategory">廣告分類</label>
+							</td>
+							<td>
+							<form:input id="advCategory" type="text" path="advcategory"/>
+							
+							</td>
+						</tr>
+						
+						<tr>
+							<td>
+							<label for="advLength">廣告長度</label>
+							</td>
+							<td>
+							<form:input id="advLength" type="number" path="advlength" min="1" max="10" value="5"/>
+							
+							</td>
 						</tr>
 						
 						<tr>
@@ -120,7 +149,6 @@
 							</c:if>
 							alt=<c:out value='${blog.title}'/>
 							onerror="javascript:this.src='${pageContext.request.contextPath}/image/noImage.jpg'"/>
-
 							</td>
 						</tr>
 

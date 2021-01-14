@@ -1,6 +1,7 @@
 package advertisement;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -68,7 +69,7 @@ public class Advertisement {
 	private Integer advcount=0;//累積播放次數
 	
 	@Column(columnDefinition="int default 0")
-	private Integer advlength=5;//預設廣告時間
+	private Integer advlength=5;//預設廣告時間(秒)
 	
 	@Column(columnDefinition="int default 0")
 	private Integer status=0;//狀態碼
@@ -151,6 +152,23 @@ public class Advertisement {
 	public void setPostTime(Timestamp postTime) {
 		this.postTime = postTime;
 	}
+	
+	public void setPostTime(String postDate) {
+		
+		
+		this.postTime=convertToTimeStamp(postDate);
+	}
+	
+	private Timestamp convertToTimeStamp(String s) {
+		
+		String[] d=s.split("-");
+	
+		Date date=new Date(Integer.parseInt(d[0])-1900, Integer.parseInt(d[1])-1,Integer.parseInt(d[2]));
+		
+		return new Timestamp(date.getTime());
+		
+	}
+	
 
 
 	public Timestamp getEndTime() {
@@ -160,6 +178,10 @@ public class Advertisement {
 
 	public void setEndTime(Timestamp endTime) {
 		this.endTime = endTime;
+	}
+	
+	public void setEndTime(String endDate) {
+		this.endTime=convertToTimeStamp(endDate);
 	}
 
 

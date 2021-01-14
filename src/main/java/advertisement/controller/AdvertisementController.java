@@ -1,5 +1,6 @@
 package advertisement.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +54,7 @@ public class AdvertisementController {
 	}
 	
 	@GetMapping(value = "advertisement")
-	public String gotoBackStage() {
+	public String advertisement() {
 		
 		return "advertisement/advBackstage";
 	}
@@ -117,6 +118,8 @@ public class AdvertisementController {
 				
 				adv.setMember(ms.getMember(mid));
 				adv.setAdvsourcetype(sourceType);
+				adv.setPostTime(postDate);
+				adv.setEndTime(endDate);
 				
 				advService.insertAdv(adv);
 				

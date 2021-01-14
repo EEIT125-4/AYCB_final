@@ -44,7 +44,7 @@
 			</div>
 			<div class="mbtnbox">
 				<input class="mbtn" type="button" value="廣告區"
-					onclick='location.href="advertisement"'>
+					onclick='location.href="${pageContext.request.contextPath}/advertisement"'>
 			</div>
 	
 		</div>
