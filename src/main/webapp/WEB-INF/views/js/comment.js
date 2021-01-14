@@ -15,16 +15,20 @@ $(document).ready(function() {
             	$("#commentform")[0].reset();
                 if (data) {
                 	
-                	swal("留言成功!","","success");
+                	  alert("留言成功");
+    				  
+    			
                 	refresh();
                 	
                 } else { 
-                	swal("留言失敗!","","error");
+                	 alert("留言失敗");
                 	
-                }
+                
+            }
             },
             error: function(data) {
-            	swal("留言失敗!","","error");
+            	alert("server發生錯誤");
+            	
               
             }
         })

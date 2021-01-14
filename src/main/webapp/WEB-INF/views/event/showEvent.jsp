@@ -40,16 +40,23 @@
 <title></title>
 
 <%@include file="../jspf/header.jspf"%>
-
-<div style="text-align: center">
-	<h3>活動資料</h3>
-	<a class="manager" href="<c:url value='/event/eventForm'/>">新增活動</a> &nbsp;&nbsp;
-	
-		
-
-	<form method='POST'>
-		<input type='hidden' name='_method' value='DELETE'>
+<a class="btn btn-dark manager" href="<c:url value='/event/eventForm'/>">新增活動</a> &nbsp;&nbsp;
+	<div>
+	<form action="<c:url value='/event/showEventByCategory' />">
+    <label style="font-size: 20px">分類搜尋活動:&nbsp;&nbsp;
+	<button  style="width:100px" class="btn btn-outline-dark" name="eventcategory" value="手做">手作</button>
+	<button  style="width:100px" class="btn btn-outline-dark" name="eventcategory" value="教學">教學</button>
+	<button  style="width:100px" class="btn btn-outline-dark" name="eventcategory" value="新品發表">新品發表</button>
+	<button  style="width:100px" class="btn btn-outline-dark" name="eventcategory" value="促銷">促銷</button>
+	<button  style="width:100px" class="btn btn-outline-dark" name="eventcategory" value="其他">其他</button>
+	</label>
 	</form>
+	</div>
+	
+<div style="text-align: center ;" >
+
+	
+	
 	<section class="container">
 	<div class="row">
 		<c:forEach var='event' items='${events}'>
@@ -71,20 +78,18 @@
 
 						<div>
 						    <input type="hidden" id="aa" class="aa" value="${member.level}"> 
-							<a id="manager" href="<c:url value='eventupdate'/>?eventid=${event.eventid}" class="btn btn-primary manager"								
-								style="background-color: black; border-color: black; border-radius: 0px">
+							<a id="manager" href="<c:url value='eventupdate'/>?eventid=${event.eventid}" class="btn btn-dark manager">
                             <span id="manager" class="glyphicon-info-sigh glyphicon manager">編輯</span></a>
 								
 							 <a id="manager" href="<c:url value='eventdelete'/>?eventid=${event.eventid}"
-								class="btn btn-primary manager"
-								style="background-color: black; border-color: black; border-radius: 0px">
+								class="btn btn-dark manager">
 								<span id="manager" class="glyphicon-info-sigh glyphicon manager">刪除</span>
 							</a>
 
 							<!-- Button trigger modal -->
-							<button type="button" class="btn btn-primary"
+							<button type="button" class="btn btn-dark"
 								value="${event.eventlocation}"
-								style="width: 100px; background-color: black; border-color: black; border-radius: 0px"
+								style="width: 100px;"
 								data-toggle="modal" data-target="#event${event.eventid}">詳細資料</button>
 						</div>
 						<!-- Modal -->
@@ -107,12 +112,14 @@
 												<b style='font-size: 16px;'>活動名稱:${event.eventname}</b>
 											</p>
 <%-- 											<p>${event.eventid}</p> --%>
+											<p>活動類別:${event.eventcategory}</p>
 											<p>活動日期:${event.eventdate}</p>
 											<p>活動地點:${event.eventlocation}</p>
-											<p>主辦人${event.host}</p>
-											<p>連絡電話${event.hostphone}</p>
-											<p>可報名人數${event.pax}</p>
-											<p>活動介紹${event.eventdescription}</p>	
+											<p>主辦單位:${event.host}</p>
+											<p>連絡電話:${event.hostphone}</p>
+											<p>名額:${event.totalpax}</p>
+											<p>報名人數:${event.pax}</p>
+											<p>活動介紹:${event.eventdescription}</p>	
 										</div>
 							<div class="modal-footer">
 									<button type="button" style="width: 100px;" class="btn btn-secondary" data-dismiss="modal">Close</button>

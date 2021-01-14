@@ -57,7 +57,7 @@
 <!-- 					<td align="center" valign="middle">帳號</td>	 -->
 					<td align="center" valign="middle">mail</td>
 					<td align="center" valign="middle">電話號碼</td>
-					<td align="center" valign="middle">參加人數</td>
+					<td align="center" valign="middle">報名人數</td>
 					<td align="center" valign="middle" colspan="2">修改報名資料</td>
 					
 				</tr>

@@ -242,21 +242,22 @@ public class ProductController {
 	/*
 	 * Kevin:for ajax response
 	 */
-	@PostMapping("/Detail")
-	@ResponseBody
-	public String leaveComment(Model model, @ModelAttribute("leave") CommentBean cb) {
-
-		System.out.println("comment:" + cb);
-		// JAVA的Date轉SQL的Date
-		Timestamp time = new Timestamp(new Date().getTime());
-//		
-		cb.setCommentTime(time);
-		cs.insertComment(cb);
-		List<CommentBean> list = cs.selectAll();
-		model.addAttribute("comments", list);
-
-		return "OK";
-	}
+//	@PostMapping("/Detail")
+//	@ResponseBody
+//	public String leaveComment(Model model, @ModelAttribute("leave") CommentBean cb) {
+//
+//		System.out.println("comment:" + cb);
+//		// JAVA的Date轉SQL的Date
+//		Timestamp time = new Timestamp(new Date().getTime());
+////		
+//		cb.setCommentTime(time);
+//		cb.setMember();
+//		cs.insertComment(cb);
+//		List<CommentBean> list = cs.selectAll();
+//		model.addAttribute("comments", list);
+//
+//		return "OK";
+//	}
 
 	@GetMapping(value = "/GetSeriesByBrand", produces = "application/json")
 	public @ResponseBody List<String> getSeriesByBrand(@RequestParam("brandname") String brandname) {

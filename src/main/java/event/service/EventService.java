@@ -20,6 +20,8 @@ public interface EventService {
 	void updateEvent(Event e);
 
 	Event getEvent(Integer EventID);
+	
+	List<Event> getEventByCategory(String eventcategory);
 
 
 }

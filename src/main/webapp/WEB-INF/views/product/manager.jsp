@@ -48,6 +48,12 @@
 				<input class="mbtn" type="button" value="影音區"
 					onclick='location.href="#"'>
 			</div>
+			<div class="mbtnbox">
+				<input class="mbtn" type="button" value="廣告區"
+					onclick='location.href="advertisement"'>
+			</div>
+			
+			
 		</div>
 	</div>
 </div>
