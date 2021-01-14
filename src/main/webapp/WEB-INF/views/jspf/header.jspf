@@ -15,7 +15,8 @@ MemberBean mb = (MemberBean) session.getAttribute("member");
 // 	System.out.println("member:" + mb.getName());
 // }
 %>
-
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jQuery/jquery.cookie.js"></script>
 	<style>
 .swal2-confirm {
 
@@ -57,7 +58,6 @@ width:100px;
     <script src="${pageContext.request.contextPath}/js/mixitup.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/main.js"></script>
-    <script src="${pageContext.request.contextPath}/js/jquery.cookie.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <!--     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
 

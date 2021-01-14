@@ -8,13 +8,18 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"
 	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 	crossorigin="anonymous"></script>
-<script src="${pageContext.request.contextPath}/js/inside.js"
-	defer="defer"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <link REL=STYLESHEET
 	HREF="${pageContext.request.contextPath}/css/ProductDetail.css"
 	TYPE="text/css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/comment.css" />
+
+<script>
+	$(document).ready(function() {
+		Collectcheck();
+	});
+</script>
 
 <title>${Detail.productname}</title>
 </head>
@@ -98,6 +103,15 @@
 					</c:forEach>
 				</div>
 			</div>
+			<div class="toolbar">
+				<ul class="toolbar_ul">
+					<li class="toolbar_li"><a class="toolbar_a" href='<c:url value="/car" />'><i class="fa fa-shopping-cart" aria-hidden="true"></i><span class="msg">購物車</span></a></li>
+					<li class="toolbar_li"><a class="toolbar_a" href="<c:url value='/History' />"><i class="fa fa-clock-o" aria-hidden="true"></i><span class="msg">瀏覽紀錄</span></a></li>
+					<li class="toolbar_li"><a class="toolbar_a" href="<c:url value='/Collect' />"><i class="fa fa-heart" aria-hidden="true"></i><span class="msg">收藏清單</span></a></li>
+					<li class="toolbar_li"><span id="top" class="top_a"><i class="fa fa-chevron-up" aria-hidden="true"></i><span class="msg">回TOP</span></span></li>
+				</ul>
+			</div>
+
 			<div class="content">
 
 				<!--                         留言 -->
@@ -133,11 +147,17 @@
 
 
 
-
+<script>
+$(function(){
+    $("#top").click(function(){
+        jQuery("html,body").animate({
+            scrollTop:0
+        },1000);
+    });
+});
 
 
 <!-- 留言功能初始化 -->
-<script>
 	var object = "product";
 	var pk = $
 	{
@@ -148,6 +168,8 @@
 	var postUrl = path + "/leaveComment?memberid=${member.id}&key=" + pk
 			+ "&type=" + object;
 	var getUrl = path + "/loadComment?key=" + pk + "&type=" + object;
+	
+	
 </script>
 
 <script src="${pageContext.request.contextPath}/js/comment.js"
