@@ -81,7 +81,7 @@ public class OrderController {
 	
 	@SuppressWarnings("unchecked")
 	@GetMapping("/orderInsert")
-//	@ResponseBody
+
 	public String OrderInsert(
 			
 			Model model,

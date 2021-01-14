@@ -259,5 +259,5 @@
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {
-	box-shadow:0 0 0 60px #ffffff inset; //設定底色
+	box-shadow:0 0 0 60px #ffffff inset; 
 }

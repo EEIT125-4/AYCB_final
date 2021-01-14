@@ -156,7 +156,6 @@
 
 			<div class="content">
 
-
 				<!--                         留言 -->
 				<div>
 					<c:if test='${not empty member}'>
@@ -189,17 +188,10 @@
 	</div>
 
 
-
-
-
-
 	<!-- 留言功能初始化 -->
 	<script>
 		var object = "product";
-		var pk = $
-		{
-			Detail.productno
-		};
+		var pk = ${Detail.productno};
 		var path = "${pageContext.request.contextPath}";
 		var board = document.getElementById("board");
 		var postUrl = path + "/leaveComment?memberid=${member.id}&key=" + pk
