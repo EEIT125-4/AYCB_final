@@ -93,9 +93,9 @@ if (session.getAttribute("member") != null) {
 				</div>
 			</div>
 			<div class="modebox">
-				顯示方式: <input id="standard" class="modebtn" type="radio" name="mode"
-					checked>標準 <input id="list" class="modebtn" type="radio"
-					name="mode">序列
+				顯示方式: 
+				<input id="standard" class="modebtn" type="radio" name="mode" checked><img class="modeimg" src="image/standard.png">標準 
+				<input id="list" class="modebtn" type="radio" name="mode"><img class="modeimg" src="image/list.png">序列
 			</div>
 			<div class="searchbox">
 				<input id="keyword" class="searchinput" type="text">

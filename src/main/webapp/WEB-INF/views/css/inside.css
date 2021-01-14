@@ -260,13 +260,15 @@
 }
 
 .modebtn {
-	width: 60px;
-	font-size: 18px;
-    font-weight: bold;
+	width: 30px;
 	margin-left: 5px;
-	border-radius: 5px;
-	border: 1px solid gray;
-	background-color: transparent;
+}
+
+.modeimg {
+	width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    margin-bottom: 5px;
 }
 
 .searchbox {
