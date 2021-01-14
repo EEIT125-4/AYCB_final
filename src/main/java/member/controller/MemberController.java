@@ -372,7 +372,6 @@ public class MemberController {
 		System.out.println("passowrd" + mb.getPassword());
 
 		if (mb.getPassword().equals(oldpwd)) {
-
 			return true;
 		} else {
 			return pp;

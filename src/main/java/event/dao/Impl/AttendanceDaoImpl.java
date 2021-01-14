@@ -25,7 +25,7 @@ public class AttendanceDaoImpl implements AttendanceDAO {
 //	@Override
 //	public boolean isDup(String id) {
 //		boolean result = false;
-//		String hql = "FROM Attendance a WHERE a.MemberID = :id0";
+//		String hql = "FROM Attendance WHERE event_eventid=:eventid and member_id=:mid";
 //		Session session = factory.getCurrentSession();
 //
 //			Query<Attendance> query = session.createQuery(hql);
