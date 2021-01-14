@@ -230,8 +230,8 @@ width:100px;
 	
 
 <script>
-console.log("ddd"+document.cookie);
-// console.log("ddd2"+document.cookie("user"));
+
+
 console.log("cookie="+$.cookie("user"));
 console.log("cookie="+$.cookie("password"));
 </script>

@@ -16,7 +16,7 @@
 
 
 
-<%-- <%@include file="jspf/header.jspf"%> --%>
+<%@include file="jspf/header.jspf"%>
 <%-- <c:set var="projectPath" value="${pageContext.request.contextPath}" scope="application" /> --%>
 <%-- <c:out value=projectpath/> --%>
 <div >
@@ -37,7 +37,7 @@
 </div>
 </div>
 
-<%-- <%@include file="jspf/footer.jspf"%> --%>
+<%@include file="jspf/footer.jspf"%>
 </body>
 
 
