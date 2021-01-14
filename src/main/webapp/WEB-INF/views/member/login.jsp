@@ -14,6 +14,9 @@
 
 <title>登入</title>
 </head>
+
+
+
 <%@include file="../jspf/header.jspf"%>
 
 <div class="container">
@@ -24,7 +27,7 @@
 			<legend style="margin-left: 300px; font-size: 22px">會員登入</legend>
 			<div class="d-flex justify-content-center">
 				<button type="button" id="btnSignIn" class="btn btn-info"
-					style="width: 300px">Google登入</button>
+					style="width: 380px">Google登入</button>
 				<!-- 			 <button type="button" class="btn btn-danger" id="btnDisconnect" style="width:130px">Google登出 </button> -->
 			</div>
 			<br>
@@ -55,43 +58,22 @@
 					src="${pageContext.request.contextPath}/image/openeye.png" id="eye"></label><br>
 			</div>
 
-			<!-- 			<div > -->
-			<!--       <div style="margin-left:140px" class="custom-control custom-checkbox mr-sm-2"> -->
 
-
-
-			<!--       </div> -->
-
-			<!-- 		</div> -->
-
-
-
-			<div class="row">
-				<div style="margin-left: 180px" class="col">
+			<div style="height:15px" class="row">
+				<div style="margin-left: 180px;" class="col"  style="display:inline block" >
 					<input type="checkbox" class="custom-control-input form-control"
-						id="customControlAutosizing" name="rememberme"> <label
-						style="font-size: 15px" class="custom-control-label"
+						id="customControlAutosizing" name="rememberme">
+						 <label style="font-size: 15px" class="custom-control-label"
 						for="customControlAutosizing">記住我</label>
 				</div>
-				<div style="margin-right: 60px; margin-bottom: 20px" class="col">
+				<div style="margin-right: 60px;" class="col" style="display:inline block">
 					<button data-toggle="modal" data-target="#forgot"
 						class="btn btn-link form-control" role="button"
 						aria-pressed="true">忘記密碼</button>
 				</div>
 			</div>
 
-
-
-
-
-
-
-
-
-
-
-			<br> <br>
-
+	
 
 			<div class="d-flex justify-content-center">
 				<img src="<c:url value="/captcha"/>"> <input name="Qcode"
@@ -100,14 +82,15 @@
 
 
 			</div>
-
+<button class="btn btn-dark" type="submit" name="button1" id="button1"
+				style="width: 390px; height: 40px; color:snow; margin-left: 150px;">登入</button>
 
 
 			<br>
 
-			<div style="margin-left: 270px">
-				<a href="<c:url value="/register"/>" class="btn btn-primary"
-					role="button" aria-pressed="true">新註冊</a>
+			<div style="margin-left: 300px">
+				<a href="<c:url value="/register"/>" class="btn" style="width:90px;margin-top:15px"
+					role="button" aria-pressed="true"><b>立即註冊</b></a>
 
 
 
@@ -146,8 +129,7 @@
 
 
 
-			<button type="submit" name="button1" id="button1"
-				style="width: 250px; background-color: rgba(0, 0, 0, 0.753); height: 30px; color: snow; margin-left: 230px;">登入</button>
+		
 
 
 			<br> <br>
