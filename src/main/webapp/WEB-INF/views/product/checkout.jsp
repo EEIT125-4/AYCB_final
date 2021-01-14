@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"
 	import="java.util.*, product.*, product.cartModel.CartItem"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
 response.setContentType("text/html;charset=UTF-8");
 response.setHeader("Cache-Control", "no-cache"); // HTTP 1.1
@@ -103,14 +104,15 @@ function copyMember(){
 function storeAddressChange(){
 	var store = $("#shippingAddress").val();
 	console.log(store)
-	var addr;
+// 	var addr;
 	if(store!=""){
-		start = store.indexOf("門市-")+3;//數字
-		addr = store.substring(start);//把門市-後的字串抓出來
-		//alert(addr);
+// 		start = store.indexOf("門市-")+3;//數字
+// 		addr = store.substring(start);//把門市-後的字串抓出來
+// 		alert(addr);
+//		alert(store);
 	}
-	var url = "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=" + addr + "&z=16&output=embed&t=";
-	//alert(url);
+	var url = "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=" + store + "&z=16&output=embed&t=";
+//	alert(url);
 	$("#myMap").attr("src",url);
 }
 </script>
@@ -159,7 +161,7 @@ function storeAddressChange(){
 					class="img"
 					src="${pageContext.request.contextPath}/pic/<%=item.getProductImage()%>"></td>
 				<td style="text-align: center; vertical-align: middle;"><%=item.getProductName()%></td>
-				<td style="text-align: center; vertical-align: middle;">NT$<%=item.getProductPrice()%></td>
+				<td style="text-align: center; vertical-align: middle;">NT$ <fmt:formatNumber value="<%=item.getProductPrice()%>"  pattern="###,###" /></td>
 				<td style="text-align: center; vertical-align: middle;"><%=item.getQtyOrdered()%></td>
 
 			</tr>
@@ -171,9 +173,9 @@ function storeAddressChange(){
 					style="text-align: center; vertical-align: middle; font-size: 20px;"
 					colspan="2">總計金額：</th>
 				<th
-					style="text-align: center; vertical-align: middle; font-size: 18px;">NT$<%=session.getAttribute("totalPrice")%>元</th>
+					style="text-align: center; vertical-align: middle; font-size: 18px;">NT$ <fmt:formatNumber value="${totalPrice}"  pattern="###,###" />元</th>
 				<th
-					style="text-align: center; vertical-align: middle; font-size: 18px;"><%=session.getAttribute("totalQtyOrdered")%></th>
+					style="text-align: center; vertical-align: middle; font-size: 18px;">${totalQtyOrdered}</th>
 			</tr>
 		</tbody>
 		<tfoot>
@@ -190,11 +192,11 @@ function storeAddressChange(){
 							onchange="shippingTypeChange()">
 								<option value="">請選擇...</option>
 								<option value="">超商取貨</option>
-						
+								<option value="">宅配到家</option>
 								
 		</select></td>
-		<td colspan="2" style="text-align: right;vertical-align: middle; font-size: 18px;">含物流費共： NT$<span
-							id="totalWithFee"><%=session.getAttribute("totalPrice")%></span>元
+		<td colspan="2" style="text-align: right;vertical-align: middle; font-size: 18px;">含物流費共： NT$ <span
+							id="totalWithFee"><fmt:formatNumber value="${Shipping}"  pattern="###,###" /></span>元
 		</td>
 		</tr>
 		

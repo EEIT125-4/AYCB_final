@@ -16,38 +16,40 @@
 
 <div>
 
-	<div class="form-inline"
-		style="margin-bottom: 80px; margin-left: 20px;">
-		<dl>
-			<dt>
-				<A href="" class="btn btn-dark" style="margin: 10px">
-					<button class="btn btn-dark" style="width: 120px">會員管理</button>
-				</A>
-			</dt>
-			<dt>
-				<A href="" class="btn btn-dark" style="margin: 10px">
-				<button class="btn btn-dark" style="width: 120px">商品管理</button>
-				</A>
-			</dt>
-			<dt>
-				<A href="" class="btn btn-dark" style="margin: 10px">
-					<button class="btn btn-dark" style="width: 120px">訂單管理</button>
-				</A>
-			</dt>
-			<dt>
-				<a href="" class="btn btn-dark" style="margin: 10px">
-					<button class="btn btn-dark" style="width: 120px">討論區管理</button>
-				</a>
-			</dt>
-			<dt>
-				<button class="btn btn-dark" style="width: 120px" id="eventmanager">活動管理</button>
-			</dt>
-		</dl>
-		<div class="container">
+	<div class="form-inline" style="margin-bottom: 80px; margin-left: 20px;">
+		
+<!-- 		<dl> -->
+<!-- 			<dt> -->
+<!-- 				<A href="" class="btn btn-dark" style="margin: 10px"> -->
+<!-- 					<button class="btn btn-dark" style="width: 120px">會員管理</button> -->
+<!-- 				</A> -->
+<!-- 			</dt> -->
+<!-- 			<dt> -->
+<!-- 				<A href="" class="btn btn-dark" style="margin: 10px"> -->
+<!-- 				<button class="btn btn-dark" style="width: 120px">商品管理</button> -->
+<!-- 				</A> -->
+<!-- 			</dt> -->
+<!-- 			<dt> -->
+<!-- 				<A href="" class="btn btn-dark" style="margin: 10px"> -->
+<!-- 					<button class="btn btn-dark" style="width: 120px">訂單管理</button> -->
+<!-- 				</A> -->
+<!-- 			</dt> -->
+<!-- 			<dt> -->
+<!-- 				<a href="" class="btn btn-dark" style="margin: 10px"> -->
+<!-- 					<button class="btn btn-dark" style="width: 120px">討論區管理</button> -->
+<!-- 				</a> -->
+<!-- 			</dt> -->
+<!-- 			<dt> -->
+<!-- 				<button class="btn btn-dark" style="width: 120px" id="eventmanager">活動管理</button> -->
+<!-- 			</dt> -->
+<!-- 		</dl> -->
+		<div>
 			<div>
 			<ul class="nav nav-tabs"> 
 					<li class="nav-item">
-					<a class="nav-link active" href="">所有報名資料</a>
+<!-- 					<a class="nav-link active" href=""> -->
+					<button class="nav-link" style="width: 120px; background: none;border: 0px" id="eventmanager">所有參加者</button>
+<!-- 					</a> -->
 					</li>
 					<li class="nav-item">
 <%-- 					<a class="nav-link" href="${pageContext.request.contextPath}/event/ajaxShowEvent" id="showallevent"> --%>
@@ -160,12 +162,12 @@
 				+"<td>主辦人</td>" 
 				+"<td>連絡電話</td>" 
 				+"<td>活動敘述</td>" 
-				+"<td>可參加人數</td>" 
+				+"<td>可報名人數</td>" 
 				+"<td colspan='2'>修改活動資料</td>"
 				+"</tr>"
    			for (let i = 0; i < data.length; i++) {
    				insertData += 	"<tr>" 
-    										+"<td>"+data[i].eventid+"</td>" 
+    										+"<td><a href='<c:url value='showAllAttendanceByEvent'/>?eventid="+data[i].eventid+"'>"+data[i].eventid+"</a></td>" 
     										+"<td><img width='180' height='200' src="+data[i].filename+"/></td>" 
     										+"<td>"+data[i].eventname+"</td>" 
     										+"<td>"+data[i].eventdate+"</td>" 
@@ -174,8 +176,8 @@
     										+"<td>"+data[i].hostphone+"</td>" 
     										+"<td>"+data[i].eventdescription+"</td>" 
     										+"<td>"+data[i].pax+"</td>" 
-                                         +"<td><a href='<c:url value='update'/>?aid="+data[i].aid+"'>編輯</a> |  " 
-                                         +"<a href='<c:url value='delete'/>?aid="+data[i].aid+"'>刪除</a></td>" 
+                                            +"<td><a href='<c:url value='eventupdate'/>?eventid="+data[i].eventid+"'>編輯</a> |  " 
+                                            +"<a href='<c:url value='eventdelete'/>?eventid="+data[i].eventid+"'>刪除</a></td>" 
                                          +"</tr>" 
     				console.log(insertData);  			
    			}

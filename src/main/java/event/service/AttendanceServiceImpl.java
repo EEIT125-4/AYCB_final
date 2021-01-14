@@ -59,6 +59,11 @@ public class AttendanceServiceImpl implements AttendanceService  {
 		return attendanceDAO.getAllAttendancebyID(id);
 	}
 
+	@Override
+	public List<Attendance> getAllAttendancebyEvent(Integer eventid) {
+		return attendanceDAO.getAllAttendancebyEvent(eventid);
+	}
+
 	
 	
 	

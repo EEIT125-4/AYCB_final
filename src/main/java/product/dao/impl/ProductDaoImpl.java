@@ -21,7 +21,7 @@ public class ProductDaoImpl implements ProductDao {
 	@Autowired
 	SessionFactory factory;
 
-	private int recordsPerPage = 18;
+	private int recordsPerPage = 16;
 
 	@Override
 	public void saveProduct(ProductBean pb) {
@@ -355,6 +355,14 @@ public class ProductDaoImpl implements ProductDao {
 		session.delete(cb);
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<CollectBean> collection(int mid) {
+		String hql = "FROM CollectBean c WHERE c.mid = :mid";
+		Session session = factory.getCurrentSession();
+		return session.createQuery(hql).setParameter("mid", mid).getResultList();
+	}
+	
 	@Override
 	public int pkcollection(int mid, int pid) {
 		String hql = "SELECT c.cid FROM CollectBean c WHERE c.mid = :mid and c.pid = :pid";
@@ -364,10 +372,9 @@ public class ProductDaoImpl implements ProductDao {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Integer> findcollection(int id) {
+	public List<Integer> findcollection(int mid) {
 		String hql = "SELECT c.pid FROM CollectBean c WHERE c.mid = :mid";
 		Session session = factory.getCurrentSession();
-		return session.createQuery(hql).setParameter("mid", id).getResultList();
+		return session.createQuery(hql).setParameter("mid", mid).getResultList();
 	}
-	
 }

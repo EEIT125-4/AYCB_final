@@ -1,8 +1,9 @@
 <%@page import="java.lang.ProcessBuilder.Redirect"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="java.util.*,product.*,product.cartModel.CartItem,member.*"%>
+	import="java.util.*,product.*,product.model.ProductBean,product.service.ProductService,product.cartModel.CartItem,member.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
 response.setContentType("text/html;charset=UTF-8");
 response.setHeader("Cache-Control", "no-cache"); // HTTP 1.1
@@ -129,17 +130,19 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 					// display the shopping cart.
 				for (int i = 0; i < cart.size(); i++) {
 					CartItem aCartItem = cart.get(i); //list的寫法
+					int productNo = aCartItem.getProductNo();
+					//ProductBean bean = ProductService.getProduct(productNo);
 				%>
 				<tr>
 					<td style="text-align: center; vertical-align: middle;" scope="row"><img
 						class="img"
 						src="${pageContext.request.contextPath}/pic/<%=aCartItem.getProductImage()%>"></td>
 					<td style="text-align: center; vertical-align: middle;"><%=aCartItem.getProductName()%></td>
-					<td style="text-align: center; vertical-align: middle;">NT$<%=aCartItem.getProductPrice()%></td>
+					<td style="text-align: center; vertical-align: middle;">NT$ <fmt:formatNumber value="<%=aCartItem.getProductPrice()%>"  pattern="###,###" /></td>
 					
 					<td style="text-align: center; vertical-align: middle;">	
 					<input type="number" name="quantity" id="<%=i%>" 
-							min="1" max="10" value="<%=aCartItem.getQtyOrdered()%>" style="width: 3em" onblur="checkQty(<%=i %>);">
+							min="1" max="10" value="<%=aCartItem.getQtyOrdered()%>" style="width: 3em" onchange="checkQty(<%=i %>);">
 					</td>
 					
 					<td style="text-align: center; vertical-align: middle;">						

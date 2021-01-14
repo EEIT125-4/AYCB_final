@@ -2,7 +2,9 @@
     width: 250px;
     position: fixed;
     float: left;
-    left: 230px;
+    top: 30%;
+    left: 100px;
+    margin-top: 60px;
     background-color: transparent;
 }
 
@@ -82,10 +84,10 @@
 }
 
 .rightoutbox {
-    width: 65%;
+    width: 70%;
     position: relative;
     float: left;
-    left: 500px;
+    left: 350px;
 }
 
 .rightbox {
@@ -113,6 +115,8 @@
     width: 200px;
     height: 50px;
     margin: 10px auto;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .buttonbox {
@@ -123,24 +127,25 @@
 }
 
 .proprice {
-    height: 20px;
+    height: 25px;
     margin-top: 10px;
-    margin-left: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
     float: left;
+    font-size: 20px;
+    font-weight: bold;
     border-right: 1px solid black;
 }
 
 .cartimg {
-    width: 20px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
 }
 
 .cart {
     float: left;
     margin-top: 6px;
-    padding: 0 35px;
+    margin-left: 12%;
 }
 
 .cart_a {
@@ -195,7 +200,7 @@
     margin-left: 80%;
     line-height: 40px;
     text-align: center;
-    background-color: white;
+    background-color: transparent;
     display: none;
 }
 
@@ -236,9 +241,32 @@
 	border-top: solid 1px #000000;
 }
 
+.modebox {
+	width: fit-content;
+	float: left;
+	margin-left: 24.5%;
+	font-size: 18px;
+    font-weight: bold;
+    line-height:40px;
+}
+
+.modebtn {
+	width: 60px;
+	font-size: 18px;
+    font-weight: bold;
+	margin-left: 5px;
+	border-radius: 5px;
+	border: 1px solid gray;
+	background-color: transparent;
+}
+
+.modebtn:hover {
+	color: tomato;
+}
+
 .searchbox {
 	width: 223px;
-	margin-left: 65%;
+	margin-left: 76%;
 	border-radius: 5px;
 	border: 1px solid gray;
 }
@@ -259,5 +287,173 @@
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {
-	box-shadow:0 0 0 60px #ffffff inset; 
+	box-shadow:0 0 0 60px #ffffff inset; //設定底色
+}
+
+.toolbar {
+	float: right;
+    position: fixed;
+    top: 40%;
+    right: 0;
+    width: 40px;
+    border-radius: 5px;
+    text-align: center;
+    background-color: silver;
+}
+
+.toolbar_ul {
+	line-height:25px;
+}
+
+.toolbar_li {
+	width: 40px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+   	list-style-type: none;
+}
+
+.toolbar_li:hover .msg {
+	display: block;
+	margin-top: -27px;
+}
+
+.toolbar_li:hover {
+	border-radius: 5px;
+	background-color: gray;
+}
+
+.toolbar_a {
+	font-size: 24px;
+}
+
+.toolbar_a:link {
+	color: white;
+}
+
+.toolbar_a:visited {
+	color: white;
+}
+
+.toolbar_a:hover {
+	color: tomato;
+}
+
+.top_a {
+	color: white;
+	font-size: 24px;
+	cursor: pointer;
+}
+
+.top_a:hover {
+	color:tomato;
+}
+
+.msg {
+	display: none;
+	width: 90px;
+	position: absolute;
+	color: white;
+	margin-top: 2px;
+	right: 35px;
+	font-size: 14px;
+    font-weight: bold;
+	z-index: -1;
+	border-radius: 5px;
+	background-color: gray;
+}
+
+.listbox {
+	height: 220px;
+	position: relative;
+    padding: 20px 10px 20px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.listimgbox {
+	float: left;
+	position: relative;
+    margin: 10px;
+}
+
+.listproimg {
+	width: 150px;
+    height: 150px;
+}
+
+.listinfobox {
+	float: left;
+	margin: 10px;
+	padding: 30px;
+}
+
+.listproname {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.listbuttonbox {
+	float: right;
+}
+
+.listlike {
+	float: right;
+    width: 40px;
+    height: 40px;
+    margin-left: 64%;
+    margin-bottom: 40px;
+    line-height: 40px;
+    background-color: transparent;
+/*     display: none; */
+}
+
+.listlike_button {
+	color: red;
+	border-radius: 25px;
+	border: 2px solid gray;
+	background-color: transparent;
+}
+
+.listlike_button:hover {
+	border-color: red;
+}
+
+.listproprice {
+	clear: both;
+    font-size: 28px;
+    font-weight: bold;
+    margin-left: 35%;
+    margin-bottom: 10px;
+}
+
+.listcart {
+    width: 200px;
+    border-radius: 5px;
+    border: 3px solid gray;
+}
+
+.listcart_a {
+	color: black;
+}
+
+.listcart_a:link {
+	color: black;
+}
+
+.listcart_a:visited {
+	color: black;
+}
+
+.listcart_a:hover {
+	color: tomato;
+}
+
+.listcartimg {
+	float: left;
+	width: 40px;
+    height: 40px;
+}
+
+.listcarttext {
+    font-size: 30px;
+    font-weight: bold;
 }

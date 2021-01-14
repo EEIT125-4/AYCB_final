@@ -184,6 +184,9 @@ public class MemberBean implements Serializable {
 	public void setCkpower(boolean ckpower) {
 		this.ckpower = ckpower;
 	}
+	
+	
+	
 
 
 	public MemberBean(Integer id, String account, String name, String password, String address, String phone,

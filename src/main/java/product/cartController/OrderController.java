@@ -35,6 +35,8 @@ import product.cartModel.CartItem;
 import product.cartModel.OrderBean;
 import product.cartModel.OrderItemBean;
 import product.cartService.OrderService;
+import product.model.ProductBean;
+import product.service.ProductService;
 import tool.Common;
 
 @Controller
@@ -45,14 +47,29 @@ public class OrderController {
 	OrderService os;
 	
 	@Autowired
+	ProductService ps;
+	
+	@Autowired
 	ServletContext context;
 
-	
+/**
+ * 1.串接綠界付款 搜尋"綠界 Java GitHub",下載並將ecpay/payment/integration資料夾COPY到專案
+ * 
+ * 2.搜尋"log4j maven",下載Apache Log4j » 1.2.17 貼到pom.xml
+ * 
+ * 3.將 payment_conf.xml 放在 src/main/resources
+ * 
+ * 4.參考ECPayAIO_Java-master >> DOC中的PDF
+ * 
+ * 5.信用卡測試卡號 卡號: 4311-9522-2222-2222
+ *    安全碼: 222
+ *    有效月/年: 輸入的 MM/YYYY 值請大於現在當下時間的月年
+ * **/	
 	
 	
 	public static String genAioCheckOutALL(Integer order,Double amount,String url,String itemDetail,String clentBackURL){
 		
-		AllInOne all = new AllInOne("");
+		AllInOne all = new AllInOne("");//log紀錄
 		AioCheckOutALL obj = new AioCheckOutALL();
 		obj.setMerchantTradeNo("AYCBOrder"+order);
 		
@@ -65,13 +82,13 @@ public class OrderController {
 		obj.setTradeDesc("test Description");
 		
 		/**
-		 * 
+		 * 商品名稱之間用#隔開
 		 */
 		obj.setItemName(itemDetail);
-		//Kevin:這裡實際上沒有效果,因為外網打不進來
-		obj.setReturnURL(url);
-		obj.setNeedExtraPaidInfo("N");
-		obj.setClientBackURL(clentBackURL);
+		
+		obj.setReturnURL(url);//Kevin:這裡實際上沒有效果,因為外網打不進來
+		obj.setNeedExtraPaidInfo("N");//是否需要發票統編
+		obj.setClientBackURL(clentBackURL);//傳回要到的URL
 		String form = all.aioCheckOut(obj, null);
 		
 		System.out.println("form=/n"+form);
@@ -92,10 +109,7 @@ public class OrderController {
 			@RequestParam(value="recipientName",required=false)String receiveName
 			
 			) {
-		
-		
-		
-		
+
 		System.out.println("檢查郵件:"+email);
 		System.out.println("檢查收件人名稱:"+receiveName);
 		
@@ -108,28 +122,28 @@ public class OrderController {
 		
 		Set<OrderItemBean> details = new HashSet<OrderItemBean>();
 		String itemDetail="";
+		
+		
 		for(CartItem cart : items) {
-			OrderItemBean oib = new OrderItemBean(null, cart.getProductImage(), cart.getProductNo(), cart.getProductName(), cart.getProductPrice(), cart.getQtyOrdered());
+			
+			int productNo = cart.getProductNo();
+			ProductBean bean = ps.getProduct(productNo);			
+			
+			OrderItemBean oib = new OrderItemBean(null, bean.getImagepath(), productNo, bean.getProductname(), bean.getProductprice(), cart.getQtyOrdered());
 			details.add(oib);
-			itemDetail+=cart.getProductName()+" : "+cart.getProductPrice()+" * "+cart.getQtyOrdered()+" = $"+cart.getProductPrice()*cart.getQtyOrdered()+"#";
+			
+			itemDetail+=bean.getProductname()+" : "+bean.getProductprice()+" * "+cart.getQtyOrdered()+" = $"+bean.getProductprice()*cart.getQtyOrdered()+"#";
 		}
 	
-//		java.util.Date date = new Date(); 
-//		java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String sTimeString = sdf.format(new Date());
-		Timestamp tTime = Timestamp.valueOf(sTimeString);
-		
-//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss: SSS");
-//		TimeZone zone = TimeZone.getTimeZone("Asia/Taipei");
-//		sdf.setTimeZone(zone);
-//		Date now = new Date();	
+		Timestamp tTime = Timestamp.valueOf(sTimeString);		
 		
 		OrderBean order = new OrderBean(null, name, totalPrice, tTime, "付款成功", details);
-		
-	
+			
 		os.insertOrderBean(order);
+		
 		
 		if(email!=null && !email.equals("")) {
 			try {
@@ -145,7 +159,8 @@ public class OrderController {
 		session.removeAttribute("cart");
 		session.removeAttribute("totalPrice");
 		session.removeAttribute("totalQtyOrdered");
-		String clientBackURL="http://localhost:8080/AYCB_final/";
+		
+		String clientBackURL="http://localhost:8080/AYCB_final/orderManagement";
 		String form=genAioCheckOutALL(order.getOrderNo(), order.getTotalAmount(), context.getContextPath(),itemDetail,clientBackURL)	;
 		session.setAttribute("form", form);
 		
@@ -237,6 +252,12 @@ public class OrderController {
 			@RequestParam(value = "selectindex", required = false) int selectindex			
 	){
 		
+		MemberBean memberBean = (MemberBean) model.getAttribute("member");
+		
+		if(memberBean == null) {
+			return "redirect:/member/login";
+		}
+		
 		List<OrderItemBean> itemList = os.selectOrderItem(selectindex);
 		model.addAttribute("itemList", itemList);
 		
@@ -244,7 +265,13 @@ public class OrderController {
 	}
 
 	@GetMapping("/orderManagement")
-	public String OrderManagement( ) {
+	public String OrderManagement(Model model ) {
+		
+		MemberBean memberBean = (MemberBean) model.getAttribute("member");
+		
+		if(memberBean == null) {
+			return "redirect:/member/login";
+		}
 		
 		return "product/historyOrders";
 	}
