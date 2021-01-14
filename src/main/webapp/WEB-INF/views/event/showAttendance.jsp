@@ -10,39 +10,54 @@
 <meta charset="UTF-8">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/eventpage.css">
+<link REL=STYLESHEET HREF="${pageContext.request.contextPath}/css/manager.css" TYPE="text/css">
 <title>活動資料</title>
 
-<%@include file="../jspf/header.jspf"%>
-
+<%@include file="../jspf/managerheader.jspf"%>
+<body>
 <div>
 
 	<div class="form-inline" style="margin-bottom: 80px; margin-left: 20px;">
 		
-<!-- 		<dl> -->
-<!-- 			<dt> -->
-<!-- 				<A href="" class="btn btn-dark" style="margin: 10px"> -->
-<!-- 					<button class="btn btn-dark" style="width: 120px">會員管理</button> -->
-<!-- 				</A> -->
-<!-- 			</dt> -->
-<!-- 			<dt> -->
-<!-- 				<A href="" class="btn btn-dark" style="margin: 10px"> -->
-<!-- 				<button class="btn btn-dark" style="width: 120px">商品管理</button> -->
-<!-- 				</A> -->
-<!-- 			</dt> -->
-<!-- 			<dt> -->
-<!-- 				<A href="" class="btn btn-dark" style="margin: 10px"> -->
-<!-- 					<button class="btn btn-dark" style="width: 120px">訂單管理</button> -->
-<!-- 				</A> -->
-<!-- 			</dt> -->
-<!-- 			<dt> -->
-<!-- 				<a href="" class="btn btn-dark" style="margin: 10px"> -->
-<!-- 					<button class="btn btn-dark" style="width: 120px">討論區管理</button> -->
-<!-- 				</a> -->
-<!-- 			</dt> -->
-<!-- 			<dt> -->
-<!-- 				<button class="btn btn-dark" style="width: 120px" id="eventmanager">活動管理</button> -->
-<!-- 			</dt> -->
-<!-- 		</dl> -->
+<div class="contentoutbox">
+	<div class="contentbox">
+		<div class="back">
+			<div class="title">後臺管理</div>
+			<div class="mbtnbox">
+				<input class="mbtn" type="button" value="會員"
+					onclick='location.href="${pageContext.request.contextPath}/member/Backstage"'>
+			</div>
+			<div class="mbtnbox">
+				<input class="mbtn" type="button" value="商品"
+					onclick='location.href="${pageContext.request.contextPath}/MProduct"'>
+			</div>
+			<div class="mbtnbox">
+				<input class="mbtn" type="button" value="訂單"
+					onclick='location.href="${pageContext.request.contextPath}/orderManager"'>
+			</div>
+			<div class="mbtnbox">
+				<input class="mbtn" type="button" value="訊息"
+					onclick='location.href="#"'>
+			</div>
+			<div class="mbtnbox">
+				<input class="mbtn" type="button" value="活動" id="e"
+					onclick='location.href="#"'>
+			</div>
+			<div class="mbtnbox">
+				<input class="mbtn" type="button" value="留言板"
+					onclick='location.href="#"'>
+			</div >
+			<div class="mbtnbox">
+				<input class="mbtn" type="button" value="部落格"
+					onclick='location.href="blog/backstage"'>
+			</div>
+			<div class="mbtnbox">
+				<input class="mbtn" type="button" value="影音區"
+					onclick='location.href="#"'>
+			</div>
+		</div>
+	</div>
+</div>
 		<div>
 			<div>
 			<ul class="nav nav-tabs"> 
@@ -56,11 +71,14 @@
 					<button class="nav-link" style="width: 120px; background: none;border: 0px" id="showallevent">所有活動</button>
 <!-- 					</a>						 -->
 					</li>
-			</ul> 
-    			<table class='table table-borderless table-dark'  id ="insertdata">
+			</ul>
+			<div id="aaa" ></div> 
+<!--     			<table class='table table-borderless table-dark'  id ="insertdata"> -->
 
-    			</table>
+<!--     			</table> -->
     	</div>				
+
+
 
 <%-- 				<c:choose> --%>
 <%-- 					<c:when test='${empty attendances}'>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     --%>
@@ -105,7 +123,12 @@
 
 <%@include file="../jspf/footer.jspf"%>
 </body>
-<script type='text/javascript'>
+<script>
+
+$('#e').click(function() {
+	$('#aaa').load("/AYCB_final/event/showEvent1")
+})
+   
      	  
   $('#eventmanager').click(function() {  
  	  $.ajax({ 
@@ -162,7 +185,8 @@
 				+"<td>主辦人</td>" 
 				+"<td>連絡電話</td>" 
 				+"<td>活動敘述</td>" 
-				+"<td>可報名人數</td>" 
+				+"<td>名額</td>" 
+				+"<td>報名人數</td>" 
 				+"<td colspan='2'>修改活動資料</td>"
 				+"</tr>"
    			for (let i = 0; i < data.length; i++) {
@@ -175,6 +199,7 @@
     										+"<td>"+data[i].host+"</td>" 
     										+"<td>"+data[i].hostphone+"</td>" 
     										+"<td>"+data[i].eventdescription+"</td>" 
+    										+"<td>"+data[i].totalpax+"</td>" 
     										+"<td>"+data[i].pax+"</td>" 
                                             +"<td><a href='<c:url value='eventupdate'/>?eventid="+data[i].eventid+"'>編輯</a> |  " 
                                             +"<a href='<c:url value='eventdelete'/>?eventid="+data[i].eventid+"'>刪除</a></td>" 
