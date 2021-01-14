@@ -17,7 +17,6 @@ MemberBean mb = (MemberBean) session.getAttribute("member");
 %>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/jQuery/jquery.cookie.js"></script>
-
 	<style>
 .swal2-confirm {
 
@@ -231,7 +230,10 @@ width:100px;
 	
 
 <script>
-console.log(typeof($.cookie("user")));
+
+
+console.log("cookie="+$.cookie("user"));
+console.log("cookie="+$.cookie("password"));
 </script>
 	
 

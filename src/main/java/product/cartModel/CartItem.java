@@ -4,13 +4,16 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
+import product.model.ProductBean;
+
 
 public class CartItem {
 	
-	private Map<Integer, OrderItemBean> cart = new LinkedHashMap< >();
+	//private Map<Integer, OrderItemBean> cart = new LinkedHashMap< >();
 	private int productNo;
 	private int qtyOrdered;// 採購數量
-
+	ProductBean productBean;
+	
 	
 	public CartItem() {
 		
@@ -23,7 +26,21 @@ public class CartItem {
 	}
 	
 	
-	
+	public CartItem(int productNo, int qtyOrdered, ProductBean productBean) {
+		super();
+		this.productNo = productNo;
+		this.qtyOrdered = qtyOrdered;
+		this.productBean = productBean;
+	}
+
+	public ProductBean getProductBean() {
+		return productBean;
+	}
+
+	public void setProductBean(ProductBean productBean) {
+		this.productBean = productBean;
+	}
+
 	public int getProductNo() {
 		return productNo;
 	}
@@ -41,15 +58,15 @@ public class CartItem {
 	}
 
 	public String getProductName() {
-		return ProductDB.getProductName(productNo-2);
+		return productBean.getProductname();
 	}
 
 	public Double getProductPrice() {
-		return ProductDB.getProductPrice(productNo-2);
+		return productBean.getProductprice();
 	}
 	
 	public String getProductImage() {
-		return ProductDB.getProductImage(productNo-2);
+		return productBean.getImagepath();
 	}
 
 }

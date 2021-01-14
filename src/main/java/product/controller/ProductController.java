@@ -31,7 +31,7 @@ import product.model.ProductBean;
 import product.service.ProductService;
 
 @Controller
-@SessionAttributes({"recordlist", "collection"})
+@SessionAttributes("recordlist")
 public class ProductController {
 
 	@Autowired
@@ -194,10 +194,9 @@ public class ProductController {
 
 	@SuppressWarnings("unchecked")
 	@GetMapping("/Detail")
-	public ModelAndView detail(Model model, 
+	public ModelAndView detail(Model model, HttpSession session,
 			@RequestParam(value = "no", required = false) Integer no,
-			@RequestParam(value = "cate", required = false) String cate
-	) {
+			@RequestParam(value = "cate", required = false) String cate) {
 		ModelAndView mav = new ModelAndView();
 
 		ProductBean detail = ps.getProduct(no);
@@ -208,6 +207,7 @@ public class ProductController {
 
 		boolean history = true;
 		List<ProductBean> list = (List<ProductBean>) model.getAttribute("recordlist");
+		System.out.println("123ooo " + list);
 		if (list != null) {
 			for (int i = 0; i < list.size(); i++) {
 				if (detail.getProductno() != list.get(i).getProductno()) {
@@ -217,16 +217,20 @@ public class ProductController {
 					break;
 				}
 			}
-			
+		} else {
+			list = new ArrayList<>();
+			list.add(detail);
+			session.setAttribute("recordlist", list);
+			history = false;
+			System.out.println("new " + list);
 		}
 		if (history) {
 			list.add(detail);
+			System.out.println(" 123 " + list);
 		}
-		if(list.size()>10) {
+		if (list.size() > 10) {
 			list.remove(list.get(0));
 		}
-		
-		
 
 		CommentBean commentBean = new CommentBean();
 //		model.addAttribute("leave",commentBean);
@@ -238,21 +242,22 @@ public class ProductController {
 	/*
 	 * Kevin:for ajax response
 	 */
-	@PostMapping("/Detail")
-	@ResponseBody
-	public String leaveComment(Model model, @ModelAttribute("leave") CommentBean cb) {
-
-		System.out.println("comment:" + cb);
-		// JAVA的Date轉SQL的Date
-		Timestamp time = new Timestamp(new Date().getTime());
-//		
-		cb.setCommentTime(time);
-		cs.insertComment(cb);
-		List<CommentBean> list = cs.selectAll();
-		model.addAttribute("comments", list);
-
-		return "OK";
-	}
+//	@PostMapping("/Detail")
+//	@ResponseBody
+//	public String leaveComment(Model model, @ModelAttribute("leave") CommentBean cb) {
+//
+//		System.out.println("comment:" + cb);
+//		// JAVA的Date轉SQL的Date
+//		Timestamp time = new Timestamp(new Date().getTime());
+////		
+//		cb.setCommentTime(time);
+//		cb.setMember();
+//		cs.insertComment(cb);
+//		List<CommentBean> list = cs.selectAll();
+//		model.addAttribute("comments", list);
+//
+//		return "OK";
+//	}
 
 	@GetMapping(value = "/GetSeriesByBrand", produces = "application/json")
 	public @ResponseBody List<String> getSeriesByBrand(@RequestParam("brandname") String brandname) {
@@ -272,12 +277,9 @@ public class ProductController {
 		return list;
 	}
 
-	@SuppressWarnings("unchecked")
 	@GetMapping(value = "/Collect", produces = "application/json")
-	public @ResponseBody boolean collect(Model model, HttpSession session,
-			@RequestParam("mid") Integer mid, 
-			@RequestParam("pid") Integer pid
-	) {
+	public @ResponseBody boolean collect(Model model, HttpSession session, @RequestParam("mid") Integer mid,
+			@RequestParam("pid") Integer pid) {
 		List<Integer> list = ps.findcollection(mid);
 		if (list != null) {
 			for (int i = 0; i < list.size(); i++) {
@@ -289,43 +291,50 @@ public class ProductController {
 			}
 		}
 		ps.addcollection(mid, pid);
-//		System.out.println("mid" + mid);
-//		List<CollectBean> clist = ps.collection(mid);
-//		System.out.println("clist" + clist);
-//		List<CollectBean> collection = (List<CollectBean>) model.getAttribute("collection");
-//		collection = clist;
-//		session.setAttribute("collection", collection);
-//		System.out.println("collection" + collection);
-		
 		return true;
 	}
-	
-//	@SuppressWarnings("unchecked")
-//	@GetMapping(value = "/Collectcheck", produces = "application/json")
-//	public @ResponseBody List<Integer> collectcheck(Model model, HttpSession session
-//	) {
-//		List<Integer> list = new ArrayList<>();
-//		List<CollectBean> collection = (List<CollectBean>) model.getAttribute("collection");
-//		System.out.println("CCC " + collection);
-//		MemberBean member = (MemberBean) session.getAttribute("member");
-//		if(collection != null && member != null) {
-//			for (int i = 0; i < collection.size(); i++) {
-//				System.out.println("MMM1 " + collection.get(i).getMid());
-//				System.out.println("MMM2 " + member.getId());
-//				if(collection.get(i).getMid() == member.getId()) {
-//					System.out.println("123~~~~");
-//					System.out.println("pid" + collection.get(i).getPid());
-//					list.add(collection.get(i).getPid());
-//				}
-//			}
-//		}
-//		System.out.println("LLL " + list);
-//		return list;
-//	}
-			
+
+	@GetMapping(value = "/Collectcheck", produces = "application/json")
+	public @ResponseBody List<Integer> collectcheck(Model model, HttpSession session) {
+		List<Integer> list = new ArrayList<>();
+		MemberBean member = (MemberBean) session.getAttribute("member");
+		List<CollectBean> collection = ps.collection(member.getId());
+		if (collection != null && member != null) {
+			for (int i = 0; i < collection.size(); i++) {
+				list.add(collection.get(i).getPid());
+			}
+		}
+		return list;
+	}
 
 	@GetMapping("/History")
-	public String mproduct() {
-		return "product/history";
+	public String history(HttpSession session) {
+		MemberBean mb = (MemberBean) session.getAttribute("member");
+		if (mb != null ) {
+			return "product/history";
+		}else {
+			return "member/login";
+		}
+	}
+	
+	@GetMapping("/Collect")
+	public String collect(Model model, HttpSession session) {
+		MemberBean mb = (MemberBean) session.getAttribute("member");
+		if (mb != null ) {
+			List<ProductBean> list = new ArrayList<>();
+			List<CollectBean> clist = ps.collection(mb.getId());
+			System.out.println("clist" + clist);
+			for(int i=0 ; i<clist.size() ; i++) {
+				System.out.println(clist.get(i).getPid());
+				ProductBean pb = ps.getProduct(clist.get(i).getPid());
+				System.out.println("plist" + pb);
+				list.add(pb);
+			}
+			System.out.println("list" + list);
+			model.addAttribute("collection", list);
+			return "product/collect";
+		}else {
+			return "member/login";
+		}
 	}
 }

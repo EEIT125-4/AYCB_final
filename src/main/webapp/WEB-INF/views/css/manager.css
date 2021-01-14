@@ -29,3 +29,11 @@
 	width: 198px;
 	border-bottom: 3px solid gray;
 }
+
+.rightoutbox {
+	
+    width: auto;
+    position: relative;
+    float: left;
+    left: 350px;
+}

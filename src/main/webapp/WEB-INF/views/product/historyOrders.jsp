@@ -48,9 +48,8 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 	</c:when>
 	<c:when test="${not empty orderList }">
 
-			
-			<form action="<c:url value='member/update' />" method="get">
-		         <fieldset style="margin: auto; position: relative; width: 800px; border: 1px solid transparent;">
+	 <form action="<c:url value='member/update' />" method="get">
+		<fieldset style="margin: auto; position: relative; width: 800px; border: 1px solid transparent;">
 				<h4 style="font-weight: bold; text-align: center">查詢交易歷史清單</h4>
 				<br>
 				<table class="table table-hover" class="row">

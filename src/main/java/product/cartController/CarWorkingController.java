@@ -20,13 +20,18 @@ import member.MemberBean;
 import product.cartModel.CartItem;
 import product.cartModel.ProductDB;
 import product.cartService.OrderService;
+import product.model.ProductBean;
+import product.service.ProductService;
 
 @Controller
-@SessionAttributes({ "cart", "totalPrice", "totalQtyOrdered" })
+@SessionAttributes({ "cart", "totalPrice", "totalQtyOrdered","member" })
 public class CarWorkingController {
 
 	@Autowired
 	OrderService os;
+	
+	@Autowired
+	ProductService ps;
 	
 	@Autowired
 	ServletContext context;
@@ -51,14 +56,17 @@ public class CarWorkingController {
 			@RequestParam(value = "count", defaultValue = "0" ,required = false) Integer count, 
 			HttpSession session) {
 
-		ProductDB db = os.getProductDB();
-		CartItem newCartItem = new CartItem(productno, count);
+		
+		ProductBean bean = ps.getProduct(productno);	
+		
+		CartItem newCartItem = new CartItem(productno, count,bean);
 		
 		List<CartItem> theCart = new ArrayList<CartItem>();
 
 		if (session.getAttribute("cart") == null) {
 
 			theCart = new ArrayList<CartItem>();
+			
 
 			theCart.add(newCartItem);
 			
@@ -77,6 +85,8 @@ public class CarWorkingController {
 			Iterator iter = theCart.iterator();// 轉結構,方便使用方法
 			while (!found && iter.hasNext()) {// 假設沒找到就一筆一筆找, !found->false變true
 				CartItem aCartItem = (CartItem) iter.next();
+				
+				
 				if (aCartItem.getProductNo() == newCartItem.getProductNo()) {
 					aCartItem.setQtyOrdered(aCartItem.getQtyOrdered() + newCartItem.getQtyOrdered());// 同一商品的話,數量加總
 					found = true;
@@ -133,12 +143,18 @@ public class CarWorkingController {
 				totalPrice += price * qtyOrdered;
 				totalQtyOrdered += qtyOrdered;
 			}
-
-			session.setAttribute("totalPrice", totalPrice);
-			session.setAttribute("totalQtyOrdered", totalQtyOrdered);
 			
-			System.out.println("totalPrice" + totalPrice);
+			Double totalAmount = (double) Math.round(totalPrice);//round四捨五入
+			Double Shipping = totalAmount + 50;
+			
+			model.addAttribute("totalPrice", totalAmount);
+			model.addAttribute("totalQtyOrdered", totalQtyOrdered);
+			model.addAttribute("Shipping", Shipping);//加運費
+			
+			
+			System.out.println("totalPrice" + totalAmount);
 			System.out.println("totalQtyOrdered" + totalQtyOrdered);
+			System.out.println("Shipping" + Shipping);
 
 			return "product/checkout";
 		}
