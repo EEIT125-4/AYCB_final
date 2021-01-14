@@ -1,10 +1,10 @@
-.historybox {
+.likebox {
 	margin: 20px auto;
 	width: 1500px;
 	border: 2px solid #212529;
 }
 
-.historytb {
+.liketb {
 	width: 100%;
     margin-bottom: 1rem;
     color: #212529;
@@ -19,7 +19,7 @@
 	vertical-align: middle;
 }
 
-.historyth {
+.liketh {
 	padding: 10px;
 	font-size: 18px;
 	font-weight: bold;
@@ -29,7 +29,7 @@
 	border-bottom: 2px solid #dee2e6;
 }
 
-.historytd {
+.liketd {
 	padding: 10px;
 	font-size: 18px;
 	font-weight: bold;
@@ -38,12 +38,12 @@
 	border-top: 1px solid #dee2e6;
 }
 
-.historyimg {
+.likeimg {
 	width: 80px;
 	height: 80px;
 }
 
-.historycartimg {
+.likecartimg {
     width: 30px;
     height: 30px;
 }

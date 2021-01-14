@@ -18,47 +18,47 @@ if (session.getAttribute("member") != null) {
 <script src="https://code.jquery.com/jquery-3.5.1.js"
 	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 	crossorigin="anonymous"></script>
-<link REL=STYLESHEET HREF="css/history.css" TYPE="text/css">
+<link REL=STYLESHEET HREF="css/collect.css" TYPE="text/css">
 
 <title>All You Can Buy</title>
 </head>
 
 <%@include file="../jspf/header.jspf"%>
 <form action="<c:url value='/member/update' />">
-	<div class="historybox">
-		<table class="historytb">
-			<caption class="ct">最近看過的商品</caption>
-			<c:if test='${not empty recordlist}'>
+	<div class="likebox">
+		<table class="liketb">
+			<caption class="ct">收藏清單</caption>
+			<c:if test='${not empty collection}'>
 			<thead>
 				<tr>
-					<th class="historyth">圖片</th>
-					<th class="historyth">商品種類</th>
-					<th class="historyth">品名</th>
-					<th class="historyth">價格</th>
-					<th class="historyth">購買</th>
+					<th class="liketh">圖片</th>
+					<th class="liketh">商品種類</th>
+					<th class="liketh">品名</th>
+					<th class="liketh">價格</th>
+					<th class="liketh">購買</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="history" items="${recordlist}">
+				<c:forEach var="col" items="${collection}">
 					<tr>
-						<td class="historytd"><img class="historyimg"
-							src="${pageContext.request.contextPath}/pic/${history.imagepath}">
+						<td class="liketd"><img class="likeimg"
+							src="${pageContext.request.contextPath}/pic/${col.imagepath}">
 						</td>
-						<td class="historytd">${history.productcategory}</td>
-						<td class="historytd">${history.productname}</td>
-						<td class="historytd">${history.productprice}</td>
-						<td class="historytd"><a
-							href='<c:url value="/cartAdd" />?productno=${history.productno}&count=1'
-							onclick="return addCart()"> <img class='historycartimg'
+						<td class="liketd">${col.productcategory}</td>
+						<td class="liketd">${col.productname}</td>
+						<td class="liketd">${col.productprice}</td>
+						<td class="liketd"><a
+							href='<c:url value="/cartAdd" />?productno=${col.productno}&count=1'
+							onclick="return addCart()"> <img class='likecartimg'
 								src='image/bg_cart_b.svg'></a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 			</c:if>
 			</table>
-			<c:if test='${ empty recordlist}'>
+			<c:if test='${ empty collection}'>
 			<div class="nolist">
-				<b>目前無瀏覽紀錄</b>
+				<b>目前無收藏紀錄</b>
 			</div>
 			</c:if>
 	</div>

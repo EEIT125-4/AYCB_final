@@ -377,5 +377,4 @@ public class ProductDaoImpl implements ProductDao {
 		Session session = factory.getCurrentSession();
 		return session.createQuery(hql).setParameter("mid", mid).getResultList();
 	}
-	
 }

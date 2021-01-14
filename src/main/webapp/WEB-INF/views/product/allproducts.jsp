@@ -4,10 +4,10 @@
 
 <%
 	boolean login = false;
-	if (session.getAttribute("member") != null) {
-		MemberBean member = (MemberBean) session.getAttribute("member");
-		login = true;
-	}
+if (session.getAttribute("member") != null) {
+	MemberBean member = (MemberBean) session.getAttribute("member");
+	login = true;
+}
 %>
 
 <!DOCTYPE html>
@@ -96,6 +96,11 @@
 					<!-- 				<div> -->
 				</div>
 			</div>
+			<div class="modebox">
+				顯示方式:
+				<button class="modebtn">標準</button>
+				<button class="modebtn">序列</button>
+			</div>
 			<div class="searchbox">
 				<input id="keyword" class="searchinput" type="text">
 				<button class="searchbtn" onclick="Keywordproducts(1)">
@@ -105,6 +110,14 @@
 			</div>
 			<div id="proarea" class="rightoutbox"></div>
 			<div id="pagearea" class="page"></div>
+			<div class="toolbar">
+				<ul class="toolbar_ul">
+					<li class="toolbar_li"><a class="toolbar_a" href='<c:url value="/car" />'><i class="fa fa-shopping-cart" aria-hidden="true"></i><span class="msg">購物車</span></a></li>
+					<li class="toolbar_li"><a class="toolbar_a" href="<c:url value='/History' />"><i class="fa fa-clock-o" aria-hidden="true"></i><span class="msg">瀏覽紀錄</span></a></li>
+					<li class="toolbar_li"><a class="toolbar_a" href="<c:url value='/Collect' />"><i class="fa fa-heart" aria-hidden="true"></i><span class="msg">收藏清單</span></a></li>
+					<li class="toolbar_li"><span id="top" class="top_a"><i class="fa fa-chevron-up" aria-hidden="true"></i><span class="msg">回TOP</span></span></li>
+				</ul>
+			</div>
 		</div>
 	</div>
 </div>
@@ -205,6 +218,7 @@ function Brandproducts(brand, i) {
 }
 
 function Seriesproducts(series, i) {
+	Collectcheck();
 	$.ajax({
 		async : false,
 		type : 'GET',
@@ -253,6 +267,7 @@ function Seriesproducts(series, i) {
 }
 
 function Cateproducts(cate, i) {
+	Collectcheck();
 	$.ajax({
 		async : false,
 		type : 'GET',
@@ -303,6 +318,7 @@ function Cateproducts(cate, i) {
 }
 
 function Keywordproducts(i) {
+	Collectcheck();
 	var keyword = $("#keyword").val();
 	$.ajax({
 		async : false,
@@ -336,7 +352,7 @@ function Keywordproducts(i) {
 						+  "<a href='${pageContext.request.contextPath}/member/login'>"
 						+  "<img class='cartimg' src='image/bg_cart_b.svg'></a>"
 						+  "<%}%>" 
-						+ "</div></div></div>";
+						+  "</div></div></div>";
 						}
 						$("#proarea").html(content);
 
@@ -348,63 +364,68 @@ function Keywordproducts(i) {
 						}
 						page += "</ul>";
 						$("#pagearea").html(page);
-		}
-	});
-}
-
-function Collect(mid, pid) {
-	$.ajax({
-		async : true,
-		type : 'GET',
-		url : 'Collect',
-		data : {
-			"mid" : mid,
-			"pid" : pid
-		},
-		dataType : "json",
-		success : function(data) {
-			if (data) {
-				swal.fire("收藏成功", "", "success");
-				$('#heart' + pid).attr('class', 'fa fa-heart');
-				$('#like' + pid).css('display', 'block');
-				$('#likebtn' + pid).css('border', 'none');
-			} else {
-				swal.fire("取消收藏", "", "error");
-				$('#heart' + pid).attr('class', 'fa fa-heart-o');
-				$('#like' + pid).css('display', 'none');
-				$('#like' + pid).removeAttr("style");
-				$('#likebtn' + pid).css('border', '2px solid gray');
-			}
-		}
-	});
-}
-
-function Collectcheck() {
-	$.ajax({
-		async : true,
-		type : 'GET',
-		url : 'Collectcheck',
-		dataType : "json",
-		success : function(data) {
-			alert(data);
-			for (let i = 0; i < data.length; i++) {
-				$('#heart' + data[i]).attr('class', 'fa fa-heart');
-				$('#like' + data[i]).css('display', 'block');
-				$('#likebtn' + data[i]).css('border', 'none');
-			}
-		}
-	});
-}
-
-function navwheel() {
-	if (window.scrollY < 150) {
-		document.getElementById("menu").style.removeProperty("top");
+					}
+				});
 	}
-	if (window.scrollY > 150) {
-		document.getElementById("menu").style.setProperty("top", "10px");
+
+	function Collect(mid, pid) {
+		$.ajax({
+			type : 'GET',
+			url : 'Collect',
+			data : {
+				"mid" : mid,
+				"pid" : pid
+			},
+			dataType : "json",
+			success : function(data) {
+				if (data) {
+					swal.fire("收藏成功", "", "success");
+					$('#heart' + pid).attr('class', 'fa fa-heart');
+					$('#like' + pid).css('display', 'block');
+					$('#likebtn' + pid).css('border', 'none');
+				} else {
+					swal.fire("取消收藏", "", "error");
+					$('#heart' + pid).attr('class', 'fa fa-heart-o');
+					$('#like' + pid).css('display', 'none');
+					$('#like' + pid).removeAttr("style");
+					$('#likebtn' + pid).css('border', '2px solid gray');
+				}
+			}
+		});
 	}
-}
-document.body.onwheel = navwheel;
+
+	function Collectcheck() {
+		$.ajax({
+			type : 'GET',
+			url : 'Collectcheck',
+			dataType : "json",
+			success : function(data) {
+				for (let i = 0; i < data.length; i++) {
+					$('#heart' + data[i]).attr('class', 'fa fa-heart');
+					$('#like' + data[i]).css('display', 'block');
+					$('#likebtn' + data[i]).css('border', 'none');
+				}
+			}
+		});
+	}
+
+// 	function navwheel() {
+// 		if (window.scrollY < 150) {
+// 			document.getElementById("menu").style.removeProperty("top");
+// 		}
+// 		if (window.scrollY > 150) {
+// 			document.getElementById("menu").style.setProperty("top", "10px");
+// 		}
+// 	}
+// 	document.body.onwheel = navwheel;
+	
+	$(function(){
+	    $("#top").click(function(){
+	        jQuery("html,body").animate({
+	            scrollTop:0
+	        },1000);
+	    });
+	});
 </script>
 <%@include file="../jspf/footer.jspf"%>
 </body>
