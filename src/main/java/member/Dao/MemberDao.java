@@ -31,4 +31,6 @@ public interface MemberDao {
 	void ckpower2(Integer id);
 	boolean ckpower(String account);
 
+	int deleteMember(int account);
+
 }

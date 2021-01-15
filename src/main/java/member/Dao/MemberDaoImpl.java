@@ -159,18 +159,20 @@ public class MemberDaoImpl implements MemberDao {
 //		return mb;
 //	}
 
-//	@Override
-//	public int deleteMember(int account) {
-//		int count = 0;
-//		Session session = factory.getCurrentSession();
-//
-//			MemberBean mb = new MemberBean();
-//			mb.setAccount(null);
-//			session.delete(mb);
-//			count++;
-////		
-//		return count;
-//	}
+	
+	//刪除
+	@Override
+	public int deleteMember(int account) {
+		int count = 0;
+		Session session = factory.getCurrentSession();
+
+			MemberBean mb = new MemberBean();
+			mb.setAccount(null);
+			session.delete(mb);
+			count++;
+		
+		return count;
+	}
 //更新
 	@Override
 	public int update(MemberBean mb) {
@@ -213,12 +215,13 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public MemberBean getMember(Integer pk) {
 		Session session = factory.getCurrentSession();
 
 		String hql = "FROM MemberBean m WHERE m.id = :pk";
 
-		@SuppressWarnings("unchecked")
+		
 		Query<MemberBean> query = session.createQuery(hql);
 		MemberBean mb = query.setParameter("pk", pk).getSingleResult();
 		return mb;
