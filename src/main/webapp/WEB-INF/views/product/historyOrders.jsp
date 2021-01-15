@@ -13,12 +13,6 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-	crossorigin="anonymous">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 <%
 	String user = "";
@@ -49,7 +43,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 	<c:when test="${not empty orderList }">
 
 	 <form action="<c:url value='member/update' />" method="get">
-		<fieldset style="margin: auto; position: relative; width: 800px; border: 1px solid transparent;">
+		<fieldset style="margin: auto; position: relative; width: 1000px; border: 1px solid transparent;">
 				<h4 style="font-weight: bold; text-align: center">查詢交易歷史清單</h4>
 				<br>
 				<table class="table table-hover" class="row">

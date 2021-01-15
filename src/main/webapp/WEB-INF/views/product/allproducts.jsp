@@ -22,12 +22,25 @@
 <link REL=STYLESHEET HREF="css/inside.css" TYPE="text/css">
 
 <script>
-	function addCart() {
-		if (confirm("加入購物車? ")) {
-			return true;
-		} else {
-			return false;
-		}
+	function addCart(i) {
+		$.ajax({
+			async : true,
+			type : 'GET',
+			url : 'addCart',
+			data : {
+				"productno":i,
+				"count":1
+			},
+			dataType : "json",
+			success : function(data) {
+				Swal.fire({
+					  icon: 'success',
+					  title: '加入購物車',
+					  showConfirmButton: false,
+					  timer: 1500
+					})								
+			}
+		});
 	}
 	
 	$(document).ready(function() {
@@ -134,11 +147,10 @@ function Allproducts(i) {
 						+  "<div class='proprice'>NT$"+data.Products[i].productprice+"</div>"
 						+  "<div class='cart'>"
 						+  "<%if (login) {%>"
-						+  "<a href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
-						+  "<img class='cartimg' src='image/bg_cart_b.svg'></a>"
+						+  "<img class='cartimg' onclick='addCart("+data.Products[i].productno+")' src='image/bg_cart_b.svg'>"
 						+  "<%} else {%>"
 						+  "<a href='${pageContext.request.contextPath}/member/login'>"
-						+  "<img class='cartimg' src='image/bg_cart_b.svg'></a>"
+						+  "<img class='cartimg' src='image/bg_cart_b.svg'>"
 						+  "<%}%>"
 						+  "</div></div></div>";
 			}
@@ -183,8 +195,7 @@ function Brandproducts(brand, i) {
 						+  "<div class='proprice'>NT$"+data.Products[i].productprice+"</div>"
 						+  "<div class='cart'>"
 						+  "<%if (login) {%>"
-						+  "<a href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
-						+  "<img class='cartimg' src='image/bg_cart_b.svg'></a>"
+						+  "<img class='cartimg' onclick='addCart("+data.Products[i].productno+")' src='image/bg_cart_b.svg'>"
 						+  "<%} else {%>"
 						+  "<a href='${pageContext.request.contextPath}/member/login'>"
 						+  "<img class='cartimg' src='image/bg_cart_b.svg'></a>"
@@ -231,8 +242,7 @@ function Seriesproducts(series, i) {
 						+  "<div class='proprice'>NT$"+data.Products[i].productprice+"</div>"
 						+  "<div class='cart'>"
 						+  "<%if (login) {%>"
-						+  "<a href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
-						+  "<img class='cartimg' src='image/bg_cart_b.svg'></a>"
+						+  "<img class='cartimg' onclick='addCart("+data.Products[i].productno+")' src='image/bg_cart_b.svg'>"
 						+  "<%} else {%>"
 						+  "<a href='${pageContext.request.contextPath}/member/login'>"
 						+  "<img class='cartimg' src='image/bg_cart_b.svg'></a>"
@@ -279,8 +289,7 @@ function Cateproducts(cate, i) {
 						+  "<div class='proprice'>NT$"+data.Products[i].productprice+"</div>"
 						+  "<div class='cart'>"
 						+  "<%if (login) {%>"
-						+  "<a href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
-						+  "<img class='cartimg' src='image/bg_cart_b.svg'></a>"
+						+  "<img class='cartimg' onclick='addCart("+data.Products[i].productno+")' src='image/bg_cart_b.svg'>"
 						+  "<%} else {%>"
 						+  "<a href='${pageContext.request.contextPath}/member/login'>"
 						+  "<img class='cartimg' src='image/bg_cart_b.svg'></a>"
@@ -330,8 +339,7 @@ function Keywordproducts(i) {
 						+  "<div class='proprice'>NT$"+data.Products[i].productprice+"</div>"
 						+  "<div class='cart'>"
 						+  "<%if (login) {%>"
-						+  "<a href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
-						+  "<img class='cartimg' src='image/bg_cart_b.svg'></a>"
+						+  "<img class='cartimg' onclick='addCart("+data.Products[i].productno+")' src='image/bg_cart_b.svg'>"
 						+  "<%} else {%>"
 						+  "<a href='${pageContext.request.contextPath}/member/login'>"
 						+  "<img class='cartimg' src='image/bg_cart_b.svg'></a>"
@@ -386,7 +394,7 @@ function Collectcheck() {
 		url : 'Collectcheck',
 		dataType : "json",
 		success : function(data) {
-			alert(data);
+			//alert(data);
 			for (let i = 0; i < data.length; i++) {
 				$('#heart' + data[i]).attr('class', 'fa fa-heart');
 				$('#like' + data[i]).css('display', 'block');

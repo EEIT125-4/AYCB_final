@@ -30,12 +30,6 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-	crossorigin="anonymous">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 <title>購物車</title>
 <style>
@@ -118,6 +112,8 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 			<thead>
 				<tr bgcolor='#F0F0F0'>
 					<th style="text-align: center; vertical-align: middle;" scope="col">商品</th>
+					<th style="text-align: center; vertical-align: middle;" scope="col">品牌</th>
+					<th style="text-align: center; vertical-align: middle;" scope="col">系列</th>
 					<th style="text-align: center; vertical-align: middle;" scope="col">內容</th>
 					<th style="text-align: center; vertical-align: middle;" scope="col">價格</th>
 					<th style="text-align: center; vertical-align: middle;" scope="col">數量</th>
@@ -137,12 +133,13 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 					<td style="text-align: center; vertical-align: middle;" scope="row"><img
 						class="img"
 						src="${pageContext.request.contextPath}/pic/<%=aCartItem.getProductImage()%>"></td>
+					<td style="text-align: center; vertical-align: middle;"><%=aCartItem.getBrandName()%></td>
+					<td style="text-align: center; vertical-align: middle;"><%=aCartItem.getProductSeries()%></td>	
 					<td style="text-align: center; vertical-align: middle;"><%=aCartItem.getProductName()%></td>
-					<td style="text-align: center; vertical-align: middle;">NT$ <fmt:formatNumber value="<%=aCartItem.getProductPrice()%>"  pattern="###,###" /></td>
-					
+					<td style="text-align: center; vertical-align: middle;">NT$ <fmt:formatNumber value="<%=aCartItem.getProductPrice()%>"  pattern="###,###" /></td>					
 					<td style="text-align: center; vertical-align: middle;">	
-					<input type="number" name="quantity" id="<%=i%>" 
-							min="1" max="10" value="<%=aCartItem.getQtyOrdered()%>" style="width: 3em" onchange="checkQty(<%=i %>);">
+						<input type="number" name="quantity" id="<%=i%>" 
+								min="1" max="10" value="<%=aCartItem.getQtyOrdered()%>" style="width: 3em" onchange="checkQty(<%=i %>);">
 					</td>
 					
 					<td style="text-align: center; vertical-align: middle;">						
@@ -170,7 +167,8 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 			<br>
 		</fieldset>
 		</div>
-			
+			<br>
+			<br>
 			<%
 				} else {
 			%>
@@ -184,7 +182,9 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 					
 					}
 			%>
-			
+			<br>
+			<br>
+			<br>
 
 	
 </div>
@@ -197,9 +197,14 @@ function checkQty(e){
 	xhr.send();
 	xhr.onload = function() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
-			alert("success")
+			Swal.fire({
+				  icon: 'success',
+				  title: '修改成功',
+				  showConfirmButton: false,
+				  timer: 1500
+				})
 		}else{
-			alert("fail")
+			//alert("fail")
 		}
 	
 	console.log($("#"+e).val())
