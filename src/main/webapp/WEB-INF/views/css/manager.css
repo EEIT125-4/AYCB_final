@@ -1,25 +1,28 @@
 .back {
-    width: 15%;
-    height: 614px;
-    float:left;
-    border-right: 3px solid gray;
+	position: absolute;
+    width: 12%;
+    height: 84.2%;
+    margin: 20px;
+    border: 2px solid gray;
     background-color: white;
 }
 
 .title {
-	width: 198px;
+	width: 80%;
     text-align: center;
-    color: black;
-    padding: 7px ;
+    color: #060606;
+    margin: 0 auto;
+    padding: 20px;
     font-size: 24px;
     font-weight: bold;
-    border-bottom: 3px solid gray;
+    border-bottom: 2px solid #060606;
 }
 
 .mbtn {
-    width: 196px;
+    width: 80%;
     height: 50px;
-    color: black;
+    color: #060606;
+    margin: 0 auto;
     font-size: 24px;
     font-weight: bold;
     background-color: white;
@@ -27,14 +30,12 @@
 }
 
 .mbtnbox {
-	width: 198px;
-	border-bottom: 3px solid gray;
+	width: 100%;
+    margin: 20px;
 }
 
-.rightoutbox {
-	
-    width: 70%;
-    position: relative;
-    float: left;
-    left: 5%;
+.mbtn:hover {
+	border-radius: 5px;
+/* 	border: 2px solid sgray; */
+	background-color: #E0E0E0;
 }
