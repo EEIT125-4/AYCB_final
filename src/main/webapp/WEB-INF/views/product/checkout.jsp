@@ -28,12 +28,6 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-	crossorigin="anonymous">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 <title>購物車</title>
 <style>
@@ -92,8 +86,70 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 	font-weight: bold;
 }
 </style>
+
+<% 
+   MemberBean member = (MemberBean) session.getAttribute("member");
+%>  
+
+ 	
 <script>
+
+// function paymentTypeChange() {
+// 	//#paymentType, #shippingType
+// 	var payVal = $("#paymentType").val();
+// 	if(payVal.length > 0){
+// 		var shipData = $("#paymentType option:selected").attr("data-shippingArray");
+// 		if(shipData.length > 0){
+// 			$("#shippingType option").addClass("hidden");
+// 			$("#shippingType option[value='']").removeClass("hidden");
+// 			shipArray = shipData.split(",");
+// 			for(i = 0; i < shipArray.length; i++){
+// 				$("#shippingType option[value='"+shipArray[i]+"']").removeClass("hidden");
+// 			}
+// 		}			
+// 	}
+// 	calculateFee();	//calculate計算  
+// }
+
+// function shippingTypeChange() {
+//     var width = parseFloat($("#recipientPhone").css("width"));
+//     console.log(width);
+
+//     $("#shippingAddress").removeAttr("list");
+//     $("#shippingAddress").removeAttr("autocomplete");
+//     $("#shippingAddress").removeAttr("placeholder");
+//     $("#shippingAddress").attr("readonly", false);
+//     $("#shippingAddress").attr("autocomplete", "on");
+//     $("#storeButton").css("display", "none");
+//     $("#shippingAddress").val("");
+<%--     if ($("#shippingType").val() == "<%= ShippingType.SHOP.name()%>") { --%>
+//         $("#shippingAddress").attr("placeholder", "請選擇門市");
+//         $("#shippingAddress").attr("list", "shopList");
+//         $("#shippingAddress").attr("autocomplete", "off");
+<%--     } else if ($("#shippingType").val() == "<%= ShippingType.STORE.name()%>") { --%>
+//         $("#shippingAddress").attr("readonly", true);
+//         $("#shippingAddress").attr("placeholder", "請點選下方的按鈕選擇超商");
+//         //$("#shippingAddress").css("width", width - 77);
+//         $("#storeButton").css("display", "inline");
+//     } else {
+//         $("#shippingAddress").attr("placeholder", "請輸入收件地址");
+//     }
+    
+//     calculateFee();
+// }	
+
+// function calculateFee(){
+// 	var totalAmount = parseFloat($("#totalAmount").text());
+// 	var paymentFee = parseFloat($("#paymentType option:selected").attr("data-fee"));
+// 	var shippingFee = parseFloat($("#shippingType option:selected").attr("data-fee"));
+// 	var total = totalAmount+(isNaN(paymentFee)?0:paymentFee)+(isNaN(shippingFee)?0:shippingFee);
+// 	console.log(totalAmount, paymentFee, shippingFee, total);
+// 	$("#totalWithFee").text(total);
+	
+// }
+
 function copyMember(){
+	console.log("1111")
 	$("#recipientName").val("${sessionScope.member.name}");
 	$("#recipientEmail").val("${sessionScope.member.email}");
 	$("#recipientPhone").val("${sessionScope.member.phone}");
@@ -105,23 +161,22 @@ function storeAddressChange(){
 	var store = $("#shippingAddress").val();
 	console.log(store)
 // 	var addr;
-	if(store!=""){
+//	if(store!=""){
 // 		start = store.indexOf("門市-")+3;//數字
 // 		addr = store.substring(start);//把門市-後的字串抓出來
 // 		alert(addr);
 //		alert(store);
-	}
+//	}
 	var url = "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=" + store + "&z=16&output=embed&t=";
 //	alert(url);
 	$("#myMap").attr("src",url);
 }
+
+storeAddressChange();
 </script>
 </head>
 <%@include file="../jspf/header.jspf"%>
 
- 	<% 
- 		MemberBean member = (MemberBean) session.getAttribute("member");
- 	%>  
 
 <div>
 	<ol class="progress_bar">
@@ -132,17 +187,19 @@ function storeAddressChange(){
 </div>
 <br>
 <br>
-<form name="checkoutForm" action="<c:url value="/orderInsert"/>" method="get">
+<form id="cartForm" name="checkoutForm" action="<c:url value="/orderInsert"/>" method="get">
 
 <fieldset
-	style="margin: auto; position: relative; width: 1250px; border: 1px solid transparent;">
+	style="margin: auto; position: relative; width: 1300px; border: 1px solid transparent;">
 	<h4 style="font-weight: bold; text-align: center">購物清單</h4>
 	<br>
 	
 	<table id="tab" class="table table-hover">
 		<thead>
 			<tr bgcolor='#F0F0F0'>
-				<th style="text-align: center; vertical-align: middle;" scope="col">商品</th>
+				<th style="text-align: center; vertical-align: middle; width: 150px" scope="col">商品</th>
+				<th style="text-align: center; vertical-align: middle; width: 150px" scope="col">品牌</th>
+				<th style="text-align: center; vertical-align: middle; width: 250px" scope="col">系列</th>				
 				<th style="text-align: center; vertical-align: middle;" scope="col">內容</th>
 				<th style="text-align: center; vertical-align: middle;" scope="col">價格</th>
 				<th style="text-align: center; vertical-align: middle;" scope="col">數量</th>
@@ -160,6 +217,8 @@ function storeAddressChange(){
 				<td style="text-align: center; vertical-align: middle;" scope="row"><img
 					class="img"
 					src="${pageContext.request.contextPath}/pic/<%=item.getProductImage()%>"></td>
+				<td style="text-align: center; vertical-align: middle;"><%=item.getBrandName()%></td>
+				<td style="text-align: center; vertical-align: middle;"><%=item.getProductSeries()%></td>
 				<td style="text-align: center; vertical-align: middle;"><%=item.getProductName()%></td>
 				<td style="text-align: center; vertical-align: middle;">NT$ <fmt:formatNumber value="<%=item.getProductPrice()%>"  pattern="###,###" /></td>
 				<td style="text-align: center; vertical-align: middle;"><%=item.getQtyOrdered()%></td>
@@ -170,8 +229,8 @@ function storeAddressChange(){
 			%>
 			<tr>
 				<th
-					style="text-align: center; vertical-align: middle; font-size: 20px;"
-					colspan="2">總計金額：</th>
+					style="text-align: right; vertical-align: middle; font-size: 20px;"
+					colspan="4">總計金額：</th>
 				<th
 					style="text-align: center; vertical-align: middle; font-size: 18px;">NT$ <fmt:formatNumber value="${totalPrice}"  pattern="###,###" />元</th>
 				<th
@@ -180,58 +239,59 @@ function storeAddressChange(){
 		</tbody>
 		<tfoot>
 		<tr bgcolor='#F0F0F0'>
-		<td colspan="1" style="text-align: center;vertical-align: middle; font-size: 18px;"><label>付款方式：</label>
+		<td colspan="2" style="text-align: center;vertical-align: middle; font-size: 18px;"><label>付款方式：</label>
 							<select id="paymentType" name="paymentType" required
 							onclick="">
 								<option value="">請選擇...</option>
-								<option value="">超商付款</option>
-								<option value="">信用卡</option>
+								<option value="超商付款">超商付款</option>
+								<option value="信用卡">信用卡</option>
 		</select></td>
-		<td colspan="1" style="text-align: center;vertical-align: middle; font-size: 18px;"><label>貨運方式：</label>
+		<td colspan="2" style="text-align: left;vertical-align: middle; font-size: 18px;"><label>貨運方式：</label>
 							<select id="shippingType" name="shippingType" required
-							onchange="shippingTypeChange()">
+							onchange="">
 								<option value="">請選擇...</option>
-								<option value="">超商取貨</option>
-								<option value="">宅配到家</option>
+								<option value="超商取貨">超商取貨</option>
+								<option value="宅配到家">宅配到家</option>
 								
 		</select></td>
-		<td colspan="2" style="text-align: right;vertical-align: middle; font-size: 18px;">含物流費共： NT$ <span
+		<td colspan="4" style="text-align: center;vertical-align: middle; font-size: 18px;">含物流費共： NT$ <span
 							id="totalWithFee"><fmt:formatNumber value="${Shipping}"  pattern="###,###" /></span>元
 		</td>
 		</tr>
 		
 			<tr>
-				<td colspan="2" style="text-align: center; vertical-align: middle;">
-					<fieldset id="recipient">
+				<td colspan="3" style="text-align: center; vertical-align: middle;">
+					<fieldset id="recipient" style="border: 1px solid transparent;">
 						<legend>
 							收件人<a href='javascript:copyMember()' style="color: #CD5C5C">同訂購人</a>
 						</legend>
 						<label>姓名：</label><br> 
 						<input id="recipientName" name="recipientName" required style="width: 100%;"
-							value=""><br> 
+							value="${param.recipientName}"><br> 
 						<label>Email：</label><br>
 						<input id="recipientEmail" name="recipientEmail" required
-							style="width: 100%;" value=""><br>
+							style="width: 100%;" value="${param.recipientEmail}"><br>
 						<label>電話：</label><br> 
 						<input id="recipientPhone" name="recipientPhone" required style="width: 100%;"
-							value=""><br> 
+							value="${param.recipientPhone}"><br> 
 						<label>地址：</label><br>
 						<input type="search" id="shippingAddress" name="shippingAddress" list="shopList"
-							required onchange="storeAddressChange()" style="width: 100%;" value="">
+							required onchange="storeAddressChange()" style="width: 100%;" value="${param.shippingAddress}">
 						<datalist id="shopList">
-							<option value="北車門市-台北市中正區忠孝西路一段49號B1樓">
-							<option value="小巨蛋門市-台北市松山區南京東路四段2號">
-							<option value="世運門市-台北市萬華區昆明街81號83號">
+							<option value="7-ELEVEN北車門市-台北市中正區忠孝西路一段49號B1樓">
+							<option value="7-ELEVEN小巨蛋門市-台北市松山區南京東路四段2號">
+							<option value="7-ELEVEN世運門市-台北市萬華區昆明街81號83號">
+							<option value="<%=member.getAddress()%>">
 						</datalist>
 						<br><br>
-						<button type="button" style="display: none;" id="storeButton"
+						<button type="button" style="" id="storeButton"
 							onclick='goEzShip()'>選擇超商</button>
-						<input type="submit" style="display: none;" value="確定結帳">
+<!-- 						<input type="submit" style="display: none;" value="確定結帳"> -->
 					</fieldset>
 				</td>
-				<td colspan="2" style="text-align: center;"><iframe id="myMap"
-						width='550' height='400'
-						src='https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=台北市中正區忠孝西路一段49號B1樓&z=16&output=embed&t='></iframe>
+				<td colspan="3" style="text-align: center;"><iframe id="myMap"
+						width='800' height='500'
+						src='https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=台北市萬華區昆明街81號83號&z=16&output=embed&t='></iframe>
 				</td>
 			</tr>
 		</tfoot>
@@ -242,69 +302,56 @@ function storeAddressChange(){
 			
 			<input type="hidden" name="todo" value="commit">
 			<!-- hidden隱藏欄位 -->
-			<input class="btn btn-dark" type="submit" value="送出訂單" >
-			
-<!-- 				<button class="btn btn-dark" type="button"  value="送出訂單" onclick="getForm()">送出訂單</button> -->
-
+			<input class="btn btn-primary" type="submit" value="送出訂單" >
 		
 	</div>
+	<br><br>
 </fieldset>
 </form>
 
-
+<form method="post" action="http://map.ezship.com.tw/ezship_map_web.jsp" id="ezForm">
+		            <input type="hidden" name="suID"  value="test@vgb.com"> <!-- 業主在 ezShip 使用的帳號, 這裡可以隨便寫 -->
+		            <input type="hidden" name="processID" value="VGB201804230000005"> <!-- 購物網站自行產生之訂單編號, 這裡可以隨便寫 -->
+		            <input type="hidden" name="stCate"  value=""> <!-- 取件門市通路代號 -->            
+		            <input type="hidden" name="stCode"  value=""> <!-- 取件門市代號 -->            
+		            <input type="hidden" name="rtURL" id="rtURL" value=""><!-- 回傳路徑及程式名稱 -->
+		            <input type="hidden" id="webPara" name="webPara" value=""><!-- 我們網站所需的原Form Data。ezShip會將原值回傳，供我們網站帶回畫面用 -->
+</form>		
+		        
 <script>
 
-function getForm(){
-	
-	
-	$.ajax({
-		
-		 type: "GET", //傳送方式
-         url: "${pageContext.request.contextPath}/orderInsert", 
-         dataType: "text", //資料格式
-//          data: { //傳送資料            	
-//          	"blogId":blogId,
-//          	"state":state                
-//          },
-//          success: function(data) {
-//          	if(data){
-//          		swal.fire({
-//      				  title: "已刪除",
-//      				  text: "狀態變更",
-//      				  icon: "success",
-//      				  button: "OK",
-//      				});
-//          		console.log("this="+$(this));
-//          		$(this).parent().parent().remove();
-//          		var target=$(this).parent().parent();
-//          		target.css({"color":"red","border":"2px solid red"});
-         		
-//          	}else{
-         		
-//          	 	swal.fire({
-//    				  title:'刪除失敗',
-//    				  text: '資料刪除過程中現異常,請聯絡管理員',
-//    				  icon: "error",
-//    				  button: "OK",
-//    				});        		
-//          	}
-		     				
-//          },
-//          error: function(data) {
-         	
-//          	swal.fire({
-//  				  title:'請求錯誤',
-//  				  text: 'server無回應,聯絡管理員',
-//  				  icon: "error",
-//  				  button: "OK",
-//  				});        		
-//        	}  
-		
-		
-		
-		
-	})
-}
+// 	$(initValue);
+// 	function initValue() {
+<%-- 	<% if(request.getParameter("paymentType")!=null){%> --%>
+<%-- 				$("#paymentType").val('<%=request.getParameter("paymentType")%>'); --%>
+// 				//paymentTypeChange();
+<%-- 			<%}%> --%>
+			
+<%-- 			<% if(request.getParameter("shippingType")!=null){%> --%>
+<%-- 				$("#shippingType").val('<%=request.getParameter("shippingType")%>'); --%>
+// 				//shippingTypeChange();
+<%-- 				$("#shippingAddress").val('<%=request.getParameter("shippingAddress")%>'); --%>
+<%-- 			<%}%> --%>
+// 	}
+
+    function goEzShip() {
+        $("#recipientName").val($("#recipientName").val().trim());//抓取輸入項的值，並且把字串2旁的空白刪除  trim刪除空白
+        $("#recipientEmail").val($("#recipientEmail").val().trim());
+        $("#recipientPhone").val($("#recipientPhone").val().trim());
+        $("#shippingAddress").val($("#shippingAddress").val().trim());
+        //alert("recipientName"+$("#recipientName").val())
+        var protocol = "<%=request.getProtocol().toLowerCase().substring(0, request.getProtocol().indexOf("/"))%>";
+        var ipAddress = "<%= java.net.InetAddress.getLocalHost().getHostAddress()%>";
+        var url = protocol + "://localhost:" + location.port + "<%=request.getContextPath()%>/ezshipBack";
+        $("#rtURL").val(url);
+        
+        $("#webPara").val($("#cartForm").serialize());		
+		//alert(url);
+        alert($("#webPara").val());
+		//alert($("#cartForm").serialize());		
+        $("#ezForm").submit();
+    }
+
 
 </script>
 <%@include file="../jspf/footer.jspf"%>

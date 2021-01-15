@@ -4,11 +4,10 @@
 
 <%
 	boolean login = false;
-if (session.getAttribute("member") != null) {
-	MemberBean member = (MemberBean) session.getAttribute("member");
-
-	login = true;
-}
+	if (session.getAttribute("member") != null) {
+		MemberBean member = (MemberBean) session.getAttribute("member");
+		login = true;
+	}
 %>
 
 <!DOCTYPE html>
@@ -27,7 +26,8 @@ if (session.getAttribute("member") != null) {
 <form action="<c:url value='/member/update' />">
 	<div class="historybox">
 		<table class="historytb">
-			<caption class="ct">最近看過的商品</caption>
+			<div class="ct">最近看過的商品</div>
+			<div class="count">${recordlist.size()}/10 (最多紀錄10筆)</div>
 			<c:if test='${not empty recordlist}'>
 			<thead>
 				<tr>

@@ -22,12 +22,25 @@ if (session.getAttribute("member") != null) {
 <link REL=STYLESHEET HREF="css/inside.css" TYPE="text/css">
 
 <script>
-	function addCart() {
-		if (confirm("加入購物車? ")) {
-			return true;
-		} else {
-			return false;
-		}
+	function addCart(i) {
+		$.ajax({
+			async : true,
+			type : 'GET',
+			url : 'addCart',
+			data : {
+				"productno":i,
+				"count":1
+			},
+			dataType : "json",
+			success : function(data) {
+				Swal.fire({
+					  icon: 'success',
+					  title: '加入購物車',
+					  showConfirmButton: false,
+					  timer: 1500
+					})								
+			}
+		});
 	}
 	
 	$(document).ready(function() {
@@ -128,48 +141,47 @@ if (session.getAttribute("member") != null) {
 <script>
 function Allproducts(i) {
 	CK1();
-		$.ajax({
-			async : false,
-			type : 'GET',
-			url : "AllProducts",
-			data : {"pageNo":i},
-			dataType : "json",
-			success : function(data) {
-				var content = "";
-				for (let i = 0; i < data.Products.length; i++) {
-					content += "<div class='rightside'>"
-							+  "<div class='imgbox'>"
-							+  "<div id='like"+data.Products[i].productno+"' class='like'>"
-							+  "<%if (session.getAttribute("member") != null) {%>"
-							+  "<button id='likebtn"+data.Products[i].productno+"' class='like_button' onclick='Collect1("+${member.id}+","+data.Products[i].productno+")'>"
-							+  "<i id='heart"+data.Products[i].productno+"' class='fa fa-heart-o'></i></button>"
-							+  "<%}%>"
-							+  "</div><a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
-							+  "<img class='proimg' src='${pageContext.request.contextPath}/pic/"+data.Products[i].imagepath+"'></a></div>"
-							+  "<div class='proname'>"+data.Products[i].productname+"</div>"
-							+  "<div class='buttonbox'>"
-							+  "<div class='proprice'>NT$"+data.Products[i].productprice+"</div>"
-							+  "<div class='cart'>"
-							+  "<%if (login) {%>"
-							+  "<a href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
-							+  "<img class='cartimg' src='image/bg_cart_b.svg'></a>"
-							+  "<%} else {%>"
-							+  "<a href='${pageContext.request.contextPath}/member/login'>"
-							+  "<img class='cartimg' src='image/bg_cart_b.svg'></a>"
-							+  "<%}%>"
-							+  "</div></div></div>";
-				}
-				$("#standardarea").html(content);
-				
-				var page = "<ul class='page_ul'>"
+	$.ajax({
+		async : false,
+		type : 'GET',
+		url : "AllProducts",
+		data : {"pageNo":i},
+		dataType : "json",
+		success : function(data) {
+			var content = "";
+			for (let i = 0; i < data.Products.length; i++) {
+				content += "<div class='rightside'>"
+						+  "<div class='imgbox'>"
+						+  "<div id='like"+data.Products[i].productno+"' class='like'>"
+						+  "<%if (session.getAttribute("member") != null) {%>"
+						+  "<button id='likebtn"+data.Products[i].productno+"' class='like_button' onclick='Collect("+${member.id}+","+data.Products[i].productno+")'>"
+						+  "<i id='heart"+data.Products[i].productno+"' class='fa fa-heart-o'></i></button>"
+						+  "<%}%>"
+						+  "</div><a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
+						+  "<img class='proimg' src='${pageContext.request.contextPath}/pic/"+data.Products[i].imagepath+"'></a></div>"
+						+  "<div class='proname'>"+data.Products[i].productname+"</div>"
+						+  "<div class='buttonbox'>"
+						+  "<div class='proprice'>NT$"+data.Products[i].productprice+"</div>"
+						+  "<div class='cart'>"
+						+  "<%if (login) {%>"
+						+  "<img class='cartimg' onclick='addCart("+data.Products[i].productno+")' src='image/bg_cart_b.svg'>"
+						+  "<%} else {%>"
+						+  "<a href='${pageContext.request.contextPath}/member/login'>"
+						+  "<img class='cartimg' src='image/bg_cart_b.svg'>"
+						+  "<%}%>"
+						+  "</div></div></div>";
+			}
+			$("#standardarea").html(content);
+			
+			var page = "<ul class='page_ul'>"
 				for (let i = 1; i <= data.TotalPages; i++) {
 					page += "<li class='page_ul_li'>"
 						 +  "<button class='page_ul_li_button' type='submit' onclick='Allproducts("+i+")'>"+i+"</button></li>";
 				}
 				page += "</ul>";
 				$("#pagearea").html(page);
-			}
-		});
+		}
+	});
 		CK2();
 		$.ajax({
 			async : false,
@@ -214,6 +226,7 @@ function Allproducts(i) {
 				page += "</ul>";
 				$("#pagearea").html(page);
 			}
+		
 		});
 }
 
@@ -245,8 +258,7 @@ function Brandproducts(brand, i) {
 						+  "<div class='proprice'>NT$"+data.Products[i].productprice+"</div>"
 						+  "<div class='cart'>"
 						+  "<%if (login) {%>"
-						+  "<a href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
-						+  "<img class='cartimg' src='image/bg_cart_b.svg'></a>"
+						+  "<img class='cartimg' onclick='addCart("+data.Products[i].productno+")' src='image/bg_cart_b.svg'>"
 						+  "<%} else {%>"
 						+  "<a href='${pageContext.request.contextPath}/member/login'>"
 						+  "<img class='cartimg' src='image/bg_cart_b.svg'></a>"
@@ -263,6 +275,7 @@ function Brandproducts(brand, i) {
 			page += "</ul>";
 			$("#pagearea").html(page);
 		}
+	
 	});
 		CK2();
 		$.ajax({
@@ -311,6 +324,7 @@ function Brandproducts(brand, i) {
 				page += "</ul>";
 				$("#pagearea").html(page);
 			}
+		
 		});
 	
 }
@@ -344,8 +358,7 @@ function Seriesproducts(series, i) {
 						+  "<div class='proprice'>NT$"+data.Products[i].productprice+"</div>"
 						+  "<div class='cart'>"
 						+  "<%if (login) {%>"
-						+  "<a href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
-						+  "<img class='cartimg' src='image/bg_cart_b.svg'></a>"
+						+  "<img class='cartimg' onclick='addCart("+data.Products[i].productno+")' src='image/bg_cart_b.svg'>"
 						+  "<%} else {%>"
 						+  "<a href='${pageContext.request.contextPath}/member/login'>"
 						+  "<img class='cartimg' src='image/bg_cart_b.svg'></a>"
@@ -362,6 +375,7 @@ function Seriesproducts(series, i) {
 			page += "</ul>";
 			$("#pagearea").html(page);
 		}
+	
 	});
 		CK2();
 		$.ajax({
@@ -410,6 +424,7 @@ function Seriesproducts(series, i) {
 				page += "</ul>";
 				$("#pagearea").html(page);
 			}
+		
 		});
 	
 }
@@ -443,8 +458,7 @@ function Cateproducts(cate, i) {
 						+  "<div class='proprice'>NT$"+data.Products[i].productprice+"</div>"
 						+  "<div class='cart'>"
 						+  "<%if (login) {%>"
-						+  "<a href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
-						+  "<img class='cartimg' src='image/bg_cart_b.svg'></a>"
+						+  "<img class='cartimg' onclick='addCart("+data.Products[i].productno+")' src='image/bg_cart_b.svg'>"
 						+  "<%} else {%>"
 						+  "<a href='${pageContext.request.contextPath}/member/login'>"
 						+  "<img class='cartimg' src='image/bg_cart_b.svg'></a>"
@@ -461,6 +475,7 @@ function Cateproducts(cate, i) {
 			page += "</ul>";
 			$("#pagearea").html(page);
 		}
+	
 	});
 		CK2();
 		$.ajax({
@@ -509,6 +524,7 @@ function Cateproducts(cate, i) {
 				page += "</ul>";
 				$("#pagearea").html(page);
 			}
+		
 		});
 	
 }
@@ -543,8 +559,7 @@ function Keywordproducts(i) {
 						+  "<div class='proprice'>NT$"+data.Products[i].productprice+"</div>"
 						+  "<div class='cart'>"
 						+  "<%if (login) {%>"
-						+  "<a href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
-						+  "<img class='cartimg' src='image/bg_cart_b.svg'></a>"
+						+  "<img class='cartimg' onclick='addCart("+data.Products[i].productno+")' src='image/bg_cart_b.svg'>"
 						+  "<%} else {%>"
 						+  "<a href='${pageContext.request.contextPath}/member/login'>"
 						+  "<img class='cartimg' src='image/bg_cart_b.svg'></a>"
@@ -561,6 +576,7 @@ function Keywordproducts(i) {
 			page += "</ul>";
 			$("#pagearea").html(page);
 		}
+	
 	});
 		CK2();
 		$.ajax({
@@ -610,6 +626,7 @@ function Keywordproducts(i) {
 						page += "</ul>";
 						$("#pagearea").html(page);
 					}
+		
 				});
 
 	}

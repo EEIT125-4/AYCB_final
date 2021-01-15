@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -127,12 +128,12 @@ public class OrderController {
 		for(CartItem cart : items) {
 			
 			int productNo = cart.getProductNo();
-			ProductBean bean = ps.getProduct(productNo);			
+			//ProductBean bean = ps.getProduct(productNo);			
 			
-			OrderItemBean oib = new OrderItemBean(null, bean.getImagepath(), productNo, bean.getProductname(), bean.getProductprice(), cart.getQtyOrdered());
+			OrderItemBean oib = new OrderItemBean(null, cart.getProductImage(), cart.getBrandName(), cart.getProductSeries(), productNo, cart.getProductName(), cart.getProductPrice(), cart.getQtyOrdered());
 			details.add(oib);
 			
-			itemDetail+=bean.getProductname()+" : "+bean.getProductprice()+" * "+cart.getQtyOrdered()+" = $"+bean.getProductprice()*cart.getQtyOrdered()+"#";
+			itemDetail+= cart.getProductName()+" : "+ cart.getProductPrice()+" * "+ cart.getQtyOrdered()+" = $"+ cart.getProductPrice()*cart.getQtyOrdered()+"#";
 		}
 	
 		
@@ -160,9 +161,9 @@ public class OrderController {
 		session.removeAttribute("totalPrice");
 		session.removeAttribute("totalQtyOrdered");
 		
-		String clientBackURL="http://localhost:8080/AYCB_final/orderManagement";
-		String form=genAioCheckOutALL(order.getOrderNo(), order.getTotalAmount(), context.getContextPath(),itemDetail,clientBackURL)	;
-		session.setAttribute("form", form);
+//		String clientBackURL="http://localhost:8080/AYCB_final/orderManagement";
+//		String form=genAioCheckOutALL(order.getOrderNo(), order.getTotalAmount(), context.getContextPath(),itemDetail,clientBackURL)	;
+//		session.setAttribute("form", form);
 		
 		//session.removeAttribute("cart");
 		//session.invalidate();
@@ -274,6 +275,18 @@ public class OrderController {
 		}
 		
 		return "product/historyOrders";
+	}
+	
+	@PostMapping("/ezshipBack")
+	public String ezshipBack(Model model ) {
+		
+		return "product/ez_ship_callback";
+	}
+	
+	@PostMapping("/toCheckout")
+	public String toCheckout(Model model ) {
+		
+		return "product/checkout";
 	}
 	
 	@ModelAttribute("orderList")

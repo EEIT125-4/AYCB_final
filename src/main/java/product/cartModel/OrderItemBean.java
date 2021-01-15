@@ -19,8 +19,9 @@ public class OrderItemBean {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer seqno;//單筆訂單編號
 	private String productImg;
-	private String brandNo;
-	private String brandName;
+	//private String brandNo;
+	private String brandName;//品牌
+	private String productSeries;//系列
 	private Integer productNo;
 	private String productName;
 	private Double productPrice;//單價
@@ -35,16 +36,20 @@ public class OrderItemBean {
 	public OrderItemBean() {
 		super();
 	}
-	public OrderItemBean(Integer seqno, String productImg, Integer productNo, String productName, Double productPrice,
-			Integer quantity) {
+	
+	public OrderItemBean(Integer seqno, String productImg, String brandName, String productSeries, Integer productNo,
+			String productName, Double productPrice, Integer quantity) {
 		super();
 		this.seqno = seqno;
 		this.productImg = productImg;
+		this.brandName = brandName;
+		this.productSeries = productSeries;
 		this.productNo = productNo;
 		this.productName = productName;
 		this.productPrice = productPrice;
 		this.quantity = quantity;
 	}
+
 	public Integer getSeqno() {
 		return seqno;
 	}
@@ -81,6 +86,19 @@ public class OrderItemBean {
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
+	
+	public String getBrandName() {
+		return brandName;
+	}
+	public void setBrandName(String brandName) {
+		this.brandName = brandName;
+	}
+	public String getProductSeries() {
+		return productSeries;
+	}
+	public void setProductSeries(String productSeries) {
+		this.productSeries = productSeries;
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -88,6 +106,10 @@ public class OrderItemBean {
 		builder.append(seqno);
 		builder.append(", productImg=");
 		builder.append(productImg);
+		builder.append(", brandName=");
+		builder.append(brandName);
+		builder.append(", productSeries=");
+		builder.append(productSeries);
 		builder.append(", productNo=");
 		builder.append(productNo);
 		builder.append(", productName=");
@@ -99,6 +121,8 @@ public class OrderItemBean {
 		builder.append("]");
 		return builder.toString();
 	}
+	
+	
 	
 
 }
