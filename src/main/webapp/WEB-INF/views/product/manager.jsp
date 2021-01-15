@@ -9,9 +9,17 @@
 	crossorigin="anonymous"></script>
 <script src="js/inside.js" defer="defer"></script>
 <link REL=STYLESHEET HREF="css/manager.css" TYPE="text/css">
+<link REL=STYLESHEET HREF="css/light-bootstrap-dashboard.css"
+	TYPE="text/css">
+	
+<script>
+	$(document).ready(function() {
+		bglogo();
+	});
+</script>
+	
 <title>Manager</title>
 </head>
-<%@include file="../jspf/managerheader.jspf"%>
 <div class="contentoutbox">
 	<div class="contentbox">
 		<div class="back">
@@ -39,7 +47,7 @@
 			<div class="mbtnbox">
 				<input class="mbtn" type="button" value="留言板"
 					onclick='location.href="#"'>
-			</div >
+			</div>
 			<div class="mbtnbox">
 				<input class="mbtn" type="button" value="部落格"
 					onclick='location.href="blog/backstage"'>
@@ -48,8 +56,23 @@
 				<input class="mbtn" type="button" value="影音區"
 					onclick='location.href="#"'>
 			</div>
+			<div class="mbtnbox">
+				<input class="mbtn" type="button" value="廣告區"
+					onclick='location.href="${pageContext.request.contextPath}/advertisement"'>
+			</div>
+		</div>
+		<div id="backcontent" class="backcontent">
+			<%@include file="../jspf/managerheader.jspf"%>
 		</div>
 	</div>
 </div>
+<script>
+	function bglogo() {
+		var content = "<div class='bglogo'>"
+				    + "<img src='image/bg_logo.png'>"
+				    + "</div>";
+		$('#backcontent').append(content);
+	}
+</script>
 </body>
 </html>

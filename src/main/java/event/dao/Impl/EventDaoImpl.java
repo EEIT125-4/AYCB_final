@@ -80,5 +80,16 @@ public class EventDaoImpl implements EventDAO {
 		
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Event> getEventByCategory(String eventcategory) {
+		String hql="FROM Event WHERE eventcategory=:category" ;
+		Session session = factory.getCurrentSession();
+		List<Event> list=session.createQuery(hql).
+				setParameter("category",eventcategory).getResultList();
+		
+		return list;
+	}
+
 	
 }

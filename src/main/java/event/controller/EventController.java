@@ -63,6 +63,24 @@ public class EventController {
 			return "event/showEvent";
 		}
 		
+		@GetMapping("/showEvent1")
+		public String list1(Model model) {
+			model.addAttribute("events", eventService.getAllEvent());
+			System.out.println("events");
+			return "event/eventbackstage";
+		}
+		
+		//分類顯示活動
+		@GetMapping("/showEventByCategory")
+		public String eventlist(Model model,
+				@RequestParam(value="eventcategory") String eventcategory
+				) {
+			List<Event> eventlist=eventService.getEventByCategory(eventcategory);
+			model.addAttribute("events", eventlist);
+			System.out.println("events"+eventlist);
+			return "event/showEvent";
+		}
+		
 		@GetMapping("/ajaxShowEvent")
 		public @ResponseBody List<Event> ajaxlist(
 //				Model model
@@ -72,11 +90,10 @@ public class EventController {
 			return list;
 		}
 		
-		//insert event 
+		//新增活動 
 		@GetMapping("/eventForm")
 		public String showEmptyForm(Model model) {
 			Event event = new Event();
-	   //event.setEventname("event1");
 			model.addAttribute("event",event);
 				
 			return "event/eventForm";
@@ -91,7 +108,9 @@ public class EventController {
 			System.out.println("------"+event);
 			System.out.println("++++"+event.getEventname());
 			System.out.println(file);
-						
+			
+			event.setPax(0);		
+			
 			String path = null;
 			try {
 				path = Common.saveImage(file);
@@ -145,7 +164,7 @@ public class EventController {
 		}
 		
 		
-		//update
+		//更新活動
 		@GetMapping(value = "/eventupdate")
 		public String showDataForm(
 				//@PathVariable("eventID") Integer eventID, 
@@ -190,6 +209,8 @@ public class EventController {
 	
 			return "redirect:/event/showEvent";
 		}	
+		
+		//刪除
 		@GetMapping(value = "eventdelete")
 		public String delete(
 				//@PathVariable("id") Integer id
@@ -198,8 +219,10 @@ public class EventController {
 			eventService.delete(eventid);
 			return "redirect:/event/showEvent";
 		}
+		
 		@GetMapping("/img/{id}")
-		public ResponseEntity<byte[]> getPicture(@PathVariable("eventid") Integer eventid) {
+		public ResponseEntity<byte[]> getPicture(
+				@PathVariable("eventid") Integer eventid) {
 			
 			byte[] body = null;
 			ResponseEntity<byte[]> re = null;

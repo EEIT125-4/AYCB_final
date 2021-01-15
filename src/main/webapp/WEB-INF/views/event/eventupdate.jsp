@@ -52,6 +52,20 @@
 						
 				</TR>
 				<TR>
+					<TD align="RIGHT">活動類別：</TD>
+					<TD align="LEFT">
+					<select name="eventcategory" value="${event.eventcategory}${param.eventcategory}">
+					 <option value="NONE">請選擇</option>					
+				     <option value="手做" >手做</option>					
+				     <option value="教學" >教學</option>					
+				     <option value="新品發表" >新品發表</option>					
+				     <option value="促銷" >促銷</option>					
+				     <option value="其他" >其他</option>
+					</select>
+				    <font color='red' size='-3'>${error.eid}</font></TD>
+						
+				</TR>
+				<TR>
 					<TD align="RIGHT">活動日期：</TD>
 					<TD align="LEFT">
 					<input type="date" name="eventdate" value="${event.eventdate}${param.eventdate}" size="30">

@@ -57,6 +57,7 @@ public class RootAppConfig {
 		LocalSessionFactoryBean factory = new LocalSessionFactoryBean();
 		factory.setPackagesToScan(new String[] {
 				"config",
+				"advertisement",
 				"blog",
 				"event",
 				"member",
@@ -124,6 +125,7 @@ public class RootAppConfig {
 	     props.put("mail.smtp.starttls.enable", "true");
 	     props.put("mail.smtp.starttls.required", "true");
 	     props.put("mail.debug", "true");
+	     
 
 	     return mailSender;
 

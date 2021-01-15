@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import event.model.Attendance;
+import event.model.Event;
 import event.service.AttendanceService;
 import event.service.EventService;
 import event.validator.AttendanceValidator;
@@ -102,7 +103,7 @@ public class AttendanceController {
 		@GetMapping("event/attendanceForm")
 		public String showEmptyForm(Model model,
 				@RequestParam(value="eventid" ) Integer eventid //取得attendanceForm值
-			    ,@RequestParam(value="membercatcher" ,required = false) String membercatcher //取得member值
+			   ,@RequestParam(value="membercatcher" ,required = false) String membercatcher //取得member值
 				) {
 			System.out.println("--------------"+ membercatcher);
 			if(membercatcher!="") {
@@ -144,6 +145,7 @@ public class AttendanceController {
 				@RequestParam (value="eventid" ) Integer eventid,
 				@RequestParam (value="account" ) String account,
 				HttpServletRequest request) {
+			System.out.println("會員帳號++++++++++++++++++++"+account);
 			AttendanceValidator validator =new AttendanceValidator();
 			validator.validate(attendance, result);
 			if(result.hasErrors()) {
@@ -151,6 +153,9 @@ public class AttendanceController {
 			}
 			try {
 				System.out.println("------------------------------------------------------------------------------"+eventid);
+				Event event = eventService.getEvent(eventid);
+				event.setPax(attendance.getPax()+event.getPax());
+				eventService.updateEvent(event);
 				attendance.setEvent(eventService.getEvent(eventid));
 				attendance.setMember(memberService.getMember(account));
 				attendanceService.save(attendance);
@@ -212,7 +217,7 @@ public class AttendanceController {
 			}
 									
 			attendanceService.updateAttendance(attendance);
-			return "redirect:/event/showAttendance";
+			return "redirect:/event/showAttendanceByID";
 		}	
 		
 		
@@ -222,7 +227,7 @@ public class AttendanceController {
 				@RequestParam(value="aid" ,required = false)Integer aid
 				) {
 			attendanceService.deleteAttendance(aid);
-			return "redirect:/event/showAttendance";
+			return "redirect:/event/showAttendanceByID";
 		}
 //		
 //		@GetMapping(value="")

@@ -99,14 +99,16 @@ public class OrderController {
 	
 	@SuppressWarnings("unchecked")
 	@GetMapping("/orderInsert")
-//	@ResponseBody
-	public String OrderInsert(			
-									Model model,
-									SessionStatus sessionStatus,
-									HttpSession session, 
-									HttpServletRequest request,
-									@RequestParam(value="recipientEmail",required = false)String email,
-									@RequestParam(value="recipientName",required=false)String receiveName			
+
+	public String OrderInsert(
+			
+			Model model,
+			SessionStatus sessionStatus,
+			HttpSession session, 
+			HttpServletRequest request,
+			@RequestParam(value="recipientEmail",required = false)String email,
+			@RequestParam(value="recipientName",required=false)String receiveName
+			
 			) {
 
 		System.out.println("檢查郵件:"+email);

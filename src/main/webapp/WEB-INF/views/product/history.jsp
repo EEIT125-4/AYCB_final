@@ -4,11 +4,10 @@
 
 <%
 	boolean login = false;
-if (session.getAttribute("member") != null) {
-	MemberBean member = (MemberBean) session.getAttribute("member");
-
-	login = true;
-}
+	if (session.getAttribute("member") != null) {
+		MemberBean member = (MemberBean) session.getAttribute("member");
+		login = true;
+	}
 %>
 
 <!DOCTYPE html>
@@ -27,7 +26,9 @@ if (session.getAttribute("member") != null) {
 <form action="<c:url value='/member/update' />">
 	<div class="historybox">
 		<table class="historytb">
-			<caption class="ct">最近看過的商品</caption>
+			<div class="ct">最近看過的商品</div>
+			<div class="count">${recordlist.size()}/10 (最多紀錄10筆)</div>
+			<c:if test='${not empty recordlist}'>
 			<thead>
 				<tr>
 					<th class="historyth">圖片</th>
@@ -38,10 +39,6 @@ if (session.getAttribute("member") != null) {
 				</tr>
 			</thead>
 			<tbody>
-			<%
-				List<ProductBean> list = (List<ProductBean>) session.getAttribute("recordlist");
-				if (list.size() > 0 && list != null) {
-			%>
 				<c:forEach var="history" items="${recordlist}">
 					<tr>
 						<td class="historytd"><img class="historyimg"
@@ -56,17 +53,14 @@ if (session.getAttribute("member") != null) {
 								src='image/bg_cart_b.svg'></a></td>
 					</tr>
 				</c:forEach>
-			<%
-				} else {
-			%>
 			</tbody>
+			</c:if>
 			</table>
+			<c:if test='${ empty recordlist}'>
 			<div class="nolist">
 				<b>目前無瀏覽紀錄</b>
 			</div>
-			<%
-				}
-			%>
+			</c:if>
 	</div>
 	<div class="backbtn">
 		<input class="btn btn-dark" type="submit" value="回會員中心">

@@ -85,5 +85,4 @@ public interface ProductDao {
 	int pkcollection(int mid, int pid);
 	
 	List<Integer> findcollection(int mid);
-
 }

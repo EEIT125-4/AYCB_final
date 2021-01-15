@@ -16,8 +16,12 @@ public interface EventDAO {
         void delete(Integer eventID);
         //修改
         void updateEvent(Event e);		
+        
         List<Event> getAllEvent();
-		Event getEvent(int pk);
+		
+        Event getEvent(int pk);
+        
+        List<Event> getEventByCategory(String eventcategory);
 		
 		
 
