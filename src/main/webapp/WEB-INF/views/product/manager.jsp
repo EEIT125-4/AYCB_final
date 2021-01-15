@@ -11,9 +11,15 @@
 <link REL=STYLESHEET HREF="css/manager.css" TYPE="text/css">
 <link REL=STYLESHEET HREF="css/light-bootstrap-dashboard.css"
 	TYPE="text/css">
+	
+<script>
+	$(document).ready(function() {
+		bglogo();
+	});
+</script>
+	
 <title>Manager</title>
 </head>
-<%@include file="../jspf/managerheader.jspf"%>
 <div class="contentoutbox">
 	<div class="contentbox">
 		<div class="back">
@@ -55,8 +61,18 @@
 					onclick='location.href="${pageContext.request.contextPath}/advertisement"'>
 			</div>
 		</div>
-
+		<div id="backcontent" class="backcontent">
+			<%@include file="../jspf/managerheader.jspf"%>
+		</div>
 	</div>
 </div>
+<script>
+	function bglogo() {
+		var content = "<div class='bglogo'>"
+				    + "<img src='image/bg_logo.png'>"
+				    + "</div>";
+		$('#backcontent').append(content);
+	}
+</script>
 </body>
 </html>
