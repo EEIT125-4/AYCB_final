@@ -140,7 +140,7 @@ if (session.getAttribute("member") != null) {
 </div>
 <script>
 function Allproducts(i) {
-	Collectcheck();
+	CK1();
 	$.ajax({
 		async : false,
 		type : 'GET',
@@ -171,7 +171,17 @@ function Allproducts(i) {
 						+  "<%}%>"
 						+  "</div></div></div>";
 			}
-		});
+			$("#standardarea").html(content);
+			
+			var page = "<ul class='page_ul'>"
+				for (let i = 1; i <= data.TotalPages; i++) {
+					page += "<li class='page_ul_li'>"
+						 +  "<button class='page_ul_li_button' type='submit' onclick='Allproducts("+i+")'>"+i+"</button></li>";
+				}
+				page += "</ul>";
+				$("#pagearea").html(page);
+		}
+	});
 		CK2();
 		$.ajax({
 			async : false,
@@ -216,6 +226,7 @@ function Allproducts(i) {
 				page += "</ul>";
 				$("#pagearea").html(page);
 			}
+		
 		});
 }
 
@@ -264,6 +275,7 @@ function Brandproducts(brand, i) {
 			page += "</ul>";
 			$("#pagearea").html(page);
 		}
+	
 	});
 		CK2();
 		$.ajax({
@@ -312,6 +324,7 @@ function Brandproducts(brand, i) {
 				page += "</ul>";
 				$("#pagearea").html(page);
 			}
+		
 		});
 	
 }
@@ -362,6 +375,7 @@ function Seriesproducts(series, i) {
 			page += "</ul>";
 			$("#pagearea").html(page);
 		}
+	
 	});
 		CK2();
 		$.ajax({
@@ -410,6 +424,7 @@ function Seriesproducts(series, i) {
 				page += "</ul>";
 				$("#pagearea").html(page);
 			}
+		
 		});
 	
 }
@@ -460,6 +475,7 @@ function Cateproducts(cate, i) {
 			page += "</ul>";
 			$("#pagearea").html(page);
 		}
+	
 	});
 		CK2();
 		$.ajax({
@@ -508,6 +524,7 @@ function Cateproducts(cate, i) {
 				page += "</ul>";
 				$("#pagearea").html(page);
 			}
+		
 		});
 	
 }
@@ -559,6 +576,7 @@ function Keywordproducts(i) {
 			page += "</ul>";
 			$("#pagearea").html(page);
 		}
+	
 	});
 		CK2();
 		$.ajax({
@@ -608,6 +626,7 @@ function Keywordproducts(i) {
 						page += "</ul>";
 						$("#pagearea").html(page);
 					}
+		
 				});
 
 	}
