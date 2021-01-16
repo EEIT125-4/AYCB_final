@@ -43,13 +43,15 @@ width: 100%;
 }
 
 .mbtn:hover {
+	color: tomato;
 	border-radius: 5px;
-	background-color: #FCFCFC;
+	background-color: #ADADAD;
 }
 
 .backnav {
 	position: fixed;
     width: 100%;
+    margin-left: 80px;
     z-index: 9;
 }
 
