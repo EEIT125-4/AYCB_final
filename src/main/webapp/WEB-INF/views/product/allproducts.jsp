@@ -141,6 +141,7 @@ if (session.getAttribute("member") != null) {
 <script>
 function Allproducts(i) {
 	CK1();
+	CK2();
 	$.ajax({
 		async : false,
 		type : 'GET',
@@ -154,7 +155,7 @@ function Allproducts(i) {
 						+  "<div class='imgbox'>"
 						+  "<div id='like"+data.Products[i].productno+"' class='like'>"
 						+  "<%if (session.getAttribute("member") != null) {%>"
-						+  "<button id='likebtn"+data.Products[i].productno+"' class='like_button' onclick='Collect("+${member.id}+","+data.Products[i].productno+")'>"
+						+  "<button id='likebtn"+data.Products[i].productno+"' class='like_button' onclick='Collect1("+${member.id}+","+data.Products[i].productno+")'>"
 						+  "<i id='heart"+data.Products[i].productno+"' class='fa fa-heart-o'></i></button>"
 						+  "<%}%>"
 						+  "</div><a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
@@ -180,58 +181,57 @@ function Allproducts(i) {
 				}
 				page += "</ul>";
 				$("#pagearea").html(page);
+				
 		}
 	});
-		CK2();
-		$.ajax({
-			async : false,
-			type : 'GET',
-			url : "AllProducts",
-			data : {"pageNo":i},
-			dataType : "json",
-			success : function(data) {
-				var content = "";
-				for (let i = 0; i < data.Products.length; i++) {
-					content += "<div class='listbox'>"
-						    +  "<div class='listimgbox'>"
-							+  "<a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
-							+  "<img class='listproimg' src='${pageContext.request.contextPath}/pic/"+data.Products[i].imagepath+"'></a></div>"
-							+  "<div class='listinfobox'><div class='listproname'>"+data.Products[i].productname+"</div>"
-							+  "<div class='listproname'>系列 : "+data.Products[i].productseries+"</div>"
-							+  "<div class='listproname'>種類 : "+data.Products[i].productcategory+"</div></div>"
-							+  "<div class='listbuttonbox'>"
-							+  "<div id='love"+data.Products[i].productno+"' class='listlike'>"
-							+  "<%if (session.getAttribute("member") != null) {%>"
-							+  "<button id='lovebtn"+data.Products[i].productno+"' class='listlike_button' onclick='Collect2("+${member.id}+","+data.Products[i].productno+")'>"
-							+  "<i id='star"+data.Products[i].productno+"' class='fa fa-heart-o'></i></button>"
-							+  "<%}%>"
-							+  "</div><div class='listproprice'>NT$"+data.Products[i].productprice+"</div>"
-							+  "<div class='listcart'>"
-							+  "<%if (login) {%>"
-							+  "<a class='listcart_a' href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
-							+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
-							+  "<%} else {%>"
-							+  "<a class='listcart_a' href='${pageContext.request.contextPath}/member/login'>"
-							+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
-							+  "<%}%>"
-							+  "</div></div></div>";
-				}
-				$("#listarea").html(content);
-				
-				var page = "<ul class='page_ul'>"
-				for (let i = 1; i <= data.TotalPages; i++) {
-					page += "<li class='page_ul_li'>"
-						 +  "<button class='page_ul_li_button' type='submit' onclick='Allproducts("+i+")'>"+i+"</button></li>";
-				}
-				page += "</ul>";
-				$("#pagearea").html(page);
+	$.ajax({
+		async : false,
+		type : 'GET',
+		url : "AllProducts",
+		data : {"pageNo":i},
+		dataType : "json",
+		success : function(data) {
+			var content = "";
+			for (let i = 0; i < data.Products.length; i++) {
+				content += "<div class='listbox'>"
+					    +  "<div class='listimgbox'>"
+						+  "<a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
+						+  "<img class='listproimg' src='${pageContext.request.contextPath}/pic/"+data.Products[i].imagepath+"'></a></div>"
+						+  "<div id='love"+data.Products[i].productno+"' class='listlike'>"
+						+  "<%if (session.getAttribute("member") != null) {%>"
+						+  "<button id='lovebtn"+data.Products[i].productno+"' class='listlike_button' onclick='Collect2("+${member.id}+","+data.Products[i].productno+")'>"
+						+  "<i id='star"+data.Products[i].productno+"' class='fa fa-heart-o'></i></button>"
+						+  "<%}%>"
+						+  "</div><div class='listinfobox'><div class='listproname'>"+data.Products[i].productname+"</div>"
+						+  "<div class='listproname'>系列 : "+data.Products[i].productseries+"</div>"
+						+  "<div class='listproname'>種類 : "+data.Products[i].productcategory+"</div>"							+  "</div><div class='listbuttonbox'>"
+						+  "<div class='listproprice'>NT$"+data.Products[i].productprice+"</div>"
+						+  "<div class='listcart'>"
+						+  "<%if (login) {%>"
+						+  "<a class='listcart_a' href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
+						+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
+						+  "<%} else {%>"
+						+  "<a class='listcart_a' href='${pageContext.request.contextPath}/member/login'>"
+						+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
+						+  "<%}%>"
+						+  "</div></div></div>";
 			}
-		
-		});
+			$("#listarea").html(content);
+				
+			var page = "<ul class='page_ul'>"
+			for (let i = 1; i <= data.TotalPages; i++) {
+				page += "<li class='page_ul_li'>"
+					 +  "<button class='page_ul_li_button' type='submit' onclick='Allproducts("+i+")'>"+i+"</button></li>";
+			}
+			page += "</ul>";
+			$("#pagearea").html(page);	
+		}
+	});
 }
 
 function Brandproducts(brand, i) {
 	CK1();
+	CK2();
 	$.ajax({
 		async : false,
 		type : 'GET',
@@ -277,61 +277,58 @@ function Brandproducts(brand, i) {
 		}
 	
 	});
-		CK2();
-		$.ajax({
-			async : false,
-			type : 'GET',
-			url : "Brand",
-			data : {
-				"pageNo":i,
-				"brand":brand
-			},
-			dataType : "json",
-			success : function(data) {
-				var content = "";
-				for (let i = 0; i < data.Products.length; i++) {
-					content += "<div class='listbox'>"
-						    +  "<div class='listimgbox'>"
-							+  "<a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
-							+  "<img class='listproimg' src='${pageContext.request.contextPath}/pic/"+data.Products[i].imagepath+"'></a></div>"
-							+  "<div class='listinfobox'><div class='listproname'>"+data.Products[i].productname+"</div>"
-							+  "<div class='listproname'>系列 : "+data.Products[i].productseries+"</div>"
-							+  "<div class='listproname'>種類 : "+data.Products[i].productcategory+"</div></div>"
-							+  "<div class='listbuttonbox'>"
-							+  "<div id='love"+data.Products[i].productno+"' class='listlike'>"
-							+  "<%if (session.getAttribute("member") != null) {%>"
-							+  "<button id='lovebtn"+data.Products[i].productno+"' class='listlike_button' onclick='Collect2("+${member.id}+","+data.Products[i].productno+")'>"
-							+  "<i id='star"+data.Products[i].productno+"' class='fa fa-heart-o'></i></button>"
-							+  "<%}%>"
-							+  "</div><div class='listproprice'>NT$"+data.Products[i].productprice+"</div>"
-							+  "<div class='listcart'>"
-							+  "<%if (login) {%>"
-							+  "<a class='listcart_a' href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
-							+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
-							+  "<%} else {%>"
-							+  "<a class='listcart_a' href='${pageContext.request.contextPath}/member/login'>"
-							+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
-							+  "<%}%>"
-							+  "</div></div></div>";
-				}
-				$("#listarea").html(content);
-				
-				var page = "<ul class='page_ul'>"
-				for (let i = 1; i <= data.TotalPages; i++) {
-					page += "<li class='page_ul_li'>"
-						 +  "<button class='page_ul_li_button' type='submit' onclick='Brandproducts("+'"'+data.OneBrand+'"'+","+i+")'>"+i+"</button></li>";
-				}
-				page += "</ul>";
-				$("#pagearea").html(page);
+	$.ajax({
+		async : false,
+		type : 'GET',
+		url : "Brand",
+		data : {
+			"pageNo":i,
+			"brand":brand
+		},
+		dataType : "json",
+		success : function(data) {
+			var content = "";
+			for (let i = 0; i < data.Products.length; i++) {
+				content += "<div class='listbox'>"
+					    +  "<div class='listimgbox'>"
+						+  "<a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
+						+  "<img class='listproimg' src='${pageContext.request.contextPath}/pic/"+data.Products[i].imagepath+"'></a></div>"
+						+  "<div class='listinfobox'><div class='listproname'>"+data.Products[i].productname+"</div>"
+						+  "<div class='listproname'>系列 : "+data.Products[i].productseries+"</div>"
+						+  "<div class='listproname'>種類 : "+data.Products[i].productcategory+"</div></div>"
+						+  "<div class='listbuttonbox'>"
+						+  "<div id='love"+data.Products[i].productno+"' class='listlike'>"
+						+  "<%if (session.getAttribute("member") != null) {%>"
+						+  "<button id='lovebtn"+data.Products[i].productno+"' class='listlike_button' onclick='Collect2("+${member.id}+","+data.Products[i].productno+")'>"
+						+  "<i id='star"+data.Products[i].productno+"' class='fa fa-heart-o'></i></button>"
+						+  "<%}%>"
+						+  "</div><div class='listproprice'>NT$"+data.Products[i].productprice+"</div>"
+						+  "<div class='listcart'>"
+						+  "<%if (login) {%>"
+						+  "<a class='listcart_a' href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
+						+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
+						+  "<%} else {%>"
+						+  "<a class='listcart_a' href='${pageContext.request.contextPath}/member/login'>"
+						+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
+						+  "<%}%>"
+						+  "</div></div></div>";
 			}
-		
-		});
-	
+			$("#listarea").html(content);
+				
+			var page = "<ul class='page_ul'>"
+			for (let i = 1; i <= data.TotalPages; i++) {
+				page += "<li class='page_ul_li'>"
+					 +  "<button class='page_ul_li_button' type='submit' onclick='Brandproducts("+'"'+data.OneBrand+'"'+","+i+")'>"+i+"</button></li>";
+			}
+			page += "</ul>";
+			$("#pagearea").html(page);
+		}	
+	});
 }
 
 function Seriesproducts(series, i) {
 	CK1();
-	
+	CK2();
 	$.ajax({
 		async : false,
 		type : 'GET',
@@ -377,61 +374,58 @@ function Seriesproducts(series, i) {
 		}
 	
 	});
-		CK2();
-		$.ajax({
-			async : false,
-			type : 'GET',
-			url : "Series",
-			data : {
-				"pageNo":i,
-				"series":series
-			},
-			dataType : "json",
-			success : function(data) {
-				var content = "";
-				for (let i = 0; i < data.Products.length; i++) {
-					content += "<div class='listbox'>"
-						    +  "<div class='listimgbox'>"
-							+  "<a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
-							+  "<img class='listproimg' src='${pageContext.request.contextPath}/pic/"+data.Products[i].imagepath+"'></a></div>"
-							+  "<div class='listinfobox'><div class='listproname'>"+data.Products[i].productname+"</div>"
-							+  "<div class='listproname'>系列 : "+data.Products[i].productseries+"</div>"
-							+  "<div class='listproname'>種類 : "+data.Products[i].productcategory+"</div></div>"
-							+  "<div class='listbuttonbox'>"
-							+  "<div id='love"+data.Products[i].productno+"' class='listlike'>"
-							+  "<%if (session.getAttribute("member") != null) {%>"
-							+  "<button id='lovebtn"+data.Products[i].productno+"' class='listlike_button' onclick='Collect2("+${member.id}+","+data.Products[i].productno+")'>"
-							+  "<i id='star"+data.Products[i].productno+"' class='fa fa-heart-o'></i></button>"
-							+  "<%}%>"
-							+  "</div><div class='listproprice'>NT$"+data.Products[i].productprice+"</div>"
-							+  "<div class='listcart'>"
-							+  "<%if (login) {%>"
-							+  "<a class='listcart_a' href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
-							+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
-							+  "<%} else {%>"
-							+  "<a class='listcart_a' href='${pageContext.request.contextPath}/member/login'>"
-							+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
-							+  "<%}%>"
-							+  "</div></div></div>";
-				}
-				$("#listarea").html(content);
-				
-				var page = "<ul class='page_ul'>"
-				for (let i = 1; i <= data.TotalPages; i++) {
-					page += "<li class='page_ul_li'>"
-						 +  "<button class='page_ul_li_button' type='submit' onclick='Seriesproducts("+'"'+data.OneSeries+'"'+","+i+")'>"+i+"</button></li>";
-				}
-				page += "</ul>";
-				$("#pagearea").html(page);
+	$.ajax({
+		async : false,
+		type : 'GET',
+		url : "Series",
+		data : {
+			"pageNo":i,
+			"series":series
+		},
+		dataType : "json",
+		success : function(data) {
+			var content = "";
+			for (let i = 0; i < data.Products.length; i++) {
+				content += "<div class='listbox'>"
+					    +  "<div class='listimgbox'>"
+						+  "<a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
+						+  "<img class='listproimg' src='${pageContext.request.contextPath}/pic/"+data.Products[i].imagepath+"'></a></div>"
+						+  "<div class='listinfobox'><div class='listproname'>"+data.Products[i].productname+"</div>"
+						+  "<div class='listproname'>系列 : "+data.Products[i].productseries+"</div>"
+						+  "<div class='listproname'>種類 : "+data.Products[i].productcategory+"</div></div>"
+						+  "<div class='listbuttonbox'>"
+						+  "<div id='love"+data.Products[i].productno+"' class='listlike'>"
+						+  "<%if (session.getAttribute("member") != null) {%>"
+						+  "<button id='lovebtn"+data.Products[i].productno+"' class='listlike_button' onclick='Collect2("+${member.id}+","+data.Products[i].productno+")'>"
+						+  "<i id='star"+data.Products[i].productno+"' class='fa fa-heart-o'></i></button>"
+						+  "<%}%>"
+						+  "</div><div class='listproprice'>NT$"+data.Products[i].productprice+"</div>"
+						+  "<div class='listcart'>"
+						+  "<%if (login) {%>"
+						+  "<a class='listcart_a' href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
+						+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
+						+  "<%} else {%>"
+						+  "<a class='listcart_a' href='${pageContext.request.contextPath}/member/login'>"
+						+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
+						+  "<%}%>"
+						+  "</div></div></div>";
 			}
-		
-		});
-	
+			$("#listarea").html(content);
+				
+			var page = "<ul class='page_ul'>"
+			for (let i = 1; i <= data.TotalPages; i++) {
+				page += "<li class='page_ul_li'>"
+					 +  "<button class='page_ul_li_button' type='submit' onclick='Seriesproducts("+'"'+data.OneSeries+'"'+","+i+")'>"+i+"</button></li>";
+			}
+			page += "</ul>";
+			$("#pagearea").html(page);
+		}
+	});
 }
 
 function Cateproducts(cate, i) {
 	CK1();
-	
+	CK2();
 	$.ajax({
 		async : false,
 		type : 'GET',
@@ -475,64 +469,60 @@ function Cateproducts(cate, i) {
 			page += "</ul>";
 			$("#pagearea").html(page);
 		}
-	
 	});
-		CK2();
-		$.ajax({
-			async : false,
-			type : 'GET',
-			url : "Cate",
-			data : {
-				"pageNo":i,
-				"cate":cate
-			},
-			dataType : "json",
-			success : function(data) {
-				var content = "";
-				for (let i = 0; i < data.Products.length; i++) {
-					content += "<div class='listbox'>"
-						    +  "<div class='listimgbox'>"
-							+  "<a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
-							+  "<img class='listproimg' src='${pageContext.request.contextPath}/pic/"+data.Products[i].imagepath+"'></a></div>"
-							+  "<div class='listinfobox'><div class='listproname'>"+data.Products[i].productname+"</div>"
-							+  "<div class='listproname'>系列 : "+data.Products[i].productseries+"</div>"
-							+  "<div class='listproname'>種類 : "+data.Products[i].productcategory+"</div></div>"
-							+  "<div class='listbuttonbox'>"
-							+  "<div id='love"+data.Products[i].productno+"' class='listlike'>"
-							+  "<%if (session.getAttribute("member") != null) {%>"
-							+  "<button id='lovebtn"+data.Products[i].productno+"' class='listlike_button' onclick='Collect2("+${member.id}+","+data.Products[i].productno+")'>"
-							+  "<i id='star"+data.Products[i].productno+"' class='fa fa-heart-o'></i></button>"
-							+  "<%}%>"
-							+  "</div><div class='listproprice'>NT$"+data.Products[i].productprice+"</div>"
-							+  "<div class='listcart'>"
-							+  "<%if (login) {%>"
-							+  "<a class='listcart_a' href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
-							+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
-							+  "<%} else {%>"
-							+  "<a class='listcart_a' href='${pageContext.request.contextPath}/member/login'>"
-							+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
-							+  "<%}%>"
-							+  "</div></div></div>";
-				}
-				$("#listarea").html(content);
-				
-				var page = "<ul class='page_ul'>"
-				for (let i = 1; i <= data.TotalPages; i++) {
-					page += "<li class='page_ul_li'>"
-						 +  "<button class='page_ul_li_button' type='submit' onclick='Cateproducts("+'"'+data.OneCate+'"'+","+i+")'>"+i+"</button></li>";
-				}
-				page += "</ul>";
-				$("#pagearea").html(page);
+	$.ajax({
+		async : false,
+		type : 'GET',
+		url : "Cate",
+		data : {
+			"pageNo":i,
+			"cate":cate
+		},
+		dataType : "json",
+		success : function(data) {
+			var content = "";
+			for (let i = 0; i < data.Products.length; i++) {
+				content += "<div class='listbox'>"
+					    +  "<div class='listimgbox'>"
+						+  "<a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
+						+  "<img class='listproimg' src='${pageContext.request.contextPath}/pic/"+data.Products[i].imagepath+"'></a></div>"
+						+  "<div class='listinfobox'><div class='listproname'>"+data.Products[i].productname+"</div>"
+						+  "<div class='listproname'>系列 : "+data.Products[i].productseries+"</div>"
+						+  "<div class='listproname'>種類 : "+data.Products[i].productcategory+"</div></div>"
+						+  "<div class='listbuttonbox'>"
+						+  "<div id='love"+data.Products[i].productno+"' class='listlike'>"
+						+  "<%if (session.getAttribute("member") != null) {%>"
+						+  "<button id='lovebtn"+data.Products[i].productno+"' class='listlike_button' onclick='Collect2("+${member.id}+","+data.Products[i].productno+")'>"
+						+  "<i id='star"+data.Products[i].productno+"' class='fa fa-heart-o'></i></button>"
+						+  "<%}%>"
+						+  "</div><div class='listproprice'>NT$"+data.Products[i].productprice+"</div>"
+						+  "<div class='listcart'>"
+						+  "<%if (login) {%>"
+						+  "<a class='listcart_a' href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
+						+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
+						+  "<%} else {%>"
+						+  "<a class='listcart_a' href='${pageContext.request.contextPath}/member/login'>"
+						+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
+						+  "<%}%>"
+						+  "</div></div></div>";
 			}
-		
-		});
-	
+			$("#listarea").html(content);
+				
+			var page = "<ul class='page_ul'>"
+			for (let i = 1; i <= data.TotalPages; i++) {
+				page += "<li class='page_ul_li'>"
+					 +  "<button class='page_ul_li_button' type='submit' onclick='Cateproducts("+'"'+data.OneCate+'"'+","+i+")'>"+i+"</button></li>";
+			}
+			page += "</ul>";
+			$("#pagearea").html(page);
+		}	
+	});
 }
 
 function Keywordproducts(i) {
 	CK1();
+	CK2();
 	var keyword = $("#keyword").val();
-	
 	$.ajax({
 		async : false,
 		type : 'GET',
@@ -576,34 +566,32 @@ function Keywordproducts(i) {
 			page += "</ul>";
 			$("#pagearea").html(page);
 		}
-	
 	});
-		CK2();
-		$.ajax({
-			async : false,
-			type : 'GET',
-			url : "Keyword",
-			data : {
-				"pageNo":i,
-				"keyword":keyword
-			},
-			dataType : "json",
-			success : function(data) {
-				var content = "";
-				for (let i = 0; i < data.Products.length; i++) {
-					content += "<div class='listbox'>"
+	$.ajax({
+		async : false,
+		type : 'GET',
+		url : "Keyword",
+		data : {
+			"pageNo":i,
+			"keyword":keyword
+		},
+		dataType : "json",
+		success : function(data) {
+			var content = "";
+			for (let i = 0; i < data.Products.length; i++) {
+				content += "<div class='listbox'>"
 					    +  "<div class='listimgbox'>"
 						+  "<a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
 						+  "<img class='listproimg' src='${pageContext.request.contextPath}/pic/"+data.Products[i].imagepath+"'></a></div>"
 						+  "<div class='listinfobox'><div class='listproname'>"+data.Products[i].productname+"</div>"
 						+  "<div class='listproname'>系列 : "+data.Products[i].productseries+"</div>"
 						+  "<div class='listproname'>種類 : "+data.Products[i].productcategory+"</div></div>"
-						+  "<div class='listbuttonbox'>"
 						+  "<div id='love"+data.Products[i].productno+"' class='listlike'>"
 						+  "<%if (session.getAttribute("member") != null) {%>"
 						+  "<button id='lovebtn"+data.Products[i].productno+"' class='listlike_button' onclick='Collect2("+${member.id}+","+data.Products[i].productno+")'>"
 						+  "<i id='star"+data.Products[i].productno+"' class='fa fa-heart-o'></i></button>"
 						+  "<%}%>"
+						+  "<div class='listbuttonbox'>"
 						+  "</div><div class='listproprice'>NT$"+data.Products[i].productprice+"</div>"
 						+  "<div class='listcart'>"
 						+  "<%if (login) {%>"
@@ -625,124 +613,115 @@ function Keywordproducts(i) {
 						}
 						page += "</ul>";
 						$("#pagearea").html(page);
-					}
-		
-				});
+		}
+	});
+}
 
-	}
+function Collect1(mid, pid) {
+	$.ajax({
+		type : 'GET',
+		url : 'Collect',
+		data : {
+			"mid" : mid,
+			"pid" : pid
+		},
+		dataType : "json",
+		success : function(data) {
+			if (data) {
+				swal.fire("收藏成功", "", "success");
+				$('#heart' + pid).attr('class', 'fa fa-heart');
+				$('#like' + pid).css('display', 'block');
+				$('#likebtn' + pid).css('border', 'none');
+			} else {
+				swal.fire("取消收藏", "", "error");
+				$('#heart' + pid).attr('class', 'fa fa-heart-o');
+				$('#like' + pid).css('display', 'none');
+				$('#like' + pid).removeAttr("style");
+				$('#likebtn' + pid).css('border', '2px solid gray');
+			}
+		}
+	});
+}
 
-	function Collect1(mid, pid) {
-		$.ajax({
-			type : 'GET',
-			url : 'Collect',
-			data : {
-				"mid" : mid,
-				"pid" : pid
-			},
-			dataType : "json",
-			success : function(data) {
-				if (data) {
-					swal.fire("收藏成功", "", "success");
-					$('#heart' + pid).attr('class', 'fa fa-heart');
-					$('#like' + pid).css('display', 'block');
-					$('#likebtn' + pid).css('border', 'none');
-				} else {
-					swal.fire("取消收藏", "", "error");
-					$('#heart' + pid).attr('class', 'fa fa-heart-o');
-					$('#like' + pid).css('display', 'none');
-					$('#like' + pid).removeAttr("style");
-					$('#likebtn' + pid).css('border', '2px solid gray');
-				}
+function CK1() {
+	$.ajax({
+		type : 'GET',
+		url : 'Collectcheck',
+		dataType : "json",
+		success : function(data) {
+			for (let i = 0; i < data.No.length; i++) {
+				$('#heart' + data.No[i]).attr('class', 'fa fa-heart');
+				$('#like' + data.No[i]).css('display', 'block');
+				$('#likebtn' + data.No[i]).css('border', 'none');
 			}
-		});
-	}
-	function CK1() {
-		$.ajax({
-			type : 'GET',
-			url : 'Collectcheck',
-			dataType : "json",
-			success : function(data) {
-				for (let i = 0; i < data.length; i++) {
-					$('#heart' + data[i]).attr('class', 'fa fa-heart');
-					$('#like' + data[i]).css('display', 'block');
-					$('#likebtn' + data[i]).css('border', 'none');
-				}
-			}
-		});
-	}
+		}
+	});
+};
 	
-	function Collect2(mid, pid) {
-		$.ajax({
-			type : 'GET',
-			url : 'Collect',
-			data : {
-				"mid" : mid,
-				"pid" : pid
-			},
-			dataType : "json",
-			success : function(data) {
-				if (data) {
-					swal.fire("收藏成功", "", "success");
-					$('#star' + pid).attr('class', 'fa fa-heart');
-					$('#love' + pid).css('display', 'block');
-					$('#lovebtn' + pid).css('border', 'none');
-				} else {
-					swal.fire("取消收藏", "", "error");
-					$('#star' + pid).attr('class', 'fa fa-heart-o');
-					$('#love' + pid).css('display', 'none');
-					$('#love' + pid).removeAttr("style");
-					$('#lovebtn' + pid).css('border', '2px solid gray');
-				}
+function Collect2(mid, pid) {
+	$.ajax({
+		type : 'GET',
+		url : 'Collect',
+		data : {
+			"mid" : mid,
+			"pid" : pid
+		},
+		dataType : "json",
+		success : function(data) {
+			if (data) {
+				swal.fire("收藏成功", "", "success");
+				$('#star' + pid).attr('class', 'fa fa-heart');
+				$('#love' + pid).css('display', 'block');
+				$('#lovebtn' + pid).css('border', 'none');
+			} else {
+				swal.fire("取消收藏", "", "error");
+				$('#star' + pid).attr('class', 'fa fa-heart-o');
+				$('#love' + pid).css('display', 'none');
+				$('#love' + pid).removeAttr("style");
+				$('#lovebtn' + pid).css('border', '2px solid gray');
 			}
-		});
-	}
-	function CK2() {
-		$.ajax({
-			type : 'GET',
-			url : 'Collectcheck',
-			dataType : "json",
-			success : function(data) {
-				for (let i = 0; i < data.length; i++) {
-					$('#star' + data[i]).attr('class', 'fa fa-heart');
-					$('#love' + data[i]).css('display', 'block');
-					$('#lovebtn' + data[i]).css('border', 'none');
-				}
-			}
-		});
-	}
-
-	$(function() {
-		$("#standard").click(function() {
-			$('#standardarea').show();
-			$('#listarea').hide();
-		});
+		}
 	});
+}
 
-	$(function() {
-		$("#list").click(function() {
-			$('#standardarea').hide();
-			$('#listarea').show();
-
-		});
+function CK2() {
+	$.ajax({
+		type : 'GET',
+		url : 'Collectcheck',
+		dataType : "json",
+		success : function(data) {
+			for (let i = 0; i < data.No.length; i++) {
+				$('#star' + data.No[i]).attr('class', 'fa fa-heart');
+				$('#love' + data.No[i]).css('display', 'block');
+				$('#lovebtn' + data.No[i]).css('border', 'none');
+			}	
+		}
 	});
+};
 
-	// 	function navwheel() {
-	// 		if (window.scrollY < 150) {
-	// 			document.getElementById("menu").style.removeProperty("top");
-	// 		}
-	// 		if (window.scrollY > 150) {
-	// 			document.getElementById("menu").style.setProperty("top", "10px");
-	// 		}
-	// 	}
-	// 	document.body.onwheel = navwheel;
-
-	$(function() {
-		$("#top").click(function() {
-			jQuery("html,body").animate({
-				scrollTop : 0
-			}, 1000);
-		});
+$(function() {
+	$("#standard").click(function() {
+		$('#standardarea').show();
+		$('#listarea').hide();
+		Allproducts();
 	});
+});
+
+$(function() {
+	$("#list").click(function() {
+		$('#standardarea').hide();
+		$('#listarea').show();
+		Allproducts();
+	});
+});
+
+$(function() {
+	$("#top").click(function() {
+		jQuery("html,body").animate({
+			scrollTop : 0
+		}, 1000);
+	});
+});
 </script>
 <%@include file="../jspf/footer.jspf"%>
 </body>
