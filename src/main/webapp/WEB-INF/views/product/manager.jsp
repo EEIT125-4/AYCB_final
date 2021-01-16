@@ -61,8 +61,10 @@
 					onclick='location.href="${pageContext.request.contextPath}/advertisement"'>
 			</div>
 		</div>
-		<div id="backcontent" class="backcontent">
+		<div class="backnav">
 			<%@include file="../jspf/managerheader.jspf"%>
+		</div>
+		<div class="backcontent" id="backcontent" >
 		</div>
 	</div>
 </div>
