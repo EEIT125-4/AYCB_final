@@ -20,6 +20,7 @@
 	
 <title>Manager</title>
 </head>
+<body>
 <div class="contentoutbox">
 	<div class="contentbox">
 		<div class="back">
