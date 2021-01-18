@@ -53,9 +53,8 @@ public class CarWorkingController {
 	@GetMapping("/cartAdd")
 	public String TodoAdd(Model model, 
 			@RequestParam(value = "productno", required = false) Integer productno, 
-			@RequestParam(value = "count", defaultValue = "0" ,required = false) Integer count, 
+			@RequestParam(value = "count", defaultValue = "1" ,required = false) Integer count, 
 			HttpSession session) {
-
 		
 		ProductBean bean = ps.getProduct(productno);	
 		
@@ -65,8 +64,7 @@ public class CarWorkingController {
 
 		if (session.getAttribute("cart") == null) {
 
-			theCart = new ArrayList<CartItem>();
-			
+			theCart = new ArrayList<CartItem>();		
 
 			theCart.add(newCartItem);
 			
@@ -79,13 +77,11 @@ public class CarWorkingController {
 		theCart=(List<CartItem>)session.getAttribute("cart");
 
 			boolean found = false; // 旗標檢查用
-			
-			
+					
 			@SuppressWarnings("rawtypes")
 			Iterator iter = theCart.iterator();// 轉結構,方便使用方法
 			while (!found && iter.hasNext()) {// 假設沒找到就一筆一筆找, !found->false變true
-				CartItem aCartItem = (CartItem) iter.next();
-				
+				CartItem aCartItem = (CartItem) iter.next();			
 				
 				if (aCartItem.getProductNo() == newCartItem.getProductNo()) {
 					aCartItem.setQtyOrdered(aCartItem.getQtyOrdered() + newCartItem.getQtyOrdered());// 同一商品的話,數量加總
@@ -97,11 +93,60 @@ public class CarWorkingController {
 			}
 
 		}
-
 		System.out.println("準備前往購物車");
 		return "redirect:All";//"+context.getContextPath()+"/
 	}
 
+	@SuppressWarnings("unchecked")
+	@GetMapping("/addCart")
+	public @ResponseBody boolean addCart(Model model, 
+			@RequestParam(value = "productno", required = false) Integer productno, 
+			@RequestParam(value = "count", defaultValue = "1" ,required = false) Integer count, 
+			HttpSession session) {
+		
+		System.out.println("productno: " +productno);
+		System.out.println("count: " +count);
+		
+		ProductBean bean = ps.getProduct(productno);	
+		
+		CartItem newCartItem = new CartItem(productno, count,bean);
+		
+		List<CartItem> theCart = new ArrayList<CartItem>();
+
+		if (session.getAttribute("cart") == null) {
+
+			theCart = new ArrayList<CartItem>();		
+
+			theCart.add(newCartItem);
+			
+			session.setAttribute("cart",theCart);
+			
+			//System.out.println("cart" + theCart);
+
+		} else {
+			
+		theCart=(List<CartItem>)session.getAttribute("cart");
+
+			boolean found = false; // 旗標檢查用
+					
+			@SuppressWarnings("rawtypes")
+			Iterator iter = theCart.iterator();// 轉結構,方便使用方法
+			while (!found && iter.hasNext()) {// 假設沒找到就一筆一筆找, !found->false變true
+				CartItem aCartItem = (CartItem) iter.next();			
+				
+				if (aCartItem.getProductNo() == newCartItem.getProductNo()) {
+					aCartItem.setQtyOrdered(aCartItem.getQtyOrdered() + newCartItem.getQtyOrdered());// 同一商品的話,數量加總
+					found = true;
+				}
+			}
+			if (!found) {
+				theCart.add(newCartItem);// 沒找到相同的商品就新增
+			}
+
+		}		
+		return true;
+	}
+	
 	@GetMapping("/add")	
 	public String Add() {
 		return "product/order";

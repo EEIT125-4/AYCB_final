@@ -68,5 +68,12 @@ public class CartItem {
 	public String getProductImage() {
 		return productBean.getImagepath();
 	}
-
+	
+	public String getBrandName() {
+		return productBean.getBrandname();
+	}
+	
+	public String getProductSeries() {
+		return productBean.getProductseries();
+	}
 }

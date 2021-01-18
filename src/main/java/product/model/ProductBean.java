@@ -30,6 +30,7 @@ public class ProductBean implements Serializable{
 	private String productcategory;
 	private String skintype;
 	private Double productprice;
+	private Integer stock;
 	private String imagepath;
 	@Column(columnDefinition= "NVARCHAR(10) NOT NULL default('product')")
 	private final String identify="product";
@@ -66,11 +67,6 @@ public class ProductBean implements Serializable{
 		this.productprice = productprice;
 	}
 
-	
-
-	
-
-		
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -92,6 +88,8 @@ public class ProductBean implements Serializable{
 		builder.append(skintype);
 		builder.append(", productprice=");
 		builder.append(productprice);
+		builder.append(", stock=");
+		builder.append(stock);
 		builder.append(", imagepath=");
 		builder.append(imagepath);
 		builder.append(", identify=");
@@ -178,7 +176,13 @@ public class ProductBean implements Serializable{
 		this.productprice = productprice;
 	}
 	
-	
+	public Integer getStock() {
+		return stock;
+	}
+
+	public void setStock(Integer stock) {
+		this.stock = stock;
+	}
 
 	public String getImagepath() {
 		return imagepath;

@@ -61,21 +61,17 @@
 									<option value="10">10</option>
 								</select>
 							</div>
-							<br> <br> <br>
-							<div>
-								<input class="cartbtn"
-									type=<%=session.getAttribute("member") != null ? "submit" : "hidden"%>
-									value="加入購物車"> <input type="hidden" name="productno"
-									value="${Detail.productno}">
+							<div class="infostock">還剩${Detail.stock}件</div>
+							<div class="infobtnbox">
+								<input class="cartbtn" type=<%=session.getAttribute("member") != null ? "submit" : "hidden"%> value="加入購物車"> 
+								<input type="hidden" name="productno" value="${Detail.productno}">
 								<div class="lineshare">
 									<div class="line-it-button" data-lang="zh_Hant"
 										data-type="share-a" data-ver="3"
 										data-url="http://localhost:8080/AYCB_final/Detail?no=${Detail.productno}"
 										data-color="default" data-size="large" data-count="true"
 										style="display: none;"></div>
-									<script
-										src="https://d.line-scdn.net/r/web/social-plugin/js/thirdparty/loader.min.js"
-										async="async" defer="defer"></script>
+									<script src="https://d.line-scdn.net/r/web/social-plugin/js/thirdparty/loader.min.js" async="async" defer="defer"></script>
 									<div id="fb-root"></div>
 								</div>
 							</div>

@@ -41,6 +41,7 @@
 .infono {
     margin: 10px auto;
     color: gray;
+    font-size: 18px;
     font-weight: bold;
 }
 
@@ -80,24 +81,34 @@
     padding-left: 15px;
 }
 
+.infobtnbox {
+	clear: both;
+}
+
 .cartbtn {
     width: 150px;
     height: 40px;
     float: left;
+    margin-top: 20px;
     font-size: 24px;
     font-weight: bold;
     background-color: white;
     border: 1px solid gray;
 }
 
-.btn:hover {
-    background-color: gainsboro;
+.infostock {
+	float: left;
+    margin-top: 15px;
+    margin-left: 30px;
+    font-size: 20px;
+    font-weight: bold;
+    color: gray;
 }
 
 .lineshare {
 	float: left;
-	margin-top: 10px;
-	margin-left: 250px;
+	margin-top: 30px;
+	margin-left: 300px;
 }
 
 .maybelike {
