@@ -219,11 +219,12 @@
 	 }else {
 		 $('.manager').hide();
 	 }
-	  
+	
+	//彈跳視窗 
 	$(document).ready(function() {
 		console.log($('#check').val())
 		if($('#check').val()=="1"){
-			alert("123")
+			alert("已經報名過囉，請選擇其他活動")
 		}
 	})
 	

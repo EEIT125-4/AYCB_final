@@ -1,14 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+     <%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/eventpage.css">
-<title>新增報名資料成功</title>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.css"/>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.js"></script>
+<title>報名活動的會員</title>
 </head>
-<%@include file="../jspf/header.jspf"%>
+
 <body>
 	<div>
 		<c:choose>
@@ -16,16 +20,19 @@
 		                                        查無報名資料<br>
 					</c:when>
 					<c:otherwise>
-						<table class="table table-borderless table-dark">
+						<table id="mytable" class="display">
+						  <thead>
 							<tr>
-								<td>帳號</td>
-								<td>活動名稱</td>
-								<td>mail</td>
-								<td>電話號碼</td>
-								<td>參加人數</td>
-								<td colspan="2">修改報名資料</td>
+								<th>帳號</th>
+								<th>活動名稱</th>
+								<th>mail</th>
+								<th>電話號碼</th>
+								<th>參加人數</th>
+								<th>修改報名資料</th>
+								<th>刪除報名資料</th>
 
 							</tr>
+							</thead>
 							<c:forEach var='Attendance' varStatus='vs' items='${attendanceOfEvent}'>
 								<tr>
 									<td>${Attendance.member.account}</td>
@@ -46,5 +53,40 @@
 			</div>
 
 </body>
-<%@include file="../jspf/footer.jspf"%>
+<script>
+$(document).ready(function () {
+    $('#mytable').DataTable({
+    	bPaginate: true, // 顯示換頁
+  		searching: true, // 顯示搜尋
+  		info:	true, // 顯示資訊
+  		fixedHeader: true,  // 標題置頂
+		destroy:true,
+		language:{
+		    "processing": "處理中...",
+		    "loadingRecords": "載入中...",
+		    "lengthMenu": "顯示 _MENU_ 項結果",
+		    "zeroRecords": "沒有符合的結果",
+		    "info": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+		    "infoEmpty": "顯示第 0 至 0 項結果，共 0 項",
+		    "infoFiltered": "(從 _MAX_ 項結果中過濾)",
+		    "search": "搜尋:",
+		    "paginate": {
+		        "first": "第一頁",
+		        "previous": "上一頁",
+		        "next": "下一頁",
+		        "last": "最後一頁"
+		    },
+		    "aria": {
+		        "sortAscending": ": 升冪排列",
+		        "sortDescending": ": 降冪排列"
+		    },
+		    "select": {
+		        "1": "%d 列已選擇",
+		        "2": "%d 列已選擇",
+		        "_": "%d 列已選擇"
+		    }
+		} 
+});
+});
+</script>
 </html>
