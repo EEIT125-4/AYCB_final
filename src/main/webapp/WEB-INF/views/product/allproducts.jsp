@@ -141,6 +141,7 @@ function Allproducts(i) {
 						+  "<%}%>"
 						+  "</div></div></div>";
 			}
+// 			分頁
 			$("#proarea").html(content);
 			
 			var page = "<ul class='page_ul'>"

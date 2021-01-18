@@ -68,7 +68,6 @@
 											</button>
 										</div>
 										<div class="modal-body">
-											
 											<div class="caption">
 												<label>請輸入您註冊的email</label>
 												<input type="email" id="email" name="email">

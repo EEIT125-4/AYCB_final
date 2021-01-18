@@ -9,7 +9,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="ckfinder/ckfinder.js"></script>
 <meta charset="UTF-8">
 <title>部落格上傳</title>
 <style>
@@ -27,6 +26,7 @@
 	height: 200px;
 	background-size: cover;
 }
+
 </style>
 
 </head>
@@ -81,7 +81,10 @@
 </section>
 <!-- 	Breadcrumb Section End -->
 
-<div style="text-align: center;">
+<div style="text-align: center;background-image: url('pink-bg.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;  
+  background-size: cover;">
 
 	<%
 		Blog blog = (Blog) session.getAttribute("bg");
@@ -119,7 +122,6 @@
 			<!-- 			</p> -->
 			<!-- 			文章封面 -->
 			<p>
-
 				<img id="demo" class="preview" name="icon"
 					src=<c:if test='${not empty blog.picture}'>
 							<c:out value="${pageContext.request.contextPath}/pic/${blog.picture}"/>
@@ -130,7 +132,6 @@
 							</c:if>
 					alt=<c:out value='${blog.title}'/>
 					onerror="javascript:this.src='${pageContext.request.contextPath}/image/noImage.jpg'">
-
 
 				<label for="file"
 					style="font-weight: bold; font-size: 20px; margin-left: 0px; margin-bottom: 20px">上傳封面照</label>
@@ -188,24 +189,24 @@
 <!-- 	src="https://cdn.ckeditor.com/ckeditor5/24.0.0/classic/ckeditor.js"></script> -->
 
 <script>
-ClassicEditor
-.create(document.querySelector('#editor'),{
-	ckfinder: {
-        uploadUrl: "${pageContext.request.contextPath}/uploadImage.do"
-    }
+// ClassicEditor
+// .create(document.querySelector('#editor'),{
+// 	ckfinder: {
+//         uploadUrl: "${pageContext.request.contextPath}/uploadImage.do"
+//     }
 	
 	
-})
-.then(editor=>{
-       console.log(editor);
-})
-.catch(error=>{
-       console.error(error);
-});
+// })
+// .then(editor=>{
+//        console.log(editor);
+// })
+// .catch(error=>{
+//        console.error(error);
+// });
 
 
 
-</script>
+</script> 
 <script>
 $('#file').change(function() {
 
