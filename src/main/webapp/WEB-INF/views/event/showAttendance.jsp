@@ -8,9 +8,11 @@
 
 
 <meta charset="UTF-8">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/eventpage.css">
-<link REL=STYLESHEET HREF="${pageContext.request.contextPath}/css/manager.css" TYPE="text/css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/eventpage.css">
+<link REL="STYLESHEET" HREF="${pageContext.request.contextPath}/css/manager.css" TYPE="text/css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.css"/>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.js"></script>
 <title>活動資料</title>
 
 <%@include file="../jspf/managerheader.jspf"%>
@@ -73,9 +75,9 @@
 					</li>
 			</ul>
 			<div id="aaa" ></div> 
-<!--     			<table class='table table-borderless table-dark'  id ="insertdata"> -->
+    			<table class='table table-borderless table-dark'  id ="insertdata">
 
-<!--     			</table> -->
+    			</table>
     	</div>				
 
 
@@ -125,9 +127,9 @@
 </body>
 <script>
 
-$('#e').click(function() {
-	$('#aaa').load("/AYCB_final/event/showEvent1")
-})
+// $('#e').click(function() {
+// 	$('#aaa').load("/AYCB_final/event/showEvent1")
+// })
    
      	  
   $('#eventmanager').click(function() {  
@@ -139,14 +141,16 @@ $('#e').click(function() {
        success : function(data){
     	   console.log(data.lenth);
    			var insertData = "";
-   			insertData ="<tr>" 
-				+"<td>帳號</td>" 
-				+"<td>活動名稱</td>" 
-				+"<td>mail</td>" 
-				+"<td>電話號碼</td>" 
-				+"<td>參加人數</td>" 
-				+"<td colspan='2'>修改報名資料</td>"
+   			insertData ="<thead>"
+   				+"<tr>" 
+				+"<th>帳號</th>" 
+				+"<th>活動名稱</th>" 
+				+"<th>mail</th>" 
+				+"<th>電話號碼</th>" 
+				+"<th>參加人數</th>" 
+				+"<th colspan='2'>修改報名資料</th>"
 				+"</tr>"
+				+"</thead>"
    			for (let i = 0; i < data.length; i++) {
    				insertData += 	"<tr>" 
     										+"<td>"+data[i].member.account+"</td>" 
@@ -160,6 +164,7 @@ $('#e').click(function() {
     				console.log(insertData);  			
    			}
    				$("#insertdata").html(insertData);
+   				tt();
 		  
  	  }
         	
@@ -176,19 +181,21 @@ $('#e').click(function() {
        success : function(data){
     	   console.log(data.lenth);
    			var insertData = "";
-   			insertData ="<tr>" 
-				+"<td>活動ID</td>" 
-				+"<td>活動圖片</td>" 
-				+"<td>活動名稱</td>" 
-				+"<td>日期</td>" 
-				+"<td>地點</td>" 
-				+"<td>主辦人</td>" 
-				+"<td>連絡電話</td>" 
-				+"<td>活動敘述</td>" 
-				+"<td>名額</td>" 
-				+"<td>報名人數</td>" 
-				+"<td colspan='2'>修改活動資料</td>"
+   			insertData ="<thead>"
+   				+"<tr>" 
+				+"<th>活動ID</th>" 
+				+"<th>活動圖片</th>" 
+				+"<th>活動名稱</th>" 
+				+"<th>日期</th>" 
+				+"<th>地點</th>" 
+				+"<th>主辦人</th>" 
+				+"<th>連絡電話</th>" 
+				+"<th>活動敘述</th>" 
+				+"<th>名額</th>" 
+				+"<th>報名人數</th>" 
+				+"<th colspan='2'>修改活動資料</th>"
 				+"</tr>"
+				+"</thead>"
    			for (let i = 0; i < data.length; i++) {
    				insertData += 	"<tr>" 
     										+"<td><a href='<c:url value='showAllAttendanceByEvent'/>?eventid="+data[i].eventid+"'>"+data[i].eventid+"</a></td>" 
@@ -207,11 +214,30 @@ $('#e').click(function() {
     				console.log(insertData);  			
    			}
    				$("#insertdata").html(insertData);
-		  
+   				tt();
  	  }
         	
 
          })  
   }) 
+  function tt() {	
+  $(document).ready(function() {
+    $('#insertdata').DataTable({
+    		destroy:true,
+    		language:{
+    			
+    		}
+    })
+});
+}
+  $(document).ready(function() {
+	    $('#insertdata').DataTable({
+	    		destroy:true,
+	    		language:{
+	    			
+	    		}
+	    })
+	});
+  
 </script>
 </html>

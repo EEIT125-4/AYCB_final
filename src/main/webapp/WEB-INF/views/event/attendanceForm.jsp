@@ -22,29 +22,30 @@
 					<div>
 						<label class="label1">帳號: ${member.account}</label> 
 						<input name="account" type="hidden" value="${member.account}"/> <br> 
-						<font color='red' size='-3'>${error.id}</font><br>
 							
 					</div>
 					<div>
 						<label class="label1">電話號碼:</label>						
-						<form:input path="phone" value="${member.phone}"/> <br> 
-						<font color='red' size='-3'>${error.phone}</font><br>
+						<form:input path="phone" value="${member.phone}"/>
+						<form:errors path="phone" cssStyle="font-size:15px; color:red"/><br>
 					</div>
 					<div>
 						<label class="label1">mail:</label> 						
-						<form:input path="mailaddress" value="${member.email}"/> <br> 	
-						<font color='red' size='-3'>${error.mail}</font><br>
+						<form:input path="mailaddress" value="${member.email}"/> <br>
+						<form:errors path="mailaddress" cssStyle="font-size:15px; color:red"/><br>
 					</div>
 					<div>
 						<label class="label1">活動名稱:</label> 
-						<input type="hidden" name="eventid" value="${eventid}"> 						
-						<input name="eventname" value="${eventname}" disabled="true">
-						 <font color='red' size='-3'>${error.eid}</font><br>							
+						<input type="hidden" name="eventid" value="${eventid}"> 					
+						<input name="eventname" type="text" value="${eventname}" readonly="readonly" style="background-color:lightgray;border:transparent">	
+<%-- 						<form:errors path="eventname" cssStyle="font-size:15px; color:red"/><br>				 --%>
 					</div>
+					
 					<div>
 						<label class="label1">參加人數:</label> 
-						<form:input type="number" path="pax"/> <br> 
-						<font color='red'size='-3'>${error.pax}</font><br>
+						<form:input type="number" path="pax"/> 
+						<form:errors path="pax" cssStyle="font-size:15px; color:red"/>
+						<font color='red'size='-3'>${pax1}</font><br>
 							
 					</div>
 					<div class="sub">

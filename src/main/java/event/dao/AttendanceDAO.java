@@ -26,8 +26,12 @@ public interface AttendanceDAO {
 	        List<Attendance> getAllAttendance();
 	        
 	        List<Attendance> getAllAttendancebyID(Integer id);
+
+			List<Attendance> getAllAttendancebyEvent(Integer eventid);
+
+			boolean isDup(Integer id, Integer eventid);
 	        
-	        List<Attendance> getAllAttendancebyEvent(Integer eventid);
+
 
 		
 	        

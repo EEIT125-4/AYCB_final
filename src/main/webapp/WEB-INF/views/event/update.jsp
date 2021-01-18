@@ -45,35 +45,39 @@
 					<TD align="RIGHT"></TD>
 					<TD align="LEFT">
 					<input type="image" name="filename" src="${attendance.event.filename}">					
-				    <font color='red' size='-3'>${error.eid}</font></TD>
+				   
+				    </TD>
 				</TR>
 				<TR>
 					<TD align="RIGHT">活動名稱：</TD>
 					<TD align="LEFT">
 					<input type="text" name="eventname" value="${attendance.event.eventname}${param.event.eventname}" size="30" disabled="disabled">					
-				    <font color='red' size='-3'>${error.eid}</font></TD>
+				    
+				    </TD>
 				</TR>
 				<TR>
 					<TD align="RIGHT">活動日期：</TD>
 					<TD align="LEFT"><input type="text" name="eventdate" value="${attendance.event.eventdate}${param.event.eventdate}" size="30" disabled="disabled">					
-				    <font color='red' size='-3'>${error.eid}</font></TD>
+	
 				</TR>
 				<TR>
 					<TD align="RIGHT">活動地點：</TD>
-					<TD align="LEFT"><input type="text" name="eventdate" value="${attendance.event.eventlocation}${param.event.eventlocation}" size="30" disabled="disabled">					
-				    <font color='red' size='-3'>${error.eid}</font></TD>
+					<TD align="LEFT"><input type="text" name="evenlocation" value="${attendance.event.eventlocation}${param.event.eventlocation}" size="30" disabled="disabled">					
+				    </TD>
 				</TR>
 				<TR>
-					<TD align="RIGHT">連絡電話：</TD>
+					<TD align="RIGHT">聯絡電話：</TD>
 					<TD align="LEFT"><input type="text" name="phone"
-						value="${attendance.phone}${param.phone}"> <font color='red'
-						size='-3'>${error.phone}</font></TD>
+						value="${attendance.phone}${param.phone}"> 
+					<form:errors path="phone" cssStyle="font-size:15px; color:red"/>
+					</TD>
 				</TR>
 				<TR>
 					<TD align="RIGHT">信箱：</TD>
 					<TD align="LEFT"><input type="text" name="mailaddress"
-						value="${attendance.mailaddress}${param.mailaddress}"> <font
-						color='red' size='-3'>${error.mail}</font></TD>
+						value="${attendance.mailaddress}${param.mailaddress}"> 
+					<form:errors path="mailaddress" cssStyle="font-size:15px; color:red"/>
+						</TD>
 				</TR>
 
 
