@@ -23,7 +23,7 @@
 			</div>
 			<div class="mbtnbox">
 				<input class="mbtn" type="button" value="商品"
-					onclick='location.href="${pageContext.request.contextPath}/MProduct"'>
+					onclick='location.href="${pageContext.request.contextPath}/GetAllProduct"'>
 			</div>
 			<div class="mbtnbox">
 				<input class="mbtn" type="button" value="訂單"
