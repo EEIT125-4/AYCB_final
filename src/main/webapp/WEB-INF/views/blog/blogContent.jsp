@@ -357,9 +357,7 @@ function refresh(){
         	 $('#board').empty();
         	 for(let i=0;i<data.length;i++){
         		 
-        		 $('#board').append(
-        					        	
-						
+        		 $('#board').append(	
         		 
         		 "<div class='leavecomment'>"
 			     + "<li>"
@@ -381,7 +379,6 @@ function refresh(){
 	 
         	 }
         	 
-         
          },
          error: function(data) {
         	 console.log("取得失敗!");
