@@ -94,7 +94,7 @@ input[type=text]:focus {
 					<div class="blog__item">
 						<div class="blog__item__pic set-bg">
 							<iframe width="360" height="270" src="${v.url}" frameborder="0"
-								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+								allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 								allowfullscreen></iframe>
 						</div>
 						<div class="blog__item__text">
