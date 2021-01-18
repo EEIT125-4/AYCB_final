@@ -2,6 +2,7 @@ package product.dao;
 
 import java.util.List;
 
+import product.model.CollectBean;
 import product.model.ProductBean;
 
 
@@ -79,8 +80,9 @@ public interface ProductDao {
 	
 	void delcollection(int no);
 	
+	List<CollectBean> collection(int mid);
+	
 	int pkcollection(int mid, int pid);
 	
-	List<Integer> findcollection(int id);
-
+	List<Integer> findcollection(int mid);
 }

@@ -33,13 +33,8 @@
 </head>
 <%@include file="../jspf/header.jspf"%>
 
-<body>
-	<p>&nbsp;</p>
-	<hr>
-	<div>
-		<H1 class='center'>更新報名資料</H1>
-		<hr>
-		<p>
+	<div class="container center" style="background-color: lightgray">
+		<h3>更新報名資料</h3>
 		<form:form method="POST" modelAttribute="attendance">
 			<input type="hidden" name="eventid" value="${attendance.event.eventid}"> 
 			<input type="hidden" name="memberid" value="${attendance.member.id}"> 
@@ -47,28 +42,47 @@
 				
 			<Table>
 				<TR>
+					<TD align="RIGHT"></TD>
+					<TD align="LEFT">
+					<input type="image" name="filename" src="${attendance.event.filename}">					
+				   
+				    </TD>
+				</TR>
+				<TR>
 					<TD align="RIGHT">活動名稱：</TD>
 					<TD align="LEFT">
-					<input type="text" name="eventid" value="${attendance.event.eventname}${param.event.eventname}" size="30" disabled="disabled">
-				    <font color='red' size='-3'>${error.eid}</font></TD>
-						
+					<input type="text" name="eventname" value="${attendance.event.eventname}${param.event.eventname}" size="30" disabled="disabled">					
+				    
+				    </TD>
 				</TR>
 				<TR>
-					<TD align="RIGHT">Phone：</TD>
+					<TD align="RIGHT">活動日期：</TD>
+					<TD align="LEFT"><input type="text" name="eventdate" value="${attendance.event.eventdate}${param.event.eventdate}" size="30" disabled="disabled">					
+	
+				</TR>
+				<TR>
+					<TD align="RIGHT">活動地點：</TD>
+					<TD align="LEFT"><input type="text" name="evenlocation" value="${attendance.event.eventlocation}${param.event.eventlocation}" size="30" disabled="disabled">					
+				    </TD>
+				</TR>
+				<TR>
+					<TD align="RIGHT">聯絡電話：</TD>
 					<TD align="LEFT"><input type="text" name="phone"
-						value="${attendance.phone}${param.phone}"> <font color='red'
-						size='-3'>${error.phone}</font></TD>
+						value="${attendance.phone}${param.phone}"> 
+					<form:errors path="phone" cssStyle="font-size:15px; color:red"/>
+					</TD>
 				</TR>
 				<TR>
-					<TD align="RIGHT">mail：</TD>
+					<TD align="RIGHT">信箱：</TD>
 					<TD align="LEFT"><input type="text" name="mailaddress"
-						value="${attendance.mailaddress}${param.mailaddress}"> <font
-						color='red' size='-3'>${error.mail}</font></TD>
+						value="${attendance.mailaddress}${param.mailaddress}"> 
+					<form:errors path="mailaddress" cssStyle="font-size:15px; color:red"/>
+						</TD>
 				</TR>
 
 
 				<TR>
-					<TD align="RIGHT">pax：</TD>
+					<TD align="RIGHT">報名人數：</TD>
 					<TD align="LEFT"><input type="text" name="pax"
 						value="${attendance.pax}${param.pax}"> <font color='red' size='-3'>${error.pax}</font>
 					</TD>
@@ -86,11 +100,11 @@
 				<c:remove var="member" scope="request" />
 			</c:if>
 		</form:form>
-		<p />
-		<small>&lt;&lt;<a href="javascript:history.back()">回上一頁</a>&gt;&gt;
-		</small>
+		
+		<small>&lt;&lt;<a href="javascript:history.back()">回上一頁</a>&gt;&gt;</small>
+		
 	</div>
-</body>
-<%@include file="../jspf/footer.jspf"%> 
 
+<%@include file="../jspf/footer.jspf"%> 
+</body>
 </html>

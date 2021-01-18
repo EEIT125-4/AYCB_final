@@ -11,12 +11,24 @@
 }
 
 .ct {
-	caption-side: top;
-	color: black;
-	padding-left: 10px;
-	font-size: 24px;
-	font-weight: bold;
-	vertical-align: middle;
+	float: left;
+    width: fit-content;
+    color: black;
+    margin: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.count {
+    width: fit-content;
+    caption-side: top;
+    float: right;
+    color: black;
+    margin: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    vertical-align: middle;
 }
 
 .historyth {
@@ -51,4 +63,10 @@
 .backbtn {
 	text-align: center;
 	margin-bottom: 20px;
+}
+
+.nolist {
+	width: fit-content;
+	font-size: 24px;
+	margin: 0 auto;
 }

@@ -25,6 +25,11 @@ public interface AttendanceService {
 	
 	List<Attendance> getAllAttendancebyID(Integer memberid);
 	
+	 List<Attendance> getAllAttendancebyEvent(Integer eventid);
+
+	boolean isDup(Integer mid,Integer eventid);
+
+	
 
 
 

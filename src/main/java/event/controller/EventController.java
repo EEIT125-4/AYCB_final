@@ -60,22 +60,41 @@ public class EventController {
 		@GetMapping("/showEvent")
 		public String list(Model model) {
 			model.addAttribute("events", eventService.getAllEvent());
+			model.addAttribute("check","");
+			return "event/showEvent";
+		}
+		
+		@GetMapping("/showEvent1")
+		public String list1(Model model) {
+			model.addAttribute("events", eventService.getAllEvent());
+			System.out.println("events");
+			return "event/eventbackstage";
+		}
+		
+		//分類顯示活動
+		@GetMapping("/showEventByCategory")
+		public String eventlist(Model model,
+				@RequestParam(value="eventcategory") String eventcategory
+				) {
+			List<Event> eventlist=eventService.getEventByCategory(eventcategory);
+			model.addAttribute("events", eventlist);
+			System.out.println("events"+eventlist);
 			return "event/showEvent";
 		}
 		
 		@GetMapping("/ajaxShowEvent")
 		public @ResponseBody List<Event> ajaxlist(
-				Model model) {			
+//				Model model
+				) {			
 			List<Event> list= new ArrayList<Event>();
 			list= eventService.getAllEvent();
 			return list;
 		}
 		
-		//insert event 
+		//新增活動 
 		@GetMapping("/eventForm")
 		public String showEmptyForm(Model model) {
 			Event event = new Event();
-	   //event.setEventname("event1");
 			model.addAttribute("event",event);
 				
 			return "event/eventForm";
@@ -85,12 +104,15 @@ public class EventController {
 		public String add(Model model,
 				@ModelAttribute("event") Event event,
 				@RequestParam(value = "file",required = false) MultipartFile file,
+				BindingResult result,
 		    HttpServletRequest request) {
 			
 			System.out.println("------"+event);
 			System.out.println("++++"+event.getEventname());
 			System.out.println(file);
-						
+			
+			event.setPax(0);		
+			
 			String path = null;
 			try {
 				path = Common.saveImage(file);
@@ -101,11 +123,11 @@ public class EventController {
 			event.setFilename(path);
 			
 			
-//			EventValidator validator =new EventValidator();
-//			validator.validate(event, result);
-//			if(result.hasErrors()) {
-//				return "event/eventForm";
-//			}
+			EventValidator validator =new EventValidator();
+			validator.validate(event, result);
+			if(result.hasErrors()) {
+				return "event/eventForm";
+			}
 //			MultipartFile img = event.getEventimage();
 //			String originalFilename = img.getOriginalFilename();
 //			
@@ -144,16 +166,17 @@ public class EventController {
 		}
 		
 		
-		//update
+		//更新活動
 		@GetMapping(value = "/eventupdate")
 		public String showDataForm(
 				//@PathVariable("eventID") Integer eventID, 
 				Model model,
 				@RequestParam(value="eventid" ,required = false)Integer eventid
 				) {
-			System.out.println("eid:"+eventid);
 			Event event = eventService.getEvent(eventid);
-			model.addAttribute(event);
+			model.addAttribute("event",event);
+			
+			
 			return "event/eventupdate";
 		}
 		@PostMapping(value = "/eventupdate")		
@@ -161,19 +184,17 @@ public class EventController {
 				@ModelAttribute("event") Event event, 
 				BindingResult result, 
 				Model model,
-				//@PathVariable Integer eventid,
 				@RequestParam(value="eventid" ,required = false)Integer eventid,
 				@RequestParam(value = "file",required = false) MultipartFile file,
 				HttpServletRequest request) {
+			
+
 			EventValidator validator = new EventValidator();
+			
 			validator.validate(event, result);
 			if (result.hasErrors()) {
-				System.out.println("result hasErrors(), event=" + event);
-				List<ObjectError> list = result.getAllErrors();
-				for (ObjectError error : list) {
-					System.out.println("有錯誤：" + error);
-				}
-				return "event/eventForm";
+
+				return "event/eventupdate";
 			}
 			String path = null;
 			try {
@@ -189,6 +210,8 @@ public class EventController {
 	
 			return "redirect:/event/showEvent";
 		}	
+		
+		//刪除
 		@GetMapping(value = "eventdelete")
 		public String delete(
 				//@PathVariable("id") Integer id
@@ -197,8 +220,10 @@ public class EventController {
 			eventService.delete(eventid);
 			return "redirect:/event/showEvent";
 		}
+		
 		@GetMapping("/img/{id}")
-		public ResponseEntity<byte[]> getPicture(@PathVariable("eventid") Integer eventid) {
+		public ResponseEntity<byte[]> getPicture(
+				@PathVariable("eventid") Integer eventid) {
 			
 			byte[] body = null;
 			ResponseEntity<byte[]> re = null;

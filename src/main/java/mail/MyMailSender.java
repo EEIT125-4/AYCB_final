@@ -1,7 +1,11 @@
 package mail;
 
+import java.io.File;
 import java.util.Properties;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
 import javax.mail.Authenticator;
 import javax.mail.BodyPart;
 import javax.mail.Message;
@@ -9,28 +13,19 @@ import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 
-import com.sun.istack.FinalArrayList;
+import com.sun.mail.handlers.multipart_mixed;
 
-import config.RootAppConfig;
-import member.MemberBean;
 import tool.Common;
 
 @Controller
 
 public class MyMailSender {
-	@Autowired
-//	private static JavaMailSender mailSender;
 	 
 	private static final String host = "smtp.gmail.com"; 
 	private static final String SEND_FROM="2020AYCB@gmail.com";
@@ -84,13 +79,17 @@ public class MyMailSender {
  
 	    	 
 	    	String orderID=others[0];
-            Message message = new MimeMessage(session);  
-            
-            MimeMessageHelper helper=new MimeMessageHelper((MimeMessage) message,true,"utf-8");
+            MimeMessage mimeMessage = new MimeMessage(session);  
+           
+            MimeMessageHelper helper=new MimeMessageHelper(mimeMessage,true,"utf-8");
 			
     		helper.setTo(mailTo);
     		StringBuilder sb = new StringBuilder();
-    		message.setSubject("交易成功");
+    		mimeMessage.setSubject("交易成功");
+    		MimeMultipart multipart = new MimeMultipart("related");
+    		BodyPart messageBodyPart = new MimeBodyPart();
+    		sb.append("<div style='background-image: url(cid:image);background-size: contain; width: 600px ;height: 600px;'>");
+    		sb.append("<div style='padding-top:  100px;'>");
     		sb.append("<h2>Hi," + name + ",您的訂單已成立,訂單號碼為:"+orderID+"</h1><br />");
     		sb.append("<p>"+content+"</p>");
     		sb.append("<a href=\"");
@@ -98,24 +97,44 @@ public class MyMailSender {
     		sb.append("\">");
     		sb.append("<h3>前往官網查看訂單資訊</h3>");			
     		sb.append("</a>");
-    		
+    		sb.append(" </div>");
+    		sb.append(" </div>");
     		sb.append("</body></html>");
+    		
 
-    		MimeMultipart mimeMultipart = new MimeMultipart();
+    		
+    		
+    		messageBodyPart.setContent(sb.toString(),"text/html;charset=utf-8");
+    		// add it
+    		multipart.addBodyPart(messageBodyPart);
 
-    		BodyPart part = new MimeBodyPart();
-    		part.setContent(sb.toString(), "text/html");
+    		// second part (the image)
+    					messageBodyPart = new MimeBodyPart();
+    					DataSource fds = new FileDataSource(
+    							new File("C:\\Users\\user\\OneDrive\\桌面\\pics\\背景\\emailbackground.jfif"));
+    		
+    		//
+    					messageBodyPart.setDataHandler(new DataHandler(fds));
+    					messageBodyPart.setHeader("Content-ID", "<image>");
 
-    		mimeMultipart.addBodyPart(part);
+    					// add image to the multipart
+    					multipart.addBodyPart(messageBodyPart);
 
-    		message.setContent(sb.toString(), "text/html;charset=utf-8");
-    		Transport.send(message);
+    					// put everything together
+    					mimeMessage.setContent(multipart);
+    					// Send message
+    					
+    					Transport.send(mimeMessage);
             
-            System.out.println("Done");  
+    					System.out.println("Done");  
+            
+            
+            
+            
+            
+            
+            
                        
-  
-      
-		
 		//
 		
 //		MimeMessage mimeMessage = mailSender.createMimeMessage();
@@ -140,14 +159,7 @@ public class MyMailSender {
 //		mimeMultipart.addBodyPart(part);
 //
 //		mimeMessage.setContent(sb.toString(), "text/html;charset=utf-8");
-//		mailSender.send(mimeMessage);
-		
-		//
-	
-		
+//		mailSender.send(mimeMessage);		
 	}
-	
-	
-	
 
 }

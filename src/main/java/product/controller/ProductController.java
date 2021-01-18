@@ -1,19 +1,17 @@
 package product.controller;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -23,6 +21,8 @@ import com.google.gson.Gson;
 
 import comment.model.CommentBean;
 import comment.service.CommentService;
+import member.MemberBean;
+import product.model.CollectBean;
 import product.model.ProductBean;
 import product.service.ProductService;
 
@@ -190,50 +190,45 @@ public class ProductController {
 
 	@SuppressWarnings("unchecked")
 	@GetMapping("/Detail")
-	public ModelAndView detail(Model model, @RequestParam(value = "no", required = false) Integer no,
+	public ModelAndView detail(Model model, HttpSession session,
+			@RequestParam(value = "no", required = false) Integer no,
 			@RequestParam(value = "cate", required = false) String cate) {
 		ModelAndView mav = new ModelAndView();
 
 		ProductBean detail = ps.getProduct(no);
-//		model.addAttribute("Detail", detail);
 		mav.addObject("Detail", detail);
 
 		List<ProductBean> racate = ps.racate(cate);
 		mav.addObject("racate", racate);
-		
+
 		boolean history = true;
 		List<ProductBean> list = (List<ProductBean>) model.getAttribute("recordlist");
-		System.out.println("LLL1 " + list);
+		System.out.println("123ooo " + list);
 		if (list != null) {
-			
 			for (int i = 0; i < list.size(); i++) {
 				if (detail.getProductno() != list.get(i).getProductno()) {
-					history=true;
-					
+					history = true;
 				} else {
-					history=false;
+					history = false;
 					break;
-					
-					
 				}
 			}
-			
-		} 
-	
-		
-		if(history) {
-			list.add(detail);	
-			System.out.println("LLL2 " + list);
-//			mav.addObject("recordlist", list);
-			
-			
+		} else {
+			list = new ArrayList<>();
+			list.add(detail);
+			session.setAttribute("recordlist", list);
+			history = false;
+			System.out.println("new " + list);
 		}
-		System.out.println("list"+list);
-		
-		
+		if (history) {
+			list.add(detail);
+			System.out.println(" 123 " + list);
+		}
+		if (list.size() > 10) {
+			list.remove(list.get(0));
+		}
 
 		CommentBean commentBean = new CommentBean();
-//		model.addAttribute("leave",commentBean);
 		mav.addObject("leave", commentBean);
 		mav.setViewName("product/detail");
 		return mav;
@@ -242,21 +237,22 @@ public class ProductController {
 	/*
 	 * Kevin:for ajax response
 	 */
-	@PostMapping("/Detail")
-	@ResponseBody
-	public String leaveComment(Model model, @ModelAttribute("leave") CommentBean cb) {
-
-		System.out.println("comment:" + cb);
-		// JAVA的Date轉SQL的Date
-		Timestamp time = new Timestamp(new Date().getTime());
-//		
-		cb.setCommentTime(time);
-		cs.insertComment(cb);
-		List<CommentBean> list = cs.selectAll();
-		model.addAttribute("comments", list);
-
-		return "OK";
-	}
+//	@PostMapping("/Detail")
+//	@ResponseBody
+//	public String leaveComment(Model model, @ModelAttribute("leave") CommentBean cb) {
+//
+//		System.out.println("comment:" + cb);
+//		// JAVA的Date轉SQL的Date
+//		Timestamp time = new Timestamp(new Date().getTime());
+////		
+//		cb.setCommentTime(time);
+//		cb.setMember();
+//		cs.insertComment(cb);
+//		List<CommentBean> list = cs.selectAll();
+//		model.addAttribute("comments", list);
+//
+//		return "OK";
+//	}
 
 	@GetMapping(value = "/GetSeriesByBrand", produces = "application/json")
 	public @ResponseBody List<String> getSeriesByBrand(@RequestParam("brandname") String brandname) {
@@ -277,17 +273,13 @@ public class ProductController {
 	}
 
 	@GetMapping(value = "/Collect", produces = "application/json")
-	public @ResponseBody boolean collect(@RequestParam("mid") Integer mid, @RequestParam("pid") Integer pid) {
-		System.out.println("MMM " + mid);
-		System.out.println("PPP " + pid);
+	public @ResponseBody boolean collect(Model model, HttpSession session, @RequestParam("mid") Integer mid,
+			@RequestParam("pid") Integer pid) {
 		List<Integer> list = ps.findcollection(mid);
-		System.out.println("list " + list);
 		if (list != null) {
 			for (int i = 0; i < list.size(); i++) {
-				System.out.println("XXX " + list.get(i));
 				if (pid == list.get(i)) {
 					int pk = ps.pkcollection(mid, pid);
-					System.out.println("pk " + pk);
 					ps.delcollection(pk);
 					return false;
 				}
@@ -297,8 +289,55 @@ public class ProductController {
 		return true;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@GetMapping(value = "/Collectcheck", produces = "application/json")
+	public @ResponseBody Map collectcheck(Model model, HttpSession session) {
+		List<ProductBean> all = ps.getAllProducts();
+		
+		List<Integer> list = new ArrayList<>();
+		MemberBean member = (MemberBean) session.getAttribute("member");
+		List<CollectBean> collection = ps.collection(member.getId());
+		if (collection != null) {
+			for (int i = 0; i < collection.size(); i++) {
+				list.add(collection.get(i).getPid());
+			}
+		}
+		System.out.println(all);
+		System.out.println(list);
+		Map map = new HashMap();
+		map.put("No", list);
+		map.put("All", all);
+		return map;
+	}
+
 	@GetMapping("/History")
-	public String mproduct() {
-		return "product/history";
+	public String history(HttpSession session) {
+		MemberBean mb = (MemberBean) session.getAttribute("member");
+		if (mb != null ) {
+			return "product/history";
+		}else {
+			return "member/login";
+		}
+	}
+	
+	@GetMapping("/Collect")
+	public String collect(Model model, HttpSession session) {
+		MemberBean mb = (MemberBean) session.getAttribute("member");
+		if (mb != null ) {
+			List<ProductBean> list = new ArrayList<>();
+			List<CollectBean> clist = ps.collection(mb.getId());
+			System.out.println("clist" + clist);
+			for(int i=0 ; i<clist.size() ; i++) {
+				System.out.println(clist.get(i).getPid());
+				ProductBean pb = ps.getProduct(clist.get(i).getPid());
+				System.out.println("plist" + pb);
+				list.add(pb);
+			}
+			System.out.println("list" + list);
+			model.addAttribute("collection", list);
+			return "product/collect";
+		}else {
+			return "member/login";
+		}
 	}
 }

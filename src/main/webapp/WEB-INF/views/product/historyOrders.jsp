@@ -13,12 +13,6 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-	crossorigin="anonymous">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 <%
 	String user = "";
@@ -41,21 +35,19 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 
 
 
-
+<div>
 <c:choose>
 	<c:when test="${empty orderList}">
 	查無資料<br>
 	</c:when>
 	<c:when test="${not empty orderList }">
 
-		<fieldset
-			style="margin: auto; position: relative; top: 50px; width: 800px; border: 1px solid transparent;">
-			<form action="<c:url value='member/update' />" method="get">
+	 <form action="<c:url value='member/update' />" method="get">
+		<fieldset style="margin: auto; position: relative; width: 1000px; border: 1px solid transparent;">
 				<h4 style="font-weight: bold; text-align: center">查詢交易歷史清單</h4>
 				<br>
 				<table class="table table-hover" class="row">
 					<thead>
-
 						<tr>
 							<th style="text-align:center;vertical-align:middle;" scope="col">訂單編號</th>
 							<th style="text-align:center;vertical-align:middle;" scope="col">顧客姓名</th>
@@ -95,9 +87,11 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 					<input class="btn btn-dark" type="submit" value="回會員中心">
 				</div>
 
+		        </fieldset>
 			</form>
-		</fieldset>
-	</c:when>
-</c:choose>
-
+	    </c:when>
+  </c:choose>
+</div>
 <%@include file="../jspf/footer.jspf"%>
+
+</body>

@@ -9,12 +9,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
+import member.MemberBean;
+import product.cartModel.CartItem;
 import product.cartModel.OrderBean;
 import product.cartModel.OrderItemBean;
 import product.cartService.OrderService;
 
 @Controller
+@SessionAttributes({ "member" })
 public class OrderManagerController {
 
 	@Autowired
@@ -24,6 +29,12 @@ public class OrderManagerController {
 	public String SelectOrderItem(Model model,
 			@RequestParam(value = "selectindex", required = false) int selectindex			
 	){
+				
+		MemberBean memberBean = (MemberBean) model.getAttribute("member");
+		
+		if(memberBean == null) {
+			return "redirect:/member/login";
+		}
 		
 		List<OrderItemBean> itemList = os.selectOrderItem(selectindex);
 		model.addAttribute("itemList", itemList);
@@ -31,22 +42,44 @@ public class OrderManagerController {
 		return "product/mHistoryOrderItem";
 	}
 	
+//	@GetMapping("/managerOrderDelete")
+//	public String OrderDelete(Model model,
+//							   @RequestParam(value = "deleteindex", required = false) int deleteindex
+//	){
+//		System.out.println("delete process");
+//		
+//		os.deleteOrderBean(deleteindex);
+//
+//		return "redirect:/orderManager";
+//	}
+	
 	@GetMapping("/managerOrderDelete")
-	public String OrderDelete(Model model,
-							   @RequestParam(value = "deleteindex", required = false) int deleteindex
-	){
-		System.out.println("delete process");
+	public @ResponseBody boolean OrderDelete(Model model,
+														@RequestParam int deleteindex
+			){
+		System.out.println("delete process: "+deleteindex);
 		
 		os.deleteOrderBean(deleteindex);
-
-		return "redirect:/orderManager";
+		
+		return true;
 	}
 	
 	@GetMapping("/orderManager")
-	public String OrderManager( ) {
+	public String OrderManager(Model model ) {
+		
+		MemberBean memberBean = (MemberBean) model.getAttribute("member");
+		
+		if(memberBean == null) {
+			return "redirect:/member/login";
+		}
 		
 		return "product/mHistoryOrders";
 	}
+	
+	
+	
+	
+	
 	
 	@ModelAttribute("AllOrders")
 	public List<OrderBean> SelectAllOrders(Model model) {
@@ -57,4 +90,5 @@ public class OrderManagerController {
 				
 		return list;
 	}
+	
 }

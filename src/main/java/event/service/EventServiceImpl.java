@@ -46,6 +46,11 @@ public class EventServiceImpl implements EventService  {
 	public Event getEvent(Integer EventID) {
 	 return eventDAO.getEvent(EventID);
 	}
+
+	@Override
+	public List<Event> getEventByCategory(String eventcategory) {
+		return eventDAO.getEventByCategory(eventcategory);
+	}
 	
 	
 	

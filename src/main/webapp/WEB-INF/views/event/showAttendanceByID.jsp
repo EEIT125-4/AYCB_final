@@ -51,19 +51,21 @@
 			<table class="table table-borderless table-dark" >
 				<tr>
 					<td align="center" valign="middle">活動圖片</td>
+					<td align="center" valign="middle" width="">活動ID</td>			
 					<td align="center" valign="middle" width="">活動名稱</td>			
 					<td align="center" valign="middle">日期</td>
 					<td align="center" valign="middle">地點</td>								
 <!-- 					<td align="center" valign="middle">帳號</td>	 -->
 					<td align="center" valign="middle">mail</td>
 					<td align="center" valign="middle">電話號碼</td>
-					<td align="center" valign="middle">參加人數</td>
+					<td align="center" valign="middle">報名人數</td>
 					<td align="center" valign="middle" colspan="2">修改報名資料</td>
 					
 				</tr>
 				<c:forEach var='Attendance' varStatus='vs' items='${attendancelist}'>
 					<tr>
 						<td align="center" style="vertical-align:middle;"><img width='180' height='200' src='${Attendance.event.filename}' /></td>
+						<td align="center" style="vertical-align:middle;">${Attendance.event.eventid}</td>
 						<td align="center" style="vertical-align:middle;">${Attendance.event.eventname}</td>
 						<td align="center" style="vertical-align:middle;">${Attendance.event.eventdate}</td>
 						<td align="center" style="vertical-align:middle;">${Attendance.event.eventlocation}</td>
@@ -72,7 +74,7 @@
 						<td align="center" style="vertical-align:middle;">${Attendance.phone}</td>
 						<td align="center" style="vertical-align:middle;">${Attendance.pax}</td>
 						<td align="center" style="vertical-align:middle;"><a href="<c:url value='update'/>?aid=${Attendance.aid}" class="btn btn-primary" style="width: 150px ;background-color: grey; border: none;">更改聯絡資訊</a></td>
-                        <td align="center" style="vertical-align:middle;"><a href="<c:url value='delete'/>?aid=${Attendance.aid}" class="btn btn-primary" style="width: 100px ;background-color: grey;border: none;">取消報名</a></td>
+                        <td align="center" style="vertical-align:middle;"><a href="<c:url value='delete'/>?aid=${Attendance.aid}&eventid=${Attendance.event.eventid}&id=${Attendance.member.id}" class="btn btn-primary" style="width: 100px ;background-color: grey;border: none;">取消報名</a></td>
 <%--                class='deletelink'         ${Attendance.aid} --%>
 					</tr>
 					

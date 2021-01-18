@@ -1,17 +1,22 @@
+
 package event.controller;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaBuilder.In;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.xml.transform.Source;
 
-
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,16 +26,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.context.request.WebRequest;
 
 import event.model.Attendance;
+import event.model.Event;
 import event.service.AttendanceService;
 import event.service.EventService;
 import event.validator.AttendanceValidator;
+import member.MemberBean;
 import member.Service.MemberService;
 
 
 @Controller
+//@SessionAttributes ({"attendance"})
 public class AttendanceController {
 	
 	    
@@ -72,7 +82,7 @@ public class AttendanceController {
 		//查詢會員報名的活動
 		@GetMapping("event/showAllAttendanceByID")
 		public String attendancelist(Model model,
-				@RequestParam (value="id" ) Integer id
+			 @RequestParam (value="id") Integer id
 			) {
 			System.out.println(id);
 			List<Attendance> attendancelist=attendanceService.getAllAttendancebyID(id);
@@ -81,69 +91,115 @@ public class AttendanceController {
 			
 			return "event/showAttendanceByID";
 		}
+		
+		//查詢參加活動的會員
+		@GetMapping("event/showAllAttendanceByEvent")
+		public String attendanceOfEvent(Model model,
+				@RequestParam(value="eventid") Integer eventid
+				) {
+			System.out.println("查詢參加活動的會員");
+			List<Attendance> attendanceOfEvent=attendanceService.getAllAttendancebyEvent(eventid);
+			model.addAttribute("attendanceOfEvent", attendanceOfEvent);
+			System.out.println(attendanceOfEvent);
+			
+			return "event/showAttendanceByEvent";
+		}
+		
 
-		//insert
+		//新增報名
 		@GetMapping("event/attendanceForm")
 		public String showEmptyForm(Model model,
-				@RequestParam(value="eventid" ) Integer eventid //取得attendanceForm值
-//			    ,@RequestParam(value="account") String account //取得attendanceForm值
+				@RequestParam(value="eventid",required = false) Integer eventid, //取得attendanceForm值
+			   @RequestParam(value="membercatcher" ,required = false) String membercatcher, //取得member值
+			   @RequestParam(value="memberid" ,required = false) Integer memberid
+//			   ,
+//			   @RequestParam(value="member" ,required = false) MemberBean member
+			   
 				) {
+			System.out.println("--------------"+ membercatcher);
 			
-		   //加入event
+			//判斷是否登入會員
+			if(membercatcher!="") {
+		    //判斷重複報名
+			if(attendanceService.isDup(memberid, eventid)) {
+			//加入event	
 			System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++"+eventid);
-//			System.out.println("==================================="+account);
+
 			String eventname= eventService.getEvent(eventid).getEventname();
 			System.out.println("eventname="+eventname);
 			model.addAttribute("eventid", eventid);
 			model.addAttribute("eventname", eventname);
 			
-//			System.out.println("============================="+account);
-//			model.addAttribute("account", account);
-			
-			
-			
 			Attendance attendance = new Attendance(); //new attendanceForm 儲存格
 			System.out.println("888888888888888888888888888888888888"+attendance);
-//			attendance.setEvent(eventname);
+
 			model.addAttribute("attendance",attendance);
-			
-//			attendance.setMemberID("TEST1214");
-//			attendance.setPhone("0912345678");
-//			attendance.setMailaddress("test@gmail.com");
-//			attendance.setEventID("1");
-//			attendance.setPax("2");
-			
 			return "event/attendanceForm";
+			}else {
+				model.addAttribute("check","1");
+				model.addAttribute("events", eventService.getAllEvent());
+				return "event/showEvent";
+			}
+						
+		}else {
+			return "member/login";
+		}
 		}
 		
 		@PostMapping("event/attendanceForm")
 		public String add(
 				@ModelAttribute("attendance") Attendance attendance,
-				BindingResult result, Model model,
+				BindingResult result,
+				Model model,
 				@RequestParam (value="eventid" ) Integer eventid,
 				@RequestParam (value="account" ) String account,
+				@RequestParam (value="eventname",required = false) String eventname,			
 				HttpServletRequest request) {
+			System.out.println("attendance="+attendance);
+				System.out.println("abvcascascas"+eventname);
 			AttendanceValidator validator =new AttendanceValidator();
 			validator.validate(attendance, result);
 			if(result.hasErrors()) {
-				return "event/attendanceForm";
-			}
-			try {
-				System.out.println("------------------------------------------------------------------------------"+eventid);
-				attendance.setEvent(eventService.getEvent(eventid));
-				attendance.setMember(memberService.getMember(account));
-				attendanceService.save(attendance);
-			} catch (org.hibernate.exception.ConstraintViolationException e) {
-				//result.rejectValue("account", "", "帳號已存在，請重新輸入");
-				return "event/attendanceForm";
-			} catch (Exception ex) {
-				System.out.println(ex.getClass().getName() + ", ex.getMessage()=" + ex.getMessage());
-				result.rejectValue("account", "", "請通知系統人員...");
+				List<ObjectError> list = result.getAllErrors();
+				for (ObjectError error : list) {
+					System.out.println("有錯誤：" + error);
+				}
+				System.out.println("1111111111111111");
+				model.addAttribute("eventid", eventid);
+				model.addAttribute("eventname",eventname);
 				return "event/attendanceForm";
 			}
 			
-			return "redirect:/event/showAttendance";
+				System.out.println("------------------------------------------------------------------------------"+eventid);
+				Event event = eventService.getEvent(eventid);
+				event.setPax(attendance.getPax()+event.getPax());
+				if(event.getPax()<=event.getTotalpax()) {
+					eventService.updateEvent(event);
+				}else {
+					System.out.println("222222222222222222222");
+					model.addAttribute("eventid", eventid);
+					model.addAttribute("pax1", "人數大於上限值，請重新輸入");
+					return "event/attendanceForm";
+				}
+				
+				attendance.setEvent(eventService.getEvent(eventid));
+				attendance.setMember(memberService.getMember(account));		
+				attendanceService.save(attendance);
+			
+			
+			return "redirect:/event/jumpturn";			
 		}
+		
+		@GetMapping("event/jumpturn")
+		public String jumpturn(Model model,HttpSession session) {
+			MemberBean mb = (MemberBean) session.getAttribute("member");
+			Integer id=memberService.getMember(mb.getAccount()).getId();
+			List<Attendance> attendancelist=attendanceService.getAllAttendancebyID(id);
+			model.addAttribute("attendancelist",attendancelist);
+			return "event/showAttendanceByID";
+		}
+		
+		//更新報名資料
 		@GetMapping(value = "event/update")
 		public String showDataForm(				
 				//@PathVariable("aid") Integer aid, 
@@ -152,9 +208,6 @@ public class AttendanceController {
 			Attendance attendance = attendanceService.getAttendance(aid);
 			model.addAttribute(attendance);
 			System.out.println("編輯前:"+attendance);
-			
-			
-			
 			return "event/update";
 		}
 		
@@ -185,16 +238,26 @@ public class AttendanceController {
 			}
 									
 			attendanceService.updateAttendance(attendance);
-			return "redirect:/event/showAttendance";
+			return "redirect:/event/showAttendanceByID";
 		}	
 		
+		
 		@GetMapping(value = "event/delete")
-		public String delete(
-			//	@PathVariable("aid") Integer aid
-				@RequestParam(value="aid" ,required = false)Integer aid
+		public String delete(Model model,
+				@RequestParam(value="id" ,required = false) Integer id,
+				@RequestParam(value="aid" ,required = false)Integer aid,
+				@RequestParam(value="eventid" ,required = false)Integer eventid				
 				) {
+			System.out.println("456456546");
+			Event event = eventService.getEvent(eventid);
+			Attendance attendance=attendanceService.getAttendance(aid);
+			event.setPax(event.getPax()- attendance.getPax());
+			eventService.updateEvent(event);
 			attendanceService.deleteAttendance(aid);
-			return "redirect:/event/showAttendance";
+			model.addAttribute("aa","123");
+			List<Attendance> attendancelist=attendanceService.getAllAttendancebyID(id);
+			model.addAttribute("attendancelist",attendancelist);
+			return "event/showAttendanceByID";
 		}
 //		
 //		@GetMapping(value="")

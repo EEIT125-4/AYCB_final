@@ -21,7 +21,7 @@ public class Attendance {
 	Integer aid;
 	String phone;
 	String mailaddress;
-	String pax;
+	Integer pax;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn
@@ -63,11 +63,11 @@ public class Attendance {
 		this.mailaddress = mailaddress;
 	}
 
-	public String getPax() {
+	public Integer getPax() {
 		return pax;
 	}
 
-	public void setPax(String pax) {
+	public void setPax(Integer pax) {
 		this.pax = pax;
 	}
 
@@ -100,7 +100,7 @@ public class Attendance {
 		return builder.toString();
 	}
 
-	public Attendance(Integer aid, String phone, String mailaddress, String pax, Event event, MemberBean member) {
+	public Attendance(Integer aid, String phone, String mailaddress, Integer pax, Event event, MemberBean member) {
 		super();
 		this.aid = aid;
 		this.phone = phone;

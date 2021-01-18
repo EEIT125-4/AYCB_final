@@ -108,6 +108,21 @@ public class MemberController {
 
 		return "member/register";
 	}
+	
+//	//刪除
+//	@GetMapping("/delete")
+//	public String delete(Model model,@RequestParam("delete") Integer id) {
+//		memberService.delete(id);
+//		model.addAttribute("memberBackstage", memberService.getAllMembers());
+//		System.out.println(memberService.getAllMembers());
+//
+//		return "member/memberBackstage";
+//
+//		
+//	}
+	
+	
+	
 
 //帳號判斷
 	@PostMapping("/accountcheck")
@@ -268,6 +283,23 @@ public class MemberController {
 			loginbean.setUserId(user);
 			loginbean.setPassword(pwd);
 			processCookies(loginbean, request, response);
+			//TEST
+			
+			Cookie[] cookies = request.getCookies();
+//	  		
+	  		for(Cookie cookie: cookies) {
+	  			System.out.println("cookie name"+cookie.getName());
+	  			System.out.println("cookie.value"+cookie.getValue());
+	  		}
+		// Cookie cookie = new Cookie("memberCookie", memberBean.getName());
+		// 設定秒數
+		// cookie.setMaxAge(60*60*24*365);//存個一年
+
+		// cookie.setPath("/AYCB_final");
+		// response.addCookie(cookie);
+			
+	
+			
 			session.setAttribute("member", mb);
 			return "index";
 
@@ -355,7 +387,6 @@ public class MemberController {
 		System.out.println("passowrd" + mb.getPassword());
 
 		if (mb.getPassword().equals(oldpwd)) {
-
 			return true;
 		} else {
 			return pp;
@@ -446,25 +477,11 @@ public class MemberController {
 			System.out.println("birth" + birth);
 			memberBean.setCkpower(true);
 
-//    	  		Cookie[] cookies = request.getCookies();
-//    	  		
-//    	  		for(Cookie cookie: cookies) {
-//    	  			System.out.println(cookie.getName());
-//    	  			System.out.println(cookie.getValue());
-//    	  		}
-			// Cookie cookie = new Cookie("memberCookie", memberBean.getName());
-			// 設定秒數
-			// cookie.setMaxAge(60*60*24*365);//存個一年
 
-			// cookie.setPath("/AYCB_final");
-			// response.addCookie(cookie);
 
 			memberService.insertregister(memberBean);
 
-//    		  MemberBean mb = (MemberBean) session.getAttribute("member");
-//    		  
-//  
-//    	  }else {MemberBean mb = (MemberBean) session.getAttribute("member");
+
 		}
 		System.out.println(email);
 		MemberBean mbb = memberService.getemail(email);
@@ -502,12 +519,14 @@ public class MemberController {
 	private void processCookies(LoginBean bean, HttpServletRequest request, HttpServletResponse response) {
 		Cookie cookieUser = null;
 		Cookie cookiePassword = null;
-//		Cookie cookieRememberMe = null;
+		Cookie cookieRememberMe = null;
 		String userId = bean.getUserId();
+		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++");
+		System.out.println(userId);
 		String password = bean.getPassword();
-//		Boolean rm = bean.isRememberMe();
+		Boolean rm = bean.isRememberMe();
 
-		if (bean.isRememberMe()) {
+		if (!bean.isRememberMe()) {
 			cookieUser = new Cookie("user", userId);
 			cookieUser.setMaxAge(7 * 24 * 60 * 60); // Cookie的存活期: 七天
 			cookieUser.setPath(request.getContextPath());
@@ -516,10 +535,10 @@ public class MemberController {
 			cookiePassword = new Cookie("password", encodePassword);
 			cookiePassword.setMaxAge(7 * 24 * 60 * 60);
 			cookiePassword.setPath(request.getContextPath());
-//			System.out.println("++++++++++++++++++++++++"+cookieUser);
-//			cookieRememberMe = new Cookie("rm", "true");
-//			cookieRememberMe.setMaxAge(7 * 24 * 60 * 60);
-//			cookieRememberMe.setPath(request.getContextPath());
+			System.out.println("++++++++++++++++++++++++"+cookieUser);
+			cookieRememberMe = new Cookie("rm", "true");
+			cookieRememberMe.setMaxAge(7 * 24 * 60 * 60);
+			cookieRememberMe.setPath(request.getContextPath());
 		} else {
 
 			cookieUser = new Cookie("user", userId);
@@ -531,14 +550,14 @@ public class MemberController {
 			cookiePassword.setMaxAge(0);
 			cookiePassword.setPath(request.getContextPath());
 			System.out.println("++++++++++++++++++++++++"+cookieUser);
-//			cookieRememberMe = new Cookie("rm", "true");
-//			cookieRememberMe.setMaxAge(0);
-//			cookieRememberMe.setPath(request.getContextPath());
-//			System.out.println("++++++++++++++++++++++++"+cookieUser);
+			cookieRememberMe = new Cookie("rm", "true");
+			cookieRememberMe.setMaxAge(0);
+			cookieRememberMe.setPath(request.getContextPath());
+			System.out.println("++++++++++++++++++++++++"+cookieUser);
 		}
 		response.addCookie(cookieUser);
 		response.addCookie(cookiePassword);
-//		response.addCookie(cookieRememberMe);
+		response.addCookie(cookieRememberMe);
 	}
 
 }

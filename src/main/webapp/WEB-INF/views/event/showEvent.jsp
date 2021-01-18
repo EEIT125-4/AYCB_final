@@ -40,16 +40,23 @@
 <title></title>
 
 <%@include file="../jspf/header.jspf"%>
-
-<div style="text-align: center">
-	<h3>活動資料</h3>
-	<a class="manager" href="<c:url value='/event/eventForm'/>">新增活動</a> &nbsp;&nbsp;
-	
-		
-
-	<form method='POST'>
-		<input type='hidden' name='_method' value='DELETE'>
+<a class="btn btn-dark manager" href="<c:url value='/event/eventForm'/>">新增活動</a> &nbsp;&nbsp;
+	<div>
+	<form action="<c:url value='/event/showEventByCategory' />">
+    <label style="font-size: 20px">分類搜尋活動:&nbsp;&nbsp;
+	<button  style="width:100px" class="btn btn-outline-dark" name="eventcategory" value="手做">手作</button>
+	<button  style="width:100px" class="btn btn-outline-dark" name="eventcategory" value="教學">教學</button>
+	<button  style="width:100px" class="btn btn-outline-dark" name="eventcategory" value="新品發表">新品發表</button>
+	<button  style="width:100px" class="btn btn-outline-dark" name="eventcategory" value="促銷">促銷</button>
+	<button  style="width:100px" class="btn btn-outline-dark" name="eventcategory" value="其他">其他</button>
+	</label>
 	</form>
+	</div>
+	
+<div style="text-align: center ;" >
+
+	
+	
 	<section class="container">
 	<div class="row">
 		<c:forEach var='event' items='${events}'>
@@ -71,20 +78,18 @@
 
 						<div>
 						    <input type="hidden" id="aa" class="aa" value="${member.level}"> 
-							<a id="manager" href="<c:url value='eventupdate'/>?eventid=${event.eventid}" class="btn btn-primary manager"								
-								style="background-color: black; border-color: black; border-radius: 0px">
+							<a id="manager" href="<c:url value='eventupdate'/>?eventid=${event.eventid}" class="btn btn-dark manager">
                             <span id="manager" class="glyphicon-info-sigh glyphicon manager">編輯</span></a>
 								
 							 <a id="manager" href="<c:url value='eventdelete'/>?eventid=${event.eventid}"
-								class="btn btn-primary manager"
-								style="background-color: black; border-color: black; border-radius: 0px">
+								class="btn btn-dark manager">
 								<span id="manager" class="glyphicon-info-sigh glyphicon manager">刪除</span>
 							</a>
 
 							<!-- Button trigger modal -->
-							<button type="button" class="btn btn-primary"
+							<button type="button" class="btn btn-dark"
 								value="${event.eventlocation}"
-								style="width: 100px; background-color: black; border-color: black; border-radius: 0px"
+								style="width: 100px;"
 								data-toggle="modal" data-target="#event${event.eventid}">詳細資料</button>
 						</div>
 						<!-- Modal -->
@@ -102,36 +107,28 @@
 									</div>
 									<div class="modal-body">
 										<img width='180' height='200' src='${event.filename}' />
-
-
-
 										<div class="caption">
 											<p>
-												<b style='font-size: 16px;'>${event.eventname}</b>
+												<b style='font-size: 16px;'>活動名稱:${event.eventname}</b>
 											</p>
-											<p>${event.eventid}</p>
+<%-- 											<p>${event.eventid}</p> --%>
+											<p>活動類別:${event.eventcategory}</p>
 											<p>活動日期:${event.eventdate}</p>
-											<p>${event.eventlocation}</p>
-											<p>${event.eventdescription}</p>
-											<p>${event.host}</p>
-											<p>${event.hostphone}</p>
-											<p>${event.pax}</p>
-											<p>${event.hostphone}</p>
-<%-- 											<div id="map" value="${event.eventid}" style="width: 465px; height: 500px"></div> --%>
+											<p>活動地點:${event.eventlocation}</p>
+											<p>主辦單位:${event.host}</p>
+											<p>連絡電話:${event.hostphone}</p>
+											<p>名額:${event.totalpax}</p>
+											<p>報名人數:${event.pax}</p>
+											<p>活動介紹:${event.eventdescription}</p>	
 										</div>
-										<div class="modal-footer">
-											<button type="button" style="width: 100px;"
-												class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-												<form action="<c:url value='/event/attendanceForm'/>" id="trans">
-												<input type="hidden" name="eventid" value="${event.eventid}">
-												<button type="button" id="attend" class="btn btn-primary attend" style="width: 100px;">報名參加</button>
-												</form>
-												
-<%-- 												<a id="trans" href="<c:url value='/event/attendanceForm'/>?eventid=${event.eventid}"> --%>
-<!-- 												<button id="attend" type="submit" class="btn btn-primary" style="width: 100px;">報名參加</button></a>  -->
-											<input type="hidden" id="membercatcher" value="${member}"> 
-
+							<div class="modal-footer">
+									<button type="button" style="width: 100px;" class="btn btn-secondary" data-dismiss="modal">Close</button>
+<%-- 												<form action="<c:url value='/event/attendanceForm'/>" id="trans"> --%>
+<%-- 												<input type="hidden" name="eventid" value="${event.eventid}"> --%>
+<%-- 												<input type="button" id="attend" value="報名參加" class="btn btn-primary attend${event.eventid}" style="width: 100px;"> --%>
+<!-- 												</form> -->
+												<a id="trans" href="<c:url value='/event/attendanceForm'/>?eventid=${event.eventid}&membercatcher=${member.account}&memberid=${member.id}">
+												<button id="attend" type="submit" class="btn btn-primary attend" style="width: 100px;">報名參加</button></a> 
 										</div>
 									</div>
 								</div>
@@ -141,6 +138,7 @@
 				</div>
 			</div>
 		</c:forEach>
+		<input type="hidden" value="${check}" id="check">
 	</div>
 	</section>
 	<div class="modal fade" id="mapdialog" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
@@ -170,8 +168,8 @@
 </div>
 <%@include file="../jspf/footer.jspf"%>
 </body>
-<script>
-   //googlemap
+<script type="text/javascript">
+   //googlemap   
 	var map, geocoder;
 	var mapId = "";
 	$('button').click(function(){
@@ -200,16 +198,18 @@
 	});
 	//判斷是否為會員
 	
-	let membercatcher = $('#membercatcher').val();
-	console.log(membercatcher)
+// 	let membercatcher = $('#membercatcher').val();
+// 	console.log(membercatcher)
 	
-	$('.attend').click(function(){
-		if(membercatcher == ""){
-			window.location.href="${pageContext.request.contextPath}/member/login";
-		}else{
-			$('#trans').submit();
-		}
-	})
+// 	$('.attend').click(function(){	
+// 		if(membercatcher == ""){
+// 			console.log("456")
+// 			window.location.href="${pageContext.request.contextPath}/member/login";
+// 		}else{
+// 			console.log("789")
+// 			$('#trans').submit();
+// 		}
+// })
 	
 	//判斷是否為管理員
 	let aa =$('.aa').val();
@@ -220,7 +220,12 @@
 		 $('.manager').hide();
 	 }
 	  
-	
+	$(document).ready(function() {
+		console.log($('#check').val())
+		if($('#check').val()=="1"){
+			alert("123")
+		}
+	})
 	
 	
 </script>

@@ -33,6 +33,8 @@ public interface MemberService {
 	void ckpower2(Integer id);
 
 	boolean ckpower(String account);
+
+	int delete(int account);
 	 
 	 
 	 

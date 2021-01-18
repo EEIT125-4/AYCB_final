@@ -41,6 +41,7 @@
 .infono {
     margin: 10px auto;
     color: gray;
+    font-size: 18px;
     font-weight: bold;
 }
 
@@ -80,24 +81,34 @@
     padding-left: 15px;
 }
 
+.infobtnbox {
+	clear: both;
+}
+
 .cartbtn {
     width: 150px;
     height: 40px;
     float: left;
+    margin-top: 20px;
     font-size: 24px;
     font-weight: bold;
     background-color: white;
     border: 1px solid gray;
 }
 
-.btn:hover {
-    background-color: gainsboro;
+.infostock {
+	float: left;
+    margin-top: 15px;
+    margin-left: 30px;
+    font-size: 20px;
+    font-weight: bold;
+    color: gray;
 }
 
 .lineshare {
 	float: left;
-	margin-top: 10px;
-	margin-left: 250px;
+	margin-top: 30px;
+	margin-left: 300px;
 }
 
 .maybelike {
@@ -144,4 +155,91 @@
 .raprice {
     height: 20px;
     margin: 10px 50px;
+}
+
+.toolbar {
+	float: right;
+    position: fixed;
+    top: 40%;
+    right: 0;
+    width: 40px;
+    border-radius: 5px;
+    text-align: center;
+    background-color: silver;
+}
+
+.toolbar_ul {
+	line-height:20px;
+}
+
+.toolbar_li {
+	width: 40px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+   	list-style-type: none;
+}
+
+.toolbar_li:hover .msg {
+	display: block;
+	margin-top: -19px;
+}
+
+.toolbar_li:hover {
+	border-radius: 5px;
+	background-color: gray;
+}
+
+.toolbar_a {
+	font-size: 24px;
+}
+
+.toolbar_a:link {
+	color: white;
+}
+
+.toolbar_a:visited {
+	color: white;
+}
+
+.toolbar_a:hover {
+	color: tomato;
+}
+
+.top_a {
+	color: white;
+	font-size: 24px;
+	cursor: pointer;
+}
+
+.top_a:hover {
+	color:tomato;
+}
+
+.msg {
+	display: none;
+	width: 90px;
+	position: absolute;
+	margin-top: 5px;
+	right: 38px;
+	font-size: 14px;
+    font-weight: bold;
+	z-index: -1;
+	border-radius: 5px;
+	background-color:silver;
+}
+
+.like {
+    width: 40px;
+    height: 40px;
+    float: right;
+    line-height: 40px;
+    text-align: center;
+    background-color: transparent;
+}
+
+.like_button {
+	color: red;
+	font-size: 30px;
+	border: none;
+	background-color: transparent;
 }

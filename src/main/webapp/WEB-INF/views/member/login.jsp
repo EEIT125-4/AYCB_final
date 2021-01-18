@@ -11,96 +11,134 @@
 	HREF="${pageContext.request.contextPath}/css/member.css"
 	TYPE="text/css">
 <link rel="icon" href="image/logo.ico" type="image/x-icon">
+
 <title>登入</title>
 </head>
+
+
+
 <%@include file="../jspf/header.jspf"%>
 
 <div class="container">
-<form id="fm" action="<c:url value="/login"/>" method="post" >
-	<fieldset class="loginfs" style="margin-left:200px" >
-<!-- 		<div style="margin-top: 20px; margin-left: 580px; width: 700px"> -->
+	<form id="fm" action="<c:url value="/login"/>" onsubmit='gogo()' method="post" >
+		<fieldset class="loginfs" style="margin-left: 200px">
+			<!-- 		<div style="margin-top: 20px; margin-left: 580px; width: 700px"> -->
+
 			<legend style="margin-left: 300px; font-size: 22px">會員登入</legend>
-			<div style="margin-left:275px;font">
-			<% if(request.getAttribute("msg") !=null) {%>
-			<p style="color:BLUE;font-size:25px"><%= request.getAttribute("msg") %></p>
-			<% } %>
-		
+			<div class="d-flex justify-content-center">
+				<button type="button" id="btnSignIn" class="btn btn-info"
+					style="width: 380px">Google登入</button>
+				<!-- 			 <button type="button" class="btn btn-danger" id="btnDisconnect" style="width:130px">Google登出 </button> -->
+			</div>
+			<br>
+
+			<div style="margin-left: 280px;">
+
+				<%
+					if (request.getAttribute("msg") != null) {
+				%>
+				<p style="color: #595959; font-size: 25px;font-weight:bolder"><%=request.getAttribute("msg")%></p>
+				<%
+					}
+				%>
+
+			</div>
+			<hr>
+			<div>
+				<input class="bbb" type="text" name="user" id="ac" required
+					placeholder="請輸入帳號" onblur="Ckac();" style="outline: none;">
+				<span id="idsp" style="color: red;"></span>
 			</div>
 			<div>
-			<input class="bbb" type="text" name="user" id="ac" required  placeholder="請輸入帳號" onblur="Ckac();" style="outline:none;">
-			<span id="idsp" style="color: red;"></span>
+				<input class="bbb" type="password" required name="pwd" id="pwd"
+					placeholder="請輸入(6-20數字英文混合)" onblur="Ckpwd();"
+					style="outline: none;"> <span id="idsp1"
+					style="color: red;"></span> <label for="password" id="passwordeye"><img
+					src="${pageContext.request.contextPath}/image/openeye.png" id="eye"></label><br>
 			</div>
-			<div>
-			<input class="bbb" type="password" required name="pwd" id="pwd" placeholder="請輸入(6-20數字英文混合)" onblur="Ckpwd();" style="outline: none;">
-			<span id="idsp1"style="color: red;"></span>
-			<label for="password" id="passwordeye"><img src="${pageContext.request.contextPath}/image/openeye.png" id="eye"></label><br>
-			</div>			
-			<div class="d-flex justify-content-center">	
-				<img src="<c:url value="/captcha"/>">
-<!-- 				</a> -->
-			<input name="Qcode" required style="font-size:10px;outline:none;height:28px;margin-top:15px">	
-<!-- 				  <input class="aaaa" -->
-<!-- 				type="checkbox" style="margin-left: 40px; "><span>記住我</span> -->
+
+
+			<div style="height:15px" class="row">
+				<div style="margin-left: 180px;" class="col"  style="display:inline block" >
+					<input type="checkbox" class="custom-control-input form-control"
+						id="customControlAutosizing" name="rememberme">
+						 <label style="font-size: 15px" class="custom-control-label"
+						for="customControlAutosizing">記住我</label>
 				</div>
-<br>
+				<div  class="col" style="display:inline block">
+					<button style="width:100px" data-toggle="modal" data-target="#forgot"
+						class="btn btn-link form-control" role="button"
+						aria-pressed="true">忘記密碼?</button>
+				</div>
+			</div>
 
-<div style="margin-left:270px">
-        <a href="<c:url value="/register"/>" class="btn btn-primary" role="button" aria-pressed="true" >新註冊</a>
-        
-        <button   data-toggle="modal" data-target="#forgot" class="btn btn-primary" role="button" aria-pressed="true" style="width: fit-content;">忘記密碼</button>        
-<%--         		value="${event.eventlocation}" --%>
-<%-- 		<a href="<c:url value="/register"/>" class="btn btn-primary" role="button" aria-pressed="true" >忘記密碼</a><br> --%>
-		</div>
-		<br>
-									
-<%-- 		<a href="<c:url value="/register"/>" class="btn btn-primary btn-lg active" role="button" aria-pressed="true" >忘記密碼</a> --%>
-	<!-- Modal -->
-							<div class="modal fade" id="forgot" tabindex="-1"
-								role="dialog" aria-labelledby="exampleModalLongTitle"
-								aria-hidden="true">
-								<div class="modal-dialog" role="document">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h2 class="modal-title" id="Title">找回密碼</h2>
-											<button type="button" class="close" data-dismiss="modal"
-												aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-											</button>
-										</div>
-										<div class="modal-body">
-											<div class="caption">
-												<label>請輸入您註冊的email</label>
-												<input type="email" id="email" name="email">
-												
-											</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-primary" data-dismiss="modal" style="width: fit-content;" onclick="forgotPassword()">送出確認信</button>
-
-											</div>
-										</div>
-									</div>
-								</div>
-						
-							</div>
-		
 	
-			
-			<button type="submit" name="button1" id="button1"
-				style="width: 250px; background-color: rgba(0, 0, 0, 0.753); height: 30px; color: snow; margin-left: 230px;">登入</button>
-			
-			
+
+			<div class="d-flex justify-content-center">
+				<img src="<c:url value="/captcha"/>"> <input name="Qcode"
+					required
+					style="font-size: 10px; outline: none; height: 28px; margin-top: 15px; margin-left: 20px">
+
+
+			</div>
+<button class="btn btn-dark" type="submit" name="button1" id="button1"
+				style="width: 390px; height: 40px; color:snow; margin-left: 150px;">登入</button>
+
+
 			<br>
+
+			<div style="margin-left: 300px">
+				<a href="<c:url value="/register"/>" class="btn" style="width:90px;margin-top:15px"
+					role="button" aria-pressed="true"><b>立即註冊</b></a>
+
+
+
+			</div>
 			<br>
-			
-	<div class="d-flex justify-content-center" >
-			 <button type="button" id="btnSignIn" class="btn btn-info" style="width:130px;margin-right:20px">Google登入</button>
-			 <button type="button" class="btn btn-danger" id="btnDisconnect" style="width:130px">Google登出 </button>
-    </div>
-<!--      <div id="content" style="background-color: orange;"></div> -->
+
+			<div class="modal fade" id="forgot" tabindex="-1" role="dialog"
+				aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h2 class="modal-title" id="Title">找回密碼</h2>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+
+							<div class="caption">
+								<label>請輸入您註冊的email</label> <input type="email" id="email"
+									name="email">
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-primary"
+									data-dismiss="modal" style="width: fit-content;"
+									onclick="forgotPassword()">送出確認信</button>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+
+
 		
-	</fieldset>
-</form>
-<form id="test" action="<c:url value="/index" />"></form>
+
+
+			<br> <br>
+
+
+			<!--      <div id="content" style="background-color: orange;"></div> -->
+
+		</fieldset>
+	</form>
+	<form id="test" action="<c:url value="/index" />"></form>
 
 </div>
 <%@include file="../jspf/footer.jspf"%>
@@ -108,7 +146,9 @@
 </body>
 
 
-<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"
+	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+	crossorigin="anonymous"></script>
 <!--CLIENT_ID請自己改成從 後端組態檔讀取，例如：ASP.net的Web.config-->
 <script type="text/javascript">
     let CLIENT_ID = "533526937203-8qath3ljf58sr4kk48ffijbo26p0b7lm.apps.googleusercontent.com";
@@ -123,8 +163,8 @@
 <!--執行Google API必須的.js，callback function名稱請自訂 -->
 <!--↓https://apis.google.com/js/platform.js 或 https://apis.google.com/js/api.js 兩者網址都行得通 這裡採用跟官網寫法一樣-->
 <script async defer src="https://apis.google.com/js/api.js"
-        onload="this.onload=function(){};GoogleClientInit()"
-        onreadystatechange="if (this.readyState === 'complete') this.onload()">
+	onload="this.onload=function(){};GoogleClientInit()"
+	onreadystatechange="if (this.readyState === 'complete') this.onload()">
 </script>
 
 <!--以下請另外放置到 *.js檔案-->
@@ -387,9 +427,115 @@
 	});
 		
 		
+//
+// 			window.onload = function(){
+// 		var name1 = document.getElementById("ac");
+// 		var password1 = document.getElementById("pwd");
+// 		var rememberme = document.getElementById("customControlAutosizing");
+// 		var formm = document.getElementById('fm');
+// 		if(getCookie('user') && getCookie('pwd')){
+// 			name1.value = getCookie('user');
+// 			password1.value = getCookie('pwd');
+// 			rememberme.checked = true;
+// 			}
 		
+// 		//
+// 	        rememberme.onchange = function(){
+// 			if(!this.checked){
+// 			delCookie('user');
+// 			delCookie('pwd');
+// 			}
+// 			}
+// 			}
+			
+// 			function gogo(){
+// 				if(remember.checked){ 
+// 					setCookie('user',name1.value,7); //儲存帳號到cookie，有效期7天
+// 					setCookie('pwd',password1.value,7); //儲存密碼到cookie，有效期7天
+// 					}
+// 			}
+// // 			formm.onsubmit = function(){
+				
+// // 			};
+			
+				
+				
+// 				//
+// 				function setCookie(name,value,day){
+// 					var date = new Date();
+// 					date.setDate(date.getDate()+day);
+// 					document.cookie = name +  '=' +  value  + ';expires=' + date
+// 					};
+				
+// 				//
+// 					function getCookie(name){
+// 						var reg = RegExp(name +'=([^;] )');
+// 						var arr = document.cookie.match(reg);
+// 						if(arr){
+// 						return arr[1];
+// 						}else{
+// 						return '';
+// 						}
+// 						};
+// 						//刪除cookie
+// 						function delCookie(name){
+// 						setCookie(name,null,-1);
+// 						};	
+				
+				  if(getCookie('account')&& getCookie('password')){
+	    	  $("#ac").val(getCookie('account'))
+	    	  $("#pwd").val(getCookie('password'))
+	    	  document.getElementById("customControlAutosizing").checked=true;
+		}
+	      
+	    document.getElementById("customControlAutosizing").addEventListener("change",function(){
+	    	if(document.getElementById("customControlAutosizing").checked){
+		    	
+		    }else{
+		    	delCookie('account');
+		    	delCookie('password');
+		    }
+	    })
+	    
+		function gogo(){
+	    	
+	    	if(document.getElementById("customControlAutosizing").checked){ 
+				setCookie('account',$("#ac").val(),7); //保存帐号到cookie，有效期7天
+				setCookie('password',$("#pwd").val(),7); //保存密码到cookie，有效期7天
+      		}else{
+      			delCookie('account');
+				delCookie('password');
+      		}
+	    }
+	     
+	    function setCookie(name,value,day){
+			var date = new Date();
+			date.setDate(date.getDate() + day);
+			document.cookie = name + '=' + value + ';expires='+ date;
+		 };
 		
+    //获取cookie
+		function getCookie(name){
+			var reg = RegExp(name+'=([^;]+)');
+			var arr = document.cookie.match(reg);
+			if(arr){
+			  return arr[1];
+			}else{
+			  return '';
+			}
+		 };
 		
+    //删除cookie
+		function delCookie(name){
+			setCookie(name,null,-1);
+		 }
+				
+				
+				
+				
+				
+				
+				
 		
 </script>
 

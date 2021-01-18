@@ -1,8 +1,9 @@
 <%@page import="java.lang.ProcessBuilder.Redirect"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="java.util.*,product.*,product.cartModel.CartItem,member.*"%>
+	import="java.util.*,product.*,product.model.ProductBean,product.service.ProductService,product.cartModel.CartItem,member.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
 response.setContentType("text/html;charset=UTF-8");
 response.setHeader("Cache-Control", "no-cache"); // HTTP 1.1
@@ -23,12 +24,6 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
 	integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
 	crossorigin="anonymous"></script>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-	crossorigin="anonymous">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
 	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
@@ -117,6 +112,8 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 			<thead>
 				<tr bgcolor='#F0F0F0'>
 					<th style="text-align: center; vertical-align: middle;" scope="col">商品</th>
+					<th style="text-align: center; vertical-align: middle;" scope="col">品牌</th>
+					<th style="text-align: center; vertical-align: middle;" scope="col">系列</th>
 					<th style="text-align: center; vertical-align: middle;" scope="col">內容</th>
 					<th style="text-align: center; vertical-align: middle;" scope="col">價格</th>
 					<th style="text-align: center; vertical-align: middle;" scope="col">數量</th>
@@ -129,17 +126,20 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 					// display the shopping cart.
 				for (int i = 0; i < cart.size(); i++) {
 					CartItem aCartItem = cart.get(i); //list的寫法
+					int productNo = aCartItem.getProductNo();
+					//ProductBean bean = ProductService.getProduct(productNo);
 				%>
 				<tr>
 					<td style="text-align: center; vertical-align: middle;" scope="row"><img
 						class="img"
 						src="${pageContext.request.contextPath}/pic/<%=aCartItem.getProductImage()%>"></td>
+					<td style="text-align: center; vertical-align: middle;"><%=aCartItem.getBrandName()%></td>
+					<td style="text-align: center; vertical-align: middle;"><%=aCartItem.getProductSeries()%></td>	
 					<td style="text-align: center; vertical-align: middle;"><%=aCartItem.getProductName()%></td>
-					<td style="text-align: center; vertical-align: middle;">NT$<%=aCartItem.getProductPrice()%></td>
-					
+					<td style="text-align: center; vertical-align: middle;">NT$ <fmt:formatNumber value="<%=aCartItem.getProductPrice()%>"  pattern="###,###" /></td>					
 					<td style="text-align: center; vertical-align: middle;">	
-					<input type="number" name="quantity" id="<%=i%>" 
-							min="1" max="10" value="<%=aCartItem.getQtyOrdered()%>" style="width: 3em" onblur="checkQty(<%=i %>);">
+						<input type="number" name="quantity" id="<%=i%>" 
+								min="1" max="10" value="<%=aCartItem.getQtyOrdered()%>" style="width: 3em" onchange="checkQty(<%=i %>);">
 					</td>
 					
 					<td style="text-align: center; vertical-align: middle;">						
@@ -167,7 +167,8 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 			<br>
 		</fieldset>
 		</div>
-			
+			<br>
+			<br>
 			<%
 				} else {
 			%>
@@ -181,7 +182,9 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 					
 					}
 			%>
-			
+			<br>
+			<br>
+			<br>
 
 	
 </div>
@@ -194,9 +197,14 @@ function checkQty(e){
 	xhr.send();
 	xhr.onload = function() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
-			alert("success")
+			Swal.fire({
+				  icon: 'success',
+				  title: '修改成功',
+				  showConfirmButton: false,
+				  timer: 1500
+				})
 		}else{
-			alert("fail")
+			//alert("fail")
 		}
 	
 	console.log($("#"+e).val())

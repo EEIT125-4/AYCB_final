@@ -59,29 +59,18 @@ public class AttendanceServiceImpl implements AttendanceService  {
 		return attendanceDAO.getAllAttendancebyID(id);
 	}
 
+	@Override
+	public List<Attendance> getAllAttendancebyEvent(Integer eventid) {
+		return attendanceDAO.getAllAttendancebyEvent(eventid);
+	}
+
 	
-	
-	
-	
-//	@Override
-//	public boolean isDup(String id) {
-//		boolean result = false;
-//		Session session = factory.getCurrentSession();
-//		Transaction tx = null; //留意選哪個Transaction
-//		try {
-//			tx = session.beginTransaction();
-//			result = dao.isDup(id);			
-//			tx.commit();
-//		}catch (Exception e) {
-//			if(tx != null) {
-//				tx.rollback();
-//			}
-//			e.printStackTrace();
-//		}
-//		return result;
-//		
-//		}
-//		
+	@Override
+	public boolean isDup(Integer mid,Integer eventid) {		
+		return attendanceDAO.isDup(mid, eventid) ;
+		
+		}
+		
 		
 	
 
