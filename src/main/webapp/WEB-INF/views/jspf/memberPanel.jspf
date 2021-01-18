@@ -17,7 +17,7 @@
 					</li>
 						
 					<li class="list-group-item list-group-item-light"><a href="<c:url value='/orderManagement' />">訂單查詢</a></li>
-					<li class="list-group-item list-group-item-light"><a href="<c:url value='/event/showAllAttendanceByID'/>?id=${member.id}">報名活動查詢</a></li>
+					<li class="list-group-item list-group-item-light"><a href="<c:url value='/event/showAllAttendanceByID'/>?memberid=${member.id}">報名活動查詢</a></li>
 					<li class="list-group-item list-group-item-light">訊息查詢</li>
 					<li class="list-group-item list-group-item-light"><a href="<c:url value='/uploadedVideo' />">已上傳影片</a></li>
 					<li class="list-group-item list-group-item-light"><a href="<c:url value='/Collect' />">收藏清單</a></li>

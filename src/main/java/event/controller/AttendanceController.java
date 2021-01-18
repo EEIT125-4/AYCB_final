@@ -1,22 +1,19 @@
-
 package event.controller;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.criteria.CriteriaBuilder.In;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.xml.transform.Source;
 
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
+
 import org.springframework.validation.ObjectError;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,9 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.context.request.WebRequest;
+
 
 import event.model.Attendance;
 import event.model.Event;
@@ -62,6 +57,7 @@ public class AttendanceController {
 		public String list(Model model) {
 			model.addAttribute("attendances", attendanceService.getAllAttendance());
 			
+			//return "event/showAllAttendanceBackstage";
 			return "event/showAttendance";
 		}
 	
@@ -82,10 +78,10 @@ public class AttendanceController {
 		//查詢會員報名的活動
 		@GetMapping("event/showAllAttendanceByID")
 		public String attendancelist(Model model,
-			 @RequestParam (value="id") Integer id
+			 @RequestParam (value="memberid") Integer memberid
 			) {
-			System.out.println(id);
-			List<Attendance> attendancelist=attendanceService.getAllAttendancebyID(id);
+			System.out.println(memberid);
+			List<Attendance> attendancelist=attendanceService.getAllAttendancebyID(memberid);
 			model.addAttribute("attendancelist",attendancelist);
 			System.out.println("attendancelist"+attendancelist);
 			
@@ -93,7 +89,7 @@ public class AttendanceController {
 		}
 		
 		//查詢參加活動的會員
-		@GetMapping("event/showAllAttendanceByEvent")
+		@PostMapping("event/showAllAttendanceByEvent")
 		public String attendanceOfEvent(Model model,
 				@RequestParam(value="eventid") Integer eventid
 				) {
@@ -187,10 +183,10 @@ public class AttendanceController {
 				attendanceService.save(attendance);
 			
 			
-			return "redirect:/event/jumpturn";			
+			return "redirect:/event/trans";			
 		}
 		
-		@GetMapping("event/jumpturn")
+		@GetMapping("event/trans")
 		public String jumpturn(Model model,HttpSession session) {
 			MemberBean mb = (MemberBean) session.getAttribute("member");
 			Integer id=memberService.getMember(mb.getAccount()).getId();
@@ -206,7 +202,7 @@ public class AttendanceController {
 				Model model,
 				@RequestParam(value="aid" ,required = false)Integer aid ) {
 			Attendance attendance = attendanceService.getAttendance(aid);
-			model.addAttribute(attendance);
+			model.addAttribute("attendance",attendance);
 			System.out.println("編輯前:"+attendance);
 			return "event/update";
 		}
@@ -220,25 +216,40 @@ public class AttendanceController {
 //				@PathVariable Integer id, 
 				HttpServletRequest request,
 				@RequestParam(value="eventid")Integer eventid,
-				@RequestParam(value="memberid")Integer memberid
+				@RequestParam(value="oldpax")Integer pax,
+//				@RequestParam(value="newpax")Integer newpax,
+				@RequestParam(value="memberid")Integer memberid,
+				@RequestParam(value="aid")Integer aid
 				) {
 			
 			System.out.println("報名編輯:"+attendance);
 			AttendanceValidator validator = new AttendanceValidator();
-			attendance.setMember(memberService.getMember(memberid));
-			attendance.setEvent(eventService.getEvent(eventid));
 			validator.validate(attendance, result);
 			if (result.hasErrors()) {
 				System.out.println("result hasErrors(), attendance=" + attendance);
 				List<ObjectError> list = result.getAllErrors();
 				for (ObjectError error : list) {
 					System.out.println("有錯誤：" + error);
-				}
+					Attendance attend = attendanceService.getAttendance(aid);
+					model.addAttribute("attendance",attend);
+				}return "event/update";
+			}
+			Event event = eventService.getEvent(eventid);
+			System.out.println(attendance.getPax());
+			event.setPax(event.getPax()-pax+attendance.getPax());
+			if(event.getPax()<=event.getTotalpax()) {
+				eventService.updateEvent(event);
+			}else {
+				System.out.println("222222222222222222222");				
+				model.addAttribute("pax1", "人數大於上限值，請重新輸入");
+				Attendance attend = attendanceService.getAttendance(aid);
+				model.addAttribute("attendance",attend);
 				return "event/update";
 			}
-									
+			attendance.setEvent(eventService.getEvent(eventid));
+			attendance.setMember(memberService.getMember(memberid));					
 			attendanceService.updateAttendance(attendance);
-			return "redirect:/event/showAttendanceByID";
+			return "redirect:/event/trans";
 		}	
 		
 		

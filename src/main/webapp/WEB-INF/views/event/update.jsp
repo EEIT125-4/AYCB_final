@@ -38,6 +38,7 @@
 		<form:form method="POST" modelAttribute="attendance">
 			<input type="hidden" name="eventid" value="${attendance.event.eventid}"> 
 			<input type="hidden" name="memberid" value="${attendance.member.id}"> 
+			<input type="hidden" name="aid" value="${attendance.aid}"> 
 			<input type="hidden" name="finalDecision" value="">
 				
 			<Table>
@@ -83,8 +84,10 @@
 
 				<TR>
 					<TD align="RIGHT">報名人數：</TD>
-					<TD align="LEFT"><input type="text" name="pax"
-						value="${attendance.pax}${param.pax}"> <font color='red' size='-3'>${error.pax}</font>
+					<TD align="LEFT">
+					<input type="hidden" name="oldpax" value="${attendance.pax}">
+					<input type="text" name="pax" value="${attendance.pax}${param.pax}">
+						 <font color='red' size='-3'>${error.pax}</font>
 					</TD>
 				</TR>
 

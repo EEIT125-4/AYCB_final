@@ -21,7 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -64,7 +64,7 @@ public class EventController {
 			return "event/showEvent";
 		}
 		
-		@GetMapping("/showEvent1")
+		@GetMapping("/backstageshowEvent")
 		public String list1(Model model) {
 			model.addAttribute("events", eventService.getAllEvent());
 			System.out.println("events");
@@ -145,7 +145,7 @@ public class EventController {
 //				}
 //			}
 						
-		eventService.save(event);
+		   eventService.save(event);
 			
 //			String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
 //			String rootDirectory = context.getRealPath("/");

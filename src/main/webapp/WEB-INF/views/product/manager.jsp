@@ -43,7 +43,7 @@
 			</div>
 			<div class="mbtnbox">
 				<input class="mbtn" type="button" value="活動"
-					onclick='location.href="${pageContext.request.contextPath}/event/showAttendance"'>
+					onclick='location.href="${pageContext.request.contextPath}/event/backstageshowEvent"'>
 			</div>
 			<div class="mbtnbox">
 				<input class="mbtn" type="button" value="留言板"
@@ -65,8 +65,8 @@
 		<div class="backnav">
 			<%@include file="../jspf/managerheader.jspf"%>
 		</div>
-		<div class="backcontent" id="backcontent" >
-		</div>
+		<div class="backcontent" id="backcontent" ></div>
+		
 	</div>
 </div>
 <script>
