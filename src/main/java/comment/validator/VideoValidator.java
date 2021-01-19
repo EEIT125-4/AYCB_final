@@ -2,7 +2,8 @@ package comment.validator;
 
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-import comment.model.Video;
+
+import video.model.Video;
 
 
 public class VideoValidator implements Validator {

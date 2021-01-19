@@ -59,6 +59,7 @@ public class CommentController {
 			System.out.println("mb id="+memberid);
 			System.out.println("key="+key);
 			System.out.println("type="+type);
+			
 		
 			CommentBean cb=new CommentBean();
 			MemberBean member=memberService.getMember(memberid);
@@ -90,14 +91,73 @@ public class CommentController {
 	
 	@PostMapping("/loadComment")
 	@ResponseBody
-	public List<CommentBean> loadComment(
+	public Map loadComment(
 
 			@RequestParam(value="type")String type,
 			@RequestParam(value="key")String key						
 			) {
 		System.out.printf("查尋條件 type=%s,key=%s",type,key);
 		
+		Map results=new HashMap();
+		//查詢特定類別的留言
+		List<CommentBean>comments=commentService.queryComment(type, key);
 		
+		results.put("comments", comments);
+		List<CommentBean>replys=new ArrayList<CommentBean>();
+		for(CommentBean cb:comments) {
+			replys.addAll(commentService.queryComment("comment", String.valueOf(cb.getCommentId())));
+			
+			
+				
+			}
+		for(CommentBean c:replys) {
+			System.out.println("check:"+c.getContentBox());
+			results.put("replys", replys);
+			
+			
+			
+		}
+		
+		
+
+//		for(CommentBean c:replys) {
+//			System.out.println("check:"+c.getContentBox());
+//			
+//		}
+//		results.put("reply"+cb.getCommentId(),replys);
+
+	
+//	}
+//	List<CommentBean>replyTest=(List<CommentBean>)results.get("reply48");
+//	
+//	for(CommentBean cBean:replyTest) {
+//		System.out.println("48號:"+cBean.getContentBox());
+//	}
+		
+		
+//		
+		
+//		List<CommentBean>comments=commentService.queryComment(type, key);
+		
+//		return commentService.queryComment(type, key);
+		return results;
+		
+	}
+	
+	/**
+	 * 載入
+	 * @param type
+	 * @param key
+	 * @return
+	 */
+	@GetMapping("/loadReply")
+	@ResponseBody
+	public List<CommentBean> loadReply(
+
+			@RequestParam(value="type")String type,
+			@RequestParam(value="key")String key						
+			) {
+		System.out.printf("查尋回覆 type=%s,key=%s",type,key);
 		
 		return commentService.queryComment(type, key);
 		

@@ -66,7 +66,8 @@ public class RootAppConfig {
 				"tool",
 				"chat",
 				"comment",
-				"mail"
+				"mail",
+				"video"
 								
 		});
 		 if (SystemConstant.DB_TYPE == SystemConstant.SQL_SERVER) {

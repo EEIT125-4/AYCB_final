@@ -67,6 +67,8 @@ width:100px;
     <script src="${pageContext.request.contextPath}/js/main.js"></script>
     <script src="${pageContext.request.contextPath}/js/jquery.cookie.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+
 <!--     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
 
 </head>    
@@ -201,7 +203,7 @@ width:100px;
 				<div class="col-lg-6 col-md-6">
 					<nav class="header__menu mobile-menu">
 						<ul>
-							<li><a href="${pageContext.request.contextPath}/message/query">訊息中心</a>
+<%-- 							<li><a href="${pageContext.request.contextPath}/message/query">訊息中心</a> --%>
 							<li><a href='<c:url value="/All"/>' >保養品</a>
 							
 <%-- 							<li><a href="${pageContext.request.contextPath}/return" >退換貨原則</a> --%>
@@ -215,7 +217,7 @@ width:100px;
 <!-- 									</ul> -->
 								
 					        <li><a href="${pageContext.request.contextPath}/blog/">美誌分享</a>	
-                            <li><a href="${pageContext.request.contextPath}/comment/videolist/">影音分享</a>
+                            <li><a href="${pageContext.request.contextPath}/video/">影音分享</a>
 							<li><a href="${pageContext.request.contextPath}/event/showEvent">預約活動</a>
 						</ul>
 					</nav>

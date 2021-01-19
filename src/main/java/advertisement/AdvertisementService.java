@@ -34,6 +34,14 @@ public class AdvertisementService {
 		
 	}
 	
+	public Advertisement queryRandom() {
+		return dao.queryRandom();
+	}
+	
+	public void updateAdvertisement(Advertisement ad) {
+		dao.updateAdvertisement(ad);
+	};
+	
 
 	
 	
