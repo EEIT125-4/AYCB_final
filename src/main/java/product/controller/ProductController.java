@@ -326,14 +326,10 @@ public class ProductController {
 		if (mb != null ) {
 			List<ProductBean> list = new ArrayList<>();
 			List<CollectBean> clist = ps.collection(mb.getId());
-			System.out.println("clist" + clist);
 			for(int i=0 ; i<clist.size() ; i++) {
-				System.out.println(clist.get(i).getPid());
 				ProductBean pb = ps.getProduct(clist.get(i).getPid());
-				System.out.println("plist" + pb);
 				list.add(pb);
 			}
-			System.out.println("list" + list);
 			model.addAttribute("collection", list);
 			return "product/collect";
 		}else {
