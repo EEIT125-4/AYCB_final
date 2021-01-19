@@ -145,11 +145,11 @@
 									allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
 								<!--                                 <a href="#"><i class="fa fa-facebook"></i></a> -->
 							</li>
-							<li><a href="http://twitter.com/home/?status=https://www.removal.idv.tw/article.php" class="twitter"><i class="fa fa-twitter"></i></a></li>
-							<li><a href="#" class="youtube"><i
-									class="fa fa-youtube-play"></i></a></li>
-							<li><a href="#" class="linkedin"><i
-									class="fa fa-linkedin"></i></a></li>
+<!-- 							<li><a href="http://twitter.com/home/?status=https://www.removal.idv.tw/article.php" class="twitter"><i class="fa fa-twitter"></i></a></li> -->
+<!-- 							<li><a href="#" class="youtube"><i -->
+<!-- 									class="fa fa-youtube-play"></i></a></li> -->
+<!-- 							<li><a href="#" class="linkedin"><i -->
+<!-- 									class="fa fa-linkedin"></i></a></li> -->
 						</ul>
 					</div>
 					<!--                         內文區 -->
@@ -236,7 +236,7 @@
 					<c:if test='${not empty member}'>
 
 						<div class="blog__details__comment">
-							<h4>Leave A Comment</h4>
+							<h4>留個言吧</h4>
 							<form id="commentform" >
 <!-- 							action="#" -->
 <!-- 								<div class="row"> -->
@@ -252,9 +252,11 @@
 									<div class="col-lg-12 text-center">
 									
 										<textarea id="comment" placeholder="Comment"></textarea>
-										<button id="postComment" type="button" class="site-btn" style="width: fit-content;" 
-										onclick="postComment()">Post Comment</button>
+										<button id="postComment" type="button" class="site-btn" style="width: fit-content;" >送出留言</button>
+<!-- 										onclick="postComment();" -->
+										
 									</div>
+									
 									</form>
 								</div>
 							</c:if>
@@ -298,28 +300,45 @@ var board=document.getElementById("board");
 
 $(document).ready(function() {
     $("#postComment").click(function() { 
+    	console.log($("#comment").val());
         $.ajax({
             type: "POST", //傳送方式
             url: "${pageContext.request.contextPath}/leaveComment?memberid=${member.id}&key=${blog.blogId}&type=blog", //傳送目的地
             dataType: "json", //資料格式
             data: { //傳送資料
-                comment: $("#comment").val() //表單欄位 ID nickname
-//                 gender: $("#gender").val() //表單欄位 ID gender
+                "comment": $("#comment").val()
             },
             success: function(data) {
-            	$("#commentform")[0].reset();
+            	$("#comment").val('');
                 if (data) {
                 	
-                	swal("留言成功!","","success");
+                	
+                	swal.fire({
+        				  title: "留言成功!",
+        				  text: "成功",
+        				  icon: "success",
+        				  button: "OK",
+        				});
+                	
                 	refresh();
                 	
                 } else { 
-                	swal("留言失敗!","","error");
+                	swal.fire({
+      				  title: "留言失敗",
+      				  text: "oops",
+      				  icon: "error",
+      				  button: "OK",
+      				});
                 	
                 }
             },
             error: function(data) {
-            	swal("留言失敗!","","error");
+            	swal.fire({
+    				  title: "留言失敗",
+    				  text: "oops",
+    				  icon: "error",
+    				  button: "OK",
+    				});
               
             }
         })
@@ -345,40 +364,60 @@ function refresh(){
          type: "POST", //傳送方式
          url: "${pageContext.request.contextPath}/loadComment?type=${blog.identify}&key=${blog.blogId}", //傳送目的地
          dataType: "json", //資料格式
-//          data: { //傳送資料
-//              comment: $("#comment").val()
+         data: { //傳送資料
+             comment: $("#comment").text()
 
-//          },
+         },
 
          success: function(data) {
          	
         	 console.log("取得留言!");
         	 console.log(data);  
         	 $('#board').empty();
-        	 for(let i=0;i<data.length;i++){
+        	 for(let i=0;i<data.comments.length;i++){
         		 
-        		 $('#board').append(	
+        		//因為append必須一次性加入所有成對標籤,不得已將回覆內容先存起來
+                 replyContent="";
+                 if(data.replys!=null){
+                 for (let j = 0; j < data.replys.length; j++) {
+                 		if (data.replys[j].keynumber == data.comments[i].commentId) {
+                  	console.log("reply=" + data.replys[j].contentBox);
+                 		replyContent+=
+                 		"<p>"
+                 		+"<div class='picform'>"
+                 		+"<img class='headpic' src=" + path + "/pic/" + data.replys[j].member.iconid+"></div>"
+                 		+ "<h5>" + data.comments[i].member.name + "</h5>"
+                      + "<div class='commentdate'>" + formatTimeStamp(data.replys[j].commentTime) + "</div>"
+                 		 + "<p>"+data.replys[j].contentBox + "</p></p>";
+                 		}
+                 		}
+                  	
+               
+                  }
         		 
-        		 "<div class='leavecomment'>"
-			     + "<li>"
+        		 
+        		 console.log("加入留言");
+        		 $('#board').append(  
+        		 +"<p>"+i+"</p>"	 
+        		 +"<div class='leavecomment'>"
+			     
 			     +  "<div class='picform'>"
 
-			     +  "<img class='headpic' src="+"${pageContext.request.contextPath}/pic/"+data[i].member.iconid
+			     +  "<img class='headpic' src="+"${pageContext.request.contextPath}/pic/"+data.comments[i].member.iconid
 			     +" alt='Image placeholder'>"
 			     +"</div>"
 			      +"<div>"
-			       +"<h3>"+data[i].member.name+"</h3>"
-			                +"<div class='commentdate'>"+formatTimeStamp(data[i].commentTime)+"</div>"
-			                +"<p>"+data[i].contentBox+"</p>"
+			       +"<h3>"+data.comments[i].member.name+"</h3>"
+			                +"<div class='commentdate'>"+formatTimeStamp(data.comments[i].commentTime)+"</div>"
+			                +"<p>"+data.comments[i].contentBox+"</p>"
 			               +"<p><a href='#' class='reply'>回覆</a></p>"
 			            +"</div>"
-			       +"</li>"
+			 
 			    +"</div>"
 			    +"<br>"
 			    );
 	 
         	 }
-        	 
          },
          error: function(data) {
         	 console.log("取得失敗!");
@@ -389,51 +428,6 @@ function refresh(){
 }
 refresh();
 
-// 	$('#file').change(function() {
-
-// 		var file = $('#file')[0].files[0];
-// 		var reader = new FileReader;
-// 		reader.onload = function(e) {
-// 			$('#demo').attr('src', e.target.result);
-// 		};
-// 		reader.readAsDataURL(file);
-// 	});
-	
-// 	function postComment(){
-		
-// 		$.ajax({
-// 			async : false,
-// 			type : "post",
-// 			url : "${pageContext.request.contextPath}/leaveComment",
-// 			contentType : "application/json; charset=utf-8",
-// 			dataType : "json",
-// 			success : function(data) {
-// 				console.log("留言成功" + data);
-																				
-// 			},
-// 			error : function() {
-// 				console.log("留言成功" + data);			
-			
-// 			}
-
-// 		})
-		
-// 	}
-	
-//     ClassicEditor
-//             .create(document.querySelector('#editor'),{
-//             	ckfinder: {
-//                     uploadUrl: "${pageContext.request.contextPath}/uploadImage.do"
-//                 }
-            	
-            	
-//             })
-//             .then(editor=>{
-//                    console.log(editor);
-//             })
-//             .catch(error=>{
-//                    console.error(error);
-//             });
 	
 </script>
 

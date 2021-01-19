@@ -260,7 +260,7 @@ if (session.getAttribute("member") != null) {
 		    labels: ${jsonBrandName},
 		    datasets: [{
 		      label: '# test', //標籤
-		      //data: ["21", "2", "2", "2"], //資料
+		      //data: ["21", "2", "2", "2"], //資料  
 		      data: ${jsonBrandCount}, //資料
 		      //圖表背景色
 		      backgroundColor: [

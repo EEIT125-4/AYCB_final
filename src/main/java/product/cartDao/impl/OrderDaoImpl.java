@@ -155,7 +155,7 @@ public class OrderDaoImpl implements OrderDao {
 	@Override
 	public Map<String, Object> getBrandNumber() {
 		
-		Map<String, Object> brandMap = new HashMap<String, Object>();
+Map<String, Object> brandMap = new HashMap<String, Object>();
 		
 		List<String> brandName = new ArrayList<String>();
 		brandName.add("Biotherm");

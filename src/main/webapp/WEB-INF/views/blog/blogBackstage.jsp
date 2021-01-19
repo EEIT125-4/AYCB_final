@@ -75,7 +75,7 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 
 
 
-<%@include file="../jspf/footer.jspf"%>
+
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
