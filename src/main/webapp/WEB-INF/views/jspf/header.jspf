@@ -15,12 +15,21 @@ MemberBean mb = (MemberBean) session.getAttribute("member");
 // 	System.out.println("member:" + mb.getName());
 // }
 %>
-	<style>
+<style>
 .swal2-confirm {
 
 width:100px;
 }
-	
+.smallCar {
+		color: white;
+		background: #FF2D2D;
+		font-size: xx-small;
+		padding: 3px 8px;
+		right: 3px;
+		text-align: center;
+		position: absolute;
+		border-radius: 99px;
+	}	
 </style>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">	
@@ -58,6 +67,8 @@ width:100px;
     <script src="${pageContext.request.contextPath}/js/main.js"></script>
     <script src="${pageContext.request.contextPath}/js/jquery.cookie.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+
 <!--     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
 
 </head>    
@@ -85,11 +96,14 @@ width:100px;
 			</div>
 	</div>
 		<%
+			int size = 0;
 		 	Double totalPrice = 0.0d;
-			List theCart = (List) session.getAttribute("cart");
-			System.out.print("theCart"+theCart);
+			List theCart = (List) session.getAttribute("cart"); 			
+			System.out.print("theCart"+ theCart);
 			if (theCart != null && theCart.size() > 0) {
+				size = theCart.size();
 				totalPrice = (Double)session.getAttribute("totalPrice");
+	 			System.out.print("theCartSize"+ size);
 				}
 			
 			%>
@@ -116,7 +130,7 @@ width:100px;
 					<div class="col-lg-6 col-md-8">
 						<div class="header__top__left" >
 							<a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/image/logo.png"></a>
-						    <a href="${pageContext.request.contextPath}/"><img style="margin-left: 50px" src="${pageContext.request.contextPath}/image/2.png"></a>
+						    <a href="${pageContext.request.contextPath}/"><img style="margin-left: 150px" src="${pageContext.request.contextPath}/image/2.png"></a>
 						</div>											
 					</div>
 					<div class="col-lg-6 col-md-4">
@@ -151,7 +165,6 @@ width:100px;
 										<div style="text-align: center;">
 										
 											<img width='180' height='200' src='${pageContext.request.contextPath}/pic/${member.iconid}' />
-											
 										</div>
 											<div class="caption">
 												<p style="text-align: center;">
@@ -182,16 +195,18 @@ width:100px;
 		</div>
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-3 col-md-3">					
+				<div class="col-lg-1 col-md-3">					
 					<div class="header__logo">
 <%-- 						<a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/image/logo.png"></a> --%>
 					</div>
 				</div>
-				<div class="col-lg-6 col-md-6">
+				<div class="col-lg-8 col-md-6">
 					<nav class="header__menu mobile-menu">
 						<ul>
-							<li><a href="${pageContext.request.contextPath}/message/query">訊息中心</a>
+<%-- 							<li><a href="${pageContext.request.contextPath}/message/query">訊息中心</a> --%>
 							<li><a href='<c:url value="/All"/>' >保養品</a>
+							
+<%-- 							<li><a href="${pageContext.request.contextPath}/return" >退換貨原則</a> --%>
 <!-- 									<ul class="dropdown"> -->
 <%-- 										<c:forEach var="cate" varStatus='vs' items="${cate}"> --%>
 <!-- 											<li> -->
@@ -201,20 +216,21 @@ width:100px;
 <!-- 									</ul> -->
 								
 					        <li><a href="${pageContext.request.contextPath}/blog/">美誌分享</a>	
-                            <li><a href="${pageContext.request.contextPath}/comment/videolist/">影音分享</a>
+                            <li><a href="${pageContext.request.contextPath}/video/">影音分享</a>
 							<li><a href="${pageContext.request.contextPath}/event/showEvent">預約活動</a>
+							<li><a href='<c:url value="/return"/>' >退換貨原則</a>
 						</ul>
 					</nav>
 				</div>
-				<div class="col-lg-3 col-md-3">
+				<div class="col-lg-1 col-md-3">
 					<div class="header__nav__option">
 					<form action="Keyword" style="height:0">
 <!-- 						<input type="text" name="keyword" style="width: 150px"> -->
 <!-- 							<button class="search-switch"> -->
-<%-- 								<img src="${pageContext.request.contextPath}/image/icon/search.png" alt=""> --%>
+<%-- 			<%=theCart.size() %>					<img src="${pageContext.request.contextPath}/image/icon/search.png" alt=""> --%>
 <!-- 							</button>				 -->
 						<a href="#"><img src="${pageContext.request.contextPath}/image/icon/heart.png" alt=""></a>						
-						<a href="<c:url value='/car'/>"><img src="${pageContext.request.contextPath}/image/icon/cart.png" alt=""><span></span></a>	
+						<span class="smallCar"><%=size %></span><a href="<c:url value='/car'/>"><img src="${pageContext.request.contextPath}/image/icon/cart.png" alt=""></a>	
 						<div class="search">
 				    </div>
 				   </form>
@@ -228,11 +244,5 @@ width:100px;
 
 	
 
-<script>
 
-
-// console.log("cookie="+$.cookie("user"));
-// console.log("cookie="+$.cookie("password"));
-</script>
-	
 

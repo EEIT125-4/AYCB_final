@@ -36,7 +36,7 @@ public class EventDaoImpl implements EventDAO {
 	@Override
 	public List<Event> getAllEvent() {
 		List<Event> list = new ArrayList<>();
-		String hql = "FROM Event";
+		String hql = "FROM Event ORDER BY eventdate";
 		Session session = factory.getCurrentSession();
 
 			Query<Event> query = session.createQuery(hql);
@@ -49,7 +49,7 @@ public class EventDaoImpl implements EventDAO {
 	public Event getEvent(int pk) {
 		Event e = null;
 		Session session = factory.getCurrentSession();
-        String hql="From Event e Where e.eventid=:pk";
+        String hql="From Event Where eventid=:pk";
 		try {
 			e =(Event)session.createQuery(hql)
 					.setParameter("pk", pk)

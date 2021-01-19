@@ -24,7 +24,7 @@ import product.model.ProductBean;
 import product.service.ProductService;
 
 @Controller
-@SessionAttributes({ "cart", "totalPrice", "totalQtyOrdered","member" })
+@SessionAttributes({ "cart", "totalPrice", "Shipping", "totalQtyOrdered", "member" })
 public class CarWorkingController {
 
 	@Autowired

@@ -110,22 +110,59 @@
 
 			<div class="content">
 
-				<!--                         留言 -->
+				<!--  留言 -->
 				<div>
 					<c:if test='${not empty member}'>
+						<div id="content">
+							<div id="post">
+								<H1 class="board" style="border-radius: 10px" ALIGN="CENTER">留言佈告欄</H1>
+								<FORM
+									ACTION="${pageContext.request.contextPath}/comment/CommentController"
+									method="Post">
+									<Fieldset class="discussionbox">
+								</FORM>
+
+								<div>
+									<label>會員名稱：</label> <input type="text" id="shangtian"
+										name="name" value="${member.name}" disabled>
+								</div>
 
 						<div class="blog__details__comment">
-							<h4>Leave A Comment</h4>
+							<h4>留個言吧</h4>
 							<form id="commentform">
 
 								<div class="col-lg-12 text-center">
 
 									<textarea id="comment" placeholder="Comment"></textarea>
 									<button id="postComment" type="button" class="site-btn"
-										style="width: fit-content;">Post Comment</button>
+										style="width: fit-content;">送出留言</button>
 								</div>
-							</form>
-						</div>
+								<label for="contentBox"></label>
+								<textarea name="content" id="contentBox" class="transition"></textarea>
+								<button id="submit" type="button" class="site-btn"
+									style="width: fit-content; margin-left: 700px;"
+									onclick="postComment()">送出</button>
+								<button class="site-btn" style="width: fit-content;"
+									clear" type="reset" name="clear">清除</button>
+								</Fieldset>
+							</div>
+							
+							<!-- 回覆留言 -->
+							<div id="boardreply"></div>
+				
+				
+							<!-- 						<div class="blog__details__comment"> -->
+							<!-- 							<h4>Leave A Comment</h4> -->
+							<%-- 							<form id="commentform"> --%>
+
+							<!-- 								<div class="col-lg-12 text-center"> -->
+
+							<!-- 									<textarea id="comment" placeholder="Comment"></textarea> -->
+							<!-- 									<button id="postComment" type="button" class="site-btn" -->
+							<!-- 										style="width: fit-content;">Post Comment</button> -->
+							<!-- 								</div> -->
+							<%-- 							</form> --%>
+							<!-- 						</div> -->
 					</c:if>
 
 					<c:if test='${ empty member}'>
@@ -133,11 +170,9 @@
 					</c:if>
 				</div>
 
-				<!-- 					留言列 -->
-				<div id="board"></div>
 			</div>
 		</div>
-		<%@include file="../jspf/footer.jspf"%>
+		<%-- 		<%@include file="../jspf/footer.jspf"%> --%>
 	</div>
 </div>
 
@@ -155,10 +190,7 @@ $(function(){
 
 <!-- 留言功能初始化 -->
 	var object = "product";
-	var pk = $
-	{
-		Detail.productno
-	};
+	var pk = ${Detail.productno};
 	var path = "${pageContext.request.contextPath}";
 	var board = document.getElementById("board");
 	var postUrl = path + "/leaveComment?memberid=${member.id}&key=" + pk
@@ -168,8 +200,49 @@ $(function(){
 	
 </script>
 
+
+<script>
+var board = document.getElementById("boardreply");
+$(document).ready(function(){
+		console.log("into postcomment")
+	function postComment() {
+		$.ajax({
+					type : "POST",
+					url : "${pageContext.request.contextPath}/leaveComment",
+					dataType : "json",
+					data : {
+						'comment' : $("#comment").val(),
+						'memberid' : '${member.id}',
+						'type' : "product",
+						'key' : "${comment.commentId}"
+					},
+					success : function(data) {
+						console.log(data)
+						$("#reply")
+								.prepend(
+										+"<div class=leavecomment>"
+										+ "<li>"
+										+ "<div class=picform>"
+										+ "<img class=headpic src= '"+ data.imageId +"'alt=Image placeholder>"
+										+ "</div>"
+										+ "<div>"
+										+ "<h3>"+ data.membername +"</h3>"
+										+ "<div class=commentdate>"+ data.CommentTime + "</div>"
+										+ "<p>" + data.ContentBox + "</p>"
+										+ "<p>"
+										+ "<a href=# class=reply id=reply>回覆</a>"
+										+ "</p>"
+										+ "</div>"
+										+ "</li>"
+										+ "</div>")
+					}
+			})
+	})
+})
+</script>
+
 <script src="${pageContext.request.contextPath}/js/comment.js"
-	defer="defer" charset="big5"></script>
+	defer="defer" charset="utf-8"></script>
 
 </body>
 </html>

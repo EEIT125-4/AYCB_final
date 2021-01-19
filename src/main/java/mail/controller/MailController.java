@@ -258,9 +258,11 @@ public class MailController {
 
 			// add image to the multipart
 			multipart.addBodyPart(messageBodyPart);
+			multipart.setSubType("mixed");
 
 			// put everything together
 			mimeMessage.setContent(multipart);
+			
 			// Send message
 			mailSender.send(mimeMessage);
 

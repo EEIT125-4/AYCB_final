@@ -1,6 +1,7 @@
 package product.cartDao;
 
 import java.util.List;
+import java.util.Map;
 
 import product.cartModel.OrderBean;
 import product.cartModel.OrderItemBean;
@@ -23,7 +24,7 @@ public interface OrderDao {
 	OrderBean selectUpdateBean(int ino);
 	
 	ProductDB getProductDB();
-	
-	
+	  
+	Map<String, Object> getBrandNumber();
 
 }

@@ -21,7 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -60,10 +60,11 @@ public class EventController {
 		@GetMapping("/showEvent")
 		public String list(Model model) {
 			model.addAttribute("events", eventService.getAllEvent());
+			model.addAttribute("check","");
 			return "event/showEvent";
 		}
 		
-		@GetMapping("/showEvent1")
+		@GetMapping("/backstageshowEvent")
 		public String list1(Model model) {
 			model.addAttribute("events", eventService.getAllEvent());
 			System.out.println("events");
@@ -103,6 +104,7 @@ public class EventController {
 		public String add(Model model,
 				@ModelAttribute("event") Event event,
 				@RequestParam(value = "file",required = false) MultipartFile file,
+				BindingResult result,
 		    HttpServletRequest request) {
 			
 			System.out.println("------"+event);
@@ -121,11 +123,11 @@ public class EventController {
 			event.setFilename(path);
 			
 			
-//			EventValidator validator =new EventValidator();
-//			validator.validate(event, result);
-//			if(result.hasErrors()) {
-//				return "event/eventForm";
-//			}
+			EventValidator validator =new EventValidator();
+			validator.validate(event, result);
+			if(result.hasErrors()) {
+				return "event/eventForm";
+			}
 //			MultipartFile img = event.getEventimage();
 //			String originalFilename = img.getOriginalFilename();
 //			
@@ -143,7 +145,7 @@ public class EventController {
 //				}
 //			}
 						
-		eventService.save(event);
+		   eventService.save(event);
 			
 //			String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
 //			String rootDirectory = context.getRealPath("/");
@@ -171,9 +173,10 @@ public class EventController {
 				Model model,
 				@RequestParam(value="eventid" ,required = false)Integer eventid
 				) {
-			System.out.println("eid:"+eventid);
 			Event event = eventService.getEvent(eventid);
-			model.addAttribute(event);
+			model.addAttribute("event",event);
+			
+			
 			return "event/eventupdate";
 		}
 		@PostMapping(value = "/eventupdate")		
@@ -181,19 +184,17 @@ public class EventController {
 				@ModelAttribute("event") Event event, 
 				BindingResult result, 
 				Model model,
-				//@PathVariable Integer eventid,
 				@RequestParam(value="eventid" ,required = false)Integer eventid,
 				@RequestParam(value = "file",required = false) MultipartFile file,
 				HttpServletRequest request) {
+			
+
 			EventValidator validator = new EventValidator();
+			
 			validator.validate(event, result);
 			if (result.hasErrors()) {
-				System.out.println("result hasErrors(), event=" + event);
-				List<ObjectError> list = result.getAllErrors();
-				for (ObjectError error : list) {
-					System.out.println("有錯誤：" + error);
-				}
-				return "event/eventForm";
+
+				return "event/eventupdate";
 			}
 			String path = null;
 			try {
