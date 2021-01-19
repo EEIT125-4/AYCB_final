@@ -18,7 +18,7 @@ import org.springframework.validation.ObjectError;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
@@ -170,6 +170,7 @@ public class AttendanceController {
 				System.out.println("------------------------------------------------------------------------------"+eventid);
 				Event event = eventService.getEvent(eventid);
 				event.setPax(attendance.getPax()+event.getPax());
+				System.out.println("0000000000000000000000000000000000000000000000000000000+++++++++++參加人數"+event.getPax());
 				if(event.getPax()<=event.getTotalpax()) {
 					eventService.updateEvent(event);
 				}else {
