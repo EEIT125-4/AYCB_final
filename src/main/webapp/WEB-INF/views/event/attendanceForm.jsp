@@ -52,11 +52,12 @@
 						<input type='submit' name='name' value='提交'> <input
 							type='reset' name='name' value='還原'><br>
 					</div>
-
+                     
 				</fieldset>
 			</form:form>
 		</div>
 <%@include file="../jspf/footer.jspf"%>
 </body>
+
 
 </html>

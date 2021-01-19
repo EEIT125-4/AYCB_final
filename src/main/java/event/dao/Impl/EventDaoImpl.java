@@ -36,7 +36,7 @@ public class EventDaoImpl implements EventDAO {
 	@Override
 	public List<Event> getAllEvent() {
 		List<Event> list = new ArrayList<>();
-		String hql = "FROM Event";
+		String hql = "FROM Event ORDER BY eventdate";
 		Session session = factory.getCurrentSession();
 
 			Query<Event> query = session.createQuery(hql);

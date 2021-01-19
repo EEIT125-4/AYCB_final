@@ -44,7 +44,7 @@
 	<div>
 	<form action="<c:url value='/event/showEventByCategory' />">
     <label style="font-size: 20px">分類搜尋活動:&nbsp;&nbsp;
-	<button  style="width:100px" class="btn btn-outline-dark" name="eventcategory" value="手做">手作</button>
+	<button  style="width:100px" class="btn btn-outline-dark" name="eventcategory" value="體驗">體驗</button>
 	<button  style="width:100px" class="btn btn-outline-dark" name="eventcategory" value="教學">教學</button>
 	<button  style="width:100px" class="btn btn-outline-dark" name="eventcategory" value="新品發表">新品發表</button>
 	<button  style="width:100px" class="btn btn-outline-dark" name="eventcategory" value="促銷">促銷</button>

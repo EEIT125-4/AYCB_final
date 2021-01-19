@@ -57,7 +57,7 @@
 					<TD align="LEFT">
 					<select name="eventcategory" value="${event.eventcategory}${param.eventcategory}">
 					 <option value="NONE">請選擇</option>					
-				     <option value="手做" >手做</option>					
+				     <option value="體驗" >體驗</option>					
 				     <option value="教學" >教學</option>					
 				     <option value="新品發表" >新品發表</option>					
 				     <option value="促銷" >促銷</option>					
