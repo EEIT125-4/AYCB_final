@@ -83,7 +83,7 @@
 
 
 <!-- Blog Details Hero Begin -->
-<section class="breadcrumb-blog set-bg" data-setbg="${pageContext.request.contextPath}/pic/${blog.picture}">
+<section class="breadcrumb-blog set-bg">
 	<div class="container">
 		<div class="row d-flex justify-content-center">
 			<div class="col-lg-9 text-center">
