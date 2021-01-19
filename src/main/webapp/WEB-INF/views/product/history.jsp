@@ -41,8 +41,9 @@
 			<tbody>
 				<c:forEach var="history" items="${recordlist}">
 					<tr>
-						<td class="historytd"><img class="historyimg"
-							src="${pageContext.request.contextPath}/pic/${history.imagepath}">
+						<td class="historytd">
+							<a href='<c:url value="/Detail" />?no=${history.productno}&cate=${history.productcategory}'>
+							<img class="historyimg" src="${pageContext.request.contextPath}/pic/${history.imagepath}"></a>
 						</td>
 						<td class="historytd">${history.productcategory}</td>
 						<td class="historytd">${history.productname}</td>

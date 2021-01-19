@@ -91,7 +91,7 @@
 					<div class="modal-dialog" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
-								<div class="modal-title addtitle" id="modalTitle">新增商品</div>
+								<div class="modal-title" id="addtitle modalTitle"><h2><b>新增商品</b></h2></div>
 								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 								</button>
@@ -187,7 +187,7 @@
 									<div class="modal-dialog" role="document">
 										<div class="modal-content">
 											<div class="modal-header">
-											<div class="modal-title addtitle" id="modalTitle">更新商品</div>
+											<div class="modal-title" id="modalTitle"><h2><b>更新商品</b></h2></div>
 												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 													<span aria-hidden="true">&times;</span>
 												</button>
