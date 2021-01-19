@@ -61,21 +61,17 @@
 									<option value="10">10</option>
 								</select>
 							</div>
-							<br> <br> <br>
-							<div>
-								<input class="cartbtn"
-									type=<%=session.getAttribute("member") != null ? "submit" : "hidden"%>
-									value="加入購物車"> <input type="hidden" name="productno"
-									value="${Detail.productno}">
+							<div class="infostock">還剩${Detail.stock}件</div>
+							<div class="infobtnbox">
+								<input class="cartbtn" type=<%=session.getAttribute("member") != null ? "submit" : "hidden"%> value="加入購物車"> 
+								<input type="hidden" name="productno" value="${Detail.productno}">
 								<div class="lineshare">
 									<div class="line-it-button" data-lang="zh_Hant"
 										data-type="share-a" data-ver="3"
 										data-url="http://localhost:8080/AYCB_final/Detail?no=${Detail.productno}"
 										data-color="default" data-size="large" data-count="true"
 										style="display: none;"></div>
-									<script
-										src="https://d.line-scdn.net/r/web/social-plugin/js/thirdparty/loader.min.js"
-										async="async" defer="defer"></script>
+									<script src="https://d.line-scdn.net/r/web/social-plugin/js/thirdparty/loader.min.js" async="async" defer="defer"></script>
 									<div id="fb-root"></div>
 								</div>
 							</div>
@@ -114,9 +110,22 @@
 
 			<div class="content">
 
-				<!--                         留言 -->
+				<!--  留言 -->
 				<div>
 					<c:if test='${not empty member}'>
+						<div id="content">
+							<div id="post">
+								<H1 class="board" style="border-radius: 10px" ALIGN="CENTER">留言佈告欄</H1>
+								<FORM
+									ACTION="${pageContext.request.contextPath}/comment/CommentController"
+									method="Post">
+									<Fieldset class="discussionbox">
+								</FORM>
+
+								<div>
+									<label>會員名稱：</label> <input type="text" id="shangtian"
+										name="name" value="${member.name}" disabled>
+								</div>
 
 						<div class="blog__details__comment">
 							<h4>留個言吧</h4>
@@ -128,8 +137,32 @@
 									<button id="postComment" type="button" class="site-btn"
 										style="width: fit-content;">送出留言</button>
 								</div>
-							</form>
-						</div>
+								<label for="contentBox"></label>
+								<textarea name="content" id="contentBox" class="transition"></textarea>
+								<button id="submit" type="button" class="site-btn"
+									style="width: fit-content; margin-left: 700px;"
+									onclick="postComment()">送出</button>
+								<button class="site-btn" style="width: fit-content;"
+									clear" type="reset" name="clear">清除</button>
+								</Fieldset>
+							</div>
+							
+							<!-- 回覆留言 -->
+							<div id="boardreply"></div>
+				
+				
+							<!-- 						<div class="blog__details__comment"> -->
+							<!-- 							<h4>Leave A Comment</h4> -->
+							<%-- 							<form id="commentform"> --%>
+
+							<!-- 								<div class="col-lg-12 text-center"> -->
+
+							<!-- 									<textarea id="comment" placeholder="Comment"></textarea> -->
+							<!-- 									<button id="postComment" type="button" class="site-btn" -->
+							<!-- 										style="width: fit-content;">Post Comment</button> -->
+							<!-- 								</div> -->
+							<%-- 							</form> --%>
+							<!-- 						</div> -->
 					</c:if>
 
 					<c:if test='${ empty member}'>
@@ -137,11 +170,9 @@
 					</c:if>
 				</div>
 
-				<!-- 					留言列 -->
-				<div id="board"></div>
 			</div>
 		</div>
-		<%@include file="../jspf/footer.jspf"%>
+		<%-- 		<%@include file="../jspf/footer.jspf"%> --%>
 	</div>
 </div>
 
@@ -167,6 +198,47 @@ $(function(){
 	var getUrl = path + "/loadComment?key=" + pk + "&type=" + object;
 	
 	
+</script>
+
+
+<script>
+var board = document.getElementById("boardreply");
+$(document).ready(function(){
+		console.log("into postcomment")
+	function postComment() {
+		$.ajax({
+					type : "POST",
+					url : "${pageContext.request.contextPath}/leaveComment",
+					dataType : "json",
+					data : {
+						'comment' : $("#comment").val(),
+						'memberid' : '${member.id}',
+						'type' : "product",
+						'key' : "${comment.commentId}"
+					},
+					success : function(data) {
+						console.log(data)
+						$("#reply")
+								.prepend(
+										+"<div class=leavecomment>"
+										+ "<li>"
+										+ "<div class=picform>"
+										+ "<img class=headpic src= '"+ data.imageId +"'alt=Image placeholder>"
+										+ "</div>"
+										+ "<div>"
+										+ "<h3>"+ data.membername +"</h3>"
+										+ "<div class=commentdate>"+ data.CommentTime + "</div>"
+										+ "<p>" + data.ContentBox + "</p>"
+										+ "<p>"
+										+ "<a href=# class=reply id=reply>回覆</a>"
+										+ "</p>"
+										+ "</div>"
+										+ "</li>"
+										+ "</div>")
+					}
+			})
+	})
+})
 </script>
 
 <script src="${pageContext.request.contextPath}/js/comment.js"

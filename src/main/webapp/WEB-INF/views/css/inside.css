@@ -221,6 +221,8 @@
 }
 
 .like_button {
+	width: 40px;
+    height: 40px;
 	color: red;
 	border-radius: 25px;
 	border: 2px solid gray;
@@ -267,13 +269,19 @@
 }
 
 .modebtn {
-	width: 60px;
-	font-size: 18px;
-    font-weight: bold;
+	width: 30px;
 	margin-left: 5px;
-	border-radius: 5px;
-	border: 1px solid gray;
-	background-color: transparent;
+}
+
+.modebtn:hover {
+	color: tomato;
+}
+	
+.modeimg {
+	width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    margin-bottom: 5px;
 }
 
 .searchbox {
@@ -285,7 +293,7 @@
 
 .searchinput {
 	width: 178px;
-	height: 40px;
+	height: 26px;
 	float: left;
 	border: none;
 	margin-left: 2px;
@@ -405,20 +413,22 @@ input:-webkit-autofill:focus {
 
 .listbuttonbox {
 	float: right;
+	margin-top: 80px;
 }
 
 .listlike {
-	float: right;
+	position: absolute;
     width: 40px;
     height: 40px;
-    margin-left: 64%;
-    margin-bottom: 40px;
+    margin-left: 95%;
     line-height: 40px;
     background-color: transparent;
-/*     display: none; */
+    display: none;
 }
 
 .listlike_button {
+	width: 40px;
+    height: 40px;
 	color: red;
 	border-radius: 25px;
 	border: 2px solid gray;
@@ -427,6 +437,10 @@ input:-webkit-autofill:focus {
 
 .listlike_button:hover {
 	border-color: red;
+}
+
+.listbox:hover .listlike {
+    display: block;
 }
 
 .listproprice {

@@ -127,7 +127,7 @@
 <%-- 												<input type="hidden" name="eventid" value="${event.eventid}"> --%>
 <%-- 												<input type="button" id="attend" value="報名參加" class="btn btn-primary attend${event.eventid}" style="width: 100px;"> --%>
 <!-- 												</form> -->
-												<a id="trans" href="<c:url value='/event/attendanceForm'/>?eventid=${event.eventid}&membercatcher=${member.account}">
+												<a id="trans" href="<c:url value='/event/attendanceForm'/>?eventid=${event.eventid}&membercatcher=${member.account}&memberid=${member.id}">
 												<button id="attend" type="submit" class="btn btn-primary attend" style="width: 100px;">報名參加</button></a> 
 										</div>
 									</div>
@@ -138,6 +138,7 @@
 				</div>
 			</div>
 		</c:forEach>
+		<input type="hidden" value="${check}" id="check">
 	</div>
 	</section>
 	<div class="modal fade" id="mapdialog" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
@@ -168,8 +169,7 @@
 <%@include file="../jspf/footer.jspf"%>
 </body>
 <script type="text/javascript">
-   //googlemap
-   
+   //googlemap   
 	var map, geocoder;
 	var mapId = "";
 	$('button').click(function(){
@@ -219,8 +219,14 @@
 	 }else {
 		 $('.manager').hide();
 	 }
-	  
 	
+	//彈跳視窗 
+	$(document).ready(function() {
+		console.log($('#check').val())
+		if($('#check').val()=="1"){
+			alert("已經報名過囉，請選擇其他活動")
+		}
+	})
 	
 	
 </script>

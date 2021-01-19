@@ -2,6 +2,7 @@ package product.cartService.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -107,6 +108,15 @@ public class OrderServiceImpl implements OrderService {
 		OrderBean order = dao.selectUpdateBean(ino);
 
 		return order;
+	}
+
+
+	@Override
+	public Map<String, Object> getBrandNumber() {
+		
+		Map<String, Object> brandMap = dao.getBrandNumber();
+		
+		return brandMap;
 	}
 
 			

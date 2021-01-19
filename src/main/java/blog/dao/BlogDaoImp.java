@@ -41,15 +41,13 @@ public class BlogDaoImp implements BlogDao {
 		return list;
 	}
 	
-	
-	
 
 	//查詢search bar
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Blog>selectArticle(String title){
 		Session session = getSession();
-		String hql = "FROM Blog where title like :title";
+		String hql = "FROM Blog b where b.title like :title";
 		System.out.println("title1");
 		List<Blog> list= session.createQuery(hql).setParameter("title", "%"+title+"%").getResultList();
 		

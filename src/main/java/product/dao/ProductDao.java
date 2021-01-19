@@ -85,4 +85,10 @@ public interface ProductDao {
 	int pkcollection(int mid, int pid);
 	
 	List<Integer> findcollection(int mid);
+	
+	long getProductTotal();
+	
+	long getBrandTotal();
+	
+	long getCateTotal(String cate);
 }

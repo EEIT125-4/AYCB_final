@@ -25,10 +25,18 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 </head>
 <%@include file="../jspf/header.jspf"%>
 
+<style>
+.uploadbutton{
+	width: auto;
+	height: auto;
+	margin-top: 10px;
+	margin-left:200px;
+}
 
+</style>
 	<!-- Breadcrumb Section Begin -->
 	<section class="breadcrumb-blog set-bg"
-		data-setbg="${pageContext.request.contextPath}/image/blog_backgroundjpg.jpg">
+		data-setbg="${pageContext.request.contextPath}/image/breadcrumb-bg.jpg">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
@@ -40,12 +48,20 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 	<!-- Breadcrumb Section End -->
 	<c:if test="${not empty member }">
 	<a class="a1" href="${pageContext.request.contextPath}/blog/edit">
-		<h3>我要上傳文章</h3>	
+		<button class="uploadbutton">我要上傳文章</button>	
 	</a>
 	</c:if>
+	
+	<div class="search-container">
+	<form action="<c:url value='/SelectSearchBar' />" method="GET" name="search" style="margin-left:1000px">
+		<input type="text" placeholder="查詢文章...." name="search">
+		<button type="submit">
+			<i class="fa fa-search"></i>
+		</button>
+	</form>
+	</div>
 		<!-- Blog Section Begin -->
 		<section class="blog spad">
-		
 			<div class="container">
 				<div class="row">
 				<c:forEach var='b' varStatus='bg' items='${blog}'>
@@ -70,7 +86,7 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 								
 								<c:if test="${b.member.id eq member.id}">
 								<br>
-								<a href="${pageContext.request.contextPath}/blog/delete/${b.blogId}">假刪除</a>
+								<a href="${pageContext.request.contextPath}/blog/delete/${b.blogId}">刪除</a>
 								</c:if>
 							</div>
 						</div>
@@ -80,11 +96,17 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 				</div>
 			</div>
 		</section>
-		
 		<%@include file="../jspf/footer.jspf"%>
 </body>
 
 <script>
+// var blogs=${blog};
+
+// for(let i=0;i<blogs.length;i++){
+// 	console.log("blogs"+blogs[i].title);
+// }
+
+
 // function deleteBlog() {
 
 // // 	var adbox = document.getElementById('adbox');

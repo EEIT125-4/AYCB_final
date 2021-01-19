@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -21,21 +21,20 @@ public class AttendanceDaoImpl implements AttendanceDAO {
 	@Autowired
 	SessionFactory factory;
 
-//	@SuppressWarnings("unchecked")
-//	@Override
-//	public boolean isDup(String id) {
-//		boolean result = false;
-//		String hql = "FROM Attendance WHERE event_eventid=:eventid and member_id=:mid";
-//		Session session = factory.getCurrentSession();
-//
-//			Query<Attendance> query = session.createQuery(hql);
-//			List<Attendance> list = query.setParameter("id0", id).getResultList();
-//			if ( list.size() > 0) {
-//				result = true;
-//			}
-//			
-//		return result;
-//	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public boolean isDup(Integer mid,Integer eventid) {
+		boolean result = true;
+		String hql = "FROM Attendance WHERE event_eventid=:eventid and member_id=:mid";
+		Session session = factory.getCurrentSession();
+
+			Query<Attendance> query = session.createQuery(hql);
+			List<Attendance> list = query.setParameter("mid", mid).setParameter("eventid",eventid).getResultList();
+			if ( list.size() > 0) {
+				result = false;
+			}			
+		return result;
+	}
 
 	@Override
 	public void save(Attendance a) {
@@ -78,7 +77,6 @@ public class AttendanceDaoImpl implements AttendanceDAO {
 		Attendance a = new Attendance();
 		a.setAid(aid);
 		session.delete(a);
-
 	}
 
 	@Override
@@ -104,8 +102,7 @@ public class AttendanceDaoImpl implements AttendanceDAO {
 	public List<Attendance> getAllAttendancebyEvent(Integer eventid) {
 		String hql="FROM Attendance WHERE event_eventid=:id";
 		Session session = factory.getCurrentSession();
-		List<Attendance> list = session.createQuery(hql).setParameter("id", eventid).getResultList();
-		
+		List<Attendance> list = session.createQuery(hql).setParameter("id", eventid).getResultList();		
 		return list;
 	}
 

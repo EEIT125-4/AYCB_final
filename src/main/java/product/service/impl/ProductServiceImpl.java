@@ -216,4 +216,19 @@ public class ProductServiceImpl implements ProductService {
 	public List<Integer> findcollection(int mid) {
 		return dao.findcollection(mid);
 	}
+	
+	@Override
+	public long getProductTotal() {
+		return dao.getProductTotal();
+	}
+	
+	@Override
+	public long getBrandTotal() {
+		return dao.getBrandTotal();
+	}
+	
+	@Override
+	public long getCateTotal(String cate) {
+		return dao.getCateTotal(cate);
+	}
 }

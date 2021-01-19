@@ -10,18 +10,18 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 
 <%
 MemberBean member = (MemberBean) session.getAttribute("member");
-// session.removeAttribute("cart");
-// session.removeAttribute("totalPrice");
-// session.removeAttribute("totalQtyOrdered");
+session.removeAttribute("cart");
+session.removeAttribute("totalPrice");
+session.removeAttribute("totalQtyOrdered");
 String path=request.getContextPath()+"/orderManagement";
 response.setHeader("Refresh", "3;"+path);
 %>
 
 <CENTER>
 ${form}
- 	<h3>親愛的會員 ${member.name} 您好：
- 	 <br>感謝您的訂購<br> 期待您再度光臨 !! 
-	</h3> <br> 
+ 	<h4 style="font-weight: bold; text-align: center">親愛的會員 ${member.name} 您好：
+ 	 <br><br>感謝您的訂購<br> 期待您再度光臨 !! 
+	</h4> <br><br><br><br><br><br><br><br><br><br>
 
 </CENTER>
 <%@include file="../jspf/footer.jspf"%>

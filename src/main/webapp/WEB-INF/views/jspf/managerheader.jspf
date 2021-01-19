@@ -75,8 +75,7 @@ MemberBean mb = (MemberBean) session.getAttribute("member");
 <script src="${pageContext.request.contextPath}/js/mixitup.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/main.js"></script>
-</head>
-<body>
+
 	<!-- Page Preloder -->
 	<div id="preloder">
 		<div class="loader"></div>

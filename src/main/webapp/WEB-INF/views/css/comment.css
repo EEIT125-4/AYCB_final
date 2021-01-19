@@ -13,8 +13,8 @@ body {
 	line-height: 100px;
 	text-align: center;
 	font-size: 24px;
-	color: #fff;
-	background: #FFAF60;
+	color: 	#000000;
+	background: #00E3E3;
 	width: 900px;
 }
 
@@ -24,13 +24,15 @@ body {
 }
 
 #content {
-	margin: 0 auto;
-	width: 960px;
-	overflow: hidden;
-	margin-left: 300px;
-	position: relative;
-	top: 200px;
+	    margin-left: 50px;
 }
+/* 	margin: 0 auto; */
+/* 	width: 960px; */
+/* 	overflow: hidden; */
+/* 	margin-left: 300px; */
+/* 	position: relative; */
+/* 	top: 200px; */
+/* } */
 
 .content {
         position: relative;

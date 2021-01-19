@@ -400,9 +400,7 @@ $('#cpwd').blur(function() {
     	$('#send').click(function(){
     		if(p1!=true || p2!=true || p3!=true || p4!=true || p5!=true || p6!=true || p7!=true){
     			
-//     			Swal.fire({title:'錯誤', text:'資料填寫錯誤', icon:'error',button:"ok"});
-    	
-    			
+
     			
     			swal.fire({
     				  title: "oops",

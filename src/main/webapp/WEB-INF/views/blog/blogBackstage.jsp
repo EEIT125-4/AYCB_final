@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
-	response.setContentType("text/html;charset=UTF-8");
+response.setContentType("text/html;charset=UTF-8");
 response.setHeader("Cache-Control", "no-cache"); // HTTP 1.1
 response.setHeader("Pragma", "no-cache"); // HTTP 1.0
 response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at the proxy server
@@ -110,6 +110,9 @@ var table=document.getElementById("myDataTable");
 $(document).ready(function() {
 	
 	var tb= document.getElementById('myDataTable');
+	});
+	
+	
     $(".status").change(function() { 
     	
     	var blogId=$(this).parent().siblings("td[name='blogId']").text();
@@ -148,7 +151,7 @@ $(document).ready(function() {
               
             }
         })
-    })  
+    })  ;
     //刪除blog按鈕
     $(".delete_btn").click(function() {
     
@@ -210,11 +213,10 @@ $(document).ready(function() {
     		        })  			
     		});
     	
-    })
+    });
     
     
     
-});
 
 
 var ctx = document.getElementById('myChart').getContext('2d');

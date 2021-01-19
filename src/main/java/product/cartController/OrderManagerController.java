@@ -2,6 +2,7 @@ package product.cartController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,9 +10,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.google.gson.Gson;
+
 import member.MemberBean;
+import product.cartModel.CartItem;
 import product.cartModel.OrderBean;
 import product.cartModel.OrderItemBean;
 import product.cartService.OrderService;
@@ -40,15 +45,26 @@ public class OrderManagerController {
 		return "product/mHistoryOrderItem";
 	}
 	
+//	@GetMapping("/managerOrderDelete")
+//	public String OrderDelete(Model model,
+//							   @RequestParam(value = "deleteindex", required = false) int deleteindex
+//	){
+//		System.out.println("delete process");
+//		
+//		os.deleteOrderBean(deleteindex);
+//
+//		return "redirect:/orderManager";
+//	}
+	
 	@GetMapping("/managerOrderDelete")
-	public String OrderDelete(Model model,
-							   @RequestParam(value = "deleteindex", required = false) int deleteindex
-	){
-		System.out.println("delete process");
+	public @ResponseBody boolean OrderDelete(Model model,
+														@RequestParam int deleteindex
+			){
+		System.out.println("delete process: "+deleteindex);
 		
 		os.deleteOrderBean(deleteindex);
-
-		return "redirect:/orderManager";
+		
+		return true;
 	}
 	
 	@GetMapping("/orderManager")
@@ -59,9 +75,28 @@ public class OrderManagerController {
 		if(memberBean == null) {
 			return "redirect:/member/login";
 		}
+		Gson gson=new Gson();
+		Map<String, Object> brandList = os.getBrandNumber();
+		String jsonBrandName = gson.toJson(brandList.get("brandName"));
+		String jsonBrandCount = gson.toJson(brandList.get("brandCount"));
+		model.addAttribute("brandList", brandList);
+		model.addAttribute("jsonBrandName", jsonBrandName);
+		model.addAttribute("jsonBrandCount", jsonBrandCount);
+		System.out.println("brandList: " + model.getAttribute("brandList"));
+		System.out.println("jsonBrandName: " + jsonBrandName);
+		System.out.println("jsonBrandCount: " + jsonBrandCount);
 		
 		return "product/mHistoryOrders";
 	}
+	
+	
+	@GetMapping("/return")	
+	public String ReturnsPolicy() {
+		
+		return "product/returnsPolicy";
+	}
+	
+	
 	
 	@ModelAttribute("AllOrders")
 	public List<OrderBean> SelectAllOrders(Model model) {
@@ -72,4 +107,5 @@ public class OrderManagerController {
 				
 		return list;
 	}
+	
 }

@@ -21,8 +21,8 @@ public interface EventDAO {
 		
         Event getEvent(int pk);
         
-        List<Event> getEventByCategory(String eventcategory);
-		
+		List<Event> getEventByCategory(String eventcategory);
+
 		
 
 
