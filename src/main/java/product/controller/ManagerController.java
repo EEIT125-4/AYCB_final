@@ -35,81 +35,74 @@ public class ManagerController {
 	@Autowired
 	ImageService imgService;
 	
-	// 新增
-	@GetMapping("/Mpadd")
-	public String mpadd(Model model) {
-		ProductBean pb = new ProductBean();
-		model.addAttribute("ProductBean", pb);
-		return "product/mpadd";
-	}
+//	// 新增
+//	@GetMapping("/Mpadd")
+//	public String mpadd(Model model) {
+//		ProductBean pb = new ProductBean();
+//		model.addAttribute("ProductBean", pb);
+//		return "product/mpadd";
+//	}
 	
 	// 新增
-	@PostMapping("/Mpadd")
-	public String add(@ModelAttribute("ProductBean") ProductBean pb			
+	@PostMapping("/GetAllProduct")
+	public String add(
+			@ModelAttribute("ProductBean") ProductBean pb,
+			@ModelAttribute("UPBean") ProductBean upb,
+			@RequestParam(value = "todo", required = false) String todo
 	) {
-		MultipartFile productImage = pb.getProductimage();
-		if (productImage != null && productImage.getSize() > 0) {
-			// 這邊是存在Tomcat的路徑,但網站重佈署時就會消失,所以目前方案是存在專案實際位置,每次重新佈署時就會自動同步
-			System.out.println("有圖片" + context.getRealPath("/"));
-
-			try {
-				Image img = new Image(productImage);
-
-				imgService.saveImage(img);
-				pb.setImagepath(img.getImgid().toString());
-				System.out.println("圖片儲存完畢,id=" + img.getImgid()+",filename="+img.getFilename());
-
-			} catch (Exception e) {
-				e.printStackTrace();
-				throw new RuntimeException("圖片上傳發生異常: " + e.getMessage());
-			}
-
+		System.out.println(todo);
+		if(todo.equals("update")) {
+			ps.updateProduct(upb);
+			return "redirect:/GetAllProduct";
 		} else {
-			System.out.println("沒有圖片");
+			System.out.println("~~~~~~~~");
+			MultipartFile productImage = pb.getProductimage();
+			if (productImage != null && productImage.getSize() > 0) {
+				// 這邊是存在Tomcat的路徑,但網站重佈署時就會消失,所以目前方案是存在專案實際位置,每次重新佈署時就會自動同步
+				System.out.println("有圖片" + context.getRealPath("/"));
+	
+				try {
+					Image img = new Image(productImage);
+	
+					imgService.saveImage(img);
+					pb.setImagepath(img.getImgid().toString());
+					System.out.println("圖片儲存完畢,id=" + img.getImgid()+",filename="+img.getFilename());
+	
+				} catch (Exception e) {
+					e.printStackTrace();
+					throw new RuntimeException("圖片上傳發生異常: " + e.getMessage());
+				}
+	
+			} else {
+				System.out.println("沒有圖片");
+			}
+			
+			ps.saveproduct(pb);
+			return "redirect:/GetAllProduct";
 		}
-		
-		
-//		String originalFilename = productImage.getOriginalFilename();
-//		String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
-//		String rootDirectory = context.getRealPath("/");
-//		System.out.println(context.getContextPath());
-//		System.out.println(context.getResourcePaths("/"));
-//		try {
-//			File imageFolder = new File(rootDirectory, "images");
-//			if (!imageFolder.exists())
-//				imageFolder.mkdirs();
-//			File file = new File(imageFolder, pb.getProductno() + ext);
-//			productImage.transferTo(file);
-//			pb.setImagepath(file.toString());
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
-//		}
-		ps.saveproduct(pb);
-		return "redirect:/MProduct";
 	}
 	
 	// 更新
-	@GetMapping("/Mpupdate")
-	public String mpupdate(Model model,
-			@RequestParam(value = "no", required = false) Integer no
-	) {
-		
-		ProductBean pb = ps.getProduct(no);
-		model.addAttribute("ProductBean", pb);
-		System.out.println("no1" + pb);
-		return "product/mpdetail";
-	}
+//	@GetMapping("/Mpupdate")
+//	public String mpupdate(Model model,
+//			@RequestParam(value = "no", required = false) Integer no
+//	) {
+//		
+//		ProductBean pb = ps.getProduct(no);
+//		model.addAttribute("ProductBean", pb);
+//		System.out.println("no1" + pb);
+//		return "product/mpdetail";
+//	}
 	
 	// 更新
-	@PostMapping("/Mpupdate")
-	public String update(
-			@ModelAttribute("ProductBean") ProductBean pb
-	) {
-		ps.updateProduct(pb);
-		System.out.println("update" + pb);
-		return "redirect:/MProduct";
-	}
+//	@PostMapping("/Mpupdate")
+//	public String update(
+//			@ModelAttribute("ProductBean") ProductBean pb
+//	) {
+//		ps.updateProduct(pb);
+//		System.out.println("update" + pb);
+//		return "redirect:/MProduct";
+//	}
 	
 	// 白名單
 //	@InitBinder
@@ -127,12 +120,12 @@ public class ManagerController {
 //	}
 	
 	// 刪除
-	@GetMapping("/Delete")
-	public String delete(@RequestParam(value = "no", required = false) Integer no
+	@GetMapping(value = "/Delete", produces = "application/json")
+	public @ResponseBody boolean delete(
+			@RequestParam(value = "no", required = false) Integer no
 	) {
-		System.out.println("no" + no);
 		ps.deleteProduct(no);
-		return "redirect:/MProduct";
+		return true;
 	}
 	
 	@GetMapping("/Manager")
@@ -140,11 +133,11 @@ public class ManagerController {
 		return "product/manager";
 	}
 	
-	// 後台商品頁路徑
-	@GetMapping("/MProduct")
-	public String mproduct() {
-		return "product/mproduct";
-	}
+//	// 後台商品頁路徑
+//	@GetMapping("/MProduct")
+//	public String mproduct() {
+//		return "product/mproduct";
+//	}
 	
 	// 後台選廠商顯示
 	@GetMapping(value = "/Brands", produces = "application/json")
@@ -204,6 +197,11 @@ public class ManagerController {
 	@GetMapping("/GetAllProduct")
 	public ModelAndView getAllProduct(Model model) {
 		ModelAndView mav = new ModelAndView();
+		
+		ProductBean pb = new ProductBean();
+		mav.addObject("ProductBean", pb);
+		ProductBean upb = new ProductBean();
+		mav.addObject("UPBean", upb);
 		
 		List<ProductBean> list = ps.getAllProducts();
 		mav.addObject("Products", list);
