@@ -204,10 +204,18 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 			<br>
 			<br>
 
-	<a href=#mytop><div class="top">TOP</div></a>
+	<a onclick="goTop();"><div class="top">TOP</div></a>
 </div>
 <%@include file="../jspf/footer.jspf"%>
 <script>
+
+function goTop(){
+	var $body = (window.opera) ? (document.compatMode == "CSS1Compat" ? $('html') : $('body')) : $('html,body');
+	$body.animate({
+		scrollTop: 0
+	}, 200);
+}
+
 function checkQty(e){
 	var xhr = new XMLHttpRequest();
 	xhr.open("GET", '<c:url value="/setQtyAjax" />?id='+e+"&Qty="+$("#"+e).val()

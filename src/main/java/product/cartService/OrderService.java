@@ -15,7 +15,7 @@ public interface OrderService {
 	
 	List<OrderItemBean> selectOrderItem(int no);
 
-	boolean insertOrderBean(OrderBean order);
+	boolean insertOrderBean(OrderBean order);   
 
 	boolean updateOrderBean(OrderBean order);
 

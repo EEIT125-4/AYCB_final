@@ -24,7 +24,7 @@ public interface OrderDao {
 	OrderBean selectUpdateBean(int ino);
 	
 	ProductDB getProductDB();
-	
+	  
 	Map<String, Object> getBrandNumber();
 
 }
