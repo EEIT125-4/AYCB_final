@@ -18,7 +18,7 @@ response.setHeader("Refresh", "3;"+path);
 %>
 
 <CENTER>
-<%-- ${form} --%>
+${form}
  	<h4 style="font-weight: bold; text-align: center">親愛的會員 ${member.name} 您好：
  	 <br><br>感謝您的訂購<br> 期待您再度光臨 !! 
 	</h4> <br><br><br><br><br><br><br><br><br><br>

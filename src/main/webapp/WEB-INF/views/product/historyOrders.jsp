@@ -2,18 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-	integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-	crossorigin="anonymous"></script>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-	crossorigin="anonymous">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
+<%
+response.setContentType("text/html;charset=UTF-8");
+response.setHeader("Cache-Control", "no-cache"); // HTTP 1.1
+response.setHeader("Pragma", "no-cache"); // HTTP 1.0  
+response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
+%>
 <%
 	String user = "";
 boolean editable = false;
@@ -25,17 +19,51 @@ if (session.getAttribute("member") != null) {
 }
 %>
 
-<%
-response.setContentType("text/html;charset=UTF-8");
-response.setHeader("Cache-Control", "no-cache"); // HTTP 1.1
-response.setHeader("Pragma", "no-cache"); // HTTP 1.0  
-response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
-%>
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+<meta charset="UTF-8">
+
+<title>訂單查詢</title>
+
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+	integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+	crossorigin="anonymous"></script>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css"> 
+	
+<style>
+.butt {
+	width: auto;
+	height: auto;
+	margin-top: 0px;
+}
+
+.top {
+		color: white;
+		background: #FF2D2D;
+		padding: 14px 10px;
+		position: fixed;
+		right: 20px;
+		bottom: 100px;
+		text-align: center;
+		border-radius: 50px;
+		z-index: 1;
+	}
+	
+</style>
+
 <%@include file="../jspf/header.jspf"%>
 
-
-
-<div>
+<div id="mytop">
 <c:choose>
 	<c:when test="${empty orderList}">
 	查無資料<br>
@@ -46,7 +74,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 		<fieldset style="margin: auto; position: relative; width: 1000px; border: 1px solid transparent;">
 				<h4 style="font-weight: bold; text-align: center">查詢交易歷史清單</h4>
 				<br>
-				<table class="table table-hover" class="row">
+				<table id="myDataTable" class="table table-hover" class="row">
 					<thead>
 						<tr>
 							<th style="text-align:center;vertical-align:middle;" scope="col">訂單編號</th>
@@ -74,8 +102,8 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 								<td style="text-align:center;vertical-align:middle;">${row.totalAmount}</td>
 								<td style="text-align:center;vertical-align:middle;">${row.orderDate}</td>
 								<td style="text-align:center;vertical-align:middle;">${row.status}</td>
-								<td style="text-align:center;vertical-align:middle;"><a
-									href="<c:url value="/selectOrderItem?selectindex=${row.orderNo}"/>">商品清單</a></td>
+								<td style="text-align:center;vertical-align:middle;"><button type="button" class="btn btn-info" style="font-size: 14px;">
+								<a href="<c:url value="/selectOrderItem?selectindex=${row.orderNo}"/>" style="color: white;">商品清單</a></button></td>
 								<%--             <td style="text-align:center;"><a href="<c:url value="/orderDelete?deleteindex=${row.orderNo}"/>">刪除</a></td> --%>
 							</tr>
 						</c:forEach>
@@ -91,7 +119,33 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 			</form>
 	    </c:when>
   </c:choose>
+  <a href=#mytop><div class="top">TOP</div></a>
+<br>
+<br>
+<br>
 </div>
 <%@include file="../jspf/footer.jspf"%>
 
+<script type="text/javascript" charset="utf8"
+	src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
+	
+
+<script type="text/javascript">
+
+var table=document.getElementById("myDataTable");
+
+        $(function () {
+
+            $("#myDataTable").DataTable({
+                searching: true, 
+                columnDefs: [{
+//                     targets: [10],
+                    orderable: true,
+                }]
+            });
+        });
+        
+</script>
+
 </body>
+</html>

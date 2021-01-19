@@ -495,7 +495,11 @@ public class MemberController {
 	public String logout(@ModelAttribute("member") MemberBean member, BindingResult result, Model model,
 			HttpSession session, HttpServletRequest request, SessionStatus status, WebRequest webRequest) {
 		session.removeAttribute("member");
-//  		status.setComplete();
+		session.removeAttribute("cart");
+		session.removeAttribute("totalPrice");
+		session.removeAttribute("totalQtyOrdered");
+ 		status.setComplete();
+ 		session.invalidate();
 //    	  webRequest.removeAttribute("member", 0);
 //    	  session.removeAttribute("member");
 

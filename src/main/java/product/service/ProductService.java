@@ -84,4 +84,10 @@ public interface ProductService {
 	int pkcollection(int mid, int pid);
 	
 	List<Integer> findcollection(int id);
+	
+	long getProductTotal();
+	
+	long getBrandTotal();
+	
+	long getCateTotal(String cate);
 }

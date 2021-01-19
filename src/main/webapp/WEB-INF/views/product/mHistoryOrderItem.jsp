@@ -3,23 +3,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>   
-   <script
-    src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-    crossorigin="anonymous"></script>
-    <link rel="stylesheet"
-    href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-    crossorigin="anonymous">
-    <link rel="stylesheet"
-    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    
-<style>
-.img{
-    width: 80px;
-    height: 80px;
-}
-</style>
+<%
+response.setContentType("text/html;charset=UTF-8");
+response.setHeader("Cache-Control", "no-cache"); // HTTP 1.1
+response.setHeader("Pragma", "no-cache"); // HTTP 1.0  
+response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
+%>
 
 <%
 	String user = "";
@@ -32,15 +21,53 @@ if (session.getAttribute("member") != null) {
 }
 %>
 
-<%
-response.setContentType("text/html;charset=UTF-8");
-response.setHeader("Cache-Control", "no-cache"); // HTTP 1.1
-response.setHeader("Pragma", "no-cache"); // HTTP 1.0  
-response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
-%>
-<%@include file="../jspf/header.jspf"%>
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
 
-<div>
+<head>
+<meta charset="UTF-8">
+
+<title>訂單後台</title>
+   <script
+    src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+    crossorigin="anonymous"></script>
+    <link rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+    <link rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">    
+
+<style>
+.img{
+    width: 80px;
+    height: 80px;
+}
+.butt {
+	width: auto;
+	height: auto;
+	margin-top: 0px;
+}
+.top {
+		color: white;
+		background: #FF2D2D;
+		padding: 14px 10px;
+		position: fixed;
+		right: 20px;
+		bottom: 100px;
+		text-align: center;
+		border-radius: 50px;
+		z-index: 1;
+	}
+</style>
+
+<%@include file="../jspf/managerheader.jspf"%>
+
+<div id="mytop">
+<br><br><br>
 <c:choose>
 	<c:when test="${empty itemList}">
 	查無資料
@@ -52,7 +79,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 		<fieldset style="margin: auto; position: relative; width: 1200px; border: 1px solid transparent;">
 				<h4 style="font-weight:bold;text-align:center">查詢訂單明細</h4>
 				<br>
-			<table class="table table-hover" class="row" >
+			<table id="myDataTable" class="table table-hover" class="row" >
         		<thead>
 				<tr>
 <!-- 				<th style="text-align:center;" scope="col">訂單編號</th> -->
@@ -90,5 +117,31 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 		</form>
 	</c:when>
 </c:choose>
+<a href=#mytop><div class="top">TOP</div></a>
+<br>
+<br>
+<br>
 </div>
 <%@include file="../jspf/footer.jspf"%>
+
+<script type="text/javascript" charset="utf8"
+	src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
+	
+<script type="text/javascript">
+
+var table=document.getElementById("myDataTable");
+
+        $(function () {
+
+            $("#myDataTable").DataTable({
+                searching: true, 
+                columnDefs: [{
+//                     targets: [10],
+                    orderable: true,
+                }]
+            });
+        });
+        
+</script>
+</body>
+</html>

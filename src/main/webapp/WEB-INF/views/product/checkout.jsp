@@ -85,14 +85,30 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 	font-size: 15px;
 	font-weight: bold;
 }
+
+.butt {
+	width: auto;
+	height: auto;
+	margin-top: 0px;
+}
+.top {
+		color: white;
+		background: #FF2D2D;
+		padding: 14px 10px;
+		position: fixed;
+		right: 20px;
+		bottom: 100px;
+		text-align: center;
+		border-radius: 50px;
+		z-index: 1;
+	}
 </style>
 
 <% 
    MemberBean member = (MemberBean) session.getAttribute("member");
 %>  
-
  	
-<script>
+<script >
 
 // function paymentTypeChange() {
 // 	//#paymentType, #shippingType
@@ -111,7 +127,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 // 	calculateFee();	//calculate計算  
 // }
 
-// function shippingTypeChange() {
+    function shippingTypeChange() {
 //     var width = parseFloat($("#recipientPhone").css("width"));
 //     console.log(width);
 
@@ -120,7 +136,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 //     $("#shippingAddress").removeAttr("placeholder");
 //     $("#shippingAddress").attr("readonly", false);
 //     $("#shippingAddress").attr("autocomplete", "on");
-//     $("#storeButton").css("display", "none");
+//       $("#storeButton").css("display", "none");
 //     $("#shippingAddress").val("");
 <%--     if ($("#shippingType").val() == "<%= ShippingType.SHOP.name()%>") { --%>
 //         $("#shippingAddress").attr("placeholder", "請選擇門市");
@@ -128,12 +144,12 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 //         $("#shippingAddress").attr("autocomplete", "off");
 <%--     } else if ($("#shippingType").val() == "<%= ShippingType.STORE.name()%>") { --%>
 //         $("#shippingAddress").attr("readonly", true);
-//         $("#shippingAddress").attr("placeholder", "請點選下方的按鈕選擇超商");
+           $("#shippingAddress").attr("placeholder", "請點選下方的按鈕選擇超商");
 //         //$("#shippingAddress").css("width", width - 77);
-//         $("#storeButton").css("display", "inline");
+           $("#storeButton").css("display", "inline");
 //     } else {
 //         $("#shippingAddress").attr("placeholder", "請輸入收件地址");
-//     }
+     }
     
 //     calculateFee();
 // }	
@@ -154,6 +170,10 @@ function copyMember(){
 	$("#recipientEmail").val("${sessionScope.member.email}");
 	$("#recipientPhone").val("${sessionScope.member.phone}");
 	$("#shippingAddress").val("${sessionScope.member.address}");
+	var store = $("#shippingAddress").val();
+	console.log(store)
+	var url = "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=" + store + "&z=16&output=embed&t=";
+	$("#myMap").attr("src",url);
 			
 }
 
@@ -172,11 +192,12 @@ function storeAddressChange(){
 	$("#myMap").attr("src",url);
 }
 
-storeAddressChange();
+
 </script>
 </head>
 <%@include file="../jspf/header.jspf"%>
 
+<div id="mytop" style="text-align: center">
 
 <div>
 	<ol class="progress_bar">
@@ -248,7 +269,7 @@ storeAddressChange();
 		</select></td>
 		<td colspan="2" style="text-align: left;vertical-align: middle; font-size: 18px;"><label>貨運方式：</label>
 							<select id="shippingType" name="shippingType" required
-							onchange="">
+							onchange="shippingTypeChange()">
 								<option value="">請選擇...</option>
 								<option value="超商取貨">超商取貨</option>
 								<option value="宅配到家">宅配到家</option>
@@ -280,11 +301,11 @@ storeAddressChange();
 						<datalist id="shopList">
 							<option value="7-ELEVEN北車門市-台北市中正區忠孝西路一段49號B1樓">
 							<option value="7-ELEVEN小巨蛋門市-台北市松山區南京東路四段2號">
-							<option value="7-ELEVEN世運門市-台北市萬華區昆明街81號83號">
+							<option selected value="7-ELEVEN世運門市-台北市萬華區昆明街81號83號">
 							<option value="<%=member.getAddress()%>">
 						</datalist>
 						<br><br>
-						<button type="button" style="" id="storeButton"
+						<button type="button" style="display: none;" id="storeButton"
 							onclick='goEzShip()'>選擇超商</button>
 <!-- 						<input type="submit" style="display: none;" value="確定結帳"> -->
 					</fieldset>
@@ -297,13 +318,8 @@ storeAddressChange();
 		</tfoot>
 	</table>
 	<br>
-	<div style="text-align: center;">
-		
-			
-			<input type="hidden" name="todo" value="commit">
-			<!-- hidden隱藏欄位 -->
-			<input class="btn btn-primary" type="submit" value="送出訂單" >
-		
+	<div style="text-align: center;">		
+			<input class="btn btn-dark" type="submit" value="送出訂單" >		
 	</div>
 	<br><br>
 </fieldset>
@@ -316,24 +332,36 @@ storeAddressChange();
 		            <input type="hidden" name="stCode"  value=""> <!-- 取件門市代號 -->            
 		            <input type="hidden" name="rtURL" id="rtURL" value=""><!-- 回傳路徑及程式名稱 -->
 		            <input type="hidden" id="webPara" name="webPara" value=""><!-- 我們網站所需的原Form Data。ezShip會將原值回傳，供我們網站帶回畫面用 -->
-</form>		
-		        
+</form>	
+	
+	<a href=#mytop><div class="top">TOP</div></a>
+</div>	
+<%@include file="../jspf/footer.jspf"%>	        
 <script>
-
-// 	$(initValue);
-// 	function initValue() {
-<%-- 	<% if(request.getParameter("paymentType")!=null){%> --%>
-<%-- 				$("#paymentType").val('<%=request.getParameter("paymentType")%>'); --%>
-// 				//paymentTypeChange();
-<%-- 			<%}%> --%>
+	window.onload = function() {
+		
+	var store = $("#shippingAddress").val();
+	console.log(store)
+	var url = "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=" + store + "&z=16&output=embed&t=";
+	$("#myMap").attr("src",url);
+	
+	};
+	
+	$(initValue);
+	function initValue() {
+	<% if(request.getParameter("paymentType")!=null){%>
+				$("#paymentType").val('<%=request.getParameter("paymentType")%>');
+				//paymentTypeChange();
+			<%}%>
 			
-<%-- 			<% if(request.getParameter("shippingType")!=null){%> --%>
-<%-- 				$("#shippingType").val('<%=request.getParameter("shippingType")%>'); --%>
-// 				//shippingTypeChange();
-<%-- 				$("#shippingAddress").val('<%=request.getParameter("shippingAddress")%>'); --%>
-<%-- 			<%}%> --%>
-// 	}
-
+			<% if(request.getParameter("shippingType")!=null){%>
+				$("#shippingType").val('<%=request.getParameter("shippingType")%>');
+				//shippingTypeChange();
+				$("#shippingAddress").val('<%=request.getParameter("shippingAddress")%>');
+			<%}%>
+	}
+//localhost
+//192.168.196.130
     function goEzShip() {
         $("#recipientName").val($("#recipientName").val().trim());//抓取輸入項的值，並且把字串2旁的空白刪除  trim刪除空白
         $("#recipientEmail").val($("#recipientEmail").val().trim());
@@ -345,13 +373,15 @@ storeAddressChange();
         var url = protocol + "://localhost:" + location.port + "<%=request.getContextPath()%>/ezshipBack";
         $("#rtURL").val(url);
         
-        $("#webPara").val($("#cartForm").serialize());		
+        $("#webPara").val($("#cartForm").serialize());		//serialize(),將cartForm內所有name屬性的資料序列化
 		//alert(url);
-        alert($("#webPara").val());
+        //alert($("#webPara").val());
 		//alert($("#cartForm").serialize());		
         $("#ezForm").submit();
     }
 
 
 </script>
-<%@include file="../jspf/footer.jspf"%>
+
+</body>
+</html>

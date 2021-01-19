@@ -1,6 +1,7 @@
 package product.cartService;
 
 import java.util.List;
+import java.util.Map;
 
 import product.cartModel.OrderBean;
 import product.cartModel.OrderItemBean;
@@ -23,5 +24,7 @@ public interface OrderService {
 	OrderBean selectUpdateBean(int ino);
 	
 	ProductDB getProductDB();
+	
+	Map<String, Object> getBrandNumber();
 
 }

@@ -110,6 +110,9 @@ var table=document.getElementById("myDataTable");
 $(document).ready(function() {
 	
 	var tb= document.getElementById('myDataTable');
+	});
+	
+	
     $(".status").change(function() { 
     	
     	var blogId=$(this).parent().siblings("td[name='blogId']").text();
@@ -148,7 +151,7 @@ $(document).ready(function() {
               
             }
         })
-    })  
+    })  ;
     //刪除blog按鈕
     $(".delete_btn").click(function() {
     
@@ -210,11 +213,10 @@ $(document).ready(function() {
     		        })  			
     		});
     	
-    })
+    });
     
     
     
-});
 
 
 var ctx = document.getElementById('myChart').getContext('2d');
