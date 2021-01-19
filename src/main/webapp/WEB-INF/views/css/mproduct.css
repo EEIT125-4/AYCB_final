@@ -124,7 +124,7 @@
 
 .counttext {
 	float: right;
-    margin-right: 20px;
+    margin-right: 50px;
 /*     border: 1px solid blue; */
 }
 
@@ -134,7 +134,7 @@
     font-size: 48px;
     font-weight: bold;
     margin-top: 10px;
-    margin-right: 20px;
+    margin-right: 50px;
 /*     border: 1px solid blue; */
 }
 
@@ -185,4 +185,30 @@
 .addbox {
 	float: right;
     margin-top: 15px;
+}
+
+.addtitle {
+	font-size: 30px;
+	font-weight: bold;
+}
+
+.addlab {
+	font-size: 24px;
+	font-weight: bold;
+}
+
+.adddiv {
+	margin-left: 20px;
+	margin-bottom: 20px;
+}
+
+.addsel {
+	font-size: 24px;
+	font-weight: bold;
+}
+
+.addinput {
+	width: 300px;
+    font-size: 24px;
+    font-weight: bold;
 }
