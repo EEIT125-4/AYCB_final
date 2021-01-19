@@ -23,7 +23,7 @@ import product.cartModel.OrderItemBean;
 import product.cartService.OrderService;
 
 @Controller
-@SessionAttributes({ "member" })
+@SessionAttributes({ "cart", "totalPrice", "totalQtyOrdered", "Shipping", "member", "phone", "address", "email", "receiveName"})
 public class OrderManagerController {
 
 	@Autowired
@@ -88,6 +88,10 @@ public class OrderManagerController {
 		System.out.println("brandList: " + model.getAttribute("brandList"));
 		System.out.println("jsonBrandName: " + jsonBrandName);
 		System.out.println("jsonBrandCount: " + jsonBrandCount);
+		
+		int size = os.selectAllOrder().size();
+		mv.addObject("size", size); 
+		
 		mv.setViewName("/product/mHistoryOrders");
 		
 		return mv;
@@ -99,6 +103,9 @@ public class OrderManagerController {
 		
 		return "product/returnsPolicy";
 	}
+	
+	
+	
 	
 	
 	
