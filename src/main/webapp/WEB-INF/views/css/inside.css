@@ -108,16 +108,23 @@
     margin: 20px;
     float: left;
     border: 1px solid gray;
+   
 }
 
 .imgbox {
 	position: relative;
     margin: 10px;
+     overflow: hidden;
+    
 }
 
 .proimg{
     width: 200px;
     height: 200px;
+}
+.proimg:hover{
+	
+	transform:scale(1.25,1.25);
 }
 
 .proname {

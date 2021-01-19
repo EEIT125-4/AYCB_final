@@ -1,40 +1,39 @@
 package member.controller;
 
-import java.beans.beancontext.BeanContextMembershipEvent;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
-import javax.management.MBeanAttributeInfo;
 import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.wf.captcha.SpecCaptcha;
 import com.wf.captcha.utils.CaptchaUtil;
 
- 
+import mail.MyMailSender;
 import member.LoginBean;
 import member.MemberBean;
 import member.Service.MemberService;
@@ -153,6 +152,21 @@ public class MemberController {
 		return list;// memberService.checkDup();
 
 	}
+	
+	// 是否有登入
+		@PostMapping("/loginCheck")
+		@ResponseBody
+		public boolean loginCheck(HttpSession session) {
+
+			if(session.getAttribute("member")!=null) {
+				System.out.println("登入中");
+				return true;
+			}else {
+				System.err.println("未登入");
+				return false;
+			}
+
+		}
 
 //	@GetMapping(value = "/member/Backstage")
 //	
@@ -187,21 +201,92 @@ public class MemberController {
 		model.addAttribute("member", member);
 
 		if (memberService.isDup(member.getAccount())) {
+			
+			
 
 			return "member/register";
 
 		} else {
+			
+			
 			return "member/memberConfirm";
+			
 		}
 
 	}
-
+	//在實際加入會員前,先寄出驗證信
+//	@GetMapping("/verification")
+//	@ResponseBody
+//	public String Verification(
+//			@ModelAttribute("member") MemberBean member,
+//			HttpSession session) {
+//		
+//		try {
+//			String sessionID=session.getId();
+//			System.out.println("獲得sessionID:"+sessionID);
+//			
+//			System.out.println("取得" + member.getAccount());
+//			String password = member.getPassword();
+////			System.out.println("原始密碼:"+password);
+//			password = Common.getMD5Endocing(password);
+////			System.out.println("加密後密碼:"+password);
+//			member.setPassword(password);
+//			member.setCkpower(true);
+//			
+//			session.setAttribute("session", member);
+//			MyMailSender.sendverificationEmail(member.getEmail(),member.getName(),"請點擊下方連結驗證您的信箱",sessionID);
+//			//送出信件
+//			return "已寄出驗證信,請在30分鐘內以信件連結驗證帳號";
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return "驗證動作失敗，請檢察網路狀態或聯絡管理員";
+//		}
+//		
+//		
+//	}
+	
+	@GetMapping("/verification/{sessionID}")
+	public void  verified(@PathVariable("sessionID") String sessionID,
+			HttpSession session,Model model,HttpServletResponse response) throws IOException {
+		System.out.println("進入驗證程序");
+		response.setContentType("text/html;charset=utf-8");
+//		ModelAndView mav=new ModelAndView();
+		PrintWriter out = response.getWriter();
+		MemberBean mb=(MemberBean)session.getAttribute(sessionID);
+		
+		if(mb!=null) {
+			System.out.println("取得member,驗證成功:"+mb);
+			memberService.insertregister(mb);
+			session.removeAttribute(sessionID);//移除註冊session
+			session.setAttribute("member", mb);
+			
+			out.print("<script language='javascript'>alert('驗證成功!');window.location.href='/AYCB_final/index'</script>");//"  
+		
+			
+		}else {
+			System.out.println("session中沒有這個member");
+			out.print("<script language='javascript'>alert('驗證失敗!');window.location.href='/AYCB_final/index'</script>");
+			
+			
+		}
+		;
+		
+//		return "index";
+		
+		
+	}
+	
 	// 新增
 	@PostMapping("/insert")
+	
 
 	public String insert(@ModelAttribute("member") MemberBean member, BindingResult result, Model model,
 			HttpServletRequest request, HttpSession session) {
-
+		try {
+		String sessionID=session.getId();
+		System.out.println("獲得sessionID:"+sessionID);
+		
 		System.out.println("取得" + member.getAccount());
 		String password = member.getPassword();
 //		System.out.println("原始密碼:"+password);
@@ -209,10 +294,23 @@ public class MemberController {
 //		System.out.println("加密後密碼:"+password);
 		member.setPassword(password);
 		member.setCkpower(true);
-		memberService.insertregister(member);
-
 		System.out.println(member);
-		session.removeAttribute("member");
+		
+		session.setAttribute(sessionID, member);
+		MyMailSender.sendverificationEmail(member.getEmail(),member.getName(),"請點擊下方連結驗證您的信箱",sessionID);
+		model.addAttribute("hint", "已寄出驗證信,請在30分鐘內以信件連結驗證帳號");
+		
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("hint", "註冊出現異常");
+		}
+		
+		
+		
+		
+		
+//		session.removeAttribute("member");
 		return "redirect:member/login";
 
 	}
@@ -495,7 +593,15 @@ public class MemberController {
 	public String logout(@ModelAttribute("member") MemberBean member, BindingResult result, Model model,
 			HttpSession session, HttpServletRequest request, SessionStatus status, WebRequest webRequest) {
 		session.removeAttribute("member");
-//  		status.setComplete();
+		session.removeAttribute("cart");
+		session.removeAttribute("totalPrice");
+		session.removeAttribute("totalQtyOrdered");
+		session.removeAttribute("phone");
+		session.removeAttribute("address");
+		session.removeAttribute("email");
+		session.removeAttribute("receiveName");
+ 		status.setComplete();
+ 		session.invalidate();
 //    	  webRequest.removeAttribute("member", 0);
 //    	  session.removeAttribute("member");
 

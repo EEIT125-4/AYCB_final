@@ -3,7 +3,9 @@ package product.cartDao.impl;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -148,6 +150,36 @@ public class OrderDaoImpl implements OrderDao {
 
 		return order;
 
+	}
+
+	@Override
+	public Map<String, Object> getBrandNumber() {
+		
+Map<String, Object> brandMap = new HashMap<String, Object>();
+		
+		List<String> brandName = new ArrayList<String>();
+		brandName.add("Biotherm");
+		brandName.add("olay");
+		brandName.add("Dr.Morita ");
+		brandName.add("Origins");
+		
+		List<Integer> brandCount = new ArrayList<Integer>();
+				
+		Session session = factory.getCurrentSession();
+		String sq1 = "SELECT * FROM OrderItems o WHERE o.brandName = 'Biotherm' " ;
+		String sq2 = "SELECT * FROM OrderItems o WHERE o.brandName = 'olay' " ;
+		String sq3 = "SELECT * FROM OrderItems o WHERE o.brandName = 'Dr.Morita' " ;
+		String sq4 = "SELECT * FROM OrderItems o WHERE o.brandName = 'Origins' " ;
+														
+		brandCount.add(session.createNativeQuery(sq1).getResultList().size());
+		brandCount.add(session.createNativeQuery(sq2).getResultList().size());
+		brandCount.add(session.createNativeQuery(sq3).getResultList().size());
+		brandCount.add(session.createNativeQuery(sq4).getResultList().size());
+		
+		brandMap.put("brandName", brandName);
+		brandMap.put("brandCount", brandCount);
+		
+		return brandMap;
 	}
 
 

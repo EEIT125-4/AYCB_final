@@ -58,16 +58,18 @@
 						</tr>
 
 						<tr>
-							<td><label for="sourcetype">分類</label></td>	
+							<td><label for="sourcetype">格式</label></td>	
 							<td>
 							
-							<input id="sourcetype" type="text" name="sourcetype" value="image"  />
-							<form:input id="type" type="text" path="advsourcetype" value="image" disabled="true"/>
-<!-- 							disabled="true" -->
-<!-- 							<label for="cbox1">圖片</label> -->
-<%-- 							<form:input type="checkbox" id="cbox2" value="video" path="advsourcetype"/><label for="cbox2">影片</label> --%>
-<%-- 							<form:input type="checkbox" id="cbox3" value="youtube" path="advsourcetype"/><label for="cbox3">youtube</label> --%>
-<%-- 							<form:input type="checkbox" id="cbox4" value="url" path="advsourcetype"/><label for="cbox4">網址</label> --%>
+<!-- 							<input id="sourcetype" type="text" name="sourcetype" value="image"  /> -->
+							<form:select id="sourcetype" path="advsourcetype">
+
+							<form:option value="0" label="image"/>
+							<form:option value="1" label="video"/>
+							<form:option value="2" label="youtube"/>
+							<form:option value="3" label="url"/>
+							</form:select>
+							
 								</td>
 						</tr>
 						<tr>
@@ -84,7 +86,25 @@
 							<label for="advCategory">廣告分類</label>
 							</td>
 							<td>
-							<form:input id="advCategory" type="text" path="advcategory"/>
+							
+							<form:select id="advCategory" path="advcategory">
+
+							<form:option value="保養品廣告" label="保養品廣告"/>
+							<form:option value="活動廣告" label="活動廣告"/>
+							<form:option value="合作店家" label="合作店家"/>
+							<form:option value="其他" label="其他"/>
+							</form:select>
+							
+							
+							</td>
+						</tr>
+						
+						<tr>
+							<td>
+							<label for="link" >廣告連結</label>
+							</td>
+							<td>
+							<textarea id="link" name="link" cols="50" rows="5"></textarea>
 							
 							</td>
 						</tr>
@@ -101,8 +121,8 @@
 						
 						<tr>
 							<td><label for="adsDesc">廣告說明</label></td>
-							<td><form:textarea id="adsDesc" path="advdesc" cols="100"
-									rows="10" /></td>
+							<td><form:textarea id="adsDesc" path="advdesc" cols="50"
+									rows="5" /></td>
 
 						</tr>
 						
@@ -122,12 +142,12 @@
 						</tr>
 						<tr>
 							<td><label for="width">廣告欄寬</label></td>
-							<td><form:input type="number" id="width" path="width"/></td>
+							<td><form:input type="number" id="width" path="width" min="100" max="600"/></td>
 
 						</tr>
 						<tr>
 							<td><label for="height">廣告高度</label></td>
-							<td><form:input type="number" id="height" path="height"/></td>
+							<td><form:input type="number" id="height" path="height" min="100" max="600"/></td>
 
 						</tr>
 						<tr id="imageRow">
@@ -145,9 +165,9 @@
 	
 							</c:if>	
 							<c:if test='${empty adv.source}'>
-							<c:out value=""/>
+							<c:out value="''"/>
 							</c:if>
-							alt=<c:out value='${blog.title}'/>
+							
 							onerror="javascript:this.src='${pageContext.request.contextPath}/image/noImage.jpg'"/>
 							</td>
 						</tr>
@@ -168,7 +188,7 @@
 		</div>
 	</main>
 </div>
-<%@include file="../jspf/footer.jspf"%>
+
 
 
 

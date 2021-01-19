@@ -1,6 +1,7 @@
 package product.cartService;
 
 import java.util.List;
+import java.util.Map;
 
 import product.cartModel.OrderBean;
 import product.cartModel.OrderItemBean;
@@ -14,7 +15,7 @@ public interface OrderService {
 	
 	List<OrderItemBean> selectOrderItem(int no);
 
-	boolean insertOrderBean(OrderBean order);
+	boolean insertOrderBean(OrderBean order);   
 
 	boolean updateOrderBean(OrderBean order);
 
@@ -23,5 +24,7 @@ public interface OrderService {
 	OrderBean selectUpdateBean(int ino);
 	
 	ProductDB getProductDB();
+	
+	Map<String, Object> getBrandNumber();
 
 }

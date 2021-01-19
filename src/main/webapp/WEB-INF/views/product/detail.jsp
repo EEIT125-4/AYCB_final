@@ -127,18 +127,15 @@
 										name="name" value="${member.name}" disabled>
 								</div>
 
-								<div>
-									性別: <input type="text" name="gender" value="${member.gender}" disabled>
-								</div>
+						<div class="blog__details__comment">
+							<h4>留個言吧</h4>
+							<form id="commentform">
 
-								<div>
-									<%!int st = 0;%>
-									<label for="status"></label> <input type="hidden" name="status"
-										value=<%=st%>> <label for="id"></label> <input
-										type="hidden" name="${member.id}"> <label
-										for="commentId"></label> <input type="hidden" name="commentId">
-									<label for="commentTime"></label> <input type="hidden"
-										name="commentTime">
+								<div class="col-lg-12 text-center">
+
+									<textarea id="comment" placeholder="Comment"></textarea>
+									<button id="postComment" type="button" class="site-btn"
+										style="width: fit-content;">送出留言</button>
 								</div>
 								<label for="contentBox"></label>
 								<textarea name="content" id="contentBox" class="transition"></textarea>
@@ -193,10 +190,7 @@ $(function(){
 
 <!-- 留言功能初始化 -->
 	var object = "product";
-	var pk = $
-	{
-		Detail.productno
-	};
+	var pk = ${Detail.productno};
 	var path = "${pageContext.request.contextPath}";
 	var board = document.getElementById("board");
 	var postUrl = path + "/leaveComment?memberid=${member.id}&key=" + pk
@@ -248,7 +242,7 @@ $(document).ready(function(){
 </script>
 
 <script src="${pageContext.request.contextPath}/js/comment.js"
-	defer="defer" charset="big5"></script>
+	defer="defer" charset="utf-8"></script>
 
 </body>
 </html>

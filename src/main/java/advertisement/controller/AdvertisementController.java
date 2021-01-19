@@ -22,125 +22,154 @@ import member.Service.MemberService;
 import tool.Common;
 
 @Controller
-@SessionAttributes({"adv","advlist","member"})
+@SessionAttributes({ "adv", "advlist", "member" })
 public class AdvertisementController {
-	
+
 	@Autowired
 	AdvertisementService advService;
-	
+
 	@Autowired
 	MemberService ms;
-	
+
 	@GetMapping(value = "getAds")
 	@ResponseBody
 	public String queryAll(Model model) {
 		try {
 			System.out.println("try to get all adv");
-			Gson gson=new Gson();
-			
-			List<Advertisement> advlist = advService.queryAll();// 訊息types
+			Gson gson = new Gson();
+
+			List<Advertisement> advlist = advService.queryAll();// 
+			for(Advertisement ad:advlist) {
+			System.out.println("ad="+ad.getAdvtitle());
+			}
 			String result = gson.toJson(advlist);
-			
 
 			return result;
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
-		
-		
 
 	}
 	
+	
+	@GetMapping(value = "getOneAd")
+	@ResponseBody
+	public String querySAll(Model model) {
+		try {
+			System.out.println("try to get one ad");
+			Gson gson = new Gson();
+
+			Advertisement ad = advService.queryRandom();// 
+			ad.setAdvcount(ad.getAdvcount()+1);
+			advService.updateAdvertisement(ad);
+			System.out.println("ad="+ad.getAdvtitle());
+			String result = gson.toJson(ad);
+
+			return result;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+	}
+
 	@GetMapping(value = "advertisement")
-	public String advertisement() {
-		
+	public String advertisement(Model model) {
+
 		return "advertisement/advBackstage";
 	}
-	
-	//新增空白廣告
-	@GetMapping(value="advertisement/edit")
+
+	// 新增空白廣告
+	@GetMapping(value = "advertisement/edit")
 	public String gotoEditPage(Model model) {
-		Advertisement advertisement=new Advertisement();
-		model.addAttribute("adv",advertisement);
+		Advertisement advertisement = new Advertisement();
+		model.addAttribute("adv", advertisement);
 		return "advertisement/editAdv";
 	}
-	
-	// 新增一則廣告
-		@PostMapping("advertisement/edit")
-		public String insertNewAdvertisement(
-				@ModelAttribute("adv") Advertisement adv,
-				Model model,
-				
-				@RequestParam(value = "memberID",required = false) Integer mid,
-				@RequestParam(value = "file",required = false) MultipartFile file,
-				@RequestParam(value = "postDate",required = false) String postDate,
-				@RequestParam(value = "endDate",required = false) String endDate,
-				@RequestParam(value="sourcetype",required = false)String sourceType
 
-		) {
-			System.out.println("adv insert");
-			
-			System.out.println("postDate:"+postDate);
-			System.out.println("endDate:"+endDate);
-			System.out.println("title:"+adv.getAdvtitle());
-			System.out.println("sourceType:"+adv.getAdvsourcetype());
-			System.out.println("sourceType2:"+sourceType);
-			try {
-								
-				// 上傳封面圖
+	// 新增一則廣告
+	@PostMapping("advertisement/edit")
+	public String insertNewAdvertisement(@ModelAttribute("adv") Advertisement adv, Model model,
+
+			@RequestParam(value = "memberID", required = false) Integer mid,
+			@RequestParam(value = "file", required = false) MultipartFile file,
+			@RequestParam(value = "postDate", required = false) String postDate,
+			@RequestParam(value = "endDate", required = false) String endDate,
+//				@RequestParam(value="sourcetype",required = false)String sourceType,
+			@RequestParam(value = "link", required = false) String link
+
+	) {
+		System.out.println("adv insert");
+
+		System.out.println("postDate:" + postDate);
+		System.out.println("endDate:" + endDate);
+		System.out.println("title:" + adv.getAdvtitle());
+		System.out.println("sourceType:" + adv.getAdvsourcetype());
+//			System.out.println("sourceType2:"+sourceType);
+		System.out.println("link:" + link);
+		try {
+
+			// 如果type是圖片或影片
+			if (adv.getAdvsourcetype() == 0 || adv.getAdvsourcetype() == 1) {
+
 				if (file != null && file.getSize() > 0) {
 					System.out.println("adv 有收到檔案");
-					System.out.println("類型為:"+sourceType);
-					if(sourceType.equals("image")) {
-						
-						try {						
+					try {
+
+						if (adv.getAdvsourcetype() == 0) {
+
+							// 上傳圖片
 							adv.setSource(Common.saveImage(file));
 							System.out.println("廣告圖片儲存完畢");
-						} catch (Exception e) {
-							e.printStackTrace();
-							throw new RuntimeException("圖片上傳發生異常: " + e.getMessage());
+						}
+						if (adv.getAdvsourcetype() == 1) {
+							// 上傳影片
+							adv.setSource(Common.saveVideo(file));
+							System.out.println("廣告影片儲存完畢");
+
 						}
 						
+						System.out.println("廣告檔案上傳OK");
+
+					} catch (Exception e) {
+						e.printStackTrace();
 						
 					}
-					
-					
-					
-					
+
 				} else {
-					System.out.println("沒有上傳檔案,取消編輯");
-					return "advertisement/editAdv";
-					
-					
+
+					// 沒有上傳檔案,異常處理
+					return "redirect:/advertisement/edit";
 				}
-				
-				adv.setMember(ms.getMember(mid));
-				adv.setAdvsourcetype(sourceType);
-				adv.setPostTime(postDate);
-				adv.setEndTime(endDate);
-				
-				advService.insertAdv(adv);
-				
-				System.out.println("廣告新增成功");
-				
-				return "redirect:/advertisement";
-			} catch (Exception ex) {
-				ex.printStackTrace();
-				System.err.println("新增失敗");
-				
-				return "redirect:/advertisement";
+
+			}
+			
+			//youtube內嵌或網址
+			if(adv.getAdvsourcetype() == 2 || adv.getAdvsourcetype()==3) {
+				adv.setSource(link);				
+							
 			}
 
-		}
-	
-	
+			adv.setMember(ms.getMember(mid));
+//				adv.setAdvsourcetype(sourceType);
+			adv.setPostTime(postDate);
+			adv.setEndTime(endDate);
 
-	
-	
-	
-	
-	
+			advService.insertAdv(adv);
+
+			System.out.println("廣告新增成功");
+
+			return "redirect:/advertisement";
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			System.err.println("新增失敗");
+
+			return "redirect:/advertisement";
+		}
+
+	}
 
 }

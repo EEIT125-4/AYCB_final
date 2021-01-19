@@ -41,6 +41,11 @@ public class CommentBean implements Serializable{
 	@Column(columnDefinition="int default 0")
 	private Integer status=0;
 	
+	@Column(columnDefinition= "NVARCHAR(10) default('comment')")
+	private final String identify="comment";
+	
+	
+
 	public CommentBean() {
 		
 	}
@@ -104,8 +109,26 @@ public class CommentBean implements Serializable{
 	public void setType(String type) {
 		this.type = type;
 	}
+	
+	
 
 
+
+
+	public Integer getCommentId() {
+		return commentId;
+	}
+
+
+
+
+	public void setCommentId(Integer commentId) {
+		this.commentId = commentId;
+	}
+	
+	public String getIdentify() {
+		return identify;
+	}
 
 
 //	@Override

@@ -3,10 +3,29 @@
 
 <!DOCTYPE html>
 <html>
+<style>
+.adblock:hover{
+	border: red outset 3px;
+
+}
+.adimg{
+    width: 200px;
+    height: 200px;
+/*     border:2px green dashed; */
+}
+.adimg:hover{
+	
+	transform:scale(1.5,1.5);
+	
+/*             border:2px red dashed; */
+            
+}
+</style>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <script src="${pageContext.request.contextPath}/js/main.js"></script>
+
 
 <title>ALL YOU CAN BUY</title>
 
@@ -35,6 +54,51 @@
 		<i class="fa fa-chevron-right"></i>
 	</div>
 </div>
+
+<div>
+        <span> <button id="inside_ads" type="button" value="200" data-toggle="modal" data-target="#dialog2" style="width: 100px;height: 50px;"
+                onclick="allowClose()">顯示廣告
+            </button></span>
+        <span>
+            <button  type="button" style="width: 100px;height: 50px;" id="pop_btn">彈出視窗</button>
+        </span>
+    </div>
+
+<!-- 	Kevin:設定成無法直接關閉:data-backdrop="static" data-keyboard="false" -->
+ <div class="modal fade" id="dialog2" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true"
+        data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span>
+                        <h5 class="modal-title" id="modalTitle">廣告TITLE</h5>
+                    </span>
+                    <span id="adText">
+                        <fieldset></fieldset>
+                    </span>
+                    <!-- 再x秒後可關閉廣告 -->
+                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button> -->
+                </div style="text-align:center">
+                <div class="modal-body" id="ads_content">
+                   
+                </div>
+
+                <div class="modal-footer">
+                    <button id="close_btn" type="button" style="width: 100px;display: none;" class="btn btn-secondary"
+                        data-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div>
+  <iframe src=/AYCB_final/image/20210115100211669_b10.jpg width="300px" height="300px"></iframe>
+    
+    </div>
+    </div>
 </div>
 
 <%@include file="jspf/footer.jspf"%>
@@ -46,6 +110,7 @@
 	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 	crossorigin="anonymous"></script>
 <script>
+		
 	function getAds() {
 
 		var adbox = document.getElementById('adbox');
@@ -77,8 +142,9 @@
 					console.log("data:" + i + data[i]);
 					$('#slides').append(							
 					"<li><a href='${pageContext.request.contextPath}/Detail/?no="+data[i].productno+"&cate="+data[i].productcategory+"'>"
-					+"<img src="+"${pageContext.request.contextPath}/pic/"+data[i].imagepath
-					
+						
+							+"<img class='adimg' src="+"${pageContext.request.contextPath}/pic/"+data[i].imagepath
+			
 					+" onerror=javascript:this.src='${pageContext.request.contextPath}/image/noImage.jpg' " 
 					+" ></a></li>"
 					);
@@ -93,12 +159,15 @@
 			}
 
 		})
+			
 
 	}
+	
+	
 
 	getAds();
 </script>
-<script src="js/Home.js" defer="defer"></script>
+<script src="${pageContext.request.contextPath}/js/Home.js" defer="defer"></script>
 
 
 

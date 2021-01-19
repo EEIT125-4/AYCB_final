@@ -1,6 +1,9 @@
 package product.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import product.model.ProductBean;
 import product.service.ProductService;
@@ -156,5 +160,54 @@ public class ManagerController {
 	) {
 		List<ProductBean> list = ps.getBrandProduct(brandname);
 		return list;
+	}
+	
+	@GetMapping(value = "/GetProductTotal", produces = "application/json")
+	public @ResponseBody long getProductTotal(Model model) {
+		long count = ps.getProductTotal();
+		return count;
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@GetMapping(value = "/GetBrandTotal", produces = "application/json")
+	public @ResponseBody Map getBrandTotal(Model model) {
+		long total = ps.getBrandTotal();
+		
+		List<Integer> count = new ArrayList<Integer>();
+		List<String> brand = ps.getBrand();
+		for(int i = 0; i<brand.size(); i++) {
+			count.add((int)ps.getBrandTotalPages(brand.get(i)));
+		}
+		Map map = new HashMap();
+		map.put("BrandTotal", total);
+		map.put("Brands", brand);
+		map.put("Count", count);
+
+		return map;
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@GetMapping(value = "/GetCateTotal", produces = "application/json")
+	public @ResponseBody Map getCateTotal(Model model) {
+		List<Integer> count = new ArrayList<Integer>();
+		List<String> cate = ps.getCate();
+		for(int i = 0; i<cate.size(); i++) {
+			count.add((int)ps.getCateTotalPages(cate.get(i)));
+		}
+		Map map = new HashMap();
+		map.put("Cates", cate);
+		map.put("Count", count);
+
+		return map;
+	}
+	
+	@GetMapping("/GetAllProduct")
+	public ModelAndView getAllProduct(Model model) {
+		ModelAndView mav = new ModelAndView();
+		
+		List<ProductBean> list = ps.getAllProducts();
+		mav.addObject("Products", list);
+		mav.setViewName("product/mproduct");
+		return mav;
 	}
 }
