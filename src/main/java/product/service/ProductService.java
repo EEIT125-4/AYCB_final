@@ -89,5 +89,7 @@ public interface ProductService {
 	
 	long getBrandTotal();
 	
-	long getCateTotal(String cate);
+	long getBrandCount(String brand);
+	
+	long getCateCount(String cate);
 }

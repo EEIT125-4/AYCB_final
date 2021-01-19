@@ -395,8 +395,16 @@ public class ProductDaoImpl implements ProductDao {
 	}
 	
 	@Override
-	public long getCateTotal(String cate) {
-		String hql = "SELECT count(distinct p.productcategory) FROM ProductBean p WHERE p.productcategory = :productcategory";
+	public long getBrandCount(String brand) {
+		String hql = "SELECT count(distinct p.brandname) FROM ProductBean p WHERE p.brandname = :brandname";
+		Session session = factory.getCurrentSession();
+		long count = (long)session.createQuery(hql).setParameter("brandname", brand).uniqueResult();
+		return count;
+	}
+	
+	@Override
+	public long getCateCount(String cate) {
+		String hql = "SELECT count(p.productcategory) FROM ProductBean p WHERE p.productcategory = :productcategory";
 		Session session = factory.getCurrentSession();
 		long count = (long)session.createQuery(hql).setParameter("productcategory", cate).uniqueResult();
 		return count;

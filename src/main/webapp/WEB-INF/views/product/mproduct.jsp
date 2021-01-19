@@ -134,6 +134,7 @@
 										<div class="adddiv">
 											<label class="addlab">產品圖片:</label>
 											<form:input id="productimage" type="file" path="productimage" />
+											<input type="hidden" name="todo" value="add" />
 										</div>
 										<div class="adddiv">
 											<button id="addbtn" type="submit" class="btn btn-primary">新增</button>

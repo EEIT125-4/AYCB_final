@@ -169,7 +169,7 @@ public class ManagerController {
 		List<Integer> count = new ArrayList<Integer>();
 		List<String> brand = ps.getBrand();
 		for(int i = 0; i<brand.size(); i++) {
-			count.add((int)ps.getBrandTotalPages(brand.get(i)));
+			count.add((int)ps.getBrandCount(brand.get(i)));
 		}
 		Map map = new HashMap();
 		map.put("BrandTotal", total);
@@ -185,7 +185,7 @@ public class ManagerController {
 		List<Integer> count = new ArrayList<Integer>();
 		List<String> cate = ps.getCate();
 		for(int i = 0; i<cate.size(); i++) {
-			count.add((int)ps.getCateTotalPages(cate.get(i)));
+			count.add((int)ps.getCateCount(cate.get(i)));
 		}
 		Map map = new HashMap();
 		map.put("Cates", cate);
