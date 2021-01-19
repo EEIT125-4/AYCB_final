@@ -1,4 +1,5 @@
 package product.cartController;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +26,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.google.api.client.testing.util.TestableByteArrayInputStream;
 import com.mchange.net.MailSender;
 import com.sun.xml.bind.CycleRecoverable.Context;
 
@@ -41,7 +45,7 @@ import product.service.ProductService;
 import tool.Common;
 
 @Controller
-@SessionAttributes({ "cart","totalPrice","totalQtyOrdered","member"})
+@SessionAttributes({ "cart", "totalPrice", "totalQtyOrdered", "Shipping", "member"})
 public class OrderController {
 	
 	@Autowired
@@ -127,13 +131,22 @@ public class OrderController {
 		
 		for(CartItem cart : items) {
 			
+			//扣掉商品庫存
 			int productNo = cart.getProductNo();
-			//ProductBean bean = ps.getProduct(productNo);			
+			ProductBean bean = ps.getProduct(productNo);	
 			
-			OrderItemBean oib = new OrderItemBean(null, cart.getProductImage(), cart.getBrandName(), cart.getProductSeries(), productNo, cart.getProductName(), cart.getProductPrice(), cart.getQtyOrdered());
-			details.add(oib);
+			int stock = bean.getStock();
+			int qty = cart.getQtyOrdered();
+			int newStock = stock - qty;
 			
-			itemDetail+= cart.getProductName()+" : "+ cart.getProductPrice()+" * "+ cart.getQtyOrdered()+" = $"+ cart.getProductPrice()*cart.getQtyOrdered()+"#";
+			bean.setStock(newStock);
+			ps.updateProduct(bean);
+			
+			OrderItemBean oib = new OrderItemBean(null, cart.getProductImage(), cart.getBrandName(), cart.getProductSeries(), productNo, cart.getProductName(), cart.getProductPrice(), qty);
+			details.add(oib);		
+			
+			
+			itemDetail+= cart.getProductName()+" : "+ cart.getProductPrice()+" * "+ qty+" = $"+ cart.getProductPrice()*qty+"#";
 		}
 	
 		
@@ -160,10 +173,11 @@ public class OrderController {
 		session.removeAttribute("cart");
 		session.removeAttribute("totalPrice");
 		session.removeAttribute("totalQtyOrdered");
+		session.removeAttribute("Shipping");
 		
-//		String clientBackURL="http://localhost:8080/AYCB_final/orderManagement";
-//		String form=genAioCheckOutALL(order.getOrderNo(), order.getTotalAmount(), context.getContextPath(),itemDetail,clientBackURL)	;
-//		session.setAttribute("form", form);
+		String clientBackURL="http://localhost:8080/AYCB_final/orderManagement";		
+		String form=genAioCheckOutALL(order.getOrderNo(), order.getTotalAmount(), context.getContextPath(),itemDetail,clientBackURL)	;
+		session.setAttribute("form", form);
 		
 		//session.removeAttribute("cart");
 		//session.invalidate();
@@ -239,6 +253,13 @@ public class OrderController {
 		String sTimeString = sdf.format(new Date());
 		Timestamp tTime = Timestamp.valueOf(sTimeString);
 		
+//		OrderBean updateOrder = new OrderBean(orderNo, customerId, price, tTime, status, items);		
+//		if (os.updateOrderBean(updateOrder)) {
+//			System.out.println("Let orderUpdate done!");
+//			return "product/orderUpdateThanks";
+//		} else{
+//				return "product/orderUpdateThanks";
+		
 		return "redirect:/orderManagement";
 	}
 	
@@ -247,6 +268,7 @@ public class OrderController {
 		
 		return "product/orderUpdateThanks";
 	}
+	
 	
 	@GetMapping("/selectOrderItem")
 	public String SelectOrderItem(Model model,
@@ -277,6 +299,7 @@ public class OrderController {
 		return "product/historyOrders";
 	}
 	
+	
 	@PostMapping("/ezshipBack")
 	public String ezshipBack(Model model ) {
 		
@@ -291,14 +314,14 @@ public class OrderController {
 	
 	@ModelAttribute("orderList")
 	public List<OrderBean> OrderSelect (HttpSession session, HttpServletRequest request){
-		
+		System.out.println("In");
 		MemberBean memberBean =((MemberBean)session.getAttribute("member"));
 		
-		String name = memberBean.getName();
+		String membername = memberBean.getName();
 		
 		List<OrderBean>  orderList = new ArrayList<OrderBean>();
 		
-		orderList = os.selectOrderBean(name);
+		orderList = os.selectOrderBean(membername);
 		
 		
 		//System.out.println(orderlist);
@@ -306,6 +329,16 @@ public class OrderController {
 		return orderList;
 	}
 	
-	
+	//例外處理頁面
+	@ExceptionHandler({ Throwable.class })
+	public ModelAndView handleError(HttpServletRequest request, 
+			Throwable  exception) {
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("exception", exception);
+		mv.addObject("url", request.getRequestURL()+"?" + request.getQueryString());
+		mv.setViewName("product/orderError");
+		return mv;
+	}
 	
 }

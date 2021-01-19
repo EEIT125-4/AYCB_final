@@ -1,7 +1,7 @@
 <%@page import="java.lang.ProcessBuilder.Redirect"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="java.util.*,product.*,product.model.ProductBean,product.service.ProductService,product.cartModel.CartItem,member.*"%>
+	import="java.util.*,product.*,product.model.ProductBean,product.cartModel.CartItem,member.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
@@ -76,10 +76,28 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 .progress_bar li.active ~li:before {
 	background-color: #999;
 }
+
+.butt {
+	width: auto;
+	height: auto;
+	margin-top: 0px;
+}
+.top {
+		color: white;
+		background: #FF2D2D;
+		padding: 14px 10px;
+		position: fixed;
+		right: 20px;
+		bottom: 100px;
+		text-align: center;
+		border-radius: 50px;
+		z-index: 1;
+	}
+	
 </style>
 </head>
 <%@include file="../jspf/header.jspf"%>
-<div style="text-align: center">
+<div id="mytop" style="text-align: center">
 
  	<% 
  		MemberBean member = (MemberBean) session.getAttribute("member");
@@ -186,7 +204,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 			<br>
 			<br>
 
-	
+	<a href=#mytop><div class="top">TOP</div></a>
 </div>
 <%@include file="../jspf/footer.jspf"%>
 <script>
