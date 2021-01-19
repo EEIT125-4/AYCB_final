@@ -29,7 +29,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-<title>購物車</title>
+<title>結帳</title>
 <style>
 .progress_bar {
 	display: flex;
@@ -334,10 +334,18 @@ function storeAddressChange(){
 		            <input type="hidden" id="webPara" name="webPara" value=""><!-- 我們網站所需的原Form Data。ezShip會將原值回傳，供我們網站帶回畫面用 -->
 </form>	
 	
-	<a href=#mytop><div class="top">TOP</div></a>
+	<a onclick="goTop();"><div class="top">TOP</div></a>
 </div>	
 <%@include file="../jspf/footer.jspf"%>	        
 <script>
+
+	function goTop(){
+		var $body = (window.opera) ? (document.compatMode == "CSS1Compat" ? $('html') : $('body')) : $('html,body');
+		$body.animate({
+			scrollTop: 0
+		}, 200);
+	}
+	
 	window.onload = function() {
 		
 	var store = $("#shippingAddress").val();

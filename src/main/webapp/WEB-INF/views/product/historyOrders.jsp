@@ -119,7 +119,7 @@ if (session.getAttribute("member") != null) {
 			</form>
 	    </c:when>
   </c:choose>
-  <a href=#mytop><div class="top">TOP</div></a>
+  <a onclick="goTop();"><div class="top">TOP</div></a>
 <br>
 <br>
 <br>
@@ -131,6 +131,13 @@ if (session.getAttribute("member") != null) {
 	
 
 <script type="text/javascript">
+
+function goTop(){
+	var $body = (window.opera) ? (document.compatMode == "CSS1Compat" ? $('html') : $('body')) : $('html,body');
+	$body.animate({
+		scrollTop: 0
+	}, 200);
+}
 
 var table=document.getElementById("myDataTable");
 

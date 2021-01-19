@@ -18,7 +18,7 @@ import org.springframework.validation.ObjectError;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
@@ -89,10 +89,11 @@ public class AttendanceController {
 		}
 		
 		//查詢參加活動的會員
-		@PostMapping("event/showAllAttendanceByEvent")
+		@GetMapping("event/showAllAttendanceByEvent")
 		public String attendanceOfEvent(Model model,
 				@RequestParam(value="eventid") Integer eventid
 				) {
+			System.out.println(eventid);
 			System.out.println("查詢參加活動的會員");
 			List<Attendance> attendanceOfEvent=attendanceService.getAllAttendancebyEvent(eventid);
 			model.addAttribute("attendanceOfEvent", attendanceOfEvent);

@@ -596,6 +596,10 @@ public class MemberController {
 		session.removeAttribute("cart");
 		session.removeAttribute("totalPrice");
 		session.removeAttribute("totalQtyOrdered");
+		session.removeAttribute("phone");
+		session.removeAttribute("address");
+		session.removeAttribute("email");
+		session.removeAttribute("receiveName");
  		status.setComplete();
  		session.invalidate();
 //    	  webRequest.removeAttribute("member", 0);

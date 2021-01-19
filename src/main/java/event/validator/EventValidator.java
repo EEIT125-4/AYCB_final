@@ -28,9 +28,9 @@ public class EventValidator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "totalpax", "member.name.not.empty", "請填寫名額限制");
 		
 //
-		if (event.getEventname()!=null&& event.getEventname().contains(" ")) {
-			errors.rejectValue("eventname", "", "活動名稱不能含有空白");
-		}
+//		if (event.getEventname()!=null&& event.getEventname().contains(" ")) {
+//			errors.rejectValue("eventname", "", "活動名稱不能含有空白");
+//		}
 		if(event.getEventcategory().contentEquals("NONE")) {
 			errors.rejectValue("eventcategory", "", "請填寫活動類別");
 		}		
@@ -38,7 +38,7 @@ public class EventValidator implements Validator {
 		if (event.getHostphone()!=null&& event.getHostphone().length()<10||event.getHostphone().length()>10) {
 			errors.rejectValue("hostphone", "", "電話號碼格式錯誤");
 		}		
-		if (event.getTotalpax()!=null && event.getTotalpax().equals(0) ) {
+		if (event.getTotalpax()!=null && event.getTotalpax().equals(0)||event.getTotalpax().intValue()<0) {
 			errors.rejectValue("totalpax", "", "名額須大於0");
 		}
 //		if (event.getFilename().isEmpty()) {

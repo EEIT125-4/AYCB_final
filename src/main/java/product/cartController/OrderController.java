@@ -45,7 +45,7 @@ import product.service.ProductService;
 import tool.Common;
 
 @Controller
-@SessionAttributes({ "cart", "totalPrice", "totalQtyOrdered", "Shipping", "member"})
+@SessionAttributes({ "cart", "totalPrice", "totalQtyOrdered", "Shipping", "member", "phone", "address", "email", "receiveName"})
 public class OrderController {
 	
 	@Autowired
@@ -103,7 +103,6 @@ public class OrderController {
 	
 	@SuppressWarnings("unchecked")
 	@GetMapping("/orderInsert")
-
 	public String OrderInsert(
 			
 			Model model,
@@ -111,13 +110,20 @@ public class OrderController {
 			HttpSession session, 
 			HttpServletRequest request,
 			@RequestParam(value="recipientEmail",required = false)String email,
-			@RequestParam(value="recipientName",required=false)String receiveName
+			@RequestParam(value="recipientName",required=false)String receiveName,
+			@RequestParam(value="recipientPhone",required=false)String phone,
+			@RequestParam(value="shippingAddress",required=false)String address
 			
 			) {
 
 		System.out.println("檢查郵件:"+email);
 		System.out.println("檢查收件人名稱:"+receiveName);
 		
+		model.addAttribute("phone", phone);
+		model.addAttribute("address", address);
+		model.addAttribute("email", email);
+		model.addAttribute("receiveName", receiveName);
+				
 		Double totalPrice = (Double) model.getAttribute("totalPrice");
 		//Integer totalQtyOrder = (Integer) model.getAttribute("totalQtyOrdered");
 		List<CartItem> items = (List<CartItem>) model.getAttribute("cart");
@@ -175,9 +181,9 @@ public class OrderController {
 		session.removeAttribute("totalQtyOrdered");
 		session.removeAttribute("Shipping");
 		
-		String clientBackURL="http://localhost:8080/AYCB_final/orderManagement";		
-		String form=genAioCheckOutALL(order.getOrderNo(), order.getTotalAmount(), context.getContextPath(),itemDetail,clientBackURL)	;
-		session.setAttribute("form", form);
+//		String clientBackURL="http://localhost:8080/AYCB_final/ToBill";		
+//		String form=genAioCheckOutALL(order.getOrderNo(), order.getTotalAmount(), context.getContextPath(),itemDetail,clientBackURL)	;
+//		session.setAttribute("form", form);
 		
 		//session.removeAttribute("cart");
 		//session.invalidate();
@@ -286,6 +292,26 @@ public class OrderController {
 		
 		return "product/historyOrderItem";
 	}
+	
+	
+	@GetMapping("/ToBill")
+	public String toBill(Model model ) {
+		
+		MemberBean memberBean = (MemberBean) model.getAttribute("member");
+		
+		if(memberBean == null) {
+			return "redirect:/member/login";
+		}
+		 String email = (String) model.getAttribute("email");
+		 String phone = (String) model.getAttribute("phone");
+		 String address = (String) model.getAttribute("address");
+		 String receiveName = (String) model.getAttribute("receiveName");
+		
+		
+		
+		return "product/orderBill";
+	}
+	
 
 	@GetMapping("/orderManagement")
 	public String OrderManagement(Model model ) {

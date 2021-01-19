@@ -43,7 +43,8 @@
 								<tr>
 								<td>
 <%-- 								<a href="<c:url value='showAllAttendanceByEvent'/>?eventid=${event.eventid}"><button id="showattendancebyevent">${event.eventid}</button></a> --%>
-								<button id="showattendancebyevent">${event.eventid}</button>
+								<input type=button id="showattendancebyevent${event.eventid}" value="${event.eventid}">
+								<input type=hidden id="test${event.eventid}" value="${event.eventid}">
 								</td> 
     										<td><img width='180' height='200' src='${event.filename}'/></td> 
     										<td>${event.eventname}</td> 
@@ -58,12 +59,21 @@
                                             <td> <a href="<c:url value='eventdelete'/>?eventid=${event.eventid}">刪除</a></td> 
                                 </tr> 
 
-							<input type="hidden" value="${event.eventid}" id="eventid">
+<%-- 							<input type="hidden" value="${event.eventid}" id="eventid" class="evnetid"> --%>
+<script>
+$('#showattendancebyevent${event.eventid}').click(function(){
+	var eventid = $('#test${event.eventid}').val();
+	console.log(eventid);
+	$('#backcontent').load("http://localhost:8080/AYCB_final/event/showAllAttendanceByEvent?eventid="+eventid)
+})
+</script>
 							</c:forEach>
 						</table>
 					</c:otherwise>
 				</c:choose>
 			</div>
+			
+		
 </body>
 <script>
 $(document).ready(function () {
@@ -102,14 +112,6 @@ $(document).ready(function () {
 });
 });
 
- let eventid = $("#eventid").val();
-// $('#showattendancebyevent').click(function() {
-// 	$('#backcontent').load("/AYCB_final/event/showAllAttendanceByEvent",{"eventid":eventid})
-// })
-
-$('#showattendancebyevent').click(function() {
-	$('#backcontent').load("/AYCB_final/event/showAllAttendanceByEvent",{"eventid":eventid})
-})
 
 
 
