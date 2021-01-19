@@ -33,11 +33,14 @@ body {
 }
 
 .content {
-	clear: both;
-	width: 960px;
-	overflow: hidden;
-	margin-left: 20px;
-	margin-bottom: 50px;
+        position: relative;
+
+            height: fit-content;
+            overflow: hidden;
+            margin: 0 auto;
+
+
+            float: left;
 }
 
 .a1:hover {
@@ -144,44 +147,46 @@ body {
 	border-collapse: collapse;
 }
 
-/* 留下留言 */
+/*  留言欄格式-最後修改by Kevin */
 .headpic {
-	vertical-align: middle;
-	border-radius: 50%;
-	width: 70px;
-	height:60px;
-}
+            padding: 5px;
+            vertical-align: middle;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+        }
 
-.reply {
-	padding: 5px 10px;
-	background: #e6e6e6;
-	color: #000000;
-	text-transform: uppercase;
-	font-size: 11px;
-	letter-spacing: .1em;
-	font-weight: 400;
-	border-radius: 4px;
-}
+        .reply {
+            padding: 5px 10px;
+            background: #e6e6e6;
+            color: #000000;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: .1em;
+            font-weight: 400;
+            border-radius: 4px;
+        }
 
-.commentdate {
-	font-size: 15px;
-	color: #589167;
-}
+        .commentdate {
+            font-size: 15px;
+            color: #589167;
+        }
 
-.picform {
-	width: 80px;
-	float: left;
-	list-style: none;
-}
+        .picform {
+            width: 80px;
+            float: left;
+            list-style: none;
+        }
 
-.leavecomment {
-	border-color: grey;
-	border-style: solid;
-	border-width: 1px;
-	width: 800px;
-	margin-top: 250px;
-	margin-left: 380px;
-}
+        .leavecomment {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            background-color: white;
+            border-color: black;
+            border-style: solid;
+            border-width: 1px;
+            width: 800px;
+        }
 
 /* social media icons */
 /* Style the Sticky icons on web page */

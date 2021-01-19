@@ -119,14 +119,14 @@
 					<c:if test='${not empty member}'>
 
 						<div class="blog__details__comment">
-							<h4>Leave A Comment</h4>
+							<h4>留個言吧</h4>
 							<form id="commentform">
 
 								<div class="col-lg-12 text-center">
 
 									<textarea id="comment" placeholder="Comment"></textarea>
 									<button id="postComment" type="button" class="site-btn"
-										style="width: fit-content;">Post Comment</button>
+										style="width: fit-content;">送出留言</button>
 								</div>
 							</form>
 						</div>
@@ -159,10 +159,7 @@ $(function(){
 
 <!-- 留言功能初始化 -->
 	var object = "product";
-	var pk = $
-	{
-		Detail.productno
-	};
+	var pk = ${Detail.productno};
 	var path = "${pageContext.request.contextPath}";
 	var board = document.getElementById("board");
 	var postUrl = path + "/leaveComment?memberid=${member.id}&key=" + pk
@@ -173,7 +170,7 @@ $(function(){
 </script>
 
 <script src="${pageContext.request.contextPath}/js/comment.js"
-	defer="defer" charset="big5"></script>
+	defer="defer" charset="utf-8"></script>
 
 </body>
 </html>

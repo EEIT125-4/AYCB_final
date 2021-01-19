@@ -18,6 +18,11 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
 <title>美誌分享</title>
+
+
+
+
+</head>
 <%@include file="../jspf/header.jspf"%>
 
 

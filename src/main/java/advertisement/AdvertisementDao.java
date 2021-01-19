@@ -33,6 +33,36 @@ public class AdvertisementDao {
 		}
 
 	}
+	
+	public Advertisement queryRandom() {//無其他條件限制s
+		try {
+			Session session = factory.getCurrentSession();
+
+			String hql = "FROM Advertisement order by NEWID()";
+
+			@SuppressWarnings("unchecked")
+			Query<Advertisement> query = session.createQuery(hql);
+			//隨機取一筆
+			
+			query.setMaxResults(1);
+
+			return query.getSingleResult();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+	}
+	
+	public void updateAdvertisement(Advertisement ad) {
+		
+		
+		Session session = factory.getCurrentSession();
+		session.saveOrUpdate(ad);
+		
+
+	}
 
 	public List<Advertisement> queryByTime() {
 
