@@ -32,13 +32,12 @@
 			</div>
 			<br>
 
-			<div style="margin-left: 270px;">
-
+			<div style="margin-left: 280px;">
 
 				<%
 					if (request.getAttribute("msg") != null) {
 				%>
-				<p style="color: BLUE; font-size: 25px"><%=request.getAttribute("msg")%></p>
+				<p style="color: #595959; font-size: 25px;font-weight:bolder"><%=request.getAttribute("msg")%></p>
 				<%
 					}
 				%>
@@ -66,10 +65,10 @@
 						 <label style="font-size: 15px" class="custom-control-label"
 						for="customControlAutosizing">記住我</label>
 				</div>
-				<div style="margin-right: 60px;" class="col" style="display:inline block">
-					<button data-toggle="modal" data-target="#forgot"
+				<div  class="col" style="display:inline block">
+					<button style="width:100px" data-toggle="modal" data-target="#forgot"
 						class="btn btn-link form-control" role="button"
-						aria-pressed="true">忘記密碼</button>
+						aria-pressed="true">忘記密碼?</button>
 				</div>
 			</div>
 

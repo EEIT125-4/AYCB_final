@@ -289,17 +289,25 @@ public class ProductController {
 		return true;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@GetMapping(value = "/Collectcheck", produces = "application/json")
-	public @ResponseBody List<Integer> collectcheck(Model model, HttpSession session) {
+	public @ResponseBody Map collectcheck(Model model, HttpSession session) {
+		List<ProductBean> all = ps.getAllProducts();
+		
 		List<Integer> list = new ArrayList<>();
 		MemberBean member = (MemberBean) session.getAttribute("member");
 		List<CollectBean> collection = ps.collection(member.getId());
-		if (collection != null && member != null) {
+		if (collection != null) {
 			for (int i = 0; i < collection.size(); i++) {
 				list.add(collection.get(i).getPid());
 			}
 		}
-		return list;
+		System.out.println(all);
+		System.out.println(list);
+		Map map = new HashMap();
+		map.put("No", list);
+		map.put("All", all);
+		return map;
 	}
 
 	@GetMapping("/History")

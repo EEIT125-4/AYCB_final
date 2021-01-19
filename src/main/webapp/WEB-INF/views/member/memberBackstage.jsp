@@ -93,6 +93,7 @@ transform: translateX(26px);
             <th scope="col">生日</th>
             <th scope="col">地址</th>
             <th scope="col">權限</th>
+<!--             <th scope="col">刪除</th> -->
           </tr>
         </thead>
         <tbody>
@@ -112,9 +113,10 @@ transform: translateX(26px);
            <span class="slider" checkType="${member.ckpower}"></span>
 				</label>
 				</td>
-           
-            
-          </tr>
+<%-- 			<td><form id="delete" action="<c:url value="delete" />"><button type=button id=checkde  >刪除</button> --%>
+<%-- 			<input type=hidden id=check name=delete value="${member.id}"> --%>
+<!-- 			</form></td> -->
+                      </tr>
         </c:forEach>
        
         
@@ -195,6 +197,18 @@ transform: translateX(26px);
 		})
 		})
 })
+
+
+// 	$('#checkde').click(function(){
+// 		alert("確定");
+// 		$('#delete').submit();
+// 	}
+
+
+
+
+
+
 	
 	
 </script>

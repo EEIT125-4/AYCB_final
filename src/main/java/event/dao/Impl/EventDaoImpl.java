@@ -49,7 +49,7 @@ public class EventDaoImpl implements EventDAO {
 	public Event getEvent(int pk) {
 		Event e = null;
 		Session session = factory.getCurrentSession();
-        String hql="From Event e Where e.eventid=:pk";
+        String hql="From Event Where eventid=:pk";
 		try {
 			e =(Event)session.createQuery(hql)
 					.setParameter("pk", pk)

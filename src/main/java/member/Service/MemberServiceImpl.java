@@ -131,5 +131,14 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.ckpower(account);
 		
 	}
+	@Override
+	public int delete (int account) {
+		
+		return memberDao.deleteMember(account);
+		
+		
+	}
+	
+	
 	
 }

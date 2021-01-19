@@ -20,6 +20,7 @@
 	
 <title>Manager</title>
 </head>
+<body>
 <div class="contentoutbox">
 	<div class="contentbox">
 		<div class="back">
@@ -42,7 +43,7 @@
 			</div>
 			<div class="mbtnbox">
 				<input class="mbtn" type="button" value="活動"
-					onclick='location.href="${pageContext.request.contextPath}/event/showAttendance"'>
+					onclick='location.href="${pageContext.request.contextPath}/event/backstageshowEvent"'>
 			</div>
 			<div class="mbtnbox">
 				<input class="mbtn" type="button" value="留言板"
@@ -61,9 +62,11 @@
 					onclick='location.href="${pageContext.request.contextPath}/advertisement"'>
 			</div>
 		</div>
-		<div id="backcontent" class="backcontent">
+		<div class="backnav">
 			<%@include file="../jspf/managerheader.jspf"%>
 		</div>
+		<div class="backcontent" id="backcontent" ></div>
+		
 	</div>
 </div>
 <script>

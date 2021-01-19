@@ -108,6 +108,21 @@ public class MemberController {
 
 		return "member/register";
 	}
+	
+//	//刪除
+//	@GetMapping("/delete")
+//	public String delete(Model model,@RequestParam("delete") Integer id) {
+//		memberService.delete(id);
+//		model.addAttribute("memberBackstage", memberService.getAllMembers());
+//		System.out.println(memberService.getAllMembers());
+//
+//		return "member/memberBackstage";
+//
+//		
+//	}
+	
+	
+	
 
 //帳號判斷
 	@PostMapping("/accountcheck")
@@ -462,25 +477,11 @@ public class MemberController {
 			System.out.println("birth" + birth);
 			memberBean.setCkpower(true);
 
-//    	  		Cookie[] cookies = request.getCookies();
-//    	  		
-//    	  		for(Cookie cookie: cookies) {
-//    	  			System.out.println(cookie.getName());
-//    	  			System.out.println(cookie.getValue());
-//    	  		}
-			// Cookie cookie = new Cookie("memberCookie", memberBean.getName());
-			// 設定秒數
-			// cookie.setMaxAge(60*60*24*365);//存個一年
 
-			// cookie.setPath("/AYCB_final");
-			// response.addCookie(cookie);
 
 			memberService.insertregister(memberBean);
 
-//    		  MemberBean mb = (MemberBean) session.getAttribute("member");
-//    		  
-//  
-//    	  }else {MemberBean mb = (MemberBean) session.getAttribute("member");
+
 		}
 		System.out.println(email);
 		MemberBean mbb = memberService.getemail(email);

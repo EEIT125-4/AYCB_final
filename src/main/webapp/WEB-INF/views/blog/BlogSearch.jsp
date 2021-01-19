@@ -13,17 +13,13 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
-				<h2>美誌分享</h2>
+				<h2>查詢文章</h2>
 			</div>
 		</div>
 	</div>
 	</section>
 	
 <!-- Breadcrumb Section End -->
-
-<!-- <div class="blog__item__pic set-bg" data-setbg="/AYCB_final/pic/4" style="background-image: url(&quot;/AYCB_final/pic/4&quot;);"></div> -->
-<!-- <div class="blog__item__pic set-bg" data-setbg="/AYCB_final/pic/5" style="background-image: url(&quot;img/blog/blog-1.jpg&quot;);"></div> -->
-
 
 <a class="a1" href="${pageContext.request.contextPath}/blog">
 	<button style="width: auto; height: auto; margin-top: 0px;">返回美誌分享</button>
@@ -32,45 +28,50 @@
 
 	<div class="container">
 		<div class="row">
-			<c:forEach var='b' varStatus='bg' items='${bg}'>
-				<c:if test="${b.status==0 }">
+			
+			<div>${b.title}</div>
+			<div>${b.status}</div>
+			
+			
+			<c:forEach var='b' varStatus='bg' items='${bgsearch}'>
+				<c:if test="${b.status=='顯示' }">
 					<div class="col-lg-4 col-md-6 col-sm-6">
 						<div class="blog__item">
-
-							<div class="blog__item__pic set-bg"
-								data-setbg="${pageContext.request.contextPath}/pic/${b.picture}"
-								style="background-image: url(&quot;img/blog/blog-1.jpg&quot;);"></div>
+						
+						<div class="blog__item__pic set-bg" data-setbg="${pageContext.request.contextPath}/pic/${b.picture}" style="background-image: url(${pageContext.request.contextPath}/pic/${b.picture});"></div>
 							<div class="blog__item__text">
-
+								
 								<h5>${b.title}</h5>
 								<div class="proprice">上傳者:${b.member.name}</div>
-								<span>瀏覽人次:${b.views}</span> <span class="thumbsup">按讚次數:${b.thumbs}
-								</span> <span><img
-									src="${pageContext.request.contextPath}/image/icon/calendar.png"
-									alt="">上傳時間: ${b.commentTime}</span> <span><img
-									src="${pageContext.request.contextPath}/image/icon/calendar.png"
-									alt="">修改時間: ${b.fixedtime}</span> <a
-									href="${pageContext.request.contextPath}/blog/${b.blogId}">Read
-									More</a>
+								<span>瀏覽人次:${b.views}</span>	
+								 <span class="thumbsup">按讚次數:${b.thumbs} </span>
+								 <span><img src="${pageContext.request.contextPath}/image/icon/calendar.png" alt="">上傳時間: ${b.commentTime}</span>
+								 <span><img src="${pageContext.request.contextPath}/image/icon/calendar.png" alt="">修改時間: ${b.fixedtime}</span>
+								<a href="${pageContext.request.contextPath}/blog/${b.blogId}">Read More</a>
 								<c:if test="${b.member.id eq member.id}">
-									<br>
-									<a
-										href="${pageContext.request.contextPath}/blog/edit/${b.blogId}">edit</a>
+								<br>
+								<a href="${pageContext.request.contextPath}/blog/edit/${b.blogId}">edit</a>
 								</c:if>
-
+								
 								<c:if test="${b.member.id eq member.id}">
-									<br>
-									<a
-										href="${pageContext.request.contextPath}/blog/delete/${b.blogId}">刪除</a>
+								<br>
+								<a href="${pageContext.request.contextPath}/blog/delete/${b.blogId}">刪除</a>
 								</c:if>
 							</div>
 						</div>
 					</div>
-				</c:if>
-			</c:forEach>
+					</c:if>
+					</c:forEach>
+			
+			
 		</div>
 	</div>
 </section>
 <%@include file="../jspf/footer.jspf"%>
+
+<script>
+
+
+</script>
 </body>
 </html>

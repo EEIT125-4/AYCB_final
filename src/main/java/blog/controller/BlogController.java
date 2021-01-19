@@ -69,11 +69,23 @@ public class BlogController {
 		return "blog/blogForm";
 	}
 
+	// 搜尋欄select search bar
+		@GetMapping("/SelectSearchBar")
+		public String selectSearchBar(Model model, 
+				HttpSession session,
+				@RequestParam(value = "search") String search) {
+			System.out.println("SelectSearchBar");
+			List<Blog> bg = blogService.selectArticle(search);
+			session.setAttribute("bgsearch", bg);
+//			model.addAttribute("bgsearch", bg);
+			return "blog/BlogSearch";
+		}
+	
 	// 新增一筆部落格文章
 	@PostMapping("blog/edit")
-	public String add(@ModelAttribute("blog") Blog blog, Model model, @RequestParam(value = "memberID") Integer mid,
+	public String add(@ModelAttribute("blog") Blog blog, Model model,
+			@RequestParam(value = "memberID") Integer mid,
 			@RequestParam(value = "file") MultipartFile file
-
 	) {
 		System.out.println("into blogForm");
 		try {
@@ -117,7 +129,16 @@ public class BlogController {
 			}
 
 			blog.setMember(memberService.getMember(mid));
-			blogService.insertBlog(blog);
+			try {
+				blogService.insertBlog(blog);
+				System.out.println("新增blog成功");
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("新增blog");
+				// TODO: handle exception
+			}
+			
 			return getAll(model);
 		} catch (Exception ex) {
 			System.out.println(ex.getClass().getName() + ", ex.getMessage()=" + ex.getMessage());
@@ -203,8 +224,6 @@ public class BlogController {
 				blog.setCommentTime(time);
 				
 			}
-
-//			blog.setMember(memberService.getMember(mid));
 			blogService.updateBlog(blog);
 			return getAll(model);
 		} catch (Exception ex) {

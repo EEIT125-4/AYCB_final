@@ -242,11 +242,5 @@ width:100px;
 
 	
 
-<script>
 
-
-// console.log("cookie="+$.cookie("user"));
-// console.log("cookie="+$.cookie("password"));
-</script>
-	
 
