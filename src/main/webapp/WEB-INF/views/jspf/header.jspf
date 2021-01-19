@@ -128,7 +128,7 @@ width:100px;
 					<div class="col-lg-6 col-md-8">
 						<div class="header__top__left" >
 							<a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/image/logo.png"></a>
-						    <a href="${pageContext.request.contextPath}/"><img style="margin-left: 50px" src="${pageContext.request.contextPath}/image/2.png"></a>
+						    <a href="${pageContext.request.contextPath}/"><img style="margin-left: 150px" src="${pageContext.request.contextPath}/image/2.png"></a>
 						</div>											
 					</div>
 					<div class="col-lg-6 col-md-4">
@@ -193,19 +193,18 @@ width:100px;
 		</div>
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-3 col-md-3">					
+				<div class="col-lg-1 col-md-3">					
 					<div class="header__logo">
 <%-- 						<a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/image/logo.png"></a> --%>
 					</div>
 				</div>
-				<div class="col-lg-6 col-md-6">
+				<div class="col-lg-8 col-md-6">
 					<nav class="header__menu mobile-menu">
 						<ul>
 							<li><a href="${pageContext.request.contextPath}/message/query">訊息中心</a>
 							<li><a href='<c:url value="/All"/>' >保養品</a>
 							
 <%-- 							<li><a href="${pageContext.request.contextPath}/return" >退換貨原則</a> --%>
-							<li><a href='<c:url value="/return"/>' >退換貨原則</a>
 <!-- 									<ul class="dropdown"> -->
 <%-- 										<c:forEach var="cate" varStatus='vs' items="${cate}"> --%>
 <!-- 											<li> -->
@@ -217,10 +216,11 @@ width:100px;
 					        <li><a href="${pageContext.request.contextPath}/blog/">美誌分享</a>	
                             <li><a href="${pageContext.request.contextPath}/comment/videolist/">影音分享</a>
 							<li><a href="${pageContext.request.contextPath}/event/showEvent">預約活動</a>
+							<li><a href='<c:url value="/return"/>' >退換貨原則</a>
 						</ul>
 					</nav>
 				</div>
-				<div class="col-lg-3 col-md-3">
+				<div class="col-lg-1 col-md-3">
 					<div class="header__nav__option">
 					<form action="Keyword" style="height:0">
 <!-- 						<input type="text" name="keyword" style="width: 150px"> -->
