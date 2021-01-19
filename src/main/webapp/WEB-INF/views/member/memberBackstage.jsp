@@ -9,6 +9,8 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 %>
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">
 
 <head>
 <meta charset="UTF-8">
@@ -82,7 +84,7 @@ transform: translateX(26px);
 
 
 
-    <table class="table" style="width:1600px;margin-left:180px">
+    <table id="myDataTable" class="table" style="width:1600px;margin-left:180px">
         <thead class="thead-light">
           <tr>
             <th scope="col">會員ID</th>
@@ -133,9 +135,34 @@ transform: translateX(26px);
 
 </c:if>
 
-<section></section>
+
 
 <%@include file="../jspf/footer.jspf"%>
+<script type="text/javascript" charset="utf8"
+	src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
+
+
+
+
+
+<script type="text/javascript">
+
+var table=document.getElementById("myDataTable");
+
+
+
+        $(function () {
+
+            $("#myDataTable").DataTable({
+                searching: true, 
+                columnDefs: [{
+//                     targets: [10],
+                    orderable: true,
+                }]
+            });
+        });
+    </script>
+
 
 <script>
 	function refreshData() {
