@@ -9,8 +9,8 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 %>
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
-<link rel="stylesheet" type="text/css"
-	href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">
+<!-- <link rel="stylesheet" type="text/css" -->
+<!-- 	href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css"> -->
 
 <head>
 <meta charset="UTF-8">
@@ -138,8 +138,8 @@ transform: translateX(26px);
 
 
 <%@include file="../jspf/footer.jspf"%>
-<script type="text/javascript" charset="utf8"
-	src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
+<!-- <script type="text/javascript" charset="utf8" -->
+<!-- 	src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script> -->
 
 
 
@@ -147,59 +147,60 @@ transform: translateX(26px);
 
 <script type="text/javascript">
 
-var table=document.getElementById("myDataTable");
+// var table=document.getElementById("myDataTable");
 
 
 
-        $(function () {
+//         $(function () {
 
-            $("#myDataTable").DataTable({
-                searching: true, 
-                columnDefs: [{
-//                     targets: [10],
-                    orderable: true,
-                }]
-            });
-        });
-    </script>
+//             $("#myDataTable").DataTable({
+//                 searching: true, 
+//                 columnDefs: [{
+// //                     targets: [10],
+//                     orderable: true,
+//                 }]
+//             });
+//         });
+<!--     </script> -->
 
 
-<script>
-	function refreshData() {
+<!-- <script> -->
+// 	function refreshData() {
 
-		console.log("更新Data")
+// 		console.log("更新Data")
 
-		$.ajax({
+// 		$.ajax({
 
-			type : 'post',
-			url : "forgot",
-			datatype : "text",
-			data : {
-				"email" : email
-			},
-			//		      		contentType : "application/json;charset=utf-8",
+// 			type : 'post',
+// 			url : "forgot",
+// 			datatype : "text",
+// 			data : {
+// 				"email" : email
+// 			},
+// 			//		      		contentType : "application/json;charset=utf-8",
 
-			success : function(data) {
+// 			success : function(data) {
 
-				if (data == "ok") {
-// 					swal("密碼重置", "已寄送新密碼至您信箱", "success")
+// 				if (data == "ok") {
+// // 					swal("密碼重置", "已寄送新密碼至您信箱", "success")
 
-				} else {
+// 				} else {
 
-// 					swal("發生錯誤", "寄送過程發生錯誤,請稍後再試或撥打客服電話", "error")
+// // 					swal("發生錯誤", "寄送過程發生錯誤,請稍後再試或撥打客服電話", "error")
 
-				}
+// 				}
 
-			},
-			error : function() {
-				swal("更新資料失敗","controller error","error");
+// 			},
+// 			error : function() {
+// 				swal("更新資料失敗","controller error","error");
 
-			}
-		})
+// 			}
+// 		})
 
-	}
+// 	}
 	
 	
+	<script>
 
     $(document).ready(function(){	
 		$(".slider").each(function(){
@@ -216,7 +217,8 @@ var table=document.getElementById("myDataTable");
 		success:function(){
 		if(s.attr("checktype") == 'true'){
 		s.attr("checktype", "false");
-		}else{
+		}
+		else{
 		s.attr("checktype", "true");
 		}
 		}

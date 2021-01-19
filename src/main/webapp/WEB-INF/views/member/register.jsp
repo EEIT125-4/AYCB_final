@@ -188,6 +188,9 @@
 		<!-- 			<input type="submit" value="註冊"> -->
 		<!-- 						<button type="submit" name="submit"><a href='memberConfirm'>確認</a></button> -->
 		<!-- 		</div> -->
+		
+		  <input type="button" id="express" value="一鍵輸入">	
+		
 	</form:form>
 	<!-- 	</fieldset> -->
 </div>
@@ -396,6 +399,21 @@ $('#cpwd').blur(function() {
 	}
 	})
 
+	
+	
+	$('#express').click(function(){
+	 $('#realname').val('黃麗玲')
+	 $('#acc').val('kkk')
+	 $('#pwd').val('kkk123')
+	 $('#cpwd').val('kkk123')
+	 $('#emailcheck').val('cardibadboy@gmail.com')
+	 $('#phone').val('096693696')
+	 $('#address').val('宜蘭縣三星鄉32-3')
+	 $('#introduce').val('我們真的很努力')
+	 
+})
+	
+	
 
     	$('#send').click(function(){
     		if(p1!=true || p2!=true || p3!=true || p4!=true || p5!=true || p6!=true || p7!=true){
@@ -416,6 +434,17 @@ $('#cpwd').blur(function() {
     		}
     			
     	});
+    	
+    	
+    	
+
+    	
+    	
+    	
+    	
+    	
+    	
+    	
     		
 </script>
 
