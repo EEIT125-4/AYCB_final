@@ -14,7 +14,7 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">
-<%-- <link REL=STYLESHEET HREF="${pageContext.request.contextPath}/css/inside.css" TYPE="text/css">	 --%>
+<link REL=STYLESHEET HREF="${pageContext.request.contextPath}/css/inside.css" TYPE="text/css">	
 
 <title>廣告維護後台</title>
 </head>
@@ -22,11 +22,11 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 <%@include file="../jspf/managerPanel.jspf"%>
 
 <div class='rightoutbox'>
+<div style="background-color: #589167;text-align: center;">
 	<h1>廣告後台</h1>
-	<a class="a1"
-		href="${pageContext.request.contextPath}/advertisement/edit">
-		<h3>新增廣告</h3>
-	</a>
+	
+	<a  href="${pageContext.request.contextPath}/advertisement/edit"><h2>新增廣告</h2></a>
+	</div>
 	<table id="myDataTable" class="display">
 		<thead>
 			<tr>

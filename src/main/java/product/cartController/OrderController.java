@@ -180,7 +180,7 @@ public class OrderController {
 		session.removeAttribute("totalPrice");
 		session.removeAttribute("totalQtyOrdered");
 		session.removeAttribute("Shipping");
-		
+			
 //		String clientBackURL="http://localhost:8080/AYCB_final/ToBill";		
 //		String form=genAioCheckOutALL(order.getOrderNo(), order.getTotalAmount(), context.getContextPath(),itemDetail,clientBackURL)	;
 //		session.setAttribute("form", form);

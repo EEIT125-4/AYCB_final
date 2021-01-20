@@ -173,6 +173,7 @@ public class AttendanceController {
 				System.out.println("0000000000000000000000000000000000000000000000000000000+++++++++++參加人數"+event.getPax());
 				if(event.getPax()<=event.getTotalpax()) {
 					eventService.updateEvent(event);
+
 				}else {
 					System.out.println("222222222222222222222");
 					model.addAttribute("eventid", eventid);
