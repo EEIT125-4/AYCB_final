@@ -92,13 +92,13 @@ public class MyMailSender {
 		multipart.addBodyPart(messageBodyPart);
 
 		// second part (the image)
-		messageBodyPart = new MimeBodyPart();
-		DataSource fds = new FileDataSource(new File("C:\\Users\\user\\OneDrive\\桌面\\pics\\背景\\emailbackground.jfif"));
-
-		messageBodyPart.setDataHandler(new DataHandler(fds));
-		messageBodyPart.setHeader("Content-ID", "<image>");
-
-		multipart.addBodyPart(messageBodyPart);
+//		messageBodyPart = new MimeBodyPart();
+//		DataSource fds = new FileDataSource(new File("C:\\Users\\user\\OneDrive\\桌面\\pics\\背景\\emailbackground.jfif"));
+//
+//		messageBodyPart.setDataHandler(new DataHandler(fds));
+//		messageBodyPart.setHeader("Content-ID", "<image>");
+//
+//		multipart.addBodyPart(messageBodyPart);
 
 		// put everything together 加入附件檔案
     					mimeMessage.setContent(multipart);
