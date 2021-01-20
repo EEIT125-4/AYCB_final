@@ -9,6 +9,8 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 %>
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
+<!-- <link rel="stylesheet" type="text/css" -->
+<!-- 	href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css"> -->
 
 <head>
 <meta charset="UTF-8">
@@ -82,7 +84,7 @@ transform: translateX(26px);
 
 
 
-    <table class="table" style="width:1600px;margin-left:180px">
+    <table id="myDataTable" class="table" style="width:1600px;margin-left:180px">
         <thead class="thead-light">
           <tr>
             <th scope="col">會員ID</th>
@@ -133,46 +135,72 @@ transform: translateX(26px);
 
 </c:if>
 
-<section></section>
+
 
 <%@include file="../jspf/footer.jspf"%>
+<!-- <script type="text/javascript" charset="utf8" -->
+<!-- 	src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script> -->
 
-<script>
-	function refreshData() {
 
-		console.log("更新Data")
 
-		$.ajax({
 
-			type : 'post',
-			url : "forgot",
-			datatype : "text",
-			data : {
-				"email" : email
-			},
-			//		      		contentType : "application/json;charset=utf-8",
 
-			success : function(data) {
+<script type="text/javascript">
 
-				if (data == "ok") {
-// 					swal("密碼重置", "已寄送新密碼至您信箱", "success")
+// var table=document.getElementById("myDataTable");
 
-				} else {
 
-// 					swal("發生錯誤", "寄送過程發生錯誤,請稍後再試或撥打客服電話", "error")
 
-				}
+//         $(function () {
 
-			},
-			error : function() {
-				swal("更新資料失敗","controller error","error");
+//             $("#myDataTable").DataTable({
+//                 searching: true, 
+//                 columnDefs: [{
+// //                     targets: [10],
+//                     orderable: true,
+//                 }]
+//             });
+//         });
+<!--     </script> -->
 
-			}
-		})
 
-	}
+<!-- <script> -->
+// 	function refreshData() {
+
+// 		console.log("更新Data")
+
+// 		$.ajax({
+
+// 			type : 'post',
+// 			url : "forgot",
+// 			datatype : "text",
+// 			data : {
+// 				"email" : email
+// 			},
+// 			//		      		contentType : "application/json;charset=utf-8",
+
+// 			success : function(data) {
+
+// 				if (data == "ok") {
+// // 					swal("密碼重置", "已寄送新密碼至您信箱", "success")
+
+// 				} else {
+
+// // 					swal("發生錯誤", "寄送過程發生錯誤,請稍後再試或撥打客服電話", "error")
+
+// 				}
+
+// 			},
+// 			error : function() {
+// 				swal("更新資料失敗","controller error","error");
+
+// 			}
+// 		})
+
+// 	}
 	
 	
+	<script>
 
     $(document).ready(function(){	
 		$(".slider").each(function(){
@@ -189,7 +217,8 @@ transform: translateX(26px);
 		success:function(){
 		if(s.attr("checktype") == 'true'){
 		s.attr("checktype", "false");
-		}else{
+		}
+		else{
 		s.attr("checktype", "true");
 		}
 		}

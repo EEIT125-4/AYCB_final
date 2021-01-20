@@ -217,6 +217,7 @@
     line-height: 40px;
     text-align: center;
     background-color: transparent;
+    z-index: 1;
     display: none;
 }
 

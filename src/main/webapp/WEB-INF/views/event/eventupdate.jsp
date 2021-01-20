@@ -34,11 +34,11 @@
 <%@include file="../jspf/header.jspf"%>
 
 	<p>&nbsp;</p>
-	<hr>
-	<div class='center'>
-		<H1 class='center'>更新活動資料</H1>
-		<hr>
-		<form:form method='POST' modelAttribute='event' enctype='multipart/form-data'>
+	
+	<div class='container' >
+		<H4 class='center'>更新活動資料</H4>
+	
+		<form:form method='POST' modelAttribute='event' enctype='multipart/form-data' cssStyle="text-align: center">
 			<input type="hidden" name="eventid" value="${event.eventid}"> 
 <%-- 			<input type="hidden" name="memberid" value="${event.memberid}">  --%>
 			<input type="hidden" name="finalDecision" value="">
@@ -126,7 +126,7 @@
 					<TD colspan="2" align="center">
 					<input type="submit" value="更新" name='updateBtn' onclick="return confirmUpdate('${event.eventid}');">
 						
-					<input type="submit" value="刪除" name='deleteBtn' onclick="return confirmDelete('${event.eventid}');"></TD>
+					<input type="hidden" value="刪除" name='deleteBtn' onclick="return confirmDelete('${event.eventid}');"></TD>
 						
 				</TR>
 			</Table>
