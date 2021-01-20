@@ -110,8 +110,8 @@
 <%-- 			<form:radiobutton style="height:30px; width:30px;" path="gender" --%>
 <%-- 				id="FE" value="女" /> --%>
 <!-- 			<label style="font-weight: bold; font-size: 25px" for="inlineRadio2">女</label> -->
-		<label for="icon" style="font-weight: bold; font-size: 20px;margin-left:30px" >上傳頭像</label>
-			<input type="file" name="icon" id="icon" style="font-size:15px"/>	
+<!-- 		<label for="icon" style="font-weight: bold; font-size: 20px;margin-left:30px" >上傳頭像</label> -->
+<!-- 			<input type="file" name="icon" id="icon" style="font-size:15px"/>	 -->
 
 		</div>
 

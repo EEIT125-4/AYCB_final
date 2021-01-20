@@ -1,8 +1,6 @@
 package comment.controller;
 
 import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -10,11 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import comment.model.CommentBean;
 import comment.service.CommentService;
-import member.MemberBean;
 import member.Service.MemberService;
 
 @SessionAttributes({ "comment","commentList" })
@@ -38,20 +32,19 @@ public class CommentController {
 	@Autowired
 	CommentService commentService;
 
-//留言板練習用	
-	@GetMapping("/comment")
-	public String home(Model model) {
-		model.addAttribute("member");
-		return "comment/displayBoard"; 
-	}
+//	@GetMapping("/comment/")
+//	public String home(Model model) {
+//		model.addAttribute("member");
+//		return "comment/displayBoard"; // 請視圖解析器由視圖的邏輯名稱index來找出真正的視圖
+//	}
 
 	@PostMapping("/leaveComment")
 	@ResponseBody
-	public Map<String, Object> leaveComment(
-			@RequestParam(value ="comment" ,required = false)String s,
-			@RequestParam(value="memberid" ,required = false)Integer memberid,
-			@RequestParam(value="key" ,required = false)Integer key,
-			@RequestParam(value="type",required = false)String type
+	public boolean leaveComment(
+			@RequestParam(value = "comment")String s,
+			@RequestParam(value="memberid")Integer memberid,
+			@RequestParam(value="key")Integer key,
+			@RequestParam(value="type")String type
 	)
 	{//Model model, @ModelAttribute("comment") CommentBean cb
 		System.out.println("leaving comment");
@@ -63,11 +56,7 @@ public class CommentController {
 			
 		
 			CommentBean cb=new CommentBean();
-			MemberBean member=memberService.getMember(memberid);
 			Timestamp time = new Timestamp(new Date().getTime());
-			DateFormat df = new SimpleDateFormat("dd/MM/YYYY hh:mm:ss");
-//	        Timestamp sqlDate = new Timestamp(utilDate.getTime());//uilt date轉sql date
-
 			cb.setMember(memberService.getMember(memberid));
 			cb.setType(type);
 			cb.setKeynumber(String.valueOf(key));
@@ -75,17 +64,12 @@ public class CommentController {
 			cb.setContentBox(s);
 			System.out.println("cb now:" + cb);
 			commentService.insertComment(cb);
-			Map<String, Object> data = new HashMap<>();
-			data.put("membername", cb.getMember().getName());
-			data.put("CommentTime", cb.getCommentTime());
-			data.put("ContentBox", (Timestamp.valueOf(cb.getContentBox())));
-			data.put("imageId", "/AYCB_final/pic/"+member.getIconid());
 			System.out.println("留言成功:"+cb);
-			return data;
+			return true;
 			
 		}catch (Exception e) {
 			e.printStackTrace();
-			return null;
+			return false;
 		}
 		
 	}
@@ -119,28 +103,7 @@ public class CommentController {
 			
 		}
 		
-		
 
-//		for(CommentBean c:replys) {
-//			System.out.println("check:"+c.getContentBox());
-//			
-//		}
-//		results.put("reply"+cb.getCommentId(),replys);
-
-	
-//	}
-//	List<CommentBean>replyTest=(List<CommentBean>)results.get("reply48");
-//	
-//	for(CommentBean cBean:replyTest) {
-//		System.out.println("48號:"+cBean.getContentBox());
-//	}
-		
-		
-//		
-		
-//		List<CommentBean>comments=commentService.queryComment(type, key);
-		
-//		return commentService.queryComment(type, key);
 		return results;
 		
 	}
@@ -182,7 +145,7 @@ public class CommentController {
 	
 	}
 	
-//新增留言
+
 
 
 }
