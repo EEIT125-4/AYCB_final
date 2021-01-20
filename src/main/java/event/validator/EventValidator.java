@@ -38,7 +38,7 @@ public class EventValidator implements Validator {
 		if (event.getHostphone()!=null&& event.getHostphone().length()<10||event.getHostphone().length()>10) {
 			errors.rejectValue("hostphone", "", "電話號碼格式錯誤");
 		}		
-		if (event.getTotalpax()!=null && event.getTotalpax().equals(0)||event.getTotalpax().intValue()<0) {
+		if (event.getTotalpax()!=null && event.getTotalpax()<=0) {
 			errors.rejectValue("totalpax", "", "名額須大於0");
 		}
 //		if (event.getFilename().isEmpty()) {

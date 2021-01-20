@@ -29,76 +29,78 @@ var commentCount = 0;
         });
     }
 
-function postJudgment() {
-	if ($('#comment').val().length > 0) {
+function postJudgment(obj) {
+ // var comment=target.parent().siblings("textarea[class='comment']");
+      
+            console.log('判斷長度:' + obj.val().length);
+            if (obj.val().length > 0) {
 
-		$('#postComment').attr('disabled', false);
-	} else {
+                //let postBtn=target.
 
-		$('#postComment').attr('disabled', true);
+                $('.postComment').attr('disabled', false);
 
+                resetComment($(this).siblings('restBtn'));
+
+            } else {
+
+                $('.postComment').attr('disabled', true);
+
+
+            }
 
 	}
+	
+function showBtnArea(obj) {
 
-}
-function showBtnArea() {
-
-	$('#btnarea').css('display', 'block');
-
-}
-
-function resetComment() {
-	$('#comment').val('');
-	$('#btnarea').css('display', 'none');
-	$('#postComment').attr('disabled', true);
-
-}
-
-//Kevin:根據留言內容調整大小
-
-$(document).ready(function() {
-	$("textarea.auto-height").css("overflow", "hidden").bind("keydown keyup", function() {
-		$(this).height('0px').height($(this).prop("scrollHeight") + 'px');
-	}).keydown();
-
-	$('#comment').focus(function() {
-		showBtnArea();
-
-	});
-
-	$('#comment').change(function() {
-
-		postJudgment();
-
-	});
-
-	//	$('#postComment').click(function() {
-	//
-	//		console.log("click post");
-	//		
-	//		resetComment();
-	//	});
-
-	$('#resetBtn').click(function() {
-
-		resetComment();
-
-
-	})
-});
-
-
-function checkReply(btn) {
-
-	console.log('value=' + btn.value);
-	// btn.style.background='red';
-
-
+	   obj.css('display', 'block');
 
 
 }
 
+function resetComment(obj) {
+ 			obj.siblings(".postComment").attr('disabled',true);    
+            obj.parent().css('display', 'none');
+            obj.siblings().parent().siblings("textarea[class='comment']").val('');
 
+}
+
+ //Kevin:根據留言內容調整大小
+     $("textarea.comment").css("overflow", "hidden").bind("keydown keyup", function () 
+     { $(this).height('0px').height($(this).prop("scrollHeight") + 'px');}).keydown();
+
+		$('.comment').focus(function () {
+   				console.log('Comment focus');
+                
+                let obj=$(this).siblings("div[class='btnarea']");
+                showBtnArea(obj);
+
+            });
+            
+         $('.comment').change(function () {
+
+                postJudgment($(this));
+
+            });
+            
+            $('.postComment').click(function () {
+
+                console.log("click post");
+                resetComment( $(this).siblings("restBtn"));
+               
+            });
+            
+            
+             $('.resetBtn').click(function () {
+                let obj=$(this);
+                resetComment(obj);});    
+            
+             $('.checkReply').click(function () {
+
+                $(this).css('color', 'red');
+
+            });
+            
+          
 $(document).ready(function() {
 
 
@@ -201,18 +203,27 @@ function refresh() {
                         + "<div class='commentdate'>" + formatTimeStamp(data.comments[i].commentTime) + "</div>"
                         + "<p>"+data.comments[i].contentBox+"</p>"
                         + "<p><button type='button' style='width:auto' onclick='checkLogin();'>回覆</button></p>"
+                        +"<div>"
+						+"<textarea class='comment' placeholder='新增公開留言' cols='100' style='resize: none;'></textarea>"
+						+"<div class='btnarea' style='margin-left: 50%; display: none;'>"
+						+"<button class='resetBtn' type='button' style='width: auto'>取消</button>"
+						+"<button class='postComment' type='button' style='width: auto' disabled>留言</button>"
+						+"</div></div>"
                         + "<p><button type='button' style='width:auto' value=" + data.comments[i].commentId + " onclick='checkReply(this)'>查看回覆</button></p>"
                         +replyContent
                         +"</div></div>"
                         );
 
                 }
+				
             },
+			
             error: function (data) {
                 console.log("取得失敗!");
 
             }
-        })
+			
+        });
         }
         
 refresh();
