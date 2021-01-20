@@ -93,12 +93,12 @@
 
 			</div>
 			
-			<div style="margin-left: 180px">
+			<div style="margin-left: 250px">
 			<input type="button" id="yukai" value="會員">	
 			<input type="button" id="julia" value="Julia">		
 			<input type="button" id="leader" value="子雲">	
 			<input type="button" id="jack" value="柏松">	
-			<input type="button" id="skill" value="kevin">	
+		
 			<br>
 </div>
 			<div class="modal fade" id="forgot" tabindex="-1" role="dialog"
@@ -555,7 +555,10 @@
 			 $('#pwd').val('kkk123')
 		})		
 				
-			 	
+			 $('#jack').click(function(){
+			 $('#ac').val('ss0814')
+			 $('#pwd').val('kkk123')
+		})		
 				
 		
 </script>
