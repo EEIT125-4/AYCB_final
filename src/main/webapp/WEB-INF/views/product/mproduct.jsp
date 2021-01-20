@@ -37,6 +37,7 @@
 		BrandTotal();
 		CateChart();
 		BrandChart();
+		Checkstatus();
 	});
 </script>
 
@@ -134,6 +135,8 @@
 										<div class="adddiv">
 											<label class="addlab">產品圖片:</label>
 											<form:input id="productimage" type="file" path="productimage" />
+											<form:input id="productimage" type="hidden" path="productstatus" value="1" />
+											<form:input id="productimage" type="hidden" path="status" value="1" />
 											<input type="hidden" name="todo" value="add" />
 										</div>
 										<div class="adddiv">
@@ -172,7 +175,7 @@
 								<td>${pro.stock}</td>
 								<td>
 									<div class="switch">
-    									<input class="switch-checkbox" id="switchID1${pro.productno}" type="checkbox" name="switch-checkbox" checked>
+    									<input class="switch-checkbox" id="switchID1${pro.productno}" type="checkbox" name="switch-checkbox" onchange="status(${pro.productno})" checked>
     									<label class="switch-label" for="switchID1${pro.productno}">
         									<span class="switch-txt" turnOn="✔" turnOff="✘"></span>
         									<span class="switch-Round-btn"></span>
@@ -195,7 +198,6 @@
 											<div class="modal-body">
 												<div class="caption">
 													<form:form id="addform" method='POST' modelAttribute="UPBean" enctype="multipart/form-data" >
-<%-- 													<form id="addform" method='POST'> --%>
 														<div class="adddiv">
 															<label class="addlab">廠牌名稱 : </label>
 															<form:input class="addinput" type="text" path="brandname" value="${pro.brandname}" />
@@ -230,7 +232,6 @@
 														<div class="adddiv">
 															<button id="addbtn" type="submit" class="btn btn-primary">更新</button>
 														</div>
-<%-- 													</form> --%>
 													</form:form>
 												</div>
 											</div>
@@ -447,9 +448,52 @@
 			
 		})
 	}
-// 	$('#switchID1').change(function(){
-// 		alert("123");
-// 	})
+
+	function status(no) {
+		$.ajax({
+			async : true,
+			type : 'GET',
+			url : 'Statuscheck',
+			data : {
+				"no":no							
+			},
+			dataType : "json",
+			success : function(data) {
+				if(data == true) {
+					swal.fire({
+							title:'已上架',
+				  			icon:'success',
+							button: "OK",
+				  		})
+				} else {
+					$('#switchID1' + no).prop("checked", false);
+					swal.fire({
+							title:'已下架',
+				  			icon:'warning',
+							button: "OK",
+				  	})
+				}
+			}
+		})
+	}
+	
+	function Checkstatus() {
+		$.ajax({
+			type : 'GET',
+			url : 'AllStatus',
+			dataType : "json",
+			success : function(data) {
+				for (let i = 0; i < data.Products.length; i++) {
+					if(data.Products[i].status == 0) {
+						$('#switchID1' + data.Products[i].productno).prop("checked", false);
+					} else {
+						$('#switchID1' + data.Products[i].productno).prop("checked", true);
+					}
+				}
+			}
+		});
+	}
+	
 	</script>
 </body>
 </html>

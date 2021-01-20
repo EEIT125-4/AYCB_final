@@ -93,4 +93,8 @@ public interface ProductDao {
 	long getBrandCount(String brand);
 	
 	long getCateCount(String cate);
+	
+	int getStatus(int no);
+	
+	boolean updateStatus(int no, int status);
 }
