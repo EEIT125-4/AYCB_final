@@ -30,7 +30,7 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 
 
 <div class="content">
-	<h1>網誌後台</h1>
+	<div style="text-align: center;"><h1>網誌後台</h1></div>
 	<table id="myDataTable" class="display">
 		<thead>
 			<tr>
@@ -80,6 +80,10 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 	</div>
 	<div style="width: 600px;">
 		<canvas id="myChart2"></canvas>
+	</div>
+	
+	<div style="width: 600px;">
+		<canvas id="myChart3"></canvas>
 	</div>
 </div>
 
@@ -245,6 +249,8 @@ $(document).ready(function() {	});
 
 var ctx = document.getElementById('myChart').getContext('2d');
 var ctx2 = document.getElementById('myChart2').getContext('2d');
+//Kevin:類型圓餅圖
+var ctx3 = document.getElementById('myChart3').getContext('2d');
 var chart = new Chart(ctx, {
     // The type of chart we want to create
     type: 'line',
@@ -332,6 +338,28 @@ var chart2 = new Chart(ctx2, {
         }
       }
     });
+    
+    
+    //圓餅圖
+    
+    var chart = new Chart(ctx3, {
+    // The type of chart we want to create
+    type: 'pie',
+
+    // The data for our dataset
+    data: {
+        labels: ['A', 'B', 'C'],
+        datasets: [{
+            label: '部落格類型比例',
+            backgroundColor: ['rgb(255, 99, 132)','red','green'],
+            borderColor: 'black',
+            data: [4, 10, 5]
+        }]
+    },
+
+    // Configuration options go here
+    options: {}
+});
     
 
    

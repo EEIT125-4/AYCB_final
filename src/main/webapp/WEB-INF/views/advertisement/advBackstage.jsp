@@ -14,14 +14,21 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">
-<link REL=STYLESHEET HREF="${pageContext.request.contextPath}/css/inside.css" TYPE="text/css">	
+
+<link REL=STYLESHEET HREF="${pageContext.request.contextPath}/css/manager.css" TYPE="text/css">	
 
 <title>廣告維護後台</title>
+<style>
+.content {
+    width: 88%;
+    float: right;
+    margin-top: -615px;
+}
+</style>
 </head>
-<%@include file="../jspf/header.jspf"%>
-<%@include file="../jspf/managerPanel.jspf"%>
+<%@include file="../jspf/backstage.jspf"%>
 
-<div class='rightoutbox'>
+<div class="content">
 <div style="background-color: #589167;text-align: center;">
 	<h1>廣告後台</h1>
 	
@@ -52,11 +59,6 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 </div>
 
 
-
-
-
-
-<%@include file="../jspf/footer.jspf"%>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
