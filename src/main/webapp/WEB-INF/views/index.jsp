@@ -56,7 +56,8 @@
 </div>
 
 <div>
-        <span> <button id="inside_ads" type="button" value="200" data-toggle="modal" data-target="#dialog2" style="width: 100px;height: 50px;"
+        <span>
+         <button id="inside_ads" type="button" value="200" data-toggle="modal" data-target="#dialog2" style="width: 100px;height: 50px;"
                 onclick="allowClose()">顯示廣告
             </button></span>
         <span>
