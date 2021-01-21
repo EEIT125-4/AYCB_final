@@ -74,10 +74,10 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 
 			<div>
 				<textarea class="comment" placeholder="新增公開留言"
-					cols="100" style="resize: none;"></textarea>
+					cols="100" ></textarea>
 				<div class="btnarea" style="margin-left: 50%; display: none;">
 					<button class='resetBtn' type='button' style='width: auto'>取消</button>
-					<button class='postComment' type='button' style='width: auto' disabled>留言</button>
+					<button class='postComment' value='${pageContext.request.contextPath}/leaveComment?key=${video.videoId}&type=video' type='button' style='width: auto' disabled>留言</button>
 				</div>
 			</div>
 		</div>
@@ -105,8 +105,7 @@ var object = "video";
 var pk = ${video.videoId};
 var path = "${pageContext.request.contextPath}";
 var board = document.getElementById("board");
-var postUrl = path + "/leaveComment?memberid=${member.id}&key=" + pk
-		+ "&type=" + object;
+//var postUrl = path + "/leaveComment?key="+ pk+ "&type=" + object;
 var getUrl = path + "/loadComment?key=" + pk + "&type=" + object;
 var commentCount=0;
 

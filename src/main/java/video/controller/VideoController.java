@@ -60,10 +60,10 @@ public class VideoController {
 
 	) {
 		Video video = vs.queryById(videoID);
+		video.setViewCount(video.getViewCount()+1);
+		vs.updateVideo(video);
 		model.addAttribute("video", video);
-//		MemberBean memberBean=null;
-//		MemberBean member=(MemberBean)session.getAttribute("member");
-//		model.addAttribute("member", member);
+
 
 		return "video/videoWatch";
 	}
@@ -155,7 +155,10 @@ public class VideoController {
 			video.setCoverUrl(Common.saveImage(imageFile));
 			video.setUrl(Common.saveVideo(videoFile));
 			video.setCommentTime(new Timestamp(new Date().getTime()));
+			
+			
 			MemberBean member=ms.getMember(memberId);
+			if(member==null) {throw new Exception("沒有上傳會員資料");}
 			video.setMember(member);
 
 			vs.insertVideo(video);

@@ -30,6 +30,27 @@ width:100px;
 		position: absolute;
 		border-radius: 99px;
 	}	
+	
+	.top {
+		color: white;
+		background: #FF2D2D;
+		padding: 14px 10px;
+		position: fixed;
+		right: 100px;
+		bottom: 85px;
+		text-align: center;
+		border-radius: 50px;
+		
+		z-index: 1;
+	}
+	
+	   .top:hover {
+	
+		background:green;
+		
+
+	}
+	
 </style>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">	
@@ -240,6 +261,17 @@ width:100px;
 			</div>
 			<div class="canvas__open"><i class="fa fa-bars"></i></div>
 		</div>
+		
+		<button class="top" onclick="goTop();">TOP</button>
+		<script type="text/javascript">
+
+function goTop(){
+	var $body = (window.opera) ? (document.compatMode == "CSS1Compat" ? $('html') : $('body')) : $('html,body');
+	$body.animate({
+		scrollTop: 0
+	}, 200);
+}
+</script>
 </header>
 
 	

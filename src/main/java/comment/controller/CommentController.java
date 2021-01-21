@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import comment.model.CommentBean;
 import comment.service.CommentService;
+import member.MemberBean;
 import member.Service.MemberService;
 
 @SessionAttributes({ "comment","commentList" })
@@ -43,23 +46,26 @@ public class CommentController {
 	@PostMapping("/leaveComment")
 	@ResponseBody
 	public boolean leaveComment(
+			
 			@RequestParam(value = "comment")String s,
-			@RequestParam(value="memberid")Integer memberid,
+			
 			@RequestParam(value="key")Integer key,
-			@RequestParam(value="type")String type
+			@RequestParam(value="type")String type,
+			HttpSession session
 	)
 	{//Model model, @ModelAttribute("comment") CommentBean cb
 		System.out.println("leaving comment");
+		
 		try {
+			MemberBean mb=(MemberBean)session.getAttribute("member");
 			
-			System.out.println("mb id="+memberid);
 			System.out.println("key="+key);
 			System.out.println("type="+type);
 			
 		
 			CommentBean cb=new CommentBean();
 			Timestamp time = new Timestamp(new Date().getTime());
-			cb.setMember(memberService.getMember(memberid));
+			cb.setMember(mb);
 			cb.setType(type);
 			cb.setKeynumber(String.valueOf(key));
 			cb.setCommentTime(time);
