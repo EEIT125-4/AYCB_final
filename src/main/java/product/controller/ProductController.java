@@ -297,6 +297,7 @@ public class ProductController {
 		List<Integer> list = new ArrayList<>();
 		MemberBean member = (MemberBean) session.getAttribute("member");
 		List<CollectBean> collection = ps.collection(member.getId());
+		System.out.println("CCC " + collection);
 		if (collection != null) {
 			for (int i = 0; i < collection.size(); i++) {
 				list.add(collection.get(i).getPid());
@@ -335,5 +336,14 @@ public class ProductController {
 		}else {
 			return "member/login";
 		}
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@GetMapping(value = "/AllStatus", produces = "application/json")
+	public @ResponseBody Map allstatus(Model model) {
+		List<ProductBean> list = ps.getAllProducts();
+		Map map = new HashMap();
+		map.put("Products", list);
+		return map;
 	}
 }

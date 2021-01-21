@@ -195,6 +195,7 @@ public class CarWorkingController {
 			model.addAttribute("totalPrice", totalAmount);
 			model.addAttribute("totalQtyOrdered", totalQtyOrdered);
 			model.addAttribute("Shipping", Shipping);//加運費
+
 			
 			
 			System.out.println("totalPrice" + totalAmount);

@@ -37,6 +37,7 @@
 		BrandTotal();
 		CateChart();
 		BrandChart();
+		Checkstatus();
 	});
 </script>
 
@@ -91,7 +92,7 @@
 					<div class="modal-dialog" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
-								<div class="modal-title addtitle" id="modalTitle">新增商品</div>
+								<div class="modal-title" id="addtitle modalTitle"><h2><b>新增商品</b></h2></div>
 								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 								</button>
@@ -134,6 +135,8 @@
 										<div class="adddiv">
 											<label class="addlab">產品圖片:</label>
 											<form:input id="productimage" type="file" path="productimage" />
+											<form:input type="hidden" path="productstatus" value="1" />
+											<form:input type="hidden" path="status" value="1" />
 											<input type="hidden" name="todo" value="add" />
 										</div>
 										<div class="adddiv">
@@ -172,7 +175,7 @@
 								<td>${pro.stock}</td>
 								<td>
 									<div class="switch">
-    									<input class="switch-checkbox" id="switchID1${pro.productno}" type="checkbox" name="switch-checkbox" checked>
+    									<input class="switch-checkbox" id="switchID1${pro.productno}" type="checkbox" name="switch-checkbox" onchange="status(${pro.productno})" checked>
     									<label class="switch-label" for="switchID1${pro.productno}">
         									<span class="switch-txt" turnOn="✔" turnOff="✘"></span>
         									<span class="switch-Round-btn"></span>
@@ -187,7 +190,7 @@
 									<div class="modal-dialog" role="document">
 										<div class="modal-content">
 											<div class="modal-header">
-											<div class="modal-title addtitle" id="modalTitle">更新商品</div>
+											<div class="modal-title" id="modalTitle"><h2><b>更新商品</b></h2></div>
 												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 													<span aria-hidden="true">&times;</span>
 												</button>
@@ -195,7 +198,6 @@
 											<div class="modal-body">
 												<div class="caption">
 													<form:form id="addform" method='POST' modelAttribute="UPBean" enctype="multipart/form-data" >
-<%-- 													<form id="addform" method='POST'> --%>
 														<div class="adddiv">
 															<label class="addlab">廠牌名稱 : </label>
 															<form:input class="addinput" type="text" path="brandname" value="${pro.brandname}" />
@@ -219,18 +221,22 @@
 														<div class="adddiv">
 															<label class="addlab">產品價格 : </label>
 															<form:input class="addinput" type="text" path="productprice" value="${pro.productprice}" />
+														</div>
+														<div class="adddiv">
+															<label class="addlab">庫存 : </label>
+															<form:input class="addinput" type="text" path="stock" value="${pro.stock}" />
 															<form:input type="hidden" path="productno" value="${pro.productno}" />
 															<form:input type="hidden" path="brandno"  value="${pro.brandno}" />
 															<form:input type="hidden" path="skintype"  value="${pro.skintype}" />
 															<form:input type="hidden" path="imagepath" value="${pro.imagepath}" />
 															<form:input type="hidden" path="skintype" value="${pro.skintype}" />
-															<form:input type="hidden" path="stock" value="${pro.stock}" />
+															<form:input type="hidden" path="productstatus" value="${pro.productstatus}" />
+															<form:input type="hidden" path="status" value="${pro.status}" />
 															<input type="hidden" name="todo" value="update" />
 														</div>
 														<div class="adddiv">
 															<button id="addbtn" type="submit" class="btn btn-primary">更新</button>
 														</div>
-<%-- 													</form> --%>
 													</form:form>
 												</div>
 											</div>
@@ -377,7 +383,7 @@
 
 	$(function() {
 		$("#myDataTalbe").DataTable({
-			lengthMenu : [5, 10, 30, 50],
+			lengthMenu : [100],
 			columnDefs : [ {
 				orderable : true,
 			} ],
@@ -447,9 +453,52 @@
 			
 		})
 	}
-// 	$('#switchID1').change(function(){
-// 		alert("123");
-// 	})
+
+	function status(no) {
+		$.ajax({
+			async : true,
+			type : 'GET',
+			url : 'Statuscheck',
+			data : {
+				"no":no							
+			},
+			dataType : "json",
+			success : function(data) {
+				if(data == true) {
+					swal.fire({
+							title:'已上架',
+				  			icon:'success',
+							button: "OK",
+				  		})
+				} else {
+					$('#switchID1' + no).prop("checked", false);
+					swal.fire({
+							title:'已下架',
+				  			icon:'warning',
+							button: "OK",
+				  	})
+				}
+			}
+		})
+	}
+	
+	function Checkstatus() {
+		$.ajax({
+			type : 'GET',
+			url : 'AllStatus',
+			dataType : "json",
+			success : function(data) {
+				for (let i = 0; i < data.Products.length; i++) {
+					if(data.Products[i].status == 0) {
+						$('#switchID1' + data.Products[i].productno).prop("checked", false);
+					} else {
+						$('#switchID1' + data.Products[i].productno).prop("checked", true);
+					}
+				}
+			}
+		});
+	}
+	
 	</script>
 </body>
 </html>

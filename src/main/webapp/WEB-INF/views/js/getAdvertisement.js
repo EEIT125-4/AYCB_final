@@ -34,7 +34,7 @@
         //廣告相關設定
         var idle = false;
         var ads_content = document.getElementById('ads_content');
-        var fourceTime = 3;//強迫無法關閉時間     
+        var forceTime = 3;//強迫無法關閉時間     
         var Timer = null;
 
         //調整閒置時間
@@ -56,6 +56,8 @@
         $('#close_btn').click(function () {
 
             idle = false;
+            ads_content.innerHTML = "";
+            
             //暫無其他設定           
 
         })
@@ -70,12 +72,14 @@
 
         function ss() {
 
-            if (fourceTime > 0) {
-                fourceTime--;
-                $('#adText').text("再" + fourceTime + "秒後可關閉廣告");
+            if (forceTime > 0) {
+                forceTime--;
+                console.log('remain:'+forceTime);
+                
+               $('#adText').text("再" + forceTime + "秒後可關閉廣告");
 
             } else {
-                console.log("fourceTime:" + fourceTime);
+          
                 window.clearInterval(textTimer);
 
             }
@@ -86,7 +90,7 @@
 
 
 
-            fourceTime = 3;
+//            forceTime = 3;
 
             console.log("allow close");
             //按鈕隱藏
@@ -97,29 +101,35 @@
 
             $.ajax({
 
-                //Kevin:這裡是額外的廣告資源,不需馬上載入故使用非同步	
-                async: true,
+                
+                async: false,
                 type: "get",
                 url: "http://localhost:8080/AYCB_final/getOneAd",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
 
                 success: function (data) {
+                	
+                
+                	forceTime=data.advlength;
+                	console.log("forceTime="+forceTime);
+                	console.log("廣告時間:"+data.advlength);
+                   
                     console.log("ad=" + data.source);
-
+				
                     ads_content.innerHTML = data.source;
-
+                    
 
                 },
                 error: function () {
                     alert("取得廣告失敗");
                 }
 
-            })
+            });
 
 
 
-            $('#adText').text("再" + fourceTime + "秒後可關閉廣告");
+            $('#adText').text("再" + forceTime + "秒後可關閉廣告");
 
             textTimer = setInterval(ss, 1000);
 
@@ -129,7 +139,7 @@
                 $('#adText').text("可關閉廣告");
                 window.clearInterval(textTimer);
 
-            }, 3000);
+            }, forceTime*1000);
 
 
         }

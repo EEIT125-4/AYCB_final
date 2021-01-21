@@ -35,6 +35,9 @@ public interface BlogDao {
 	//search bar
 	List<Blog> selectArticle(String title);
 	
+	
+	
+	
 
 	
 

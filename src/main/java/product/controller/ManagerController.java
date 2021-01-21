@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import member.MemberBean;
 import product.model.ProductBean;
 import product.service.ProductService;
 import tool.model.Image;
@@ -121,10 +123,15 @@ public class ManagerController {
 	
 	// 刪除
 	@GetMapping(value = "/Delete", produces = "application/json")
-	public @ResponseBody boolean delete(
+	public @ResponseBody boolean delete(HttpSession session,
 			@RequestParam(value = "no", required = false) Integer no
 	) {
 		ps.deleteProduct(no);
+		
+		MemberBean member = (MemberBean) session.getAttribute("member");
+		int pk = ps.pkcollection(member.getId(), no);
+		ps.delcollection(pk);
+		
 		return true;
 	}
 	
@@ -139,21 +146,21 @@ public class ManagerController {
 //		return "product/mproduct";
 //	}
 	
-	// 後台選廠商顯示
-	@GetMapping(value = "/Brands", produces = "application/json")
-	public @ResponseBody List<String> brands(Model model) {
-		List<String> list = ps.getBrand();
-		return list;
-	}
+//	// 後台選廠商顯示
+//	@GetMapping(value = "/Brands", produces = "application/json")
+//	public @ResponseBody List<String> brands(Model model) {
+//		List<String> list = ps.getBrand();
+//		return list;
+//	}
 	
-	// 後台選廠商顯示
-	@GetMapping(value = "/GetProductsByBrand", produces = "application/json")
-	public @ResponseBody List<ProductBean> getProductsByBrand(Model model,
-			@RequestParam("brandname") String brandname
-	) {
-		List<ProductBean> list = ps.getBrandProduct(brandname);
-		return list;
-	}
+//	// 後台選廠商顯示
+//	@GetMapping(value = "/GetProductsByBrand", produces = "application/json")
+//	public @ResponseBody List<ProductBean> getProductsByBrand(Model model,
+//			@RequestParam("brandname") String brandname
+//	) {
+//		List<ProductBean> list = ps.getBrandProduct(brandname);
+//		return list;
+//	}
 	
 	@GetMapping(value = "/GetProductTotal", produces = "application/json")
 	public @ResponseBody long getProductTotal(Model model) {
@@ -207,5 +214,13 @@ public class ManagerController {
 		mav.addObject("Products", list);
 		mav.setViewName("product/mproduct");
 		return mav;
+	}
+	
+	@GetMapping(value = "/Statuscheck", produces = "application/json")
+	public @ResponseBody boolean statuscheck(Model model,
+			@RequestParam(value = "no", required = false) Integer no
+	) {
+		int status = (int)ps.getStatus(no);
+		return ps.updateStatus(no, status);
 	}
 }

@@ -3,7 +3,10 @@ package blog.controller;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
@@ -233,6 +236,9 @@ public class BlogController {
 
 	}
 	
+
+	
+	
 	@GetMapping(value="blog/adjust/")
 	@ResponseBody
 	public boolean adjustable(
@@ -250,6 +256,26 @@ public class BlogController {
 			e.printStackTrace();
 			return false;
 		}
+		
+		
+		
+		
+	}
+	
+	//取得後台分析資料
+	
+	@SuppressWarnings("rawtypes")
+	@GetMapping(value="blog/analysis")
+	@ResponseBody
+	public Map getAnalysis() {
+		
+
+		Map analysis=new HashMap();
+		
+		
+		
+		
+		return analysis;
 		
 		
 		

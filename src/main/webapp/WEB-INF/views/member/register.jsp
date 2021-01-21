@@ -406,9 +406,9 @@ $('#cpwd').blur(function() {
 	 $('#acc').val('kkk')
 	 $('#pwd').val('kkk123')
 	 $('#cpwd').val('kkk123')
-	 $('#emailcheck').val('cardibadboy@gmail.com')
+	 $('#emailcheck').val('armyant0920@gmail.com')
 	 $('#phone').val('096693696')
-	 $('#address').val('宜蘭縣三星鄉32-3')
+	 $('#address').val('宜蘭縣三星鄉')
 	 $('#introduce').val('我們真的很努力')
 	 
 })

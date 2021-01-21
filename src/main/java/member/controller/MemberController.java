@@ -85,6 +85,11 @@ public class MemberController {
 
 		return "/index"; // 請視圖解析器由視圖的邏輯名稱index來找出真正的視圖
 	}
+	
+	
+	
+	
+	
 
 	// select 後臺查詢
 	@GetMapping("member/Backstage")
@@ -281,8 +286,11 @@ public class MemberController {
 	@PostMapping("/insert")
 	
 
-	public String insert(@ModelAttribute("member") MemberBean member, BindingResult result, Model model,
-			HttpServletRequest request, HttpSession session) {
+	public void insert(@ModelAttribute("member") MemberBean member, BindingResult result, Model model,
+			HttpServletRequest request, HttpSession session,HttpServletResponse response) throws IOException {
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out=response.getWriter();
+		
 		try {
 		String sessionID=session.getId();
 		System.out.println("獲得sessionID:"+sessionID);
@@ -298,20 +306,19 @@ public class MemberController {
 		
 		session.setAttribute(sessionID, member);
 		MyMailSender.sendverificationEmail(member.getEmail(),member.getName(),"請點擊下方連結驗證您的信箱",sessionID);
-		model.addAttribute("hint", "已寄出驗證信,請在30分鐘內以信件連結驗證帳號");
+		
+		out.print("<script language='javascript'>alert('已寄出驗證信,請在30分鐘內以信件連結驗證帳號!');window.location.href='/AYCB_final/index'</script>");//"  
+//		model.addAttribute("hint", "已寄出驗證信,請在30分鐘內以信件連結驗證帳號");
 		
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute("hint", "註冊出現異常");
+			out.print("<script language='javascript'>alert('註冊出現異常!');window.location.href='/AYCB_final/index'</script>");
+			//model.addAttribute("hint", "註冊出現異常");
 		}
-		
-		
-		
-		
-		
+				
 //		session.removeAttribute("member");
-		return "redirect:member/login";
+		//return "redirect:member/login";
 
 	}
 
@@ -665,5 +672,18 @@ public class MemberController {
 		response.addCookie(cookiePassword);
 		response.addCookie(cookieRememberMe);
 	}
-
+	
+	@GetMapping("/fastlogin")
+	public String fastlogin(HttpServletRequest request,HttpSession session,@RequestParam("id")Integer id) {
+		System.out.println("++++++++++++++++++++++++++++++++++");
+		MemberBean mb = memberService.getMember(id);
+		Cookie[] cookies = request.getCookies();		
+  		for(Cookie cookie: cookies) {
+  			System.out.println("cookie name"+cookie.getName());
+  			System.out.println("cookie.value"+cookie.getValue());
+  		}
+	
+		session.setAttribute("member", mb);
+		return "index";
+	}
 }

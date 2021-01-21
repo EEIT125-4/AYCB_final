@@ -111,7 +111,7 @@
 						
 						<tr>
 							<td>
-							<label for="advLength">廣告長度</label>
+							<label for="advLength">廣告長度(秒)</label>
 							</td>
 							<td>
 							<form:input id="advLength" type="number" path="advlength" min="1" max="10" value="5"/>
@@ -150,26 +150,38 @@
 							<td><form:input type="number" id="height" path="height" min="100" max="600"/></td>
 
 						</tr>
+						<tr id="videoRow">
+							<td>上傳影片</td>
+							<td><input id="videofile" type="file" name="video" class='videofile' accept='video/*' /></td>
+							
+						</tr>
+						<tr id="drag">
+						
+						<td>上傳檔案</td>
+						<td id='dropbox' style='background:red;min-height: 300px;'	></td>
+						</tr>
+						
+						<tr>
+						<td></td>
+						<td>
+	
+						<video autoplay muted controls='controls' style='display:none' class="video_show" >
+						<source src="" id="video_here">
+						</video>
+						</td>
+						</tr>
+						
 						<tr id="imageRow">
 							<td>上傳圖片</td>
 							<td><input id="file" type="file" name="file" /></td>
 						</tr>
 						<tr id="previewRow">
-							<td>圖片預覽 
-							</td>
-							<td>
-							<img id="demo" class="preview"
-								src=
-								<c:if test='${not empty adv.source}'>
-							<c:out value='"${adv.source}"'/>
-	
-							</c:if>	
-							<c:if test='${empty adv.source}'>
-							<c:out value="''"/>
-							</c:if>
+							<td>檔案預覽</td>
 							
-							onerror="javascript:this.src='${pageContext.request.contextPath}/image/noImage.jpg'"/>
-							</td>
+							
+							<td id='preview'></td>
+<!-- 							 id='preview' -->
+							
 						</tr>
 
 						<tr>
@@ -178,15 +190,20 @@
 							
 							 				
 								<input type="submit" name="submit" value='${action}'> 
-								<input type="reset" value="清除"></td>
+								<input type="reset" value="清除">
+								
+								</td>
+								
 						</tr>
 					</table>
+<!-- 					<div id='preview'></div> -->
 				</fieldset>
 
 			</form:form>
 			
 		</div>
 	</main>
+	<button type='button' onclick='autoInput();'>一鍵輸入</button>
 </div>
 
 
@@ -194,6 +211,81 @@
 
 
 <script>
+var dropbox;
+var preview=document.getElementById('preview');
+
+dropbox = document.getElementById("dropbox");
+dropbox.addEventListener("dragenter", dragenter, false);
+dropbox.addEventListener("dragover", dragover, false);
+dropbox.addEventListener("drop", drop, false);
+
+
+$(document).on("change", ".videofile", function(evt) {
+	  var $source = $('#video_here');
+
+	  
+	  $('.video_show').show();
+	  $source[0].src = URL.createObjectURL(this.files[0]);
+	  $source.parent()[0].load();
+	});
+
+
+function drop(e) {
+	  e.stopPropagation();
+	  e.preventDefault();
+
+	  var dt = e.dataTransfer;
+	  var files = dt.files;
+
+	  handleFiles(files);
+	}
+function dragenter(e) {
+	  e.stopPropagation();
+	  e.preventDefault();
+	}
+
+	function dragover(e) {
+	  e.stopPropagation();
+	  e.preventDefault();
+	}
+	
+	function handleFiles(files) {
+		  for (var i = 0; i < files.length; i++) {
+		    var file = files[i];
+		    var imageType = /image.*/;
+		    var videoType= /video.*/;
+
+		    if (file.type.match(imageType)) {
+		    	var img = document.createElement("img");
+			    img.classList.add("obj");
+			    img.file = file;
+			    preview.appendChild(img);
+
+			    var reader = new FileReader();
+			    reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
+			    reader.readAsDataURL(file);
+		      
+		    }else if(file.type.match(videoType)){
+		    	var video = document.createElement("video");
+			    video.classList.add("videoObj");
+			    video.file = file;
+			    preview.appendChild(video);
+
+			    var reader = new FileReader();
+			    reader.onload = (function(aVideo) { return function(e) { aVideo.src = e.target.result; }; })(video);
+			    reader.readAsDataURL(file);
+		    	
+		    }else{
+		    	
+		    	continue;
+		    	
+		    }
+
+		    
+		  }
+		}
+
+
 	$('#file').change(function() {
 
 		var file = $('#file')[0].files[0];
@@ -203,6 +295,43 @@
 		};
 		reader.readAsDataURL(file);
 	});
+	
+	//一鍵輸入
+	
+	function autoInput(){
+		console.log('使用一鍵輸入');
+		$('#title').val('保養品開箱');
+		$('#sourcetype').val('1');
+		$('#advOwner').val('ROHDE');
+		$('#advCategory').val('保養品廣告');
+		let date=new Date();	
+		$('#postDate').val(getYYYYMMDD(date));
+		date.setDate(date.getDate()+30);
+		
+		$('#endDate').val(getYYYYMMDD(date));
+		$('#adsDesc').val('這是一個不錯的廣告');
+
+// 		$('#videoFile').
+		
+		
+	}
+	
+	function getYYYYMMDD(time) {
+// 			let time=new Date();
+		let mm=time.getMonth()+1;
+		 if(mm<10){
+			mm='0'+mm;	 
+		 }
+		 
+		let date = (
+		(time.getFullYear()) + "-" +mm + "-" +(time.getDate()));
+		 
+		 
+		 
+		 return date;
+// 		 time.getFullYear()+mm+time.getDate()
+	
+	}
 	
 	
 

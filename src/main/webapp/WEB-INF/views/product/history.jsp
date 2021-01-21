@@ -19,6 +19,12 @@
 	crossorigin="anonymous"></script>
 <link REL=STYLESHEET HREF="css/history.css" TYPE="text/css">
 
+<script>
+	$(document).ready(function() {
+		Allstatus();
+	});
+</script>
+
 <title>All You Can Buy</title>
 </head>
 
@@ -40,17 +46,19 @@
 			</thead>
 			<tbody>
 				<c:forEach var="history" items="${recordlist}">
-					<tr>
-						<td class="historytd"><img class="historyimg"
-							src="${pageContext.request.contextPath}/pic/${history.imagepath}">
+					<tr id="record${history.productno}">
+						<td class="historytd">
+							<div class='statusimgbox'><img id='statusimg${history.productno}' class='statusimg'></div>
+							<a id="detaila${history.productno}" href='<c:url value="/Detail" />?no=${history.productno}&cate=${history.productcategory}'>
+							<img class="historyimg" src="${pageContext.request.contextPath}/pic/${history.imagepath}"></a>
 						</td>
 						<td class="historytd">${history.productcategory}</td>
 						<td class="historytd">${history.productname}</td>
 						<td class="historytd">${history.productprice}</td>
-						<td class="historytd"><a
-							href='<c:url value="/cartAdd" />?productno=${history.productno}&count=1'
-							onclick="return addCart()"> <img class='historycartimg'
-								src='image/bg_cart_b.svg'></a></td>
+						<td class="historytd">
+							<a id="historycartimg${history.productno}" href='<c:url value="/cartAdd" />?productno=${history.productno}&count=1'> 
+							<img class='historycartimg' src='image/bg_cart_b.svg'></a>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -67,12 +75,38 @@
 	</div>
 </form>
 <script>
-	function addCart() {
-		if (confirm("加入購物車? ")) {
-			return true;
-		} else {
-			return false;
-		}
+	function Allstatus() {
+		$.ajax({
+			type : 'GET',
+			url : 'AllStatus',
+			dataType : "json",
+			success : function(data) {
+				for (let i = 0; i < data.Products.length; i++) {
+					if(data.Products[i].status == 0) {
+						$('#record' + data.Products[i].productno).css('display', 'none');
+					}
+	
+					if(data.Products[i].productstatus == 1) {
+						$('#statusimg' + data.Products[i].productno).attr('src', 'image/new.gif');
+						$('#statusimg' + data.Products[i].productno).css('display', 'block');
+					} 
+					
+					if(data.Products[i].stock == 0) {
+						$('#statusimg' + data.Products[i].productno).attr('src', 'image/soldout.gif');
+						$('#statusimg' + data.Products[i].productno).css('display', 'block');
+						$('#detaila' + data.Products[i].productno).removeAttr('href');
+						$('#historycartimg' + data.Products[i].productno).css('cursor', 'not-allowed');
+						$('#historycartimg' + data.Products[i].productno).removeAttr('href');
+					}
+					
+//	 				if(data.Products[i].productstatus == 3) {
+						
+//	 				} else {
+						
+//	 				}
+				}
+			}
+		});
 	}
 </script>
 <%@include file="../jspf/footer.jspf"%>

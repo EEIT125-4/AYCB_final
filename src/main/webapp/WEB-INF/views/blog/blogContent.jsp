@@ -1,7 +1,3 @@
-<%@page import="message.model.MessageBean"%>
-<%@page import="message.*"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.ResultSetMetaData"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%><!-- 標準寫法,詳細參考網站https://www.javatpoint.com/jstl-sql-setdatasource-tag -->
@@ -22,67 +18,14 @@
 <link href="${pageContext.request.contextPath}/css/editor.css"
 	rel="stylesheet">
 
+<link href="${pageContext.request.contextPath}/css/comment.css"
+	rel="stylesheet">
+
 
 <title>${blog.title}</title>
- <style>
-        .headpic {
-            vertical-align: middle;
-            border-radius: 50%;
-            width: 80px;
-            height: 80px;
-        }
-    
-        .reply {
-            padding: 5px 10px;
-            background: #e6e6e6;
-            color: #000000;
-            text-transform: uppercase;
-            font-size: 11px;
-            letter-spacing: .1em;
-            font-weight: 400;
-            border-radius: 4px;
-        }
-    
-        .commentdate {
-            font-size: 15px;
-            color: #589167;
-        }
-    
-        .picform {
-            width: 80px;
-            float: left;
-            list-style: none;
-        }
-    
-        .leavecomment {
-            border-color: grey;
-            border-style: solid;
-            border-width: 1px;
-            width: 800px;
-        }
-    </style>
-
-<!-- Google Font -->
-<!--     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap" -->
-<!--         rel="stylesheet"> -->
-
-<!-- Css Styles -->
-<%--     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css" type="text/css"> --%>
-<%--     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css" type="text/css"> --%>
-<%--     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/elegant-icons.css" type="text/css"> --%>
-<%--     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/magnific-popup.css" type="text/css"> --%>
-<%--     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/nice-select.css" type="text/css"> --%>
-<%--     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.carousel.min.css" type="text/css"> --%>
-<%--     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/slicknav.min.css" type="text/css"> --%>
-<%--     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type="text/css"> --%>
-
 
 <%@include file="../jspf/header.jspf"%>
 
-
-
-
-<!-- Blog Details Hero Begin -->
 <section class="breadcrumb-blog set-bg">
 	<div class="container">
 		<div class="row d-flex justify-content-center">
@@ -108,7 +51,7 @@
 	<div class="container">
 
 		<div class="row d-flex justify-content-center">
-		
+
 			<!--         圖片區 -->
 			<div class="col-lg-12">
 				<div class="blog__details__pic">
@@ -117,8 +60,8 @@
 						alt="">
 				</div>
 			</div>
-			
-			
+
+
 			<div class="col-lg-8">
 				<div class="blog__details__content">
 					<!--                     分享區 -->
@@ -145,11 +88,11 @@
 									allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
 								<!--                                 <a href="#"><i class="fa fa-facebook"></i></a> -->
 							</li>
-<!-- 							<li><a href="http://twitter.com/home/?status=https://www.removal.idv.tw/article.php" class="twitter"><i class="fa fa-twitter"></i></a></li> -->
-<!-- 							<li><a href="#" class="youtube"><i -->
-<!-- 									class="fa fa-youtube-play"></i></a></li> -->
-<!-- 							<li><a href="#" class="linkedin"><i -->
-<!-- 									class="fa fa-linkedin"></i></a></li> -->
+							<!-- 							<li><a href="http://twitter.com/home/?status=https://www.removal.idv.tw/article.php" class="twitter"><i class="fa fa-twitter"></i></a></li> -->
+							<!-- 							<li><a href="#" class="youtube"><i -->
+							<!-- 									class="fa fa-youtube-play"></i></a></li> -->
+							<!-- 							<li><a href="#" class="linkedin"><i -->
+							<!-- 									class="fa fa-linkedin"></i></a></li> -->
 						</ul>
 					</div>
 					<!--                         內文區 -->
@@ -216,63 +159,51 @@
 								<a
 									href="${pageContext.request.contextPath}/blog/${blog.blogId-1}"
 									class="blog__details__btns__item">
-									<p><span class="arrow_left"></span> 上一篇</p>
-										
-									 <!-- 									<h5>It S Classified How To Utilize Free Classified Ad Sites</h5> -->
+									<p>
+										<span class="arrow_left"></span> 上一篇
+									</p> <!-- 									<h5>It S Classified How To Utilize Free Classified Ad Sites</h5> -->
 								</a>
 							</div>
 							<div class="col-lg-6 col-md-6 col-sm-6">
 								<a
 									href="${pageContext.request.contextPath}/blog/${blog.blogId+1}"
 									class="blog__details__btns__item blog__details__btns__item--next">
-									<p>下一篇 <span class="arrow_right"></span></p>
-									 <!-- 									<h5>Tips For Choosing The Perfect Gloss For Your Lips</h5> -->
+									<p>
+										下一篇 <span class="arrow_right"></span>
+									</p> <!-- 									<h5>Tips For Choosing The Perfect Gloss For Your Lips</h5> -->
 								</a>
 							</div>
 						</div>
 					</div>
 					<!--                         留言 -->
-					<div>
-					<c:if test='${not empty member}'>
+					<div style="width: 100%; text-align: center; background: pink;margin-bottom: 100px;min-height: 300px;">
+						<c:if test='${not empty member}'>
+							<div>
+								<h4>留言區</h4>
+							</div>
 
-						<div class="blog__details__comment">
-							<h4>留個言吧</h4>
-							<form id="commentform" >
-<!-- 							action="#" -->
-<!-- 								<div class="row"> -->
-<!-- 									<div class="col-lg-4 col-md-4"> -->
-<!-- 										<input type="text" placeholder="Name"> -->
-<!-- 									</div> -->
-<!-- 									<div class="col-lg-4 col-md-4"> -->
-<!-- 										<input type="text" placeholder="Email"> -->
-<!-- 									</div> -->
-<!-- 									<div class="col-lg-4 col-md-4"> -->
-<!-- 										<input type="text" placeholder="Phone"> -->
-<!-- 									</div> -->
-									<div class="col-lg-12 text-center">
-									
-										<textarea id="comment" placeholder="Comment"></textarea>
-										<button id="postComment" type="button" class="site-btn" style="width: fit-content;" >送出留言</button>
-<!-- 										onclick="postComment();" -->
-										
-									</div>
-									
-									</form>
-								</div>
-							</c:if>
-					
-					<c:if test='${ empty member}'>
-						<a href="${pageContext.request.contextPath}/member/login">若欲留言請先登入</a>
-					</c:if>
+							<textarea class="comment" rows=10 placeholder="請輸入留言"></textarea>
+							<div class="btnarea" style="margin-left: 50%; display: none;">
+								<button class='resetBtn' type='button' style="width: fit-content; background: #111111; display: inline-block; font-size: 14px; color: #ffffff;">取消</button>
+								<button class="postComment" type="button" value='${pageContext.request.contextPath}/leaveComment?key=${blog.blogId}&type=blog'
+									style="width: fit-content; background: #111111; display: inline-block; font-size: 14px; color: #ffffff;">送出留言</button>
+
+							</div>
+
+
+
+
+
+						</c:if>
+
+						<c:if test='${ empty member}'>
+							<a href="${pageContext.request.contextPath}/member/login">若欲留言請先登入</a>
+						</c:if>
 					</div>
-					
-<!-- 					留言列 -->
-					<div id="board">
-					
-					
-					
-					</div>
-					
+
+					<!-- 					留言列 -->
+					<div id="board"></div>
+
 
 				</div>
 			</div>
@@ -296,142 +227,20 @@
 
 
 <script>
-var board=document.getElementById("board");
+<!-- 留言功能初始化 -->
+	var object = "blog";
+	var pk = ${blog.blogId};
+	var path = "${pageContext.request.contextPath}";
+	var board = document.getElementById("board");
+	//var postUrl = path + "/leaveComment?key="+ pk+ "&type=" + object;
+	var getUrl = path + "/loadComment?key=" + pk + "&type=" + object;
+	var commentCount = 0;
 
-$(document).ready(function() {
-    $("#postComment").click(function() { 
-    	console.log($("#comment").val());
-        $.ajax({
-            type: "POST", //傳送方式
-            url: "${pageContext.request.contextPath}/leaveComment?memberid=${member.id}&key=${blog.blogId}&type=blog", //傳送目的地
-            dataType: "json", //資料格式
-            data: { //傳送資料
-                "comment": $("#comment").val()
-            },
-            success: function(data) {
-            	$("#comment").val('');
-                if (data) {
-                	
-                	
-                	swal.fire({
-        				  title: "留言成功!",
-        				  text: "成功",
-        				  icon: "success",
-        				  button: "OK",
-        				});
-                	
-                	refresh();
-                	
-                } else { 
-                	swal.fire({
-      				  title: "留言失敗",
-      				  text: "oops",
-      				  icon: "error",
-      				  button: "OK",
-      				});
-                	
-                }
-            },
-            error: function(data) {
-            	swal.fire({
-    				  title: "留言失敗",
-    				  text: "oops",
-    				  icon: "error",
-    				  button: "OK",
-    				});
-              
-            }
-        })
-    })        
-});
-
-function formatTimeStamp(time){
-	   var time = new Date(time);
-	   var date = (
-			   	   (time.getFullYear())  + "-" +
-	               (time.getMonth() + 1) + "-" +
-	               (time.getDate()) + " " +
-	               (time.getHours()) + ":" +
-	               (time.getMinutes())
-// 	               + ":" +(time.getSeconds())
-	              );
-	   return date;
-	}
-
-function refresh(){
-	
-	 $.ajax({
-         type: "POST", //傳送方式
-         url: "${pageContext.request.contextPath}/loadComment?type=${blog.identify}&key=${blog.blogId}", //傳送目的地
-         dataType: "json", //資料格式
-         data: { //傳送資料
-             comment: $("#comment").text()
-
-         },
-
-         success: function(data) {
-         	
-        	 console.log("取得留言!");
-        	 console.log(data);  
-        	 $('#board').empty();
-        	 for(let i=0;i<data.comments.length;i++){
-        		 
-        		//因為append必須一次性加入所有成對標籤,不得已將回覆內容先存起來
-                 replyContent="";
-                 if(data.replys!=null){
-                 for (let j = 0; j < data.replys.length; j++) {
-                 		if (data.replys[j].keynumber == data.comments[i].commentId) {
-                  	console.log("reply=" + data.replys[j].contentBox);
-                 		replyContent+=
-                 		"<p>"
-                 		+"<div class='picform'>"
-                 		+"<img class='headpic' src=" + path + "/pic/" + data.replys[j].member.iconid+"></div>"
-                 		+ "<h5>" + data.comments[i].member.name + "</h5>"
-                      + "<div class='commentdate'>" + formatTimeStamp(data.replys[j].commentTime) + "</div>"
-                 		 + "<p>"+data.replys[j].contentBox + "</p></p>";
-                 		}
-                 		}
-                  	
-               
-                  }
-        		 
-        		 
-        		 console.log("加入留言");
-        		 $('#board').append(  
-        		 +"<p>"+i+"</p>"	 
-        		 +"<div class='leavecomment'>"
-			     
-			     +  "<div class='picform'>"
-
-			     +  "<img class='headpic' src="+"${pageContext.request.contextPath}/pic/"+data.comments[i].member.iconid
-			     +" alt='Image placeholder'>"
-			     +"</div>"
-			      +"<div>"
-			       +"<h3>"+data.comments[i].member.name+"</h3>"
-			                +"<div class='commentdate'>"+formatTimeStamp(data.comments[i].commentTime)+"</div>"
-			                +"<p>"+data.comments[i].contentBox+"</p>"
-			               +"<p><a href='#' class='reply'>回覆</a></p>"
-			            +"</div>"
-			 
-			    +"</div>"
-			    +"<br>"
-			    );
-	 
-        	 }
-         },
-         error: function(data) {
-        	 console.log("取得失敗!");
-           
-         }
-     })
-	
-}
-refresh();
-
-	
+	// 初始化結尾
 </script>
 
-
+<script src="${pageContext.request.contextPath}/js/comment.js"
+	defer="defer" charset="utf-8"></script>
 
 
 </html>

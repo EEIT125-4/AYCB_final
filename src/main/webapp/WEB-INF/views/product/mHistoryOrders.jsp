@@ -60,18 +60,36 @@ if (session.getAttribute("member") != null) {
 		z-index: 1;
 	}
 </style>
-<%@include file="../jspf/managerheader.jspf"%>
 <body style="">
-<div id="mytop">
-<br><br><br>
-	<h2 style="font-weight: bold; text-align: center">訂單管理後台</h2>
+	<%@include file="../jspf/backstage.jspf"%>
+<div id="mytop" style="position: relative;top: -650px;">
+	<h2 style="font-weight: bold; text-align: center;">訂單管理後台</h2>
 	<c:choose>
 		<c:when test="${empty AllOrders}">
-	查無資料<br>
+			查無資料<br>
 		</c:when>
 		<c:when test="${not empty AllOrders }">
 <!-- 			<hr> -->
+			<br>
+			<div style="text-align: center;font-size: 25px;">
+			<span class="">訂單總數:</span>
+			<span class="">${size}</span>
+			</div>
+			<br>
+			<br>
+			<div style="width: 800px; height: 600px;margin: auto;border: 2px solid red;">
+			<br>
+			<br>
+				<h4 style="font-weight: bold; text-align: center;">訂單品牌總覽</h4>
+				<br>
+				
+				<canvas id="myChart"></canvas><br>
+			<br>
+			<br>
+			</div>
+			<br>
 			<p class="container">
+			
 			  <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
 			    	管理訂單
 			  </button>
@@ -137,9 +155,6 @@ if (session.getAttribute("member") != null) {
 						</tbody>
 					</table>
 					<br>
-					<div style="text-align: center;">
-						<input class="btn btn-dark" type="submit" value="回後台">						
-					</div>
 				</form>
 			</fieldset>
 			  </div>
@@ -147,10 +162,10 @@ if (session.getAttribute("member") != null) {
 		</c:when>
 	</c:choose>
 	<br>
-	<br>
-	<div style="width: 600px; margin: auto;">
-		<canvas id="myChart"></canvas>
-	</div>
+					<div style="text-align: center;">
+						<input class="btn btn-dark" type="submit" value="回後台">						
+					</div>
+	
 	
 <!-- <a href=#mytop><div class="top">TOP</div></a> -->
 <a onclick="goTop();"><div class="top">TOP</div></a>
