@@ -28,10 +28,14 @@ public class ProductBean implements Serializable{
 	private String productname;
 	private String productseries;
 	private String productcategory;
-	private String skintype;
 	private Double productprice;
-	private Integer stock;
+	@Column(columnDefinition= "int NOT NULL default(0)")
+	private Integer productstatus;
 	private String imagepath;
+	private Integer stock;
+	@Column(columnDefinition= "int NOT NULL default(1)")
+	private Integer status;
+	private String skintype;
 	@Column(columnDefinition= "NVARCHAR(10) NOT NULL default('product')")
 	private final String identify="product";
 	
@@ -52,9 +56,10 @@ public class ProductBean implements Serializable{
 	public ProductBean() {
 		super();
 	}
-
+	
 	public ProductBean(Integer productno, String brandno, String brandname, String producttype, String productname,
-			String productseries, String productcategory, String skintype, Double productprice) {
+			String productseries, String productcategory, Double productprice, Integer productstatus, String imagepath,
+			Integer stock, Integer status, String skintype, MultipartFile productimage) {
 		super();
 		this.productno = productno;
 		this.brandno = brandno;
@@ -63,8 +68,13 @@ public class ProductBean implements Serializable{
 		this.productname = productname;
 		this.productseries = productseries;
 		this.productcategory = productcategory;
-		this.skintype = skintype;
 		this.productprice = productprice;
+		this.productstatus = productstatus;
+		this.imagepath = imagepath;
+		this.stock = stock;
+		this.status = status;
+		this.skintype = skintype;
+		this.productimage = productimage;
 	}
 
 	@Override
@@ -84,14 +94,18 @@ public class ProductBean implements Serializable{
 		builder.append(productseries);
 		builder.append(", productcategory=");
 		builder.append(productcategory);
-		builder.append(", skintype=");
-		builder.append(skintype);
 		builder.append(", productprice=");
 		builder.append(productprice);
-		builder.append(", stock=");
-		builder.append(stock);
+		builder.append(", productstatus=");
+		builder.append(productstatus);
 		builder.append(", imagepath=");
 		builder.append(imagepath);
+		builder.append(", stock=");
+		builder.append(stock);
+		builder.append(", status=");
+		builder.append(status);
+		builder.append(", skintype=");
+		builder.append(skintype);
 		builder.append(", identify=");
 		builder.append(identify);
 		builder.append(", productimage=");
@@ -190,5 +204,21 @@ public class ProductBean implements Serializable{
 
 	public void setImagepath(String imagepath) {
 		this.imagepath = imagepath;
+	}
+
+	public Integer getProductstatus() {
+		return productstatus;
+	}
+
+	public void setProductstatus(Integer productstatus) {
+		this.productstatus = productstatus;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 }

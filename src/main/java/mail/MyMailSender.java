@@ -75,12 +75,12 @@ public class MyMailSender {
 		BodyPart messageBodyPart = new MimeBodyPart();
 		sb.append(
 				"<div style='background-image: url(cid:image);background-size: contain; width: 600px ;height: 600px;'>");
-		sb.append("<div style=\"padding-left: 20%;padding-top: 20%;'>");
+		sb.append("<div style='padding-left: 20%;padding-top: 20%;'>");
 		sb.append("<h2>Hi," + name + "</h1><br />");
 		sb.append("<p>" + content + "</p>");
-		sb.append("<a href=\"");
+		sb.append("<a href='");
 		sb.append(Common.DOMAIN + "/AYCB_final/verification/" + sessionID);
-		sb.append("\">");
+		sb.append("'>");
 		sb.append("<h3>點擊此連結啟用您的帳號</h3>");
 		sb.append("</a>");
 		sb.append(" </div>");
@@ -91,17 +91,17 @@ public class MyMailSender {
 		// add it
 		multipart.addBodyPart(messageBodyPart);
 
-		// second part (the image)
-		messageBodyPart = new MimeBodyPart();
-		DataSource fds = new FileDataSource(new File("C:\\Users\\user\\OneDrive\\桌面\\pics\\背景\\emailbackground.jfif"));
-
-		messageBodyPart.setDataHandler(new DataHandler(fds));
-		messageBodyPart.setHeader("Content-ID", "<image>");
-
-		multipart.addBodyPart(messageBodyPart);
+//		 second part (the image)
+//		messageBodyPart = new MimeBodyPart();
+//		DataSource fds = new FileDataSource(new File("C:\\Users\\user\\OneDrive\\桌面\\pics\\背景\\emailbackground.jfif"));
+//
+//		messageBodyPart.setDataHandler(new DataHandler(fds));
+//		messageBodyPart.setHeader("Content-ID", "<image>");
+//
+//		multipart.addBodyPart(messageBodyPart);
 
 		// put everything together 加入附件檔案
-    					mimeMessage.setContent(multipart);
+    	mimeMessage.setContent(multipart);
 
 		Transport.send(mimeMessage);
 
@@ -159,18 +159,18 @@ public class MyMailSender {
 
 		messageBodyPart.setContent(sb.toString(), "text/html;charset=utf-8");
 		// add it
-		multipart.addBodyPart(messageBodyPart);
-
-		// second part (the image)
-		messageBodyPart = new MimeBodyPart();
-		DataSource fds = new FileDataSource(new File("C:\\Users\\user\\OneDrive\\桌面\\pics\\背景\\emailbackground.jfif"));
-
-		//
-		messageBodyPart.setDataHandler(new DataHandler(fds));
-		messageBodyPart.setHeader("Content-ID", "<image>");
-
-		// add image to the multipart
-		multipart.addBodyPart(messageBodyPart);
+//		multipart.addBodyPart(messageBodyPart);
+//
+//		// second part (the image)
+//		messageBodyPart = new MimeBodyPart();
+//		DataSource fds = new FileDataSource(new File("C:\\Users\\user\\OneDrive\\桌面\\pics\\背景\\emailbackground.jfif"));
+//
+//		//
+//		messageBodyPart.setDataHandler(new DataHandler(fds));
+//		messageBodyPart.setHeader("Content-ID", "<image>");
+//
+//		// add image to the multipart
+//		multipart.addBodyPart(messageBodyPart);
 
 		// put everything together 加入附件檔案
     					mimeMessage.setContent(multipart);

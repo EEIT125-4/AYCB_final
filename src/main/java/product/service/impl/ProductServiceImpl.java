@@ -228,7 +228,22 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public long getCateTotal(String cate) {
-		return dao.getCateTotal(cate);
+	public long getBrandCount(String brand) {
+		return dao.getBrandCount(brand);
+	}
+	
+	@Override
+	public long getCateCount(String cate) {
+		return dao.getCateCount(cate);
+	}
+	
+	@Override
+	public int getStatus(int no) {
+		return dao.getStatus(no);
+	}
+	
+	@Override
+	public boolean updateStatus(int no, int status) {
+		return dao.updateStatus(no, status);
 	}
 }

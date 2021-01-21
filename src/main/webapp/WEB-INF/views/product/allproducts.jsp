@@ -45,6 +45,7 @@ if (session.getAttribute("member") != null) {
 	
 	$(document).ready(function() {
 		Allproducts();
+		Allstatus();
 	});
 </script>
 
@@ -150,7 +151,7 @@ function Allproducts(i) {
 		success : function(data) {
 			var content = "";
 			for (let i = 0; i < data.Products.length; i++) {
-				content += "<div class='rightside'>"
+				content += "<div id='pro"+data.Products[i].productno+"' class='rightside'>"
 						+  "<div class='imgbox'>"
 						+  "<div id='like"+data.Products[i].productno+"' class='like'>"
 						+  "<%if (session.getAttribute("member") != null) {%>"
@@ -688,6 +689,24 @@ $(function() {
 		}, 1000);
 	});
 });
+
+function Allstatus() {
+	$.ajax({
+		type : 'GET',
+		url : 'AllStatus',
+		dataType : "json",
+		success : function(data) {
+			for (let i = 0; i < data.Products.length; i++) {
+				if(data.Products[i].status == 0) {
+					$('#pro' + data.Products[i].productno).css('display', 'none');
+				} else {
+					$('#pro' + data.Products[i].productno).css('display', 'block');
+				}
+			}
+		}
+	});
+}
+
 </script>
 <%@include file="../jspf/footer.jspf"%>
 </body>

@@ -31,7 +31,7 @@ public class AttendanceValidator implements Validator {
 		if (attendance.getPhone() != null&& attendance.getPhone().length()<10||attendance.getPhone().length()>10) {
 			errors.rejectValue("phone", "", "電話號碼格式錯誤");
 	}
-		if (attendance.getPax() != null&& attendance.getPax().equals(0)) {
+		if (attendance.getPax() != null&& attendance.getPax()<=0) {
 			errors.rejectValue("pax", "", "參加人數須大於0");
 	}
 		if (attendance.getMailaddress()!=null && !EMAIL_REGEX.matcher(attendance.getMailaddress()).matches()) {

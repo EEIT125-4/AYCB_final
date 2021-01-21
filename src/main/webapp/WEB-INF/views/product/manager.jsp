@@ -9,8 +9,7 @@
 	crossorigin="anonymous"></script>
 <script src="js/inside.js" defer="defer"></script>
 <link REL=STYLESHEET HREF="css/manager.css" TYPE="text/css">
-<link REL=STYLESHEET HREF="css/light-bootstrap-dashboard.css"
-	TYPE="text/css">
+<link REL=STYLESHEET HREF="css/light-bootstrap-dashboard.css" TYPE="text/css">
 	
 <script>
 	$(document).ready(function() {
@@ -31,7 +30,7 @@
 			</div>
 			<div class="mbtnbox">
 				<input class="mbtn" type="button" value="商品"
-					onclick='location.href="${pageContext.request.contextPath}/MProduct"'>
+					onclick='location.href="${pageContext.request.contextPath}/GetAllProduct"'>
 			</div>
 			<div class="mbtnbox">
 				<input class="mbtn" type="button" value="訂單"

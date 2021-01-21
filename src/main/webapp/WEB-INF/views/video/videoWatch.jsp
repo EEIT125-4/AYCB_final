@@ -25,7 +25,8 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 
 <title>${video.title}</title>
 <style>
@@ -72,64 +73,21 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 			</c:choose>
 
 			<div>
-
-				<!-- Kevin:需要依據使用者輸入調整textarea大小 -->
-				<!--容易忘記:textarea的placeholder要發揮作用兩個textarea之間不能有空白-->
-
-				<textarea id='comment' class="auto-height" placeholder="新增公開留言"
-					cols="100" style="resize: none;"></textarea>
-				<!-- onfocus="showBtnArea()" onchange="postJudgment()" -->
-				<div id="btnarea" style="margin-left: 50%; display: none;">
-					<!-- K:此方法暫時廢棄 onkeyup="autogrow(this);" -->
-					<button id='resetBtn' type="button" style='width: auto'>取消</button>
-					<button id='postComment' type='button' style='width: auto' disabled>留言</button>
+				<textarea class="comment" placeholder="新增公開留言"
+					cols="100" ></textarea>
+				<div class="btnarea" style="margin-left: 50%; display: none;">
+					<button class='resetBtn' type='button' style='width: auto'>取消</button>
+					<button class='postComment' value='${pageContext.request.contextPath}/leaveComment?key=${video.videoId}&type=video' type='button' style='width: auto' disabled>留言</button>
 				</div>
 			</div>
 		</div>
 
-		<div id="board">
-
-			<!-- 			<div class="leavecomment"> -->
-
-			<!-- 				<div class="picform"> -->
-			<!-- 					<img class="headpic" src="Images/slide1.jpg"> -->
-			<!-- 				</div> -->
-			<!-- 				<div> -->
-			<!-- 					<h3>John Doe</h3> -->
-			<!-- 					<div class="commentdate">April 12, 2020 at 1:21am</div> -->
-			<!-- 					<p>請問一下有沒有賣雅漾保濕舒壓潤膚乳液，加強保濕的，還有沒有買一送一?</p> -->
-			<!-- 					<p> -->
-			<!-- 						<a href="#" class="reply">回覆</a> -->
-			<!-- 					</p> -->
-			<!-- 				</div> -->
-
-
-
-		</div>
+		<div id="board"></div>
 
 
 
 	</div>
-	<div class="right_list" id="right_list">
-<!-- 		<div class="listBox"> -->
-<!-- 			<div class="list_imageBox"> -->
-<!-- 				<a href=""> <img class="video_image" src="Images/slide1.jpg" -->
-<%-- 					onerror="javascript:this.src='${pageContext.request.contextPath}/image/noImage.jpg'"> --%>
-<!-- 				</a> -->
-<!-- 			</div> -->
-<!-- 			<div class="list_info"> -->
-<!-- 				<span> -->
-<!-- 					<h5>影片標題</h5> -->
-<!-- 				</span> <span> -->
-<!-- 					<h6>上傳者</h6> -->
-<!-- 				</span> <span> -->
-<!-- 					<h6>觀看次數</h6> -->
-<!-- 				</span> <span> -->
-<!-- 					<h6>上傳時間</h6> -->
-<!-- 				</span> -->
-<!-- 			</div> -->
-
-		</div>
+	<div class="right_list" id="right_list"></div>
 
 	</div>
 </div>
@@ -147,73 +105,13 @@ var object = "video";
 var pk = ${video.videoId};
 var path = "${pageContext.request.contextPath}";
 var board = document.getElementById("board");
-var postUrl = path + "/leaveComment?memberid=${member.id}&key=" + pk
-		+ "&type=" + object;
+//var postUrl = path + "/leaveComment?key="+ pk+ "&type=" + object;
 var getUrl = path + "/loadComment?key=" + pk + "&type=" + object;
 var commentCount=0;
 
 
 
 // 初始化結尾
-
-
-// function postJudgment(){
-//     if($('#comment').val.length>0)
-//     {
-
-//         $('#postComment').attr('disabled',false);
-//     }
-
-// } 
-// function showBtnArea(){
-   
-//     $('#btnarea').css('display', 'block');
-
-// }
-
-// function resetComment(){
-//     $('#comment').val('');
-//     $('#btnarea').css('display', 'none');
-//     $('#postComment').attr('disabled',true);
-
-// }
-
-
-
-// //Kevin:根據留言內容調整大小
-// $(document).ready(function () {
-// $("textarea.auto-height").css("overflow", "hidden").bind("keydown keyup", function () {
-//     $(this).height('0px').height($(this).prop("scrollHeight") + 'px');
-// }).keydown();
-
-// $('#comment').focus(function(){
-//    showBtnArea();
-
-// });
-
-// $('#comment').change(function(){
-
-//     postJudgment();
-
-// }) ;  
-
-// $('#postComment').click(function() { 
-
-//     console.log("click post");
-//     resetComment();
-// });
-
-// $('#resetBtn').click(function(){
-
-//     resetComment();
-
-
-// })
-// });
-
-
-
-
 
 $(document).ready(function () {
 var videoList = $("#right_list");
@@ -261,87 +159,11 @@ var flag = 0;
 });
 });
 
-
-
-
-
-  //往下捲產生內容
-// $(window).scroll(function () {
-
-
-
-//     if ($(window).scrollTop() >= $(document).height() - $(window).height() && flag<=10) {
-//          console.log("增加內容");   
-//          for(let i=0;i<3;i++){
-//              flag+=1;
-//         videoList.append(
-            
-
-//             '<div class="listBox">'
-//             + '<div class="list_imageBox">'
-//             +'  <a href="">'    
-//             +"<img class='video_image' src="+"${pageContext.request.contextPath}/pic/"+1
-			
-// 			+" onerror=javascript:this.src='${pageContext.request.contextPath}/image/noImage.jpg' " 
-            
-//             +'</a>'
-//             + '</div>'
-//             + ' <div class="list_info">'
-//             + '   <span><h5>影片標題</h5></span>'
-//             + ' <span><h6>上傳者</h6></span>'
-//             + '<span><h6>觀看次數</h6></span>'
-//             + ' <span><h6>上傳時間</h6></span>'
-//             + '      </div>  </div>      '
-
-//         );
-//     }
-
-
-
-        // 	$.ajax({
-
-        // 		type:"GET",
-        // 		url:"StoreGetClassStoreAjax",
-        // 		data:{
-        // 			....
-        // 			'offset':flag
-        // 		},
-        // 		datatype:'json',
-        // 		success:function (data){
-        // 			for(var i = 0; i < data.length;i++){
-        // 				context +=
-        // 					產生內容
-        // 		}
-        // 			flag += 3;  一次產生3筆
-        // 			$("#ajax").html(context);
-
-
-        // 		}
-        // })
-
-
-
-//Kevin:這個方法只能長,不能縮,故不使用
-//function autogrow(textarea){
-
-//var adjustedHeight=textarea.clientHeight;
-//adjustedHeight=Math.max(textarea.scrollHeight,adjustedHeight);
-
-//if (adjustedHeight>textarea.clientHeight){
-
-//textarea.style.height=adjustedHeight+'px';
-//}else{
-//// textarea.style.height=textarea.clientHeight+'px';
-
-//}
-
-
-
-//}
         </script>
+        
+        <script src="${pageContext.request.contextPath}/js/comment.js" defer="defer" charset="utf-8"></script>
 
-<script src="${pageContext.request.contextPath}/js/comment.js"
-	defer="defer" charset="utf-8"></script>
+
 </body>
 
 

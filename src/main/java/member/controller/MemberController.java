@@ -281,8 +281,11 @@ public class MemberController {
 	@PostMapping("/insert")
 	
 
-	public String insert(@ModelAttribute("member") MemberBean member, BindingResult result, Model model,
-			HttpServletRequest request, HttpSession session) {
+	public void insert(@ModelAttribute("member") MemberBean member, BindingResult result, Model model,
+			HttpServletRequest request, HttpSession session,HttpServletResponse response) throws IOException {
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out=response.getWriter();
+		
 		try {
 		String sessionID=session.getId();
 		System.out.println("獲得sessionID:"+sessionID);
@@ -298,20 +301,19 @@ public class MemberController {
 		
 		session.setAttribute(sessionID, member);
 		MyMailSender.sendverificationEmail(member.getEmail(),member.getName(),"請點擊下方連結驗證您的信箱",sessionID);
-		model.addAttribute("hint", "已寄出驗證信,請在30分鐘內以信件連結驗證帳號");
+		
+		out.print("<script language='javascript'>alert('已寄出驗證信,請在30分鐘內以信件連結驗證帳號!');window.location.href='/AYCB_final/index'</script>");//"  
+//		model.addAttribute("hint", "已寄出驗證信,請在30分鐘內以信件連結驗證帳號");
 		
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute("hint", "註冊出現異常");
+			out.print("<script language='javascript'>alert('註冊出現異常!');window.location.href='/AYCB_final/index'</script>");
+			//model.addAttribute("hint", "註冊出現異常");
 		}
-		
-		
-		
-		
-		
+				
 //		session.removeAttribute("member");
-		return "redirect:member/login";
+		//return "redirect:member/login";
 
 	}
 

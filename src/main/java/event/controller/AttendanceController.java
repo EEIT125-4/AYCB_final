@@ -89,10 +89,11 @@ public class AttendanceController {
 		}
 		
 		//查詢參加活動的會員
-		@PostMapping("event/showAllAttendanceByEvent")
+		@GetMapping("event/showAllAttendanceByEvent")
 		public String attendanceOfEvent(Model model,
 				@RequestParam(value="eventid") Integer eventid
 				) {
+			System.out.println(eventid);
 			System.out.println("查詢參加活動的會員");
 			List<Attendance> attendanceOfEvent=attendanceService.getAllAttendancebyEvent(eventid);
 			model.addAttribute("attendanceOfEvent", attendanceOfEvent);
@@ -169,8 +170,10 @@ public class AttendanceController {
 				System.out.println("------------------------------------------------------------------------------"+eventid);
 				Event event = eventService.getEvent(eventid);
 				event.setPax(attendance.getPax()+event.getPax());
+				System.out.println("0000000000000000000000000000000000000000000000000000000+++++++++++參加人數"+event.getPax());
 				if(event.getPax()<=event.getTotalpax()) {
 					eventService.updateEvent(event);
+
 				}else {
 					System.out.println("222222222222222222222");
 					model.addAttribute("eventid", eventid);

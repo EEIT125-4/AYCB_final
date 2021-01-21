@@ -9,7 +9,14 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"
 	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 	crossorigin="anonymous"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+	crossorigin="anonymous">
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+	integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+	crossorigin="anonymous"></script>
 <link REL=STYLESHEET HREF="css/mproduct.css" TYPE="text/css">
 <link REL=STYLESHEET HREF="css/productswitch.css" TYPE="text/css">
 
@@ -22,6 +29,7 @@
 	src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script type="text/javascript"
 	src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 	
 <script>
 	$(document).ready(function() {
@@ -29,6 +37,7 @@
 		BrandTotal();
 		CateChart();
 		BrandChart();
+		Checkstatus();
 	});
 </script>
 
@@ -77,7 +86,68 @@
 					商品管理
 				</div>
 				<div class="addbox">
-					<button type="button" class="btn btn-primary">新增商品</button>
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#product">新增商品</button>
+				</div>
+				<div class="modal fade" id="product" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<div class="modal-title" id="addtitle modalTitle"><h2><b>新增商品</b></h2></div>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<div class="caption">
+									<form:form id="addform" method='POST' modelAttribute="ProductBean" enctype="multipart/form-data" >
+										<div class="adddiv">
+											<label class="addlab">廠牌名稱 : </label>
+											<form:input class="addinput" id="brandname" path="brandname" type="text" />
+										</div>
+										<div class="adddiv">
+											<label class="addlab">產品類型 : </label>
+											<form:select class="addsel" id="producttype" path="producttype">
+											<form:option id="producttype" value=""></form:option>
+											<form:option value="保養品">保養品</form:option>
+											<form:option value="彩妝">彩妝</form:option>
+											</form:select>
+										</div>
+										<div class="adddiv">
+											<label class="addlab">產品名稱 : </label>
+											<form:input class="addinput" id="productname" type="text" path="productname" />						
+										</div>
+										<div class="adddiv">
+											<label class="addlab">產品系列 : </label>
+											<form:input class="addinput" id="productseries" type="text" path="productseries" />
+										</div>
+										<div class="adddiv">
+											<label class="addlab">產品種類 : </label>
+											<form:input class="addinput" id="productcategory" type="text" path="productcategory" />
+										</div>
+										<div class="adddiv">
+											<label class="addlab">產品價格 : </label>
+											<form:input class="addinput" id="productprice" type="text" path="productprice" />
+										</div>
+										<div class="adddiv">
+											<label class="addlab">產品數量 : </label>
+											<form:input class="addinput" id="stock" type="text" path="stock" />
+										</div>
+										<div class="adddiv">
+											<label class="addlab">產品圖片:</label>
+											<form:input id="productimage" type="file" path="productimage" />
+											<form:input id="productimage" type="hidden" path="productstatus" value="1" />
+											<form:input id="productimage" type="hidden" path="status" value="1" />
+											<input type="hidden" name="todo" value="add" />
+										</div>
+										<div class="adddiv">
+											<button id="addbtn" type="submit" class="btn btn-primary">新增</button>
+											<button id="databtn" type="button" class="btn btn-primary">帶入資料</button>
+										</div>
+									</form:form>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div>
@@ -105,7 +175,7 @@
 								<td>${pro.stock}</td>
 								<td>
 									<div class="switch">
-    									<input class="switch-checkbox" id="switchID1${pro.productno}" type="checkbox" name="switch-checkbox" checked>
+    									<input class="switch-checkbox" id="switchID1${pro.productno}" type="checkbox" name="switch-checkbox" onchange="status(${pro.productno})" checked>
     									<label class="switch-label" for="switchID1${pro.productno}">
         									<span class="switch-txt" turnOn="✔" turnOff="✘"></span>
         									<span class="switch-Round-btn"></span>
@@ -113,9 +183,61 @@
 									</div>
 								</td>
 								<td>
-									<button type="button" class="btn btn-primary">修改</button>
-									<button type="button" class="btn btn-danger">刪除</button>
+									<button id="update${pro.productno}" type="submit" class="btn btn-primary" data-toggle="modal" data-target="#up${pro.productno}">修改</button>
+									<button id="del" type="button" class="btn btn-danger" onclick="del(${pro.productno})">刪除</button>
 								</td>
+								<div class="modal fade" id="up${pro.productno}" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+											<div class="modal-title" id="modalTitle"><h2><b>更新商品</b></h2></div>
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">
+												<div class="caption">
+													<form:form id="addform" method='POST' modelAttribute="UPBean" enctype="multipart/form-data" >
+														<div class="adddiv">
+															<label class="addlab">廠牌名稱 : </label>
+															<form:input class="addinput" type="text" path="brandname" value="${pro.brandname}" />
+														</div>
+														<div class="adddiv">
+															<label class="addlab">產品類型 : </label>
+															<form:input class="addinput" type="text" path="producttype" value="${pro.producttype}" />
+														</div>
+														<div class="adddiv">
+															<label class="addlab">產品名稱 : </label>
+															<form:input class="addinput" type="text" path="productname" value="${pro.productname}" />						
+														</div>
+														<div class="adddiv">
+															<label class="addlab">產品系列 : </label>
+															<form:input class="addinput" type="text" path="productseries" value="${pro.productseries}" />
+														</div>
+														<div class="adddiv">
+															<label class="addlab">產品種類 : </label>
+															<form:input class="addinput" type="text" path="productcategory" value="${pro.productcategory}" />
+														</div>
+														<div class="adddiv">
+															<label class="addlab">產品價格 : </label>
+															<form:input class="addinput" type="text" path="productprice" value="${pro.productprice}" />
+															<form:input type="hidden" path="productno" value="${pro.productno}" />
+															<form:input type="hidden" path="brandno"  value="${pro.brandno}" />
+															<form:input type="hidden" path="skintype"  value="${pro.skintype}" />
+															<form:input type="hidden" path="imagepath" value="${pro.imagepath}" />
+															<form:input type="hidden" path="skintype" value="${pro.skintype}" />
+															<form:input type="hidden" path="stock" value="${pro.stock}" />
+															<input type="hidden" name="todo" value="update" />
+														</div>
+														<div class="adddiv">
+															<button id="addbtn" type="submit" class="btn btn-primary">更新</button>
+														</div>
+													</form:form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -284,9 +406,94 @@
 		});
 	});
 	
-// 	$('#switchID1').change(function(){
-// 		alert("123");
-// 	})
+	$('#databtn').click(function() {
+		$('#brandname').val("Biotherm");
+		$('#producttype').val("保養品");
+		$('#productname').val("海洋深層水精油保溼噴霧");
+		$('#productseries').val("海洋系列");
+		$('#productcategory').val("精華液");
+		$('#productprice').val("1230");
+		$('#stock').val("50");
+	})
+	
+	function del(no) {
+		swal.fire({
+			title: '確定刪除商品?',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: '刪除',
+		    cancelButtonText: '取消',
+		}).then(function() {	  
+				$.ajax({
+					async : true,
+					type : 'GET',
+					url : 'Delete',
+					data : {
+						"no":no							
+					},
+					dataType : "json",
+					success : function(data) {
+// 						if(data){
+// 					  		swal.fire({
+// 								title:'刪除成功!',
+// 					  			icon:'success',
+// 								button: "OK",
+// 					  		})	
+// 						}
+					  	window.location.reload();
+					}
+				});			
+			
+		})
+	}
+
+	function status(no) {
+		$.ajax({
+			async : true,
+			type : 'GET',
+			url : 'Statuscheck',
+			data : {
+				"no":no							
+			},
+			dataType : "json",
+			success : function(data) {
+				if(data == true) {
+					swal.fire({
+							title:'已上架',
+				  			icon:'success',
+							button: "OK",
+				  		})
+				} else {
+					$('#switchID1' + no).prop("checked", false);
+					swal.fire({
+							title:'已下架',
+				  			icon:'warning',
+							button: "OK",
+				  	})
+				}
+			}
+		})
+	}
+	
+	function Checkstatus() {
+		$.ajax({
+			type : 'GET',
+			url : 'AllStatus',
+			dataType : "json",
+			success : function(data) {
+				for (let i = 0; i < data.Products.length; i++) {
+					if(data.Products[i].status == 0) {
+						$('#switchID1' + data.Products[i].productno).prop("checked", false);
+					} else {
+						$('#switchID1' + data.Products[i].productno).prop("checked", true);
+					}
+				}
+			}
+		});
+	}
+	
 	</script>
 </body>
 </html>

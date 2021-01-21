@@ -58,11 +58,12 @@ width: 100%;
 .backcontent {
 	position: absolute;
     width: 88%;
-    height: 614px;
-    margin-top: 108px;
-    margin-left: 184px;
+/*     height: 614px; */
+	inline-size: -webkit-fill-available;
+    margin-top: 15%;
+    margin-left: 12%;
     overflow: auto;
-    background-color: #F0F0F0;
+/*     background-color: #F0F0F0; */
 }
 
 .bglogo {

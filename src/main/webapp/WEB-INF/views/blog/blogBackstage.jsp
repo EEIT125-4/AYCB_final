@@ -343,9 +343,8 @@ var chart2 = new Chart(ctx2, {
 // }
 
 </script>
+
 </body>
-
-
 
 <!-- Js Plugins -->
 <%-- <script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script> --%>

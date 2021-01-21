@@ -395,10 +395,43 @@ public class ProductDaoImpl implements ProductDao {
 	}
 	
 	@Override
-	public long getCateTotal(String cate) {
-		String hql = "SELECT count(distinct p.productcategory) FROM ProductBean p WHERE p.productcategory = :productcategory";
+	public long getBrandCount(String brand) {
+		String hql = "SELECT count(distinct p.brandname) FROM ProductBean p WHERE p.brandname = :brandname";
+		Session session = factory.getCurrentSession();
+		long count = (long)session.createQuery(hql).setParameter("brandname", brand).uniqueResult();
+		return count;
+	}
+	
+	@Override
+	public long getCateCount(String cate) {
+		String hql = "SELECT count(p.productcategory) FROM ProductBean p WHERE p.productcategory = :productcategory";
 		Session session = factory.getCurrentSession();
 		long count = (long)session.createQuery(hql).setParameter("productcategory", cate).uniqueResult();
 		return count;
+	}
+	
+	@Override
+	public int getStatus(int no) {
+		String hql = "SELECT p.status FROM ProductBean p WHERE p.productno = :productno";
+		Session session = factory.getCurrentSession();
+		int status = (int)session.createQuery(hql).setParameter("productno", no).uniqueResult();
+		return status;
+	}
+	
+	@Override
+	public boolean updateStatus(int no, int status) {
+		Session session = factory.getCurrentSession();
+		boolean st;
+		ProductBean pb = getProduct(no);
+		if(status == 1) {
+			pb.setStatus(0);
+			session.saveOrUpdate(pb);
+			st = false;
+		} else {
+			pb.setStatus(1);
+			session.saveOrUpdate(pb);
+			st = true;
+		}
+		return st;
 	}
 }

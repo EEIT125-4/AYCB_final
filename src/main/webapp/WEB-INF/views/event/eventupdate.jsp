@@ -34,11 +34,11 @@
 <%@include file="../jspf/header.jspf"%>
 
 	<p>&nbsp;</p>
-	<hr>
-	<div class='center'>
-		<H1 class='center'>更新活動資料</H1>
-		<hr>
-		<form:form method='POST' modelAttribute='event' enctype='multipart/form-data'>
+	
+	<div class='container' >
+		<H4 class='center'>更新活動資料</H4>
+	
+		<form:form method='POST' modelAttribute='event' enctype='multipart/form-data' cssStyle="text-align: center">
 			<input type="hidden" name="eventid" value="${event.eventid}"> 
 <%-- 			<input type="hidden" name="memberid" value="${event.memberid}">  --%>
 			<input type="hidden" name="finalDecision" value="">
@@ -57,7 +57,7 @@
 					<TD align="LEFT">
 					<select name="eventcategory" value="${event.eventcategory}${param.eventcategory}">
 					 <option value="NONE">請選擇</option>					
-				     <option value="手做" >手做</option>					
+				     <option value="體驗" >體驗</option>					
 				     <option value="教學" >教學</option>					
 				     <option value="新品發表" >新品發表</option>					
 				     <option value="促銷" >促銷</option>					
@@ -126,7 +126,7 @@
 					<TD colspan="2" align="center">
 					<input type="submit" value="更新" name='updateBtn' onclick="return confirmUpdate('${event.eventid}');">
 						
-					<input type="submit" value="刪除" name='deleteBtn' onclick="return confirmDelete('${event.eventid}');"></TD>
+					<input type="hidden" value="刪除" name='deleteBtn' onclick="return confirmDelete('${event.eventid}');"></TD>
 						
 				</TR>
 			</Table>
