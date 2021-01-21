@@ -180,10 +180,10 @@ public class OrderController {
 		session.removeAttribute("totalPrice");
 		session.removeAttribute("totalQtyOrdered");
 		session.removeAttribute("Shipping");
-			
-//		String clientBackURL="http://localhost:8080/AYCB_final/ToBill";		
-//		String form=genAioCheckOutALL(order.getOrderNo(), order.getTotalAmount(), context.getContextPath(),itemDetail,clientBackURL)	;
-//		session.setAttribute("form", form);
+		
+		String clientBackURL="http://localhost:8080/AYCB_final/orderManagement";		
+		String form=genAioCheckOutALL(order.getOrderNo(), order.getTotalAmount(), context.getContextPath(),itemDetail,clientBackURL)	;
+		session.setAttribute("form", form);
 		
 		//session.removeAttribute("cart");
 		//session.invalidate();
@@ -294,6 +294,7 @@ public class OrderController {
 	}
 	
 	
+	@SuppressWarnings({ "unused", "unchecked" })
 	@GetMapping("/ToBill")
 	public String toBill(Model model ) {
 		
@@ -302,12 +303,16 @@ public class OrderController {
 		if(memberBean == null) {
 			return "redirect:/member/login";
 		}
+		 String account = memberBean.getAccount();
+		 String name = memberBean.getName();
+		 model.addAttribute("account", account);
+		 model.addAttribute("name", name);
+		 
 		 String email = (String) model.getAttribute("email");
 		 String phone = (String) model.getAttribute("phone");
 		 String address = (String) model.getAttribute("address");
 		 String receiveName = (String) model.getAttribute("receiveName");
-		
-		
+
 		
 		return "product/orderBill";
 	}

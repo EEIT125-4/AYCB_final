@@ -30,7 +30,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
+<jsp:useBean   id="today"  class="java.util.Date" scope="session"/> 
 <title>結帳明細</title>
 <style>
 .progress_bar {
@@ -111,8 +111,91 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 	</ol>
 </div>
 <br><br>
+	<FORM style="margin: 0 auto; width:750px;" action="" method="" >
+   <TABLE border='1' style="background:#F5EBFF; border-color:rgb( 100, 100, 255); border-style: outset; width:810;">
+      <TR >
+         <TD style="text-align:left; border-color: #FFBD32; border-style: ridge;">
+         	會員編號：${account}
+         </TD>
+         <TD style="text-align:left; border-color: #FFBD32; border-style: ridge;">
+         	顧客姓名：${name}
+         </TD>
+         <TD style="text-align:left; border-color: #FFBD32; border-style: ridge;">
+         	訂單日期：<fmt:formatDate value="${today}" pattern="yyyy-MM-dd"/>
+         </TD>
+      </TR>
+       <TR>
+         <TD colspan='3' style="text-align:left; border-color: #FFBD32; border-style: ridge;">
+         	收件人：${receiveName}
+         </TD>
+      </TR>
+       <TR>
+         <TD colspan='3' style="text-align:left; border-color: #FFBD32; border-style: ridge;">
+         	聯絡電話：${phone}
+         </TD>
+      </TR>
+      <TR>
+         <TD colspan='3' style="text-align:left; border-color: #FFBD32; border-style: ridge;">
+         	出貨地址：${address}
+         </TD>
+      </TR>    
+      <TR>
+    	<TD colspan='3'>
+         
+   <TABLE border='1' style="background:#FFE7CD; border-color:rgb( 100, 100, 255); " >
+      
+     <TR>
+     	<th style="text-align: center; vertical-align: middle; width: 150px" scope="col">商品</th>
+		<th style="text-align: center; vertical-align: middle; width: 150px" scope="col">品牌</th>
+		<th style="text-align: center; vertical-align: middle; width: 250px" scope="col">系列</th>				
+		<th style="text-align: center; vertical-align: middle;" scope="col">價格</th>
+		<th style="text-align: center; vertical-align: middle;" scope="col">數量</th>
+		<th style="text-align: center; vertical-align: middle;" scope="col">小計</th>
+     </TR>
+	 		<%
+					
+     			List<CartItem> cart = (ArrayList<CartItem>) session.getAttribute("cart");
+ 				for (CartItem item : cart) {
+ 			%>                                    
+         <TR > 
+        <td style="text-align: center; vertical-align: middle;"><%=item.getProductName()%></td>
+        <td style="text-align: center; vertical-align: middle;"><%=item.getBrandName()%></td>
+        <td style="text-align: center; vertical-align: middle;"><%=item.getProductSeries()%></td>
+        <td style="text-align: center; vertical-align: middle;">NT$ <fmt:formatNumber value="<%=item.getProductPrice()%>"  pattern="###,###" /></td>
+        <td style="text-align: center; vertical-align: middle;"><%=item.getQtyOrdered()%></td>
+<%--         <td style="text-align: center; vertical-align: middle;">NT$ <fmt:formatNumber value="<%=item.getProductPrice() * item.getQtyOrdered()%>"  pattern="###,###" /></td> --%>
+         </TR>
+  			<% 
+  				}  
+ 			%> 
+        <TR height='16'>
+          <TD style="text-align:right;font-size: 11pt;" colspan='5' >合計金額：</TD>
+          <TD style="text-align:right;font-size: 11pt;" >
+          <fmt:formatNumber value="${totalPrice}" pattern="#,###,###" />元</TD>
+                  
+        </TR>
+        <TR>
+          <TD colspan='5' style="text-align:right;font-size: 11pt;" >貨運費：</TD>
+          <TD style="text-align:right;font-size: 11pt;" > 50元</TD>
+        </TR>
+        <TR>
+          <TD colspan='5' style="text-align:right;font-size: 11pt;" >總計金額：</TD>
+          <TD style="text-align:right;font-size: 11pt;color:#AA0200;" >
+          <fmt:formatNumber value="${Shipping}" pattern="#,###,###" />元</TD>
+        </TR>
+   </TABLE>
+          </TD>
+      </TR>
+ 
+   </TABLE><P/>
 
-
+</FORM>
+<% 		
+// 		session.removeAttribute("cart");
+// 		session.removeAttribute("totalPrice");
+// 		session.removeAttribute("totalQtyOrdered");
+// 		session.removeAttribute("Shipping");
+%>
 			<br>
 			<br>
 			<br>
@@ -129,25 +212,7 @@ function goTop(){
 	}, 200);
 }
 
-function checkQty(e){
-	var xhr = new XMLHttpRequest();
-	xhr.open("GET", '<c:url value="/setQtyAjax" />?id='+e+"&Qty="+$("#"+e).val()
-			, true);
-	xhr.send();
-	xhr.onload = function() {
-		if (xhr.readyState == 4 && xhr.status == 200) {
-			Swal.fire({
-				  icon: 'success',
-				  title: '修改成功',
-				  showConfirmButton: false,
-				  timer: 1500
-				})
-		}else{
-			//alert("fail")
-		}
-	
-	console.log($("#"+e).val())
-	}
+
 }
 </script>
 </body>

@@ -15,11 +15,21 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">
 
+<link REL=STYLESHEET HREF="${pageContext.request.contextPath}/css/manager.css" TYPE="text/css">	
 <title>網誌後台</title>
-<%@include file="../jspf/header.jspf"%>
+<style>
+.content {
+    width: 88%;
+    float: right;
+    margin-top: -615px;
+}
+</style>
+</head>
+
+<%@include file="../jspf/backstage.jspf"%>
 
 
-<div>
+<div class="content">
 	<h1>網誌後台</h1>
 	<table id="myDataTable" class="display">
 		<thead>
@@ -94,7 +104,7 @@ var table=document.getElementById("myDataTable");
 
         $(function () {
 
-            $("#myDataTable").DataTable({
+           var tb= $("#myDataTable").DataTable({
                 searching: true, 
                 columnDefs: [{
 //                     targets: [10],
@@ -106,11 +116,22 @@ var table=document.getElementById("myDataTable");
 
 <script>
 
-
-$(document).ready(function() {
+//K:暫時沒東西要放在ready
+$(document).ready(function() {	});
 	
-	var tb= document.getElementById('myDataTable');
+// 	var tb= $('#myDataTable').DataTable();
+	
+	$('#myDataTable tbody').on('click','tr',function(){
+		if($(this).hasClass('selected')){
+			
+			 $(this).removeClass('selected');
+		}else {
+            tb.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }		
+		
 	});
+
 	
 	
     $(".status").change(function() { 
@@ -186,7 +207,10 @@ $(document).ready(function() {
       		      				  button: "OK",
       		      				});
     		            		console.log("this="+$(this));
-    		            		$(this).parent().parent().remove();
+    		            		var target=$(this).parent().parent();
+    		            		target.css({"color":"red","border":"2px solid red"});
+    		            		tb.row('.selected').remove().draw( false );
+    		            	
 //     		            		var target=$(this).parent().parent();
 //     		            		target.css({"color":"red","border":"2px solid red"});
     		            		
@@ -347,16 +371,6 @@ var chart2 = new Chart(ctx2, {
 </body>
 
 <!-- Js Plugins -->
-<%-- <script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script> --%>
-<%-- <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script> --%>
-<%-- <script src="${pageContext.request.contextPath}/js/jquery.nice-select.min.js"></script> --%>
-<%-- <script src="${pageContext.request.contextPath}/js/jquery.nicescroll.min.js"></script> --%>
-<%-- <script src="${pageContext.request.contextPath}/js/jquery.magnific-popup.min.js"></script> --%>
-<%-- <script src="${pageContext.request.contextPath}/js/jquery.countdown.min.js"></script> --%>
-<%-- <script src="${pageContext.request.contextPath}/js/jquery.slicknav.js"></script> --%>
-<%-- <script src="${pageContext.request.contextPath}/js/mixitup.min.js"></script> --%>
-<%-- <script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script> --%>
-<%-- <script src="${pageContext.request.contextPath}/js/main.js"></script> --%>
 
 
 </html>

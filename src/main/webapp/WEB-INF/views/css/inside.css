@@ -122,8 +122,8 @@
     width: 200px;
     height: 200px;
 }
+
 .proimg:hover{
-	
 	transform:scale(1.25,1.25);
 }
 
@@ -156,6 +156,7 @@
 .cartimg {
     width: 30px;
     height: 30px;
+    cursor: pointer;
 }
 
 .cart {
@@ -401,6 +402,10 @@ input:-webkit-autofill:focus {
     height: 150px;
 }
 
+.listproimg:hover{
+	transform:scale(1.25,1.25);
+}
+
 .listinfobox {
 	float: left;
 	margin: 10px;
@@ -421,6 +426,7 @@ input:-webkit-autofill:focus {
 	position: absolute;
     width: 40px;
     height: 40px;
+    margin-top: 5px;
     margin-left: 95%;
     line-height: 40px;
     background-color: transparent;
@@ -483,4 +489,28 @@ input:-webkit-autofill:focus {
 .listcarttext {
     font-size: 30px;
     font-weight: bold;
+}
+
+.statusimgbox {
+	position: absolute;
+	z-index: 1;
+}
+
+.statusimg {
+	width: 60px;
+	height: 35px;
+	display: none;
+}
+
+.liststatusimgbox {
+	position: absolute;
+	margin-top: 5px;
+    margin-left: 83.5%;
+	z-index: 1;
+}
+
+.liststatusimg {
+	width: 80px;
+	height: 40px;
+	display: none;
 }
