@@ -539,25 +539,26 @@
 				
 	
 		$('#yukai').click(function(){
-			 $('#ac').val('pororo159')
-			 $('#pwd').val('kkk123')
+			 //$('#ac').val('pororo159')
+			 //$('#pwd').val('kkk123')
+			 window.location.href='/AYCB_final/fastlogin?id=1092';
 		})		
 		
 
 		
 		$('#julia').click(function(){
-			 $('#ac').val('c19352125')
-			 $('#pwd').val('kkk123')
+// 			 $('#ac').val('c19352125')
+// 			 $('#pwd').val('kkk123')
+			 window.location.href='/AYCB_final/fastlogin?id=1092';
 		})		
 			
 			$('#leader').click(function(){
-			 $('#ac').val('pp063075')
-			 $('#pwd').val('kkk123')
+				window.location.href='/AYCB_final/fastlogin?id=1035';
+			
 		})		
 				
 			 $('#jack').click(function(){
-			 $('#ac').val('ss0814')
-			 $('#pwd').val('kkk123')
+				 window.location.href='/AYCB_final/fastlogin?id=1093';
 		})		
 				
 		

@@ -85,6 +85,11 @@ public class MemberController {
 
 		return "/index"; // 請視圖解析器由視圖的邏輯名稱index來找出真正的視圖
 	}
+	
+	
+	
+	
+	
 
 	// select 後臺查詢
 	@GetMapping("member/Backstage")
@@ -667,5 +672,20 @@ public class MemberController {
 		response.addCookie(cookiePassword);
 		response.addCookie(cookieRememberMe);
 	}
+	
+	@GetMapping("/fastlogin")
+	public String fastlogin(HttpServletRequest request,HttpSession session,@RequestParam("id")Integer id) {
+		System.out.println("++++++++++++++++++++++++++++++++++");
+		MemberBean mb = memberService.getMember(id);
+		Cookie[] cookies = request.getCookies();		
+  		for(Cookie cookie: cookies) {
+  			System.out.println("cookie name"+cookie.getName());
+  			System.out.println("cookie.value"+cookie.getValue());
+  		}
+		
 
+		
+		session.setAttribute("member", mb);
+		return "index";
+	}
 }
