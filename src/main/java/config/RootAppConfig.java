@@ -43,10 +43,10 @@ public class RootAppConfig {
 		} catch (PropertyVetoException e) {
 			e.printStackTrace();
 		}
-		ds.setJdbcUrl("jdbc:sqlserver://10.31.25.143:1433;DatabaseName=project");
+//		ds.setJdbcUrl("jdbc:sqlserver://10.31.25.143:1433;DatabaseName=project");
 		//如果跑本機,記得切換
-//		ds.setJdbcUrl("jdbc:sqlserver://127.0.0.1:1433;DatabaseName=project");
-		ds.setInitialPoolSize(4);
+		ds.setJdbcUrl("jdbc:sqlserver://127.0.0.1:1433;DatabaseName=project");
+		//ds.setInitialPoolSize(4);
 		ds.setMaxPoolSize(8);
 		return ds;
 	}

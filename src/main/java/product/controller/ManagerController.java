@@ -139,21 +139,21 @@ public class ManagerController {
 //		return "product/mproduct";
 //	}
 	
-	// 後台選廠商顯示
-	@GetMapping(value = "/Brands", produces = "application/json")
-	public @ResponseBody List<String> brands(Model model) {
-		List<String> list = ps.getBrand();
-		return list;
-	}
+//	// 後台選廠商顯示
+//	@GetMapping(value = "/Brands", produces = "application/json")
+//	public @ResponseBody List<String> brands(Model model) {
+//		List<String> list = ps.getBrand();
+//		return list;
+//	}
 	
-	// 後台選廠商顯示
-	@GetMapping(value = "/GetProductsByBrand", produces = "application/json")
-	public @ResponseBody List<ProductBean> getProductsByBrand(Model model,
-			@RequestParam("brandname") String brandname
-	) {
-		List<ProductBean> list = ps.getBrandProduct(brandname);
-		return list;
-	}
+//	// 後台選廠商顯示
+//	@GetMapping(value = "/GetProductsByBrand", produces = "application/json")
+//	public @ResponseBody List<ProductBean> getProductsByBrand(Model model,
+//			@RequestParam("brandname") String brandname
+//	) {
+//		List<ProductBean> list = ps.getBrandProduct(brandname);
+//		return list;
+//	}
 	
 	@GetMapping(value = "/GetProductTotal", produces = "application/json")
 	public @ResponseBody long getProductTotal(Model model) {
@@ -207,5 +207,13 @@ public class ManagerController {
 		mav.addObject("Products", list);
 		mav.setViewName("product/mproduct");
 		return mav;
+	}
+	
+	@GetMapping(value = "/Statuscheck", produces = "application/json")
+	public @ResponseBody boolean statuscheck(Model model,
+			@RequestParam(value = "no", required = false) Integer no
+	) {
+		int status = (int)ps.getStatus(no);
+		return ps.updateStatus(no, status);
 	}
 }

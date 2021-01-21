@@ -91,11 +91,16 @@
 				<a href="<c:url value="/register"/>" class="btn" style="width:90px;margin-top:15px"
 					role="button" aria-pressed="true"><b>立即註冊</b></a>
 
-
-
 			</div>
+			
+			<div style="margin-left: 250px">
+			<input type="button" id="yukai" value="會員">	
+			<input type="button" id="julia" value="Julia">		
+			<input type="button" id="leader" value="子雲">	
+			<input type="button" id="jack" value="柏松">	
+		
 			<br>
-
+</div>
 			<div class="modal fade" id="forgot" tabindex="-1" role="dialog"
 				aria-labelledby="exampleModalLongTitle" aria-hidden="true">
 				<div class="modal-dialog" role="document">
@@ -139,6 +144,8 @@
 		</fieldset>
 	</form>
 	<form id="test" action="<c:url value="/index" />"></form>
+	
+	
 
 </div>
 <%@include file="../jspf/footer.jspf"%>
@@ -530,11 +537,28 @@
 			setCookie(name,null,-1);
 		 }
 				
+	
+		$('#yukai').click(function(){
+			 $('#ac').val('pororo159')
+			 $('#pwd').val('kkk123')
+		})		
+		
+
+		
+		$('#julia').click(function(){
+			 $('#ac').val('c19352125')
+			 $('#pwd').val('kkk123')
+		})		
+			
+			$('#leader').click(function(){
+			 $('#ac').val('pp063075')
+			 $('#pwd').val('kkk123')
+		})		
 				
-				
-				
-				
-				
+			 $('#jack').click(function(){
+			 $('#ac').val('ss0814')
+			 $('#pwd').val('kkk123')
+		})		
 				
 		
 </script>
