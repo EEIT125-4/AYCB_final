@@ -682,9 +682,7 @@ public class MemberController {
   			System.out.println("cookie name"+cookie.getName());
   			System.out.println("cookie.value"+cookie.getValue());
   		}
-		
-
-		
+	
 		session.setAttribute("member", mb);
 		return "index";
 	}
