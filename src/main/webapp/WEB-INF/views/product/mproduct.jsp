@@ -383,7 +383,7 @@
 
 	$(function() {
 		$("#myDataTalbe").DataTable({
-			lengthMenu : [50],
+			lengthMenu : [100],
 			columnDefs : [ {
 				orderable : true,
 			} ],

@@ -257,17 +257,19 @@ function Brandproducts(brand, i) {
 						+  "<button id='likebtn"+data.Products[i].productno+"' class='like_button' onclick='Collect("+${member.id}+","+data.Products[i].productno+")'>"
 						+  "<i id='heart"+data.Products[i].productno+"' class='fa fa-heart-o'></i></button>"
 						+  "<%}%>"
-						+  "</div><a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
+						+  "</div>"
+						+  "<div class='statusimgbox'><img id='statusimg"+data.Products[i].productno+"' class='statusimg'></div>"
+						+  "<a id='detaila"+data.Products[i].productno+"'href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
 						+  "<img class='proimg' src='${pageContext.request.contextPath}/pic/"+data.Products[i].imagepath+"'></a></div>"
 						+  "<div class='proname'>"+data.Products[i].productname+"</div>"
 						+  "<div class='buttonbox'>"
 						+  "<div class='proprice'>NT$"+data.Products[i].productprice+"</div>"
 						+  "<div class='cart'>"
 						+  "<%if (login) {%>"
-						+  "<img class='cartimg' onclick='addCart("+data.Products[i].productno+")' src='image/bg_cart_b.svg'>"
+						+  "<img id='cartimg"+data.Products[i].productno+"' class='cartimg' onclick='addCart("+data.Products[i].productno+")' src='image/bg_cart_b.svg'>"
 						+  "<%} else {%>"
 						+  "<a href='${pageContext.request.contextPath}/member/login'>"
-						+  "<img class='cartimg' src='image/bg_cart_b.svg'></a>"
+						+  "<img id='cartimg"+data.Products[i].productno+"' class='cartimg' src='image/bg_cart_b.svg'>"
 						+  "<%}%>"
 						+  "</div></div></div>";
 			}
@@ -313,10 +315,10 @@ function Brandproducts(brand, i) {
 						+  "<div class='listproprice'>NT$"+data.Products[i].productprice+"</div>"
 						+  "<div class='listcart'>"
 						+  "<%if (login) {%>"
-						+  "<a class='listcart_a' href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
+						+  "<a id='listcart_a"+data.Products[i].productno+"' class='listcart_a' href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
 						+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
 						+  "<%} else {%>"
-						+  "<a class='listcart_a' href='${pageContext.request.contextPath}/member/login'>"
+						+  "<a id='listcart_a"+data.Products[i].productno+"' class='listcart_a' href='${pageContext.request.contextPath}/member/login'>"
 						+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
 						+  "<%}%>"
 						+  "</div></div></div>";
@@ -356,17 +358,19 @@ function Seriesproducts(series, i) {
 						+  "<button id='likebtn"+data.Products[i].productno+"' class='like_button' onclick='Collect("+${member.id}+","+data.Products[i].productno+")'>"
 						+  "<i id='heart"+data.Products[i].productno+"' class='fa fa-heart-o'></i></button>"
 						+  "<%}%>"
-						+  "</div><a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
+						+  "</div>"
+						+  "<div class='statusimgbox'><img id='statusimg"+data.Products[i].productno+"' class='statusimg'></div>"
+						+  "<a id='detaila"+data.Products[i].productno+"'href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
 						+  "<img class='proimg' src='${pageContext.request.contextPath}/pic/"+data.Products[i].imagepath+"'></a></div>"
 						+  "<div class='proname'>"+data.Products[i].productname+"</div>"
 						+  "<div class='buttonbox'>"
 						+  "<div class='proprice'>NT$"+data.Products[i].productprice+"</div>"
 						+  "<div class='cart'>"
 						+  "<%if (login) {%>"
-						+  "<img class='cartimg' onclick='addCart("+data.Products[i].productno+")' src='image/bg_cart_b.svg'>"
+						+  "<img id='cartimg"+data.Products[i].productno+"' class='cartimg' onclick='addCart("+data.Products[i].productno+")' src='image/bg_cart_b.svg'>"
 						+  "<%} else {%>"
 						+  "<a href='${pageContext.request.contextPath}/member/login'>"
-						+  "<img class='cartimg' src='image/bg_cart_b.svg'></a>"
+						+  "<img id='cartimg"+data.Products[i].productno+"' class='cartimg' src='image/bg_cart_b.svg'>"
 						+  "<%}%>"
 						+  "</div></div></div>";
 			}
@@ -412,10 +416,10 @@ function Seriesproducts(series, i) {
 						+  "<div class='listproprice'>NT$"+data.Products[i].productprice+"</div>"
 						+  "<div class='listcart'>"
 						+  "<%if (login) {%>"
-						+  "<a class='listcart_a' href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
+						+  "<a id='listcart_a"+data.Products[i].productno+"' class='listcart_a' href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
 						+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
 						+  "<%} else {%>"
-						+  "<a class='listcart_a' href='${pageContext.request.contextPath}/member/login'>"
+						+  "<a id='listcart_a"+data.Products[i].productno+"' class='listcart_a' href='${pageContext.request.contextPath}/member/login'>"
 						+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
 						+  "<%}%>"
 						+  "</div></div></div>";
@@ -455,19 +459,21 @@ function Cateproducts(cate, i) {
 						+  "<button id='likebtn"+data.Products[i].productno+"' class='like_button' onclick='Collect("+${member.id}+","+data.Products[i].productno+")'>"
 						+  "<i id='heart"+data.Products[i].productno+"' class='fa fa-heart-o'></i></button>"
 						+  "<%}%>"
-						+  "</div><a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
+						+  "</div>"
+						+  "<div class='statusimgbox'><img id='statusimg"+data.Products[i].productno+"' class='statusimg'></div>"
+						+  "<a id='detaila"+data.Products[i].productno+"'href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
 						+  "<img class='proimg' src='${pageContext.request.contextPath}/pic/"+data.Products[i].imagepath+"'></a></div>"
 						+  "<div class='proname'>"+data.Products[i].productname+"</div>"
 						+  "<div class='buttonbox'>"
 						+  "<div class='proprice'>NT$"+data.Products[i].productprice+"</div>"
 						+  "<div class='cart'>"
 						+  "<%if (login) {%>"
-						+  "<img class='cartimg' onclick='addCart("+data.Products[i].productno+")' src='image/bg_cart_b.svg'>"
+						+  "<img id='cartimg"+data.Products[i].productno+"' class='cartimg' onclick='addCart("+data.Products[i].productno+")' src='image/bg_cart_b.svg'>"
 						+  "<%} else {%>"
 						+  "<a href='${pageContext.request.contextPath}/member/login'>"
-						+  "<img class='cartimg' src='image/bg_cart_b.svg'></a>"
-						+  "<%}%>" 
-						+ "</div></div></div>";
+						+  "<img id='cartimg"+data.Products[i].productno+"' class='cartimg' src='image/bg_cart_b.svg'>"
+						+  "<%}%>"
+						+  "</div></div></div>";
 			}
 			$("#standardarea").html(content);
 
@@ -510,10 +516,10 @@ function Cateproducts(cate, i) {
 						+  "<div class='listproprice'>NT$"+data.Products[i].productprice+"</div>"
 						+  "<div class='listcart'>"
 						+  "<%if (login) {%>"
-						+  "<a class='listcart_a' href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
+						+  "<a id='listcart_a"+data.Products[i].productno+"' class='listcart_a' href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
 						+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
 						+  "<%} else {%>"
-						+  "<a class='listcart_a' href='${pageContext.request.contextPath}/member/login'>"
+						+  "<a id='listcart_a"+data.Products[i].productno+"' class='listcart_a' href='${pageContext.request.contextPath}/member/login'>"
 						+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
 						+  "<%}%>"
 						+  "</div></div></div>";
@@ -554,19 +560,21 @@ function Keywordproducts(i) {
 						+  "<button id='likebtn"+data.Products[i].productno+"' class='like_button' onclick='Collect("+${member.id}+","+data.Products[i].productno+")'>"
 						+  "<i id='heart"+data.Products[i].productno+"' class='fa fa-heart-o'></i></button>"
 						+  "<%}%>"
-						+  "</div><a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
+						+  "</div>"
+						+  "<div class='statusimgbox'><img id='statusimg"+data.Products[i].productno+"' class='statusimg'></div>"
+						+  "<a id='detaila"+data.Products[i].productno+"'href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
 						+  "<img class='proimg' src='${pageContext.request.contextPath}/pic/"+data.Products[i].imagepath+"'></a></div>"
 						+  "<div class='proname'>"+data.Products[i].productname+"</div>"
 						+  "<div class='buttonbox'>"
 						+  "<div class='proprice'>NT$"+data.Products[i].productprice+"</div>"
 						+  "<div class='cart'>"
 						+  "<%if (login) {%>"
-						+  "<img class='cartimg' onclick='addCart("+data.Products[i].productno+")' src='image/bg_cart_b.svg'>"
+						+  "<img id='cartimg"+data.Products[i].productno+"' class='cartimg' onclick='addCart("+data.Products[i].productno+")' src='image/bg_cart_b.svg'>"
 						+  "<%} else {%>"
 						+  "<a href='${pageContext.request.contextPath}/member/login'>"
-						+  "<img class='cartimg' src='image/bg_cart_b.svg'></a>"
-						+  "<%}%>" 
-						+ "</div></div></div>";
+						+  "<img id='cartimg"+data.Products[i].productno+"' class='cartimg' src='image/bg_cart_b.svg'>"
+						+  "<%}%>"
+						+  "</div></div></div>";
 			}
 			$("#standardarea").html(content);
 
@@ -609,10 +617,10 @@ function Keywordproducts(i) {
 						+  "<div class='listproprice'>NT$"+data.Products[i].productprice+"</div>"
 						+  "<div class='listcart'>"
 						+  "<%if (login) {%>"
-						+  "<a class='listcart_a' href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
+						+  "<a id='listcart_a"+data.Products[i].productno+"' class='listcart_a' href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
 						+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
 						+  "<%} else {%>"
-						+  "<a class='listcart_a' href='${pageContext.request.contextPath}/member/login'>"
+						+  "<a id='listcart_a"+data.Products[i].productno+"' class='listcart_a' href='${pageContext.request.contextPath}/member/login'>"
 						+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
 						+  "<%}%>"
 						+  "</div></div></div>";
@@ -737,14 +745,14 @@ function Allstatus() {
 				if(data.Products[i].stock == 0) {
 					$('#statusimg' + data.Products[i].productno).attr('src', 'image/soldout.gif');
 					$('#statusimg' + data.Products[i].productno).css('display', 'block');
-					$('#cartimg' + data.Products[i].productno).css('cursor', 'not-allowed');
 					$('#detaila' + data.Products[i].productno).removeAttr('href');
+					$('#cartimg' + data.Products[i].productno).css('cursor', 'not-allowed');
 					$('#cartimg' + data.Products[i].productno).removeAttr('onclick');
 					
 					$('#liststatusimg' + data.Products[i].productno).attr('src', 'image/soldout.gif');
 					$('#liststatusimg' + data.Products[i].productno).css('display', 'block');
-					$('#listcart_a' + data.Products[i].productno).css('cursor', 'not-allowed');
 					$('#listdetaila' + data.Products[i].productno).removeAttr('href');
+					$('#listcart_a' + data.Products[i].productno).css('cursor', 'not-allowed');
 					$('#listcart_a' + data.Products[i].productno).removeAttr('href');
 				}
 				

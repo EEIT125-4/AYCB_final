@@ -344,7 +344,6 @@ public class ProductController {
 		List<ProductBean> list = ps.getAllProducts();
 		Map map = new HashMap();
 		map.put("Products", list);
-		System.out.println("MMM " + map);
 		return map;
 	}
 }

@@ -20,6 +20,12 @@ if (session.getAttribute("member") != null) {
 	crossorigin="anonymous"></script>
 <link REL=STYLESHEET HREF="css/collect.css" TYPE="text/css">
 
+<script>
+	$(document).ready(function() {
+		Allstatus();
+	});
+</script>
+
 <title>All You Can Buy</title>
 </head>
 
@@ -29,51 +35,90 @@ if (session.getAttribute("member") != null) {
 		<table class="liketb">
 			<caption class="ct">收藏清單</caption>
 			<c:if test='${not empty collection}'>
-			<thead>
-				<tr>
-					<th class="liketh">圖片</th>
-					<th class="liketh">商品種類</th>
-					<th class="liketh">品名</th>
-					<th class="liketh">價格</th>
-					<th class="liketh">購買</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="col" items="${collection}">
+				<thead>
 					<tr>
-						<td class="liketd">
-							<a href='<c:url value="/Detail" />?no=${col.productno}&cate=${col.productcategory}'>						
-							<img class="likeimg" src="${pageContext.request.contextPath}/pic/${col.imagepath}"></a>
-						</td>
-						<td class="liketd">${col.productcategory}</td>
-						<td class="liketd">${col.productname}</td>
-						<td class="liketd">${col.productprice}</td>
-						<td class="liketd"><a
-							href='<c:url value="/cartAdd" />?productno=${col.productno}&count=1'
-							onclick="return addCart()"> <img class='likecartimg'
-								src='image/bg_cart_b.svg'></a></td>
+						<th class="liketh">圖片</th>
+						<th class="liketh">商品種類</th>
+						<th class="liketh">品名</th>
+						<th class="liketh">價格</th>
+						<th class="liketh">購買</th>
 					</tr>
-				</c:forEach>
-			</tbody>
+				</thead>
+				<tbody>
+					<c:forEach var="col" items="${collection}">
+						<tr id="col${col.productno}">
+							<td class="liketd">
+								<div class='statusimgbox'>
+									<img id='statusimg${col.productno}' class='statusimg'>
+								</div> <a id="detaila${col.productno}"
+								href='<c:url value="/Detail" />?no=${col.productno}&cate=${col.productcategory}'>
+									<img class="likeimg"
+									src="${pageContext.request.contextPath}/pic/${col.imagepath}">
+							</a>
+							</td>
+							<td class="liketd">${col.productcategory}</td>
+							<td class="liketd">${col.productname}</td>
+							<td class="liketd">${col.productprice}</td>
+							<td class="liketd"><a id="likecartimg${col.productno}"
+								href='<c:url value="/cartAdd" />?productno=${col.productno}&count=1'>
+									<img class='likecartimg' src='image/bg_cart_b.svg'>
+							</a></td>
+						</tr>
+					</c:forEach>
+				</tbody>
 			</c:if>
-			</table>
-			<c:if test='${ empty collection}'>
+		</table>
+		<c:if test='${ empty collection}'>
 			<div class="nolist">
 				<b>目前無收藏紀錄</b>
 			</div>
-			</c:if>
+		</c:if>
 	</div>
 	<div class="backbtn">
 		<input class="btn btn-dark" type="submit" value="回會員中心">
 	</div>
 </form>
 <script>
-	function addCart() {
-		if (confirm("加入購物車? ")) {
-			return true;
-		} else {
-			return false;
-		}
+	function Allstatus() {
+		$.ajax({
+			type : 'GET',
+			url : 'AllStatus',
+			dataType : "json",
+			success : function(data) {
+				for (let i = 0; i < data.Products.length; i++) {
+					if (data.Products[i].status == 0) {
+						$('#col' + data.Products[i].productno).css('display',
+								'none');
+					}
+
+					if (data.Products[i].productstatus == 1) {
+						$('#statusimg' + data.Products[i].productno).attr(
+								'src', 'image/new.gif');
+						$('#statusimg' + data.Products[i].productno).css(
+								'display', 'block');
+					}
+
+					if (data.Products[i].stock == 0) {
+						$('#statusimg' + data.Products[i].productno).attr(
+								'src', 'image/soldout.gif');
+						$('#statusimg' + data.Products[i].productno).css(
+								'display', 'block');
+						$('#detaila' + data.Products[i].productno).removeAttr(
+								'href');
+						$('#likecartimg' + data.Products[i].productno).css(
+								'cursor', 'not-allowed');
+						$('#likecartimg' + data.Products[i].productno)
+								.removeAttr('href');
+					}
+
+					//	 				if(data.Products[i].productstatus == 3) {
+
+					//	 				} else {
+
+					//	 				}
+				}
+			}
+		});
 	}
 </script>
 <%@include file="../jspf/footer.jspf"%>
