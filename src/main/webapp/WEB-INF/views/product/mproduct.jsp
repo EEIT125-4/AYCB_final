@@ -135,8 +135,8 @@
 										<div class="adddiv">
 											<label class="addlab">產品圖片:</label>
 											<form:input id="productimage" type="file" path="productimage" />
-											<form:input id="productimage" type="hidden" path="productstatus" value="1" />
-											<form:input id="productimage" type="hidden" path="status" value="1" />
+											<form:input type="hidden" path="productstatus" value="1" />
+											<form:input type="hidden" path="status" value="1" />
 											<input type="hidden" name="todo" value="add" />
 										</div>
 										<div class="adddiv">
@@ -230,6 +230,8 @@
 															<form:input type="hidden" path="skintype"  value="${pro.skintype}" />
 															<form:input type="hidden" path="imagepath" value="${pro.imagepath}" />
 															<form:input type="hidden" path="skintype" value="${pro.skintype}" />
+															<form:input type="hidden" path="productstatus" value="${pro.productstatus}" />
+															<form:input type="hidden" path="status" value="${pro.status}" />
 															<input type="hidden" name="todo" value="update" />
 														</div>
 														<div class="adddiv">

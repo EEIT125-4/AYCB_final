@@ -214,11 +214,11 @@ function Allproducts(i) {
 						+  "<div class='listproprice'>NT$"+data.Products[i].productprice+"</div>"
 						+  "<div class='listcart'>"
 						+  "<%if (login) {%>"
-						+  "<a class='listcart_a' href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
-						+  "<img id='listcartimg"+data.Products[i].productno+"' class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
+						+  "<a id='listcart_a"+data.Products[i].productno+"' class='listcart_a' href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
+						+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
 						+  "<%} else {%>"
-						+  "<a class='listcart_a' href='${pageContext.request.contextPath}/member/login'>"
-						+  "<img id='listcartimg"+data.Products[i].productno+"' class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
+						+  "<a id='listcart_a"+data.Products[i].productno+"' class='listcart_a' href='${pageContext.request.contextPath}/member/login'>"
+						+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
 						+  "<%}%>"
 						+  "</div></div></div>";
 			}
@@ -740,11 +740,12 @@ function Allstatus() {
 					$('#cartimg' + data.Products[i].productno).css('cursor', 'not-allowed');
 					$('#detaila' + data.Products[i].productno).removeAttr('href');
 					$('#cartimg' + data.Products[i].productno).removeAttr('onclick');
+					
 					$('#liststatusimg' + data.Products[i].productno).attr('src', 'image/soldout.gif');
 					$('#liststatusimg' + data.Products[i].productno).css('display', 'block');
-					$('#listcartimg' + data.Products[i].productno).css('cursor', 'not-allowed');
+					$('#listcart_a' + data.Products[i].productno).css('cursor', 'not-allowed');
 					$('#listdetaila' + data.Products[i].productno).removeAttr('href');
-					$('#listcartimg' + data.Products[i].productno).removeAttr('onclick');
+					$('#listcart_a' + data.Products[i].productno).removeAttr('href');
 				}
 				
 // 				if(data.Products[i].productstatus == 3) {

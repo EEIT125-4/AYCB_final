@@ -426,6 +426,7 @@ input:-webkit-autofill:focus {
 	position: absolute;
     width: 40px;
     height: 40px;
+    margin-top: 5px;
     margin-left: 95%;
     line-height: 40px;
     background-color: transparent;
@@ -496,8 +497,8 @@ input:-webkit-autofill:focus {
 }
 
 .statusimg {
-	width: 50px;
-	height: 25px;
+	width: 60px;
+	height: 35px;
 	display: none;
 }
 
@@ -509,7 +510,7 @@ input:-webkit-autofill:focus {
 }
 
 .liststatusimg {
-	width: 50px;
-	height: 25px;
+	width: 80px;
+	height: 40px;
 	display: none;
 }
