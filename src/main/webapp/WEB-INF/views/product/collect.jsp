@@ -41,8 +41,9 @@ if (session.getAttribute("member") != null) {
 			<tbody>
 				<c:forEach var="col" items="${collection}">
 					<tr>
-						<td class="liketd"><img class="likeimg"
-							src="${pageContext.request.contextPath}/pic/${col.imagepath}">
+						<td class="liketd">
+							<a href='<c:url value="/Detail" />?no=${col.productno}&cate=${col.productcategory}'>						
+							<img class="likeimg" src="${pageContext.request.contextPath}/pic/${col.imagepath}"></a>
 						</td>
 						<td class="liketd">${col.productcategory}</td>
 						<td class="liketd">${col.productname}</td>
