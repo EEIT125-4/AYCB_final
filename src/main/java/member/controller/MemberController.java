@@ -686,4 +686,7 @@ public class MemberController {
 		session.setAttribute("member", mb);
 		return "index";
 	}
+	
+	
+	
 }

@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -26,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.google.gson.Gson;
 
 import event.validator.AttendanceValidator;
 import member.MemberBean;
@@ -40,6 +41,7 @@ public class VideoController {
 
 	@Autowired
 	VideoService vs;
+	
 	
 	@Autowired
 	MemberService ms;
@@ -195,6 +197,8 @@ public class VideoController {
 	// 去到更新的頁面
 	@GetMapping("/uploadedVideo")
 	public String UploadedVideo() {
+		
+		
 		return "video/videoUpdate";
 	}
 
@@ -229,5 +233,30 @@ public class VideoController {
 	public String delete(@RequestParam(value = "aid", required = false) Integer aid) {
 		vs.deleteVideo(aid);
 		return "redirect:/video/video";
+	}
+	
+	@GetMapping(value="video/MyVideoList")
+	@ResponseBody
+	public String getMyVideoList(HttpSession session) {//@RequestAttribute("member")MemberBean mb
+		
+		MemberBean mb=(MemberBean)session.getAttribute("member");
+		if(mb!=null) {
+			Gson gson=new Gson();
+			
+			//debug
+			List<Video> videos=vs.getVideoByMember(mb);
+			for(Video v:videos) {
+				System.out.println("v:"+v.getTitle());
+				
+			}
+			
+			return gson.toJson(vs.getVideoByMember(mb));
+		}else {
+			return null;
+		}
+		
+		
+		
+		
 	}
 }
