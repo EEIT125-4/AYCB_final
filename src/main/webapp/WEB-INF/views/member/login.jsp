@@ -549,7 +549,7 @@
 		$('#julia').click(function(){
 // 			 $('#ac').val('c19352125')
 // 			 $('#pwd').val('kkk123')
-			 window.location.href='/AYCB_final/fastlogin?id=1092';
+			 window.location.href='/AYCB_final/fastlogin?id=1096';
 		})		
 			
 			$('#leader').click(function(){
