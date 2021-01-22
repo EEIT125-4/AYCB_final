@@ -35,10 +35,11 @@
 
 	<p>&nbsp;</p>
 	
-	<div class='container' >
-		<H4 class='center'>更新活動資料</H4>
+	<div class='container'>
+		
 	
-		<form:form method='POST' modelAttribute='event' enctype='multipart/form-data' cssStyle="text-align: center">
+		<form:form method='POST' modelAttribute='event' enctype='multipart/form-data' cssStyle="padding-left:300px">
+		    <legend>更新活動資料</legend>
 			<input type="hidden" name="eventid" value="${event.eventid}"> 
 <%-- 			<input type="hidden" name="memberid" value="${event.memberid}">  --%>
 			<input type="hidden" name="finalDecision" value="">

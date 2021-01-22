@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import comment.model.CommentBean;
 import comment.service.CommentService;
 import member.MemberBean;
+import product.cartModel.OrderItemBean;
 import product.model.CollectBean;
 import product.model.ProductBean;
 import product.service.ProductService;
@@ -82,6 +83,10 @@ public class ProductController {
 
 	@GetMapping("/All")
 	public String all() {
+		List<OrderItemBean> o = new ArrayList<OrderItemBean>();
+		o = ps.getTopfive();
+		System.out.println("Ts " + o);
+		System.out.println("TT " + ps.getAllProducts());
 		return "product/allproducts";
 	}
 
@@ -341,10 +346,22 @@ public class ProductController {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@GetMapping(value = "/AllStatus", produces = "application/json")
 	public @ResponseBody Map allstatus(Model model) {
+		List top5 = ps.getTopfive();
+		ProductBean pb = new ProductBean();
+		for(int i=0 ; i<top5.size() ; i++) {
+			pb = ps.getProduct((int)top5.get(i));
+			if(pb.getStock() == 0) {
+				pb.setProductstatus(2);
+				ps.updateProduct(pb);
+			} else {
+				pb.setProductstatus(3);
+				ps.updateProduct(pb);
+			}
+		}
+		
 		List<ProductBean> list = ps.getAllProducts();
 		Map map = new HashMap();
 		map.put("Products", list);
-		System.out.println("MMM " + map);
 		return map;
 	}
 }

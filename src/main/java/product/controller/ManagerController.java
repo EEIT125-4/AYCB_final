@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import member.MemberBean;
 import product.model.ProductBean;
 import product.service.ProductService;
 import tool.model.Image;
@@ -52,6 +54,10 @@ public class ManagerController {
 	) {
 		System.out.println(todo);
 		if(todo.equals("update")) {
+			if(upb.getStock() == 0) {
+				upb.setProductstatus(2);
+				ps.updateProduct(upb);
+			}
 			ps.updateProduct(upb);
 			return "redirect:/GetAllProduct";
 		} else {
@@ -121,10 +127,15 @@ public class ManagerController {
 	
 	// 刪除
 	@GetMapping(value = "/Delete", produces = "application/json")
-	public @ResponseBody boolean delete(
+	public @ResponseBody boolean delete(HttpSession session,
 			@RequestParam(value = "no", required = false) Integer no
 	) {
 		ps.deleteProduct(no);
+		
+		MemberBean member = (MemberBean) session.getAttribute("member");
+		int pk = ps.pkcollection(member.getId(), no);
+		ps.delcollection(pk);
+		
 		return true;
 	}
 	

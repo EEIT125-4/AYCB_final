@@ -33,9 +33,12 @@
 </head>
 <%@include file="../jspf/header.jspf"%>
 
-	<div class="container center" style="background-color: lightgray">
-		<h3>更新報名資料</h3>
-		<form:form method="POST" modelAttribute="attendance">
+	<div class="container" >		
+		<div class="row">
+		<div class="col-md-3"></div>
+		<div class="col-md-6">
+		<form:form method="POST" modelAttribute="attendance" >
+		<legend><h3>更新報名資料</h3></legend>
 			<input type="hidden" name="eventid" value="${attendance.event.eventid}"> 
 			<input type="hidden" name="memberid" value="${attendance.member.id}"> 
 			<input type="hidden" name="aid" value="${attendance.aid}"> 
@@ -103,9 +106,10 @@
 				<c:remove var="member" scope="request" />
 			</c:if>
 		</form:form>
-		
+</div>		
 		<small>&lt;&lt;<a href="javascript:history.back()">回上一頁</a>&gt;&gt;</small>
-		
+		<div class="col-md-3"></div>
+		</div>
 	</div>
 
 <%@include file="../jspf/footer.jspf"%> 

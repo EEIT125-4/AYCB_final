@@ -105,16 +105,16 @@ width:100px;
 		<div class="offcanvas__option">
 			<div class="offcanvas__links">
 				<a id="login" href="${pageContext.request.contextPath}/<%=(mb==null)?"member/login":"member/update" %>"><%=(mb == null) ? "登入/註冊" : mb.getName()%></a> 
-				<a href="#">FAQs</a>
+				<a href="#">會員中心</a>
 			</div>
-			<div class="offcanvas__top__hover">
-			<span>Usd <i class="arrow_carrot-down"></i></span>
-                <ul>
-                    <li>USD</li>
-                    <li>EUR</li>
-                    <li>USD</li>
-                </ul>
-			</div>
+<!-- 			<div class="offcanvas__top__hover"> -->
+<!-- 			<span>Usd <i class="arrow_carrot-down"></i></span> -->
+<!--                 <ul> -->
+<!--                     <li>USD</li> -->
+<!--                     <li>EUR</li> -->
+<!--                     <li>USD</li> -->
+<!--                 </ul> -->
+<!-- 			</div> -->
 	</div>
 		<%
 			int size = 0;
@@ -146,15 +146,19 @@ width:100px;
 
 	<header class="header">
 		<div class="header__top" style="background-color: #060606">
-			<div class="container" >
+			<div class="container">
 				<div class="row">
-					<div class="col-lg-6 col-md-8">
-						<div class="header__top__left" >
-							<a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/image/logo.png"></a>
-						    <a href="${pageContext.request.contextPath}/"><img style="margin-left: 150px" src="${pageContext.request.contextPath}/image/2.png"></a>
+					<div class="col-lg-2 col-md-2">
+					<div><a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/image/logo.png"></a>						    
+						</div>
+					 </div>
+					<div class="col-lg-2 col-md-2"></div>
+				    <div class="col-lg-4 col-md-4">
+						<div>
+						    <a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/image/2.png"></a>
 						</div>											
 					</div>
-					<div class="col-lg-6 col-md-4">
+					<div class="col-lg-4 col-md-4">
 						<div class="header__top__right">						
 							<div class="header__top__links">
 							<c:if test='${member.id>0}'>
@@ -162,13 +166,7 @@ width:100px;
 							<input type="image" src="${pageContext.request.contextPath}/pic/${member.iconid}" data-toggle="modal" data-target="#more${member.id}" class="user-icon" >
 							</p>	
 							</c:if>
-								<a id="login" href="${pageContext.request.contextPath}/<%=(mb==null)?"member/login":"member/update" %>"><%=(mb == null) ? "登入/註冊" : mb.getName()%></a>
-								
-
-<%-- 		不要解鎖by怡佳						<a  href="${pageContext.request.contextPath}/car/">購物車</a>	 --%>
-								
-<%-- 								<a id="logout" href='${pageContext.request.contextPath}/logout'><%=(mb == null) ? "" : "登出"%></a>	 --%>				
-
+								<a id="login" href="${pageContext.request.contextPath}/<%=(mb==null)?"member/login":"member/update" %>"><%=(mb == null) ? "登入/註冊" : mb.getName()%></a>									
 								<c:if test="${not empty member}">
 								<div class="modal fade" id="more${member.id}" tabindex="-1"
 								role="dialog" aria-labelledby="exampleModalLongTitle"
@@ -183,8 +181,7 @@ width:100px;
 											</button>
 										</div>
 										<div class="modal-body">
-										<div style="text-align: center;">
-										
+										<div style="text-align: center;">										
 											<img width='180' height='200' src='${pageContext.request.contextPath}/pic/${member.iconid}' />
 										</div>
 											<div class="caption">
@@ -196,7 +193,7 @@ width:100px;
 											<div class="modal-footer">											
 											<a href='${pageContext.request.contextPath}/member/update' class="btn btn-secondary" >會員中心</a>											 
 											<c:if test="${member.level=='999' }">
-											<a href="${pageContext.request.contextPath}/Manager" class="btn btn-secondary" >管理後臺</a>
+											<a href="${pageContext.request.contextPath}/Manager" class="btn btn-secondary" >後臺</a>
 											</c:if>
 																		 
                                             <a href='${pageContext.request.contextPath}/logout' class="btn btn-primary">登出</a>
@@ -208,25 +205,20 @@ width:100px;
 							</c:if>
 									
 							</div>
-							<div class="header__top__hover"></div>
+				
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="container">
+		<div class="container" style=" height:60px;" >
 			<div class="row">
-				<div class="col-lg-1 col-md-3">					
-					<div class="header__logo">
-<%-- 						<a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/image/logo.png"></a> --%>
-					</div>
+				<div class="col-lg-2 col-md-3">	
 				</div>
 				<div class="col-lg-8 col-md-6">
 					<nav class="header__menu mobile-menu">
-						<ul>
-<%-- 							<li><a href="${pageContext.request.contextPath}/message/query">訊息中心</a> --%>
-							<li><a href='<c:url value="/All"/>' >保養品</a>
-							
+						<ul style="line-height: 15px"> 							
+							<li><a href='<c:url value="/All"/>' >保養品</a>							
 <%-- 							<li><a href="${pageContext.request.contextPath}/return" >退換貨原則</a> --%>
 <!-- 									<ul class="dropdown"> -->
 <%-- 										<c:forEach var="cate" varStatus='vs' items="${cate}"> --%>
@@ -243,7 +235,7 @@ width:100px;
 						</ul>
 					</nav>
 				</div>
-				<div class="col-lg-1 col-md-3">
+				<div class="col-lg-2 col-md-3" >
 					<div class="header__nav__option">
 					<form action="Keyword" style="height:0">
 <!-- 						<input type="text" name="keyword" style="width: 150px"> -->
@@ -263,7 +255,7 @@ width:100px;
 		</div>
 		<input type="hidden" id="memberid" value='${member.id }'>
 		<button class="top" onclick="goTop();">TOP</button>
-		<script type="text/javascript">
+<script type="text/javascript">
 
 function goTop(){
 	var $body = (window.opera) ? (document.compatMode == "CSS1Compat" ? $('html') : $('body')) : $('html,body');
