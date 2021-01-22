@@ -14,10 +14,10 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 <head>
 
 <meta charset="UTF-8">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/comment.css">
+
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">
+	<link REL=STYLESHEET HREF="${pageContext.request.contextPath}/css/inside.css" TYPE="text/css">
 
 <title>你的影片</title>
 
@@ -35,6 +35,11 @@ td{
 
 border :1px solid black;
 
+}
+
+body{
+
+	background-image:url(${pageContext.request.contextPath}/image/backstage2.jpg);background-size: cover;
 }
 
 </style>	
@@ -129,7 +134,7 @@ border :1px solid black;
 
 
 
-		<%@include file="../jspf/footer.jspf"%>
+<%-- 		<%@include file="../jspf/footer.jspf"%> --%>
 
 
 		<!-- Js Plugins -->

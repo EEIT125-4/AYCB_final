@@ -8,14 +8,51 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.css"/>
 <link REL="STYLESHEET" HREF="${pageContext.request.contextPath}/css/manager.css" TYPE="text/css">
-<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.js"></script>
-
-
-	
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.js"></script>	
 <title></title>
 </head>
 <body>
-<div class="backcontent" id="backcontent">
+<div class="back" style="width:180px">
+			<div class="title" style="text-align: left">後臺管理</div>
+			<div class="mbtnbox">
+				<input class="mbtn" type="button" value="會員"
+					onclick='location.href="${pageContext.request.contextPath}/member/Backstage"'>
+			</div>
+			<div class="mbtnbox">
+				<input class="mbtn" type="button" value="商品"
+					onclick='location.href="${pageContext.request.contextPath}/GetAllProduct"'>
+			</div>
+			<div class="mbtnbox">
+				<input class="mbtn" type="button" value="訂單"
+					onclick='location.href="${pageContext.request.contextPath}/orderManager"'>
+			</div>
+			<div class="mbtnbox">
+				<input class="mbtn" type="button" value="訊息"
+					onclick='location.href="#"'>
+			</div>
+			<div class="mbtnbox">
+				<input class="mbtn" type="button" value="活動"
+					onclick='location.href="${pageContext.request.contextPath}/event/backstageshowEvent"'>
+			</div>
+			<div class="mbtnbox">
+				<input class="mbtn" type="button" value="留言板"
+					onclick='location.href="#"'>
+			</div>
+			<div class="mbtnbox">
+				<input class="mbtn" type="button" value="部落格"
+					onclick='location.href="blog/backstage"'>
+			</div>
+			<div class="mbtnbox">
+				<input class="mbtn" type="button" value="影音區"
+					onclick='location.href="#"'>
+			</div>
+			<div class="mbtnbox">
+				<input class="mbtn" type="button" value="廣告區"
+					onclick='location.href="${pageContext.request.contextPath}/advertisement"'>
+			</div>
+		</div>
+
+<div style="margin: 200px 0px 0px 200px" id="backcontent">
 				
 				<c:choose>
 					<c:when test='${empty events}'>查無報名資料<br></c:when> 
@@ -71,7 +108,7 @@ $('#showattendancebyevent${event.eventid}').click(function(){
 						</table>
 					</c:otherwise>
 				</c:choose>
-			</div>
+</div>
 			
 		
 </body>

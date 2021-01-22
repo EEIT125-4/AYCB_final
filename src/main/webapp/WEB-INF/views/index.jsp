@@ -56,10 +56,10 @@
 	<!-- </div> -->
 
 	<div class="adbox">
-		<ul class="adbox_slides">
-			<li><img src="image/BIOTHERM.jpg"></li>
+		<ul class="adbox_slides"  id="adbox_slides">
+			<li><img src="image/BIOTHERM0122.jpg"></li>
 			<li><img src="image/ad1.jpg"></li>
-			<li><img src="image/ad2.png"></li>
+			<li><img src="image/l_occitane0122.jpg"></li>
 		</ul>
 		<ul class="adbox_dot">
 			<li id="1"></li>
@@ -94,6 +94,9 @@
 			</c:forEach>
 		</div>
 	</div>
+	
+	
+    <!-- Product Section End -->
 
 	<!-- <div> -->
 	<!--         <span> <button id="inside_ads" type="button" value="200" data-toggle="modal" data-target="#dialog2" style="width: 100px;height: 50px;" -->
@@ -205,6 +208,33 @@
 	}
 
 	getAds();
+	
+	
+	//IMAGE RESIZE
+	$(window).bind("load", function() {
+		$('#adbox_slides img').each(function() {
+		var maxWidth = 1540;
+		var maxHeight = 800;
+		var ratio = 0;
+		var width = $(this).width();
+		var height = $(this).height();
+		if(width > maxWidth){
+		ratio = maxWidth / width;
+		$(this).css("width", maxWidth);
+		$(this).css("height", height * ratio);
+		height = height * ratio;
+		}
+		var width = $(this).width();
+		var height = $(this).height();
+		if(height > maxHeight){
+		ratio = maxHeight / height;
+		$(this).css("height", maxHeight);
+		$(this).css("width", width * ratio);
+		width = width * ratio;
+		}
+		});
+		
+		});
 </script>
 <script src="${pageContext.request.contextPath}/js/Home.js" defer="defer"></script>
 <script>

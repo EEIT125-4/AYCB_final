@@ -164,7 +164,7 @@
 		</fieldset>
 	</form:form>
 </div>
-<%-- <%@include file="../jspf/footer.jspf"%> --%>
+<%@include file="../jspf/footer.jspf"%>
 
 <!-- Js Plugins -->
 <script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>

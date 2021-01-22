@@ -7,9 +7,9 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"
 	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 	crossorigin="anonymous"></script>
-<script src="js/inside.js" defer="defer"></script>
-<link REL=STYLESHEET HREF="css/manager.css" TYPE="text/css">
-<link REL=STYLESHEET HREF="css/light-bootstrap-dashboard.css"
+<script src="${pageContext.request.contextPath}/js/inside.js" defer="defer"></script>
+<link REL=STYLESHEET HREF="${pageContext.request.contextPath}/css/manager.css" TYPE="text/css">
+<link REL=STYLESHEET HREF="${pageContext.request.contextPath}/css/light-bootstrap-dashboard.css"
 	TYPE="text/css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>	
 <title>Manager</title>

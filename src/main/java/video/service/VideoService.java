@@ -27,5 +27,7 @@ public interface VideoService {
 	List<Video> getRandomVideo(Integer num);
 	
 	List<Video> getVideoByMember(MemberBean mb);
+	//取得所有類型
+	List<String>getAllCategory();
 
 }
