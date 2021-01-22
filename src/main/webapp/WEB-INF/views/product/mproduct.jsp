@@ -229,7 +229,6 @@
 															<form:input type="hidden" path="brandno"  value="${pro.brandno}" />
 															<form:input type="hidden" path="skintype"  value="${pro.skintype}" />
 															<form:input type="hidden" path="imagepath" value="${pro.imagepath}" />
-															<form:input type="hidden" path="skintype" value="${pro.skintype}" />
 															<form:input type="hidden" path="productstatus" value="${pro.productstatus}" />
 															<form:input type="hidden" path="status" value="${pro.status}" />
 															<input type="hidden" name="todo" value="update" />

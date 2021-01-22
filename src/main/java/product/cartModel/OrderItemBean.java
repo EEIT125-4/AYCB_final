@@ -37,6 +37,12 @@ public class OrderItemBean {
 		super();
 	}
 	
+	public OrderItemBean(Integer productNo, Integer quantity) {
+		super();
+		this.productNo = productNo;
+		this.quantity = quantity;
+	}
+
 	public OrderItemBean(Integer seqno, String productImg, String brandName, String productSeries, Integer productNo,
 			String productName, Double productPrice, Integer quantity) {
 		super();
