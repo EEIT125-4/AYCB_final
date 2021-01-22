@@ -40,8 +40,7 @@
 									<td>${Attendance.mailaddress}</td>
 									<td>${Attendance.phone}</td>
 									<td>${Attendance.pax}</td>
-									<td><a href="<c:url value='update'/>?aid=${Attendance.aid}">編輯</a></td>
-										
+									<td><a href="<c:url value='update'/>?aid=${Attendance.aid}">編輯</a></td>										
 									<td><a href="<c:url value='delete'/>?aid=${Attendance.aid}&eventid=${Attendance.event.eventid}&id=${Attendance.member.id}">刪除</a></td>
 									
 										

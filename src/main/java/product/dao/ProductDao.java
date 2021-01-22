@@ -2,6 +2,7 @@ package product.dao;
 
 import java.util.List;
 
+import product.cartModel.OrderItemBean;
 import product.model.CollectBean;
 import product.model.ProductBean;
 
@@ -97,4 +98,6 @@ public interface ProductDao {
 	int getStatus(int no);
 	
 	boolean updateStatus(int no, int status);
+	
+	List<OrderItemBean> getTopfive();
 }

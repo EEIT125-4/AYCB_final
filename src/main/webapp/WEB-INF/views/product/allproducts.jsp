@@ -155,6 +155,7 @@ if (session.getAttribute("member") != null) {
 <script>
 function Allproducts(i) {
 	CK();
+	Allstatus();
 	$.ajax({
 		async : false,
 		type : 'GET',
@@ -164,24 +165,26 @@ function Allproducts(i) {
 		success : function(data) {
 			var content = "";
 			for (let i = 0; i < data.Products.length; i++) {
-				content += "<div id='pro"+data.Products[i].productno+"' class='rightside'>"
+				content += "<div id='p1"+data.Products[i].productno+"' class='rightside'>"
 						+  "<div class='imgbox'>"
 						+  "<div id='like"+data.Products[i].productno+"' class='like'>"
 						+  "<%if (session.getAttribute("member") != null) {%>"
 						+  "<button id='likebtn"+data.Products[i].productno+"' class='like_button' onclick='Collect("+${member.id}+","+data.Products[i].productno+")'>"
 						+  "<i id='heart"+data.Products[i].productno+"' class='fa fa-heart-o'></i></button>"
 						+  "<%}%>"
-						+  "</div><a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
+						+  "</div>"
+						+  "<div class='statusimgbox'><img id='statusimg"+data.Products[i].productno+"' class='statusimg'></div>"
+						+  "<a id='detaila"+data.Products[i].productno+"'href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
 						+  "<img class='proimg' src='${pageContext.request.contextPath}/pic/"+data.Products[i].imagepath+"'></a></div>"
 						+  "<div class='proname'>"+data.Products[i].productname+"</div>"
 						+  "<div class='buttonbox'>"
 						+  "<div class='proprice'>NT$"+data.Products[i].productprice+"</div>"
 						+  "<div class='cart'>"
 						+  "<%if (login) {%>"
-						+  "<img class='cartimg' onclick='addCart("+data.Products[i].productno+")' src='image/bg_cart_b.svg'>"
+						+  "<img id='cartimg"+data.Products[i].productno+"' class='cartimg' onclick='addCart("+data.Products[i].productno+")' src='image/bg_cart_b.svg'>"
 						+  "<%} else {%>"
 						+  "<a href='${pageContext.request.contextPath}/member/login'>"
-						+  "<img class='cartimg' src='image/bg_cart_b.svg'>"
+						+  "<img id='cartimg"+data.Products[i].productno+"' class='cartimg' src='image/bg_cart_b.svg'>"
 						+  "<%}%>"
 						+  "</div></div></div>";
 			}
@@ -206,25 +209,28 @@ function Allproducts(i) {
 		success : function(data) {
 			var content = "";
 			for (let i = 0; i < data.Products.length; i++) {
-				content += "<div class='listbox'>"
+				content += "<div id='p2"+data.Products[i].productno+"' class='listbox'>"
 					    +  "<div class='listimgbox'>"
-						+  "<a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
+						+  "<a id='listdetaila"+data.Products[i].productno+"' href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
 						+  "<img class='listproimg' src='${pageContext.request.contextPath}/pic/"+data.Products[i].imagepath+"'></a></div>"
 						+  "<div id='love"+data.Products[i].productno+"' class='listlike'>"
 						+  "<%if (session.getAttribute("member") != null) {%>"
 						+  "<button id='lovebtn"+data.Products[i].productno+"' class='listlike_button' onclick='Collect("+${member.id}+","+data.Products[i].productno+")'>"
 						+  "<i id='star"+data.Products[i].productno+"' class='fa fa-heart-o'></i></button>"
 						+  "<%}%>"
-						+  "</div><div class='listinfobox'><div class='listproname'>"+data.Products[i].productname+"</div>"
+						+  "</div>"
+						+  "<div class='liststatusimgbox'><img id='liststatusimg"+data.Products[i].productno+"' class='liststatusimg'></div>"
+						+  "<div class='listinfobox'><div class='listproname'>"+data.Products[i].productname+"</div>"
 						+  "<div class='listproname'>系列 : "+data.Products[i].productseries+"</div>"
-						+  "<div class='listproname'>種類 : "+data.Products[i].productcategory+"</div>"							+  "</div><div class='listbuttonbox'>"
+						+  "<div class='listproname'>種類 : "+data.Products[i].productcategory+"</div>"							
+						+  "</div><div class='listbuttonbox'>"
 						+  "<div class='listproprice'>NT$"+data.Products[i].productprice+"</div>"
 						+  "<div class='listcart'>"
 						+  "<%if (login) {%>"
-						+  "<a class='listcart_a' href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
+						+  "<a id='listcart_a"+data.Products[i].productno+"' class='listcart_a' href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
 						+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
 						+  "<%} else {%>"
-						+  "<a class='listcart_a' href='${pageContext.request.contextPath}/member/login'>"
+						+  "<a id='listcart_a"+data.Products[i].productno+"' class='listcart_a' href='${pageContext.request.contextPath}/member/login'>"
 						+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
 						+  "<%}%>"
 						+  "</div></div></div>";
@@ -244,6 +250,7 @@ function Allproducts(i) {
 
 function Brandproducts(brand, i) {
 	CK();
+	Allstatus();
 	$.ajax({
 		async : false,
 		type : 'GET',
@@ -256,24 +263,26 @@ function Brandproducts(brand, i) {
 		success : function(data) {
 			var content = "";
 			for (let i = 0; i < data.Products.length; i++) {
-				content += "<div class='rightside'>"
+				content += "<div id='p1"+data.Products[i].productno+"' class='rightside'>"
 						+  "<div class='imgbox'>"
 						+  "<div id='like"+data.Products[i].productno+"' class='like'>"
 						+  "<%if (session.getAttribute("member") != null) {%>"
 						+  "<button id='likebtn"+data.Products[i].productno+"' class='like_button' onclick='Collect("+${member.id}+","+data.Products[i].productno+")'>"
 						+  "<i id='heart"+data.Products[i].productno+"' class='fa fa-heart-o'></i></button>"
 						+  "<%}%>"
-						+  "</div><a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
+						+  "</div>"
+						+  "<div class='statusimgbox'><img id='statusimg"+data.Products[i].productno+"' class='statusimg'></div>"
+						+  "<a id='detaila"+data.Products[i].productno+"'href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
 						+  "<img class='proimg' src='${pageContext.request.contextPath}/pic/"+data.Products[i].imagepath+"'></a></div>"
 						+  "<div class='proname'>"+data.Products[i].productname+"</div>"
 						+  "<div class='buttonbox'>"
 						+  "<div class='proprice'>NT$"+data.Products[i].productprice+"</div>"
 						+  "<div class='cart'>"
 						+  "<%if (login) {%>"
-						+  "<img class='cartimg' onclick='addCart("+data.Products[i].productno+")' src='image/bg_cart_b.svg'>"
+						+  "<img id='cartimg"+data.Products[i].productno+"' class='cartimg' onclick='addCart("+data.Products[i].productno+")' src='image/bg_cart_b.svg'>"
 						+  "<%} else {%>"
 						+  "<a href='${pageContext.request.contextPath}/member/login'>"
-						+  "<img class='cartimg' src='image/bg_cart_b.svg'></a>"
+						+  "<img id='cartimg"+data.Products[i].productno+"' class='cartimg' src='image/bg_cart_b.svg'>"
 						+  "<%}%>"
 						+  "</div></div></div>";
 			}
@@ -301,28 +310,31 @@ function Brandproducts(brand, i) {
 		success : function(data) {
 			var content = "";
 			for (let i = 0; i < data.Products.length; i++) {
-				content += "<div class='listbox'>"
-				    +  "<div class='listimgbox'>"
-					+  "<a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
-					+  "<img class='listproimg' src='${pageContext.request.contextPath}/pic/"+data.Products[i].imagepath+"'></a></div>"
-					+  "<div id='love"+data.Products[i].productno+"' class='listlike'>"
-					+  "<%if (session.getAttribute("member") != null) {%>"
-					+  "<button id='lovebtn"+data.Products[i].productno+"' class='listlike_button' onclick='Collect("+${member.id}+","+data.Products[i].productno+")'>"
-					+  "<i id='star"+data.Products[i].productno+"' class='fa fa-heart-o'></i></button>"
-					+  "<%}%>"
-					+  "</div><div class='listinfobox'><div class='listproname'>"+data.Products[i].productname+"</div>"
-					+  "<div class='listproname'>系列 : "+data.Products[i].productseries+"</div>"
-					+  "<div class='listproname'>種類 : "+data.Products[i].productcategory+"</div>"							+  "</div><div class='listbuttonbox'>"
-					+  "<div class='listproprice'>NT$"+data.Products[i].productprice+"</div>"
-					+  "<div class='listcart'>"
-					+  "<%if (login) {%>"
-					+  "<a class='listcart_a' href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
-					+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
-					+  "<%} else {%>"
-					+  "<a class='listcart_a' href='${pageContext.request.contextPath}/member/login'>"
-					+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
-					+  "<%}%>"
-					+  "</div></div></div>";
+				content += "<div id='p2"+data.Products[i].productno+"' class='listbox'>"
+					    +  "<div class='listimgbox'>"
+						+  "<a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
+						+  "<img class='listproimg' src='${pageContext.request.contextPath}/pic/"+data.Products[i].imagepath+"'></a></div>"
+						+  "<div id='love"+data.Products[i].productno+"' class='listlike'>"
+						+  "<%if (session.getAttribute("member") != null) {%>"
+						+  "<button id='lovebtn"+data.Products[i].productno+"' class='listlike_button' onclick='Collect("+${member.id}+","+data.Products[i].productno+")'>"
+						+  "<i id='star"+data.Products[i].productno+"' class='fa fa-heart-o'></i></button>"
+						+  "<%}%>"
+						+  "</div>"
+						+  "<div class='liststatusimgbox'><img id='liststatusimg"+data.Products[i].productno+"' class='liststatusimg'></div>"
+						+  "<div class='listinfobox'><div class='listproname'>"+data.Products[i].productname+"</div>"
+						+  "<div class='listproname'>系列 : "+data.Products[i].productseries+"</div>"
+						+  "<div class='listproname'>種類 : "+data.Products[i].productcategory+"</div>"							
+						+  "</div><div class='listbuttonbox'>"
+						+  "<div class='listproprice'>NT$"+data.Products[i].productprice+"</div>"
+						+  "<div class='listcart'>"
+						+  "<%if (login) {%>"
+						+  "<a id='listcart_a"+data.Products[i].productno+"' class='listcart_a' href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
+						+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
+						+  "<%} else {%>"
+						+  "<a id='listcart_a"+data.Products[i].productno+"' class='listcart_a' href='${pageContext.request.contextPath}/member/login'>"
+						+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
+						+  "<%}%>"
+						+  "</div></div></div>";
 			}
 			$("#listarea").html(content);
 				
@@ -339,6 +351,7 @@ function Brandproducts(brand, i) {
 
 function Seriesproducts(series, i) {
 	CK();
+	Allstatus();
 	$.ajax({
 		async : false,
 		type : 'GET',
@@ -351,24 +364,26 @@ function Seriesproducts(series, i) {
 		success : function(data) {
 			var content = "";
 			for (let i = 0; i < data.Products.length; i++) {
-				content += "<div class='rightside'>"
+				content += "<div id='p1"+data.Products[i].productno+"' class='rightside'>"
 						+  "<div class='imgbox'>"
 						+  "<div id='like"+data.Products[i].productno+"' class='like'>"
 						+  "<%if (session.getAttribute("member") != null) {%>"
 						+  "<button id='likebtn"+data.Products[i].productno+"' class='like_button' onclick='Collect("+${member.id}+","+data.Products[i].productno+")'>"
 						+  "<i id='heart"+data.Products[i].productno+"' class='fa fa-heart-o'></i></button>"
 						+  "<%}%>"
-						+  "</div><a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
+						+  "</div>"
+						+  "<div class='statusimgbox'><img id='statusimg"+data.Products[i].productno+"' class='statusimg'></div>"
+						+  "<a id='detaila"+data.Products[i].productno+"'href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
 						+  "<img class='proimg' src='${pageContext.request.contextPath}/pic/"+data.Products[i].imagepath+"'></a></div>"
 						+  "<div class='proname'>"+data.Products[i].productname+"</div>"
 						+  "<div class='buttonbox'>"
 						+  "<div class='proprice'>NT$"+data.Products[i].productprice+"</div>"
 						+  "<div class='cart'>"
 						+  "<%if (login) {%>"
-						+  "<img class='cartimg' onclick='addCart("+data.Products[i].productno+")' src='image/bg_cart_b.svg'>"
+						+  "<img id='cartimg"+data.Products[i].productno+"' class='cartimg' onclick='addCart("+data.Products[i].productno+")' src='image/bg_cart_b.svg'>"
 						+  "<%} else {%>"
 						+  "<a href='${pageContext.request.contextPath}/member/login'>"
-						+  "<img class='cartimg' src='image/bg_cart_b.svg'></a>"
+						+  "<img id='cartimg"+data.Products[i].productno+"' class='cartimg' src='image/bg_cart_b.svg'>"
 						+  "<%}%>"
 						+  "</div></div></div>";
 			}
@@ -396,28 +411,31 @@ function Seriesproducts(series, i) {
 		success : function(data) {
 			var content = "";
 			for (let i = 0; i < data.Products.length; i++) {
-				content += "<div class='listbox'>"
-				    +  "<div class='listimgbox'>"
-					+  "<a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
-					+  "<img class='listproimg' src='${pageContext.request.contextPath}/pic/"+data.Products[i].imagepath+"'></a></div>"
-					+  "<div id='love"+data.Products[i].productno+"' class='listlike'>"
-					+  "<%if (session.getAttribute("member") != null) {%>"
-					+  "<button id='lovebtn"+data.Products[i].productno+"' class='listlike_button' onclick='Collect("+${member.id}+","+data.Products[i].productno+")'>"
-					+  "<i id='star"+data.Products[i].productno+"' class='fa fa-heart-o'></i></button>"
-					+  "<%}%>"
-					+  "</div><div class='listinfobox'><div class='listproname'>"+data.Products[i].productname+"</div>"
-					+  "<div class='listproname'>系列 : "+data.Products[i].productseries+"</div>"
-					+  "<div class='listproname'>種類 : "+data.Products[i].productcategory+"</div>"							+  "</div><div class='listbuttonbox'>"
-					+  "<div class='listproprice'>NT$"+data.Products[i].productprice+"</div>"
-					+  "<div class='listcart'>"
-					+  "<%if (login) {%>"
-					+  "<a class='listcart_a' href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
-					+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
-					+  "<%} else {%>"
-					+  "<a class='listcart_a' href='${pageContext.request.contextPath}/member/login'>"
-					+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
-					+  "<%}%>"
-					+  "</div></div></div>";
+				content += "<div id='p2"+data.Products[i].productno+"' class='listbox'>"
+					    +  "<div class='listimgbox'>"
+						+  "<a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
+						+  "<img class='listproimg' src='${pageContext.request.contextPath}/pic/"+data.Products[i].imagepath+"'></a></div>"
+						+  "<div id='love"+data.Products[i].productno+"' class='listlike'>"
+						+  "<%if (session.getAttribute("member") != null) {%>"
+						+  "<button id='lovebtn"+data.Products[i].productno+"' class='listlike_button' onclick='Collect("+${member.id}+","+data.Products[i].productno+")'>"
+						+  "<i id='star"+data.Products[i].productno+"' class='fa fa-heart-o'></i></button>"
+						+  "<%}%>"
+						+  "</div>"
+						+  "<div class='liststatusimgbox'><img id='liststatusimg"+data.Products[i].productno+"' class='liststatusimg'></div>"
+						+  "<div class='listinfobox'><div class='listproname'>"+data.Products[i].productname+"</div>"
+						+  "<div class='listproname'>系列 : "+data.Products[i].productseries+"</div>"
+						+  "<div class='listproname'>種類 : "+data.Products[i].productcategory+"</div>"							
+						+  "</div><div class='listbuttonbox'>"
+						+  "<div class='listproprice'>NT$"+data.Products[i].productprice+"</div>"
+						+  "<div class='listcart'>"
+						+  "<%if (login) {%>"
+						+  "<a id='listcart_a"+data.Products[i].productno+"' class='listcart_a' href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
+						+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
+						+  "<%} else {%>"
+						+  "<a id='listcart_a"+data.Products[i].productno+"' class='listcart_a' href='${pageContext.request.contextPath}/member/login'>"
+						+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
+						+  "<%}%>"
+						+  "</div></div></div>";
 			}
 			$("#listarea").html(content);
 				
@@ -434,6 +452,7 @@ function Seriesproducts(series, i) {
 
 function Cateproducts(cate, i) {
 	CK();
+	Allstatus();
 	$.ajax({
 		async : false,
 		type : 'GET',
@@ -446,26 +465,28 @@ function Cateproducts(cate, i) {
 		success : function(data) {
 			var content = "";
 			for (let i = 0; i < data.Products.length; i++) {
-				content += "<div class='rightside'>"
+				content += "<div id='p1"+data.Products[i].productno+"' class='rightside'>"
 						+  "<div class='imgbox'>"
 						+  "<div id='like"+data.Products[i].productno+"' class='like'>"
 						+  "<%if (session.getAttribute("member") != null) {%>"
 						+  "<button id='likebtn"+data.Products[i].productno+"' class='like_button' onclick='Collect("+${member.id}+","+data.Products[i].productno+")'>"
 						+  "<i id='heart"+data.Products[i].productno+"' class='fa fa-heart-o'></i></button>"
 						+  "<%}%>"
-						+  "</div><a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
+						+  "</div>"
+						+  "<div class='statusimgbox'><img id='statusimg"+data.Products[i].productno+"' class='statusimg'></div>"
+						+  "<a id='detaila"+data.Products[i].productno+"'href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
 						+  "<img class='proimg' src='${pageContext.request.contextPath}/pic/"+data.Products[i].imagepath+"'></a></div>"
 						+  "<div class='proname'>"+data.Products[i].productname+"</div>"
 						+  "<div class='buttonbox'>"
 						+  "<div class='proprice'>NT$"+data.Products[i].productprice+"</div>"
 						+  "<div class='cart'>"
 						+  "<%if (login) {%>"
-						+  "<img class='cartimg' onclick='addCart("+data.Products[i].productno+")' src='image/bg_cart_b.svg'>"
+						+  "<img id='cartimg"+data.Products[i].productno+"' class='cartimg' onclick='addCart("+data.Products[i].productno+")' src='image/bg_cart_b.svg'>"
 						+  "<%} else {%>"
 						+  "<a href='${pageContext.request.contextPath}/member/login'>"
-						+  "<img class='cartimg' src='image/bg_cart_b.svg'></a>"
-						+  "<%}%>" 
-						+ "</div></div></div>";
+						+  "<img id='cartimg"+data.Products[i].productno+"' class='cartimg' src='image/bg_cart_b.svg'>"
+						+  "<%}%>"
+						+  "</div></div></div>";
 			}
 			$("#standardarea").html(content);
 
@@ -490,28 +511,31 @@ function Cateproducts(cate, i) {
 		success : function(data) {
 			var content = "";
 			for (let i = 0; i < data.Products.length; i++) {
-				content += "<div class='listbox'>"
-				    +  "<div class='listimgbox'>"
-					+  "<a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
-					+  "<img class='listproimg' src='${pageContext.request.contextPath}/pic/"+data.Products[i].imagepath+"'></a></div>"
-					+  "<div id='love"+data.Products[i].productno+"' class='listlike'>"
-					+  "<%if (session.getAttribute("member") != null) {%>"
-					+  "<button id='lovebtn"+data.Products[i].productno+"' class='listlike_button' onclick='Collect("+${member.id}+","+data.Products[i].productno+")'>"
-					+  "<i id='star"+data.Products[i].productno+"' class='fa fa-heart-o'></i></button>"
-					+  "<%}%>"
-					+  "</div><div class='listinfobox'><div class='listproname'>"+data.Products[i].productname+"</div>"
-					+  "<div class='listproname'>系列 : "+data.Products[i].productseries+"</div>"
-					+  "<div class='listproname'>種類 : "+data.Products[i].productcategory+"</div>"							+  "</div><div class='listbuttonbox'>"
-					+  "<div class='listproprice'>NT$"+data.Products[i].productprice+"</div>"
-					+  "<div class='listcart'>"
-					+  "<%if (login) {%>"
-					+  "<a class='listcart_a' href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
-					+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
-					+  "<%} else {%>"
-					+  "<a class='listcart_a' href='${pageContext.request.contextPath}/member/login'>"
-					+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
-					+  "<%}%>"
-					+  "</div></div></div>";
+				content += "<div id='p2"+data.Products[i].productno+"' class='listbox'>"
+					    +  "<div class='listimgbox'>"
+						+  "<a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
+						+  "<img class='listproimg' src='${pageContext.request.contextPath}/pic/"+data.Products[i].imagepath+"'></a></div>"
+						+  "<div id='love"+data.Products[i].productno+"' class='listlike'>"
+						+  "<%if (session.getAttribute("member") != null) {%>"
+						+  "<button id='lovebtn"+data.Products[i].productno+"' class='listlike_button' onclick='Collect("+${member.id}+","+data.Products[i].productno+")'>"
+						+  "<i id='star"+data.Products[i].productno+"' class='fa fa-heart-o'></i></button>"
+						+  "<%}%>"
+						+  "</div>"
+						+  "<div class='liststatusimgbox'><img id='liststatusimg"+data.Products[i].productno+"' class='liststatusimg'></div>"
+						+  "<div class='listinfobox'><div class='listproname'>"+data.Products[i].productname+"</div>"
+						+  "<div class='listproname'>系列 : "+data.Products[i].productseries+"</div>"
+						+  "<div class='listproname'>種類 : "+data.Products[i].productcategory+"</div>"							
+						+  "</div><div class='listbuttonbox'>"
+						+  "<div class='listproprice'>NT$"+data.Products[i].productprice+"</div>"
+						+  "<div class='listcart'>"
+						+  "<%if (login) {%>"
+						+  "<a id='listcart_a"+data.Products[i].productno+"' class='listcart_a' href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
+						+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
+						+  "<%} else {%>"
+						+  "<a id='listcart_a"+data.Products[i].productno+"' class='listcart_a' href='${pageContext.request.contextPath}/member/login'>"
+						+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
+						+  "<%}%>"
+						+  "</div></div></div>";
 			}
 			$("#listarea").html(content);
 				
@@ -528,6 +552,7 @@ function Cateproducts(cate, i) {
 
 function Keywordproducts(i) {
 	CK();
+	Allstatus();
 	var keyword = $("#keyword").val();
 	$.ajax({
 		async : false,
@@ -541,26 +566,28 @@ function Keywordproducts(i) {
 		success : function(data) {
 			var content = "";
 			for (let i = 0; i < data.Products.length; i++) {
-				content += "<div class='rightside'>"
+				content += "<div id='p1"+data.Products[i].productno+"' class='rightside'>"
 						+  "<div class='imgbox'>"
 						+  "<div id='like"+data.Products[i].productno+"' class='like'>"
 						+  "<%if (session.getAttribute("member") != null) {%>"
 						+  "<button id='likebtn"+data.Products[i].productno+"' class='like_button' onclick='Collect("+${member.id}+","+data.Products[i].productno+")'>"
 						+  "<i id='heart"+data.Products[i].productno+"' class='fa fa-heart-o'></i></button>"
 						+  "<%}%>"
-						+  "</div><a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
+						+  "</div>"
+						+  "<div class='statusimgbox'><img id='statusimg"+data.Products[i].productno+"' class='statusimg'></div>"
+						+  "<a id='detaila"+data.Products[i].productno+"'href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
 						+  "<img class='proimg' src='${pageContext.request.contextPath}/pic/"+data.Products[i].imagepath+"'></a></div>"
 						+  "<div class='proname'>"+data.Products[i].productname+"</div>"
 						+  "<div class='buttonbox'>"
 						+  "<div class='proprice'>NT$"+data.Products[i].productprice+"</div>"
 						+  "<div class='cart'>"
 						+  "<%if (login) {%>"
-						+  "<img class='cartimg' onclick='addCart("+data.Products[i].productno+")' src='image/bg_cart_b.svg'>"
+						+  "<img id='cartimg"+data.Products[i].productno+"' class='cartimg' onclick='addCart("+data.Products[i].productno+")' src='image/bg_cart_b.svg'>"
 						+  "<%} else {%>"
 						+  "<a href='${pageContext.request.contextPath}/member/login'>"
-						+  "<img class='cartimg' src='image/bg_cart_b.svg'></a>"
-						+  "<%}%>" 
-						+ "</div></div></div>";
+						+  "<img id='cartimg"+data.Products[i].productno+"' class='cartimg' src='image/bg_cart_b.svg'>"
+						+  "<%}%>"
+						+  "</div></div></div>";
 			}
 			$("#standardarea").html(content);
 
@@ -585,7 +612,7 @@ function Keywordproducts(i) {
 		success : function(data) {
 			var content = "";
 			for (let i = 0; i < data.Products.length; i++) {
-				content += "<div class='listbox'>"
+				content += "<div id='p2"+data.Products[i].productno+"' class='listbox'>"
 				    	+  "<div class='listimgbox'>"
 						+  "<a href='<c:url value="/Detail" />?no="+data.Products[i].productno+"&cate="+data.Products[i].productcategory+"'>"
 						+  "<img class='listproimg' src='${pageContext.request.contextPath}/pic/"+data.Products[i].imagepath+"'></a></div>"
@@ -594,16 +621,19 @@ function Keywordproducts(i) {
 						+  "<button id='lovebtn"+data.Products[i].productno+"' class='listlike_button' onclick='Collect("+${member.id}+","+data.Products[i].productno+")'>"
 						+  "<i id='star"+data.Products[i].productno+"' class='fa fa-heart-o'></i></button>"
 						+  "<%}%>"
-						+  "</div><div class='listinfobox'><div class='listproname'>"+data.Products[i].productname+"</div>"
+						+  "</div>"
+						+  "<div class='liststatusimgbox'><img id='liststatusimg"+data.Products[i].productno+"' class='liststatusimg'></div>"
+						+  "<div class='listinfobox'><div class='listproname'>"+data.Products[i].productname+"</div>"
 						+  "<div class='listproname'>系列 : "+data.Products[i].productseries+"</div>"
-						+  "<div class='listproname'>種類 : "+data.Products[i].productcategory+"</div>"							+  "</div><div class='listbuttonbox'>"
+						+  "<div class='listproname'>種類 : "+data.Products[i].productcategory+"</div>"							
+						+  "</div><div class='listbuttonbox'>"
 						+  "<div class='listproprice'>NT$"+data.Products[i].productprice+"</div>"
 						+  "<div class='listcart'>"
 						+  "<%if (login) {%>"
-						+  "<a class='listcart_a' href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
+						+  "<a id='listcart_a"+data.Products[i].productno+"' class='listcart_a' href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
 						+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
 						+  "<%} else {%>"
-						+  "<a class='listcart_a' href='${pageContext.request.contextPath}/member/login'>"
+						+  "<a id='listcart_a"+data.Products[i].productno+"' class='listcart_a' href='${pageContext.request.contextPath}/member/login'>"
 						+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
 						+  "<%}%>"
 						+  "</div></div></div>";
@@ -711,9 +741,39 @@ function Allstatus() {
 		success : function(data) {
 			for (let i = 0; i < data.Products.length; i++) {
 				if(data.Products[i].status == 0) {
-					$('#pro' + data.Products[i].productno).css('display', 'none');
+					$('#p1' + data.Products[i].productno).css('display', 'none');
+					$('#p2' + data.Products[i].productno).css('display', 'none');
 				} else {
-					$('#pro' + data.Products[i].productno).css('display', 'block');
+					$('#p1' + data.Products[i].productno).css('display', 'block');
+					$('#p2' + data.Products[i].productno).css('display', 'block');
+				}
+				
+				if(data.Products[i].productstatus == 1) {
+					$('#statusimg' + data.Products[i].productno).attr('src', 'image/new.gif');
+					$('#statusimg' + data.Products[i].productno).css('display', 'block');
+					$('#liststatusimg' + data.Products[i].productno).attr('src', 'image/new.gif');
+					$('#liststatusimg' + data.Products[i].productno).css('display', 'block');
+				} 
+				
+				if(data.Products[i].productstatus == 2) {
+					$('#statusimg' + data.Products[i].productno).attr('src', 'image/soldout.gif');
+					$('#statusimg' + data.Products[i].productno).css('display', 'block');
+					$('#detaila' + data.Products[i].productno).removeAttr('href');
+					$('#cartimg' + data.Products[i].productno).css('cursor', 'not-allowed');
+					$('#cartimg' + data.Products[i].productno).removeAttr('onclick');
+					
+					$('#liststatusimg' + data.Products[i].productno).attr('src', 'image/soldout.gif');
+					$('#liststatusimg' + data.Products[i].productno).css('display', 'block');
+					$('#listdetaila' + data.Products[i].productno).removeAttr('href');
+					$('#listcart_a' + data.Products[i].productno).css('cursor', 'not-allowed');
+					$('#listcart_a' + data.Products[i].productno).removeAttr('href');
+				}
+				
+				if(data.Products[i].productstatus == 3) {
+					$('#statusimg' + data.Products[i].productno).attr('src', 'image/sellhot.gif');
+					$('#statusimg' + data.Products[i].productno).css('display', 'block');
+					$('#liststatusimg' + data.Products[i].productno).attr('src', 'image/sellhot.gif');
+					$('#liststatusimg' + data.Products[i].productno).css('display', 'block');
 				}
 			}
 		}

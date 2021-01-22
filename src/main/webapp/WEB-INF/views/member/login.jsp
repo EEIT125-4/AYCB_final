@@ -94,11 +94,11 @@
 			</div>
 			
 			<div style="margin-left: 250px">
-			<input type="button" id="yukai" value="會員">	
+			<input type="button" id="yukai" value="凱凱">	
 			<input type="button" id="julia" value="Julia">		
 			<input type="button" id="leader" value="子雲">	
 			<input type="button" id="jack" value="柏松">	
-		
+		    <input type="button" id="main" value="管理員">	
 			<br>
 </div>
 			<div class="modal fade" id="forgot" tabindex="-1" role="dialog"
@@ -539,25 +539,30 @@
 				
 	
 		$('#yukai').click(function(){
-			 $('#ac').val('pororo159')
-			 $('#pwd').val('kkk123')
+			 //$('#ac').val('pororo159')
+			 //$('#pwd').val('kkk123')
+			 window.location.href='/AYCB_final/fastlogin?id=1092';
 		})		
 		
 
 		
 		$('#julia').click(function(){
-			 $('#ac').val('c19352125')
-			 $('#pwd').val('kkk123')
+// 			 $('#ac').val('c19352125')
+// 			 $('#pwd').val('kkk123')
+			 window.location.href='/AYCB_final/fastlogin?id=1092';
 		})		
 			
 			$('#leader').click(function(){
-			 $('#ac').val('pp063075')
-			 $('#pwd').val('kkk123')
+				window.location.href='/AYCB_final/fastlogin?id=1035';
+			
 		})		
 				
 			 $('#jack').click(function(){
-			 $('#ac').val('ss0814')
-			 $('#pwd').val('kkk123')
+				 window.location.href='/AYCB_final/fastlogin?id=1093';
+		})		
+		
+			 $('#main').click(function(){
+				 window.location.href='/AYCB_final/fastlogin?id=1';
 		})		
 				
 		

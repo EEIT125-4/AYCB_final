@@ -1,11 +1,9 @@
 $(function() {
-	
     let timer = setInterval(auto, 2000);
     let num = 0;
     let slideCount = $(".adbox_slides li").length;
-    $(".adbox_slides").width(200*slideCount);
     let lastIndex = slideCount - 1;
-	
+
     function auto() {
         if (num >= lastIndex)
             num = -1;
@@ -13,7 +11,7 @@ $(function() {
         $(".adbox_dot li").eq(num).css("background", "black")
                 .siblings().css("background", "transparent");
 
-        let move = 0 - 200 * num;
+        let move = 0 - 2000 * num;
         $(".adbox_slides").css("left", move);
         if (num >= lastIndex)
             num = -1;
@@ -23,7 +21,7 @@ $(function() {
         $(".adbox_dot li").eq(num).css("background", "black")
                 .siblings().css("background", "transparent");
 
-        let move = 0 - 200 * num;
+        let move = 0 - 2000 * num;
         $(".adbox_slides").css("left", move);
     }
 

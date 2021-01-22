@@ -76,7 +76,7 @@ public class BlogDaoImp implements BlogDao {
 
 		Blog bg = null;
 		bg = getSession().get(Blog.class, BlogId);
-		System.out.println("即將刪除" + bg.getMember().getName());
+		
 		return bg;
 	}
 
@@ -98,6 +98,17 @@ public class BlogDaoImp implements BlogDao {
 		return count;
 
 	}
+	
+	public void getAnalysis() {
+		Session session=factory.getCurrentSession();
+		
+		
+		
+		
+		
+	}
+	
+	
 
 	
 	

@@ -11,6 +11,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import product.cartModel.OrderItemBean;
 import product.dao.ProductDao;
 import product.model.CollectBean;
 import product.model.ProductBean;
@@ -433,5 +434,14 @@ public class ProductDaoImpl implements ProductDao {
 			st = true;
 		}
 		return st;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<OrderItemBean> getTopfive() {
+		String hql = "SELECT productNo FROM OrderItemBean group by productNo order by sum(quantity) Desc";
+		Session session = factory.getCurrentSession();
+		List<OrderItemBean> list = session.createQuery(hql).setMaxResults(5).getResultList();
+		return list;
 	}
 }

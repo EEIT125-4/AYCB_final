@@ -1,7 +1,11 @@
 package advertisement.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,9 +42,9 @@ public class AdvertisementController {
 			System.out.println("try to get all adv");
 			Gson gson = new Gson();
 
-			List<Advertisement> advlist = advService.queryAll();// 
-			for(Advertisement ad:advlist) {
-			System.out.println("ad="+ad.getAdvtitle());
+			List<Advertisement> advlist = advService.queryAll();//
+			for (Advertisement ad : advlist) {
+				System.out.println("ad=" + ad.getAdvtitle());
 			}
 			String result = gson.toJson(advlist);
 
@@ -52,8 +56,7 @@ public class AdvertisementController {
 		}
 
 	}
-	
-	
+
 	@GetMapping(value = "getOneAd")
 	@ResponseBody
 	public String querySAll(Model model) {
@@ -61,10 +64,10 @@ public class AdvertisementController {
 			System.out.println("try to get one ad");
 			Gson gson = new Gson();
 
-			Advertisement ad = advService.queryRandom();// 
-			ad.setAdvcount(ad.getAdvcount()+1);
+			Advertisement ad = advService.queryRandom();//
+			ad.setAdvcount(ad.getAdvcount() + 1);
 			advService.updateAdvertisement(ad);
-			System.out.println("ad="+ad.getAdvtitle());
+			System.out.println("ad=" + ad.getAdvtitle());
 			String result = gson.toJson(ad);
 
 			return result;
@@ -92,16 +95,21 @@ public class AdvertisementController {
 
 	// 新增一則廣告
 	@PostMapping("advertisement/edit")
-	public String insertNewAdvertisement(@ModelAttribute("adv") Advertisement adv, Model model,
+	public void insertNewAdvertisement(@ModelAttribute("adv") Advertisement adv, Model model,
 
 			@RequestParam(value = "memberID", required = false) Integer mid,
 			@RequestParam(value = "file", required = false) MultipartFile file,
+			@RequestParam(value = "video", required = false) MultipartFile video,
 			@RequestParam(value = "postDate", required = false) String postDate,
 			@RequestParam(value = "endDate", required = false) String endDate,
 //				@RequestParam(value="sourcetype",required = false)String sourceType,
-			@RequestParam(value = "link", required = false) String link
-
-	) {
+			@RequestParam(value = "link", required = false) String link,
+			HttpServletResponse response) throws IOException 
+	{
+		
+		response.setContentType("text/html;charset=utf-8");
+//		ModelAndView mav=new ModelAndView();
+		PrintWriter out = response.getWriter();
 		System.out.println("adv insert");
 
 		System.out.println("postDate:" + postDate);
@@ -115,46 +123,31 @@ public class AdvertisementController {
 			// 如果type是圖片或影片
 			if (adv.getAdvsourcetype() == 0 || adv.getAdvsourcetype() == 1) {
 
-				if (file != null && file.getSize() > 0) {
-					System.out.println("adv 有收到檔案");
-					try {
+				if (adv.getAdvsourcetype() == 0) {
 
-						if (adv.getAdvsourcetype() == 0) {
+					// 上傳圖片
+					adv.setSource(Common.saveImage(file));
+					System.out.println("廣告圖片儲存完畢");
+				}
+				if (adv.getAdvsourcetype() == 1) {
+					// 上傳影片
+					adv.setSource(Common.saveVideo(video));
+					System.out.println("廣告影片儲存完畢");
 
-							// 上傳圖片
-							adv.setSource(Common.saveImage(file));
-							System.out.println("廣告圖片儲存完畢");
-						}
-						if (adv.getAdvsourcetype() == 1) {
-							// 上傳影片
-							adv.setSource(Common.saveVideo(file));
-							System.out.println("廣告影片儲存完畢");
-
-						}
-						
-						System.out.println("廣告檔案上傳OK");
-
-					} catch (Exception e) {
-						e.printStackTrace();
-						
-					}
-
-				} else {
-
-					// 沒有上傳檔案,異常處理
-					return "redirect:/advertisement/edit";
 				}
 
+				System.out.println("廣告檔案上傳OK");
+
 			}
-			
-			//youtube內嵌或網址
-			if(adv.getAdvsourcetype() == 2 || adv.getAdvsourcetype()==3) {
-				adv.setSource(link);				
-							
+
+			// youtube內嵌或網址
+			if (adv.getAdvsourcetype() == 2 || adv.getAdvsourcetype() == 3) {
+				adv.setSource(link);
+
 			}
 
 			adv.setMember(ms.getMember(mid));
-//				adv.setAdvsourcetype(sourceType);
+
 			adv.setPostTime(postDate);
 			adv.setEndTime(endDate);
 
@@ -162,12 +155,12 @@ public class AdvertisementController {
 
 			System.out.println("廣告新增成功");
 
-			return "redirect:/advertisement";
+			out.print("<script language='javascript'>alert('廣告新增成功!');window.location.href='/AYCB_final/advertisement/'</script>");
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			System.err.println("新增失敗");
-
-			return "redirect:/advertisement";
+			out.print("<script language='javascript'>alert('新增失敗!');window.location.href='/AYCB_final/advertisement/'</script>");
+//			return "redirect:/advertisement";
 		}
 
 	}

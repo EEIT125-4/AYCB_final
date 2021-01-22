@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import member.MemberBean;
 import video.dao.VideoDao;
 import video.model.Video;
 
@@ -57,5 +58,11 @@ public class VideoServiceImpl implements VideoService {
 	public List<Video> getRandomVideo(Integer num) {
 		
 		return dao.getRandomVideo(num);
+	}
+
+	@Override
+	public List<Video> getVideoByMember(MemberBean mb) {
+		
+		return dao.getVideoByMember(mb);
 	}
 }

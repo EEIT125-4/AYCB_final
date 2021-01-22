@@ -3,6 +3,7 @@ package member.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -85,16 +86,21 @@ public class MemberController {
 
 		return "/index"; // 請視圖解析器由視圖的邏輯名稱index來找出真正的視圖
 	}
+	
+	
+	
+	
+	
 
 	// select 後臺查詢
-	@GetMapping("member/Backstage")
-	public String list(Model model) {
-		System.out.println("111111111111111111111");
-		model.addAttribute("memberBackstage", memberService.getAllMembers());
-		System.out.println(memberService.getAllMembers());
-
-		return "member/memberBackstage";
-	}
+//	@GetMapping("/Backstage")
+//	public String list(Model model) {
+//		System.out.println("111111111111111111111");
+//		model.addAttribute("memberBackstage", memberService.getAllMembers());
+//		System.out.println(memberService.getAllMembers());
+//
+//		return "member/memberBackstage";
+//	}
 
 	// 註冊頁
 	@GetMapping("/register")
@@ -667,5 +673,41 @@ public class MemberController {
 		response.addCookie(cookiePassword);
 		response.addCookie(cookieRememberMe);
 	}
-
+	//快速登入
+	@GetMapping("/fastlogin")
+	public String fastlogin(HttpServletRequest request,HttpSession session,@RequestParam("id")Integer id) {
+		System.out.println("++++++++++++++++++++++++++++++++++");
+		MemberBean mb = memberService.getMember(id);
+		Cookie[] cookies = request.getCookies();		
+  		for(Cookie cookie: cookies) {
+  			System.out.println("cookie name"+cookie.getName());
+  			System.out.println("cookie.value"+cookie.getValue());
+  		}
+	
+		session.setAttribute("member", mb);
+		return "index";
+	}
+	
+	@GetMapping(value="/gender" , produces = "application/json")
+	public @ResponseBody List<Integer> getGender(Model model) {
+		List<Integer> sex =new ArrayList<Integer>();
+		List<Integer> gender =memberService.gender();	
+				
+		
+		
+		return gender;
+		
+	
+	}
+	
+	@GetMapping("/memberback")
+	public String memberback(Model model) {
+		System.out.println("111111111111111111111");
+		model.addAttribute("memberBackstage", memberService.getAllMembers());
+		System.out.println(memberService.getAllMembers());
+		return "member/memberBackstage";
+	}
+	
+	
+	
 }

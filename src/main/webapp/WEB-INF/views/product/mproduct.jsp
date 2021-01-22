@@ -135,8 +135,8 @@
 										<div class="adddiv">
 											<label class="addlab">產品圖片:</label>
 											<form:input id="productimage" type="file" path="productimage" />
-											<form:input id="productimage" type="hidden" path="productstatus" value="1" />
-											<form:input id="productimage" type="hidden" path="status" value="1" />
+											<form:input type="hidden" path="productstatus" value="1" />
+											<form:input type="hidden" path="status" value="1" />
 											<input type="hidden" name="todo" value="add" />
 										</div>
 										<div class="adddiv">
@@ -221,13 +221,21 @@
 														<div class="adddiv">
 															<label class="addlab">產品價格 : </label>
 															<form:input class="addinput" type="text" path="productprice" value="${pro.productprice}" />
+														</div>
+														<div class="adddiv">
+															<label class="addlab">庫存 : </label>
+															<form:input class="addinput" type="text" path="stock" value="${pro.stock}" />
 															<form:input type="hidden" path="productno" value="${pro.productno}" />
 															<form:input type="hidden" path="brandno"  value="${pro.brandno}" />
 															<form:input type="hidden" path="skintype"  value="${pro.skintype}" />
-															<form:input type="hidden" path="imagepath" value="${pro.imagepath}" />
-															<form:input type="hidden" path="skintype" value="${pro.skintype}" />
-															<form:input type="hidden" path="stock" value="${pro.stock}" />
+<%-- 															<form:input type="hidden" path="imagepath" value="${pro.imagepath}" /> --%>
+															<form:input type="hidden" path="productstatus" value="${pro.productstatus}" />
+															<form:input type="hidden" path="status" value="${pro.status}" />
 															<input type="hidden" name="todo" value="update" />
+														</div>
+														<div class="adddiv">
+															<label class="addlab">產品圖片:</label>
+															<form:input id="productimage" type="file" path="productimage" />
 														</div>
 														<div class="adddiv">
 															<button id="addbtn" type="submit" class="btn btn-primary">更新</button>
@@ -378,7 +386,7 @@
 
 	$(function() {
 		$("#myDataTalbe").DataTable({
-			lengthMenu : [5, 10, 30, 50],
+			lengthMenu : [100],
 			columnDefs : [ {
 				orderable : true,
 			} ],
