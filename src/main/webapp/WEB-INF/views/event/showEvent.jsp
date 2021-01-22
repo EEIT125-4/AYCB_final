@@ -37,13 +37,28 @@
 	
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 <script src="${pageContext.request.contextPath}/js/main.js"></script>
+<style>
+a:link,
+a:visited{
+ text-decoration: none;
+ color: black;
+ }
+
+</style>
+
 <title></title>
 
 <%@include file="../jspf/header.jspf"%>
-<a class="btn btn-dark manager" href="<c:url value='/event/eventForm'/>">新增活動</a> &nbsp;&nbsp;
-	<div>
+
+
+<body>	
+<div>
+	
+	<section class="container" style="margin-top:30px">
+	<a class="btn btn-dark manager" href="<c:url value='/event/eventForm'/>">新增活動</a> &nbsp;&nbsp;
+	<span style="display:inline-block; margin-bottom: 30px" >
 	<form action="<c:url value='/event/showEventByCategory' />">
-    <label style="font-size: 20px">分類搜尋活動:&nbsp;&nbsp;
+    <label style="font-size: 20px;text-align: left">分類搜尋活動:&nbsp;&nbsp;
 	<button  style="width:100px" class="btn btn-outline-dark" name="eventcategory" value="體驗">體驗</button>
 	<button  style="width:100px" class="btn btn-outline-dark" name="eventcategory" value="教學">教學</button>
 	<button  style="width:100px" class="btn btn-outline-dark" name="eventcategory" value="新品發表">新品發表</button>
@@ -51,33 +66,31 @@
 	<button  style="width:100px" class="btn btn-outline-dark" name="eventcategory" value="其他">其他</button>
 	</label>
 	</form>
-	</div>
+	</span>
 	
-<div style="text-align: center ;" >
+	<span><button style="width:100px" class="btn btn-outline-dark"><a href="${pageContext.request.contextPath}/event/showEvent">所有類別</a></button></span>
 	
-	<section class="container">
     <div class="row">
 		<c:forEach var='event' items='${events}'>		
 		   <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6">
                     <div class="product__item">
                         <div class="product__item__pic set-bg" data-setbg="${event.filename}">
-                            <span class="label">New</span>
+                            <span class="label" id="label">New</span>
                             <ul class="product__hover">
                                 <li><a href="#"><img src="${pageContext.request.contextPath}/image/icon/heart.png" alt=""></a></li>
                                 <li><a href="#"><img src="${pageContext.request.contextPath}/image/icon/compare.png" alt=""><span>Compare</span></a></li>
                                 <li><a href="#"><img src="${pageContext.request.contextPath}/image/icon/search.png" alt=""></a></li>
                             </ul>
                         </div>
-                        <div>
-                            <h6>${event.eventname}</h6>
-<!--                             <a href="#" class="add-cart">+ Add To Cart</a> -->
-                         <span><img src="${pageContext.request.contextPath}/image/icon/calendar.png"alt="">							
-							${event.eventdate}</span><br>
+                        <div style="text-align: center">
+                        <h6>${event.eventname}</h6>
+                         <span><img src="${pageContext.request.contextPath}/image/icon/calendar.png"alt="">${event.eventdate}</span><br>							
+							
 						<span>
 						<button  value="${event.eventlocation}" data-toggle="modal" data-target="#mapdialog" style="border: none;background-color: transparent;">
 						<i class='fas fa-map-marker-alt' style='font-size:16px; color:red'></i></button>
 						活動地點:${event.eventlocation}</span> 
-						<div>
+						<div style="text-align: center">
 						    <input type="hidden" id="aa" class="aa" value="${member.level}"> 
 <%-- 							<a id="manager" href="<c:url value='eventupdate'/>?eventid=${event.eventid}" class="btn btn-dark manager"> --%>
 <!--                             <span id="manager" class="glyphicon-info-sigh glyphicon manager">編輯</span></a> -->
@@ -223,7 +236,12 @@
 		if($('#check').val()=="1"){
 			alert("已經報名過囉，請選擇其他活動")
 		}
-	})
+	});
+	
+	let eventdate=${event.eventdate}
+	
+	if(eventdate<date())
+	
 	
 	
 </script>

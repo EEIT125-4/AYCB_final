@@ -266,5 +266,30 @@ public class MemberDaoImpl implements MemberDao {
 
 		return result;
 	}
+	
+	@Override
+	public List<Integer> gender() {
+
+		String hql = "FROM MemberBean m WHERE m.gender = :gender";
+		Session session = factory.getCurrentSession();
+
+		Query<MemberBean> query = session.createQuery(hql);
+		Integer listB = query.setParameter("gender", "男").getResultList().size();
+		Integer listG = query.setParameter("gender", "女").getResultList().size();
+		
+		List<Integer> list  =new ArrayList<>();
+		list.add(listB);
+		list.add(listG);
+	
+		return list;
+	
+		
+		
+	}
+	
+	
+	
+	
+	
 
 }

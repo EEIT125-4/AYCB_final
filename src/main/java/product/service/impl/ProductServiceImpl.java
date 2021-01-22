@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import product.cartModel.OrderItemBean;
 import product.dao.ProductDao;
 import product.model.CollectBean;
 import product.model.ProductBean;
@@ -245,5 +246,10 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public boolean updateStatus(int no, int status) {
 		return dao.updateStatus(no, status);
+	}
+	
+	@Override
+	public List<OrderItemBean> getTopfive() {
+		return dao.getTopfive();
 	}
 }

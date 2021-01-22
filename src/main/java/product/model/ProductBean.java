@@ -32,6 +32,7 @@ public class ProductBean implements Serializable{
 	@Column(columnDefinition= "int NOT NULL default(0)")
 	private Integer productstatus;
 	private String imagepath;
+	@Column(columnDefinition= "int NOT NULL default(50)")
 	private Integer stock;
 	@Column(columnDefinition= "int NOT NULL default(1)")
 	private Integer status;

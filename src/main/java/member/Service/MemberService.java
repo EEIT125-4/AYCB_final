@@ -35,6 +35,8 @@ public interface MemberService {
 	boolean ckpower(String account);
 
 	int delete(int account);
+
+	 List<Integer> gender();
 	 
 	 
 	 
