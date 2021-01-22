@@ -10,10 +10,10 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 
 <%
 MemberBean member = (MemberBean) session.getAttribute("member");
-session.removeAttribute("cart");
-session.removeAttribute("totalPrice");
-session.removeAttribute("totalQtyOrdered");
-String path=request.getContextPath()+"/orderManagement";
+// session.removeAttribute("cart");
+// session.removeAttribute("totalPrice");
+// session.removeAttribute("totalQtyOrdered");
+String path=request.getContextPath()+"/ToBill";
 response.setHeader("Refresh", "3;"+path);
 %>
 

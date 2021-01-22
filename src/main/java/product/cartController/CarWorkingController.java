@@ -230,6 +230,25 @@ public class CarWorkingController {
 	}
 	
 	
-	
+//	@SuppressWarnings("unchecked")
+//	@GetMapping("/getCarCount")
+//	public @ResponseBody Integer GetCarCount(Model model){
+//		
+//		List<CartItem> theCart = (List<CartItem>) model.getAttribute("cart");
+//		
+//		int size = 0;
+//			
+//		System.out.print("theCart"+ theCart);
+//		
+//		if (theCart != null && theCart.size() > 0) {
+//			
+//			size = theCart.size();
+//
+// 			System.out.print("theCartSize"+ size);
+// 			
+//			}
+//	
+//		return size;
+//	}
 
 }

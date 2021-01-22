@@ -138,7 +138,10 @@ public class MemberServiceImpl implements MemberService {
 		
 		
 	}
-	
-	
+	@Override
+	public List<Integer> gender() {
+		
+		return memberDao.gender();
+	}
 	
 }

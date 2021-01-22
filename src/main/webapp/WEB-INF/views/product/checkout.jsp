@@ -91,17 +91,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 	height: auto;
 	margin-top: 0px;
 }
-.top {
-		color: white;
-		background: #FF2D2D;
-		padding: 14px 10px;
-		position: fixed;
-		right: 20px;
-		bottom: 100px;
-		text-align: center;
-		border-radius: 50px;
-		z-index: 1;
-	}
+
 </style>
 
 <% 
@@ -334,17 +324,12 @@ function storeAddressChange(){
 		            <input type="hidden" id="webPara" name="webPara" value=""><!-- 我們網站所需的原Form Data。ezShip會將原值回傳，供我們網站帶回畫面用 -->
 </form>	
 	
-	<a onclick="goTop();"><div class="top">TOP</div></a>
+
 </div>	
 <%@include file="../jspf/footer.jspf"%>	        
 <script>
 
-	function goTop(){
-		var $body = (window.opera) ? (document.compatMode == "CSS1Compat" ? $('html') : $('body')) : $('html,body');
-		$body.animate({
-			scrollTop: 0
-		}, 200);
-	}
+
 	
 	window.onload = function() {
 		
