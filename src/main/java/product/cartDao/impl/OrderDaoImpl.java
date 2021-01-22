@@ -158,10 +158,10 @@ public class OrderDaoImpl implements OrderDao {
 Map<String, Object> brandMap = new HashMap<String, Object>();
 		
 		List<String> brandName = new ArrayList<String>();
-		brandName.add("Biotherm");
-		brandName.add("olay");
-		brandName.add("Dr.Morita ");
-		brandName.add("Origins");
+		brandName.add("碧兒泉");
+		brandName.add("歐蕾");
+		brandName.add("森田藥粧");
+		brandName.add("品木宣言");
 		
 		List<Integer> brandCount = new ArrayList<Integer>();
 				

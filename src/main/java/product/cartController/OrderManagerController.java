@@ -85,13 +85,25 @@ public class OrderManagerController {
 		mv.addObject("brandList", brandList);  
 		mv.addObject("jsonBrandName", jsonBrandName);
 		mv.addObject("jsonBrandCount", jsonBrandCount);
-		System.out.println("brandList: " + model.getAttribute("brandList"));
-		System.out.println("jsonBrandName: " + jsonBrandName);
-		System.out.println("jsonBrandCount: " + jsonBrandCount);
+//		System.out.println("brandList: " + model.getAttribute("brandList"));
+//		System.out.println("jsonBrandName: " + jsonBrandName);
+//		System.out.println("jsonBrandCount: " + jsonBrandCount);
 		
-		int size = os.selectAllOrder().size();
-		mv.addObject("size", size); 
+		List<OrderBean> orders = os.selectAllOrder();
+		int orderCount = orders.size();
+		mv.addObject("orderCount", orderCount); 
+//		System.out.println("orderCount"+ orderCount);
 		
+		Double totalAmount = 0.d;
+		for(OrderBean o  : orders) {
+			
+			totalAmount += o.getTotalAmount();
+			
+		}
+		System.out.println("amount"+ totalAmount);
+		mv.addObject("totalAmount", totalAmount); 
+		
+		//int n = totalAmount.intValue();//double轉int
 		mv.setViewName("/product/mHistoryOrders");
 		
 		return mv;
