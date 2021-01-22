@@ -54,6 +54,10 @@ public class ManagerController {
 	) {
 		System.out.println(todo);
 		if(todo.equals("update")) {
+			if(upb.getStock() == 0) {
+				upb.setProductstatus(2);
+				ps.updateProduct(upb);
+			}
 			ps.updateProduct(upb);
 			return "redirect:/GetAllProduct";
 		} else {

@@ -115,7 +115,7 @@ width:100px;
                     <li>USD</li>
                 </ul>
 			</div>
-	</div>
+		</div>
 		<%
 			int size = 0;
 		 	Double totalPrice = 0.0d;
