@@ -4,6 +4,7 @@
 	import="java.util.*,product.*,product.model.ProductBean,product.cartModel.CartItem,member.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%
 response.setContentType("text/html;charset=UTF-8");
 response.setHeader("Cache-Control", "no-cache"); // HTTP 1.1
@@ -97,7 +98,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 </style>
 </head>
 <%@include file="../jspf/header.jspf"%>
-<div id="mytop" style="text-align: center">
+<div id="mytop" style="text-align: center" class="container">
 
  	<% 
  		MemberBean member = (MemberBean) session.getAttribute("member");
@@ -111,109 +112,109 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 	</ol>
 </div>
 <br><br>
-	<FORM style="margin: 0 auto; width:750px;" action="" method="" >
-   <TABLE border='1' style="background:#F5EBFF; border-color:rgb( 100, 100, 255); border-style: outset; width:810;">
-      <TR >
-         <TD style="text-align:left; border-color: #FFBD32; border-style: ridge;">
+
+   <TABLE border='2' class="table table-bordered" style="margin: 0 auto; border-style: ridge; width:1000px;">
+      <TR class="table-info">
+         <TD colspan='1' style="text-align:left; border-style: ridge;font-size: 15pt;">
          	會員編號：${account}
          </TD>
-         <TD style="text-align:left; border-color: #FFBD32; border-style: ridge;">
+         <TD colspan='3' style="text-align:left; border-style: ridge;font-size: 15pt;">
          	顧客姓名：${name}
          </TD>
-         <TD style="text-align:left; border-color: #FFBD32; border-style: ridge;">
+         <TD colspan='2' style="text-align:left; border-style: ridge;font-size: 15pt;">
          	訂單日期：<fmt:formatDate value="${today}" pattern="yyyy-MM-dd"/>
          </TD>
       </TR>
-       <TR>
-         <TD colspan='3' style="text-align:left; border-color: #FFBD32; border-style: ridge;">
+       <TR class="table-info">
+         <TD colspan='6' style="text-align:left; border-style: ridge;font-size: 15pt;">
          	收件人：${receiveName}
          </TD>
       </TR>
-       <TR>
-         <TD colspan='3' style="text-align:left; border-color: #FFBD32; border-style: ridge;">
+       <TR class="table-info">
+         <TD colspan='6' style="text-align:left; border-style: ridge;font-size: 15pt;">
          	聯絡電話：${phone}
          </TD>
       </TR>
-      <TR>
-         <TD colspan='3' style="text-align:left; border-color: #FFBD32; border-style: ridge;">
+      <TR class="table-info">
+         <TD colspan='6' style="text-align:left; border-style: ridge;font-size: 15pt;">
          	出貨地址：${address}
          </TD>
       </TR>    
-      <TR>
-    	<TD colspan='3'>
+<!--       <TR> -->
+<!--     	<TD colspan='3'> -->
          
-   <TABLE border='1' style="background:#FFE7CD; border-color:rgb( 100, 100, 255); " >
+<!--    <TABLE border='1' class="" style="width:800px; " > -->
       
-     <TR>
-     	<th style="text-align: center; vertical-align: middle; width: 150px" scope="col">商品</th>
-		<th style="text-align: center; vertical-align: middle; width: 150px" scope="col">品牌</th>
-		<th style="text-align: center; vertical-align: middle; width: 250px" scope="col">系列</th>				
-		<th style="text-align: center; vertical-align: middle;" scope="col">價格</th>
-		<th style="text-align: center; vertical-align: middle;" scope="col">數量</th>
-		<th style="text-align: center; vertical-align: middle;" scope="col">小計</th>
+     <TR class="table-secondary">
+     	<th style="text-align: center; vertical-align: middle;font-size: 15pt;" scope="col">商品</th>
+		<th style="text-align: center; vertical-align: middle;font-size: 15pt;" scope="col">品牌</th>
+		<th style="text-align: center; vertical-align: middle;font-size: 15pt;" scope="col">系列</th>				
+		<th style="text-align: center; vertical-align: middle;font-size: 15pt;" scope="col">價格</th>
+		<th style="text-align: center; vertical-align: middle;font-size: 15pt;" scope="col">數量</th>
+		<th style="text-align: center; vertical-align: middle;font-size: 15pt;" scope="col">小計</th>
      </TR>
 	 		<%
 					
-     			List<CartItem> cart = (ArrayList<CartItem>) session.getAttribute("cart");
- 				for (CartItem item : cart) {
- 			%>                                    
-         <TR > 
-        <td style="text-align: center; vertical-align: middle;"><%=item.getProductName()%></td>
-        <td style="text-align: center; vertical-align: middle;"><%=item.getBrandName()%></td>
-        <td style="text-align: center; vertical-align: middle;"><%=item.getProductSeries()%></td>
-        <td style="text-align: center; vertical-align: middle;">NT$ <fmt:formatNumber value="<%=item.getProductPrice()%>"  pattern="###,###" /></td>
-        <td style="text-align: center; vertical-align: middle;"><%=item.getQtyOrdered()%></td>
-<%--         <td style="text-align: center; vertical-align: middle;">NT$ <fmt:formatNumber value="<%=item.getProductPrice() * item.getQtyOrdered()%>"  pattern="###,###" /></td> --%>
-         </TR>
+      			List<CartItem> cart = (ArrayList<CartItem>) session.getAttribute("cart");
+   				for (CartItem item : cart) { 
+ 			%>                                     
+      <TR class="table-warning">  
+        <td style="text-align: left; vertical-align: middle;font-size: 13pt;"><%=item.getProductName()%></td>
+        <td style="text-align: center; vertical-align: middle;font-size: 13pt;"><%=item.getBrandName()%></td>
+        <td style="text-align: center; vertical-align: middle;font-size: 13pt;"><%=item.getProductSeries()%></td>
+        <td style="text-align: center; vertical-align: middle;font-size: 13pt;">NT$ <fmt:formatNumber value="<%=item.getProductPrice()%>"  pattern="###,###" /></td>
+        <td style="text-align: center; vertical-align: middle;font-size: 13pt;"><%=item.getQtyOrdered()%></td>
+        <td style="text-align: center; vertical-align: middle;font-size: 13pt;">NT$ <fmt:formatNumber value="<%=item.getProductPrice() * item.getQtyOrdered()%>"  pattern="###,###" /></td>
+      </TR> 
   			<% 
-  				}  
+   				}   
  			%> 
-        <TR height='16'>
-          <TD style="text-align:right;font-size: 11pt;" colspan='5' >合計金額：</TD>
-          <TD style="text-align:right;font-size: 11pt;" >
+        <TR height='25' class="table-warning">
+          <TD style="text-align:right;font-size: 13pt;" colspan='5' >合計金額：</TD>
+          <TD style="text-align:right;font-size: 13pt;" >
           <fmt:formatNumber value="${totalPrice}" pattern="#,###,###" />元</TD>
-                  
+               
         </TR>
-        <TR>
-          <TD colspan='5' style="text-align:right;font-size: 11pt;" >貨運費：</TD>
-          <TD style="text-align:right;font-size: 11pt;" > 50元</TD>
+        <TR class="table-warning">
+          <TD colspan='5' style="text-align:right;font-size: 13pt;" >貨運費：</TD>
+          <TD style="text-align:right;font-size: 13pt;" > 50元</TD>
         </TR>
-        <TR>
-          <TD colspan='5' style="text-align:right;font-size: 11pt;" >總計金額：</TD>
-          <TD style="text-align:right;font-size: 11pt;color:#AA0200;" >
+        <TR class="table-warning">
+          <TD colspan='5' style="text-align:right;font-size: 15pt;" >總計金額：</TD>
+          <TD style="text-align:right;font-size: 15pt;color:#AA0200;" >
           <fmt:formatNumber value="${Shipping}" pattern="#,###,###" />元</TD>
         </TR>
-   </TABLE>
-          </TD>
-      </TR>
+<!--    </TABLE> -->
+<!--           </TD> -->
+<!--       </TR> -->
  
-   </TABLE><P/>
+   </TABLE>
+   <br>
+			<p>
+             <a href="<spring:url value='/All' />"  class='btn btn-dark' style="font-size: 18px;">結束</a>
+           </p>
 
-</FORM>
 <% 		
-// 		session.removeAttribute("cart");
-// 		session.removeAttribute("totalPrice");
-// 		session.removeAttribute("totalQtyOrdered");
-// 		session.removeAttribute("Shipping");
+		session.removeAttribute("cart");
+		session.removeAttribute("totalPrice");
+		session.removeAttribute("totalQtyOrdered");
+		session.removeAttribute("Shipping");
+		session.removeAttribute("phone");
+		session.removeAttribute("address");
+		session.removeAttribute("email");
+		session.removeAttribute("receiveName");
+		
 %>
 			<br>
 			<br>
 			<br>
 
-	<a onclick="goTop();"><div class="top">TOP</div></a>
+	
 </div>
-<%@include file="../jspf/footer.jspf"%>
+<%-- <%@include file="../jspf/footer.jspf"%> --%>
 <script>
 
-function goTop(){
-	var $body = (window.opera) ? (document.compatMode == "CSS1Compat" ? $('html') : $('body')) : $('html,body');
-	$body.animate({
-		scrollTop: 0
-	}, 200);
-}
 
-
-}
 </script>
 </body>
 </html>

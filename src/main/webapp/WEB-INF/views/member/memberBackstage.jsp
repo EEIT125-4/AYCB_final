@@ -9,10 +9,29 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 %>
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
-<!-- <link rel="stylesheet" type="text/css" -->
-<!-- 	href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css"> -->
-
 <head>
+<script src="https://code.jquery.com/jquery-3.5.1.js"
+	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+	crossorigin="anonymous"></script>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+	crossorigin="anonymous">
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+	integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+	crossorigin="anonymous"></script>
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript"
+	src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <meta charset="UTF-8">
 <meta name="description" content="blog">
 <meta name="keywords" content="blog, article, share, write">
@@ -74,17 +93,38 @@ input:checked + .slider:before {
 transform: translateX(26px);
 }
 </style>
+<script>
+$(document).ready(function(){
+	
+	Gender();
+	
+});
 
 
+</script>
 
 
 <title>會員後台管理</title>
-<%@include file="../jspf/header.jspf"%>
+</head>
+<body>
+<%@include file="../jspf/backstage.jspf"%>
 
 
 
 
-    <table id="myDataTable" class="table" style="width:1600px;margin-left:180px">
+
+<div class="content" style="width:88%;float:right;margin-top:-615px;">
+ <div style="width:650px;margin-left:120px">
+
+ <div style="font-size:60px"> 男女比例</div>
+<canvas id="gender" width="800" height="600"></canvas>
+
+
+
+
+</div>
+<div style="width:1600px;margin-left:30px">
+    <table  id="myDataTalbe"  class="display" >
         <thead class="thead-light">
           <tr>
             <th scope="col">會員ID</th>
@@ -102,7 +142,7 @@ transform: translateX(26px);
         
         <c:forEach var="member" items='${memberBackstage}'>
           <tr>         
-            <th scope="row">${member.id}</th>
+            <td >${member.id}</td>
             <td>${member.name}</td>
             <td >${member.account}</td>
             <td>${member.email}</td>
@@ -121,13 +161,13 @@ transform: translateX(26px);
                       </tr>
         </c:forEach>
        
-        
+
         </tbody>
       </table>
 
-
-
-
+</div>
+</div>
+</body>
 
 
 
@@ -137,70 +177,53 @@ transform: translateX(26px);
 
 
 
-<%@include file="../jspf/footer.jspf"%>
-<!-- <script type="text/javascript" charset="utf8" -->
-<!-- 	src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script> -->
 
-
-
-
+<script type="text/javascript"
+		src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<script type="text/javascript"
+		src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
 <script type="text/javascript">
 
-// var table=document.getElementById("myDataTable");
 
 
 
-//         $(function () {
-
-//             $("#myDataTable").DataTable({
-//                 searching: true, 
-//                 columnDefs: [{
-// //                     targets: [10],
-//                     orderable: true,
-//                 }]
-//             });
-//         });
-<!--     </script> -->
 
 
-<!-- <script> -->
-// 	function refreshData() {
 
-// 		console.log("更新Data")
+$(function() {
+	$("#myDataTalbe").DataTable({
+		lengthMenu : [50],
+		columnDefs : [ {
+			orderable : true,
+		} ],
+		language: {
+	        processing : "處理中...",
+	        loadingRecords : "載入中...",
+	       	lengthMenu : "顯示 _MENU_ 項結果",
+	        zeroRecords : "沒有符合的結果",
+	        info : "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+	        infoEmpty : "顯示第 0 至 0 項結果，共 0 項",
+	        infoFiltered : "(從 _MAX_ 項結果中過濾)",
+	        infoPostFix : "",
+	        search : "搜尋:",
+	        paginate : {
+	            first : "第一頁",
+	            previous : "上一頁",
+	            next : "下一頁",
+	            last : "最後一頁"
+	        },
+	        aria : {
+	            sortAscending: ": 升冪排列",
+	            sortDescending: ": 降冪排列"
+	        }
+	    }
+	});
+});
 
-// 		$.ajax({
 
-// 			type : 'post',
-// 			url : "forgot",
-// 			datatype : "text",
-// 			data : {
-// 				"email" : email
-// 			},
-// 			//		      		contentType : "application/json;charset=utf-8",
 
-// 			success : function(data) {
 
-// 				if (data == "ok") {
-// // 					swal("密碼重置", "已寄送新密碼至您信箱", "success")
-
-// 				} else {
-
-// // 					swal("發生錯誤", "寄送過程發生錯誤,請稍後再試或撥打客服電話", "error")
-
-// 				}
-
-// 			},
-// 			error : function() {
-// 				swal("更新資料失敗","controller error","error");
-
-// 			}
-// 		})
-
-// 	}
-	
-	
-	<script>
 
     $(document).ready(function(){	
 		$(".slider").each(function(){
@@ -226,6 +249,69 @@ transform: translateX(26px);
 		})
 		})
 })
+
+
+
+
+function Gender(){
+		var g = document.getElementById('gender');
+			$.ajax({
+				type : 'GET',
+				url : "gender",
+				dataType : "json",
+				success : function(data) {
+					var gender = new Chart(g, {
+						type : 'pie', //圖表類型
+						data : {
+							//標題
+							labels : ["男","女"],
+							datasets : [ {
+								label : '#test', //標籤
+								data : data, //資料
+								//圖表背景色
+								backgroundColor : [ 
+										'rgba(255, 99, 132, 0.2)',
+										'rgba(54, 162, 235, 0.2)',
+										'rgba(255, 185, 15, 0.2)',
+										'rgba(155, 255, 155, 0.2)',
+										'rgba(153, 50, 204, 0.2)',
+										'rgba(255, 140, 0, 0.2)',
+										'rgba(72, 61, 139, 0.2)',
+										'rgba(139, 101, 8, 0.2)' ],
+								//圖表外框線色
+								borderColor : [ 
+										'rgba(255, 99, 132, 1)',
+										'rgba(54, 162, 235, 1)',
+										'rgba(255, 185, 15, 1)',
+										'rgba(155, 255, 155, 1)',
+										'rgba(153, 50, 204, 1)',
+										'rgba(255, 140, 0, 1)',
+										'rgba(72, 61, 139, 1)',
+										'rgba(139, 101, 8, 1)' ],
+								//外框線寬度
+								borderWidth : 1
+							} ]
+						},
+						options : {
+							scales : {
+								yAxes : [ {
+									ticks : {
+										beginAtZero : true,
+										responsive : true
+										//符合響應式
+									}
+								} ]
+							}
+						}
+					});
+				}
+			});
+		
+	}
+
+
+
+
 
 
 // 	$('#checkde').click(function(){

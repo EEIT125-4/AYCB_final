@@ -23,6 +23,7 @@ if (session.getAttribute("member") != null) {
 
 <script>
 	function addCart(i) {
+		
 		$.ajax({
 			async : true,
 			type : 'GET',
@@ -39,6 +40,18 @@ if (session.getAttribute("member") != null) {
 					  showConfirmButton: false,
 					  timer: 1500
 					})								
+			}
+		});
+// 		CarCount();	
+	}
+	
+	function CarCount() {
+		$.ajax({
+			type : 'GET',
+			url : "getCarCount",
+			dataType : "json",
+			success : function(data) {
+				$("#carSize").html(data);
 			}
 		});
 	}

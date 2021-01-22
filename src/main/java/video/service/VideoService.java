@@ -2,6 +2,7 @@ package video.service;
 
 import java.util.List;
 
+import member.MemberBean;
 import video.model.Video;
 
 public interface VideoService {
@@ -24,5 +25,7 @@ public interface VideoService {
 	Video queryById(Integer videoID);
 	
 	List<Video> getRandomVideo(Integer num);
+	
+	List<Video> getVideoByMember(MemberBean mb);
 
 }

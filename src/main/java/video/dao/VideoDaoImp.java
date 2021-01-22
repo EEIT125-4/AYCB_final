@@ -1,6 +1,5 @@
 package video.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import member.MemberBean;
-import message.model.MessageBean;
 import video.model.Video;
 
 @Repository
@@ -18,6 +16,7 @@ public class VideoDaoImp implements VideoDao {
 
 	@Autowired
 	SessionFactory factory;
+	
 	
 	// 新增一筆影片
 
@@ -119,21 +118,42 @@ public class VideoDaoImp implements VideoDao {
 		
 		@SuppressWarnings("unchecked")
 
-		Query<Video> query=session.createNativeQuery(sql ).addEntity(Video.class);;
+		Query<Video> query=session.createNativeQuery(sql ).addEntity(Video.class);
 		return query.getResultList();	
 		
 
-		
-
-	
-		
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 		
 	}
+
+	@Override
+	public List<Video> getVideoByMember(MemberBean mb) {
+		try {			
+			Session session=factory.getCurrentSession();
+			String hql="From Video v where v.member=:member";
+			@SuppressWarnings("unchecked")
+			Query<Video> query = session.createQuery(hql);
+			//debug
+	
+			return query.setParameter("member",mb).getResultList();
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	
+		
+		
+		
+	}
+	
+	
+	
 	
 	
 

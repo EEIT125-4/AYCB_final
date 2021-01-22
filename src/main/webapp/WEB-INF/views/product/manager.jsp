@@ -26,7 +26,7 @@
 			<div class="title">後臺管理</div>
 			<div class="mbtnbox">
 				<input class="mbtn" type="button" value="會員"
-					onclick='location.href="${pageContext.request.contextPath}/member/Backstage"'>
+					onclick='location.href="${pageContext.request.contextPath}/memberback"'>
 			</div>
 			<div class="mbtnbox">
 				<input class="mbtn" type="button" value="商品"

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 
+import member.MemberBean;
 import video.model.Video;
 
 public interface VideoDao {
@@ -32,4 +33,6 @@ public interface VideoDao {
 	
 	
 	List<Video> getRandomVideo(Integer num);
+	
+	List<Video> getVideoByMember(MemberBean mb);
 }

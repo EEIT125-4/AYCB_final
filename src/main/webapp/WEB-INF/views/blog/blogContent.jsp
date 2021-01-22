@@ -230,9 +230,10 @@
 <!-- 留言功能初始化 -->
 	var object = "blog";
 	var pk = ${blog.blogId};
-	var path = "${pageContext.request.contextPath}";
+	
 	var board = document.getElementById("board");
 	//var postUrl = path + "/leaveComment?key="+ pk+ "&type=" + object;
+	var path = "${pageContext.request.contextPath}";
 	var getUrl = path + "/loadComment?key=" + pk + "&type=" + object;
 	var commentCount = 0;
 

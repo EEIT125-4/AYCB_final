@@ -89,7 +89,7 @@ width:100px;
     <script src="${pageContext.request.contextPath}/js/jquery.cookie.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-
+	
 <!--     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
 
 </head>    
@@ -253,7 +253,7 @@ width:100px;
 			</div>
 			<div class="canvas__open"><i class="fa fa-bars"></i></div>
 		</div>
-		
+		<input type="hidden" id="memberid" value='${member.id }'>
 		<button class="top" onclick="goTop();">TOP</button>
 <script type="text/javascript">
 
@@ -264,6 +264,7 @@ function goTop(){
 	}, 200);
 }
 </script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/TimeOut.js"></script>
 </header>
 
 	
