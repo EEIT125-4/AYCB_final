@@ -72,7 +72,7 @@ public class OrderController {
  * **/	
 	
 	
-	public static String genAioCheckOutALL(Integer order,Double amount,String url,String itemDetail,String clentBackURL){
+	public static String genAioCheckOutALL(Integer order, Double amount, String url, String itemDetail, String clentBackURL){
 		
 		AllInOne all = new AllInOne("");//log紀錄
 		AioCheckOutALL obj = new AioCheckOutALL();
@@ -124,7 +124,8 @@ public class OrderController {
 		model.addAttribute("email", email);
 		model.addAttribute("receiveName", receiveName);
 				
-		Double totalPrice = (Double) model.getAttribute("totalPrice");
+		
+		Double amount = (Double) model.getAttribute("Shipping");
 		//Integer totalQtyOrder = (Integer) model.getAttribute("totalQtyOrdered");
 		List<CartItem> items = (List<CartItem>) model.getAttribute("cart");
 		
@@ -160,7 +161,7 @@ public class OrderController {
 		String sTimeString = sdf.format(new Date());
 		Timestamp tTime = Timestamp.valueOf(sTimeString);		
 		
-		OrderBean order = new OrderBean(null, name, totalPrice, tTime, "付款成功", details);
+		OrderBean order = new OrderBean(null, name, amount, tTime, "付款成功", details);
 			
 		os.insertOrderBean(order);
 		
@@ -176,20 +177,19 @@ public class OrderController {
 			}
 		}
 		
-		session.removeAttribute("cart");
-		session.removeAttribute("totalPrice");
-		session.removeAttribute("totalQtyOrdered");
-		session.removeAttribute("Shipping");
-		
-		String clientBackURL="http://localhost:8080/AYCB_final/orderManagement";		
-		String form=genAioCheckOutALL(order.getOrderNo(), order.getTotalAmount(), context.getContextPath(),itemDetail,clientBackURL)	;
-		session.setAttribute("form", form);
-		
-		//session.removeAttribute("cart");
-		//session.invalidate();
-		
+//		session.removeAttribute("cart");
+//		session.removeAttribute("totalPrice");
+//		session.removeAttribute("totalQtyOrdered");
+//		session.removeAttribute("Shipping");
+		//session.invalidate();		
 		//sessionStatus.setComplete();
-		//request.getSession(true).removeAttribute("cart");//移除session
+		
+		/* 串接綠界 */
+//		String clientBackURL="http://localhost:8080/AYCB_final/ToBill";		
+//		String form=genAioCheckOutALL(order.getOrderNo(), amount, context.getContextPath(),itemDetail,clientBackURL);
+//		System.out.println("綠界執行中");
+//		session.setAttribute("form", form);
+		
 		
 		return "product/commit";
 	}
@@ -294,7 +294,7 @@ public class OrderController {
 	}
 	
 	
-	@SuppressWarnings({ "unused", "unchecked" })
+	@SuppressWarnings({ "unused" })
 	@GetMapping("/ToBill")
 	public String toBill(Model model ) {
 		
@@ -312,6 +312,7 @@ public class OrderController {
 		 String phone = (String) model.getAttribute("phone");
 		 String address = (String) model.getAttribute("address");
 		 String receiveName = (String) model.getAttribute("receiveName");
+		 //System.out.println(model.getAttribute("totalPrice")+"test");
 
 		
 		return "product/orderBill";

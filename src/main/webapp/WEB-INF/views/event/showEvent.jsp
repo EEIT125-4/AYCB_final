@@ -55,7 +55,7 @@ a:visited{
 <div>
 	
 	<section class="container" style="margin-top:30px">
-	<a class="btn btn-dark manager" href="<c:url value='/event/eventForm'/>">新增活動</a> &nbsp;&nbsp;
+	<a class="btn btn-outline-dark manager" href="<c:url value='/event/eventForm'/>">新增活動</a> &nbsp;&nbsp;
 	<span style="display:inline-block; margin-bottom: 30px" >
 	<form action="<c:url value='/event/showEventByCategory' />">
     <label style="font-size: 20px;text-align: left">分類搜尋活動:&nbsp;&nbsp;
@@ -69,6 +69,8 @@ a:visited{
 	</span>
 	
 	<span><button style="width:100px" class="btn btn-outline-dark"><a href="${pageContext.request.contextPath}/event/showEvent">所有類別</a></button></span>
+	<div class="line-it-button" data-lang="zh_Hant" data-type="share-A" data-ver="3" data-url="http://localhost:8080/AYCB_final/event/showEvent" data-color="default" data-size="large" data-count="true" style="display: none;"></div>
+   <script src="https://www.line-website.com/social-plugins/js/thirdparty/loader.min.js" async="async" defer="defer"></script>
 	
     <div class="row">
 		<c:forEach var='event' items='${events}'>		
@@ -84,7 +86,7 @@ a:visited{
                         </div>
                         <div style="text-align: center">
                         <h6>${event.eventname}</h6>
-                         <span><img src="${pageContext.request.contextPath}/image/icon/calendar.png"alt="">${event.eventdate}</span><br>							
+                         <span><img src="${pageContext.request.contextPath}/image/icon/calendar.png"alt="">${event.eventdate}</span><br>	
 							
 						<span>
 						<button  value="${event.eventlocation}" data-toggle="modal" data-target="#mapdialog" style="border: none;background-color: transparent;">
@@ -108,6 +110,7 @@ a:visited{
 										<h5 class="modal-title" id="modalTitle">${event.eventname}</h5>
 										<button type="button" class="close" data-dismiss="modal" aria-label="Close">											
 											<span aria-hidden="true">&times;</span>
+											
 										</button>
 									</div>
 									<div class="modal-body">
@@ -237,11 +240,6 @@ a:visited{
 			alert("已經報名過囉，請選擇其他活動")
 		}
 	});
-	
-	let eventdate=${event.eventdate}
-	
-	if(eventdate<date())
-	
 	
 	
 </script>

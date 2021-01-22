@@ -65,4 +65,10 @@ public class VideoServiceImpl implements VideoService {
 		
 		return dao.getVideoByMember(mb);
 	}
+
+	@Override
+	public List<String> getAllCategory() {
+		
+		return dao.getAllCategory();
+	}
 }

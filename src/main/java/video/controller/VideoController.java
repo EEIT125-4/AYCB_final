@@ -52,6 +52,7 @@ public class VideoController {
 	@GetMapping("/video")
 	public String list(Model model) {// ,RedirectAttributes redirectAttributes
 		model.addAttribute("videolist", vs.selectAllVideo());
+		model.addAttribute("categorys",vs.getAllCategory());
 //		redirectAttributes.addFlashAttribute("videolist",vs.selectAllVideo());
 		return "video/videoIndex";
 	}

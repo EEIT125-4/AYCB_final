@@ -1,5 +1,6 @@
 package video.dao;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import member.MemberBean;
+import product.model.ProductBean;
 import video.model.Video;
 
 @Repository
@@ -146,12 +148,54 @@ public class VideoDaoImp implements VideoDao {
 			return null;
 		}
 		
+	}
+
+	@Override
+	public List<String> getAllCategory() {
+		
+		
+		try {			
+			Session session=factory.getCurrentSession();
+			String hql="select distinct v.category from Video v";
+			@SuppressWarnings("unchecked")
+			Query<String> query = session.createQuery(hql);
+			
+			//debug
 	
-		
-		
+			return query.getResultList();
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 		
 	}
-	
+
+	@Override
+	public List<Video> getMoreVideos(String keyword, Integer index, Integer num) {
+		try {
+			
+			Session session=factory.getCurrentSession();
+			
+			List<Video> list = new LinkedList<Video>();
+			
+			String hql = "FROM Video v WHERE v.title like :keyword or v.category like :keyword";
+			
+			Query<Video> query = session.createQuery(hql);
+			
+			list = query.setParameter("keyword", "%" +keyword + "%").setFirstResult(index).setMaxResults(num).getResultList();
+			
+			return list;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+	}
+
+
 	
 	
 	
