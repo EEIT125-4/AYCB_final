@@ -26,13 +26,38 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 <%@include file="../jspf/header.jspf"%>
 
 <style>
+/* 我要上傳 */
 .uploadbutton {
 	width: auto;
 	height: auto;
 	margin-top: 10px;
 	margin-left: 200px;
 }
+
+/* 各種查詢按鈕 */
+.btn-group .button {
+  background-color: #FF95CA;
+  border: 2px solid #BE77FF;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  float: left;
+}
+
+.btn-group .button:not(:last-child) {
+  border-right: none; /* Prevent double borders */
+}
+
+.btn-group .button:hover {
+  background-color: #BE77FF;
+}
+/* 各種查詢按鈕 end*/
 </style>
+
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-blog set-bg"
 	data-setbg="${pageContext.request.contextPath}/image/breadcrumb-bg.jpg">
@@ -51,9 +76,28 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 	</a>
 </c:if>
 
+<div class="btn-group" style="margin-top:30px; margin-left:250px">
+<form action="<c:url value='/SelectSearchBar' />" method="GET" >
+  <button class="button" name="mask" value="面膜">面膜</button>
+  <button class="button" name="iso" value="隔離乳">隔離乳</button>
+  <button class="button" name="serum" value="精華">精華</button>
+  <button class="button" name="you" value="玻尿酸">玻尿酸</button>
+  
+  <button class="button" name="bio" value="碧兒泉">碧兒泉</button>
+  <button class="button" name="olay" value="Olay">Olay</button>
+  <button class="button" name="origin" value="品木宣言">品木宣言</button>
+  <button class="button" name="dr" value="森田藥妝">森田藥妝</button>
+  
+  <button class="button" name="moist" value="保濕">保濕</button>
+  <button class="button" name="care" value="保養">保養</button>
+  <button class="button" name="skin" value="護膚">護膚</button>
+  </form>
+</div>
+
+
 <div class="search-container">
 	<form action="<c:url value='/SelectSearchBar' />" method="GET"
-		name="search" style="margin-left: 1000px">
+		name="search" style="margin-left: 1200px; margin-top:10px;">
 		<input type="text" placeholder="查詢文章...." name="search">
 		<button type="submit">
 			<i class="fa fa-search"></i>
