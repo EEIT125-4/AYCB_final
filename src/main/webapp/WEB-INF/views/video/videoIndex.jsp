@@ -81,24 +81,14 @@ input[type=text]:focus {
 		onclick="alert('更新影片')">更新影片</button>
 </a>
 <div style="text-align: center;">
-	<button class='tagbtn' type="button">保養教學</button>
-	<button class='tagbtn' type="button">醫美知識</button>
-	<button class='tagbtn' type="button">極品推薦</button>
-	<button class='tagbtn' type="button">極品推薦</button>
-	<button class='tagbtn' type="button">極品推薦</button>
-	<br>
-		<button class='tagbtn' type="button">保養教學</button>
-	<button class='tagbtn' type="button">醫美知識</button>
-	<button class='tagbtn' type="button">極品推薦</button>
-	<button class='tagbtn' type="button">極品推薦</button>
-	<button class='tagbtn' type="button">極品推薦</button>
-	<br>
-		<button class='tagbtn' type="button">保養教學</button>
-	<button class='tagbtn' type="button">醫美知識</button>
-	<button class='tagbtn' type="button">極品推薦</button>
-	<button class='tagbtn' type="button">極品推薦</button>
-	<button class='tagbtn' type="button">極品推薦</button>
-	<br>
+
+<c:forEach var='category' varStatus='vs' items='${categorys}'>
+	<button class='tagbtn' type="button">${category}</button>	
+	<c:if test='${vs.count%5 == 0 }'>
+	<br>							
+	</c:if>		
+</c:forEach>
+
 
 </div>
 
@@ -191,4 +181,97 @@ input[type=text]:focus {
 <script src="${pageContext.request.contextPath}/js/mixitup.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/main.js"></script>
+
+
+<script>
+
+//往下捲載入更多影片
+$(window).scroll(function () {
+
+    if ($(window).scrollTop() >= $(document).height() - $(window).height() && flag <= 10) {
+    	
+    	
+        console.log("增加內容");
+        for (let i = 0; i < 3; i++) {
+            flag += 1;
+            $('.row').append(
+            "<div class='col-lg-4 col-md-6 col-sm-6'>"
+			+"<div class='blog__item'>"
+			+"<a href='${pageContext.request.contextPath}/video/videoWatch?videoID="+data+"'>"
+			+"<div class='blog__item__pic set-bg' data-setbg='${v.coverUrl}'>"
+			+"</div>"
+			
+				
+				
+			</a>
+			<%-- 					<img src="" onerror=javascript:this.src='${pageContext.request.contextPath}/image/noImage.jpg'> --%>
+
+
+			<%-- 							<iframe width="360" height="270" src="${v.url}" frameborder="0" --%>
+			<!-- 								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" -->
+			<!-- 								allowfullscreen></iframe> -->
+
+
+
+
+			<div class="blog__item__text" style="border-style: double;">
+				<span>上傳日期<img
+					src="${pageContext.request.contextPath}/image/icon/calendar.png"
+					alt=""> ${v.commentTime}
+				</span>
+				<h5>${v.title}</h5>
+				<div class="picform">
+					<img class='headpic'
+						src='${pageContext.request.contextPath}/pic/${v.member.iconid}'>
+				</div>
+				<div class="proprice">上傳者:${v.member.name}</div>
+				<div class="cart">
+
+					<i class="fa fa-thumbs-o-up fa-1g">${v.thumbsup}</i> <i
+						class="fa fa-thumbs-o-down fa-1g">${v.thumbsdown}</i>
+						
+						<i class="fa fa-eye" aria-hidden="true">${v.viewCount}</i>
+				</div>
+			</div>
+		</div>
+	</div>"		
+            		
+            		
+            		
+            		
+            
+
+            );
+        }
+
+
+
+        // 	$.ajax({
+
+        // 		type:"GET",
+        // 		url:"StoreGetClassStoreAjax",
+        // 		data:{
+        // 			....
+        // 			'offset':flag
+        // 		},
+        // 		datatype:'json',
+        // 		success:function (data){
+        // 			for(var i = 0; i < data.length;i++){
+        // 				context +=
+        // 					產生內容
+        // 		}
+        // 			flag += 3;  一次產生3筆
+        // 			$("#ajax").html(context);
+
+
+        // 		}
+        // })
+    }
+});
+
+
+
+</script>
+
+</body>
 </html>
