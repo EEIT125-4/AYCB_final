@@ -59,7 +59,9 @@ MemberBean mb = (MemberBean) session.getAttribute("member");
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/custom.css"
 	type="text/css">
-
+	
+<!-- 後檯版型的CSS-->	
+<link REL=STYLESHEET HREF="${pageContext.request.contextPath}/css/paper-dashboard.css" TYPE="text/css">
 
 <script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>

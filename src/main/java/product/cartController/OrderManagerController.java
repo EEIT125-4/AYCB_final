@@ -101,9 +101,13 @@ public class OrderManagerController {
 			
 		}
 		System.out.println("amount"+ totalAmount);
-		mv.addObject("totalAmount", totalAmount); 
-		
+		mv.addObject("totalAmount", totalAmount); 		
 		//int n = totalAmount.intValue();//double轉int
+		
+		List<OrderItemBean> bean = new ArrayList<OrderItemBean>();		
+		bean = os.getTopfive();		
+		System.out.println("GetTopfive " + bean);
+		
 		mv.setViewName("/product/mHistoryOrders");
 		
 		return mv;
@@ -117,7 +121,16 @@ public class OrderManagerController {
 	}
 	
 	
-	
+//	@GetMapping("/orderManager")
+//	public String GetTopfive() {
+//		List<OrderItemBean> bean = new ArrayList<OrderItemBean>();
+//		
+//		bean = os.getTopfive();
+//		
+//		System.out.println("GetTopfive " + bean);
+//		
+//		return "product/allproducts";
+//	}
 	
 	
 	
