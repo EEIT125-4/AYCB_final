@@ -117,7 +117,73 @@ $(document).ready(function(){
 
 	<div class="content"
 		style="width: 88%; float: right; margin-top: 250px;">
+		
+
+<div class="col-lg-3 col-md-6 col-sm-6" style="margin-left: 200px;">
+            <div class="card card-stats">
+              <div class="card-body ">
+                <div class="row">
+                  <div class="col-9 col-md-4">
+                    <div class="icon-big text-center icon-warning">
+                  <i class="fa fa-user" aria-hidden="true"></i>
+                    </div>
+                  </div>
+                  <div class="col-7 col-md-8">
+                    <div class="numbers">
+                      <h4 class="card-category" style="font-size:x-large;">訂單總數</h4>
+                      <p class="card-title" style="font-size:x-large;">共${orderCount}筆<p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer ">
+                <hr>
+                <div class="stats">
+                  <i class="fa fa-refresh"></i>
+                  Update Now <!--安插日期-->
+                </div>
+              </div>
+            </div>
+          </div>	
+          
+          
+          
+          <div class="col-lg-3 col-md-6 col-sm-6" style="margin-left: 200px;">
+            <div class="card card-stats">
+              <div class="card-body ">
+                <div class="row">
+                  <div class="col-9 col-md-4">
+                    <div class="icon-big text-center icon-warning">
+                  <i class="fa fa-user" aria-hidden="true"></i>
+                    </div>
+                  </div>
+                  <div class="col-7 col-md-8">
+                    <div class="numbers">
+                      <h4 class="card-category" style="font-size:x-large;">訂單總數</h4>
+                      <p class="card-title" style="font-size:x-large;">共${orderCount}筆<p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer ">
+                <hr>
+                <div class="stats">
+                  <i class="fa fa-refresh"></i>            
+                  Update Now <!--安插日期-->
+                </div>
+              </div>
+            </div>
+          </div>	
+          
+          
+          			
+		
 		<div style="width: 650px; margin-left: 120px">
+
+
+
+
+
 
 			<div style="font-size: 60px">男女比例</div>
 			<canvas id="gender" width="800" height="600"></canvas>
@@ -326,7 +392,7 @@ function Month(){
 						//標題
 						labels : ["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"],
 						datasets : [ {
-							label : '#test', //標籤
+							label : '註冊月份人數', //標籤
 							data : data, //資料
 							//圖表背景色
 							backgroundColor : [ 
@@ -337,7 +403,11 @@ function Month(){
 									'rgba(153, 50, 204, 0.2)',
 									'rgba(255, 140, 0, 0.2)',
 									'rgba(72, 61, 139, 0.2)',
-									'rgba(139, 101, 8, 0.2)' ],
+									'rgba(139, 101, 8, 0.2)',
+									'rgba(255, 99, 132, 0.2)',
+									'rgba(54, 162, 235, 0.2)',
+									'rgba(255, 185, 15, 0.2)',
+									'rgba(155, 255, 155, 0.2)'],
 							//圖表外框線色
 							borderColor : [ 
 									'rgba(255, 99, 132, 1)',
@@ -347,7 +417,11 @@ function Month(){
 									'rgba(153, 50, 204, 1)',
 									'rgba(255, 140, 0, 1)',
 									'rgba(72, 61, 139, 1)',
-									'rgba(139, 101, 8, 1)' ],
+									'rgba(139, 101, 8, 1)',
+									'rgba(255, 99, 132, 1)',
+									'rgba(54, 162, 235, 1)',
+									'rgba(255, 185, 15, 1)',
+									'rgba(155, 255, 155, 1)'],
 							//外框線寬度
 							borderWidth : 1
 						} ]
