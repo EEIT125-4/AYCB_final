@@ -27,6 +27,17 @@
 	background-size: cover;
 }
 
+/* 背景圖 */
+body {
+  background-image: url('${pageContext.request.contextPath}/image/leaves.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed; 
+  background-size: 100% 100%;
+}
+
+fieldset{
+background-color:white;
+}
 </style>
 
 </head>
@@ -207,7 +218,7 @@ $('#file').change(function() {
 let one = CKEDITOR.replace( 'editor' );
 $('#onebutton').on('click',function(){
 
-	$('#title').val('Olay 高效透白光塑淡斑精華*開架淡斑推薦、美白精華');
+	$('#title').val('Olay 高效透白光塑淡斑精華*美白精華');
 	one.setData('<p><a href="+"https://yiping1228.pixnet.net/album/photo/252220058"><img alt="Olay 高效透白光塑淡斑精華" src="https://pic.pimg.tw/yiping1228/1580917119-764931698_l.jpg" title="Olay 高效透白光塑淡斑精華" /></a>&nbsp;</p>'
 
 		+'<p>開架網友默默狂屯的淡斑光感小白瓶&rarr;Olay 高效透白光塑淡斑精華*開架淡斑推薦、美白精華</p>'

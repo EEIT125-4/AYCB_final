@@ -121,7 +121,6 @@ public class BlogController {
 			System.out.println("SelectSearchBar");
 			List<Blog> bg = blogService.selectArticle(va);
 			session.setAttribute("bgsearch", bg);
-//			model.addAttribute("bgsearch", bg);
 			return "blog/BlogSearch";
 		}
 	
