@@ -23,7 +23,7 @@ public interface EventDAO {
         
 		List<Event> getEventByCategory(String eventcategory);
 
-		
+		List<Integer>getPaxbyCategory();
 
 
 }

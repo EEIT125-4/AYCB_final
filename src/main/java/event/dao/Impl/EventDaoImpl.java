@@ -90,6 +90,28 @@ public class EventDaoImpl implements EventDAO {
 		
 		return list;
 	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Integer> getPaxbyCategory() {
+		String hql="FROM Event WHERE eventcategory=:category" ;
+		Session session = factory.getCurrentSession();
+		Query<Event> query= session.createQuery(hql);
+		
+		Integer list1= query.setParameter("category", "體驗").getResultList().size();
+		Integer list2= query.setParameter("category", "教學").getResultList().size();
+		Integer list3= query.setParameter("category", "新品發表").getResultList().size();
+		Integer list4= query.setParameter("category", "促銷").getResultList().size();
+		Integer list5= query.setParameter("category", "其他").getResultList().size();
+		
+		List<Integer> list= new ArrayList<>();
+		list.add(list1);
+		list.add(list2);
+		list.add(list3);
+		list.add(list4);
+		list.add(list5);
+		
+		return list;
+	}
 
 	
 }

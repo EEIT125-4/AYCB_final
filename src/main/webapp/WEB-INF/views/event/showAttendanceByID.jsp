@@ -15,53 +15,29 @@
 <%@include file="../jspf/header.jspf"%>
 
 <div class="container" style="margin-bottom: 80px">
-<!-- 		<div> -->
-<!-- 			<div -->
-<!-- 				style="float: left; width: 20%; text-align: center; margin-left: 220px;"> -->
-
-<!-- 				<dl> -->
-<!-- 					<dt> -->
-<!-- 						<h2>預約活動</h2> -->
-<!-- 					</dt> -->
-<!-- 					<hr width=70% size=1 color=#BFBFBF -->
-<!-- 						style="FILTER: alpha(opacity = 100, finishopacity = 0, style = 3)"> -->
-<!-- 					<dt class="a1"> -->
-<!-- 						<A href="showEvent"> -->
-<!-- 							<h2>活動介紹</h2> -->
-<!-- 						</A> -->
-<!-- 					</dt> -->
-<!-- 					<dt class="a1"> -->
-<%-- 						<a href="<c:url value='showAllAttendanceByID'/>?id=${member.id}"><h2>查詢會員報名</h2></a>	 --%>
-<!-- 					</dt> -->
-<!-- 					<dt class="a1"> -->
-<!-- 						<A href='showAttendance'><h2>查詢報名</h2></A>	 -->
-<!-- 					</dt> -->
-
-<!-- 				</dl> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-	
-	
 		<h2>已報名活動</h2>
 		<c:choose>
 		<c:when test='${empty attendancelist}'>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
 		查無報名資料<br>
 		</c:when>
 		<c:otherwise>
-			<table class="table table-borderless table-dark" >
+			<table id="mytable" class="display">
+			<thead>
 				<tr>
-					<td align="center" valign="middle">活動圖片</td>
-					<td align="center" valign="middle" width="">活動ID</td>			
-					<td align="center" valign="middle" width="">活動名稱</td>			
-					<td align="center" valign="middle">日期</td>
-					<td align="center" valign="middle">地點</td>								
+					<th align="center" valign="middle">活動圖片</th>
+					<th align="center" valign="middle" width="">活動ID</th>			
+					<th align="center" valign="middle" width="">活動名稱</th>			
+					<th align="center" valign="middle">日期</th>
+					<th align="center" valign="middle">地點</th>								
 <!-- 					<td align="center" valign="middle">帳號</td>	 -->
-					<td align="center" valign="middle">mail</td>
-					<td align="center" valign="middle">電話號碼</td>
-					<td align="center" valign="middle">報名人數</td>
-					<td align="center" valign="middle" colspan="2">修改報名資料</td>
+					<th align="center" valign="middle">mail</th>
+					<th align="center" valign="middle">電話號碼</th>
+					<th align="center" valign="middle">報名人數</th>
+					<th align="center" valign="middle">修改報名資料</th>
+					<th align="center" valign="middle">修改報名資料</th>
 					
 				</tr>
+			</thead>	
 				<c:forEach var='Attendance' varStatus='vs' items='${attendancelist}'>
 					<tr>
 						<td align="center" style="vertical-align:middle;"><img width='180' height='200' src='${Attendance.event.filename}' /></td>
@@ -73,7 +49,7 @@
 						<td align="center" style="vertical-align:middle;">${Attendance.mailaddress}</td>
 						<td align="center" style="vertical-align:middle;">${Attendance.phone}</td>
 						<td align="center" style="vertical-align:middle;">${Attendance.pax}</td>
-						<td align="center" style="vertical-align:middle;"><a href="<c:url value='update'/>?aid=${Attendance.aid}" class="btn btn-primary" style="width: 150px ;background-color: grey; border: none;">更改聯絡資訊</a></td>
+						<td align="center" style="vertical-align:middle;"><a href="<c:url value='update'/>?aid=${Attendance.aid}" class="btn btn-primary" style="width: 150px ;background-color: grey; border: none;">更改報名資訊</a></td>
                         <td align="center" style="vertical-align:middle;"><a href="<c:url value='delete'/>?aid=${Attendance.aid}&eventid=${Attendance.event.eventid}&id=${Attendance.member.id}" class="btn btn-primary" style="width: 100px ;background-color: grey;border: none;">取消報名</a></td>
 <%--                class='deletelink'         ${Attendance.aid} --%>
 					</tr>
@@ -89,16 +65,45 @@
 
 <%@include file="../jspf/footer.jspf"%>
 </body>
-<!-- 	<script type='text/javascript'> -->
-<!--     $(document).ready(function() {    	 -->
-<!--         $('.deletelink').click(function() { -->
-<!--         	if (confirm('確定刪除此筆紀錄? ')) { -->
-<!--         	var href = $(this).attr('href');        	       		 -->
-<!--                 $('form').attr('action', href).submit(); -->
-<!--         	}  -->
-<!--         	return false; -->
-            
-<!--         }); -->
-<!--     }) -->
-<!-- </script> -->
+<script>
+$(document).ready(function () {
+    $('#mytable').DataTable({
+    	bFilter: true,
+    	bPaginate: true, // 顯示換頁
+  		searching: true, // 顯示搜尋
+  		info:	true, // 顯示資訊
+  		fixedHeader: true,  // 標題置頂
+		destroy:true,
+		language:{
+		    "processing": "處理中...",
+		    "loadingRecords": "載入中...",
+		    "lengthMenu": "顯示 _MENU_ 項結果",
+		    "zeroRecords": "沒有符合的結果",
+		    "info": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+		    "infoEmpty": "顯示第 0 至 0 項結果，共 0 項",
+		    "infoFiltered": "(從 _MAX_ 項結果中過濾)",
+		    "search": "搜尋:",
+		    "paginate": {
+		        "first": "第一頁",
+		        "previous": "上一頁",
+		        "next": "下一頁",
+		        "last": "最後一頁"
+		    },
+		    "aria": {
+		        "sortAscending": ": 升冪排列",
+		        "sortDescending": ": 降冪排列"
+		    },
+		    "select": {
+		        "1": "%d 列已選擇",
+		        "2": "%d 列已選擇",
+		        "_": "%d 列已選擇"
+		    }
+		} 
+});
+});
+
+
+
+
+</script>
 </html>

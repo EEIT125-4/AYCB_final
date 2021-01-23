@@ -58,7 +58,7 @@
 	<div class="adbox">
 		<ul class="adbox_slides"  id="adbox_slides">
 			<li><img src="image/BIOTHERM0122.jpg"></li>
-			<li><img src="image/ad1.jpg"></li>
+			<li><img src="image/olay-banner .jpg"></li>
 			<li><img src="image/l_occitane0122.jpg"></li>
 		</ul>
 		<ul class="adbox_dot">

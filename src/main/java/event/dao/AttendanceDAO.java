@@ -30,7 +30,8 @@ public interface AttendanceDAO {
 			List<Attendance> getAllAttendancebyEvent(Integer eventid);
 
 			boolean isDup(Integer id, Integer eventid);
-	        
+			
+	   
 
 
 		
