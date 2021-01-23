@@ -431,7 +431,6 @@
 }
 
 .proinfo {
-	margin-left: 10px;
 	font-size: 18px;
     font-weight: bold;
 }
@@ -464,11 +463,8 @@
 .btninfo {
 	float: left;
     width: fit-content;
-    font-size: 30px;
-    font-weight: bold;
-    margin-left: 10px;
-    border-radius: 5px;
-    border: 3px solid gray;
+    margin-top: 5px;
+    margin-left: 150px;
     cursor: pointer;
 }
 
@@ -476,6 +472,18 @@
 	float: left;
 	width: 40px;
     height: 40px;
+}
+
+.topstatusimgbox {
+	position: absolute;
+	margin: 5px;
+	z-index: 1;
+}
+
+.topstatusimg {
+	width: 60px;
+	height: 35px;
+	display: none;
 }
 
 .botbox {
@@ -551,6 +559,18 @@
 	overflow: hidden;
 }
 
+.botstatusimgbox {
+	position: absolute;
+	margin: 5px;
+	z-index: 1;
+}
+
+.botstatusimg {
+	width: 48px;
+	height: 28px;
+	display: none;
+}
+
 .btninfo_a {
 	color: black;
 }
@@ -566,3 +586,4 @@
 .btninfo_a:hover {
 	color: tomato;
 }
+

@@ -212,3 +212,12 @@
     font-size: 24px;
     font-weight: bold;
 }
+
+.addlab .error {
+  	display: inline;
+}
+
+.error {
+	color: red;
+  	margin-left: 5px;
+}

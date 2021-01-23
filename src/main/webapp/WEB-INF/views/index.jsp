@@ -37,7 +37,8 @@ if (session.getAttribute("member") != null) {
 
 <script>
 	$(document).ready(function() {
-		Topfive()
+		Topfive();
+		Allstatus();
 	});
 </script>
 
@@ -314,7 +315,8 @@ if (session.getAttribute("member") != null) {
 					if(i <= 1){
 						top += "<div class='topbox'><div class='toprank'>"+(i+1)+"</div><div><img src='image/top5bar1.png'></div>"
 							+  "<div class='topimgbox'>"
-							+  "<a href='<c:url value="/Detail" />?no="+data[i].productno+"&cate="+data[i].productcategory+"'>"
+							+  "<div class='topstatusimgbox'><img id='topstatusimg"+data[i].productno+"' class='topstatusimg'></div>"
+							+  "<a id='topdetail"+data[i].productno+"' href='<c:url value="/Detail" />?no="+data[i].productno+"&cate="+data[i].productcategory+"'>"
 							+  "<img class='topimg' src='${pageContext.request.contextPath}/pic/"+data[i].imagepath+"'></a></div>"
 							+  "<div class='topinfo'>"
 							+  "<div class='brandinfo'>"+data[i].brandname+"</div>"
@@ -324,16 +326,17 @@ if (session.getAttribute("member") != null) {
 							+  "<div class='dealbox'>"
 							+  "<div class='priceinfo'>NT$ "+data[i].productprice+"</div>"
 							+  "<%if (login) {%>"
-							+  "<div class='btninfo' onclick='return addCart("+data[i].productno+")'><img class='btnimg' src='image/bg_cart_b.svg'>加入購物車</div>"
+							+  "<div id='topbtn"+data[i].productno+"' class='btninfo' onclick='return addCart("+data[i].productno+")'><img class='btnimg' src='image/bg_cart_b.svg'></div>"
 							+  "<%} else {%>"
-							+  "<a class='btninfo_a' href='${pageContext.request.contextPath}/member/login'>"
-							+  "<div class='btninfo'><img class='btnimg' src='image/bg_cart_b.svg'>加入購物車</div></a>"
+							+  "<a id='top_a"+data[i].productno+"' class='btninfo_a' href='${pageContext.request.contextPath}/member/login'>"
+							+  "<div id='topbtn"+data[i].productno+"' class='btninfo'><img class='btnimg' src='image/bg_cart_b.svg'></div></a>"
 							+  "<%}%>"
 							+  "</div></div></div></div>";
 					}else {
 						bot += "<div class='botbox'><div class='botrank'>"+(i+1)+"</div><div><img class='botrankimg' src='image/top5bar2.png'></div>"
 							+  "<div class='botimgbox'>"
-							+  "<a href='<c:url value="/Detail" />?no="+data[i].productno+"&cate="+data[i].productcategory+"'>"
+							+  "<div class='botstatusimgbox'><img id='botstatusimg"+data[i].productno+"' class='botstatusimg'></div>"
+							+  "<a id='botdetail"+data[i].productno+"' href='<c:url value="/Detail" />?no="+data[i].productno+"&cate="+data[i].productcategory+"'>"
 							+  "<img class='botimg' src='${pageContext.request.contextPath}/pic/"+data[i].imagepath+"'></a></div>"
 							+  "<div class='botinfo1'>"
 							+  "<div class='botbrandinfo'>"+data[i].brandname+"</div>"
@@ -344,10 +347,10 @@ if (session.getAttribute("member") != null) {
 							+  "<div class='botdealbox'>"
 							+  "<div class='priceinfo'>NT$ "+data[i].productprice+"</div>"
 							+  "<%if (login) {%>"
-							+  "<div class='btninfo' onclick='return addCart("+data[i].productno+")'><img class='btnimg' src='image/bg_cart_b.svg'>加入購物車</div>"
+							+  "<div id='botbtn"+data[i].productno+"' class='btninfo' onclick='return addCart("+data[i].productno+")'><img class='btnimg' src='image/bg_cart_b.svg'></div>"
 							+  "<%} else {%>"
-							+  "<a class='btninfo_a' href='${pageContext.request.contextPath}/member/login'>"
-							+  "<div class='btninfo'><img class='btnimg' src='image/bg_cart_b.svg'>加入購物車</div></a>"
+							+  "<a id='bot_a"+data[i].productno+"' class='btninfo_a' href='${pageContext.request.contextPath}/member/login'>"
+							+  "<div id='botbtn"+data[i].productno+"' class='btninfo'><img class='btnimg' src='image/bg_cart_b.svg'></div></a>"
 							+  "<%}%>"
 							+  "</div></div></div>";
 					}
@@ -355,6 +358,33 @@ if (session.getAttribute("member") != null) {
 				$("#sellhot").html(content);
 				$('#sellhot').append(top);
 				$('#sellhot').append(bot);
+			}
+		});
+	}
+	
+	function Allstatus() {
+		$.ajax({
+			type : 'GET',
+			url : 'AllStatus',
+			dataType : "json",
+			success : function(data) {
+				for (let i = 0; i < data.Products.length; i++) { 
+					if(data.Products[i].productstatus == 2) {
+						$('#topstatusimg' + data.Products[i].productno).attr('src', 'image/soldout.gif');
+						$('#topstatusimg' + data.Products[i].productno).css('display', 'block');
+						$('#topdetail' + data.Products[i].productno).removeAttr('href');
+						$('#topbtn' + data.Products[i].productno).css('cursor', 'not-allowed');
+						$('#topbtn' + data.Products[i].productno).removeAttr('onclick');
+						$('#top_a' + data.Products[i].productno).removeAttr('href');
+						
+						$('#botstatusimg' + data.Products[i].productno).attr('src', 'image/soldout.gif');
+						$('#botstatusimg' + data.Products[i].productno).css('display', 'block');
+						$('#botdetail' + data.Products[i].productno).removeAttr('href');
+						$('#botbtn' + data.Products[i].productno).css('cursor', 'not-allowed');
+						$('#botbtn' + data.Products[i].productno).removeAttr('onclick');
+						$('#bot_a' + data.Products[i].productno).removeAttr('href');
+					}
+				}
 			}
 		});
 	}
