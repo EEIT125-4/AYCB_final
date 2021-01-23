@@ -83,6 +83,7 @@ if (session.getAttribute("member") != null) {
 		<div id="nextbtn" class="adbox_btn">
 			<i class="fa fa-chevron-right"></i>
 		</div>
+		</div>
 
 		<div class="line"></div>
 		<div id="sellhot" class="sellhot">
