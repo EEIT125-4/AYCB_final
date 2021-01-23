@@ -29,5 +29,9 @@ public interface VideoService {
 	List<Video> getVideoByMember(MemberBean mb);
 	//取得所有類型
 	List<String>getAllCategory();
-
+	
+	//載入符合特定條件的video,後兩個參數為起始值與最大筆數
+		List<Video>getMoreVideos(String condition,Integer index,Integer num);
+		//查詢符合條件的影片
+		List<Video>searchVideo(String search);
 }

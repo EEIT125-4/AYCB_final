@@ -106,4 +106,7 @@ public class AttendanceDaoImpl implements AttendanceDAO {
 		return list;
 	}
 
+
+	
+
 }

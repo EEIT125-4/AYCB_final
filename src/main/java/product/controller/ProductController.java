@@ -364,4 +364,17 @@ public class ProductController {
 		map.put("Products", list);
 		return map;
 	}
+	
+	@SuppressWarnings("rawtypes")
+	@GetMapping(value = "/TopFive", produces = "application/json")
+	public @ResponseBody List<ProductBean> topfive(Model model) {
+		List top5 = ps.getTopfive();
+		List<ProductBean> list = new ArrayList<ProductBean>();
+		ProductBean pb = new ProductBean();
+		for(int i=0 ; i<top5.size() ; i++) {
+			pb = ps.getProduct((int)top5.get(i));
+			list.add(pb);
+		}
+		return list;
+	}
 }

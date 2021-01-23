@@ -5,13 +5,27 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+	crossorigin="anonymous">
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+	integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+	crossorigin="anonymous"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.css"/>
 <link REL="STYLESHEET" HREF="${pageContext.request.contextPath}/css/manager.css" TYPE="text/css">
-<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.js"></script>	
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.js"></script>
+<link REL=STYLESHEET HREF="${pageContext.request.contextPath}/css/paper-dashboard.css" TYPE="text/css">	
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 <title></title>
 </head>
 <body>
+<div>
 <div class="back" style="width:180px">
 			<div class="title" style="text-align: left">後臺管理</div>
 			<div class="mbtnbox">
@@ -51,8 +65,92 @@
 					onclick='location.href="${pageContext.request.contextPath}/advertisement"'>
 			</div>
 		</div>
+		<div class="row" style="margin:50px">
+		<div class="col-lg-3 col-md-6 col-sm-6" style="margin-left: 200px;">
+            <div class="card card-stats">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-9 col-md-4">
+                    <div class="icon-big text-center icon-warning">
+                      <i class="fa fa-shopping-cart text-primary"></i>
+                    </div>
+                  </div>
+                  <div class="col-7 col-md-8">
+                    <div class="numbers">
+                      <h4 class="card-category" style="font-size:x-large;">活動參加總人數</h4>
+                      <p class="card-title" style="font-size:x-large;">共?人<p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer ">
+                <hr>
+                <div class="stats">
+                  <i class="fa fa-refresh"></i>
+                  Update Now 安插日期
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-6" >
+            <div class="card card-stats">
+              <div class="card-body ">
+                <div class="row">
+                  <div class="col-9 col-md-4">
+                    <div class="icon-big text-center icon-warning">
+                      <i class="fa fa-shopping-cart text-primary"></i>
+                    </div>
+                  </div>
+                  <div class="col-7 col-md-8">
+                    <div class="numbers">
+                      <h4 class="card-category" style="font-size:x-large;">訂單總數</h4>
+                      <p class="card-title" style="font-size:x-large;">共${orderCount}筆<p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer ">
+                <hr>
+                <div class="stats">
+                  <i class="fa fa-refresh"></i>
+                  Update Now 
+                </div>
+              </div>
+            </div>
+          </div>	
+          <div class="col-lg-3 col-md-6 col-sm-6" >
+            <div class="card card-stats">
+              <div class="card-body ">
+                <div class="row">
+                  <div class="col-9 col-md-4">
+                    <div class="icon-big text-center icon-warning">
+                      <i class="fa fa-shopping-cart text-primary"></i>
+                    </div>
+                  </div>
+                  <div class="col-7 col-md-8">
+                    <div class="numbers">
+                      <h4 class="card-category" style="font-size:x-large;">訂單總數</h4>
+                      <p class="card-title" style="font-size:x-large;">共${orderCount}筆<p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer ">
+                <hr>
+                <div class="stats">
+                  <i class="fa fa-refresh"></i>
+                  Update Now 
+                </div>
+              </div>
+            </div>
+          </div>		
+		</div>
+		
+		<div style="width:500px;height:500px; margin-left:220px">
+		<canvas id="myChart"></canvas>
+		</div>
 
-<div style="margin: 200px 0px 0px 200px" id="backcontent">
+<div style="margin: 0px 0px 0px 180px" id="backcontent">
 				
 				<c:choose>
 					<c:when test='${empty events}'>查無報名資料<br></c:when> 
@@ -62,7 +160,7 @@
 				  <thead>	
 				 <tr> 
 				   <th>活動ID</th>
-				   <th>活動圖片</th> 
+				   <th width='180' height='200'>活動圖片</th> 
 				   <th>活動名稱</th> 
 				   <th>日期</th>
 				   <th>地點</th>
@@ -71,8 +169,8 @@
 				   <th>活動敘述</th> 
 				   <th>名額</th> 
 				   <th>報名人數</th> 
-				   <th >編輯活動資料</th>
-				   <th >刪除活動資料</th>
+				   <th>編輯活動資料</th>
+				   <th>刪除活動資料</th>
 				 </tr>
 				 </thead>
 				 
@@ -109,7 +207,7 @@ $('#showattendancebyevent${event.eventid}').click(function(){
 					</c:otherwise>
 				</c:choose>
 </div>
-			
+</div>			
 		
 </body>
 <script>
@@ -150,6 +248,60 @@ $(document).ready(function () {
 });
 
 
+
+
+$(document).ready(function PaxOfCategory(){
+	var ctx = document.getElementById('myChart');
+	$.ajax({
+		type : 'GET',
+		url : "numberofpax",
+		dataType : "json",
+		success : function(data) {
+			var category = new Chart(ctx, {
+				type : 'pie', //圖表類型
+				data : {
+					//標題
+					labels : ["體驗","教學","新品發表","促銷","其他"],
+					datasets : [ {
+						label : '#test', //標籤
+						data : data, //資料
+						//圖表背景色
+						backgroundColor : [ 
+								'rgba(255, 99, 132, 0.2)',
+								'rgba(54, 162, 235, 0.2)',
+								'rgba(255, 185, 15, 0.2)',
+								'rgba(155, 255, 155, 0.2)',
+								'rgba(153, 50, 204, 0.2)'
+								 ],
+						//圖表外框線色
+						borderColor : [ 
+								'rgba(255, 99, 132, 1)',
+								'rgba(54, 162, 235, 1)',
+								'rgba(255, 185, 15, 1)',
+								'rgba(155, 255, 155, 1)',
+								'rgba(153, 50, 204, 1)',
+								],
+						//外框線寬度
+						borderWidth : 1
+					} ]
+				},
+				options : {
+					scales : {
+						yAxes : [ {
+							ticks : {
+								beginAtZero : true,
+								responsive : true
+								//符合響應式
+							}
+						} ]
+					}
+				}
+			});
+		}
+	});
+
+	
+});
 
 
 </script>
