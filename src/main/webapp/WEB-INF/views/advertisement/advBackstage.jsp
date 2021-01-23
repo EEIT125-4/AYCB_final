@@ -22,7 +22,7 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 .content {
     width: 88%;
     float: right;
-    margin-top: -615px;
+    margin-top: 150px;
 }
 </style>
 </head>

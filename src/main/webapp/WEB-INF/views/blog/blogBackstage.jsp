@@ -21,7 +21,7 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 .content {
     width: 88%;
     float: right;
-    margin-top: -615px;
+    margin-top: 150px;
 }
 </style>
 </head>
@@ -103,12 +103,12 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 <script type="text/javascript">
 
 var table=document.getElementById("myDataTable");
-
+var tb;
 
 
         $(function () {
 
-           var tb= $("#myDataTable").DataTable({
+            tb= $("#myDataTable").DataTable({
                 searching: true, 
                 columnDefs: [{
 //                     targets: [10],
@@ -131,7 +131,9 @@ $(document).ready(function() {	});
 			 $(this).removeClass('selected');
 		}else {
             tb.$('tr.selected').removeClass('selected');
+           
             $(this).addClass('selected');
+          
         }		
 		
 	});
@@ -191,17 +193,15 @@ $(document).ready(function() {	});
     		  confirmButtonColor: '#3085d6',
     		  cancelButtonColor: '#d33',
     		  confirmButtonText: '確定刪除', 
-    		}).then(function(){
-    			
-    			
-    			 $.ajax({
+    		}).then((result)=>{
+    			if(result.isConfirmed){
+    				
+    				$.ajax({
     		            type: "POST", //傳送方式
     		            url: "${pageContext.request.contextPath}/blog/delete/"+blogId, 
     		            dataType: "json", //資料格式
-//     		            data: { //傳送資料            	
-//     		            	"blogId":blogId,
-//     		            	"state":state                
-//     		            },
+          
+
     		            success: function(data) {
     		            	if(data){
     		            		swal.fire({
@@ -211,12 +211,9 @@ $(document).ready(function() {	});
       		      				  button: "OK",
       		      				});
     		            		console.log("this="+$(this));
-    		            		var target=$(this).parent().parent();
-    		            		target.css({"color":"red","border":"2px solid red"});
+
     		            		tb.row('.selected').remove().draw( false );
     		            	
-//     		            		var target=$(this).parent().parent();
-//     		            		target.css({"color":"red","border":"2px solid red"});
     		            		
     		            	}else{
     		            		
@@ -238,7 +235,20 @@ $(document).ready(function() {	});
     		    				  button: "OK",
     		    				});        		
   		            	}   		            	            	    		              		           
-    		        })  			
+    		        }) ;
+  				
+    			}else{
+    				console.log('取消刪');
+//     				swal.fire({
+// 	    				  title:'取消',
+// 	    				  text: '取消刪除',
+// 	    				  type:'info',
+// 	    				  icon: "info",
+// 	    				  button: "OK",
+// 	    				});  
+    				
+    			}
+    			    			  			
     		});
     	
     });

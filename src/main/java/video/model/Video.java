@@ -33,6 +33,9 @@ public class Video {
 	@Column(columnDefinition = "NVARCHAR(max)")
 	private String category;
 	
+	@Column(columnDefinition = "NVARCHAR(max)")
+	private String description;
+	
 	
 	@Column(columnDefinition = "NVARCHAR(max)")
 	private String coverUrl;
@@ -152,6 +155,14 @@ public class Video {
 
 	public void setCategory(String category) {
 		this.category = category;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 	
