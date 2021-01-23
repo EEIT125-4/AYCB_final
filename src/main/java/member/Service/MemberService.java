@@ -37,6 +37,8 @@ public interface MemberService {
 	int delete(int account);
 
 	 List<Integer> gender();
+
+	 List<Integer> months();
 	 
 	 
 	 

@@ -44,12 +44,12 @@ width:100px;
 		z-index: 1;
 	}
 	
-	   .top:hover {
+/* 	   .top:hover { */
 	
-		background:green;
+/* 		background:green; */
 		
 
-	}
+/* 	} */
 	
 </style>
 
@@ -254,7 +254,8 @@ width:100px;
 			<div class="canvas__open"><i class="fa fa-bars"></i></div>
 		</div>
 		<input type="hidden" id="memberid" value='${member.id }'>
-		<button class="top" onclick="goTop();">TOP</button>
+		<a onclick="goTop();"><div class="top">TOP</div></a>
+<!-- 		<button class="top" onclick="goTop();">TOP</button> -->
 <script type="text/javascript">
 
 function goTop(){

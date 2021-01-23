@@ -67,7 +67,7 @@ if (session.getAttribute("member") != null) {
 </style>
 <body style="">
 	<%@include file="../jspf/backstage.jspf"%>
-<div id="mytop" class="content" style="position: relative;top: -750px;float: right;width: 88%;">
+<div id="mytop" class="content" style="position: relative;top: 150px;float: right;width: 88%;">
 	<h2 style="font-weight: bold; text-align: center;">訂單管理後臺</h2>
 	<c:choose>
 		<c:when test="${empty AllOrders}">
