@@ -119,5 +119,14 @@ public class OrderServiceImpl implements OrderService {
 		return brandMap;
 	}
 
+
+	@Override
+	public List<OrderItemBean> getTopfive() {
+		
+		List<OrderItemBean> list = dao.getTopfive();
+		
+		return list;
+	}
+
 			
 }

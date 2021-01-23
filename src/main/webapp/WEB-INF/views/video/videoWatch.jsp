@@ -55,6 +55,7 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 				class="fa fa-thumbs-o-down fa-1g">${video.thumbsdown }</i>
 
 			<div class="commentdate">${video.commentTime }</div>
+			<p>${video.description}</p>
 
 		</div>
 
@@ -158,6 +159,8 @@ var flag = 0;
 		
 });
 });
+
+
 
         </script>
         

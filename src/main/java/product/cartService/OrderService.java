@@ -26,5 +26,7 @@ public interface OrderService {
 	ProductDB getProductDB();
 	
 	Map<String, Object> getBrandNumber();
+	
+	List<OrderItemBean> getTopfive();
 
 }

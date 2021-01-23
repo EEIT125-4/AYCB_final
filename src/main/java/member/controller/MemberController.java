@@ -3,10 +3,13 @@ package member.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
@@ -34,6 +37,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.wf.captcha.SpecCaptcha;
 import com.wf.captcha.utils.CaptchaUtil;
 
+import javassist.expr.NewArray;
 import mail.MyMailSender;
 import member.LoginBean;
 import member.MemberBean;
@@ -263,7 +267,12 @@ public class MemberController {
 		
 		if(mb!=null) {
 			System.out.println("取得member,驗證成功:"+mb);
+			Timestamp time =new Timestamp(new java.util.Date().getTime());
+			
+		    Date date =new Date(time.getTime());
+			mb.setRegistertime(date);
 			memberService.insertregister(mb);
+			
 			session.removeAttribute(sessionID);//移除註冊session
 			session.setAttribute("member", mb);
 			
@@ -307,7 +316,7 @@ public class MemberController {
 		
 		session.setAttribute(sessionID, member);
 		MyMailSender.sendverificationEmail(member.getEmail(),member.getName(),"請點擊下方連結驗證您的信箱",sessionID);
-		
+	
 		out.print("<script language='javascript'>alert('已寄出驗證信,請在30分鐘內以信件連結驗證帳號!');window.location.href='/AYCB_final/index'</script>");//"  
 //		model.addAttribute("hint", "已寄出驗證信,請在30分鐘內以信件連結驗證帳號");
 		
@@ -583,8 +592,6 @@ public class MemberController {
 			System.out.println("birth" + birth);
 			memberBean.setCkpower(true);
 
-
-
 			memberService.insertregister(memberBean);
 
 
@@ -688,7 +695,7 @@ public class MemberController {
 		return "index";
 	}
 	
-	@GetMapping(value="/gender" , produces = "application/json")
+	@GetMapping(value="/gender" , produces = "application/json" )
 	public @ResponseBody List<Integer> getGender(Model model) {
 		List<Integer> sex =new ArrayList<Integer>();
 		List<Integer> gender =memberService.gender();	
@@ -708,6 +715,14 @@ public class MemberController {
 		return "member/memberBackstage";
 	}
 	
-	
+	@GetMapping(value="/monthtotal" , produces = "application/json")
+	public @ResponseBody List<Integer> getmonths(Model model){
+		System.out.println("--------------------------123123");
+		List<Integer> mon = new ArrayList<Integer>();
+		List<Integer> monn = memberService.months();
+		System.out.println("--------------------------123123");
+		return monn;
+
+	}
 	
 }

@@ -26,5 +26,7 @@ public interface OrderDao {
 	ProductDB getProductDB();
 	  
 	Map<String, Object> getBrandNumber();
+	
+	List<OrderItemBean> getTopfive();
 
 }

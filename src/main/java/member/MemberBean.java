@@ -2,6 +2,7 @@ package member;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -58,8 +59,17 @@ public class MemberBean implements Serializable {
 	
 	@Column(columnDefinition="bit default 0")
 	private boolean ckpower;
+	@Column(columnDefinition="datetime")
+	private java.util.Date registertime; 
 	
-	
+	public java.util.Date getRegistertime() {
+		return registertime;
+	}
+
+	public void setRegistertime(java.util.Date registertime) {
+		this.registertime = registertime;
+	}
+
 	@Transient
 	@ManyToMany(mappedBy = "member",cascade = CascadeType.ALL)
 	Set<Record>records=new HashSet<Record>();
@@ -72,8 +82,6 @@ public class MemberBean implements Serializable {
 		this.records = records;
 	}
 	
-	
-
 	public String getIntroduce() {
 		return introduce;
 	}

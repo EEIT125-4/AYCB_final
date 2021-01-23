@@ -14,10 +14,10 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 <head>
 
 <meta charset="UTF-8">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/comment.css">
+
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">
+	<link REL=STYLESHEET HREF="${pageContext.request.contextPath}/css/inside.css" TYPE="text/css">
 
 <title>你的影片</title>
 
@@ -35,6 +35,11 @@ td{
 
 border :1px solid black;
 
+}
+
+body{
+
+	background-image:url(${pageContext.request.contextPath}/image/backstage2.jpg);background-size: cover;
 }
 
 </style>	
@@ -99,10 +104,7 @@ border :1px solid black;
 											
 											</thead>
 											<tbody id='commentBody'>
-											<tr>
-											<td>???</td>
-											<td>xxx</td>
-											</tr>												
+																	
 											</tbody>
 											
 											
@@ -129,7 +131,7 @@ border :1px solid black;
 
 
 
-		<%@include file="../jspf/footer.jspf"%>
+<%-- 		<%@include file="../jspf/footer.jspf"%> --%>
 
 
 		<!-- Js Plugins -->
@@ -138,7 +140,7 @@ border :1px solid black;
 		<script type="text/javascript">
 
 		var tb;//準備放datatable的變數
-		
+		var tr_selected;
 		var path = "${pageContext.request.contextPath}";
 		var object='video';
 		
@@ -181,10 +183,10 @@ border :1px solid black;
 						+"<td>"+data[i].viewCount+"</td>"
 						+"<td>"+data[i].thumbsup+"</td>"
 						+"<td>"+data[i].thumbsdown+"</td>"
-						+"<td><a href='' title='修改影片'><i class='fa fa-pencil' aria-hidden='true' style='color:green'></i></a>"
+						+"<td><a href='${pageContext.request.contextPath}/video/edit?videoId="+data[i].videoId+"' title='修改影片'><i class='fa fa-pencil' aria-hidden='true' style='color:green'></i></a>"
 						+"<button class='showComment' value='"+data[i].videoId +"' data-toggle='modal' data-target='#commentTable' style='border: none;background-color: transparent;'>"
 						+"<i class='fa fa-commenting-o' aria-hidden='true' style='color:green'></i></button>"	
-						+"<button class='deleteBtn' style='border: none;background-color: transparent;' value='"+data[i].videoId+"'>"
+						+"<button class='delete_btn' style='border: none;background-color: transparent;' value='"+data[i].videoId+"'>"
 						+"<i class='fa fa-trash-o' aria-hidden='true' style='color:green'></i></button>"
 // 						<a href='' title='檢視留言'><i class='fa fa-commenting-o' aria-hidden='true' style='color:green'></i></a>
 						+"</td>"
@@ -200,6 +202,8 @@ border :1px solid black;
 							orderable : true,
 						} ]
 					});
+					
+					console.log("tb"+tb);
 					
 					
 	   		     				
@@ -276,10 +280,12 @@ border :1px solid black;
 		});
 		
 		
-		//刪除blog按鈕
-	    $(".delete_btn").click(function() {
+		//刪除video按鈕
+		
+	    $(document).on('click','.delete_btn',function() {
 	    
-	    	var blogId=$(this).parent().siblings("td[name='blogId']").text();
+	    	var vid=$(this).val();
+	    	console.log('delete id='+vid);
 	    	
 	    	
 	    	swal.fire({ 
@@ -289,18 +295,16 @@ border :1px solid black;
 	    		  showCancelButton: true, 
 	    		  confirmButtonColor: '#3085d6',
 	    		  cancelButtonColor: '#d33',
-	    		  confirmButtonText: '確定刪除', 
-	    		}).then(function(){
-	    			
-	    			
-	    			 $.ajax({
+	    		  confirmButtonText: '刪除', 
+	    		}).then((result)=>{
+	    			if(result.isConfirmed){
+	    				
+	    				$.ajax({
 	    		            type: "POST", //傳送方式
-	    		            url: "${pageContext.request.contextPath}/blog/delete/"+blogId, 
+	    		            url: "${pageContext.request.contextPath}/video/delete?vid="+vid, 
 	    		            dataType: "json", //資料格式
-//	     		            data: { //傳送資料            	
-//	     		            	"blogId":blogId,
-//	     		            	"state":state                
-//	     		            },
+	          
+
 	    		            success: function(data) {
 	    		            	if(data){
 	    		            		swal.fire({
@@ -310,8 +314,8 @@ border :1px solid black;
 	      		      				  button: "OK",
 	      		      				});
 	    		            		console.log("this="+$(this));
-	    		            		var target=$(this).parent().parent();
-	    		            		target.css({"color":"red","border":"2px solid red"});
+// 	    		            		var target=$(this).parent().parent();
+// 	    		            		target.css({"color":"red","border":"2px solid red"});
 	    		            		tb.row('.selected').remove().draw( false );
 	    		            	
 //	     		            		var target=$(this).parent().parent();
@@ -337,7 +341,20 @@ border :1px solid black;
 	    		    				  button: "OK",
 	    		    				});        		
 	  		            	}   		            	            	    		              		           
-	    		        })  			
+	    		        }) ;
+	  				
+	    			}else{
+	    				console.log('取消刪');
+//	     				swal.fire({
+//	 	    				  title:'取消',
+//	 	    				  text: '取消刪除',
+//	 	    				  type:'info',
+//	 	    				  icon: "info",
+//	 	    				  button: "OK",
+//	 	    				});  
+	    				
+	    			}
+	    			    			  			
 	    		});
 	    	
 	    });
@@ -360,16 +377,26 @@ border :1px solid black;
 			return date;
 		}
 		
-// 		$('#myDataTable tbody').on('click', 'tr', function() {
-// 			if ($(this).hasClass('selected')) {
+		$('#myDataTable tbody').on('click','tr',function(){
+			if($(this).hasClass('selected')){
+				
+				 $(this).removeClass('selected');
+				 console.log('remove select');
+			}else {
+				if(tr_selected!=null){
+					tr_selected.removeClass('selected');
+				}
+				
+				
+				tr_selected=$(this);
+				
 
-// 				$(this).removeClass('selected');
-// 			} else {
-// 				tb.$('tr.selected').removeClass('selected');
-// 				$(this).addClass('selected');
-// 			}
-
-// 		});
+	            $(this).addClass('selected');
+	            console.log('add select');
+	          
+	        }		
+			
+		});
 		
 // 		setDataTable();
 		getData();

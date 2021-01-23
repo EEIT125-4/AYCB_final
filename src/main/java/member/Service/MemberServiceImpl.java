@@ -143,5 +143,10 @@ public class MemberServiceImpl implements MemberService {
 		
 		return memberDao.gender();
 	}
+	@Override
+	public List<Integer> months(){
+		return memberDao.months();
+	}
+	
 	
 }

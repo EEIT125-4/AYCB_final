@@ -76,14 +76,66 @@ public class BlogController {
 		@GetMapping("/SelectSearchBar")
 		public String selectSearchBar(Model model, 
 				HttpSession session,
-				@RequestParam(value = "search") String search) {
+				@RequestParam(value = "search",required = false) String search,
+				@RequestParam(value = "mask" ,required = false) String mask,
+				@RequestParam(value = "iso",required = false) String iso,
+				@RequestParam(value = "serum",required = false) String serum,
+				@RequestParam(value = "you",required = false) String you,
+				@RequestParam(value = "bio",required = false) String bio,
+				@RequestParam(value = "olay",required = false) String olay,
+				@RequestParam(value = "origin",required = false) String origin,
+				@RequestParam(value = "dr",required = false) String dr,
+				@RequestParam(value = "moist",required = false) String moist,
+				@RequestParam(value = "care",required = false) String care,
+				@RequestParam(value = "skin",required = false) String skin
+
+				) {
+			String va= null;
+			if(search!=null) {
+				va=search;
+			} else if (mask!=null) {
+				va=mask;
+			} else if(iso!=null) {
+				va=iso;
+			} else if(serum!=null) {
+				va=serum;
+			}else if(you!=null) {
+				va=you;
+			}else if(bio!=null) {
+				va=bio;
+			}else if(olay!=null) {
+				va=olay;
+			}else if(origin!=null) {
+				va=origin;
+			}else if(dr!=null) {
+				va=dr;
+			}else if(moist!=null) {
+				va=moist;
+			}else if(care!=null) {
+				va=care;
+			}else if(skin!=null) {
+				va=skin;
+			}
+			System.out.println("+++++++++++++++++++++++++");
+			System.out.println(search);
 			System.out.println("SelectSearchBar");
-			List<Blog> bg = blogService.selectArticle(search);
+			List<Blog> bg = blogService.selectArticle(va);
 			session.setAttribute("bgsearch", bg);
-//			model.addAttribute("bgsearch", bg);
 			return "blog/BlogSearch";
 		}
 	
+//		// 搜尋欄select various button
+//				@GetMapping("/SelectVariousButton")
+//				public String selectVariousButton(Model model, 
+//						HttpSession session,
+//						@RequestParam(value = "various") String various) {
+//					System.out.println("SelectVariousButton");
+//					List<Blog> bg = blogService.selectArticle(various);
+//					session.setAttribute("bgsearch", bg);
+////					model.addAttribute("bgsearch", bg);
+//					return "blog/BlogSearch";
+//				}
+		
 	// 新增一筆部落格文章
 	@PostMapping("blog/edit")
 	public String add(@ModelAttribute("blog") Blog blog, Model model,

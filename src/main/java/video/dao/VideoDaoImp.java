@@ -1,5 +1,6 @@
 package video.dao;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -16,8 +17,7 @@ public class VideoDaoImp implements VideoDao {
 
 	@Autowired
 	SessionFactory factory;
-	
-	
+
 	// 新增一筆影片
 
 	@Override
@@ -46,7 +46,6 @@ public class VideoDaoImp implements VideoDao {
 		return list;
 	}
 
-
 	// commentBean 的 get(id)方法
 	@Override
 	public Video get(Integer VideoId) {
@@ -67,7 +66,7 @@ public class VideoDaoImp implements VideoDao {
 		count++;
 		return count;
 	}
-	
+
 	// 選擇一筆需要更新的影片
 	@Override
 	public Video selectUpdateVideo(Integer VideoId) {
@@ -75,7 +74,7 @@ public class VideoDaoImp implements VideoDao {
 		Session session = getSession();
 		return session.get(Video.class, VideoId);
 	}
-	
+
 	// 更新一筆影片
 	@Override
 	public Integer updateVideo(Video vd) {
@@ -86,76 +85,151 @@ public class VideoDaoImp implements VideoDao {
 		return count;
 
 	}
+
 	@Override
-	//by ID 查詢影片
+	// by ID 查詢影片
 	public Video queryById(Integer videoID) {
 		try {
-			Session session=factory.getCurrentSession();
+			Session session = factory.getCurrentSession();
 			String hql = "FROM Video v WHERE v.videoId = :videoID";
 
 			@SuppressWarnings("unchecked")
 			Query<Video> query = session.createQuery(hql);
 			Video video = query.setParameter("videoID", videoID).getSingleResult();
 			return video;
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
-	
-		
+
 	}
-	
+
 	@Override
 	public List<Video> getRandomVideo(Integer num) {
-		
-		try {
-			
-			Session session=factory.getCurrentSession();
-			String sql = "select  top "+num+" *  from video order by NEWID()";
-			
-			
-		
-		@SuppressWarnings("unchecked")
 
-		Query<Video> query=session.createNativeQuery(sql ).addEntity(Video.class);
-		return query.getResultList();	
-		
+		try {
+
+			Session session = factory.getCurrentSession();
+			String sql = "select  top " + num + " *  from video order by NEWID()";
+
+			@SuppressWarnings("unchecked")
+
+			Query<Video> query = session.createNativeQuery(sql).addEntity(Video.class);
+			return query.getResultList();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
-		
+
 	}
 
 	@Override
 	public List<Video> getVideoByMember(MemberBean mb) {
-		try {			
-			Session session=factory.getCurrentSession();
-			String hql="From Video v where v.member=:member";
+		try {
+			Session session = factory.getCurrentSession();
+			String hql = "From Video v where v.member=:member";
 			@SuppressWarnings("unchecked")
 			Query<Video> query = session.createQuery(hql);
-			//debug
-	
-			return query.setParameter("member",mb).getResultList();
-			
-			
+			// debug
+
+			return query.setParameter("member", mb).getResultList();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
-		
-	
-		
-		
-		
-	}
-	
-	
-	
-	
-	
 
-	
+	}
+
+	@Override
+	public List<String> getAllCategory() {
+
+		try {
+			Session session = factory.getCurrentSession();
+			String hql = "select distinct v.category from Video v";
+			@SuppressWarnings("unchecked")
+			Query<String> query = session.createQuery(hql);
+
+			// debug
+
+			return query.getResultList();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+	}
+
+	@Override
+	public List<Video> getMoreVideos(String keyword, Integer index, Integer num) {
+		try {
+
+			Session session = factory.getCurrentSession();
+
+			List<Video> list = new LinkedList<Video>();
+
+			String hql = "FROM Video v WHERE v.title like :keyword or v.category like :keyword";
+
+			Query<Video> query = session.createQuery(hql);
+
+			if (keyword == null) {
+				keyword = " ";
+			}
+			if (index == null) {
+				index = 1;
+			}
+			if (num == null) {
+				num = 6;
+			}
+			list = query.setParameter("keyword", "%" + keyword + "%").setFirstResult(index).setMaxResults(num)
+					.getResultList();
+			// debug
+
+			for (Video v : list) {
+				System.out.println("v:" + v.getVideoId());
+
+			}
+
+			return list;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+	}
+
+	@Override
+	public List<Video> searchVideo(String search) {
+		try {
+
+			Session session = factory.getCurrentSession();
+
+			List<Video> list = new LinkedList<Video>();
+
+			String hql = "FROM Video v WHERE v.title like :keyword or v.category like :keyword";
+
+			@SuppressWarnings("unchecked")
+			Query<Video> query = session.createQuery(hql);
+
+		
+			list = query.setParameter("keyword", "%" + search + "%").getResultList();
+			// debug
+
+			for (Video v : list) {
+				System.out.println("v:" + v.getVideoId());
+
+			}
+
+			return list;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 }

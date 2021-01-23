@@ -67,7 +67,7 @@ if (session.getAttribute("member") != null) {
 </style>
 <body style="">
 	<%@include file="../jspf/backstage.jspf"%>
-<div id="mytop" class="content" style="position: relative;top: -750px;float: right;width: 88%;">
+<div id="mytop" class="content" style="position: relative;top: 150px;float: right;width: 88%;">
 	<h2 style="font-weight: bold; text-align: center;">訂單管理後臺</h2>
 	<c:choose>
 		<c:when test="${empty AllOrders}">
@@ -185,7 +185,7 @@ if (session.getAttribute("member") != null) {
          <div class="col-md-5">
             <div class="card ">
               <div class="card-header ">
-              	<h4 class="card-title" style="font-weight: bold; text-align: center;">TOP5熱銷商品</h4>
+              	<h4 class="card-title" style="font-weight: bold; text-align: center;">TOP5 熱銷商品</h4>
               </div>
               <div class="card-body ">
                 <canvas id="chartProduct"></canvas>
@@ -201,14 +201,14 @@ if (session.getAttribute("member") != null) {
           </div>
 	</div>
 	<div class="row">
-          <div class="col-md-12">
+          <div class="col-md-11" style="margin-left: 80px;">
             <div class="card ">
               <div class="card-header ">
-                <h5 class="card-title">每周成交量</h5>
-                <p class="card-category">2020/12月-2021/01月</p>
+                <h4 class="card-title" style="font-weight: bold;font-size:x-large;">每週成交量</h4>
+                <p class="card-category" style="font-size:large;">2020/12月-2021/01月</p>
               </div>
               <div class="card-body ">
-                <canvas id=chartHours width="400" height="100"></canvas>
+                <canvas id="chartWeeks" width="400" height="100"></canvas>
               </div>
               <div class="card-footer ">
                 <hr>
@@ -219,31 +219,18 @@ if (session.getAttribute("member") != null) {
             </div>
           </div>
        </div>
-			<div class="container" style="width: 800px; height: 600px;margin: auto;">
-			<br>
-			<br>
-			<div class="card" >
-			<br>
-			<br>
-				<h4 style="font-weight: bold; text-align: center;">訂單品牌總覽</h4>
-				<br>
-				
-				<canvas id="myChart"></canvas><br>
-			</div>
-			<br>
-			<br>
-			</div>
-			<br>
+
 			<p class="container">
 			
 			  <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
 			    	管理訂單
 			  </button>
 			</p>
+			
 			<div class="collapse" id="collapseExample">
-  				<div class="card card-body">
+  				<div class="card card-body" style="width: 1500px;margin-left: 100px;">
 			<fieldset
-				style="margin: auto; position: relative; top: 10px; width: 1200px; border: 1px solid transparent;">
+				style="margin: auto; position: relative; top: 10px; width: 1300px; border: 1px solid transparent;">
 				<form action="<c:url value='/Manager' />" method="get">
 					<h4 style="font-weight: bold; text-align: center" >歷史訂單</h4>
 					<br>
@@ -303,12 +290,11 @@ if (session.getAttribute("member") != null) {
 					<br>
 				</form>
 			</fieldset>
-			  </div>
+			</div>
 		</div>
+		
 		</c:when>
-	</c:choose>
-	<br>					
-					
+	</c:choose>									
 			<div style="text-align: center;">
              <a href="<spring:url value='/Manager' />"  class='btn btn-dark' style="font-size: 18px;">回後臺</a>
            </div>
@@ -334,14 +320,34 @@ function goTop(){
 		
 	var table=document.getElementById("dataTable");
 	
-	$(function () {
+	$(function() {
 	
 	    $("#dataTable").DataTable({
-	        searching: true, 
-	        columnDefs: [{
-	//             targets: [10],
-	            orderable: true,
-	        }]
+	    	searching: true, 
+			columnDefs : [ {
+				orderable : true,
+			} ],
+			language: {
+		        processing : "處理中...",
+		        loadingRecords : "載入中...",
+		       	lengthMenu : "顯示 _MENU_ 項結果",
+		        zeroRecords : "沒有符合的結果",
+		        info : "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+		        infoEmpty : "顯示第 0 至 0 項結果，共 0 項",
+		        infoFiltered : "(從 _MAX_ 項結果中過濾)",
+		        infoPostFix : "",
+		        search : "搜尋:",
+		        paginate : {
+		            first : "第一頁",
+		            previous : "上一頁",
+		            next : "下一頁",
+		            last : "最後一頁"
+		        },
+		        aria : {
+		            sortAscending: ": 升冪排列",
+		            sortDescending: ": 降冪排列"
+		        }
+		    }
 	    });
 	});
 	
@@ -410,8 +416,8 @@ function goTop(){
 		})
 	
 	
-	var ctxA = document.getElementById('chartBrand');
-	var myChart = new Chart(ctxA, {
+	var ctxA = document.getElementById('chartBrand').getContext("2d");
+	var myChartA = new Chart(ctxA, {
 		  type: 'pie', //圖表類型
 		  data: {
 		    //標題
@@ -452,8 +458,8 @@ function goTop(){
 // 		  }
 		});
 	
-	var ctxB = document.getElementById('chartProduct');
-	var myChart = new Chart(ctxB, {
+	var ctxB = document.getElementById('chartProduct').getContext("2d");
+	var myChartB = new Chart(ctxB, {
 		  type: 'bar', //圖表類型
 		  data: {
 		    //標題
@@ -494,7 +500,66 @@ function goTop(){
 		  }
 		});
 	
-	
+	var ctxC = document.getElementById('chartWeeks').getContext("2d");
+
+	var myChartC = new Chart(ctxC, {
+		      type: 'line',
+
+		      data: {
+		        labels: ["12/01-12/7", "12/8-12/14", "12/15-12/21","12/22-12/28","12/29-1/4","1/5-1/11","1/12-1/18","1/19-1/25"],
+		        datasets: [{
+		            borderColor: "#2894FF",
+		            backgroundColor: "#ACD6FF",
+		            pointRadius: 0,
+		            pointHoverRadius: 0,
+		            borderWidth: 3,
+		            data: [3,5,8,6,9,15,14,17]
+		          }
+		        ]
+		      },
+		      options: {
+		        legend: {
+		          display: false
+		        },
+
+		        tooltips: {
+		          enabled: false
+		        },
+
+		        scales: {
+		          yAxes: [{
+
+		            ticks: {
+		              fontColor: "#9f9f9f",
+		              beginAtZero: false,
+		              maxTicksLimit: 5,
+		              //padding: 20
+		            },
+		            gridLines: {
+		              drawBorder: false,
+		              zeroLineColor: "#ccc",
+		              color: '#7B7B7B'
+		            }
+
+		          }],
+
+		          xAxes: [{
+		            barPercentage: 1.6,
+		            gridLines: {
+		              drawBorder: false,
+		              color: 'rgba(255,255,255,0.1)',
+		              zeroLineColor: "transparent",
+		              display: false,
+		            },
+		            ticks: {
+		              padding: 20,
+		              fontColor: "#9f9f9f"
+		            }
+		          }]
+		        },
+		      }
+		    });
+		    
 </script>
 
 </body>

@@ -3,6 +3,7 @@ package video.controller;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -50,8 +52,22 @@ public class VideoController {
 	ServletContext context;
 
 	@GetMapping("/video")
-	public String list(Model model) {// ,RedirectAttributes redirectAttributes
-		model.addAttribute("videolist", vs.selectAllVideo());
+	public String list(Model model,
+			
+			@RequestParam(value="search",required = false)String search 
+			) {// ,RedirectAttributes redirectAttributes
+		
+		List<Video>list=new ArrayList<Video>();
+		model.addAttribute("categorys",vs.getAllCategory());
+		if(search!=null) {
+			list=vs.searchVideo(search);
+			
+		}else {
+			list=vs.selectAllVideo();
+			
+			
+		}
+		model.addAttribute("videolist", list);
 //		redirectAttributes.addFlashAttribute("videolist",vs.selectAllVideo());
 		return "video/videoIndex";
 	}
@@ -123,24 +139,33 @@ public class VideoController {
 	}
 
 	// 創一個空白區塊來放影片(insert)
-	@GetMapping("video/empty")
-	public String showEmptyForm(Model model) {
-		Video video = new Video();
+	@GetMapping("video/edit")
+	public String showEmptyForm(
+			Model model,
+			@RequestParam(value="videoId",required = false)Integer videoId) {
+		Video video=null;
+		if(videoId!=null) {
+			 video=vs.queryById(videoId);
+			
+		}else {
+			video = new Video();
+		}
+		
 		model.addAttribute("video", video);
 		return "video/videoForm";
 	}
 
 //insert一個新的影片	
-	@PostMapping("video/empty")
+	@PostMapping("video/edit")
 
-	public String insertNewVideo(Model model, // @RequestParam(value = "option") Integer option,
-			@RequestParam(value = "imageFile") MultipartFile imageFile,
-			@RequestParam(value = "videoFile") MultipartFile videoFile,
+	public String uploadVideo(Model model, // @RequestParam(value = "option") Integer option,
+			@RequestParam(value = "imagefile") MultipartFile imagefile,
+			@RequestParam(value = "videofile") MultipartFile videofile,
 			@RequestParam(value="memberId") Integer memberId, 
 			@ModelAttribute("video") Video video)
 			throws IOException, ServletException {
 
-		System.out.println("video:" + video);
+		System.out.println("video:" + video.getVideoId());
 
 //		如果是傳網址
 //		if(option==1) {
@@ -154,16 +179,47 @@ public class VideoController {
 		try {
 
 			System.out.println("影片路徑" + context.getRealPath("/"));
-			video.setCoverUrl(Common.saveImage(imageFile));
-			video.setUrl(Common.saveVideo(videoFile));
+			//圖片儲存判斷
+			if(imagefile!=null) {
+				if(video.getCoverUrl()!=null) {
+					Common.deleteFile(video.getCoverUrl());
+					
+				}
+			
+				video.setCoverUrl(Common.saveImage(imagefile));
+
+			}
+			
+			//影片儲存判斷
+			if(videofile!=null) {
+				if(video.getUrl()!=null) {
+					Common.deleteFile(video.getUrl());
+					
+				}
+			
+				video.setUrl(Common.saveVideo(videofile));
+
+			}
+			
+			
+			//日期判斷
+			if(video.getCommentTime()!=null) {
+				
+				video.setFixedTime(new Timestamp(new Date().getTime()));	
+				
+			}else {
+				
 			video.setCommentTime(new Timestamp(new Date().getTime()));
+			}
+			
+
 			
 			
 			MemberBean member=ms.getMember(memberId);
 			if(member==null) {throw new Exception("沒有上傳會員資料");}
 			video.setMember(member);
-
-			vs.insertVideo(video);
+			vs.updateVideo(video);
+//			vs.insertVideo(video);
 
 			System.out.println("video upload done");
 
@@ -229,10 +285,17 @@ public class VideoController {
 	}
 
 	// 刪除影片
-	@GetMapping(value = "video/delete")
-	public String delete(@RequestParam(value = "aid", required = false) Integer aid) {
-		vs.deleteVideo(aid);
-		return "redirect:/video/video";
+	@PostMapping(value = "video/delete")
+	@ResponseBody
+	public boolean delete(@RequestParam(value = "vid", required = false) Integer vid) {
+		try {
+			vs.deleteVideo(vid);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+				
 	}
 	
 	@GetMapping(value="video/MyVideoList")
@@ -254,6 +317,19 @@ public class VideoController {
 		}else {
 			return null;
 		}
+		
+	}
+	
+	@GetMapping(value="video/getMoreVideo")
+	@ResponseBody
+	public List getMoreVideo(
+			@RequestParam(value="keyword",required = false)String keyword,
+			@RequestParam(value="index",required = false)Integer index) {
+		Integer num=3;
+		
+		System.out.println("keyword="+keyword+"/index="+index);
+		return vs.getMoreVideos("", index, num);
+		
 		
 		
 		
