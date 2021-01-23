@@ -16,23 +16,87 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 <meta name="keywords" content="blog, article, share, write">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
+<!-- <link REL=STYLESHEET HREF="css/inside.css" TYPE="text/css"> -->
+<link href="${pageContext.request.contextPath}/css/inside.css"
+	rel="stylesheet">
 <title>美誌分享</title>
-
-
-
-
 </head>
 <%@include file="../jspf/header.jspf"%>
 
 <style>
-.uploadbutton {
-	width: auto;
-	height: auto;
-	margin-top: 10px;
-	margin-left: 200px;
+/* 我要上傳 * 調整button的size/
+/* .uploadbutton { */
+/* 	width: auto; */
+/* 	height: auto; */
+/* 	margin-top: 10px; */
+/* 	margin-left: 200px; */
+/* } */
+
+/* 文章上傳 */
+.button1 {
+	display: inline-block;
+	border-radius: 4px;
+	background-color: #B15BFF;
+	border: none;
+	color: #FFFFFF;
+	text-align: center;
+	font-size: 20px;
+	padding: 20px;
+	width: 150px;
+	transition: all 0.5s;
+	cursor: pointer;
+	margin: 5px;
 }
+
+.button1 span {
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
+	transition: 0.5s;
+}
+
+.button1 span:after {
+	content: '\00bb';
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	right: -20px;
+	transition: 0.5s;
+}
+
+.button1:hover span {
+	padding-right: 25px;
+}
+
+.button1:hover span:after {
+	opacity: 1;
+	right: 0;
+}
+
+/* 各種查詢按鈕 */
+.btn-group .button {
+	background-color: #FF95CA;
+	border: 2px solid #BE77FF;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	cursor: pointer;
+	float: left;
+}
+
+.btn-group .button:not(:last-child) {
+	border-right: none; /* Prevent double borders */
+}
+
+.btn-group .button:hover {
+	background-color: #BE77FF;
+}
+/* 各種查詢按鈕 end*/
 </style>
+
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-blog set-bg"
 	data-setbg="${pageContext.request.contextPath}/image/breadcrumb-bg.jpg">
@@ -47,13 +111,36 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 <!-- Breadcrumb Section End -->
 <c:if test="${not empty member }">
 	<a class="a1" href="${pageContext.request.contextPath}/blog/edit">
-		<button class="uploadbutton">我要上傳文章</button>
+		<button class="button1"
+			style="vertical-align: middle; margin-left: 30px; margin-top: 10px">
+			<span>上傳文章 </span>
+		</button>
 	</a>
 </c:if>
 
+<div class="btn-group"
+	style="margin-top: 30px; margin-left: 50px; margin-top: 20px;">
+	<form action="<c:url value='/SelectSearchBar' />" method="GET">
+		<button class="button" name="mask" value="面膜">面膜</button>
+		<button class="button" name="iso" value="隔離乳">隔離乳</button>
+		<button class="button" name="serum" value="精華">精華</button>
+		<button class="button" name="you" value="玻尿酸">玻尿酸</button>
+
+		<button class="button" name="bio" value="碧兒泉">碧兒泉</button>
+		<button class="button" name="olay" value="Olay">Olay</button>
+		<button class="button" name="origin" value="品木宣言">品木宣言</button>
+		<button class="button" name="dr" value="森田藥妝">森田藥妝</button>
+
+		<button class="button" name="moist" value="保濕">保濕</button>
+		<button class="button" name="care" value="保養">保養</button>
+		<button class="button" name="skin" value="護膚">護膚</button>
+	</form>
+</div>
+
+
 <div class="search-container">
 	<form action="<c:url value='/SelectSearchBar' />" method="GET"
-		name="search" style="margin-left: 1000px">
+		name="search" style="margin-left: 1200px; margin-top: 10px;">
 		<input type="text" placeholder="查詢文章...." name="search">
 		<button type="submit">
 			<i class="fa fa-search"></i>
@@ -68,12 +155,18 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 				<c:if test="${b.status=='顯示' }">
 					<div class="col-lg-4 col-md-6 col-sm-6">
 						<div class="blog__item">
-
 							<div class="blog__item__pic set-bg"
 								data-setbg="${pageContext.request.contextPath}/pic/${b.picture}"
 								style="background-image: url(&quot;img/blog/blog-1.jpg&quot;);">
-<%-- 								<a href="${pageContext.request.contextPath}/blog/${b.blogId}"></a> --%>
+								<!-- heart收藏 -->
+								<div id="like1" class="like" style="display: block;">
+									<button id="likebtn1" class="like_button"
+										onclick="Collect(1096,1)" style="border: none;">
+										<i id="heart1" class="fa fa-heart"></i>
+									</button>
 								</div>
+								<!-- heart收藏 end-->
+							</div>
 							<div class="blog__item__text">
 								<a href="${pageContext.request.contextPath}/blog/${b.blogId}"><h5>${b.title}</h5></a>
 								<div class="proprice">上傳者:${b.member.name}</div>
@@ -108,60 +201,8 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 </body>
 
 <script>
-	// var blogs=${blog};
 
-	// for(let i=0;i<blogs.length;i++){
-	// 	console.log("blogs"+blogs[i].title);
-	// }
 
-	// function deleteBlog() {
-
-	// // 	var adbox = document.getElementById('adbox');
-
-	// 	$.ajax({
-
-	// //Kevin:async預設是非同步=true,但因為我們需要動態取得圖片,故要等controller將資料帶回來之後才進行,所以這邊用false,其他地方不建議 			
-	// 		async : false,
-	// 		type : "get",
-	// 		url : "${pageContext.request.contextPath}/delete",
-	// 		contentType : "application/json; charset=utf-8",
-	// 		dataType : "json",
-
-	// 		success : function(data) {
-
-	// //				alert("get result!(輪播加工中,要手動輸入/index才會有資料,之後要改ajax動態產生)");
-	// 			console.log("轉換前:" + data);
-
-	// 			console.log("資料數" + data.length);
-
-	// 			$('#slides').empty();
-	// //				$('#slides').width=200*data.length
-	// 			$('#dots').empty();
-
-	// 			for (let i = 0; i < data.length; i++) {
-	// 				console.log("data:" + i + data[i]);
-	// 				$('#slides').append(							
-	// 				"<li><a href='${pageContext.request.contextPath}/Detail/?no="+data[i].productno+"'>"
-	// 				+"<img src="+"${pageContext.request.contextPath}/pic/"+data[i].imagepath
-				
-// 				+" onerror=javascript:this.src='${pageContext.request.contextPath}/image/noImage.jpg' " 
-// 				+" ></a></li>"
-	// 				);
-
-	// 				$('#dots').append("<li id="+data[i].productno+"></li>");
-
-	// 			}												
-
-	// 		},
-	// 		error : function() {
-	// 			alert("fail");
-	// 		}
-
-	// 	})
-
-	// }
-
-	// getAds();
 </script>
 
 
@@ -180,6 +221,5 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 <script src="${pageContext.request.contextPath}/js/mixitup.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/main.js"></script>
-
 
 </html>

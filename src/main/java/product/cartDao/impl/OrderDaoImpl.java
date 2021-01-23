@@ -182,5 +182,16 @@ Map<String, Object> brandMap = new HashMap<String, Object>();
 		return brandMap;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<OrderItemBean> getTopfive() {
+						   
+		String hql = "SELECT new list(productNo, sum(quantity)) FROM OrderItemBean group by productNo order by sum(quantity) Desc";
+		Session session = factory.getCurrentSession();
+		List<OrderItemBean> list = session.createQuery(hql).setMaxResults(5).getResultList();
+		
+		return list;
+	}
+
 
 }
