@@ -114,7 +114,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 <br><br>
 
    <TABLE border='2' class="table table-bordered" style="margin: 0 auto; border-style: ridge; width:1000px;">
-      <TR class="table-info">
+      <TR class="table-success">
          <TD colspan='1' style="text-align:left; border-style: ridge;font-size: 15pt;">
          	會員編號：${account}
          </TD>
@@ -125,17 +125,17 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
          	訂單日期：<fmt:formatDate value="${today}" pattern="yyyy-MM-dd"/>
          </TD>
       </TR>
-       <TR class="table-info">
+       <TR class="table-success">
          <TD colspan='6' style="text-align:left; border-style: ridge;font-size: 15pt;">
          	收件人：${receiveName}
          </TD>
       </TR>
-       <TR class="table-info">
+       <TR class="table-success">
          <TD colspan='6' style="text-align:left; border-style: ridge;font-size: 15pt;">
          	聯絡電話：${phone}
          </TD>
       </TR>
-      <TR class="table-info">
+      <TR class="table-success">
          <TD colspan='6' style="text-align:left; border-style: ridge;font-size: 15pt;">
          	出貨地址：${address}
          </TD>
