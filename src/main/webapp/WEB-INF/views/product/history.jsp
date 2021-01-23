@@ -99,11 +99,10 @@
 						$('#historycartimg' + data.Products[i].productno).removeAttr('href');
 					}
 					
-//	 				if(data.Products[i].productstatus == 3) {
-						
-//	 				} else {
-						
-//	 				}
+	 				if(data.Products[i].productstatus == 3) {
+						$('#statusimg' + data.Products[i].productno).attr('src', 'image/sellhot.gif');
+						$('#statusimg' + data.Products[i].productno).css('display', 'block');
+					}
 				}
 			}
 		});
