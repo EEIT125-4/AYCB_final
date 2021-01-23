@@ -41,4 +41,6 @@ public interface MemberDao {
 
 	List<Integer> gender();
 
+	List<Integer> months();
+
 }
