@@ -121,9 +121,9 @@ public class OrderServiceImpl implements OrderService {
 
 
 	@Override
-	public List<OrderItemBean> getTopfive() {
+	public Map<String, Integer> getTopfive() {
 		
-		List<OrderItemBean> list = dao.getTopfive();
+		Map<String, Integer> list = dao.getTopfive();
 		
 		return list;
 	}

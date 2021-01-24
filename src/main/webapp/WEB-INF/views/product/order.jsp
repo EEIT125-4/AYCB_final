@@ -147,7 +147,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 					<td style="text-align: center; vertical-align: middle;">NT$ <fmt:formatNumber value="<%=aCartItem.getProductPrice()%>"  pattern="###,###" /></td>					
 					<td style="text-align: center; vertical-align: middle;">	
 						<input type="number" name="quantity" id="<%=i%>" 
-								min="1" max="10" value="<%=aCartItem.getQtyOrdered()%>" style="width: 3em" onchange="checkQty(<%=i %>);">
+								min="1" max="10" value="<%=aCartItem.getQtyOrdered()%>" style="width: 3em" onchange="return checkQty(<%=i %>);">
 					</td>
 					
 					<td style="text-align: center; vertical-align: middle;">						
@@ -198,9 +198,17 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 <%@include file="../jspf/footer.jspf"%>
 <script>
 
-
-
 function checkQty(e){
+	if  ($("#"+e).val() < 0 ) {
+		window.alert ('商品數量不能小於 0');
+ 		document.getElementById(e).value = 1;
+		return;
+	}
+	if  ($("#"+e).val() == 0 ) {
+		window.alert ("請執行刪除功能來刪除此項商品");
+  		document.getElementById(e).value = 1;
+		return;		
+	}
 	var xhr = new XMLHttpRequest();
 	xhr.open("GET", '<c:url value="/setQtyAjax" />?id='+e+"&Qty="+$("#"+e).val()
 			, true);
