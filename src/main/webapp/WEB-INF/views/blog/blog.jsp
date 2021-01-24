@@ -140,6 +140,14 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 	</a>
 </c:if>
 
+<c:if test="${empty member }">
+		<button style="vertical-align: middle; margin-left: 120px; margin-top: 10px;
+		border:white;background-color:white;color:white;">
+			<span>上傳文章 </span>
+		</button>
+
+</c:if>
+
 <div class="btn-group"
 	style="margin-top: 30px; margin-left: 50px; margin-top: 20px;">
 	<form action="<c:url value='/SelectSearchBar' />" method="GET">
@@ -158,6 +166,7 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 		<button class="button" name="skin" value="護膚">護膚</button>
 	</form>
 </div>
+
 
 
 <div class="search-container">

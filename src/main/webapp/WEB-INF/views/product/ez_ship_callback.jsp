@@ -3,7 +3,14 @@
 	import="java.util.*, product.*, member.*,product.cartModel.CartItem"%>
 <%@ page import="java.io.*,java.util.*" %>
 <% 
-   MemberBean member = (MemberBean) session.getAttribute("member");
+	String user = "";
+	boolean editable = false;
+	if (session.getAttribute("member") != null) {
+	MemberBean member = (MemberBean) session.getAttribute("member");
+	user = member.getName();
+	System.out.println("顧客名稱: " + user);
+	editable = true;
+	}
 %>  
 <%
     //================================ 接收購物網站所需的各項參數 ==================================    
@@ -27,7 +34,7 @@
     }
     System.out.println("paramsMap = " + paramsMap);
 %>
-<%-- 以下程式是將ezship傳回的資料先帶到暫時form中再submit給check_out. --%>
+<%-- 以下程式是將ezship傳回的資料先帶到暫時form中再submit給checkout. --%>
 <form action="toCheckout" method="post" id="myForm">
     <input name="processID" type="text" value="<%=processID%>">
     <input name="stCate" type="text" value="<%=stCate%>">
