@@ -96,6 +96,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 
 <% 
    MemberBean member = (MemberBean) session.getAttribute("member");
+
 %>  
  	
 <script >
@@ -366,7 +367,7 @@ function storeAddressChange(){
         var url = protocol + "://localhost:" + location.port + "<%=request.getContextPath()%>/ezshipBack";
         $("#rtURL").val(url);
         
-        $("#webPara").val($("#cartForm").serialize());		//serialize(),將cartForm內所有name屬性的資料序列化
+        $("#webPara").val($("#cartForm").serialize());//serialize(),將cartForm內所有name屬性的資料序列化
 		//alert(url);
         //alert($("#webPara").val());
 		//alert($("#cartForm").serialize());		
