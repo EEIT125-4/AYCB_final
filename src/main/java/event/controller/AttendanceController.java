@@ -123,7 +123,11 @@ public class AttendanceController {
 			System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++"+eventid);
 
 			String eventname= eventService.getEvent(eventid).getEventname();
+			String filename= eventService.getEvent(eventid).getFilename();
 			System.out.println("eventname="+eventname);
+			System.out.println("圖片="+filename);
+			
+			model.addAttribute("filename",filename);
 			model.addAttribute("eventid", eventid);
 			model.addAttribute("eventname", eventname);
 			

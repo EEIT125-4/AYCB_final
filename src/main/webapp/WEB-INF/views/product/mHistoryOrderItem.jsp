@@ -65,21 +65,21 @@ if (session.getAttribute("member") != null) {
 	</c:when>
 	<c:when test="${not empty itemList }">
 
-		<form action="<c:url value='orderManager' />" method="get">
 		<fieldset style="margin: auto; position: relative; width: 1200px; border: 1px solid transparent;">
+		<form action="<c:url value='orderManager' />" method="get">
 				<h4 style="font-weight:bold;text-align:center">查詢訂單明細</h4>
 				<br>
 			<table id="myDataTable" class="table table-hover" class="row" >
         		<thead>
 				<tr>
 <!-- 				<th style="text-align:center;" scope="col">訂單編號</th> -->
-					<th style="text-align:center;vertical-align:middle;" scope="col">商品編號</th>
-					<th style="text-align:center;vertical-align:middle;" scope="col">商品圖片</th>
-					<th style="text-align:center;vertical-align:middle;" scope="col">品牌</th>
-					<th style="text-align:center;vertical-align:middle;" scope="col">商品系列</th>
-					<th style="text-align:center;vertical-align:middle;" scope="col">商品名稱</th>
-					<th style="text-align:center;vertical-align:middle;" scope="col">商品單價</th>
-					<th style="text-align:center;vertical-align:middle;" scope="col">商品數量</th>
+					<th style="text-align:center;vertical-align:middle;font-size:18px;" scope="col">商品編號</th>
+					<th style="text-align:center;vertical-align:middle;font-size:18px;" scope="col">商品圖片</th>
+					<th style="text-align:center;vertical-align:middle;font-size:18px;" scope="col">品牌</th>
+					<th style="text-align:center;vertical-align:middle;font-size:18px;" scope="col">商品系列</th>
+					<th style="text-align:center;vertical-align:middle;font-size:18px;" scope="col">商品名稱</th>
+					<th style="text-align:center;vertical-align:middle;font-size:18px;" scope="col">商品單價</th>
+					<th style="text-align:center;vertical-align:middle;font-size:18px;" scope="col">商品數量</th>
 				</tr>
 				</thead>
 				<tbody>
@@ -103,8 +103,8 @@ if (session.getAttribute("member") != null) {
 				<div style="text-align: center;">
 				<input class="btn btn-dark" type="submit" value="回上頁">
 				</div>
-		</fieldset>
 		</form>
+		</fieldset>
 	</c:when>
 </c:choose>
 

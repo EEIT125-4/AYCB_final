@@ -67,8 +67,8 @@ public class RootAppConfig {
 				"chat",
 				"comment",
 				"mail",
-				"video"
-								
+				"video",
+				"exception"				
 		});
 		 if (SystemConstant.DB_TYPE == SystemConstant.SQL_SERVER) {
 			factory.setDataSource(msSQLDataSource());

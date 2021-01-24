@@ -49,7 +49,6 @@ public class ManagerController {
 	@PostMapping("/GetAllProduct")
 	public String add(@ModelAttribute("ProductBean") ProductBean pb, @ModelAttribute("UPBean") ProductBean upb,
 			@RequestParam(value = "todo", required = false) String todo) {
-		System.out.println(todo);
 		if (todo.equals("update")) {
 			if (upb.getStock() == 0) {
 				upb.setProductstatus(2);

@@ -30,7 +30,7 @@
 <script type="text/javascript"
 	src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-	
+
 <script>
 	$(document).ready(function() {
 		ProductTotal();
@@ -99,14 +99,14 @@
 							</div>
 							<div class="modal-body">
 								<div class="caption">
-									<form:form id="addform" method='POST' modelAttribute="ProductBean" enctype="multipart/form-data" >
+									<form:form id="addform" method='POST' modelAttribute="ProductBean" enctype="multipart/form-data">
 										<div class="adddiv">
 											<label class="addlab">廠牌名稱 : </label>
-											<form:input class="addinput" id="brandname" path="brandname" type="text" />
+											<form:input class="addinput" id="brandname" path="brandname" type="text" required="required" />
 										</div>
 										<div class="adddiv">
 											<label class="addlab">產品類型 : </label>
-											<form:select class="addsel" id="producttype" path="producttype">
+											<form:select class="addsel" id="producttype" path="producttype" required="required">
 											<form:option id="producttype" value=""></form:option>
 											<form:option value="保養品">保養品</form:option>
 											<form:option value="彩妝">彩妝</form:option>
@@ -114,27 +114,27 @@
 										</div>
 										<div class="adddiv">
 											<label class="addlab">產品名稱 : </label>
-											<form:input class="addinput" id="productname" type="text" path="productname" />						
+											<form:input class="addinput" id="productname" type="text" path="productname" required="required" />						
 										</div>
 										<div class="adddiv">
 											<label class="addlab">產品系列 : </label>
-											<form:input class="addinput" id="productseries" type="text" path="productseries" />
+											<form:input class="addinput" id="productseries" type="text" path="productseries" required="required" />
 										</div>
 										<div class="adddiv">
 											<label class="addlab">產品種類 : </label>
-											<form:input class="addinput" id="productcategory" type="text" path="productcategory" />
+											<form:input class="addinput" id="productcategory" type="text" path="productcategory" required="required" />
 										</div>
 										<div class="adddiv">
 											<label class="addlab">產品價格 : </label>
-											<form:input class="addinput" id="productprice" type="text" path="productprice" />
+											<form:input class="addinput" id="productprice" type="text" path="productprice" required="required" />
 										</div>
 										<div class="adddiv">
 											<label class="addlab">產品數量 : </label>
-											<form:input class="addinput" id="stock" type="text" path="stock" />
+											<form:input class="addinput" id="stock" type="text" path="stock" required="required" />
 										</div>
 										<div class="adddiv">
 											<label class="addlab">產品圖片:</label>
-											<form:input id="productimage" type="file" path="productimage" />
+											<form:input id="productimage" type="file" path="productimage" required="required" />
 											<form:input type="hidden" path="productstatus" value="1" />
 											<form:input type="hidden" path="status" value="1" />
 											<input type="hidden" name="todo" value="add" />
@@ -197,38 +197,38 @@
 											</div>
 											<div class="modal-body">
 												<div class="caption">
-													<form:form id="addform" method='POST' modelAttribute="UPBean" enctype="multipart/form-data" >
+													<form:form id="upform" method='POST' modelAttribute="UPBean" enctype="multipart/form-data" >
 														<div class="adddiv">
 															<label class="addlab">廠牌名稱 : </label>
-															<form:input class="addinput" type="text" path="brandname" value="${pro.brandname}" />
+															<form:input class="addinput" type="text" path="brandname" value="${pro.brandname}" required="required" />
 														</div>
 														<div class="adddiv">
 															<label class="addlab">產品類型 : </label>
-															<form:input class="addinput" type="text" path="producttype" value="${pro.producttype}" />
+															<form:input class="addinput" type="text" path="producttype" value="${pro.producttype}" required="required" />
 														</div>
 														<div class="adddiv">
 															<label class="addlab">產品名稱 : </label>
-															<form:input class="addinput" type="text" path="productname" value="${pro.productname}" />						
+															<form:input class="addinput" type="text" path="productname" value="${pro.productname}" required="required" />						
 														</div>
 														<div class="adddiv">
 															<label class="addlab">產品系列 : </label>
-															<form:input class="addinput" type="text" path="productseries" value="${pro.productseries}" />
+															<form:input class="addinput" type="text" path="productseries" value="${pro.productseries}" required="required" />
 														</div>
 														<div class="adddiv">
 															<label class="addlab">產品種類 : </label>
-															<form:input class="addinput" type="text" path="productcategory" value="${pro.productcategory}" />
+															<form:input class="addinput" type="text" path="productcategory" value="${pro.productcategory}" required="required" />
 														</div>
 														<div class="adddiv">
 															<label class="addlab">產品價格 : </label>
-															<form:input class="addinput" type="text" path="productprice" value="${pro.productprice}" />
+															<form:input class="addinput" type="text" path="productprice" value="${pro.productprice}" required="required" />
 														</div>
 														<div class="adddiv">
 															<label class="addlab">庫存 : </label>
-															<form:input class="addinput" type="text" path="stock" value="${pro.stock}" />
+															<form:input class="addinput" type="text" path="stock" value="${pro.stock}" required="required" />
 															<form:input type="hidden" path="productno" value="${pro.productno}" />
 															<form:input type="hidden" path="brandno"  value="${pro.brandno}" />
 															<form:input type="hidden" path="skintype"  value="${pro.skintype}" />
-<%-- 															<form:input type="hidden" path="imagepath" value="${pro.imagepath}" /> --%>
+															<form:input type="hidden" path="imagepath" value="${pro.imagepath}" />
 															<form:input type="hidden" path="productstatus" value="${pro.productstatus}" />
 															<form:input type="hidden" path="status" value="${pro.status}" />
 															<input type="hidden" name="todo" value="update" />
@@ -501,7 +501,6 @@
 			}
 		});
 	}
-	
 	</script>
 </body>
 </html>
