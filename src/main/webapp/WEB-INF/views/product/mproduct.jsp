@@ -31,6 +31,8 @@
 	src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
+<link REL=STYLESHEET HREF="css/paper-dashboard.css" TYPE="text/css">
+
 <script>
 	$(document).ready(function() {
 		ProductTotal();
@@ -45,112 +47,141 @@
 </head>
 <body>
 	<%@include file="../jspf/backstage.jspf"%>
-	<div class="content">
-		<div class="overview">
-			<div class="overviewbox yellow">
-				<div class="imgbox">
-					<img class="overviewimg" src="image/product.png">
-				</div>
-				<div class="overviewcount">
-					<div id="prototal" class="counttext"></div>
-				</div>
-				<div class="overviewtitle">商品總數</div>
-			</div>
-			<div class="overviewbox red">
-				<div class="imgbox">
-					<img class="overviewimg" src="image/company.png">
-				</div>
-				<div class="overviewcount">
-					<div id="brandtotal" class="counttext"></div>
-				</div>
-				<div class="overviewtitle">廠商總數</div>
-			</div>
-		</div>
-		<div class="picview">
-			<div class="picbox">
-				<div class="picviewtitle">商品種類總覽</div>
-				<div class="pic">
-					<canvas id="cateChart" width="800" height="600"></canvas>
-				</div>
-			</div>
-			<div class="picbox">
-				<div class="picviewtitle">廠商總覽</div>
-				<div class="pic">
-					<canvas id="brandChart" width="800" height="600"></canvas>
-				</div>
-			</div>
-		</div>
-		<div class="tableview">
-			<div >
-				<div class="tableviewtitle">
-					商品管理
-				</div>
-				<div class="addbox">
-					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#product">新增商品</button>
-				</div>
-				<div class="modal fade" id="product" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
-					<div class="modal-dialog" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<div class="modal-title" id="addtitle modalTitle"><h2><b>新增商品</b></h2></div>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body">
-								<div class="caption">
-									<form:form id="addform" method='POST' modelAttribute="ProductBean" enctype="multipart/form-data">
-										<div class="adddiv">
-											<label class="addlab">廠牌名稱 : </label>
-											<form:input class="addinput" id="brandname" path="brandname" type="text" required="required" />
-										</div>
-										<div class="adddiv">
-											<label class="addlab">產品類型 : </label>
-											<form:select class="addsel" id="producttype" path="producttype" required="required">
-											<form:option id="producttype" value=""></form:option>
-											<form:option value="保養品">保養品</form:option>
-											<form:option value="彩妝">彩妝</form:option>
-											</form:select>
-										</div>
-										<div class="adddiv">
-											<label class="addlab">產品名稱 : </label>
-											<form:input class="addinput" id="productname" type="text" path="productname" required="required" />						
-										</div>
-										<div class="adddiv">
-											<label class="addlab">產品系列 : </label>
-											<form:input class="addinput" id="productseries" type="text" path="productseries" required="required" />
-										</div>
-										<div class="adddiv">
-											<label class="addlab">產品種類 : </label>
-											<form:input class="addinput" id="productcategory" type="text" path="productcategory" required="required" />
-										</div>
-										<div class="adddiv">
-											<label class="addlab">產品價格 : </label>
-											<form:input class="addinput" id="productprice" type="text" path="productprice" required="required" />
-										</div>
-										<div class="adddiv">
-											<label class="addlab">產品數量 : </label>
-											<form:input class="addinput" id="stock" type="text" path="stock" required="required" />
-										</div>
-										<div class="adddiv">
-											<label class="addlab">產品圖片:</label>
-											<form:input id="productimage" type="file" path="productimage" required="required" />
-											<form:input type="hidden" path="productstatus" value="1" />
-											<form:input type="hidden" path="status" value="1" />
-											<input type="hidden" name="todo" value="add" />
-										</div>
-										<div class="adddiv">
-											<button id="addbtn" type="submit" class="btn btn-primary">新增</button>
-											<button id="databtn" type="button" class="btn btn-primary">帶入資料</button>
-										</div>
-									</form:form>
+	<div class="content" style="position: relative;top: 150px;float: right;width: 88%;">
+	<div class="row">
+		<div class="col-12 col-lg-5 col-md-4 col-sm-6" style="margin-left: 130px;">
+        	<div class="card card-stats">
+        		<div class="card-body " style="padding-top: 0;padding-bottom: 30px;">
+                	<div class="row">
+                  	<div class="col-9 col-md-4">
+                    <div class="icon-big text-center icon-warning" style="margin-top: 50px;">
+                      <i class="fa fa-product-hunt" style="font-size: 70px;font-weight: bold;color: tomato;"></i>
+                    </div>
+                  	</div>
+                  	<div class="col-7 col-md-7">
+                    <div class="numbers">
+                      <h4 class="card-category" style="font-size: 40px;font-weight: bold;color: black;">商品總數</h4>
+                      <p id="prototal" class="card-title" style="margin-top: 10px;font-size: 36px;font-weight: bold;color: black;"><p>
+                    </div>
+                  	</div>
+                	</div>
+              	</div>
+        	</div>
+        </div>									
+		<div class="col-12 col-lg-5 col-md-4 col-sm-6">
+        	<div class="card card-stats">
+        		<div class="card-body " style="padding-top: 0;padding-bottom: 30px;">
+                	<div class="row">
+                  	<div class="col-9 col-md-4">
+                    <div class="icon-big text-center icon-warning" style="margin-top: 50px;">
+                      <i class="fa fa-building-o" style="font-size: 70px;font-weight: bold;color: tomato;"></i>
+                    </div>
+                  	</div>
+                  	<div class="col-7 col-md-7">
+                    <div class="numbers">
+                      <h4 class="card-category" style="font-size: 40px;font-weight: bold;color: black;">廠商總數</h4>
+                      <p id="brandtotal" class="card-title" style="margin-top: 10px;font-size: 36px;font-weight: bold;color: black;"><p>
+                    </div>
+                  	</div>
+                	</div>
+              	</div>
+        	</div>
+        </div>
+	</div>	
+	<div class="row">
+		<div class="col-12 col-lg-5 col-md-5 col-sm-6" style="margin-left: 130px;">
+        	<div class="card card-stats">
+        		<div class="card-header ">
+	            	<h3 class="card-title" style="font-weight: bold; text-align: center;text-decoration: none;padding: 10px;">商品種類總覽</h3>
+	            </div>
+        		<div class="card-body " style="padding-top: 0;padding-bottom: 30px;">
+                	<canvas id="cateChart" width="800" height="600"></canvas>
+              	</div>
+        	</div>
+        </div>	
+        <div class="col-12 col-lg-5 col-md-5 col-sm-6">
+        	<div class="card card-stats">
+        		<div class="card-header ">
+	            	<h3 class="card-title" style="font-weight: bold;text-align: center;text-decoration: none;padding: 10px;">廠商總覽</h3>
+	            </div>
+        		<div class="card-body " style="padding-top: 0;padding-bottom: 30px;">
+                	<canvas id="brandChart" width="800" height="600"></canvas>
+              	</div>
+        	</div>
+        </div>
+	</div>
+	<div class="row">
+		<div class="col-12 col-lg-10 col-md-5 col-sm-6" style="margin-left: 130px;">
+        	<div class="card card-stats">
+        		<div class="card-header ">
+	            	<h3 class="card-title" style="font-weight: bold;text-decoration: none;padding: 10px;">商品管理</h3>
+	            </div>
+        		<div class="card-body " style="padding-top: 0;padding-bottom: 30px;">
+					<div class="addbox">
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#product">新增商品</button>
+					</div>
+					<div class="modal fade" id="product" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<div class="modal-title" id="addtitle modalTitle"><h2><b>新增商品</b></h2></div>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<div class="caption">
+										<form:form id="addform" method='POST' modelAttribute="ProductBean" enctype="multipart/form-data">
+											<div class="adddiv">
+												<label class="addlab">廠牌名稱 : </label>
+												<form:input class="addinput" id="brandname" path="brandname" type="text" required="required" />
+											</div>
+											<div class="adddiv">
+												<label class="addlab">產品類型 : </label>
+												<form:select class="addsel" id="producttype" path="producttype" required="required">
+												<form:option id="producttype" value=""></form:option>
+												<form:option value="保養品">保養品</form:option>
+												<form:option value="彩妝">彩妝</form:option>
+												</form:select>
+											</div>
+											<div class="adddiv">
+												<label class="addlab">產品名稱 : </label>
+												<form:input class="addinput" id="productname" type="text" path="productname" required="required" />						
+											</div>
+											<div class="adddiv">
+												<label class="addlab">產品系列 : </label>
+												<form:input class="addinput" id="productseries" type="text" path="productseries" required="required" />
+											</div>
+											<div class="adddiv">
+												<label class="addlab">產品種類 : </label>
+												<form:input class="addinput" id="productcategory" type="text" path="productcategory" required="required" />
+											</div>
+											<div class="adddiv">
+												<label class="addlab">產品價格 : </label>
+												<form:input class="addinput" id="productprice" type="text" path="productprice" required="required" />
+											</div>
+											<div class="adddiv">
+												<label class="addlab">產品數量 : </label>
+												<form:input class="addinput" id="stock" type="text" path="stock" required="required" />
+											</div>
+											<div class="adddiv">
+												<label class="addlab">產品圖片:</label>
+												<form:input id="productimage" type="file" path="productimage" required="required" />
+												<form:input type="hidden" path="productstatus" value="1" />
+												<form:input type="hidden" path="status" value="1" />
+												<input type="hidden" name="todo" value="add" />
+											</div>
+											<div class="adddiv">
+												<button id="addbtn" type="submit" class="btn btn-primary">新增</button>
+												<button id="databtn" type="button" class="btn btn-primary">帶入資料</button>
+											</div>
+										</form:form>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-			<div>
+				<div>
 				<table id="myDataTalbe" class="display">
 					<thead>
 						<tr>
@@ -251,7 +282,13 @@
 					</tbody>
 				</table>
 			</div>
-		</div>
+              	</div>
+        	</div>
+        </div>	
+	</div>
+<!-- 		<div class="tableview"> -->
+			
+<!-- 		</div> -->
 	</div>
 
 	<script type="text/javascript"
