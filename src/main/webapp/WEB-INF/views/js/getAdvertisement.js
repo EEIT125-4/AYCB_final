@@ -5,15 +5,15 @@
         container.append(
 
 
-            '<div>'
+            '<div >'
             + '<span> <button id="inside_ads" type="button" value="200" data-toggle="modal" data-target="#dialog2" style="width: 100px;height: 50px;"'
             + 'onclick="allowClose()">顯示廣告 </button></span>'
             + '<span><button  type="button" style="width: 100px;height: 50px;" id="pop_btn">彈出視窗</button> </span></div>'
-            + '<div class="modal fade" id="dialog2" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">'
-            + '<div class="modal-dialog" role="document">'
-            + '<div class="modal-content">'
+            + '<div class="modal fade" id="dialog2" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width:100%">'
+            + '<div class="modal-dialog" role="document" style="width:100%">'
+            + '<div class="modal-content" style="width:100%">'
             + '<div class="modal-header">'
-            + '<span> <h5 class="modal-title" id="modalTitle">廣告TITLE</h5></span>'
+            + '<span> <h5 class="modal-title" id="modalTitle"></h5></span>'
             + '<span id="adText"><fieldset></fieldset></span>'
 
             + '</div style="text-align:center"> <div class="modal-body" id="ads_content"> </div>'
@@ -34,6 +34,7 @@
         //廣告相關設定
         var idle = false;
         var ads_content = document.getElementById('ads_content');
+        var ads_title=document.getElementById('modalTitle');
         var forceTime = 3;//強迫無法關閉時間     
         var Timer = null;
 
@@ -57,7 +58,7 @@
 
             idle = false;
             ads_content.innerHTML = "";
-            
+            ads_title.innerHTML="";
             //暫無其他設定           
 
         })
@@ -65,7 +66,7 @@
         $('#pop_btn').click(function () {
 
 
-            window.open("https://www.mynewcal.com/products/secret01-3-1?gclid=Cj0KCQiA0fr_BRDaARIsAABw4EvYsm5tg2QtY6lfCdSzsFusXjm4FzPgB-osKCZxknLDtmGYsqd78OAaAgFIEALw_wcB&variation=5efdcf7360a580000a50be63", "popup", "width=600,height=200,toolbar=no,status=no,resizable=1");
+            window.open("https://www.mynewcal.com/products/secret01-3-1?gclid=Cj0KCQiA0fr_BRDaARIsAABw4EvYsm5tg2QtY6lfCdSzsFusXjm4FzPgB-osKCZxknLDtmGYsqd78OAaAgFIEALw_wcB&variation=5efdcf7360a580000a50be63", "popup", "width=auto,height=auto,toolbar=no,status=no,resizable=1");
 
 
         });
@@ -118,6 +119,7 @@
                     console.log("ad=" + data.source);
 				
                     ads_content.innerHTML = data.source;
+                    ads_title.innerHTML=data.advtitle;
                     
 
                 },

@@ -279,4 +279,15 @@ MemberBean mb = (MemberBean) session.getAttribute("member");
 <!-- 				<i class="fa fa-bars"></i> -->
 <!-- 			</div> -->
 <!-- 		</div> -->
+	<a onclick="goTop();"><div class="top">TOP</div></a>
+<script>
+function goTop(){
+	var $body = (window.opera) ? (document.compatMode == "CSS1Compat" ? $('html') : $('body')) : $('html,body');
+	$body.animate({
+		scrollTop: 0
+	}, 200);
+}
+</script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/TimeOut.js"></script>
+
 	</header>

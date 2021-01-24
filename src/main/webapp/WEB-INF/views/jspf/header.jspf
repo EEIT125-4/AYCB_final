@@ -255,6 +255,7 @@ width:100px;
 		</div>
 		<input type="hidden" id="memberid" value='${member.id }'>
 		<a onclick="goTop();"><div class="top">TOP</div></a>
+		
 <!-- 		<button class="top" onclick="goTop();">TOP</button> -->
 <script type="text/javascript">
 

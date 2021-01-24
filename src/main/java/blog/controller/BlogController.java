@@ -381,6 +381,15 @@ public class BlogController {
 		
 	}
 	
+	@GetMapping(value="blog/table")
+	@ResponseBody
+	public List<Blog> getDataTable(){
+		
+		return blogService.selectAllBlog();
+		
+	}
+	
+	
 //	@GetMapping(value="blog/getTitle")
 //	public String getTitle(Model model) {
 //		List<String>titles=new ArrayList<String>();

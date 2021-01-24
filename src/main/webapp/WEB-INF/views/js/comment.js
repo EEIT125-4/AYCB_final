@@ -165,12 +165,27 @@ function resetComment(obj) {
 				success: function(data) {
 					comment.val('');
 					if (data) {
-						alert("留言成功");
+					
+					swal.fire({
+	      		      				  title: "success",
+	      		      				  text: "留言成功!",
+	      		      				  icon: "success",
+	      		      				  button: "OK",
+	      		      				});
+	      		      				
+					
+					
+					
 						resetComment($(this).siblings('restBtn'));
 						refresh();
 	
 					} else {
-						alert("留言失敗");
+							swal.fire({
+	      		    				  title:'fail',
+	      		    				  text: "留言失敗!",
+	      		    				  icon: "error",
+	      		    				  button: "OK",
+	      		    				}); 
 	
 					}
 				},
@@ -194,42 +209,7 @@ function resetComment(obj) {
 	//
 		
 
-//	$(".postComment").click(function() {
-//		console.log("post btn click");
-//		
-//		let comment=$(this).parent().siblings("textarea[class='comment']");
-//		console.log("comment="+comment.val());
-//		$.ajax({
-//			type: "POST", //傳送方式
-//			url: postUrl, //傳送目的地
-//			dataType: "json", //資料格式
-//			data: { //傳送資料
-//				comment: comment.val()
-//
-//			},
-//			success: function(data) {
-//				comment.val('');
-//				if (data) {
-//
-//					alert("留言成功");
-//					resetComment($(this).siblings('restBtn'));
-//
-//
-//					refresh();
-//
-//				} else {
-//					alert("留言失敗");
-//
-//
-//				}
-//			},
-//			error: function(data) {
-//				alert("server發生錯誤");
-//
-//
-//			}
-//		})
-//	})
+
 
 
 function formatTimeStamp(time) {
