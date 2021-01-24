@@ -92,7 +92,7 @@
 		<div class="col-12 col-lg-5 col-md-5 col-sm-6" style="margin-left: 130px;">
         	<div class="card card-stats">
         		<div class="card-header ">
-	            	<h3 class="card-title" style="font-weight: bold; text-align: center;text-decoration: none;padding: 10px;">商品種類總覽</h3>
+	            	<p class="picviewtitle">商品種類總覽</p>
 	            </div>
         		<div class="card-body " style="padding-top: 0;padding-bottom: 30px;">
                 	<canvas id="cateChart" width="800" height="600"></canvas>
@@ -102,7 +102,7 @@
         <div class="col-12 col-lg-5 col-md-5 col-sm-6">
         	<div class="card card-stats">
         		<div class="card-header ">
-	            	<h3 class="card-title" style="font-weight: bold;text-align: center;text-decoration: none;padding: 10px;">廠商總覽</h3>
+	            	<p class="picviewtitle">廠商總覽</p>
 	            </div>
         		<div class="card-body " style="padding-top: 0;padding-bottom: 30px;">
                 	<canvas id="brandChart" width="800" height="600"></canvas>
@@ -114,12 +114,12 @@
 		<div class="col-12 col-lg-10 col-md-5 col-sm-6" style="margin-left: 130px;">
         	<div class="card card-stats">
         		<div class="card-header ">
-	            	<h3 class="card-title" style="font-weight: bold;text-decoration: none;padding: 10px;">商品管理</h3>
-	            </div>
-        		<div class="card-body " style="padding-top: 0;padding-bottom: 30px;">
-					<div class="addbox">
+	            	<p class="tableviewtitle" style="">商品管理</p>
+	            	<div class="addbox">
 						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#product">新增商品</button>
 					</div>
+	            </div>
+        		<div class="card-body " style="padding-top: 0;padding-bottom: 30px;">
 					<div class="modal fade" id="product" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
 						<div class="modal-dialog" role="document">
 							<div class="modal-content">
