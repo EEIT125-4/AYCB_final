@@ -14,7 +14,7 @@
 
 <%@include file="../jspf/header.jspf"%>
 		<div class="container" style="margin-bottom: 80px;">
-                <div style="text-align: center; background-color: lightgray">
+                <div style="text-align: center;">
 				<img width="400px" height="400px" src="${filename}" style="display: inline-block; margin-bottom: 35px">
 				<form:form method="POST" modelAttribute="attendance"  cssStyle="display:inline-block; margin-top:70px">
 				<fieldset style=" text-align: left;" >
