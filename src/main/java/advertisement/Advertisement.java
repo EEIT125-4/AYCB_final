@@ -14,7 +14,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.web.multipart.MultipartFile;
 
 import member.MemberBean;
