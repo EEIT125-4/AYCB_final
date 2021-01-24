@@ -27,6 +27,6 @@ public interface OrderDao {
 	  
 	Map<String, Object> getBrandNumber();
 	
-	List<OrderItemBean> getTopfive();
+	Map<String, Integer> getTopfive();
 
 }

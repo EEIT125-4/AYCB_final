@@ -24,8 +24,8 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 	"comment",
 	"mail",
 	"thumbs",
-	"video"
-
+	"video",
+	"exception"
 	})
 public class WebAppConfig implements WebMvcConfigurer {
 	@Bean

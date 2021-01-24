@@ -77,7 +77,7 @@
 .content {
     width: 88%;
     float: right;
-    margin-top: -615px;
+    margin-top: 130px;
 }
 
 .overview {
@@ -211,4 +211,13 @@
 	width: 300px;
     font-size: 24px;
     font-weight: bold;
+}
+
+.addlab .error {
+  	display: inline;
+}
+
+.error {
+	color: red;
+  	margin-left: 5px;
 }

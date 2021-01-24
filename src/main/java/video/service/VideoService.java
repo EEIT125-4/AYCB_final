@@ -1,6 +1,7 @@
 package video.service;
 
 import java.util.List;
+import java.util.Map;
 
 import member.MemberBean;
 import video.model.Video;
@@ -29,5 +30,21 @@ public interface VideoService {
 	List<Video> getVideoByMember(MemberBean mb);
 	//取得所有類型
 	List<String>getAllCategory();
-
+	
+	//載入符合特定條件的video,後兩個參數為起始值與最大筆數
+		List<Video>getMoreVideos(String condition,Integer index,Integer num);
+		//查詢符合條件的影片
+		List<Video>searchVideo(String search);
+		
+	//查詢最近上傳的影片
+	List<Video>recentVideo(Integer max);	
+	//查詢瀏覽次數最多的5部影片
+		List<Video>mostViewVideo();
+		
+		//回傳各類別的統計數
+		/**
+		 * 
+		 * @return 回傳鍵值=category,value=統計數
+		 */
+		Map<String,Integer> getViewsByCategory();	
 }

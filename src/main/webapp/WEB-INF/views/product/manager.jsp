@@ -54,7 +54,7 @@
 			</div>
 			<div class="mbtnbox">
 				<input class="mbtn" type="button" value="影音區"
-					onclick='location.href="#"'>
+					onclick='location.href="${pageContext.request.contextPath}/video/backstage"'>
 			</div>
 			<div class="mbtnbox">
 				<input class="mbtn" type="button" value="廣告區"

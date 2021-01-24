@@ -22,6 +22,8 @@ public interface EventService {
 	Event getEvent(Integer EventID);
 	
 	List<Event> getEventByCategory(String eventcategory);
+	
+	List<Integer>getPaxbyCategory();
 
 
 }

@@ -27,6 +27,6 @@ public interface OrderService {
 	
 	Map<String, Object> getBrandNumber();
 	
-	List<OrderItemBean> getTopfive();
+	Map<String, Integer> getTopfive();
 
 }

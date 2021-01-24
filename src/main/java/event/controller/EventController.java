@@ -285,6 +285,19 @@ public class EventController {
 			}
 			return result;
 		}
-		
+			
+		@GetMapping("/numberofpax")
+		public @ResponseBody List<Integer> getpax(){
+			
+			System.out.println("取得類別人數==============================");
+			
+//			List<Integer> list=new ArrayList<>();
+			List<Integer> numberofpax=eventService.getPaxbyCategory();
+			
+			
+			return numberofpax;
+			
+			
+		}
 
 }

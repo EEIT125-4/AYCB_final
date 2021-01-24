@@ -71,38 +71,48 @@ input[type=text]:focus {
 </section>
 <!-- Breadcrumb Section End -->
 
-<!-- Blog Section Begin -->
-<a class="a1" href="${pageContext.request.contextPath}/video/empty">
-	<button style="width: auto; height: auto; margin-top: 0px;">上傳影片</button>
-</a>
-
-<a class="a1" href="#">
-	<button style="width: auto; height: auto; margin-top: 0px;"
-		onclick="alert('更新影片')">更新影片</button>
-</a>
-<div style="text-align: center;">
-
-<c:forEach var='category' varStatus='vs' items='${categorys}'>
-	<button class='tagbtn' type="button">${category}</button>	
-	<c:if test='${vs.count%5 == 0 }'>
-	<br>							
-	</c:if>		
-</c:forEach>
 
 
-</div>
+<!-- 功能列 -->
+	<div>
+				<a class="a1" href="${pageContext.request.contextPath}/video/edit">
+			<button style="width: auto; height: auto; margin-top: 0px;">上傳影片</button>
+		</a>
+		
 
-<form>
-	<input type="text" name="search" placeholder="查詢影片....">
-</form>
-
-<!--social media icons -->
+		<div style="text-align: center;">
+		
+		<h4>分類</h4>
+		
+		<c:forEach var='category' varStatus='vs' items='${categorys}'>
+			<button class='tagbtn' type="button" onclick="javascript:window.location.href='${pageContext.request.contextPath}/video?search=${category}'">${category}</button>	
+			<c:if test='${vs.count%5 == 0 }'>
+			<br>							
+			</c:if>		
+		</c:forEach>
+		<h4>其他</h4>
+		<button class='tagbtn' type="button" onclick="javascript:window.location.href='${pageContext.request.contextPath}/video/mostViewVideo/'" >熱門影片</button>	
+		<button class='tagbtn' type="button" onclick="javascript:window.location.href='${pageContext.request.contextPath}/video/recentVideo/'">近期影片</button>	
+		<br>
+		
+		<button id='test' type='button' >測試按鈕</button>
+		</div>
+		
+		<form action="${pageContext.request.contextPath}/video/" method="get">
+			<input type="text" name="search" id="search" placeholder="查詢影片....">
+		</form>
+				
+				
+				</div>
 <div class="row">
-	<!-- video start -->
+	
 
 	<section class="blog spad container"
 		style="background-image: url(${pageContext.request.contextPath}/image/background.jpg);background-size: cover;">
 		<!-- 		   <div class="container">			 -->
+		
+		
+				
 		<div class="row">
 			<c:forEach var='v' varStatus='vs' items='${videolist}'>
 				<div class="col-lg-4 col-md-6 col-sm-6">
@@ -181,29 +191,69 @@ input[type=text]:focus {
 <script src="${pageContext.request.contextPath}/js/mixitup.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/main.js"></script>
+<!-- 自訂JS -->
+<script>
+var flag=0;
+
+
+
+$('#test').click(function(){
+	console.log('test click');
+	$.ajax({
+		
+		url:'${pageContext.request.contextPath}/video/getMoreVideo?index='+flag,
+		type:'get',
+		dataType:'json',
+		 success: function(data) {
+			 console.log('requestSuccess');
+			 
+			 for(let i=0;i<data.length;i++){
+				 
+				 console.log('videoID='+data[i].videoId);
+				 flag++;
+				 
+			 }
+			 
+			 
+			 
+		 }
+		
+		
+		
+	});
+	
+	
+	
+	
+	
+});
+
+
+
+</script>
 
 
 <script>
 
 //往下捲載入更多影片
-$(window).scroll(function () {
+// $(window).scroll(function () {
 
-    if ($(window).scrollTop() >= $(document).height() - $(window).height() && flag <= 10) {
+//     if ($(window).scrollTop() >= $(document).height() - $(window).height() && flag <= 10) {
     	
     	
-        console.log("增加內容");
-        for (let i = 0; i < 3; i++) {
-            flag += 1;
-            $('.row').append(
-            "<div class='col-lg-4 col-md-6 col-sm-6'>"
-			+"<div class='blog__item'>"
-			+"<a href='${pageContext.request.contextPath}/video/videoWatch?videoID="+data+"'>"
-			+"<div class='blog__item__pic set-bg' data-setbg='${v.coverUrl}'>"
-			+"</div>"
+//         console.log("增加內容");
+//         for (let i = 0; i < 3; i++) {
+//             flag += 1;
+//             $('.row').append(
+//             "<div class='col-lg-4 col-md-6 col-sm-6'>"
+// 			+"<div class='blog__item'>"
+// 			+"<a href='${pageContext.request.contextPath}/video/videoWatch?videoID="+data+"'>"
+// 			+"<div class='blog__item__pic set-bg' data-setbg='${v.coverUrl}'>"
+// 			+"</div>"
 			
 				
 				
-			</a>
+// 			</a>
 			<%-- 					<img src="" onerror=javascript:this.src='${pageContext.request.contextPath}/image/noImage.jpg'> --%>
 
 
@@ -214,35 +264,35 @@ $(window).scroll(function () {
 
 
 
-			<div class="blog__item__text" style="border-style: double;">
-				<span>上傳日期<img
-					src="${pageContext.request.contextPath}/image/icon/calendar.png"
-					alt=""> ${v.commentTime}
-				</span>
-				<h5>${v.title}</h5>
-				<div class="picform">
-					<img class='headpic'
-						src='${pageContext.request.contextPath}/pic/${v.member.iconid}'>
-				</div>
-				<div class="proprice">上傳者:${v.member.name}</div>
-				<div class="cart">
+// 			<div class="blog__item__text" style="border-style: double;">
+// 				<span>上傳日期<img
+// 					src="${pageContext.request.contextPath}/image/icon/calendar.png"
+// 					alt=""> ${v.commentTime}
+// 				</span>
+// 				<h5>${v.title}</h5>
+// 				<div class="picform">
+// 					<img class='headpic'
+// 						src='${pageContext.request.contextPath}/pic/${v.member.iconid}'>
+// 				</div>
+// 				<div class="proprice">上傳者:${v.member.name}</div>
+// 				<div class="cart">
 
-					<i class="fa fa-thumbs-o-up fa-1g">${v.thumbsup}</i> <i
-						class="fa fa-thumbs-o-down fa-1g">${v.thumbsdown}</i>
+// 					<i class="fa fa-thumbs-o-up fa-1g">${v.thumbsup}</i> <i
+// 						class="fa fa-thumbs-o-down fa-1g">${v.thumbsdown}</i>
 						
-						<i class="fa fa-eye" aria-hidden="true">${v.viewCount}</i>
-				</div>
-			</div>
-		</div>
-	</div>"		
+// 						<i class="fa fa-eye" aria-hidden="true">${v.viewCount}</i>
+// 				</div>
+// 			</div>
+// 		</div>
+// 	</div>"		
             		
             		
             		
             		
             
 
-            );
-        }
+//             );
+//         }
 
 
 
@@ -266,8 +316,34 @@ $(window).scroll(function () {
 
         // 		}
         // })
-    }
-});
+//     }
+// });
+
+			// $('#search').change(function(){
+//		 	let keyword=$('#search').val();
+//		 	console.log('search change:'+keyword);
+//		 	flag=0;
+//		 	$.ajax({
+//		 		url:'${pageContext.request.contextPath}/video/getMoreVideo?index='+flag+'&keyword='+keyword,
+//		 		type:'get',
+//		 		dataType:'json',
+//		 		 success: function(data) {
+//		 			 console.log('requestSuccess');
+					 
+//		 			 for(let i=0;i<data.length;i++){
+						 
+//		 				 console.log('videoID='+data[i].videoId);
+//		 				 flag++;
+						 
+//		 			 }
+					 			 
+//		 		 }
+					
+				
+//		 	});
+			
+				
+//		 	});
 
 
 

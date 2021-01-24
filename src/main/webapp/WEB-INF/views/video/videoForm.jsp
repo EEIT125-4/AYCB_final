@@ -18,55 +18,82 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/comment.css">
 
-<title>上傳影片</title>
+<title>編輯影片</title>
 
+<style>
 
+.t1{
+
+   			padding: 5px;
+            border-radius: 10px;
+            border: black 1px outset;
+			width:100%;
+/*             width: fit-content; */
+
+/*             height: fit-content; */
+            background-color: yellow;
+            text-align: center;
+/*             padding-left: 20px; */
+/*             padding-right: 20px; */
+/*             margin: 5px; */
+/*             min-width: 100px; */
+			color:blue;
+
+}
+
+</style>
 </head>
 
-<!-- Breadcrumb Section Begin -->
+
 
 <%@include file="../jspf/header.jspf"%>
 
-<section class="breadcrumb-blog set-bg"
-	data-setbg="${pageContext.request.contextPath}/image/breadcrumb-bg2.jpg">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12">
-				<h2>影片上傳</h2>
-			</div>
-		</div>
-	</div>
-</section>
+<section style="background-image: url(${pageContext.request.contextPath}/image/backstage2.jpg);background-size: cover;">>
 
-<!-- Breadcrumb Section End -->
-<section>
+
 	<div class="updateform">
 
 		<form:form method="POST" modelAttribute="video"
 			enctype='multipart/form-data'>
 			<fieldset>
-				<legend class="title">影片上傳</legend>
-
+				<legend class="title">影片編輯</legend>
+	
+				
+				<input type='hidden' value='${member.id}' name='memberId'/>
+				<form:input type='hidden' path="videoId" value='${video.videoId}' />
 				<p>
-					<label class="t1" for="">上傳者:</label>
-					<input type="text" value="${member.name}" readonly >
-						<input type='hidden' value='${member.id}' name='memberId'/>
+					<label for="title" class="t1">影片標題:</label>
+					<br>
+					<form:input type="text" id="title" path="title" value="${video.title}" placeholder="影片標題"/>
+
 				</p>
-
-
-
 				<p>
-					<label for="" class="t1">影片標題:</label>
-					<form:input type="text" path="title" value="${title}" />
+				<label for="category" class="t1">影片分類</label>
+				<br>
+				<form:select id="category"  path="category" value="${video.category }">
 
+							<form:option value="開箱影片" label="開箱影片"/>
+							<form:option value="保養教學" label="保養教學"/>
+							<form:option value="業配推廣" label="業配推廣"/>
+							<form:option value="其他" label="其他"/>
+							</form:select>
+				
+				</p>
+				<p>
+				<label for="description" class="t1" value="${video.description }">影片簡介</label>
+				<br>
+				<form:textarea id="description" path="description" cols="50" rows="5" placeholder="向大家介紹你的影片"></form:textarea>
+				
 				</p>
 				
+		
+				
 						<p>上傳圖片:
-						<input id="imageFile" type="file" name="imageFile" accept="image/*">
+						<input id="imagefile" type="file" name="imagefile" accept="image/*">
 						</p>
 					
 						<p>圖片預覽:
-						<img id="imageDemo" style="width: auto;height: auto;" src="${video.coverUrl}" onerror="javascript:this.src='${pageContext.request.contextPath}/image/noImage.jpg'">
+						<img id="imageDemo" class="demo" style="width: 320;height: 240;" src="${video.coverUrl}" onerror="javascript:this.src='${pageContext.request.contextPath}/image/noImage.jpg'">
 
 					
 						</p>
@@ -74,19 +101,27 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 			
 
 				<p>上傳影片:
-					<input id="videoFile" type="file"  name="videoFile" accept="video/*">
+				
+					<input id="videofile" name="videofile"  type="file"   accept="video/*">
 					
 				</p>
 				<p>
-				<iframe id="videoDemo"  width="360" height="270" src="/AYCB_final/video/20210102173707705_eason.mp4" frameborder="0"
-								allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-								allowfullscreen></iframe>
+				
+				
+<!-- 					style='display:none' -->
+<%-- src="${video.url }" --%>
+				<video width="320" height="240	"  muted controls='controls'  id="video_show" >
+						<source src="${video.url }" id="video_here">
+						</video>
+				
+				
 				
 				
 				</p>				
 				
 
 				<input type="submit" name="confirmupdate" value="送出">
+				<button type="button" class="test" onclick="autoInput()">TEST</button>
 
 
 			</fieldset>
@@ -104,11 +139,89 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 
 <!-- Js Plugins -->
 <!-- 	Kevin:這裡非常奇怪,header已經載入過的js失效,且必須在body末端加入才有效?? -->
-<script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/main.js"></script>
+<%-- <script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script> --%>
+<%-- <script src="${pageContext.request.contextPath}/js/main.js"></script> --%>
 
-<!-- 圖片預覽 -->
-<script src="${pageContext.request.contextPath}/js/preview.js"></script>
+
+
+
+<script>
+//一鍵輸入
+
+function autoInput(){
+	console.log('使用一鍵輸入');
+	$('#title').val('保養品推薦');
+	
+	
+	$('#category').val('開箱影片');
+	
+	$('#description').text(
+			
+			"｜簡介｜"
+			+"我的膚質是混合肌偏乾、T字油、兩頰乾燥還會小敏感<br>"
+			+"回憶我皮膚最好的時期是國高中<br>"
+			+"上大學後皮膚越來越差、粉刺發芽的速度又猛又急！從沒停過是怎樣！<br>"
+			+"幾年前我膚況超慘超爛<br>"
+			+"滿滿粉刺、容易發紅、換季發癢<br>"
+			+"試了超多保養品不是沒用就是一開始不錯、擦到一半又變差了<br>"
+			+"我也看過皮膚科，擦過A酸也吃過A酸好久，都沒太大的改變<br>"
+			+"的確還是有控制一些沒錯，但也不是完全～很快就打回原形<br>"
+
+			+"後來我才檢視自己的習慣：<br>"
+			+"1.保養品太多瓶瓶罐罐！NONO<br>"
+			+"2.亂做臉！別人說厲害的就都做都打？<br>"
+			+"(曾經去一家模特兒界流傳的厲害美容室做臉，越做越慘...)<br>"
+			+"3.作息如何？有沒有愛喝動物性鮮奶呢？<br>"
+
+			+"開始改變習慣，極簡保養對你來說可能就非常足夠了唷<br>"
+			+"當然肌膚不會一下子就給你回饋<br>"
+			+"要慢慢養、耐心養！好皮膚會回來的！！<br>"
+			+"雖然我現在也不是仙女肌，不過跟以前比真的好太多了！非常感動<br>"
+			+"上這支影片時，我近期最常使用組合是：Dailyme凍膜、輕鬆美膚乳液、ipsa流金水<br>"
+			+"給你們參考歐:D<br>"
+			
+			
+			);
+	
+	
+
+
+
+//		$('#videoFile').
+	
+	
+}
+
+//圖片預覽
+$('#imagefile').change(function() {
+
+	var imagefile = $('#imagefile')[0].files[0];
+	var reader = new FileReader;
+	reader.onload = function(e) {
+		$('#imageDemo').attr('src', e.target.result);
+	};
+	reader.readAsDataURL(imagefile);
+});
+
+//影片預覽
+	$(document).on("change", "#videofile", function(evt) {
+		
+	  let $source = $('#video_here');
+
+	  
+	  $('#video_show').show();
+	  $source[0].src = URL.createObjectURL(this.files[0]);
+	  $source.parent()[0].load();
+	});
+
+
+
+
+
+
+</script>
+
+
 <script>
 // 	var link_area = document.getElementById('link');
 // 	var file_area = document.getElementById('file');

@@ -54,25 +54,26 @@ if (session.getAttribute("member") != null) {
 <%@include file="../jspf/header.jspf"%>
 
 <div id="mytop">
+<br><br>
 <c:choose>
 	<c:when test="${empty orderList}">
 	查無資料<br>
 	</c:when>
 	<c:when test="${not empty orderList }">
 
-	 <form action="<c:url value='member/update' />" method="get">
-		<fieldset style="margin: auto; position: relative; width: 1000px; border: 1px solid transparent;">
+		<fieldset style="margin: auto; position: relative; width: 1200px; border: 1px solid transparent;">
+		 <form action="<c:url value='member/update' />" method="get">
 				<h4 style="font-weight: bold; text-align: center">查詢交易歷史清單</h4>
 				<br>
 				<table id="myDataTable" class="table table-hover" class="row">
 					<thead>
 						<tr>
-							<th style="text-align:center;vertical-align:middle;" scope="col">訂單編號</th>
-							<th style="text-align:center;vertical-align:middle;" scope="col">顧客姓名</th>
-							<th style="text-align:center;vertical-align:middle;" scope="col">總價</th>
-							<th style="text-align:center;vertical-align:middle;" scope="col">訂購時間</th>
-							<th style="text-align:center;vertical-align:middle;" scope="col">訂單狀態</th>
-							<th style="text-align:center;vertical-align:middle;" scope="col">明細</th>
+							<th style="text-align:center;vertical-align:middle;font-size:18px;" scope="col">訂單編號</th>
+							<th style="text-align:center;vertical-align:middle;font-size:18px;" scope="col">顧客姓名</th>
+							<th style="text-align:center;vertical-align:middle;font-size:18px;" scope="col">總價</th>
+							<th style="text-align:center;vertical-align:middle;font-size:18px;" scope="col">訂購時間</th>
+							<th style="text-align:center;vertical-align:middle;font-size:18px;" scope="col">訂單狀態</th>
+							<th style="text-align:center;vertical-align:middle;font-size:18px;" scope="col">明細</th>
 							<!--     <th style="text-align:center;">刪除</th> -->
 						</tr>
 					</thead>
@@ -105,8 +106,8 @@ if (session.getAttribute("member") != null) {
 					<input class="btn btn-dark" type="submit" value="回會員中心">
 				</div>
 
-		        </fieldset>
 			</form>
+		   </fieldset>
 	    </c:when>
   </c:choose>
 

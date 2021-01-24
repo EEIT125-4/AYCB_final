@@ -104,10 +104,7 @@ body{
 											
 											</thead>
 											<tbody id='commentBody'>
-											<tr>
-											<td>???</td>
-											<td>xxx</td>
-											</tr>												
+																	
 											</tbody>
 											
 											
@@ -123,11 +120,6 @@ body{
 								</div>
 							</div>
 						</div>
-						
-						
-						
-				
-
 
 		</div>
 
@@ -143,7 +135,7 @@ body{
 		<script type="text/javascript">
 
 		var tb;//準備放datatable的變數
-		
+		var tr_selected;
 		var path = "${pageContext.request.contextPath}";
 		var object='video';
 		
@@ -186,12 +178,11 @@ body{
 						+"<td>"+data[i].viewCount+"</td>"
 						+"<td>"+data[i].thumbsup+"</td>"
 						+"<td>"+data[i].thumbsdown+"</td>"
-						+"<td><a href='' title='修改影片'><i class='fa fa-pencil' aria-hidden='true' style='color:green'></i></a>"
-						+"<button class='showComment' value='"+data[i].videoId +"' data-toggle='modal' data-target='#commentTable' style='border: none;background-color: transparent;'>"
+						+"<td><a href='${pageContext.request.contextPath}/video/edit?videoId="+data[i].videoId+"' title='編輯影片'><i class='fa fa-pencil' aria-hidden='true' style='color:green'></i></a>"
+						+"<button class='showComment' title='檢視留言' value='"+data[i].videoId +"' data-toggle='modal' data-target='#commentTable' style='border: none;background-color: transparent;'>"
 						+"<i class='fa fa-commenting-o' aria-hidden='true' style='color:green'></i></button>"	
-						+"<button class='deleteBtn' style='border: none;background-color: transparent;' value='"+data[i].videoId+"'>"
+						+"<button class='delete_btn' title='刪除影片' style='border: none;background-color: transparent;' value='"+data[i].videoId+"'>"
 						+"<i class='fa fa-trash-o' aria-hidden='true' style='color:green'></i></button>"
-// 						<a href='' title='檢視留言'><i class='fa fa-commenting-o' aria-hidden='true' style='color:green'></i></a>
 						+"</td>"
 						+"</tr>"
 		
@@ -203,8 +194,30 @@ body{
 						columnDefs : [ {
 			
 							orderable : true,
-						} ]
+						} ],	language: {
+					        processing : "處理中...",
+					        loadingRecords : "載入中...",
+					       	lengthMenu : "顯示 _MENU_ 項結果",
+					        zeroRecords : "沒有符合的結果",
+					        info : "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+					        infoEmpty : "顯示第 0 至 0 項結果，共 0 項",
+					        infoFiltered : "(從 _MAX_ 項結果中過濾)",
+					        infoPostFix : "",
+					        search : "搜尋:",
+					        paginate : {
+					            first : "第一頁",
+					            previous : "上一頁",
+					            next : "下一頁",
+					            last : "最後一頁"
+					        },
+					        aria : {
+					            sortAscending: ": 升冪排列",
+					            sortDescending: ": 降冪排列"
+					        }
+					    }
 					});
+					
+					console.log("tb"+tb);
 					
 					
 	   		     				
@@ -233,7 +246,7 @@ body{
 			
 // 		}
 		
-	
+		//獲取留言
 		$(document).on('click','.showComment',function(){
 			console.log('show comment');
 			console.log('btn value='+$(this).val());
@@ -281,10 +294,12 @@ body{
 		});
 		
 		
-		//刪除blog按鈕
-	    $(".delete_btn").click(function() {
+		//刪除video按鈕
+		
+	    $(document).on('click','.delete_btn',function() {
 	    
-	    	var blogId=$(this).parent().siblings("td[name='blogId']").text();
+	    	var vid=$(this).val();
+	    	console.log('delete id='+vid);
 	    	
 	    	
 	    	swal.fire({ 
@@ -294,18 +309,16 @@ body{
 	    		  showCancelButton: true, 
 	    		  confirmButtonColor: '#3085d6',
 	    		  cancelButtonColor: '#d33',
-	    		  confirmButtonText: '確定刪除', 
-	    		}).then(function(){
-	    			
-	    			
-	    			 $.ajax({
+	    		  confirmButtonText: '刪除', 
+	    		}).then((result)=>{
+	    			if(result.isConfirmed){
+	    				
+	    				$.ajax({
 	    		            type: "POST", //傳送方式
-	    		            url: "${pageContext.request.contextPath}/blog/delete/"+blogId, 
+	    		            url: "${pageContext.request.contextPath}/video/delete?vid="+vid, 
 	    		            dataType: "json", //資料格式
-//	     		            data: { //傳送資料            	
-//	     		            	"blogId":blogId,
-//	     		            	"state":state                
-//	     		            },
+	          
+
 	    		            success: function(data) {
 	    		            	if(data){
 	    		            		swal.fire({
@@ -315,8 +328,9 @@ body{
 	      		      				  button: "OK",
 	      		      				});
 	    		            		console.log("this="+$(this));
-	    		            		var target=$(this).parent().parent();
-	    		            		target.css({"color":"red","border":"2px solid red"});
+// 	    		            		var target=$(this).parent().parent();
+// 	    		            		target.css({"color":"red","border":"2px solid red"});
+									let tb=$("#myDataTable").DataTable();
 	    		            		tb.row('.selected').remove().draw( false );
 	    		            	
 //	     		            		var target=$(this).parent().parent();
@@ -342,7 +356,20 @@ body{
 	    		    				  button: "OK",
 	    		    				});        		
 	  		            	}   		            	            	    		              		           
-	    		        })  			
+	    		        }) ;
+	  				
+	    			}else{
+	    				console.log('取消刪');
+//	     				swal.fire({
+//	 	    				  title:'取消',
+//	 	    				  text: '取消刪除',
+//	 	    				  type:'info',
+//	 	    				  icon: "info",
+//	 	    				  button: "OK",
+//	 	    				});  
+	    				
+	    			}
+	    			    			  			
 	    		});
 	    	
 	    });
@@ -365,16 +392,28 @@ body{
 			return date;
 		}
 		
-// 		$('#myDataTable tbody').on('click', 'tr', function() {
-// 			if ($(this).hasClass('selected')) {
+		//獲取目前被選取的row
+		
+		$('#myDataTable tbody').on('click','tr',function(){
+			if($(this).hasClass('selected')){
+				
+				 $(this).removeClass('selected');
+				 console.log('remove select');
+			}else {
+				if(tr_selected!=null){
+					tr_selected.removeClass('selected');
+				}
+				
+				
+				tr_selected=$(this);
+				
 
-// 				$(this).removeClass('selected');
-// 			} else {
-// 				tb.$('tr.selected').removeClass('selected');
-// 				$(this).addClass('selected');
-// 			}
-
-// 		});
+	            $(this).addClass('selected');
+	            console.log('add select');
+	          
+	        }		
+			
+		});
 		
 // 		setDataTable();
 		getData();

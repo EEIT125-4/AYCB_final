@@ -1,6 +1,7 @@
 package video.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -71,4 +72,36 @@ public class VideoServiceImpl implements VideoService {
 		
 		return dao.getAllCategory();
 	}
+
+	@Override
+	public List<Video> getMoreVideos(String condition, Integer index, Integer num) {
+		
+		return dao.getMoreVideos(condition, index, num);
+	}
+
+	@Override
+	public List<Video> searchVideo(String search) {
+
+		return dao.searchVideo(search);
+	}
+
+	@Override
+	public List<Video> recentVideo(Integer max) {
+		// TODO Auto-generated method stub
+		return dao.recentVideo(max);
+	}
+
+	@Override
+	public List<Video> mostViewVideo() {
+		
+		return dao.mostViewVideo();
+	}
+
+	@Override
+	public Map<String, Integer> getViewsByCategory() {
+	
+		return dao.getViewsByCategory();
+	}
+	
+	
 }
