@@ -43,4 +43,8 @@ public interface MemberDao {
 
 	List<Integer> months();
 
+	Integer totalmember();
+
+	Integer monthbirth();
+
 }

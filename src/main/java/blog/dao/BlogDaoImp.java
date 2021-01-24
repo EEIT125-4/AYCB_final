@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import blog.model.Blog;
+import product.model.CollectBean;
 
 @Repository
 public class BlogDaoImp implements BlogDao {
@@ -102,12 +103,38 @@ public class BlogDaoImp implements BlogDao {
 	public void getAnalysis() {
 		Session session=factory.getCurrentSession();
 		
-		
-		
-		
-		
+	}
+	@Override
+	public void addcollection(int mid, int bid) {
+		CollectBean cb = new CollectBean();
+		cb.setMid(mid);
+		cb.setBid(bid);
+		Session session = factory.getCurrentSession();
+		session.save(cb);
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<CollectBean> collection(int mid) {
+		String hql = "FROM CollectBean c WHERE c.mid = :mid";
+		Session session = factory.getCurrentSession();
+		return session.createQuery(hql).setParameter("mid", mid).getResultList();
+	}
+	
+	@Override
+	public int pkcollection(int mid, int bid) {
+		String hql = "SELECT c.cid FROM CollectBean c WHERE c.mid = :mid and c.bid = :bid";
+		Session session = factory.getCurrentSession();
+		return (int) session.createQuery(hql).setParameter("mid", mid).setParameter("bid", bid).uniqueResult();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Integer> findcollection(int mid) {
+		String hql = "SELECT c.bid FROM CollectBean c WHERE c.mid = :mid";
+		Session session = factory.getCurrentSession();
+		return session.createQuery(hql).setParameter("mid", mid).getResultList();
+	}
 	
 
 	

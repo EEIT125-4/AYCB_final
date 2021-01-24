@@ -120,11 +120,6 @@ body{
 								</div>
 							</div>
 						</div>
-						
-						
-						
-				
-
 
 		</div>
 
@@ -183,12 +178,11 @@ body{
 						+"<td>"+data[i].viewCount+"</td>"
 						+"<td>"+data[i].thumbsup+"</td>"
 						+"<td>"+data[i].thumbsdown+"</td>"
-						+"<td><a href='${pageContext.request.contextPath}/video/edit?videoId="+data[i].videoId+"' title='修改影片'><i class='fa fa-pencil' aria-hidden='true' style='color:green'></i></a>"
-						+"<button class='showComment' value='"+data[i].videoId +"' data-toggle='modal' data-target='#commentTable' style='border: none;background-color: transparent;'>"
+						+"<td><a href='${pageContext.request.contextPath}/video/edit?videoId="+data[i].videoId+"' title='編輯影片'><i class='fa fa-pencil' aria-hidden='true' style='color:green'></i></a>"
+						+"<button class='showComment' title='檢視留言' value='"+data[i].videoId +"' data-toggle='modal' data-target='#commentTable' style='border: none;background-color: transparent;'>"
 						+"<i class='fa fa-commenting-o' aria-hidden='true' style='color:green'></i></button>"	
-						+"<button class='delete_btn' style='border: none;background-color: transparent;' value='"+data[i].videoId+"'>"
+						+"<button class='delete_btn' title='刪除影片' style='border: none;background-color: transparent;' value='"+data[i].videoId+"'>"
 						+"<i class='fa fa-trash-o' aria-hidden='true' style='color:green'></i></button>"
-// 						<a href='' title='檢視留言'><i class='fa fa-commenting-o' aria-hidden='true' style='color:green'></i></a>
 						+"</td>"
 						+"</tr>"
 		
@@ -200,7 +194,27 @@ body{
 						columnDefs : [ {
 			
 							orderable : true,
-						} ]
+						} ],	language: {
+					        processing : "處理中...",
+					        loadingRecords : "載入中...",
+					       	lengthMenu : "顯示 _MENU_ 項結果",
+					        zeroRecords : "沒有符合的結果",
+					        info : "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+					        infoEmpty : "顯示第 0 至 0 項結果，共 0 項",
+					        infoFiltered : "(從 _MAX_ 項結果中過濾)",
+					        infoPostFix : "",
+					        search : "搜尋:",
+					        paginate : {
+					            first : "第一頁",
+					            previous : "上一頁",
+					            next : "下一頁",
+					            last : "最後一頁"
+					        },
+					        aria : {
+					            sortAscending: ": 升冪排列",
+					            sortDescending: ": 降冪排列"
+					        }
+					    }
 					});
 					
 					console.log("tb"+tb);
@@ -232,7 +246,7 @@ body{
 			
 // 		}
 		
-	
+		//獲取留言
 		$(document).on('click','.showComment',function(){
 			console.log('show comment');
 			console.log('btn value='+$(this).val());
@@ -316,6 +330,7 @@ body{
 	    		            		console.log("this="+$(this));
 // 	    		            		var target=$(this).parent().parent();
 // 	    		            		target.css({"color":"red","border":"2px solid red"});
+									let tb=$("#myDataTable").DataTable();
 	    		            		tb.row('.selected').remove().draw( false );
 	    		            	
 //	     		            		var target=$(this).parent().parent();
@@ -376,6 +391,8 @@ body{
 			);
 			return date;
 		}
+		
+		//獲取目前被選取的row
 		
 		$('#myDataTable tbody').on('click','tr',function(){
 			if($(this).hasClass('selected')){

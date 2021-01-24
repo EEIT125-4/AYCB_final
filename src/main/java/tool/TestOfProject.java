@@ -4,11 +4,17 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.sql.Blob;
+import java.sql.Date;
+import java.time.Period;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import javax.mail.Message;
 import javax.sql.rowset.serial.SerialBlob;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -24,6 +30,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import member.MemberBean;
+import message.model.Messagebox;
 import product.model.ProductBean;
 import tool.model.Image;
 import video.model.Video;
@@ -42,7 +49,20 @@ public class TestOfProject {
 		 * 這個方法是初始化交易的,如果要進資料庫,記得一定要開
 		 */
 		initTransaction();
-		videoSet();
+		messageTest();
+//		videoSet();
+		
+//		Map<String, Map>result=new LinkedHashMap<String, Map>();
+//		
+//		result.put("test", getViewsByCategory());
+//		
+//		System.out.println(result.get("test"));
+//		System.out.println("test"+result.get("test:").get("業配推廣"));
+		
+		
+		
+		
+		
 //		updateVideo();
 		
 //		resetpassword();
@@ -51,6 +71,25 @@ public class TestOfProject {
 //		refreshPic();
 //		testJson();
 
+	}
+	
+	static void messageTest() {
+		
+		Messagebox message=new Messagebox();
+		
+		message.setSenddate(new Date(new java.util.Date().getTime()));
+		message.setContent("hello");
+		MemberBean from= session.get(MemberBean.class, 2);
+		MemberBean to= session.get(MemberBean.class, 4);
+		System.out.println("from="+from.getName());
+		System.out.println("to="+to.getName());
+		message.setSendfrom(session.get(MemberBean.class, 2));
+		message.setSendto(session.get(MemberBean.class, 4));
+		message.setType("test");
+		session.save(message);
+		tx.commit();
+		
+		
 	}
 
 	static void updateVideo() {
@@ -296,6 +335,133 @@ public class TestOfProject {
 			}
 		}
 		tx.commit();
+	}
+	
+	static List getDataByDate(Date date) {
+	
+	Map<String, Integer> result = new LinkedHashMap<String, Integer>();
+
+	String hql = "FROM Video v where v.commentTime >=:date";
+	date.setDate(date.getDay()-180);	
+	List<Video> list = session.createQuery(hql).setParameter("date",date ).getResultList();
+	
+	for(Video v:list) {
+		
+		System.out.println("v:"+v.getCommentTime());
+	}
+	return list;
+	
+	}
+	
+	//
+	static Map<String, Integer> getViewsByCategory() {
+		try {
+			
+			Map<String,Integer>result=new LinkedHashMap<String, Integer>();
+			
+			String hql="FROM Video";
+			
+			List<Video>list=session.createQuery(hql).getResultList();
+			for(Video v:list) {
+				
+				if(!result.containsKey(v.getCategory())) {
+					result.put(v.getCategory(), v.getViewCount());
+					
+				}else {
+					int temp=result.get(v.getCategory());
+					result.put(v.getCategory(),result.get(v.getCategory())+v.getViewCount() );
+
+				}				
+			}
+			
+			//debug
+			
+			Iterator entries=result.entrySet().iterator();
+
+			while (entries.hasNext()) {
+			 
+			    Map.Entry entry = (Map.Entry) entries.next();
+			 
+			    String key = (String)entry.getKey();
+			 
+			    Integer value = (Integer)entry.getValue();
+			 
+			    System.out.println("Key = " + key + ", Value = " + value);
+			}
+			
+			return result;
+ 
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+		
+//		java.util.Date today=new java.util.Date();
+//		today.setMonth(today.getMonth()-2);
+//		Date sqldate=new Date(new java.util.Date().getTime());
+//		int month=today.getMonth()+1;
+//		System.out.println("今天是"+month+"月");
+		
+//		System.out.println("year="+year);
+//		Date date=new Date(new java.util.Date().getTime());
+//		date.setDate(date.getDate()-180);
+//		
+//		
+//		List<Video>list=getDataByDate(date);
+//		
+//		Map<String,Integer> period=new LinkedHashMap<String, Integer>();
+//		
+//		for(int i=0;i<6;i++) {
+//			date.setDate(date.getDate()+30*i);
+//			String tag=(date.getYear()+1900)+"-"+(date.getMonth()+1);
+//			period.put(tag, 0);
+//		}
+		
+//		Iterator entries=period.entrySet().iterator();
+//
+//		System.out.println("first time");
+//		while (entries.hasNext()) {
+//			
+//			
+//		 
+//		    Map.Entry entry = (Map.Entry) entries.next();
+//		 
+//		    String key = (String)entry.getKey();
+//		 
+//		    Integer value = (Integer)entry.getValue();
+//		 
+//		    System.out.println("Key = " + key + ", Value = " + value);
+//		}
+//		
+//				
+//			for(Video v:list) {
+//				String tag=(v.getCommentTime().getYear()+1900)+"-"+(v.getCommentTime().getMonth()+1);
+//				if(!period.containsKey(tag)) {
+//					period.put(tag, 1);
+//				}else {
+//					period.put(tag, period.get(tag)+1);
+//				}
+//				
+//							
+//			}			
+//			System.out.println("second time");
+//			entries=period.entrySet().iterator();
+//			
+//			while (entries.hasNext()) {
+//				 
+//			    Map.Entry entry = (Map.Entry) entries.next();
+//			 
+//			    String key = (String)entry.getKey();
+//			 
+//			    Integer value = (Integer)entry.getValue();
+//			 
+//			    System.out.println("Key = " + key + ", Value = " + value);
+//			}
+		
+		//debug
+		
 	}
 
 }

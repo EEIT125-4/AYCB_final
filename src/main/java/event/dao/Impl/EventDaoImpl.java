@@ -1,7 +1,10 @@
  package event.dao.Impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.NoResultException;
 
@@ -11,8 +14,11 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.sun.tools.classfile.Opcode.Set;
+
 import event.dao.EventDAO;
 import event.model.Event;
+import net.bytebuddy.description.ModifierReviewable.OfAbstraction;
 
 
 @Repository
@@ -92,7 +98,7 @@ public class EventDaoImpl implements EventDAO {
 	}
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Integer> getPaxbyCategory() {
+	public List<Integer> getNumberOfCategory() {
 		String hql="FROM Event WHERE eventcategory=:category" ;
 		Session session = factory.getCurrentSession();
 		Query<Event> query= session.createQuery(hql);
@@ -103,7 +109,8 @@ public class EventDaoImpl implements EventDAO {
 		Integer list4= query.setParameter("category", "促銷").getResultList().size();
 		Integer list5= query.setParameter("category", "其他").getResultList().size();
 		
-		List<Integer> list= new ArrayList<>();
+		List<Integer> list= new ArrayList<>();	
+	
 		list.add(list1);
 		list.add(list2);
 		list.add(list3);
@@ -112,6 +119,66 @@ public class EventDaoImpl implements EventDAO {
 		
 		return list;
 	}
+
+//	@Override
+//	public Map<String, Integer> getPaxOfCategory() {
+//		
+//		String hql="FROM Event" ;
+//		Session session = factory.getCurrentSession();
+//		Query<Event> query= session.createQuery(hql);
+//		List<Event>list=query.getResultList();
+//		
+//		
+//		
+//		Map<String, List> result=new LinkedHashMap<String, List>();
+//		
+//		List<String>categorys=new ArrayList<String>();
+//		
+//		List<Integer>paxs=new ArrayList<Integer>();
+//		
+//		
+//		
+//		for(Event e:list) {
+//			
+//			if(!categorys.contains(e.getEventcategory())) {
+//				
+//			categorys.add(e.getEventcategory());	
+//				
+//			}else {
+//				
+//				paxs.add(e.getPax());
+//				
+//				
+//			}
+//			
+//
+//		}
+//		
+//		String temp="";
+//		int tempNum=0;
+//		
+//		for(int i=0;i<categorys.size();i++) {
+//			
+//			
+//			if(temp==null) {
+//				temp=categorys.get(i);	
+//			}
+//			if(categorys.get(i).equals(temp)) {
+//				
+//				categorys.remove(i);
+//				
+//				
+//			}
+//			
+//			
+//			
+//		}
+//		
+//		
+//		
+//		return result;
+//	}
+	
 
 	
 }

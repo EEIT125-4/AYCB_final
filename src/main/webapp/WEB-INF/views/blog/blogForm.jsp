@@ -160,7 +160,7 @@ background-color:white;
 			<label for="reflection">文章內文:</label>
 
 			<div class="blog__details__text">
-				<form:textarea id="editor" path="reflection" placeholder="請在這裡書寫文章" />
+				<form:textarea id="editor" path="reflection"/>
 			</div>
 
 			<!--隱藏選項共4個 -->
@@ -211,7 +211,6 @@ $('#file').change(function() {
 	reader.readAsDataURL(file);
 });
 </script>
-
 
 
 <script>

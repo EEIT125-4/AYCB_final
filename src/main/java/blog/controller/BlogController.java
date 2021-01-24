@@ -30,6 +30,9 @@ import blog.model.Blog;
 import blog.service.BlogService;
 import member.MemberBean;
 import member.Service.MemberService;
+import product.model.CollectBean;
+import product.model.ProductBean;
+import product.service.ProductService;
 import tool.model.Image;
 import tool.service.ImageService;
 
@@ -48,6 +51,9 @@ public class BlogController {
 
 	@Autowired
 	MemberService memberService;
+	
+	@Autowired
+	ProductService ps;
 
 	// 選擇所有留言資料顯現出來(select all)
 	@GetMapping("/blog")
@@ -381,6 +387,15 @@ public class BlogController {
 		
 	}
 	
+	@GetMapping(value="blog/table")
+	@ResponseBody
+	public List<Blog> getDataTable(){
+		
+		return blogService.selectAllBlog();
+		
+	}
+	
+	
 //	@GetMapping(value="blog/getTitle")
 //	public String getTitle(Model model) {
 //		List<String>titles=new ArrayList<String>();
@@ -411,4 +426,39 @@ public class BlogController {
 		
 	}
 
+	@GetMapping(value = "blog/storage", produces = "application/json")
+	public @ResponseBody boolean collect(Model model, HttpSession session, 
+			@RequestParam("mid") Integer mid,
+			@RequestParam("bid") Integer bid
+	) {
+		List<Integer> list = blogService.findcollection(mid);
+		System.out.println("LL " + list);
+		if (list != null) {
+			for (int i = 0; i < list.size(); i++) {
+				if (bid == list.get(i)) {
+					int pk = blogService.pkcollection(mid, bid);
+					ps.delcollection(pk);
+					return false;
+				}
+			}
+		}
+		blogService.addcollection(mid, bid);
+		return true;
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@GetMapping(value = "blog/storagectcheck", produces = "application/json")
+	public @ResponseBody Map collectcheck(Model model, HttpSession session) {
+		List<Integer> list = new ArrayList<>();
+		MemberBean member = (MemberBean) session.getAttribute("member");
+		List<CollectBean> collection = blogService.collection(member.getId());
+		if (collection != null) {
+			for (int i = 0; i < collection.size(); i++) {
+				list.add(collection.get(i).getBid());
+			}
+		}
+		Map map = new HashMap();
+		map.put("No", list);
+		return map;
+	}
 }

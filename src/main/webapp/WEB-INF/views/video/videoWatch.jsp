@@ -50,11 +50,12 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 		<div style="text-align: justify;">
 			<span>
 				<h2>${video.title}</h2>
-			</span> <span>觀看次數:${video.viewCount}</span><span>發布時間:xxxx</span> <i
-				class="fa fa-thumbs-o-up fa-1g">${video.thumbsup}</i> <i
-				class="fa fa-thumbs-o-down fa-1g">${video.thumbsdown }</i>
+			</span> <span>觀看次數:${video.viewCount}</span>
+			<br>
+			 <i	class="fa fa-thumbs-o-up fa-1g">${video.thumbsup}</i> 
+			 <i	class="fa fa-thumbs-o-down fa-1g">${video.thumbsdown }</i>
 
-			<div class="commentdate">${video.commentTime }</div>
+			<div class="commentdate">發布時間:${video.commentTime }</div>
 			<p>${video.description}</p>
 
 		</div>
