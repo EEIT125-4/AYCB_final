@@ -38,7 +38,7 @@ public class AdvertisementDao {
 		try {
 			Session session = factory.getCurrentSession();
 
-			String hql = "FROM Advertisement order by NEWID()";
+			String hql = "FROM Advertisement a where a.postTime<=GETDATE() and a.endTime>=GETDATE() order by NEWID()";
 
 			@SuppressWarnings("unchecked")
 			Query<Advertisement> query = session.createQuery(hql);

@@ -87,6 +87,6 @@
 </script>
   <script src="${pageContext.request.contextPath}/js/ifvisible.js"></script>
 <!--   Kevin:避免干擾大家,平常關起來 -->
-<%-- <script type="text/javascript" src="${pageContext.request.contextPath}/js/getAdvertisement.js" defer="defer" charset="UTF-8"></script> --%>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/getAdvertisement.js" defer="defer" charset="UTF-8"></script>
 <!-- /GetButton.io widget -->
 

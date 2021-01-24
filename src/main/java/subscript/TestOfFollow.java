@@ -24,7 +24,7 @@ public class TestOfFollow {
 			String hql = "FROM MemberBean m WHERE m.account = :account0";
 
 			Query<MemberBean> query = session.createQuery(hql);
-			MemberBean member = query.setParameter("account0", "jjj").getSingleResult();
+			MemberBean member = query.setParameter("account0", "kkk").getSingleResult();
 			
 			System.out.println("member:"+member.getName());
 			@SuppressWarnings("unchecked")
