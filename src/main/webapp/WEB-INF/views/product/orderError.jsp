@@ -24,7 +24,10 @@ if (session.getAttribute("member") != null) {
    <section>
       <div class="jumbotron">
          <div class="container">
-            <h2 style="font-weight: bold; text-align: center; vertical-align: middle;">抱歉, 這個頁面無法取得</h2>
+            <h2 style="font-weight: bold; text-align: center; vertical-align: middle;">自訂例外處理</h2>
+            <h2 style="font-weight: bold; text-align: center; vertical-align: middle;">抱歉,無法取得本頁面</h2>
+            <h3 style="font-weight: bold; text-align: left; vertical-align: middle;">例外原因: ${reason}</h3>
+            <h3 style="font-weight: bold; text-align: left; vertical-align: middle;">例外類型: ${exception}</h3>
          </div>
       </div>
    </section>

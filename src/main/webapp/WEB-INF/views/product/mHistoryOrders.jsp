@@ -65,7 +65,7 @@ if (session.getAttribute("member") != null) {
 	z-index: 1;
 }
 </style>
-<body style="">
+<body style="background-color: #F0F0F0;">
 	<%@include file="../jspf/backstage.jspf"%>
 <div id="mytop" class="content" style="position: relative;top: 150px;float: right;width: 88%;">
 	<h2 style="font-weight: bold; text-align: center;">訂單管理後臺</h2>
@@ -222,7 +222,7 @@ if (session.getAttribute("member") != null) {
 
 			<p class="container">
 			
-			  <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+			  <button class="btn btn-secondary" type="button" style="font-size: 16px" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
 			    	管理訂單
 			  </button>
 			</p>
@@ -463,11 +463,11 @@ function goTop(){
 		  type: 'bar', //圖表類型
 		  data: {
 		    //標題
-		    labels:["Biotherm", "olay", "Dr.Morita" , "Origins"],
+		    labels:["奇蹟角質發光乳 150ML", "深海奇肌修護露 125ML", "奇蹟特嫩精華 50ML", "奇蹟角質發光乳 150ML", "奇蹟特嫩精華 50ML"],
 		    //labels: ${jsonBrandName},
 		    datasets: [{
 		      label: 'Product', //標籤
-		      data: [21, 20, 15, 18], //資料  
+		      data: [42, 38, 37, 21, 21], //資料  
 		      //data: ${jsonBrandCount}, //資料
 		      //圖表背景色
 		      backgroundColor: [
@@ -475,6 +475,7 @@ function goTop(){
 		        'rgba(54, 162, 235, 0.2)',
 		        'rgba(255, 206, 86, 0.2)',
 		        'rgba(75, 192, 192, 0.2)',
+		        'rgba(153, 102, 255, 0.2)'
 		      ],
 		      //圖表外框線色
 		      borderColor: [
@@ -482,7 +483,7 @@ function goTop(){
 		        'rgba(54, 162, 235, 1)',
 		        'rgba(255, 206, 86, 1)',
 		        'rgba(75, 192, 192, 1)',
-
+		        'rgba(153, 102, 255, 1)'
 		      ],
 		      //外框線寬度
 		      borderWidth: 1

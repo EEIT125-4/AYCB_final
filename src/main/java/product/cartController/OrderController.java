@@ -185,10 +185,10 @@ public class OrderController {
 		//sessionStatus.setComplete();
 		
 		/* 串接綠界 */
-//		String clientBackURL="http://localhost:8080/AYCB_final/ToBill";		
-//		String form=genAioCheckOutALL(order.getOrderNo(), amount, context.getContextPath(),itemDetail,clientBackURL);
-//		System.out.println("綠界執行中");
-//		session.setAttribute("form", form);
+		String clientBackURL="http://localhost:8080/AYCB_final/ToBill";		
+		String form=genAioCheckOutALL(order.getOrderNo(), amount, context.getContextPath(),itemDetail,clientBackURL);
+		System.out.println("綠界執行中");
+		session.setAttribute("form", form);
 		
 		
 		return "product/commit";
@@ -364,10 +364,11 @@ public class OrderController {
 	//例外處理頁面
 	@ExceptionHandler({ Throwable.class })
 	public ModelAndView handleError(HttpServletRequest request, 
-			Throwable  exception) {
+			Throwable  throwable) {
 		
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("exception", exception);
+		mv.addObject("reason", throwable.getMessage() + "   ,例外處理   日期: 01/28");
+		mv.addObject("exception", throwable);
 		mv.addObject("url", request.getRequestURL()+"?" + request.getQueryString());
 		mv.setViewName("product/orderError");
 		return mv;

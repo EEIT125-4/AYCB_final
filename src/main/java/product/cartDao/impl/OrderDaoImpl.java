@@ -155,7 +155,7 @@ public class OrderDaoImpl implements OrderDao {
 	@Override
 	public Map<String, Object> getBrandNumber() {
 		
-Map<String, Object> brandMap = new HashMap<String, Object>();
+		Map<String, Object> brandMap = new HashMap<String, Object>();
 		
 		List<String> brandName = new ArrayList<String>();
 		brandName.add("碧兒泉");
@@ -182,15 +182,25 @@ Map<String, Object> brandMap = new HashMap<String, Object>();
 		return brandMap;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked" })
 	@Override
-	public List<OrderItemBean> getTopfive() {
-						   
-		String hql = "SELECT new list(productNo, sum(quantity)) FROM OrderItemBean group by productNo order by sum(quantity) Desc";
+	public Map<String, Integer> getTopfive() {
+		//SELECT this list (productNo,sum(quantity)) FROM OrderItemBean group by productNo order by sum(quantity) Desc				   
+		String hql = "SELECT productNo FROM OrderItemBean group by productNo order by sum(quantity) Desc";
+		String hq2 = "SELECT sum(quantity) FROM OrderItemBean group by productNo order by sum(quantity) Desc";
 		Session session = factory.getCurrentSession();
-		List<OrderItemBean> list = session.createQuery(hql).setMaxResults(5).getResultList();
+//		List list = session.createQuery(hql).setMaxResults(5).getResultList();
+		List<Integer> a = new ArrayList<Integer>(); 
+		List<Integer> b = new ArrayList<Integer>(); 
+		Map<String, Integer> productMap = new HashMap<String, Integer>();
 		
-		return list;
+		a = session.createQuery(hql).setMaxResults(5).getResultList();
+		b = session.createQuery(hq2).setMaxResults(5).getResultList();
+		for(int i=0 ; i<a.size();i++) {
+			productMap.put(session.get(ProductBean.class, i).getProductname(),b.get(i));
+		}
+		
+		return  productMap;
 	}
 
 
