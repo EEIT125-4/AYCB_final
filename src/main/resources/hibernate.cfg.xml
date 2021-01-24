@@ -41,7 +41,7 @@
 		<mapping class="event.model.Event"></mapping>
 		<mapping class="tool.model.Image"></mapping>
 		<mapping class="product.model.ProductBean"></mapping>
-		<mapping class="message.model.Message"></mapping>
+		<mapping class="message.model.Messagebox"></mapping>
 		<mapping class="message.model.MessageBean"></mapping>
 		<mapping class="video.model.Video"></mapping>
 	</session-factory>

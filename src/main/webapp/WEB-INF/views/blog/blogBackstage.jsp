@@ -66,7 +66,7 @@ body {
 
 	<div id="mytop" class="content"
 		style="position: relative; top: 150px; float: right; width: 88%;">
-		<h2 style="font-weight: bold; text-align: center;">影音後臺</h2>
+		<h2 style="font-weight: bold; text-align: center;">部落格後臺</h2>
 
 
 
@@ -80,8 +80,9 @@ body {
 						<div class="row">
 							<div class="col-9 col-md-4">
 								<div class="icon-big text-center icon-warning">
-									<i class="fa fa-video-camera" aria-hidden="true"
-										style="color: red"></i>
+								<i class="fa fa-newspaper-o" aria-hidden="true" style="color: green"></i>
+									
+										
 								</div>
 							</div>
 							<div class="col-7 col-md-8">

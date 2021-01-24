@@ -166,6 +166,8 @@ public class AttendanceController {
 					System.out.println("有錯誤：" + error);
 				}
 				System.out.println("1111111111111111");
+				String filename= eventService.getEvent(eventid).getFilename();
+				model.addAttribute("filename", filename);
 				model.addAttribute("eventid", eventid);
 				model.addAttribute("eventname",eventname);
 				return "event/attendanceForm";
