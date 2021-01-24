@@ -716,6 +716,7 @@ public class MemberController {
 	}
 	
 	@GetMapping(value="/monthtotal" , produces = "application/json")
+	
 	public @ResponseBody List<Integer> getmonths(Model model){
 		System.out.println("--------------------------123123");
 //		List<Integer> mon = new ArrayList<Integer>();
@@ -724,5 +725,18 @@ public class MemberController {
 		return monn;
 
 	}
+	
+	@GetMapping(value="/membertotal" , produces = "application/json")
+	public @ResponseBody Integer memberall (Model model) {
+		
+		
+		return memberService.totalmember();
+		
+		
+		
+	}
+	
+	
+	
 	
 }

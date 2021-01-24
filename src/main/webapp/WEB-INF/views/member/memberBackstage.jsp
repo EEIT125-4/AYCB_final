@@ -99,7 +99,7 @@ $(document).ready(function(){
 	
   	Gender();
  	Month();
-	
+ 	MemberTotal()
 });
 
 
@@ -130,8 +130,8 @@ $(document).ready(function(){
                   </div>
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <h4 class="card-category" style="font-size:x-large;">訂單總數</h4>
-                      <p class="card-title" style="font-size:x-large;">共${orderCount}筆<p>
+                      <h4 class="card-category" style="font-size:x-large;">會員總數</h4>
+                      <p class="card-title" id="membertotal" style="font-size:x-large;">共筆<p>
                     </div>
                   </div>
                 </div>
@@ -159,7 +159,7 @@ $(document).ready(function(){
                   </div>
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <h4 class="card-category" style="font-size:x-large;">訂單總數</h4>
+                      <h4 class="card-category" style="font-size:x-large;">會員總數</h4>
                       <p class="card-title" style="font-size:x-large;">共${orderCount}筆<p>
                     </div>
                   </div>
@@ -179,10 +179,6 @@ $(document).ready(function(){
           			
 		
 		<div style="width: 650px; margin-left: 120px">
-
-
-
-
 
 
 			<div style="font-size: 60px">男女比例</div>
@@ -442,6 +438,19 @@ function Month(){
 		});
 
 }
+
+
+
+	function MemberTotal() {
+		$.ajax({
+			type : 'GET',
+			url : "membertotal",
+			dataType : "json",
+			success : function(data) {
+				$("#membertotal").html(data);
+			}
+		});
+	}
 
 
 

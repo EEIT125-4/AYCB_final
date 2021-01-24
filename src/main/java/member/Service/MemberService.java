@@ -19,27 +19,27 @@ public interface MemberService {
 	List<MemberBean> checkDup();
 
 	boolean isDup(String account);
-	
+
 	boolean emailcheck(String email);
-	
+
 	MemberBean getMember(Integer pk);
-	
+
 	MemberBean getMemberByEmail(String email);
-	
+
 	boolean emailDupCheck(String email);
-	
-	 MemberBean getemail(String email );
-	 
+
+	MemberBean getemail(String email);
+
 	void ckpower2(Integer id);
 
 	boolean ckpower(String account);
 
 	int delete(int account);
 
-	 List<Integer> gender();
+	List<Integer> gender();
 
-	 List<Integer> months();
-	 
-	 
-	 
+	List<Integer> months();
+
+	Integer totalmember();
+
 }

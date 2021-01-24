@@ -333,10 +333,27 @@ public class MemberDaoImpl implements MemberDao {
 //  		System.out.println(list1);
 //  		System.out.println(list2);
 
-		return list;
-		
+		return list;	
 		
 	}
+	@Override
+	public Integer totalmember(){
+		String hql = "FROM MemberBean";
+		Session session = factory.getCurrentSession();
+		Query<MemberBean> query = session.createQuery(hql);
+	
+		return query.getResultList().size();
 
-
+		}
+	
+//	@Override
+//	public Integer monthbirth(){
+//	
+//		String hql = "FROM MemberBean b WHERE b.birth = :birth";
+//		Session session = factory.getCurrentSession();
+//		Query<MemberBean> query = session.createQuery(hql);
+//	
+//
+//}
+	
 }
