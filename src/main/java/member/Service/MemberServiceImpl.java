@@ -152,4 +152,10 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.totalmember();
 	}
 	
+	@Override
+	public Integer monthbirth() {
+		return memberDao.monthbirth();		
+	}
+	
+	
 }

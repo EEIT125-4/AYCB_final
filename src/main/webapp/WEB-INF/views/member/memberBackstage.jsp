@@ -99,7 +99,8 @@ $(document).ready(function(){
 	
   	Gender();
  	Month();
- 	MemberTotal()
+ 	MemberTotal();
+ 	Monthbirth();
 });
 
 
@@ -118,14 +119,14 @@ $(document).ready(function(){
 	<div class="content"
 		style="width: 88%; float: right; margin-top: 250px;">
 		
-
+<div class="row">
 <div class="col-lg-3 col-md-6 col-sm-6" style="margin-left: 200px;">
             <div class="card card-stats">
               <div class="card-body ">
                 <div class="row">
                   <div class="col-9 col-md-4">
                     <div class="icon-big text-center icon-warning">
-                  <i class="fa fa-user" aria-hidden="true"></i>
+                  <i class="fa fa-user" aria-hidden="true" style="color:#B8B8FF"></i>
                     </div>
                   </div>
                   <div class="col-7 col-md-8">
@@ -154,13 +155,13 @@ $(document).ready(function(){
                 <div class="row">
                   <div class="col-9 col-md-4">
                     <div class="icon-big text-center icon-warning">
-                  <i class="fa fa-user" aria-hidden="true"></i>
+                 <i class="fa fa-birthday-cake" aria-hidden="true" style="color:pink"></i>
                     </div>
                   </div>
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <h4 class="card-category" style="font-size:x-large;">會員總數</h4>
-                      <p class="card-title" style="font-size:x-large;">共${orderCount}筆<p>
+                      <h4 class="card-category" style="font-size:x-large;">當月生日</h4>
+                      <p class="card-title" id="monthbirth" style="font-size:x-large;">共筆<p>
                     </div>
                   </div>
                 </div>
@@ -174,17 +175,18 @@ $(document).ready(function(){
               </div>
             </div>
           </div>	
-          
+          </div>
           
           			
-		
+		<div class="row">
 		<div style="width: 650px; margin-left: 120px">
-
-
 			<div style="font-size: 60px">男女比例</div>
 			<canvas id="gender" width="800" height="600"></canvas>
+			</div>
+			<div style="width: 650px; margin-left: 120px">
 			<div style="font-size: 60px">註冊人數</div>
 			<canvas class="card" id="month" width="800" height="600"></canvas>
+		</div>
 		</div>
 		<div style="width: 1600px; margin-left: 30px">
 			<table id="myDataTalbe" class="display">
@@ -205,7 +207,7 @@ $(document).ready(function(){
 
 					<c:forEach var="member" items='${memberBackstage}'>
 						<tr>
-							<td>${member.id}</td>
+							<th scope="row" >${member.id}</th>
 							<td>${member.name}</td>
 							<td>${member.account}</td>
 							<td>${member.email}</td>
@@ -215,6 +217,9 @@ $(document).ready(function(){
 							<td><label class="switch"> <input type="checkbox">
 									<span class="slider" checkType="${member.ckpower}"></span>
 							</label></td>
+							
+
+							
 							<%-- 			<td><form id="delete" action="<c:url value="delete" />"><button type=button id=checkde  >刪除</button> --%>
 							<%-- 			<input type=hidden id=check name=delete value="${member.id}"> --%>
 							<!-- 			</form></td> -->
@@ -293,8 +298,11 @@ $(function() {
 		}
 		$(this).click(function(){
 		let s = $(this);
+		console.log("++++++++++++++++")
+		console.log("11111111111111"+s.parent().parent().parent().children('th').eq(0).html());
+		
 		$.ajax({
-		url:"ckpower2",
+		url:"${pageContext.request.contextPath}/member/ckpower2",
 		data:{
 		'id':  s.parent().parent().parent().children('th').eq(0).html() },
 		type:"POST",
@@ -454,7 +462,16 @@ function Month(){
 
 
 
-
+	function Monthbirth() {
+		$.ajax({
+			type : 'GET',
+			url : "monthbirth",
+			dataType : "json",
+			success : function(data) {
+				$("#monthbirth").html(data);
+			}
+		});
+	}
 
 	
 	
