@@ -42,4 +42,6 @@ public interface MemberService {
 
 	Integer totalmember();
 
+	Integer monthbirth();
+
 }

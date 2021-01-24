@@ -731,12 +731,16 @@ public class MemberController {
 		
 		
 		return memberService.totalmember();
-		
-		
-		
+			
 	}
 	
+	@GetMapping(value="/monthbirth" , produces = "application/json")
+	public @ResponseBody Integer monthbirth (Model model) {
+		
+		
+		return memberService.monthbirth();
+			
 	
 	
-	
+}
 }

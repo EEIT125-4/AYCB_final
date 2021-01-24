@@ -99,7 +99,8 @@ $(document).ready(function(){
 	
   	Gender();
  	Month();
- 	MemberTotal()
+ 	MemberTotal();
+ 	Monthbirth();
 });
 
 
@@ -160,7 +161,7 @@ $(document).ready(function(){
                   <div class="col-7 col-md-8">
                     <div class="numbers">
                       <h4 class="card-category" style="font-size:x-large;">會員總數</h4>
-                      <p class="card-title" style="font-size:x-large;">共${orderCount}筆<p>
+                      <p class="card-title" id="monthbirth" style="font-size:x-large;">共筆<p>
                     </div>
                   </div>
                 </div>
@@ -454,7 +455,16 @@ function Month(){
 
 
 
-
+	function Monthbirth() {
+		$.ajax({
+			type : 'GET',
+			url : "monthbirth",
+			dataType : "json",
+			success : function(data) {
+				$("#monthbirth").html(data);
+			}
+		});
+	}
 
 	
 	
