@@ -71,4 +71,16 @@ public class VideoServiceImpl implements VideoService {
 		
 		return dao.getAllCategory();
 	}
+
+	@Override
+	public List<Video> getMoreVideos(String condition, Integer index, Integer num) {
+		
+		return dao.getMoreVideos(condition, index, num);
+	}
+
+	@Override
+	public List<Video> searchVideo(String search) {
+
+		return dao.searchVideo(search);
+	}
 }

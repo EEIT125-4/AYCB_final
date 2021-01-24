@@ -183,8 +183,8 @@ function Allproducts(i) {
 						+  "<%if (login) {%>"
 						+  "<img id='cartimg"+data.Products[i].productno+"' class='cartimg' onclick='addCart("+data.Products[i].productno+")' src='image/bg_cart_b.svg'>"
 						+  "<%} else {%>"
-						+  "<a href='${pageContext.request.contextPath}/member/login'>"
-						+  "<img id='cartimg"+data.Products[i].productno+"' class='cartimg' src='image/bg_cart_b.svg'>"
+						+  "<a id='cartimg_a"+data.Products[i].productno+"' href='${pageContext.request.contextPath}/member/login'>"
+						+  "<img id='cartimg"+data.Products[i].productno+"' class='cartimg' src='image/bg_cart_b.svg'></a>"
 						+  "<%}%>"
 						+  "</div></div></div>";
 			}
@@ -227,11 +227,10 @@ function Allproducts(i) {
 						+  "<div class='listproprice'>NT$"+data.Products[i].productprice+"</div>"
 						+  "<div class='listcart'>"
 						+  "<%if (login) {%>"
-						+  "<a id='listcart_a"+data.Products[i].productno+"' class='listcart_a' href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
-						+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
+						+  "<div id='listcart"+data.Products[i].productno+"' class='listcarttext' onclick='return addCart("+data.Products[i].productno+")'><img class='listcartimg' src='image/bg_cart_b.svg'>加入購物車</div>"
 						+  "<%} else {%>"
 						+  "<a id='listcart_a"+data.Products[i].productno+"' class='listcart_a' href='${pageContext.request.contextPath}/member/login'>"
-						+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
+						+  "<div id='listcart"+data.Products[i].productno+"' class='listcarttext'><img class='listcartimg' src='image/bg_cart_b.svg'>加入購物車</div></a>"
 						+  "<%}%>"
 						+  "</div></div></div>";
 			}
@@ -281,8 +280,8 @@ function Brandproducts(brand, i) {
 						+  "<%if (login) {%>"
 						+  "<img id='cartimg"+data.Products[i].productno+"' class='cartimg' onclick='addCart("+data.Products[i].productno+")' src='image/bg_cart_b.svg'>"
 						+  "<%} else {%>"
-						+  "<a href='${pageContext.request.contextPath}/member/login'>"
-						+  "<img id='cartimg"+data.Products[i].productno+"' class='cartimg' src='image/bg_cart_b.svg'>"
+						+  "<a id='cartimg_a"+data.Products[i].productno+"' href='${pageContext.request.contextPath}/member/login'>"
+						+  "<img id='cartimg"+data.Products[i].productno+"' class='cartimg' src='image/bg_cart_b.svg'></a>"
 						+  "<%}%>"
 						+  "</div></div></div>";
 			}
@@ -328,11 +327,10 @@ function Brandproducts(brand, i) {
 						+  "<div class='listproprice'>NT$"+data.Products[i].productprice+"</div>"
 						+  "<div class='listcart'>"
 						+  "<%if (login) {%>"
-						+  "<a id='listcart_a"+data.Products[i].productno+"' class='listcart_a' href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
-						+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
+						+  "<div id='listcart"+data.Products[i].productno+"' class='listcarttext' onclick='return addCart("+data.Products[i].productno+")'><img class='listcartimg' src='image/bg_cart_b.svg'>加入購物車</div>"
 						+  "<%} else {%>"
 						+  "<a id='listcart_a"+data.Products[i].productno+"' class='listcart_a' href='${pageContext.request.contextPath}/member/login'>"
-						+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
+						+  "<div id='listcart"+data.Products[i].productno+"' class='listcarttext'><img class='listcartimg' src='image/bg_cart_b.svg'>加入購物車</div></a>"
 						+  "<%}%>"
 						+  "</div></div></div>";
 			}
@@ -382,8 +380,8 @@ function Seriesproducts(series, i) {
 						+  "<%if (login) {%>"
 						+  "<img id='cartimg"+data.Products[i].productno+"' class='cartimg' onclick='addCart("+data.Products[i].productno+")' src='image/bg_cart_b.svg'>"
 						+  "<%} else {%>"
-						+  "<a href='${pageContext.request.contextPath}/member/login'>"
-						+  "<img id='cartimg"+data.Products[i].productno+"' class='cartimg' src='image/bg_cart_b.svg'>"
+						+  "<a id='cartimg_a"+data.Products[i].productno+"' href='${pageContext.request.contextPath}/member/login'>"
+						+  "<img id='cartimg"+data.Products[i].productno+"' class='cartimg' src='image/bg_cart_b.svg'></a>"
 						+  "<%}%>"
 						+  "</div></div></div>";
 			}
@@ -429,11 +427,10 @@ function Seriesproducts(series, i) {
 						+  "<div class='listproprice'>NT$"+data.Products[i].productprice+"</div>"
 						+  "<div class='listcart'>"
 						+  "<%if (login) {%>"
-						+  "<a id='listcart_a"+data.Products[i].productno+"' class='listcart_a' href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
-						+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
+						+  "<div id='listcart"+data.Products[i].productno+"' class='listcarttext' onclick='return addCart("+data.Products[i].productno+")'><img class='listcartimg' src='image/bg_cart_b.svg'>加入購物車</div>"
 						+  "<%} else {%>"
 						+  "<a id='listcart_a"+data.Products[i].productno+"' class='listcart_a' href='${pageContext.request.contextPath}/member/login'>"
-						+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
+						+  "<div id='listcart"+data.Products[i].productno+"' class='listcarttext'><img class='listcartimg' src='image/bg_cart_b.svg'>加入購物車</div></a>"
 						+  "<%}%>"
 						+  "</div></div></div>";
 			}
@@ -483,8 +480,8 @@ function Cateproducts(cate, i) {
 						+  "<%if (login) {%>"
 						+  "<img id='cartimg"+data.Products[i].productno+"' class='cartimg' onclick='addCart("+data.Products[i].productno+")' src='image/bg_cart_b.svg'>"
 						+  "<%} else {%>"
-						+  "<a href='${pageContext.request.contextPath}/member/login'>"
-						+  "<img id='cartimg"+data.Products[i].productno+"' class='cartimg' src='image/bg_cart_b.svg'>"
+						+  "<a id='cartimg_a"+data.Products[i].productno+"' href='${pageContext.request.contextPath}/member/login'>"
+						+  "<img id='cartimg"+data.Products[i].productno+"' class='cartimg' src='image/bg_cart_b.svg'></a>"
 						+  "<%}%>"
 						+  "</div></div></div>";
 			}
@@ -529,11 +526,10 @@ function Cateproducts(cate, i) {
 						+  "<div class='listproprice'>NT$"+data.Products[i].productprice+"</div>"
 						+  "<div class='listcart'>"
 						+  "<%if (login) {%>"
-						+  "<a id='listcart_a"+data.Products[i].productno+"' class='listcart_a' href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
-						+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
+						+  "<div id='listcart"+data.Products[i].productno+"' class='listcarttext' onclick='return addCart("+data.Products[i].productno+")'><img class='listcartimg' src='image/bg_cart_b.svg'>加入購物車</div>"
 						+  "<%} else {%>"
 						+  "<a id='listcart_a"+data.Products[i].productno+"' class='listcart_a' href='${pageContext.request.contextPath}/member/login'>"
-						+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
+						+  "<div id='listcart"+data.Products[i].productno+"' class='listcarttext'><img class='listcartimg' src='image/bg_cart_b.svg'>加入購物車</div></a>"
 						+  "<%}%>"
 						+  "</div></div></div>";
 			}
@@ -584,8 +580,8 @@ function Keywordproducts(i) {
 						+  "<%if (login) {%>"
 						+  "<img id='cartimg"+data.Products[i].productno+"' class='cartimg' onclick='addCart("+data.Products[i].productno+")' src='image/bg_cart_b.svg'>"
 						+  "<%} else {%>"
-						+  "<a href='${pageContext.request.contextPath}/member/login'>"
-						+  "<img id='cartimg"+data.Products[i].productno+"' class='cartimg' src='image/bg_cart_b.svg'>"
+						+  "<a id='cartimg_a"+data.Products[i].productno+"' href='${pageContext.request.contextPath}/member/login'>"
+						+  "<img id='cartimg"+data.Products[i].productno+"' class='cartimg' src='image/bg_cart_b.svg'></a>"
 						+  "<%}%>"
 						+  "</div></div></div>";
 			}
@@ -630,11 +626,10 @@ function Keywordproducts(i) {
 						+  "<div class='listproprice'>NT$"+data.Products[i].productprice+"</div>"
 						+  "<div class='listcart'>"
 						+  "<%if (login) {%>"
-						+  "<a id='listcart_a"+data.Products[i].productno+"' class='listcart_a' href='<c:url value="/cartAdd" />?productno="+data.Products[i].productno+"&count=1' onclick='return addCart()'>"
-						+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
+						+  "<div id='listcart"+data.Products[i].productno+"' class='listcarttext' onclick='return addCart("+data.Products[i].productno+")'><img class='listcartimg' src='image/bg_cart_b.svg'>加入購物車</div>"
 						+  "<%} else {%>"
 						+  "<a id='listcart_a"+data.Products[i].productno+"' class='listcart_a' href='${pageContext.request.contextPath}/member/login'>"
-						+  "<img class='listcartimg' src='image/bg_cart_b.svg'><div class='listcarttext'>加入購物車</div></a>"
+						+  "<div id='listcart"+data.Products[i].productno+"' class='listcarttext'><img class='listcartimg' src='image/bg_cart_b.svg'>加入購物車</div></a>"
 						+  "<%}%>"
 						+  "</div></div></div>";
 			}
@@ -761,11 +756,13 @@ function Allstatus() {
 					$('#detaila' + data.Products[i].productno).removeAttr('href');
 					$('#cartimg' + data.Products[i].productno).css('cursor', 'not-allowed');
 					$('#cartimg' + data.Products[i].productno).removeAttr('onclick');
+					$('#cartimg_a' + data.Products[i].productno).removeAttr('href');
 					
 					$('#liststatusimg' + data.Products[i].productno).attr('src', 'image/soldout.gif');
 					$('#liststatusimg' + data.Products[i].productno).css('display', 'block');
 					$('#listdetaila' + data.Products[i].productno).removeAttr('href');
-					$('#listcart_a' + data.Products[i].productno).css('cursor', 'not-allowed');
+					$('#listcart' + data.Products[i].productno).css('cursor', 'not-allowed');
+					$('#listcart' + data.Products[i].productno).removeAttr('onclick');
 					$('#listcart_a' + data.Products[i].productno).removeAttr('href');
 				}
 				

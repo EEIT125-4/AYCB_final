@@ -2,6 +2,7 @@ package member.Dao;
 
 import java.time.chrono.IsoChronology;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -286,10 +287,56 @@ public class MemberDaoImpl implements MemberDao {
 		
 		
 	}
-	
-	
-	
-	
-	
+	@Override
+	public List<Integer> months(){
+		String hql = "FROM MemberBean WHERE MONTH(registertime) = MONTH(:m)";
+		Session session = factory.getCurrentSession();
+		Query<MemberBean> query = session.createQuery(hql);
+		List<Integer> list = new ArrayList<>();
+		for(int i =1 ;i<13;i++
+				){
+			String date;
+			if (i<10) {
+				date="2021-0"+String.valueOf(i)+"-22";
+			}else {
+				date="2021-"+String.valueOf(i)+"-22";
+			}
+			list.add(query.setParameter("m", date).getResultList().size());
+		}
+		
+//  		Integer list1 = query.setParameter("m", "2021-01-22").getResultList().size();  		
+//  		Integer list2 = query.setParameter("m", "2021-02-22").getResultList().size();  		
+//  		Integer list3 = query.setParameter("m", "2021-03-22").getResultList().size();  		
+//  		Integer list4 = query.setParameter("m", "2021-04-22").getResultList().size();  		
+//  		Integer list5 = query.setParameter("m", "2021-05-22").getResultList().size();  		
+//  		Integer list6 = query.setParameter("m", "2021-06-22").getResultList().size();  		
+//  		Integer list7 = query.setParameter("m", "2021-07-22").getResultList().size();  		
+//  		Integer list8 = query.setParameter("m", "2021-08-22").getResultList().size();  		
+//  		Integer list9 = query.setParameter("m", "2021-09-22").getResultList().size();  		
+//  		Integer list10 = query.setParameter("m", "2021-10-22").getResultList().size();  		
+//  		Integer list11 = query.setParameter("m", "2021-11-22").getResultList().size();  		
+//  		Integer list12 = query.setParameter("m", "2021-12-22").getResultList().size();  	
+//  		
+//  		list.add(list1);
+//  		list.add(list2);
+//  		list.add(list3);
+//  		list.add(list4);
+//  		list.add(list5);
+//  		list.add(list6);
+//  		list.add(list7);
+//  		list.add(list8);
+//  		list.add(list9);
+//  		list.add(list10);
+//  		list.add(list11);
+//  		list.add(list12);
+  		
+//  		System.out.println(list1);
+//  		System.out.println(list2);
+
+		return list;
+		
+		
+	}
+
 
 }

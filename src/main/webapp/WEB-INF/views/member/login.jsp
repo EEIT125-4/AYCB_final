@@ -93,11 +93,11 @@
 
 			</div>
 			
-			<div style="margin-left: 250px">
+			<div style="margin-left: 230px">
 			<input type="button" id="yukai" value="凱凱">	
 			<input type="button" id="julia" value="Julia">		
 			<input type="button" id="leader" value="子雲">	
-			<input type="button" id="jack" value="柏松">	
+			<input type="button" id="jack" value="博淞">	
 		    <input type="button" id="main" value="管理員">	
 			<br>
 </div>

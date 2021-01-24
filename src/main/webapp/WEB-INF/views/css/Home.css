@@ -362,14 +362,228 @@
     color: gainsboro;
 }
 
-.maybelike {
-	position: relative;
-    margin-top: 80px;
-    /* margin-left: 20px; */
-    margin-bottom: 20px;
+.line {
+	border-top: 2px solid gray;
     width: 80%;
-    height: 350px;
     left: 10%;
-    /* clear: both; */
-    border: 2px solid gray;
+    overflow: auto;
+    margin-top: 95px;
+    margin-left: 10%;
 }
+
+.sellhot {
+	position: relative;
+    overflow: hidden;
+    width: 80%;
+    left: 11%;
+    margin-bottom: 20px;
+/*     border: 2px solid gray; */
+}
+
+.sellhottext {
+	margin-top: 10px;
+	margin-left: 10px;
+	font-size: 24px;
+    font-weight: bold;
+}
+
+.textimg {
+	width:180px;
+	height:90px;
+}
+
+.topbox {
+	width: fit-content;
+    float: left;
+    margin-right: 28px;
+    border: 1px solid gray;
+}
+
+.toprank {
+	position: absolute;
+    margin-left: 70px;
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+}
+
+.topimgbox {
+	float: left;
+	margin: 10px;
+}
+
+.topimg {
+	width: 200px;
+	height: 200px;
+	border: 1px solid black;
+}
+
+.topinfo {
+	float: left;
+    margin-top: 20px;
+/*     border: 1px solid black; */
+}
+
+.brandinfo{
+	font-size: 24px;
+    font-weight: bold;
+	color: tomato;
+}
+
+.proinfo {
+	font-size: 18px;
+    font-weight: bold;
+}
+
+.seriesinfo {
+	margin-left: 10px;
+	font-size: 18px;
+    font-weight: bold;
+}
+
+.cateinfo {
+	margin-left: 10px;
+	font-size: 18px;
+    font-weight: bold;
+}
+
+.dealbox {
+	margin-top: 20px;
+	overflow: hidden;
+}
+
+.priceinfo {
+	float: left;
+    margin-top: 15px;
+    font-size: 30px;
+    font-weight: bold;
+    color: red;
+}
+
+.btninfo {
+	float: left;
+    width: fit-content;
+    margin-top: 5px;
+    margin-left: 150px;
+    cursor: pointer;
+}
+
+.btnimg {
+	float: left;
+	width: 40px;
+    height: 40px;
+}
+
+.topstatusimgbox {
+	position: absolute;
+	margin: 5px;
+	z-index: 1;
+}
+
+.topstatusimg {
+	width: 60px;
+	height: 35px;
+	display: none;
+}
+
+.botbox {
+	width: fit-content;
+    float: left;
+    margin-top: 20px;
+    margin-right: 23px;
+    border: 1px solid gray;
+}
+
+.botrank {
+	position: absolute;
+    margin-left: 70px;
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+}
+
+.botrankimg {
+	width:376px;
+	height: 40px;
+}
+
+.botimgbox {
+	float: left;
+	margin: 10px;
+}
+
+.botimg {
+	width: 160px;
+	height: 160px;
+	border: 1px solid black;
+}
+
+.botinfo1 {
+	float: left;
+	margin-top: 40px;
+}
+
+.botbrandinfo {
+	font-size: 24px;
+	font-weight: bold;
+	color: tomato;
+}
+
+.botseriesinfo {
+	margin-left: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.botcateinfo {
+	margin-left: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.botproinfo {
+	font-size: 20px;
+    font-weight: bold;
+}
+
+.botinfo2 {
+	clear: both;
+    width: fit-content;
+    margin-left: 10px;
+    margin-bottom: 10px;
+/*     border: 1px solid black; */
+}
+
+.botdealbox {
+	margin-top: 20px;
+	overflow: hidden;
+}
+
+.botstatusimgbox {
+	position: absolute;
+	margin: 5px;
+	z-index: 1;
+}
+
+.botstatusimg {
+	width: 48px;
+	height: 28px;
+	display: none;
+}
+
+.btninfo_a {
+	color: black;
+}
+
+.btninfo_a:link {
+	color: black;
+}
+
+.btninfo_a:visited {
+	color: black;
+}
+
+.btninfo_a:hover {
+	color: tomato;
+}
+
