@@ -262,7 +262,7 @@ function storeAddressChange(){
 							onchange="shippingTypeChange()">
 								<option value="">請選擇...</option>
 								<option value="超商取貨">超商取貨</option>
-								<option value="宅配到家">宅配到家</option>
+								<option value="宅配到家" selected>宅配到家</option>
 								
 		</select></td>
 		<td colspan="4" style="text-align: center;vertical-align: middle; font-size: 18px;">含物流費共： NT$ <span

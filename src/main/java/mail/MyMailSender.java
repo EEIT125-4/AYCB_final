@@ -92,13 +92,13 @@ public class MyMailSender {
 		multipart.addBodyPart(messageBodyPart);
 
 //		 second part (the image)
-//		messageBodyPart = new MimeBodyPart();
-//		DataSource fds = new FileDataSource(new File("C:\\Users\\user\\OneDrive\\桌面\\pics\\背景\\emailbackground.jfif"));
-//
-//		messageBodyPart.setDataHandler(new DataHandler(fds));
-//		messageBodyPart.setHeader("Content-ID", "<image>");
-//
-//		multipart.addBodyPart(messageBodyPart);
+		messageBodyPart = new MimeBodyPart();
+		DataSource fds = new FileDataSource(new File("C:\\Users\\user\\OneDrive\\桌面\\pics\\背景\\emailbackground.jfif"));
+
+		messageBodyPart.setDataHandler(new DataHandler(fds));
+		messageBodyPart.setHeader("Content-ID", "<image>");
+
+		multipart.addBodyPart(messageBodyPart);
 
 		// put everything together 加入附件檔案
     	mimeMessage.setContent(multipart);
@@ -159,18 +159,18 @@ public class MyMailSender {
 
 		messageBodyPart.setContent(sb.toString(), "text/html;charset=utf-8");
 		// add it
-//		multipart.addBodyPart(messageBodyPart);
+		multipart.addBodyPart(messageBodyPart);
 //
 //		// second part (the image)
-//		messageBodyPart = new MimeBodyPart();
-//		DataSource fds = new FileDataSource(new File("C:\\Users\\user\\OneDrive\\桌面\\pics\\背景\\emailbackground.jfif"));
+		messageBodyPart = new MimeBodyPart();
+		DataSource fds = new FileDataSource(new File("C:\\Users\\user\\OneDrive\\桌面\\pics\\背景\\emailbackground.jfif"));
 //
 //		//
-//		messageBodyPart.setDataHandler(new DataHandler(fds));
-//		messageBodyPart.setHeader("Content-ID", "<image>");
+		messageBodyPart.setDataHandler(new DataHandler(fds));
+		messageBodyPart.setHeader("Content-ID", "<image>");
 //
 //		// add image to the multipart
-//		multipart.addBodyPart(messageBodyPart);
+		multipart.addBodyPart(messageBodyPart);
 
 		// put everything together 加入附件檔案
     					mimeMessage.setContent(multipart);
