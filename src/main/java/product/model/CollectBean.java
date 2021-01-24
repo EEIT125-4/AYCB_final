@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import blog.model.Blog;
 import member.MemberBean;
 
 @Entity
@@ -26,7 +27,9 @@ public class CollectBean implements Serializable{
 	private Integer cid;
 	private Integer mid;
 	private Integer pid;
+	private Integer bid;
 	
+
 	@Transient
 	@ManyToOne
 	@JoinColumn(name="mid")
@@ -36,16 +39,24 @@ public class CollectBean implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="pid")
 	ProductBean pcollect;
+	
+	@Transient
+	@ManyToOne
+	@JoinColumn(name="bid")
+	Blog bcollect;
 
 	public CollectBean() {
 		super();
 	}
 
-	public CollectBean(Integer mid, Integer pid) {
+
+	public CollectBean(Integer mid, Integer pid, Integer bid) {
 		super();
 		this.mid = mid;
 		this.pid = pid;
+		this.bid = bid;
 	}
+
 
 	@Override
 	public String toString() {
@@ -56,6 +67,8 @@ public class CollectBean implements Serializable{
 		builder.append(mid);
 		builder.append(", pid=");
 		builder.append(pid);
+		builder.append(", bid=");
+		builder.append(bid);
 		builder.append(", mcollect=");
 		builder.append(mcollect);
 		builder.append(", pcollect=");
@@ -102,5 +115,12 @@ public class CollectBean implements Serializable{
 
 	public void setPcollect(ProductBean pcollect) {
 		this.pcollect = pcollect;
+	}
+	public Integer getBid() {
+		return bid;
+	}
+
+	public void setBid(Integer bid) {
+		this.bid = bid;
 	}
 }

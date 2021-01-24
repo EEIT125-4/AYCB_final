@@ -1,6 +1,7 @@
 package event.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -22,8 +23,10 @@ public interface EventService {
 	Event getEvent(Integer EventID);
 	
 	List<Event> getEventByCategory(String eventcategory);
+
+	List<Integer> getNumberOfCategory();
 	
-	List<Integer>getPaxbyCategory();
+//	Map<String,Integer> getPaxOfCategory();
 
 
 }

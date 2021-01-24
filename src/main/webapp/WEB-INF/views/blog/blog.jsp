@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<%
+	boolean login = false;
+if (session.getAttribute("member") != null) {
+	MemberBean member = (MemberBean) session.getAttribute("member");
+	login = true;
+}
+%>
+
 <%
 	response.setContentType("text/html;charset=UTF-8");
 response.setHeader("Cache-Control", "no-cache"); // HTTP 1.1
@@ -17,8 +26,21 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <!-- <link REL=STYLESHEET HREF="css/inside.css" TYPE="text/css"> -->
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"
+	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+	crossorigin="anonymous"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <link href="${pageContext.request.contextPath}/css/inside.css"
 	rel="stylesheet">
+	
+<script>
+	$(document).ready(function() {
+		CK();
+	});
+</script>
+
 <title>美誌分享</title>
 </head>
 <%@include file="../jspf/header.jspf"%>
@@ -160,9 +182,8 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 								style="background-image: url(&quot;img/blog/blog-1.jpg&quot;);">
 								<!-- heart收藏 -->
 								<div id="like1" class="like" style="display: block;">
-									<button id="likebtn1" class="like_button"
-										onclick="Collect(1096,1)" style="border: none;">
-										<i id="heart1" class="fa fa-heart"></i>
+									<button id="likebtn${b.blogId}" class="like_button" onclick="Collect(${member.id},${b.blogId})" style="border: none;font-size:25px;">
+										<i id="heart${b.blogId}" class="fa fa-heart-o"></i>
 									</button>
 								</div>
 								<!-- heart收藏 end-->
@@ -201,8 +222,50 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 </body>
 
 <script>
+function Collect(mid, blogId) {
+	$.ajax({
+		type : 'GET',
+		url : 'storage',
+		data : {
+			"mid" : mid,
+			"bid" : blogId
+		},
+		dataType : "json",
+		success : function(data) {
+			if (data) {
+				swal.fire("收藏成功", "", "success");
+				$('#heart' + blogId).attr('class', 'fa fa-heart');
+// 				$('#like' + blogId).css('display', 'block');
+// 				$('#likebtn' + blogId).css('border', 'none');
+			} else {
+				swal.fire("取消收藏", "", "error");
+				$('#heart' + blogId).attr('class', 'fa fa-heart-o');
+// 				$('#like' + blogId).css('display', 'none');
+// 				$('#like' + blogId).removeAttr("style");
+// 				$('#likebtn' + blogId).css('border', '2px solid gray');
+				
+			}
+		}
+	});
+}
 
-
+function CK() {
+	$.ajax({
+		type : 'GET',
+		url : 'storagectcheck',
+		dataType : "json",
+		success : function(data) {
+			for (let i = 0; i < data.No.length; i++) {
+				$('#heart' + data.No[i]).attr('class', 'fa fa-heart');
+// 				$('#like' + data.No[i]).css('display', 'block');
+// 				$('#likebtn' + data.No[i]).css('border', 'none');
+// 				$('#star' + data.No[i]).attr('class', 'fa fa-heart');
+// 				$('#love' + data.No[i]).css('display', 'block');
+// 				$('#lovebtn' + data.No[i]).css('border', 'none');
+			}
+		}
+	});
+};
 </script>
 
 
@@ -223,10 +286,7 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 <script src="${pageContext.request.contextPath}/js/main.js"></script>
 
 <!-- heart收藏 -->
-<script src="https://code.jquery.com/jquery-3.5.1.js"
-	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-	crossorigin="anonymous"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="js/inside.js" defer="defer"></script>
+
+
 
 </html>

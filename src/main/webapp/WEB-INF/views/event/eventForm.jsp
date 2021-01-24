@@ -20,6 +20,18 @@
 			<legend>
 				<h2>新增活動</h2>
 			</legend>
+			<div class="form-inline ">
+					<img id="imageDemo" class="preview" name="icon"
+								src=<c:if test='${not empty member.getId()}'>
+							<c:out value="'${pageContext.request.contextPath}/image/noImage.jpg'"/>
+							
+							</c:if>
+								<c:if test='${empty member.id}'>
+							<c:out value=""/>
+							</c:if>
+								alt=""
+								onerror="javascript:this.src='${pageContext.request.contextPath}/image/noImage.jpg'">
+				</div>
 			<div>
 				<label class="label1" >活動名稱:</label> 
 				<form:input type='text' path="eventname" id="eventname"/>
@@ -62,17 +74,14 @@
 				<form:input type='text' path="totalpax" id="totalpax"/>
 				<form:errors path="totalpax" cssStyle="font-size:15px; color:red"/><br>					
 			</div>
-<!-- 			<div> -->
-<!-- 				<label class="label1">參加人數:</label>  -->
-<%-- 				<form:input type='text' path="pax"/><br>					 --%>
-<!-- 			</div> -->
+
 			<div>
 				<label class="label1">活動簡介:</label> 
 				<form:textarea type='text' path="eventdescription" id="eventdescription"/><br>
 			</div>
 			<div>
 				<label class="label1">活動圖片:</label> 
-				<input name="file" type="file"  id="file"/>
+				<input name="file" type="file"  id="imageFile"/>
 				<form:errors path="filename" cssStyle="font-size:15px; color:red"/><br>
 			</div>
 			<div class="sub">
@@ -86,11 +95,12 @@
 	</form:form>
 </div>
 <%@include file="../jspf/footer.jspf"%>
+<script src="${pageContext.request.contextPath}/js/preview.js"></script>
 </body>
 <script>
 
  $('#express').click(function(){
-	 $('#eventname').val('2021促銷')
+	 $('#eventname').val('2021-01-24')
 	 $('#eventcategory').val('促銷')
 	 $('#eventdate').val('2021-03-22')
 	 $('#eventlocation').val('台北101')

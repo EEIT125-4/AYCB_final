@@ -3,6 +3,7 @@ package blog.service;
 import java.util.List;
 
 import blog.model.Blog;
+import product.model.CollectBean;
 
 public interface BlogService {
 
@@ -23,5 +24,13 @@ public interface BlogService {
 	
 	//search bar
 	List<Blog> selectArticle(String title);
+	
+	void addcollection(int mid, int bid);
+	
+	List<CollectBean> collection(int mid);
+	
+	int pkcollection(int mid, int bid);
+	
+	List<Integer> findcollection(int mid);
 
 }

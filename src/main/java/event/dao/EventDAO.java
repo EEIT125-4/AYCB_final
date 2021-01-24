@@ -1,6 +1,7 @@
  package event.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -23,7 +24,9 @@ public interface EventDAO {
         
 		List<Event> getEventByCategory(String eventcategory);
 
-		List<Integer>getPaxbyCategory();
+		List<Integer>getNumberOfCategory();
+		
+//		Map<String,Integer> getPaxOfCategory();
 
 
 }
