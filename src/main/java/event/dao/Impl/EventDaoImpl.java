@@ -14,7 +14,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.sun.tools.classfile.Opcode.Set;
+
 
 import event.dao.EventDAO;
 import event.model.Event;

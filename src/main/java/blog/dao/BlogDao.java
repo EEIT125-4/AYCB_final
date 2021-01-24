@@ -1,6 +1,7 @@
 package blog.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Session;
 
@@ -43,6 +44,10 @@ public interface BlogDao {
 	int pkcollection(int mid, int bid);
 	
 	List<Integer> findcollection(int mid);
+	//回傳類別分析數據
+	Map categoryAnalysis();
+	//取前10名
+	Map TopAnalysis();
 	
 	
 	

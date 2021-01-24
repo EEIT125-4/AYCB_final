@@ -1,6 +1,11 @@
 package blog.dao;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -9,6 +14,7 @@ import org.springframework.stereotype.Repository;
 
 import blog.model.Blog;
 import product.model.CollectBean;
+import video.model.Video;
 
 @Repository
 public class BlogDaoImp implements BlogDao {
@@ -135,6 +141,88 @@ public class BlogDaoImp implements BlogDao {
 		Session session = factory.getCurrentSession();
 		return session.createQuery(hql).setParameter("mid", mid).getResultList();
 	}
+
+	@Override
+	public Map categoryAnalysis() {
+		try {
+
+			Map<String, Integer> tempMap = new LinkedHashMap<String, Integer>();
+			Session session = factory.getCurrentSession();
+			String hql = "FROM Blog";
+
+			List<Blog> list = session.createQuery(hql).getResultList();
+			for (Blog b : list) {
+				//將每個種類的數量累加起來	
+				if (!tempMap.containsKey(b.getBlogcategory())) {
+					tempMap.put(b.getBlogcategory(), 1);
+
+				} else {
+					int temp = tempMap.get(b.getBlogcategory());
+					tempMap.put(b.getBlogcategory(), tempMap.get(b.getBlogcategory()) +1);
+
+				}
+			}
+			
+			List<String>categorys=new ArrayList<String>();
+			List<Integer>counts=new ArrayList<Integer>();
+			
+			Iterator entries = tempMap.entrySet().iterator();
+
+			while (entries.hasNext()) {
+
+				Map.Entry entry = (Map.Entry) entries.next();
+
+				String key = (String) entry.getKey();
+				categorys.add(key);
+
+				Integer value = (Integer) entry.getValue();
+				counts.add(value);
+				System.out.println("Key = " + key + ", Value = " + value);
+			}
+			
+			Map<String,List>result=new HashMap<String, List>();
+			result.put("categorys", categorys);
+			result.put("counts", counts);
+			
+
+			return result;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public Map TopAnalysis() {
+		
+		try {
+			Map<String, List>result=new LinkedHashMap<String, List>();
+			Session session = factory.getCurrentSession();
+			String hql = "FROM Blog order by views desc";
+
+			List<Blog> list = session.createQuery(hql).setMaxResults(10).getResultList();
+			
+			List<String>titles=new ArrayList<String>();
+			List<Integer>views=new ArrayList<Integer>();
+			for(int i=0;i<list.size();i++) {
+				titles.add(list.get(i).getTitle());
+				views.add(list.get(i).getViews());
+			}
+			
+			result.put("titles", titles);
+			result.put("views", views);
+			
+
+			return result;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	
 	
 
 	
