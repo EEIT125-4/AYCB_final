@@ -2,6 +2,7 @@ package member.Dao;
 
 import java.time.chrono.IsoChronology;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -11,6 +12,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.mchange.v2.c3p0.QueryConnectionTester;
 
 import member.MemberBean;
 import tool.Common;
@@ -333,10 +336,31 @@ public class MemberDaoImpl implements MemberDao {
 //  		System.out.println(list1);
 //  		System.out.println(list2);
 
-		return list;
-		
+		return list;	
 		
 	}
+	@Override
+	public Integer totalmember(){
+		String hql = "FROM MemberBean";
+		Session session = factory.getCurrentSession();
+		Query<MemberBean> query = session.createQuery(hql);
+	
+		return query.getResultList().size();
 
+		}
+	
 
+	@Override
+	public Integer monthbirth(){
+	
+		
+		String hql = "FROM MemberBean WHERE MONTH(birth) = MONTH(:m)";
+		Session session = factory.getCurrentSession();
+		Query<MemberBean> query = session.createQuery(hql);
+		Date bb =new Date();
+		System.out.println("bb"+bb);
+		return query.setParameter("m", bb).getResultList().size();
+
+}
+	
 }

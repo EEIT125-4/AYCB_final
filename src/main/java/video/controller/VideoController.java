@@ -2,10 +2,14 @@
 package video.controller;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -43,29 +47,26 @@ public class VideoController {
 
 	@Autowired
 	VideoService vs;
-	
-	
+
 	@Autowired
 	MemberService ms;
-	
+
 	@Autowired
 	ServletContext context;
 
 	@GetMapping("/video")
 	public String list(Model model,
-			
-			@RequestParam(value="search",required = false)String search 
-			) {// ,RedirectAttributes redirectAttributes
-		
-		List<Video>list=new ArrayList<Video>();
-		model.addAttribute("categorys",vs.getAllCategory());
-		if(search!=null) {
-			list=vs.searchVideo(search);
-			
-		}else {
-			list=vs.selectAllVideo();
-			
-			
+
+			@RequestParam(value = "search", required = false) String search) {// ,RedirectAttributes redirectAttributes
+
+		List<Video> list = new ArrayList<Video>();
+		model.addAttribute("categorys", vs.getAllCategory());
+		if (search != null) {
+			list = vs.searchVideo(search);
+
+		} else {
+			list = vs.selectAllVideo();
+
 		}
 		model.addAttribute("videolist", list);
 //		redirectAttributes.addFlashAttribute("videolist",vs.selectAllVideo());
@@ -78,10 +79,9 @@ public class VideoController {
 
 	) {
 		Video video = vs.queryById(videoID);
-		video.setViewCount(video.getViewCount()+1);
+		video.setViewCount(video.getViewCount() + 1);
 		vs.updateVideo(video);
 		model.addAttribute("video", video);
-
 
 		return "video/videoWatch";
 	}
@@ -117,17 +117,16 @@ public class VideoController {
 	@GetMapping(value = "getRandomVideo")
 	@ResponseBody
 	public List<Video> queryAll(Model model, @RequestParam(value = "num", required = false) Integer num) {
-		
+
 		try {
 			System.out.println("try to get random video");
-			
 
-			System.out.println("num="+num);
+			System.out.println("num=" + num);
 
 			List<Video> videoList = vs.getRandomVideo(num);
-			for(Video v:videoList) {
-				System.out.println("v="+v.getTitle());
-			}	
+			for (Video v : videoList) {
+				System.out.println("v=" + v.getTitle());
+			}
 			System.out.println("送回影片資料");
 			return videoList;
 
@@ -140,17 +139,15 @@ public class VideoController {
 
 	// 創一個空白區塊來放影片(insert)
 	@GetMapping("video/edit")
-	public String showEmptyForm(
-			Model model,
-			@RequestParam(value="videoId",required = false)Integer videoId) {
-		Video video=null;
-		if(videoId!=null) {
-			 video=vs.queryById(videoId);
-			
-		}else {
+	public String showEmptyForm(Model model, @RequestParam(value = "videoId", required = false) Integer videoId) {
+		Video video = null;
+		if (videoId != null) {
+			video = vs.queryById(videoId);
+
+		} else {
 			video = new Video();
 		}
-		
+
 		model.addAttribute("video", video);
 		return "video/videoForm";
 	}
@@ -161,8 +158,7 @@ public class VideoController {
 	public String uploadVideo(Model model, // @RequestParam(value = "option") Integer option,
 			@RequestParam(value = "imagefile") MultipartFile imagefile,
 			@RequestParam(value = "videofile") MultipartFile videofile,
-			@RequestParam(value="memberId") Integer memberId, 
-			@ModelAttribute("video") Video video)
+			@RequestParam(value = "memberId") Integer memberId, @ModelAttribute("video") Video video)
 			throws IOException, ServletException {
 
 		System.out.println("video:" + video.getVideoId());
@@ -179,44 +175,42 @@ public class VideoController {
 		try {
 
 			System.out.println("影片路徑" + context.getRealPath("/"));
-			//圖片儲存判斷
-			if(imagefile!=null) {
-				if(video.getCoverUrl()!=null) {
+			// 圖片儲存判斷
+			if (imagefile != null && imagefile.getSize()>0) {
+				if (video.getCoverUrl() != null) {
 					Common.deleteFile(video.getCoverUrl());
-					
+
 				}
-			
+
 				video.setCoverUrl(Common.saveImage(imagefile));
 
 			}
-			
-			//影片儲存判斷
-			if(videofile!=null) {
-				if(video.getUrl()!=null) {
+
+			// 影片儲存判斷
+			if (videofile != null && videofile.getSize()>0) {
+				if (video.getUrl() != null) {
 					Common.deleteFile(video.getUrl());
-					
+
 				}
-			
+
 				video.setUrl(Common.saveVideo(videofile));
 
 			}
-			
-			
-			//日期判斷
-			if(video.getCommentTime()!=null) {
-				
-				video.setFixedTime(new Timestamp(new Date().getTime()));	
-				
-			}else {
-				
-			video.setCommentTime(new Timestamp(new Date().getTime()));
-			}
-			
 
-			
-			
-			MemberBean member=ms.getMember(memberId);
-			if(member==null) {throw new Exception("沒有上傳會員資料");}
+			// 日期判斷
+			if (video.getCommentTime() != null) {
+
+				video.setFixedTime(new Timestamp(new Date().getTime()));
+
+			} else {
+
+				video.setCommentTime(new Timestamp(new Date().getTime()));
+			}
+
+			MemberBean member = ms.getMember(memberId);
+			if (member == null) {
+				throw new Exception("沒有上傳會員資料");
+			}
 			video.setMember(member);
 			vs.updateVideo(video);
 //			vs.insertVideo(video);
@@ -253,8 +247,7 @@ public class VideoController {
 	// 去到更新的頁面
 	@GetMapping("/uploadedVideo")
 	public String UploadedVideo() {
-		
-		
+
 		return "video/videoUpdate";
 	}
 
@@ -295,44 +288,170 @@ public class VideoController {
 			e.printStackTrace();
 			return false;
 		}
-				
+
 	}
-	
-	@GetMapping(value="video/MyVideoList")
+
+	@GetMapping(value = "video/MyVideoList")
 	@ResponseBody
-	public String getMyVideoList(HttpSession session) {//@RequestAttribute("member")MemberBean mb
-		
-		MemberBean mb=(MemberBean)session.getAttribute("member");
-		if(mb!=null) {
-			Gson gson=new Gson();
-			
-			//debug
-			List<Video> videos=vs.getVideoByMember(mb);
-			for(Video v:videos) {
-				System.out.println("v:"+v.getTitle());
-				
+	public String getMyVideoList(HttpSession session) {// @RequestAttribute("member")MemberBean mb
+
+		MemberBean mb = (MemberBean) session.getAttribute("member");
+		if (mb != null) {
+			Gson gson = new Gson();
+
+			// debug
+			List<Video> videos = vs.getVideoByMember(mb);
+			for (Video v : videos) {
+				System.out.println("v:" + v.getTitle());
+
 			}
-			
+
 			return gson.toJson(vs.getVideoByMember(mb));
-		}else {
+		} else {
 			return null;
 		}
-		
+
+	}
+
+	@GetMapping(value = "video/getMoreVideo")
+	@ResponseBody
+	public List getMoreVideo(@RequestParam(value = "keyword", required = false) String keyword,
+			@RequestParam(value = "index", required = false) Integer index) {
+		Integer num = 3;
+
+		System.out.println("keyword=" + keyword + "/index=" + index);
+		return vs.getMoreVideos("", index, num);
+
+	}
+
+	@GetMapping(value = "video/recentVideo")
+
+	public String getMoreVideo(@RequestParam(value = "max", required = false) Integer max, Model model) {
+
+		if (max == null) {
+			max = 3;
+		}
+		List<Video> list = vs.recentVideo(max);
+		model.addAttribute("videolist", list);
+		model.addAttribute("categorys", vs.getAllCategory());
+		return "video/videoIndex";
+
+	}
+
+	@GetMapping(value = "video/mostViewVideo")
+
+	public String getMoreVideo(Model model) {
+
+		List<Video> list = vs.mostViewVideo();
+		model.addAttribute("videolist", list);
+		model.addAttribute("categorys", vs.getAllCategory());
+		return "video/videoIndex";
+
 	}
 	
-	@GetMapping(value="video/getMoreVideo")
+	
+	 class transfer implements Serializable{
+		 
+		 String tag;
+		 List<Integer>datas;
+		 
+		 
+		 
+		 
+	 } 
+
+//取得後台分析資料
+
+	@SuppressWarnings("rawtypes")
+	@GetMapping(value = "video/analysis")
 	@ResponseBody
-	public List getMoreVideo(
-			@RequestParam(value="keyword",required = false)String keyword,
-			@RequestParam(value="index",required = false)Integer index) {
-		Integer num=3;
-		
-		System.out.println("keyword="+keyword+"/index="+index);
-		return vs.getMoreVideos("", index, num);
-		
-		
-		
-		
-		
+	public Map getAnalysis() {
+
+		try {
+
+			Map analysis = new LinkedHashMap<String, Map>();
+			// 類別與觀看數總和
+			Map viewByCategory=vs.getViewsByCategory();
+			
+			List<String>categorys=new ArrayList<String>();
+			List<Integer>categoryviews=new ArrayList<Integer>();
+			
+			Iterator entries = viewByCategory.entrySet().iterator();
+
+			while (entries.hasNext()) {
+
+				Map.Entry entry = (Map.Entry) entries.next();
+
+				String key = (String) entry.getKey();
+				categorys.add(key);
+
+				Integer value = (Integer) entry.getValue();
+				categoryviews.add(value);
+				System.out.println("Key = " + key + ", Value = " + value);
+			}
+			
+			Map<String,List>vbc=new LinkedHashMap<String, List>();
+			vbc.put("categorys", categorys);
+			vbc.put("categoryviews",categoryviews);
+			analysis.put("vbc", vbc);
+
+			
+//			analysis.put("category", vs.getViewsByCategory());
+			// TOP5熱門影片
+			List<Video> list = vs.mostViewVideo();
+			Map<String,List> top = new LinkedHashMap<String, List>();
+			
+//			top.put("category",list.)
+			List<String>names=new ArrayList<String>();
+			List<Integer>views=new ArrayList<Integer>();
+			
+			for (int i = 0; i < list.size(); i++) {
+				Video v = list.get(i);
+				names.add(v.getTitle());
+				views.add(v.getViewCount());
+				
+			}
+			top.put("names", names);
+			top.put("views", views);
+
+			
+			analysis.put("top", top);
+
+			// 上傳日期分佈
+
+			return analysis;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
 	}
+
+	
+	@GetMapping(value = "video/allvideo")
+	@ResponseBody
+	public List<Video> getallvideo() {
+
+		try {
+			return vs.selectAllVideo();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+	}
+	
+	@GetMapping(value = "video/backstage")
+
+	public String backstage(Model model) {
+
+		List<Video> list = vs.mostViewVideo();
+		model.addAttribute("videolist", list);
+		model.addAttribute("categorys", vs.getAllCategory());
+		return "video/videoBackstage";
+
+	}
+
 }

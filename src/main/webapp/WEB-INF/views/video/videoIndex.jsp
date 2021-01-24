@@ -85,14 +85,14 @@ input[type=text]:focus {
 		<h4>分類</h4>
 		
 		<c:forEach var='category' varStatus='vs' items='${categorys}'>
-			<button class='tagbtn' type="button">${category}</button>	
+			<button class='tagbtn' type="button" onclick="javascript:window.location.href='${pageContext.request.contextPath}/video?search=${category}'">${category}</button>	
 			<c:if test='${vs.count%5 == 0 }'>
 			<br>							
 			</c:if>		
 		</c:forEach>
 		<h4>其他</h4>
-		<button class='tagbtn' type="button" >熱門</button>	
-		<button class='tagbtn' type="button">近期影片</button>	
+		<button class='tagbtn' type="button" onclick="javascript:window.location.href='${pageContext.request.contextPath}/video/mostViewVideo/'" >熱門影片</button>	
+		<button class='tagbtn' type="button" onclick="javascript:window.location.href='${pageContext.request.contextPath}/video/recentVideo/'">近期影片</button>	
 		<br>
 		
 		<button id='test' type='button' >測試按鈕</button>

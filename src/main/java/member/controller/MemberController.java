@@ -626,7 +626,7 @@ public class MemberController {
 
 //權限管理
 	@PostMapping("member/ckpower2")
-	@ResponseBody
+    @ResponseBody
 	public void power(@RequestParam("id") Integer id) {
 		MemberBean mb = new MemberBean();
 		System.out.println("account+++++++++++++" + id);
@@ -682,9 +682,9 @@ public class MemberController {
 	}
 	//快速登入
 	@GetMapping("/fastlogin")
-	public String fastlogin(HttpServletRequest request,HttpSession session,@RequestParam("id")Integer id) {
+	public String fastlogin(HttpServletRequest request,HttpSession session,@RequestParam("account")String account) {
 		System.out.println("++++++++++++++++++++++++++++++++++");
-		MemberBean mb = memberService.getMember(id);
+		MemberBean mb = memberService.getMember(account);
 		Cookie[] cookies = request.getCookies();		
   		for(Cookie cookie: cookies) {
   			System.out.println("cookie name"+cookie.getName());
@@ -716,6 +716,7 @@ public class MemberController {
 	}
 	
 	@GetMapping(value="/monthtotal" , produces = "application/json")
+	
 	public @ResponseBody List<Integer> getmonths(Model model){
 		System.out.println("--------------------------123123");
 //		List<Integer> mon = new ArrayList<Integer>();
@@ -725,4 +726,21 @@ public class MemberController {
 
 	}
 	
+	@GetMapping(value="/membertotal" , produces = "application/json")
+	public @ResponseBody Integer memberall (Model model) {
+		
+		
+		return memberService.totalmember();
+			
+	}
+	
+	@GetMapping(value="/monthbirth" , produces = "application/json")
+	public @ResponseBody Integer monthbirth (Model model) {
+		
+		
+		return memberService.monthbirth();
+			
+	
+	
+}
 }

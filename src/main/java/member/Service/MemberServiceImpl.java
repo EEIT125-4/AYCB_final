@@ -147,6 +147,15 @@ public class MemberServiceImpl implements MemberService {
 	public List<Integer> months(){
 		return memberDao.months();
 	}
+	@Override
+	public Integer totalmember() {
+		return memberDao.totalmember();
+	}
+	
+	@Override
+	public Integer monthbirth() {
+		return memberDao.monthbirth();		
+	}
 	
 	
 }
