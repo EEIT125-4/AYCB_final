@@ -75,9 +75,9 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 
 /* 各種查詢按鈕 */
 .btn-group .button {
-	background-color: #FF95CA;
+	background-color: #E6CAFF;
 	border: 2px solid #BE77FF;
-	color: white;
+	color: black;
 	padding: 15px 32px;
 	text-align: center;
 	text-decoration: none;
@@ -221,5 +221,12 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 <script src="${pageContext.request.contextPath}/js/mixitup.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/main.js"></script>
+
+<!-- heart收藏 -->
+<script src="https://code.jquery.com/jquery-3.5.1.js"
+	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+	crossorigin="anonymous"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="js/inside.js" defer="defer"></script>
 
 </html>
