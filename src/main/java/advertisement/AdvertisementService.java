@@ -42,7 +42,20 @@ public class AdvertisementService {
 		dao.updateAdvertisement(ad);
 	};
 	
-
+	public Advertisement getAdvertisement(Integer adsID) {
+		return dao.getAdvertisement(adsID);
+		
+	}
+	
+	public void deleteAdvertisement(Integer adsID) {
+		
+		dao.deleteAdvertisement(adsID);
+	}
+	
+	public void modifyLength(Integer length) {
+		
+		
+	}
 	
 	
 	

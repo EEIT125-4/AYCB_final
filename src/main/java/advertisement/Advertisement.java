@@ -67,8 +67,8 @@ public class Advertisement {
 	@Column(columnDefinition = "int default 0")
 	private Integer advlength = 5;// 預設廣告時間(秒)
 
-	@Column(columnDefinition = "int default 0")
-	private Integer status = 0;// 狀態碼
+	@Column(columnDefinition = "bit default 1 NOT NULL")
+	private boolean status = true;// 狀態碼
 
 	@ManyToOne
 	@JoinColumn(name = "member")
@@ -268,12 +268,18 @@ public class Advertisement {
 		this.advlength = advlength;
 	}
 
-	public Integer getStatus() {
+	
+
+	public boolean isStatus() {
 		return status;
 	}
 
-	public void setStatus(Integer status) {
+	public void setStatus(boolean status) {
 		this.status = status;
+	}
+
+	public static String[] getTypes() {
+		return types;
 	}
 
 	public MemberBean getMember() {
@@ -284,4 +290,5 @@ public class Advertisement {
 		this.member = member;
 	}
 
+	
 }

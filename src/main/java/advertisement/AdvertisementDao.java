@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import blog.model.Blog;
+import member.MemberBean;
 
 @Repository
 public class AdvertisementDao {
@@ -38,7 +39,7 @@ public class AdvertisementDao {
 		try {
 			Session session = factory.getCurrentSession();
 
-			String hql = "FROM Advertisement a where a.postTime<=GETDATE() and a.endTime>=GETDATE() order by NEWID()";
+			String hql = "FROM Advertisement a where a.postTime<=GETDATE() and a.endTime>=GETDATE() and a.status='true' order by NEWID()";
 
 			@SuppressWarnings("unchecked")
 			Query<Advertisement> query = session.createQuery(hql);
@@ -87,7 +88,7 @@ public class AdvertisementDao {
 		Session session = factory.getCurrentSession();
 		String hql = "SELECT FROM Advertisement adv where adv.advcategory=:category";
 		@SuppressWarnings("unchecked")
-		Query<Advertisement> query = session.createNativeQuery(hql);
+		Query<Advertisement> query = session.createQuery(hql);
 
 		return query.setParameter("category", catogory).getResultList();
 
@@ -100,5 +101,32 @@ public class AdvertisementDao {
 		
 		
 	}
+	
+public Advertisement getAdvertisement(Integer adsID) {
+	
+	Session session = factory.getCurrentSession();
+
+	Advertisement ads = session.get(Advertisement.class, adsID);
+	
+	//debug
+	System.out.println("ads="+ads.getAdvtitle());
+	return ads;
+			 
+		
+	}
+
+	public void deleteAdvertisement(Integer adsID) {
+		
+		Session session=factory.getCurrentSession();
+		Advertisement ads=session.get(Advertisement.class, adsID);
+		session.delete(ads);
+		
+	}
+//	public void modifyLength(Integer length) {
+//		
+//		Session session=factory.getCurrentSession();
+//		Advertisement ads=session.get(Advertisement.class,adsID)
+//		
+//	}
 
 }
