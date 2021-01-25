@@ -81,19 +81,19 @@
 .tagbtn {
 	padding: 5px;
 	border-radius: 15px;
-	border: black 1px outset;
+	border: #00BB00 1px outset;
 	   min-width: 100px;
 	width: fit-content;
 	height: fit-content;
-	background-color: yellow;
+	background-color: 	#F0F0F0;
 	text-align: center;
 	margin: 10px;
 }
 
 .tagbtn:hover {
 	color: white;
-	background-color: red;
-	border-radius: 0px;
+	background-color:#00BB00;
+	border-radius: 15px;
 	transform: scale(1.25, 1.25);
 	transition: all 0.5s;
 }

@@ -185,10 +185,10 @@ public class OrderController {
 		//sessionStatus.setComplete();
 		
 		/* 串接綠界 */
-		String clientBackURL="http://localhost:8080/AYCB_final/ToBill";		
-		String form=genAioCheckOutALL(order.getOrderNo(), amount, context.getContextPath(),itemDetail,clientBackURL);
-		System.out.println("綠界執行中");
-		session.setAttribute("form", form);
+//		String clientBackURL="http://localhost:8080/AYCB_final/ToBill";		
+//		String form=genAioCheckOutALL(order.getOrderNo(), amount, context.getContextPath(),itemDetail,clientBackURL);
+//		System.out.println("綠界執行中");
+//		session.setAttribute("form", form);
 		
 		
 		return "product/commit";
