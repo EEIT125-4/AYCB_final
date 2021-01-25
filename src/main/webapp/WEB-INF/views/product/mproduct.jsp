@@ -282,13 +282,10 @@
 					</tbody>
 				</table>
 			</div>
-              	</div>
-        	</div>
-        </div>	
+            </div>
+        </div>
+       </div>	
 	</div>
-<!-- 		<div class="tableview"> -->
-			
-<!-- 		</div> -->
 	</div>
 
 	<script type="text/javascript"
@@ -420,7 +417,7 @@
 			}
 		});
 	}
-
+	
 	$(function() {
 		$("#myDataTalbe").DataTable({
 			lengthMenu : [100],
@@ -470,7 +467,8 @@
 			cancelButtonColor: '#d33',
 			confirmButtonText: '刪除',
 		    cancelButtonText: '取消',
-		}).then(function() {	  
+		}).then((result) => {
+			  if (result.isConfirmed) {	  
 				$.ajax({
 					async : true,
 					type : 'GET',
@@ -480,17 +478,10 @@
 					},
 					dataType : "json",
 					success : function(data) {
-// 						if(data){
-// 					  		swal.fire({
-// 								title:'刪除成功!',
-// 					  			icon:'success',
-// 								button: "OK",
-// 					  		})	
-// 						}
-					  	window.location.reload();
+						window.location.reload(false);
 					}
 				});			
-			
+			  }
 		})
 	}
 

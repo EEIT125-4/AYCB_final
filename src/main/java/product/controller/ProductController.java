@@ -378,4 +378,18 @@ public class ProductController {
 		System.out.println("L " + list);
 		return list;
 	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@GetMapping(value = "/SearchItem", produces = "application/json")
+	public @ResponseBody Map Searchitem() {
+		List<String> brand = ps.getBrand();
+		List<String> series = ps.getSeries();
+		List<String> cate = ps.getCate();
+		
+		Map map = new HashMap();
+		map.put("Brands", brand);
+		map.put("Series", series);
+		map.put("Cates", cate);
+		return map;
+	}
 }
