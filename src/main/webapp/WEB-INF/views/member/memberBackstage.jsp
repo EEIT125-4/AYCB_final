@@ -179,16 +179,16 @@ $(document).ready(function(){
           
           			
 		<div class="row">
-		<div style="width: 650px; margin-left: 120px">
-			<div style="font-size: 60px">男女比例</div>
+		<div style="width: 530px; margin-left: 120px">
+			<div style="font-size: 50px">男女比例</div>
 			<canvas id="gender" width="800" height="600"></canvas>
 			</div>
-			<div style="width: 650px; margin-left: 120px">
-			<div style="font-size: 60px">註冊人數</div>
+			<div style="width: 530px; margin-left: 120px">
+			<div style="font-size: 50px">註冊人數</div>
 			<canvas class="card" id="month" width="800" height="600"></canvas>
 		</div>
 		</div>
-		<div style="width: 1600px; margin-left: 30px">
+		<div style="width: 1300px; margin-left: 30px">
 			<table id="myDataTalbe" class="display">
 				<thead class="thead-light">
 					<tr>

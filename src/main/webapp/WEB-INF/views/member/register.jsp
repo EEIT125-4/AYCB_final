@@ -178,7 +178,7 @@
 
 
 
-		<div style="margin-left: 830px">
+		<div style="margin-left: 630px">
 			<input type="submit" id="send" value="註冊"
 				style="padding: 5px 15px; font-weight: bold; background: #ccc; border: 0 none; cursor: pointer; -webkit-border-radius: 5px; border-radius: 5px; width: 250px">
 
