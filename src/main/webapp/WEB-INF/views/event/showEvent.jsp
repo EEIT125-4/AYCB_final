@@ -75,14 +75,16 @@ a:visited{
     <div class="row">
 		<c:forEach var='event' items='${events}'>		
 		   <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="${event.filename}">
+                    <div class="product__item" >
+                        <div class="product__item__pic set-bg"  id="resize" >
+                        <img width="350px" height="300px" src="${event.filename}">
+                        
                             <span class="label" id="label">New</span>
-                            <ul class="product__hover">
-                                <li><a href="#"><img src="${pageContext.request.contextPath}/image/icon/heart.png" alt=""></a></li>
-                                <li><a href="#"><img src="${pageContext.request.contextPath}/image/icon/compare.png" alt=""><span>Compare</span></a></li>
-                                <li><a href="#"><img src="${pageContext.request.contextPath}/image/icon/search.png" alt=""></a></li>
-                            </ul>
+<!--                             <ul class="product__hover"> -->
+<%--                                 <li><a href="#"><img src="${pageContext.request.contextPath}/image/icon/heart.png" alt=""></a></li> --%>
+<%--                                 <li><a href="#"><img src="${pageContext.request.contextPath}/image/icon/compare.png" alt=""><span>Compare</span></a></li> --%>
+<%--                                 <li><a href="#"><img src="${pageContext.request.contextPath}/image/icon/search.png" alt=""></a></li> --%>
+<!--                             </ul> -->
                         </div>
                         <div style="text-align: center">
                         <h6>${event.eventname}</h6>
@@ -231,7 +233,7 @@ a:visited{
 		 $('.manager').show();
 	 }else {
 		 $('.manager').hide();
-	 }
+	 };
 	
 	//彈跳視窗 
 	$(document).ready(function() {
@@ -239,6 +241,30 @@ a:visited{
 		if($('#check').val()=="1"){
 			alert("已經報名過囉，請選擇其他活動")
 		}
+	});
+	
+	$(window).bind("load", function() {
+		$('#resize img').each(function() {
+			var maxWidth = 350;
+			var maxHeight = 300;
+			var ratio = 0;
+			var width = $(this).width();
+			var height = $(this).height();
+			if (width > maxWidth) {
+				ratio = maxWidth / width;
+				$(this).css("width", maxWidth);
+				$(this).css("height", height * ratio);
+				height = height * ratio;
+			}
+			var width = $(this).width();
+			var height = $(this).height();
+			if (height > maxHeight) {
+				ratio = maxHeight / height;
+				$(this).css("height", maxHeight);
+				$(this).css("width", width * ratio);
+				width = width * ratio;
+			}
+		});
 	});
 	
 	
