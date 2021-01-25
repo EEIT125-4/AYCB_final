@@ -45,13 +45,16 @@ public class ManagerController {
 //		return "product/mpadd";
 //	}
 
-	// 新增
+	// 新增/修改
 	@PostMapping("/GetAllProduct")
 	public String add(@ModelAttribute("ProductBean") ProductBean pb, @ModelAttribute("UPBean") ProductBean upb,
 			@RequestParam(value = "todo", required = false) String todo) {
 		if (todo.equals("update")) {
 			if (upb.getStock() == 0) {
 				upb.setProductstatus(2);
+				ps.updateProduct(upb);
+			}else if (upb.getStock() > 0) {
+				upb.setProductstatus(0);
 				ps.updateProduct(upb);
 			}
 			MultipartFile productImage = upb.getProductimage();
@@ -132,11 +135,6 @@ public class ManagerController {
 	@GetMapping(value = "/Delete", produces = "application/json")
 	public @ResponseBody boolean delete(HttpSession session, @RequestParam(value = "no", required = false) Integer no) {
 		ps.deleteProduct(no);
-
-		MemberBean member = (MemberBean) session.getAttribute("member");
-		int pk = ps.pkcollection(member.getId(), no);
-		ps.delcollection(pk);
-
 		return true;
 	}
 

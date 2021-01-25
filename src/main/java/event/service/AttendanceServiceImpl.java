@@ -70,6 +70,13 @@ public class AttendanceServiceImpl implements AttendanceService  {
 		return attendanceDAO.isDup(mid, eventid) ;
 		
 		}
+
+	@Override
+	public Integer getPaxOfAttendance() {
+		return attendanceDAO.getPaxOfAttendance();
+	}
+	
+	
 		
 		
 	

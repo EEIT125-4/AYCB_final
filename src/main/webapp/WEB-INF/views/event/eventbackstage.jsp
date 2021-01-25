@@ -35,7 +35,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 <title></title>
 </head>
-<body>
+<body  style="background-color: #f5f5f5">
 	<div>
 
 		<div class="back" style="width: 180px">
@@ -78,7 +78,7 @@
 			</div>
 		</div>
 		<div class="row" style="margin: 50px">
-			<div class="col-lg-3 col-md-6 col-sm-6" style="margin-left: 200px;">
+			<div class="col-lg-6 col-md-6 col-sm-6" style="margin-left: 200px;">
 				<div class="card card-stats">
 					<div class="card-body">
 						<div class="row">
@@ -90,7 +90,7 @@
 							<div class="col-7 col-md-8">
 								<div class="numbers">
 									<h4 class="card-category" style="font-size: x-large;">活動參加總人數</h4>
-									<p class="card-title" style="font-size: x-large;">共?人
+									<p class="card-title" style="font-size: x-large;" id="totalattendance">共人
 									<p>
 								</div>
 							</div>
@@ -104,14 +104,29 @@
 					</div>
 				</div>
 			</div>
-			<div style="width: 500px; height: 500px; margin-left: 220px">
-			<canvas id="myChart"></canvas>
+			<div class="col-lg-6 col-md-6 col-sm-6" style="margin-left: 200px;">
+				<div class="card card-stats">
+					<div class="card-body">
+					<canvas id="myChart"></canvas>	
+					</div>
+					<div class="card-footer ">
+						<hr>
+						<div class="stats">
+							<i class="fa fa-refresh"></i> Update Now 安插日期
+						</div>
+					</div>
+				</div>
+			</div>
+<!-- 			<div style="width: 500px; height: 500px; margin-left: 220px"> -->
+<%-- 			<canvas id="myChart"></canvas> --%>
 		</div>	
 		</div>
-
-		
-
-		<div style="margin: 0px 0px 0px 180px" id="backcontent">
+		<div class="row" style="margin:0px 5px 0px 55px">
+		<div class="col-lg-1 col-md-6 col-sm-6"></div>
+		<div class="col-lg-11 col-md-6 col-sm-6" style="margin:0px">
+		<div class="card card-stats">
+		<div class="card-body">
+		<div id="backcontent">
 
 			<c:choose>
 				<c:when test='${empty events}'>查無報名資料<br>
@@ -128,7 +143,7 @@
 								<th>地點</th>
 								<th>主辦人</th>
 								<th>聯絡電話</th>
-								<th>活動敘述</th>
+<!-- 								<th>活動敘述</th> -->
 								<th>名額</th>
 								<th>報名人數</th>
 								<th>編輯活動資料</th>
@@ -150,7 +165,7 @@
 								<td>${event.eventlocation}</td>
 								<td>${event.host}</td>
 								<td>${event.hostphone}</td>
-								<td>${event.eventdescription}</td>
+<%-- 								<td>${event.eventdescription}</td> --%>
 								<td>${event.totalpax}</td>
 								<td>${event.pax}</td>
 								<td><a
@@ -178,7 +193,16 @@
 				</c:otherwise>
 			</c:choose>
 		</div>
-	</div>
+					</div>
+					<div class="card-footer ">
+						<hr>
+						
+					</div>
+				</div>		
+          </div>
+<!--           <div class="col-lg-1 col-md-6 col-sm-6" ></div> -->
+</div>
+	
 
 </body>
 <script>
@@ -251,21 +275,34 @@
 									borderWidth : 1
 								} ]
 							},
-							options : {
-								scales : {
-									yAxes : [ {
-										ticks : {
-											beginAtZero : true,
-											responsive : true
-										//符合響應式
-										}
-									} ]
-								}
-							}
+// 							options : {
+// 								scales : {
+// 									yAxes : [ {
+// 										ticks : {
+// 											beginAtZero : true,
+// 											responsive : true
+// 										//符合響應式
+// 										}
+// 									} ]
+// 								}
+// 							}
 						});
 					}
 				});
 
 			});
+	
+	$(document).ready(
+		function TotalAttendance() {
+			console.log("data")
+		$.ajax({
+			type : 'GET',
+			url : " totalattendance",
+			dataType : "json",
+			success : function(data) {
+				$("#totalattendance").html(data);
+			}
+		});
+	});
 </script>
 </html>
