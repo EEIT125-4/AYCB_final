@@ -45,7 +45,9 @@
     <input name="shippingAddress" type="text" value="<%=stAddr%>">
     <% for (String name : paramsMap.keySet()) {%>
     <input name="<%=name%>" type="hidden" value="<%= paramsMap.get(name)%>">
-    <%}%>
+    <%
+    System.out.println("paramsName = " + paramsMap.get(name));
+    }%>
     <script>
         document.getElementById("myForm").submit();
     </script>    
