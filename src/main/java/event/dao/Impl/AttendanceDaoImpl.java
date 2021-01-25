@@ -106,6 +106,21 @@ public class AttendanceDaoImpl implements AttendanceDAO {
 		return list;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public Integer getPaxOfAttendance() {
+		String hql="FROM Attendance";
+		Session session = factory.getCurrentSession();
+		List<Attendance> list= session.createQuery(hql).getResultList();
+		
+		Integer result= 0;
+		for(Attendance a : list){
+		result=result +a.getPax();
+		}
+				
+		return result;
+	}
+
 
 	
 
