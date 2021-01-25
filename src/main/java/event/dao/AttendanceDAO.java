@@ -31,6 +31,7 @@ public interface AttendanceDAO {
 
 			boolean isDup(Integer id, Integer eventid);
 			
+			Integer getPaxOfAttendance();
 	   
 
 

@@ -141,6 +141,20 @@ public class BlogDaoImp implements BlogDao {
 		Session session = factory.getCurrentSession();
 		return session.createQuery(hql).setParameter("mid", mid).getResultList();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Blog> allcollection(int blogId) {
+		String hql = "FROM Blog b WHERE b.blogId = :blogId";
+		Session session = factory.getCurrentSession();
+		return session.createQuery(hql).setParameter("blogId", blogId).getResultList();
+	}
+	
+	@Override
+	public Blog getOneBlog(int blogId) {
+		Session session = factory.getCurrentSession();
+		return session.get(Blog.class, blogId);
+	}
 
 	@Override
 	public Map categoryAnalysis() {

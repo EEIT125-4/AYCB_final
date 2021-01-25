@@ -17,26 +17,30 @@ public interface BlogService {
 	// 刪除一筆部落格文章
 	int deleteBlog(Integer blogId);
 
-	//選擇一筆需要更新的部落格文章
+	// 選擇一筆需要更新的部落格文章
 	Blog selectBlog(Integer BlogId);
 
 	// 更新一筆部落格文章
 	int updateBlog(Blog bg);
-	
-	//search bar
+
+	// search bar
 	List<Blog> selectArticle(String title);
-	
+
 	void addcollection(int mid, int bid);
-	
+
 	List<CollectBean> collection(int mid);
-	
+
 	int pkcollection(int mid, int bid);
-	
+
 	List<Integer> findcollection(int mid);
 
 //	回傳類別分析數據
 	Map categoryAnalysis();
+
+	// 取前10名
+	Map TopAnalysis();
 	
-	//取前10名
-		Map TopAnalysis();
+	List<Blog> allcollection(int blogId);
+	
+	Blog getOneBlog(int blogId);
 }

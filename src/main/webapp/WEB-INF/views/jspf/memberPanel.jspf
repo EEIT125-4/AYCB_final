@@ -22,6 +22,7 @@
 					<li class="list-group-item list-group-item-light"><a href="<c:url value='/uploadedVideo' />">已上傳影片</a></li>
 					<li class="list-group-item list-group-item-light"><a href="<c:url value='/Collect' />">收藏清單</a></li>
 					<li class="list-group-item list-group-item-light"><a href="<c:url value='/History' />">瀏覽紀錄</a></li>
+					<li class="list-group-item list-group-item-light"><a href="<c:url value='/blog/allCollect' />">文章收藏</a></li>
 				</ul>
 			</div>
 		</div>

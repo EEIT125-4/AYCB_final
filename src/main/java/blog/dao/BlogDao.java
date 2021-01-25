@@ -49,6 +49,10 @@ public interface BlogDao {
 	//取前10名
 	Map TopAnalysis();
 	
+	List<Blog> allcollection(int blogId);
+	
+	Blog getOneBlog(int blogId);
+	
 	
 	
 	

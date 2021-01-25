@@ -59,6 +59,7 @@ if (session.getAttribute("member") != null) {
 	$(document).ready(function() {
 		Allproducts();
 		Allstatus();
+		Searchitem();
 	});
 </script>
 
@@ -74,48 +75,12 @@ if (session.getAttribute("member") != null) {
 				<div class="category">
 					<div id="nameb" class="flip">廠商分類</div>
 					<div id="brand" class="panel">
-						<c:forEach var="brand" varStatus='vs' items="${brand}">
-							<c:if test='${vs.first }'>
-								<c:out value="<ul id='ul1'>" escapeXml='false' />
-							</c:if>
-							<li class="cateul_li">
-								<button class="cateul_li_button"
-									onclick="Brandproducts('${brand}', 1)">${brand}</button>
-							</li>
-							<c:if test='${vs.last }'>
-								<c:out value="</ul>" escapeXml='false' />
-							</c:if>
-						</c:forEach>
 					</div>
 					<div id="names" class="flip">系列分類</div>
 					<div id="series" class="panel">
-						<c:forEach var="series" varStatus='vs' items="${series}">
-							<c:if test='${vs.first }'>
-								<c:out value="<ul id='ul2'>" escapeXml='false' />
-							</c:if>
-							<li class="cateul_li">
-								<button class="cateul_li_button"
-									onclick="Seriesproducts('${series}', 1)">${series}</button>
-							</li>
-							<c:if test='${vs.last }'>
-								<c:out value="</ul>" escapeXml='false' />
-							</c:if>
-						</c:forEach>
 					</div>
 					<div id="namec" class="flip">種類分類</div>
 					<div id="cate" class="panel">
-						<c:forEach var="cate" varStatus='vs' items="${cate}">
-							<c:if test='${vs.first }'>
-								<c:out value="<ul id='ul3'>" escapeXml='false' />
-							</c:if>
-							<li class="cateul_li">
-								<button class="cateul_li_button"
-									onclick="Cateproducts('${cate}', 1)">${cate}</button>
-							</li>
-							<c:if test='${vs.last }'>
-								<c:out value="</ul>" escapeXml='false' />
-							</c:if>
-						</c:forEach>
 					</div>
 				</div>
 			</div>
@@ -777,6 +742,38 @@ function Allstatus() {
 	});
 }
 
+function Searchitem() {
+	$.ajax({
+		type : 'GET',
+		url : 'SearchItem',
+		dataType : "json",
+		success : function(data) {
+			var contentb = "<ul id='ul1'>";
+			var contents = "<ul id='ul2'>";
+			var contentc = "<ul id='ul3'>";
+			for(let i = 0; i<data.Brands.length; i++){
+				contentb += "<li class='cateul_li'>"
+						 +  "<button class='cateul_li_button' onclick='Brandproducts("+'"'+data.Brands[i]+'"'+", 1)'>"+data.Brands[i]+"</button>"
+						 +  "</li></ul>";
+			}
+			$("#brand").html(contentb);
+			
+			for(let i = 0; i<data.Series.length; i++){
+				contents += "<li class='cateul_li'>"
+						 +  "<button class='cateul_li_button' onclick='Seriesproducts("+'"'+data.Series[i]+'"'+", 1)'>"+data.Series[i]+"</button>"
+						 +  "</li></ul>";
+			}
+			$("#series").html(contents);
+			
+			for(let i = 0; i<data.Cates.length; i++){
+				contentc += "<li class='cateul_li'>"
+						 +  "<button class='cateul_li_button' onclick='Cateproducts("+'"'+data.Cates[i]+'"'+", 1)'>"+data.Cates[i]+"</button>"
+						 +  "</li></ul>";
+			}
+			$("#cate").html(contentc);
+		}
+	})
+}
 </script>
 <%@include file="../jspf/footer.jspf"%>
 </body>
