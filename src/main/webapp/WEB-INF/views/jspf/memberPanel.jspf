@@ -3,6 +3,11 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/inside2.css" />
 
+<style>
+.list-group :hover{
+color:purple;
+}
+</style>
 
 <div class="leftside">
 			<div class="condition">會員中心</div>

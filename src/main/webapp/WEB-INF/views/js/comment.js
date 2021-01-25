@@ -70,6 +70,7 @@ function resetComment(obj) {
  			obj.siblings(".postComment").attr('disabled',true);    
             obj.parent().css('display', 'none');
             obj.siblings().parent().siblings("textarea[class='comment']").val('');
+            obj.siblings().parent().siblings("textarea[class='comment']").css('display','none');
 
 }
 
@@ -94,6 +95,7 @@ function resetComment(obj) {
 
          $(document).on('click','.resetBtn',function(){
                 console.log('按下取消');
+                
                 resetComment($(this));
             });
             
@@ -152,6 +154,20 @@ function resetComment(obj) {
 //                $(this).css('color', 'red');
 //
 //            });
+                 
+     //動態綁定顯示留言區
+     $(document).on('click','.sendReply',function(){
+     
+     console.log('顯示留言區');
+     
+     $(this).parent().siblings().children('textarea[class="comment"]').css('display', 'block');
+     
+     	
+     
+     
+     
+     
+     });            
                  
     //動態綁定送出留言事件      
 		$(document).on('click','.postComment',function(){
@@ -293,14 +309,17 @@ function refresh() {
                         + "<h5>" + data.comments[i].member.name + "</h5>"
                         + "<div class='commentdate'>" + formatTimeStamp(data.comments[i].commentTime) + "</div>"
                         + "<p>"+data.comments[i].contentBox+"</p>"
-                        + "<p><button type='button' style='width:auto' onclick='checkLogin();'>回覆</button></p>"
+                        + "<p>"
+                        +"<button type='button' style='width:auto' class='sendReply'>回覆</button>"
+                        +"<button type='button' style='width:auto' class='checkReply' value='0'>查看"+replyNum+"則回覆</button>"
+                        +"</p>"
                         +"<div>"
-						+"<textarea class='comment' placeholder='新增公開留言' cols='100' style='resize: none;'></textarea>"
+						+"<textarea class='comment' placeholder='新增公開留言' cols='100' style='resize: none;display: none;'></textarea>"
 						+"<div class='btnarea' style='margin-left: 50%; display: none;'>"
 						+"<button class='resetBtn' type='button' style='width: auto'>取消</button>"
 						+"<button class='postComment' type='button' value="+ path +"/leaveComment?key="+ data.comments[i].commentId+"&type=comment style='width: auto' disabled>留言</button>"
 						+"</div></div>"
-                        + "<p><button type='button' style='width:auto' class='checkReply' value='0'>查看"+replyNum+"則回覆</button></p>"
+                        + "<p></p>"
                         +replyContent
                         +"</div></div>"
                         );

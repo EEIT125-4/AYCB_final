@@ -75,11 +75,13 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 			</c:choose>
 
 			<div>
-				<textarea class="comment" placeholder="新增公開留言"
+				<textarea id='fixcomment' class="comment" placeholder="新增公開留言"
 					cols="100" ></textarea>
 				<div class="btnarea" style="margin-left: 50%; display: none;">
 					<button class='resetBtn' type='button' style='width: auto'>取消</button>
 					<button class='postComment' value='${pageContext.request.contextPath}/leaveComment?key=${video.videoId}&type=video' type='button' style='width: auto' disabled>留言</button>
+					<button class='fastComment' type='button' style='width: auto'>一鍵留言</button>
+					
 				</div>
 			</div>
 		</div>
@@ -160,6 +162,14 @@ var flag = 0;
 	}
 		
 });
+});
+
+$(document).on('click','.fastComment',function(){
+	console.log('快速留言');
+
+	$('#fixcomment').val('這是一條很有價值的留言!');
+	
+	
 });
 
 //轉換時間格式
