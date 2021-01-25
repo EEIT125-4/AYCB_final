@@ -13,7 +13,7 @@
             + '<div class="modal-dialog" role="document" style="width:100%">'
             + '<div class="modal-content" style="width:100%">'
             + '<div class="modal-header">'
-            + '<span> <h5 class="modal-title" id="modalTitle"></h5></span>'
+            + '<span> <h5 class="modal-title" id="adTitle"></h5></span>'
             + '<span id="adText"><fieldset></fieldset></span>'
 
             + '</div style="text-align:center"> <div class="modal-body" id="ads_content"> </div>'
@@ -34,7 +34,7 @@
         //廣告相關設定
         var idle = false;
         var ads_content = document.getElementById('ads_content');
-        var ads_title=document.getElementById('modalTitle');
+        var ads_title=document.getElementById('adTitle');
         var forceTime = 3;//強迫無法關閉時間     
         var Timer = null;
 
@@ -58,6 +58,7 @@
 
             idle = false;
             ads_content.innerHTML = "";
+//            $('#modalTitle').innerHTML="";
             ads_title.innerHTML="";
             //暫無其他設定           
 
@@ -125,7 +126,7 @@
                 },
                 error: function () {
                     alert("取得廣告失敗");
-                }
+                }	
 
             });
 
