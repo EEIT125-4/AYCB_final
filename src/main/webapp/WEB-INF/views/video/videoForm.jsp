@@ -23,15 +23,14 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 <style>
 
 .t1{
-
    			padding: 5px;
             border-radius: 10px;
             border: black 1px outset;
-			width:100%;
+			width:30%;
 /*             width: fit-content; */
 
 /*             height: fit-content; */
-            background-color: yellow;
+            background-color:	#FFFFCE;
             text-align: center;
 /*             padding-left: 20px; */
 /*             padding-right: 20px; */
@@ -48,7 +47,7 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 
 <%@include file="../jspf/header.jspf"%>
 
-<section style="background-image: url(${pageContext.request.contextPath}/image/backstage2.jpg);background-size: cover;">>
+<section style="background-image: url(${pageContext.request.contextPath}/image/green.jpg);background-size: cover;">>
 
 
 	<div class="updateform">

@@ -38,7 +38,7 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 .button1 {
 	display: inline-block;
 	border-radius: 4px;
-	background-color: #B15BFF;
+	background-color: 	#00BB00;
 	border: none;
 	color: #FFFFFF;
 	text-align: center;
@@ -153,7 +153,7 @@ input[type=text]:focus {
 	
 
 	<section class="blog spad container"
-		style="background-image: url(${pageContext.request.contextPath}/image/leave.jpg);background-size: cover;">
+		style="background-image: url(${pageContext.request.contextPath}/image/leave.jpg);background-size: cover: no repeat;">
 		<!-- 		   <div class="container">			 -->
 		
 		

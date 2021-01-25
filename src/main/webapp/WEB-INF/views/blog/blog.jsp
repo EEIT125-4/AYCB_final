@@ -62,7 +62,7 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 	border: none;
 	color: #FFFFFF;
 	text-align: center;
-	font-size: 10px;
+	font-size: 20px;
 	padding: 20px;
 	width: 150px;
 	transition: all 0.5s;
@@ -97,16 +97,17 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 
 /* 各種查詢按鈕 */
 .btn-group .button {
-	background-color: #E6CAFF;
-	border: 2px solid #BE77FF;
-	color: black;
-	padding: 15px 32px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 16px;
-	cursor: pointer;
-	float: left;
+	background-color: white;
+    border: 2px solid #BE77FF;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    float: left;
+    border-radius: 10px;
 }
 
 .btn-group .button:not(:last-child) {
