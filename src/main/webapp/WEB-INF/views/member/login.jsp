@@ -93,12 +93,14 @@
 
 			</div>
 			
-			<div style="margin-left: 190px">
+			<div style="margin-left: 155px">
 			<input type="button" class="btn btn-success" id="yukai" value="凱凱">	
 			<input type="button" class="btn btn-success" id="julia" value="Julia">		
 			<input type="button" class="btn btn-success" id="leader" value="子雲">	
 			<input type="button" class="btn btn-success" id="jack" value="博淞">	
 		    <input type="button" class="btn btn-success" id="main" value="管理員">	
+		    <input type="button" class="btn btn-success" id="oo" value="停權">	
+		    
 			<br>
 </div>
 			<div class="modal fade" id="forgot" tabindex="-1" role="dialog"
@@ -564,8 +566,13 @@
 			 $('#main').click(function(){
 				 window.location.href='/AYCB_final/fastlogin?account=kevin0128';
 		})		
-				
-		
+// 				 $('#oo').click(function(){
+// 				 window.location.href='/AYCB_final/fastlogin?account=sss78659';
+// 		})		
+				$('#oo').click(function(){
+	 $('#ac').val('sss78659')
+	 $('#pwd').val('kkk123')
+				});
 </script>
 
 
