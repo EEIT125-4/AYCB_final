@@ -99,7 +99,8 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 	editable = true;
 	}
 %>  
-
+<br>
+<br>
 <div>
 	<ol class="progress_bar">
 		<li class="active">購物車</li>

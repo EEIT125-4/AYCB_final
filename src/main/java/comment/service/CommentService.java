@@ -13,7 +13,7 @@ public interface CommentService {
 
 	int deleteComment(int id);
 
-	int updateComment(CommentBean cb);
+	void updateComment(CommentBean cb);
 
 	CommentBean selectUpdateitem(Integer commentId);
 

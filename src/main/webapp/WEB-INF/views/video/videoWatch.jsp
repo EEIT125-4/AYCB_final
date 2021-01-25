@@ -40,8 +40,8 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 
 
 
-<div class="content">
-	<div class="primary">
+<div class="content" style="background-image:url(${pageContext.request.contextPath}/image/leave.jpg);background-size: cover">
+	<div class="primary" style="margin-left: 100px;" >
 		<iframe class="videoFrame" id="frameid" src="${video.url}" autoplay
 			muted frameborder="0"
 			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -61,7 +61,7 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 		</div>
 
 		<!-- 置頂留言功能列 -->
-		<div style="width: 100%;">
+		<div style="width: 100%; background-color: whitesmoke;">
 			<div id='commentCount'></div>
 			<c:choose>
 				<c:when test='${not empty member }'>
@@ -148,9 +148,10 @@ var flag = 0;
 		        + '</div>'
 		        + ' <div class="list_info">'
 		        + '   <span><h5>'+data[i].title+'</h5></span>'
-		        + ' <span><h6>'+data[i].member.name+'</h6></span>'
-		        + '<span><h6>'+data[i].viewCount+'</h6></span>'
-		        + ' <span><h6>'+data[i].commentTime+'</h6></span>'
+// 		        + ' <span><h6>'+data[i].member.name+'</h6></span>'
+				+'<span><img class="headpic" src="${pageContext.request.contextPath}/pic/' + data[i].member.iconid+'"><h6>'+data[i].member.name+'</h6></span>'
+		        + '<span><h6>觀看數'+data[i].viewCount+'</h6></span>'
+		        + ' <span><h6>發佈時間:'+formatTimeStamp(data[i].commentTime)+'</h6></span>'
 		        + '</div></div>      '
 		
 		    );
@@ -160,6 +161,20 @@ var flag = 0;
 		
 });
 });
+
+//轉換時間格式
+function formatTimeStamp(time) {
+	var time = new Date(time);
+	var date = (
+		(time.getFullYear()) + "-" +
+		(time.getMonth() + 1) + "-" +
+		(time.getDate()) + " " +
+		(time.getHours()) + ":" +
+		(time.getMinutes())
+		// 	               + ":" +(time.getSeconds())
+	);
+	return date;
+}
 
 
 

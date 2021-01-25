@@ -62,7 +62,7 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 	border: none;
 	color: #FFFFFF;
 	text-align: center;
-	font-size: 20px;
+	font-size: 10px;
 	padding: 20px;
 	width: 150px;
 	transition: all 0.5s;

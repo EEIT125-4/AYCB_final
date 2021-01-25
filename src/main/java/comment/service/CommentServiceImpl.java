@@ -58,9 +58,9 @@ public class CommentServiceImpl implements CommentService {
 
 	// 更新留言
 	@Override
-	public int updateComment(CommentBean cb) {
+	public void updateComment(CommentBean cb) {
 
-			return dao.updateComment(cb);
+			 dao.updateComment(cb);
 
 	}
 

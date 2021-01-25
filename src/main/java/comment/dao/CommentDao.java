@@ -29,7 +29,7 @@ public interface CommentDao {
 	CommentBean selectUpdateitem(Integer id);
 
 	//更新留言
-	Integer updateComment(CommentBean cb);
+	void updateComment(CommentBean cb);
 
 
 }
