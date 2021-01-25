@@ -94,10 +94,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 
 </style>
 
-<% 
-   MemberBean member = (MemberBean) session.getAttribute("member");
 
-%>  
  	
 <script >
 
@@ -189,7 +186,12 @@ function storeAddressChange(){
 <%@include file="../jspf/header.jspf"%>
 
 <div id="mytop" style="text-align: center">
+<% 
+   MemberBean member = (MemberBean) session.getAttribute("member");
 
+%>  
+<br>
+<br>
 <div>
 	<ol class="progress_bar">
 		<li>購物車</li>
