@@ -279,6 +279,21 @@ public class AttendanceController {
 			model.addAttribute("attendancelist",attendancelist);
 			return "event/showAttendanceByID";
 		}
+		
+		@GetMapping(value = "/event/totalattendance")
+		public @ResponseBody Integer paxOfAttendance() {
+			
+			System.out.println("回傳總人數");
+			
+			Integer totalPax=attendanceService.getPaxOfAttendance();
+			
+			System.out.println("回傳總人數"+totalPax);
+			
+			return totalPax;
+			
+		}
+		
+		
 //		
 //		@GetMapping(value="")
 //		public ModelAndView  showevent(@RequestParam(value="aid",required = false)Integer aid) {

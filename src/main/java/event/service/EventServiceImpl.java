@@ -57,6 +57,8 @@ public class EventServiceImpl implements EventService  {
 	public List<Integer> getNumberOfCategory() {
 		return eventDAO.getNumberOfCategory();
 	}
+	
+	
 
 //	@Override
 //	public Map<String,Integer> getPaxOfCategory() {

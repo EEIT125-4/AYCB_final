@@ -27,6 +27,8 @@ public interface EventDAO {
 		List<Integer>getNumberOfCategory();
 		
 //		Map<String,Integer> getPaxOfCategory();
+		
+		
 
 
 }

@@ -29,6 +29,7 @@ public interface AttendanceService {
 
 	boolean isDup(Integer mid,Integer eventid);
 
+	Integer getPaxOfAttendance();
 	
 
 

@@ -26,6 +26,7 @@ public interface EventService {
 
 	List<Integer> getNumberOfCategory();
 	
+	
 //	Map<String,Integer> getPaxOfCategory();
 
 
