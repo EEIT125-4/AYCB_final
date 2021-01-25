@@ -121,7 +121,7 @@ $(document).ready(function(){
 		
 <div class="row">
 <div class="col-lg-3 col-md-6 col-sm-6" style="margin-left: 200px;">
-            <div class="card card-stats">
+            <div style="width:420px" class="card card-stats">
               <div class="card-body ">
                 <div class="row">
                   <div class="col-9 col-md-4">
@@ -150,7 +150,7 @@ $(document).ready(function(){
           
           
           <div class="col-lg-3 col-md-6 col-sm-6" style="margin-left: 200px;">
-            <div class="card card-stats">
+            <div style="width:420px" class="card card-stats">
               <div class="card-body ">
                 <div class="row">
                   <div class="col-9 col-md-4">
@@ -361,17 +361,17 @@ function Gender(){
 								borderWidth : 1
 							} ]
 						},
-						options : {
-							scales : {
-								yAxes : [ {
-									ticks : {
-										beginAtZero : true,
-										responsive : true
-										//符合響應式
-									}
-								} ]
-							}
-						}
+// 						options : {
+// 							scales : {
+// 								yAxes : [ {
+// 									ticks : {
+// 										beginAtZero : true,
+// 										responsive : true
+// 										//符合響應式
+// 									}
+// 								} ]
+// 							}
+// 						}
 					});
 				}
 			});
