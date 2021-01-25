@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import product.service.ProductService;
 
 @Controller
-@SessionAttributes({ "brand", "series", "cate"})
+//@SessionAttributes({ "brand", "series", "cate"})
 public class Home {
 
 	@Autowired
@@ -23,21 +23,21 @@ public class Home {
 		return "index";
 	}
 
-	@ModelAttribute("brand")
-	public List<String> initBrands(Model model) {
-		List<String> brand = ps.getBrand();
-		return brand;
-	}
-
-	@ModelAttribute("series")
-	public List<String> initSeries(Model model) {
-		List<String> series = ps.getSeries();
-		return series;
-	}
-
-	@ModelAttribute("cate")
-	public List<String> initCates(Model model) {
-		List<String> cate = ps.getCate();
-		return cate;
-	}
+//	@ModelAttribute("brand")
+//	public List<String> initBrands(Model model) {
+//		List<String> brand = ps.getBrand();
+//		return brand;
+//	}
+//
+//	@ModelAttribute("series")
+//	public List<String> initSeries(Model model) {
+//		List<String> series = ps.getSeries();
+//		return series;
+//	}
+//
+//	@ModelAttribute("cate")
+//	public List<String> initCates(Model model) {
+//		List<String> cate = ps.getCate();
+//		return cate;
+//	}
 }
