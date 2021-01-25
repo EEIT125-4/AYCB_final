@@ -116,27 +116,42 @@ function resetComment(obj) {
 //
 //        });
 		
-		
-		
 
-            
-       
-       	
-       
-       
-            
-       
-            
             
              $('.resetBtn').click(function () {
                 let obj=$(this);
-                resetComment(obj);});    
-            
-             $('.checkReply').click(function () {
-
-                $(this).css('color', 'red');
+                resetComment(obj);}); 
+                
+                //動態綁定顯示   
+                
+                 $(document).on('click','.checkReply',function () {
+                 if($(this).val()==0){
+                  	
+                  	$(this).parent().siblings("div[class='replyarea']").css('display','block');
+                
+                	$(this).text('隱藏回覆');
+                	
+                	$(this).val(1);
+                 
+                 }else{
+                 
+                 	$(this).parent().siblings("div[class='replyarea']").css('display','none');
+                
+                	$(this).text('顯示回覆');
+                 
+                 	$(this).val(0);
+                 }
+                 
+               
 
             });
+                
+            
+//             $('.checkReply').click(function () {
+//
+//                $(this).css('color', 'red');
+//
+//            });
                  
     //動態綁定送出留言事件      
 		$(document).on('click','.postComment',function(){
@@ -239,23 +254,26 @@ function refresh() {
                 console.log(data);
                 commentCount = data.comments.length;
                 let replyContent="";
+                
                 $('#commentCount').text(commentCount + '則留言');
                 $('#board').empty();
                 for (let i = 0; i < data.comments.length; i++) {
                 
                 //因為append必須一次性加入所有成對標籤,不得已將回覆內容先存起來
                    replyContent="";
+                   let replyNum=0;
                    if(data.replys!=null){
                    for (let j = 0; j < data.replys.length; j++) {
                    		if (data.replys[j].keynumber == data.comments[i].commentId) {
                     	console.log("reply=" + data.replys[j].contentBox);
+                    	replyNum+=1;
                    		replyContent+=
-                   		"<p>"
+                   		"<div class='replyarea' style='background:lightgray;display: none'>"
                    		+"<div class='picform'>"
                    		+"<img class='headpic' src=" + path + "/pic/" + data.replys[j].member.iconid+"></div>"
                    		+ "<h5>" + data.replys[j].member.name + "</h5>"
                         + "<div class='commentdate'>" + formatTimeStamp(data.replys[j].commentTime) + "</div>"
-                   		 + "<p>"+data.replys[j].contentBox + "</p></p>";
+                   		 + "<p>"+data.replys[j].contentBox + "</p></div>";
                    		}
                    		}
                     	
@@ -282,7 +300,7 @@ function refresh() {
 						+"<button class='resetBtn' type='button' style='width: auto'>取消</button>"
 						+"<button class='postComment' type='button' value="+ path +"/leaveComment?key="+ data.comments[i].commentId+"&type=comment style='width: auto' disabled>留言</button>"
 						+"</div></div>"
-                        + "<p><button type='button' style='width:auto'  onclick='checkReply(this)'>查看回覆</button></p>"
+                        + "<p><button type='button' style='width:auto' class='checkReply' value='0'>查看"+replyNum+"則回覆</button></p>"
                         +replyContent
                         +"</div></div>"
                         );

@@ -76,24 +76,20 @@ public class CommentDaoImp implements CommentDao {
 //選擇一筆需要更新的留言
 	@Override
 	public CommentBean selectUpdateitem(Integer id) {
-//
-//		Session session = factory.getCurrentSession();
-//		String hql = "FROM CommentBean Where commentId = :id1";
-//		CommentBean comment = (CommentBean) session.createQuery(hql).setParameter("id1", id).getSingleResult();
+
+		
 		Session session = getSession();
 		return session.get(CommentBean.class, id);
 	}
 	// 更新留言
 
 	@Override
-	public Integer updateComment(CommentBean cb) {
+	public void updateComment(CommentBean cb) {
 		Integer count = 0;
 		Session session = getSession();
 		session.saveOrUpdate(cb);
 		System.out.println("finish updatecomment");
-		count++;
-		return count;
-		
+
 	}
 
 	@Override

@@ -130,7 +130,7 @@ body {
 				<div class="card ">
 					<div class="card-header ">
 						<h4 class="card-title"
-							style="font-weight: bold; text-align: center;">TOP5 熱門影片</h4>
+							style="font-weight: bold; text-align: center;">人氣文章TOP10</h4>
 					</div>
 					<div class="card-body ">
 						<canvas id="chartTop"></canvas>
@@ -146,26 +146,26 @@ body {
 		</div>
 
 
-		<!-- 					<div class="row"> -->
-		<!-- 						<div class="col-md-11" style="margin-left: 80px;"> -->
-		<!-- 							<div class="card "> -->
-		<!-- 								<div class="card-header "> -->
-		<!-- 									<h4 class="card-title" -->
-		<!-- 										style="font-weight: bold; font-size: x-large;">每週成交量</h4> -->
-		<!-- 									<p class="card-category" style="font-size: large;">2020/12月-2021/01月</p> -->
-		<!-- 								</div> -->
-		<!-- 								<div class="card-body "> -->
-		<%-- 									<canvas id="chartWeeks" width="400" height="100"></canvas> --%>
-		<!-- 								</div> -->
-		<!-- 								<div class="card-footer "> -->
-		<!-- 									<hr> -->
-		<!-- 									<div class="stats"> -->
-		<!-- 										<i class="fa fa-history"></i> Updated 3 days ago -->
-		<!-- 									</div> -->
-		<!-- 								</div> -->
-		<!-- 							</div> -->
-		<!-- 						</div> -->
-		<!-- 					</div> -->
+							<div class="row">
+								<div class="col-md-11" style="margin-left: 80px;">
+									<div class="card ">
+										<div class="card-header ">
+											<h4 class="card-title"
+												style="font-weight: bold; font-size: x-large;">每週發文人次</h4>
+											<p class="card-category" style="font-size: large;">2020/12月-2021/01月</p>
+										</div>
+										<div class="card-body ">
+											<canvas id="chartWeeks" width="400" height="100"></canvas>
+										</div>
+										<div class="card-footer ">
+											<hr>
+											<div class="stats">
+												<i class="fa fa-history"></i> Updated 3 days ago
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 
 		<p class="container">
 
@@ -694,6 +694,66 @@ for(let i=0;i<blogJson.length;i++){
 
 }
 
+	var ctxC = document.getElementById('chartWeeks').getContext("2d");
+
+	var myChartC = new Chart(ctxC, {
+		      type: 'line',
+
+		      data: {
+		        labels: ["12/01-12/7", "12/8-12/14", "12/15-12/21","12/22-12/28","12/29-1/4","1/5-1/11","1/12-1/18","1/19-1/25"],
+		        datasets: [{
+		            borderColor: "#2894FF",
+		            backgroundColor: "#ACD6FF",
+		            pointRadius: 0,
+		            pointHoverRadius: 0,
+		            borderWidth: 3,
+		            data: [3,1,2,6,9,8,6,7]
+		          }
+		        ]
+		      },
+		      options: {
+		        legend: {
+		          display: false
+		        },
+
+		        tooltips: {
+		          enabled: false
+		        },
+
+		        scales: {
+		          yAxes: [{
+
+		            ticks: {
+		              fontColor: "#9f9f9f",
+		              beginAtZero: false,
+		              maxTicksLimit: 5,
+		              //padding: 20
+		            },
+		            gridLines: {
+		              drawBorder: false,
+		              zeroLineColor: "#ccc",
+		              color: '#7B7B7B'
+		            }
+
+		          }],
+
+		          xAxes: [{
+		            barPercentage: 1.6,
+		            gridLines: {
+		              drawBorder: false,
+		              color: 'rgba(255,255,255,0.1)',
+		              zeroLineColor: "transparent",
+		              display: false,
+		            },
+		            ticks: {
+		              padding: 20,
+		              fontColor: "#9f9f9f"
+		            }
+		          }]
+		        },
+		      }
+		    });
+
 // var chart2 = new Chart(ctx2, {
 //     // The type of chart we want to create
 //     type: 'bar',
@@ -789,7 +849,7 @@ for(let i=0;i<blogJson.length;i++){
 	            		    labels:titles,
 	            		    //labels: ${jsonBrandName},
 	            		    datasets: [{
-	            		      label: '前10名影片', //標籤
+	            		      label: '最高人氣', //標籤
 	            		      data:views, //資料  
 	            		      //data: ${jsonBrandCount}, //資料
 	            		      //圖表背景色

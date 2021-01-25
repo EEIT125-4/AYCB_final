@@ -110,7 +110,8 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 	editable = true;
 	}
 %>  
-
+<br>
+<br>
 <div>
 	<ol class="progress_bar">
 		<li >購物車</li>
@@ -121,7 +122,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 <br><br>
 
    <TABLE border='2' class="table table-bordered" style="margin: 0 auto; border-style: ridge; width:1000px;">
-      <TR class="table-success">
+      <TR style="background-color:#EBD6D6;">
          <TD colspan='1' style="text-align:left; border-style: ridge;font-size: 15pt;">
          	會員編號：${account}
          </TD>
@@ -132,17 +133,17 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
          	訂單日期：<fmt:formatDate value="${today}" pattern="yyyy-MM-dd"/>
          </TD>
       </TR>
-       <TR class="table-success">
+       <TR style="background-color:#EBD6D6;">
          <TD colspan='6' style="text-align:left; border-style: ridge;font-size: 15pt;">
          	收件人：${receiveName}
          </TD>
       </TR>
-       <TR class="table-success">
+       <TR style="background-color:#EBD6D6;">
          <TD colspan='6' style="text-align:left; border-style: ridge;font-size: 15pt;">
          	聯絡電話：${phone}
          </TD>
       </TR>
-      <TR class="table-success">
+      <TR style="background-color:#EBD6D6;">
          <TD colspan='6' style="text-align:left; border-style: ridge;font-size: 15pt;">
          	出貨地址：${address}
          </TD>
@@ -202,14 +203,14 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
            </p>
 
 <% 		
-		session.removeAttribute("cart");
-		session.removeAttribute("totalPrice");
-		session.removeAttribute("totalQtyOrdered");
-		session.removeAttribute("Shipping");
-		session.removeAttribute("phone");
-		session.removeAttribute("address");
-		session.removeAttribute("email");
-		session.removeAttribute("receiveName");
+// 		session.removeAttribute("cart");
+// 		session.removeAttribute("totalPrice");
+// 		session.removeAttribute("totalQtyOrdered");
+// 		session.removeAttribute("Shipping");
+// 		session.removeAttribute("phone");
+// 		session.removeAttribute("address");
+// 		session.removeAttribute("email");
+// 		session.removeAttribute("receiveName");
 		
 %>
 			<br>
