@@ -71,6 +71,14 @@ public class BlogServiceImpl implements BlogService {
 	public List<Integer> findcollection(int mid){
 		return dao.findcollection(mid);
 	}
+	@Override
+	public List<Blog> allcollection(int blogId){
+		return dao.allcollection(blogId);
+	}
+	@Override
+	public Blog getOneBlog(int blogId) {
+		return dao.getOneBlog(blogId);
+	}
 
 	@Override
 	public Map categoryAnalysis() {

@@ -7,7 +7,47 @@
 <meta charset="UTF-8">
 <title>search</title>
 <%@include file="../jspf/header.jspf"%>
+<style>
+.button1 {
+	display: inline-block;
+	border-radius: 4px;
+	background-color: #B15BFF;
+	border: none;
+	color: #FFFFFF;
+	text-align: center;
+	font-size: 20px;
+	padding: 20px;
+	width: 200px;
+	transition: all 0.5s;
+	cursor: pointer;
+	margin: 5px;
+}
 
+.button1 span {
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
+	transition: 0.5s;
+}
+
+.button1 span:after {
+	content: '\00bb';
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	right: -20px;
+	transition: 0.5s;
+}
+
+.button1:hover span {
+	padding-right: 25px;
+}
+
+.button1:hover span:after {
+	opacity: 1;
+	right: 0;
+}
+</style>
 <!-- Breadcrumb Section Begin -->
 	<section class="breadcrumb-blog set-bg" data-setbg="${pageContext.request.contextPath}/image/breadcrumb-bg.jpg" style="background-image: url(&quot;/AYCB_final/image/breadcrumb-bg.jpg&quot;);">
 	<div class="container">
@@ -22,7 +62,10 @@
 <!-- Breadcrumb Section End -->
 
 <a class="a1" href="${pageContext.request.contextPath}/blog">
-	<button style="width: auto; height: auto; margin-top: 0px;">返回美誌分享</button>
+	<button class="button1"
+		style="vertical-align: middle; margin-left: 30px; margin-top: 10px">
+		<span>返回美誌分享</span>
+	</button>
 </a>
 <section class="blog spad">
 

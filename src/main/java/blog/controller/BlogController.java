@@ -31,7 +31,6 @@ import blog.service.BlogService;
 import member.MemberBean;
 import member.Service.MemberService;
 import product.model.CollectBean;
-import product.model.ProductBean;
 import product.service.ProductService;
 import tool.model.Image;
 import tool.service.ImageService;
@@ -67,6 +66,22 @@ public class BlogController {
 			System.out.println("blog:" + b);
 		}
 		return "blog/blog";
+	}
+
+	@GetMapping("blog/allCollect")
+	public String allCollect(Model model, HttpSession session) {
+
+		MemberBean mb = (MemberBean) session.getAttribute("member");
+		List<Blog> list = new ArrayList<Blog>();
+		List<Integer> blogid = blogService.findcollection(mb.getId());
+		System.out.println("blogid"+blogid);
+		for (int i = 0; i < blogid.size(); i++) {
+		Blog blog=blogService.getOneBlog(blogid.get(i));
+			list.add(blog);
+		}
+		model.addAttribute("collect", list);
+		System.out.println("list" + list);
+		return "blog/blogCollect";
 	}
 
 	// 空白的表格
@@ -430,7 +445,7 @@ public class BlogController {
 		return map;
 	}
 
-	@GetMapping(value = "blog/analysisCategory",produces = "application/json")
+	@GetMapping(value = "blog/analysisCategory", produces = "application/json")
 	@ResponseBody
 	public Map analysisCategory() {
 		System.out.println("取得圖表中");
@@ -442,8 +457,8 @@ public class BlogController {
 
 		}
 	}
-	
-	@GetMapping(value = "blog/TopAnalysis",produces = "application/json")
+
+	@GetMapping(value = "blog/TopAnalysis", produces = "application/json")
 	@ResponseBody
 	public Map TopAnalysis() {
 		System.out.println("取得圖表中");
