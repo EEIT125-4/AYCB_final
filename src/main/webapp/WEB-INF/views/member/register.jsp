@@ -403,10 +403,10 @@ $('#cpwd').blur(function() {
 	
 	$('#express').click(function(){
 	 $('#realname').val('黃麗玲')
-	 $('#acc').val('kkk')
+	 $('#acc').val('pororo159')
 	 $('#pwd').val('kkk123')
 	 $('#cpwd').val('kkk123')
-	 $('#emailcheck').val('armyant0920@gmail.com')
+	 $('#emailcheck').val('cardibadboy@gmail.com')
 	 $('#phone').val('096693696')
 	 $('#address').val('宜蘭縣三星鄉')
 	 $('#introduce').val('我們真的很努力')
