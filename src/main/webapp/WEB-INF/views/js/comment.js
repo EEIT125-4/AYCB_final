@@ -250,12 +250,12 @@ function refresh() {
                    		if (data.replys[j].keynumber == data.comments[i].commentId) {
                     	console.log("reply=" + data.replys[j].contentBox);
                    		replyContent+=
-                   		"<p>"
+                   		"<div style='background:lightgray'>"
                    		+"<div class='picform'>"
                    		+"<img class='headpic' src=" + path + "/pic/" + data.replys[j].member.iconid+"></div>"
                    		+ "<h5>" + data.replys[j].member.name + "</h5>"
                         + "<div class='commentdate'>" + formatTimeStamp(data.replys[j].commentTime) + "</div>"
-                   		 + "<p>"+data.replys[j].contentBox + "</p></p>";
+                   		 + "<p>"+data.replys[j].contentBox + "</p></div>";
                    		}
                    		}
                     	

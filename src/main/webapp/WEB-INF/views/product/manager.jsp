@@ -46,7 +46,7 @@
 			</div>
 			<div class="mbtnbox">
 				<input class="mbtn" type="button" value="留言板"
-					onclick='location.href="#"'>
+					onclick='location.href="${pageContext.request.contextPath}/commentBackstage"'>
 			</div>
 			<div class="mbtnbox">
 				<input class="mbtn" type="button" value="部落格"
