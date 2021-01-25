@@ -80,9 +80,10 @@ body {
 						<div class="row">
 							<div class="col-9 col-md-4">
 								<div class="icon-big text-center icon-warning">
-								<i class="fa fa-newspaper-o" aria-hidden="true" style="color: green"></i>
-									
-										
+									<i class="fa fa-newspaper-o" aria-hidden="true"
+										style="color: green"></i>
+
+
 								</div>
 							</div>
 							<div class="col-7 col-md-8">
@@ -129,7 +130,7 @@ body {
 				<div class="card ">
 					<div class="card-header ">
 						<h4 class="card-title"
-							style="font-weight: bold; text-align: center;">TOP5 熱門影片</h4>
+							style="font-weight: bold; text-align: center;">人氣文章TOP10</h4>
 					</div>
 					<div class="card-body ">
 						<canvas id="chartTop"></canvas>
@@ -145,26 +146,26 @@ body {
 		</div>
 
 
-		<!-- 					<div class="row"> -->
-		<!-- 						<div class="col-md-11" style="margin-left: 80px;"> -->
-		<!-- 							<div class="card "> -->
-		<!-- 								<div class="card-header "> -->
-		<!-- 									<h4 class="card-title" -->
-		<!-- 										style="font-weight: bold; font-size: x-large;">每週成交量</h4> -->
-		<!-- 									<p class="card-category" style="font-size: large;">2020/12月-2021/01月</p> -->
-		<!-- 								</div> -->
-		<!-- 								<div class="card-body "> -->
-		<%-- 									<canvas id="chartWeeks" width="400" height="100"></canvas> --%>
-		<!-- 								</div> -->
-		<!-- 								<div class="card-footer "> -->
-		<!-- 									<hr> -->
-		<!-- 									<div class="stats"> -->
-		<!-- 										<i class="fa fa-history"></i> Updated 3 days ago -->
-		<!-- 									</div> -->
-		<!-- 								</div> -->
-		<!-- 							</div> -->
-		<!-- 						</div> -->
-		<!-- 					</div> -->
+							<div class="row">
+								<div class="col-md-11" style="margin-left: 80px;">
+									<div class="card ">
+										<div class="card-header ">
+											<h4 class="card-title"
+												style="font-weight: bold; font-size: x-large;">每週發文人次</h4>
+											<p class="card-category" style="font-size: large;">2020/12月-2021/01月</p>
+										</div>
+										<div class="card-body ">
+											<canvas id="chartWeeks" width="400" height="100"></canvas>
+										</div>
+										<div class="card-footer ">
+											<hr>
+											<div class="stats">
+												<i class="fa fa-history"></i> Updated 3 days ago
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 
 		<p class="container">
 
@@ -186,7 +187,7 @@ body {
 
 								<th
 									style="text-align: center; vertical-align: middle; font-size: 18px;"
-									scope="col">文章編號</th>
+									scope="col">編號</th>
 								<th
 									style="text-align: center; vertical-align: middle; font-size: 18px;"
 									scope="col">預覽圖片</th>
@@ -318,6 +319,8 @@ var object='blog';
 //撈取資料
 function getData(){
 	getTable();
+	getCategory();
+	getTop10();
 	//getAnalysis();
 			 		
 	}	
@@ -349,7 +352,7 @@ function getData(){
 					+"<td>"+data[i].title+"</td>"
 					+"<td>"+data[i].category+"</td>"
 					+"<td>"+data[i].member.name+"</td>"
-					+"<td>"+data[i].commentTime+"</td>"
+					+"<td>"+formatTimeStamp(data[i].commentTime)+"</td>"
 					+"<td><select class='status'><option disabled selected>"+data[i].status+"</option>"
 					+"<option value='顯示'>顯示</option>"
 					+"<option value='審核中'>審核中</option>"
@@ -530,14 +533,6 @@ function getData(){
   				
     			}else{
     				console.log('取消刪');
-//     				swal.fire({
-// 	    				  title:'取消',
-// 	    				  text: '取消刪除',
-// 	    				  type:'info',
-// 	    				  icon: "info",
-// 	    				  button: "OK",
-// 	    				});  
-    				
     			}
     			    			  			
     		});
@@ -607,36 +602,11 @@ function getData(){
 		
 		
 	}
-
-
-
-
-//表格
-// var table=document.getElementById("myDataTable");
-// var tb;
-
-
-//         $(function () {
-
-//             tb= $("#myDataTable").DataTable({
-//                 searching: true, 
-//                 columnDefs: [{
-//                     targets: [10],
-//                     orderable: true,
-//                 }]
-//             });
-//         });
     </script>
 
 <script>
 
 
-	
-// 	var tb= $('#myDataTable').DataTable();
-	
-	
-
-	
 	$(document).on('change','.status',function(){
 		
 		var blogId=$(this).parent().siblings("td[name='blogId']").text();
@@ -678,172 +648,29 @@ function getData(){
         });
     }) ;
 		
-	
-    
-    
-    	
-    //刪除blog按鈕
-    $(".delete_btn").click(function() {
-    
-    	var blogId=$(this).parent().siblings("td[name='blogId']").text();
-    	
-    	
-    	swal.fire({ 
-    		  title: '確定刪除?', 
-    		  text: '將無法恢復此筆資料', 
-    		  type: 'warning',
-    		  showCancelButton: true, 
-    		  confirmButtonColor: '#3085d6',
-    		  cancelButtonColor: '#d33',
-    		  confirmButtonText: '確定刪除', 
-    		}).then((result)=>{
-    			if(result.isConfirmed){
-    				
-    				$.ajax({
-    		            type: "POST", //傳送方式
-    		            url: "${pageContext.request.contextPath}/blog/delete/"+blogId, 
-    		            dataType: "json", //資料格式
-          
 
-    		            success: function(data) {
-    		            	if(data){
-    		            		swal.fire({
-      		      				  title: "已刪除",
-      		      				  text: "狀態變更",
-      		      				  icon: "success",
-      		      				  button: "OK",
-      		      				});
-    		            		console.log("this="+$(this));
+// var ctx = document.getElementById('myChart').getContext('2d');
+// var ctx2 = document.getElementById('myChart2').getContext('2d');
+// //Kevin:類型圓餅圖
+// var ctx3 = document.getElementById('myChart3').getContext('2d');
+// var chart = new Chart(ctx, {
+//     // The type of chart we want to create
+//     type: 'line',
 
-    		            		tb.row('.selected').remove().draw( false );
-    		            	
-    		            		
-    		            	}else{
-    		            		
-    		            	 	swal.fire({
-      		    				  title:'刪除失敗',
-      		    				  text: '資料刪除過程中現異常,請聯絡管理員',
-      		    				  icon: "error",
-      		    				  button: "OK",
-      		    				});        		
-    		            	}
-			   		     				
-    		            },
-    		            error: function(data) {
-    		            	
-    		            	swal.fire({
-    		    				  title:'請求錯誤',
-    		    				  text: 'server無回應,聯絡管理員',
-    		    				  icon: "error",
-    		    				  button: "OK",
-    		    				});        		
-  		            	}   		            	            	    		              		           
-    		        }) ;
-  				
-    			}else{
-    				console.log('取消刪');
-//     				swal.fire({
-// 	    				  title:'取消',
-// 	    				  text: '取消刪除',
-// 	    				  type:'info',
-// 	    				  icon: "info",
-// 	    				  button: "OK",
-// 	    				});  
-    				
-    			}
-    			    			  			
-    		});
-    	
-    });
-    
-//獲取目前被選取的row
-	
-	$('#dataTable tbody').on('click','tr',function(){
-		if($(this).hasClass('selected')){
-			
-			 $(this).removeClass('selected');
-			 console.log('remove select');
-		}else {
-			if(tr_selected!=null){
-				tr_selected.removeClass('selected');
-			}
-			
-			
-			tr_selected=$(this);
-			
+//     // The data for our dataset
+//     data: {
+//         labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+//         datasets: [{
+//             label: 'My First dataset',
+//             backgroundColor: 'rgb(255, 99, 132)',
+//             borderColor: 'rgb(255, 99, 132)',
+//             data: [0, 10, 5, 2, 20, 30, 45]
+//         }]
+//     },
 
-            $(this).addClass('selected');
-            console.log('add select');
-          
-        }		
-		
-	});
-	
-	//轉換時間格式
-	function formatTimeStamp(time) {
-		var time = new Date(time);
-		var date = (
-			(time.getFullYear()) + "-" +
-			(time.getMonth() + 1) + "-" +
-			(time.getDate()) + " " +
-			(time.getHours()) + ":" +
-			(time.getMinutes())
-			// 	               + ":" +(time.getSeconds())
-		);
-		return date;
-	}
-	
-	//隨機取色
-	var bg_colors;
-	var line_colors;
-	
-	function getColor(num){
-		bg_colors=[];
-		line_colors=[];
-		
-		for(let i=0;i<num;i++){
-			 	
-			 
-			 let rgb = [];
-			 for (let i = 0; i < 3; i++) {
-		         rgb[i] = parseInt(Math.random() * 256);
-		          console.log(rgb[i]);
-		     };
-		     let color="rgba("+rgb[0]+","+rgb[1]+","+rgb[2]+",0.2)";         
-			 bg_colors.push(color);
-			 color="rgba("+rgb[0]+","+rgb[1]+","+rgb[2]+",1.0)";
-			 line_colors.push(color);	 
-//		 	 console.log("json_title"+blogJson[i].title);
-		}
-		
-		
-		
-	}
-	
-            
-    
-var ctx = document.getElementById('myChart').getContext('2d');
-var ctx2 = document.getElementById('myChart2').getContext('2d');
-//Kevin:類型圓餅圖
-var ctx3 = document.getElementById('myChart3').getContext('2d');
-var chart = new Chart(ctx, {
-    // The type of chart we want to create
-    type: 'line',
-
-    // The data for our dataset
-    data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-        datasets: [{
-            label: 'My First dataset',
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
-            data: [0, 10, 5, 2, 20, 30, 45]
-        }]
-    },
-
-    // Configuration options go here
-    options: {}
-});
+//     // Configuration options go here
+//     options: {}
+// });
 var titles=${titles};
 var views=${views};
 var blogJson=${blogJson};
@@ -858,116 +685,230 @@ for(let i=0;i<blogJson.length;i++){
 	 let rgb = [];
 	 for (let i = 0; i < 3; i++) {
          rgb[i] = parseInt(Math.random() * 256);
-//          console.log(rgb[i]);
+
      };
-     let color="rgba("+rgb[0]+","+rgb[1]+","+rgb[2]+",0.2)";         
+     let color="rgba("+rgb[0]+","+rgb[1]+","+rgb[2]+",0.5)";         
 	 colors.push(color);
 	 color="rgba("+rgb[0]+","+rgb[1]+","+rgb[2]+",1.0)";
 	 lines.push(color);	 
-// 	 console.log("json_title"+blogJson[i].title);
+
 }
 
-var chart2 = new Chart(ctx2, {
-    // The type of chart we want to create
-    type: 'bar',
-    data: {
-        //標題
-        labels: mTitles,
-        datasets: [{
-          label: '瀏覽人次', //標籤
-          data: mViews, //資料
-          //圖表背景色
-          backgroundColor: colors
-//         	  [
-//             'rgba(255, 99, 132, 0.2)',
-//             'rgba(54, 162, 235, 0.2)',
-//             'rgba(255, 206, 86, 0.2)',
-//             'rgba(75, 192, 192, 0.2)',
-//             'rgba(153, 102, 255, 0.2)',
-//             'rgba(255, 159, 64, 0.2)'
-//           ]
-        ,
-          //圖表外框線色
-          borderColor: lines
-//         	  [
-//             'rgba(255, 99, 132, 1)',
-//             'rgba(54, 162, 235, 1)',
-//             'rgba(255, 206, 86, 1)',
-//             'rgba(75, 192, 192, 1)',
-//             'rgba(153, 102, 255, 1)',
-//             'rgba(255, 159, 64, 1)'
-//           ]
-        ,
-          //外框線寬度
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true,
-              responsive: true //符合響應式
-            }
-          }]
-        }
-      }
-    });
+	var ctxC = document.getElementById('chartWeeks').getContext("2d");
+
+	var myChartC = new Chart(ctxC, {
+		      type: 'line',
+
+		      data: {
+		        labels: ["12/01-12/7", "12/8-12/14", "12/15-12/21","12/22-12/28","12/29-1/4","1/5-1/11","1/12-1/18","1/19-1/25"],
+		        datasets: [{
+		            borderColor: "#2894FF",
+		            backgroundColor: "#ACD6FF",
+		            pointRadius: 0,
+		            pointHoverRadius: 0,
+		            borderWidth: 3,
+		            data: [3,1,2,6,9,8,6,7]
+		          }
+		        ]
+		      },
+		      options: {
+		        legend: {
+		          display: false
+		        },
+
+		        tooltips: {
+		          enabled: false
+		        },
+
+		        scales: {
+		          yAxes: [{
+
+		            ticks: {
+		              fontColor: "#9f9f9f",
+		              beginAtZero: false,
+		              maxTicksLimit: 5,
+		              //padding: 20
+		            },
+		            gridLines: {
+		              drawBorder: false,
+		              zeroLineColor: "#ccc",
+		              color: '#7B7B7B'
+		            }
+
+		          }],
+
+		          xAxes: [{
+		            barPercentage: 1.6,
+		            gridLines: {
+		              drawBorder: false,
+		              color: 'rgba(255,255,255,0.1)',
+		              zeroLineColor: "transparent",
+		              display: false,
+		            },
+		            ticks: {
+		              padding: 20,
+		              fontColor: "#9f9f9f"
+		            }
+		          }]
+		        },
+		      }
+		    });
+
+// var chart2 = new Chart(ctx2, {
+//     // The type of chart we want to create
+//     type: 'bar',
+//     data: {
+//         //標題
+//         labels: mTitles,
+//         datasets: [{
+//           label: '瀏覽人次', //標籤
+//           data: mViews, //資料
+//           //圖表背景色
+//           backgroundColor: colors
+// //         	  [
+// //             'rgba(255, 99, 132, 0.2)',
+// //             'rgba(54, 162, 235, 0.2)',
+// //             'rgba(255, 206, 86, 0.2)',
+// //             'rgba(75, 192, 192, 0.2)',
+// //             'rgba(153, 102, 255, 0.2)',
+// //             'rgba(255, 159, 64, 0.2)'
+// //           ]
+//         ,
+//           //圖表外框線色
+//           borderColor: lines
+// //         	  [
+// //             'rgba(255, 99, 132, 1)',
+// //             'rgba(54, 162, 235, 1)',
+// //             'rgba(255, 206, 86, 1)',
+// //             'rgba(75, 192, 192, 1)',
+// //             'rgba(153, 102, 255, 1)',
+// //             'rgba(255, 159, 64, 1)'
+// //           ]
+//         ,
+//           //外框線寬度
+//           borderWidth: 1
+//         }]
+//       },
+//       options: {
+//         scales: {
+//           yAxes: [{
+//             ticks: {
+//               beginAtZero: true,
+//               responsive: true //符合響應式
+//             }
+//           }]
+//         }
+//       }
+//     });
     
     
     //圓餅圖
     
-    var chart = new Chart(ctx3, {
-    // The type of chart we want to create
-    type: 'pie',
+//     var chart = new Chart(ctx3, {
+//     // The type of chart we want to create
+//     type: 'pie',
 
-    // The data for our dataset
-    data: {
-        labels: ['A', 'B', 'C'],
-        datasets: [{
-            label: '部落格類型比例',
-            backgroundColor: ['rgb(255, 99, 132)','red','green'],
-            borderColor: 'black',
-            data: [4, 10, 5]
-        }]
-    },
+//     // The data for our dataset
+//     data: {
+//         labels: ['A', 'B', 'C'],
+//         datasets: [{
+//             label: '部落格類型比例',
+//             backgroundColor: ['rgb(255, 99, 132)','red','green'],
+//             borderColor: 'black',
+//             data: [4, 10, 5]
+//         }]
+//     },
 
-    // Configuration options go here
-    options: {}
-});
+//     // Configuration options go here
+//     options: {}
+// });
 
     
   //其他資料
+  	
+	//TOP10
+		function getTop10(){
+	  
+			console.log('取前10圖表');	
+			$.ajax({
+				
+	            type: "GET", //傳送方式
+	            url: "${pageContext.request.contextPath}/blog/TopAnalysis", 
+	            dataType: "json", //資料格式
+
+	            	success: function(data) {
+	            	console.log('取得資料,筆數:'+data.length); 
+	            	titles=data.titles;//類別分析
+	            	views=data.views;
+	            	var ctxB = document.getElementById('chartTop').getContext("2d");
+	            	getColor(titles.length);
+	            	var myChartB = new Chart(ctxB, {
+	            		  type: 'bar', //圖表類型
+	            		  data: {
+	            		    //標籤
+	            		    labels:titles,
+	            		    //labels: ${jsonBrandName},
+	            		    datasets: [{
+	            		      label: '最高人氣', //標籤
+	            		      data:views, //資料  
+	            		      //data: ${jsonBrandCount}, //資料
+	            		      //圖表背景色
+	            		      backgroundColor:bg_colors ,
+	            		      //圖表外框線色
+	            		      borderColor:line_colors ,
+	            		      //外框線寬度
+	            		      borderWidth: 1
+	            		    }]
+	            		  },
+	            		  options: {
+	            		    scales: {
+	            		      yAxes: [{
+	            		        ticks: {
+	            		          beginAtZero: true,
+	            		          responsive: true //符合響應式
+	            		        }
+	            		      }]
+	            		    }
+	            		  }
+	            		});
+	    	            	            	 		     				
+	            },
+	                     
+	        });
+            	
+            	
+  }
+  
+  
   
   	//類別比例
 	function getCategory(){
+	  
+	  		console.log('取得類型圖表');	
 		
 			$.ajax({
 			
             type: "GET", //傳送方式
-            url: "${pageContext.request.contextPath}/video/analysis", 
+            url: "${pageContext.request.contextPath}/blog/analysisCategory", 
             dataType: "json", //資料格式
 
             	success: function(data) {
-            	
-            	categoryData=data.vbc;//類別分析
-            	
+            	console.log('取得資料,筆數:'+data.length); 
+            	categorys=data.categorys;//類別分析
+            	counts=data.counts;
             	var ctxA = document.getElementById('chartCategory').getContext("2d");
-            	getColor(categoryData.categorys.length);
+            	getColor(categorys.length);
             	var myChartA = new Chart(ctxA, {
             		  type: 'pie', //圖表類型
             		  data: {
             		    //標題
-            		    labels:categoryData.categorys,
+            		    labels:categorys,
             		  
             		    datasets: [{
-            		      label: '影片分佈', //標籤
+            		      label: '文章類型', //標籤
             		        
-            		      data: categoryData.categoryviews, //資料
-            		      //圖表背景色
-//             		      backgroundColor: [
-//             		        'rgba(255, 99, 132, 0.2)'
-//             		      ],
+            		      data: counts, //資料
+
             		      backgroundColor: bg_colors,
             		      //圖表外框線色
             		      borderColor:line_colors,
@@ -979,43 +920,8 @@ var chart2 = new Chart(ctx2, {
             		      borderWidth: 1
             		    }]
             		  },
-
             		});
-            	
-            	TopData=data.top;//前5名分析
-            	
-            	var ctxB = document.getElementById('chartTop').getContext("2d");
-            	getColor(TopData.names.length);
-            	var myChartB = new Chart(ctxB, {
-            		  type: 'bar', //圖表類型
-            		  data: {
-            		    //標籤
-            		    labels:TopData.names,
-            		    //labels: ${jsonBrandName},
-            		    datasets: [{
-            		      label: '前五名影片', //標籤
-            		      data: TopData.views, //資料  
-            		      //data: ${jsonBrandCount}, //資料
-            		      //圖表背景色
-            		      backgroundColor:bg_colors ,
-            		      //圖表外框線色
-            		      borderColor:line_colors ,
-            		      //外框線寬度
-            		      borderWidth: 1
-            		    }]
-            		  },
-            		  options: {
-            		    scales: {
-            		      yAxes: [{
-            		        ticks: {
-            		          beginAtZero: true,
-            		          responsive: true //符合響應式
-            		        }
-            		      }]
-            		    }
-            		  }
-            		});
-            	            	            	            	 		     				
+    	            	            	 		     				
             },
                      
         }); 

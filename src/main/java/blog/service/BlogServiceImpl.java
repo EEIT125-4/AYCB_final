@@ -1,6 +1,7 @@
 package blog.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +70,18 @@ public class BlogServiceImpl implements BlogService {
 	@Override
 	public List<Integer> findcollection(int mid){
 		return dao.findcollection(mid);
+	}
+
+	@Override
+	public Map categoryAnalysis() {
+		
+		return dao.categoryAnalysis();
+	}
+
+	@Override
+	public Map TopAnalysis() {
+		
+		return dao.TopAnalysis();
 	}
 
 }

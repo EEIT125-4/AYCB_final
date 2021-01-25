@@ -37,11 +37,11 @@ public class CommentController {
 	@Autowired
 	CommentService commentService;
 
-//	@GetMapping("/comment/")
-//	public String home(Model model) {
-//		model.addAttribute("member");
-//		return "comment/displayBoard"; // 請視圖解析器由視圖的邏輯名稱index來找出真正的視圖
-//	}
+	@GetMapping("/commentBackstage")
+	public String backStage() {
+		
+		return "comment/commentBackstage";
+	}
 
 	@PostMapping("/leaveComment")
 	@ResponseBody
@@ -81,6 +81,20 @@ public class CommentController {
 		}
 		
 	}
+	
+	@SuppressWarnings("rawtypes")
+	@PostMapping("/AllComment")
+	@ResponseBody
+	public List AllComment() {
+		
+		
+		List<CommentBean>comments=commentService.selectAll();
+		
+		return comments;
+		
+	}
+	
+	
 	
 	@PostMapping("/loadComment")
 	@ResponseBody
@@ -145,6 +159,30 @@ public class CommentController {
 		
 		
 		commentService.deleteComment(commentId);
+		return true;
+		}catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	
+	}
+	
+	@PostMapping("/editComment")
+	@ResponseBody
+	public boolean editComment(
+			@RequestParam(value="commentId")Integer commentId,
+			@RequestParam(value="contentBox")String contentBox
+			) {
+		try {
+			
+		System.out.println("edit comment");
+		CommentBean cb=commentService.selectUpdateitem(commentId);
+		cb.setContentBox(contentBox);
+		Timestamp time = new Timestamp(new Date().getTime());
+		cb.setCommentTime(time);
+		
+		
+		commentService.updateComment(cb);
 		return true;
 		}catch (Exception e) {
 			e.printStackTrace();
