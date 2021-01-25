@@ -34,6 +34,47 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 
 <%@include file="../jspf/header.jspf"%>
 <style>
+
+.button1 {
+	display: inline-block;
+	border-radius: 4px;
+	background-color: #B15BFF;
+	border: none;
+	color: #FFFFFF;
+	text-align: center;
+	font-size: 20px;
+	padding: 20px;
+	width: 150px;
+	transition: all 0.5s;
+	cursor: pointer;
+	margin: 5px;
+}
+
+.button1 span {
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
+	transition: 0.5s;
+}
+
+.button1 span:after {
+	content: '\00bb';
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	right: -20px;
+	transition: 0.5s;
+}
+
+.button1:hover span {
+	padding-right: 25px;
+}
+
+.button1:hover span:after {
+	opacity: 1;
+	right: 0;
+}
+
 input[type=text] {
 	width: 130px;
 	box-sizing: border-box;
@@ -75,9 +116,13 @@ input[type=text]:focus {
 
 <!-- 功能列 -->
 	<div>
+	<c:if test="${not empty member }">
 				<a class="a1" href="${pageContext.request.contextPath}/video/edit">
-			<button style="width: auto; height: auto; margin-top: 0px;">上傳影片</button>
+			<button class="button1"
+			style="vertical-align: middle; margin-left: 30px; margin-top: 10px">
+			<span>上傳影片</span> </button>
 		</a>
+		</c:if>
 		
 
 		<div style="text-align: center;">

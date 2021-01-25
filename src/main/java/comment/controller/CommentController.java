@@ -37,7 +37,7 @@ public class CommentController {
 	@Autowired
 	CommentService commentService;
 
-	@GetMapping("/commentBackstage")
+	@GetMapping("commentBackstage")
 	public String backStage() {
 		
 		return "comment/commentBackstage";

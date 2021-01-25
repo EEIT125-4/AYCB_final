@@ -149,7 +149,7 @@ body{
 							<div class="card ">
 								<div class="card-header ">
 									<h4 class="card-title"
-										style="font-weight: bold; font-size: x-large;">每週成交量</h4>
+										style="font-weight: bold; font-size: x-large;">近期上傳影片數量</h4>
 									<p class="card-category" style="font-size: large;">2020/12月-2021/01月</p>
 								</div>
 								<div class="card-body ">
@@ -665,65 +665,65 @@ function getData(){
 
 	
 	
-// 	var ctxC = document.getElementById('chartWeeks').getContext("2d");
+	var ctxC = document.getElementById('chartWeeks').getContext("2d");
 
-// 	var myChartC = new Chart(ctxC, {
-// 		      type: 'line',
+	var myChartC = new Chart(ctxC, {
+		      type: 'line',
 
-// 		      data: {
-// 		        labels: ["12/01-12/7", "12/8-12/14", "12/15-12/21","12/22-12/28","12/29-1/4","1/5-1/11","1/12-1/18","1/19-1/25"],
-// 		        datasets: [{
-// 		            borderColor: "#2894FF",
-// 		            backgroundColor: "#ACD6FF",
-// 		            pointRadius: 0,
-// 		            pointHoverRadius: 0,
-// 		            borderWidth: 3,
-// 		            data: [3,5,8,6,9,15,14,17]
-// 		          }
-// 		        ]
-// 		      },
-// 		      options: {
-// 		        legend: {
-// 		          display: false
-// 		        },
+		      data: {
+		        labels: ["12/01-12/7", "12/8-12/14", "12/15-12/21","12/22-12/28","12/29-1/4","1/5-1/11","1/12-1/18","1/19-1/25"],
+		        datasets: [{
+		            borderColor: "#2894FF",
+		            backgroundColor: "	#FF77FF",
+		            pointRadius: 0,
+		            pointHoverRadius: 0,
+		            borderWidth: 3,
+		            data: [3,2,0,0,0,1,2,4]
+		          }
+		        ]
+		      },
+		      options: {
+		        legend: {
+		          display: false
+		        },
 
-// 		        tooltips: {
-// 		          enabled: false
-// 		        },
+		        tooltips: {
+		          enabled: false
+		        },
 
-// 		        scales: {
-// 		          yAxes: [{
+		        scales: {
+		          yAxes: [{
 
-// 		            ticks: {
-// 		              fontColor: "#9f9f9f",
-// 		              beginAtZero: false,
-// 		              maxTicksLimit: 5,
-// 		              //padding: 20
-// 		            },
-// 		            gridLines: {
-// 		              drawBorder: false,
-// 		              zeroLineColor: "#ccc",
-// 		              color: '#7B7B7B'
-// 		            }
+		            ticks: {
+		              fontColor: "#9f9f9f",
+		              beginAtZero: false,
+		              maxTicksLimit: 5,
+		              //padding: 20
+		            },
+		            gridLines: {
+		              drawBorder: false,
+		              zeroLineColor: "#ccc",
+		              color: '#7B7B7B'
+		            }
 
-// 		          }],
+		          }],
 
-// 		          xAxes: [{
-// 		            barPercentage: 1.6,
-// 		            gridLines: {
-// 		              drawBorder: false,
-// 		              color: 'rgba(255,255,255,0.1)',
-// 		              zeroLineColor: "transparent",
-// 		              display: false,
-// 		            },
-// 		            ticks: {
-// 		              padding: 20,
-// 		              fontColor: "#9f9f9f"
-// 		            }
-// 		          }]
-// 		        },
-// 		      }
-// 		    });
+		          xAxes: [{
+		            barPercentage: 1.6,
+		            gridLines: {
+		              drawBorder: false,
+		              color: 'rgba(255,255,255,0.1)',
+		              zeroLineColor: "transparent",
+		              display: false,
+		            },
+		            ticks: {
+		              padding: 20,
+		              fontColor: "#9f9f9f"
+		            }
+		          }]
+		        },
+		      }
+		    });
 		    
 </script>
 

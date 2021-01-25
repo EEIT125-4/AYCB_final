@@ -266,6 +266,7 @@ function getData(){
 
             success: function(data) {     
             	console.log('共'+data.length+'筆');
+            	$('#commentCount')[0].innerHTML="";
       	        $('#commentCount').append("共"+data.length+"筆");
       	      
             	$('#tbody').empty();
@@ -359,7 +360,7 @@ function getData(){
     				
     				$.ajax({
     		            type: "POST", //傳送方式
-    		            url: "${pageContext.request.contextPath}/deleteComment/"+vid, 
+    		            url: "${pageContext.request.contextPath}/deleteComment?commentId="+vid, 
     		            dataType: "json", //資料格式
           
 
@@ -376,9 +377,9 @@ function getData(){
 //	    		            		target.css({"color":"red","border":"2px solid red"});
 								let tb=$("#dataTable").DataTable();
     		            		tb.row('.selected').remove().draw( false );
-    		            	
-//     		            		var target=$(this).parent().parent();
-//     		            		target.css({"color":"red","border":"2px solid red"});
+    		            		//刷新圖表
+    		            		getData();
+								//刷新數量
     		            		
     		            	}else{
     		            		
