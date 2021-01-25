@@ -108,7 +108,7 @@ input[type=text]:focus {
 	
 
 	<section class="blog spad container"
-		style="background-image: url(${pageContext.request.contextPath}/image/background.jpg);background-size: cover;">
+		style="background-image: url(${pageContext.request.contextPath}/image/leave.jpg);background-size: cover;">
 		<!-- 		   <div class="container">			 -->
 		
 		

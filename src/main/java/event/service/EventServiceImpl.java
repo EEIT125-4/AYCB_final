@@ -1,6 +1,7 @@
 package event.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -53,9 +54,15 @@ public class EventServiceImpl implements EventService  {
 	}
 
 	@Override
-	public List<Integer> getPaxbyCategory() {
-		return eventDAO.getPaxbyCategory();
+	public List<Integer> getNumberOfCategory() {
+		return eventDAO.getNumberOfCategory();
 	}
+
+//	@Override
+//	public Map<String,Integer> getPaxOfCategory() {
+//		
+//		return eventDAO.getPaxOfCategory();
+//	}
 	
 	
 	

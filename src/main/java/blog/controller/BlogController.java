@@ -30,11 +30,14 @@ import blog.model.Blog;
 import blog.service.BlogService;
 import member.MemberBean;
 import member.Service.MemberService;
+import product.model.CollectBean;
+import product.model.ProductBean;
+import product.service.ProductService;
 import tool.model.Image;
 import tool.service.ImageService;
 
 @Controller
-@SessionAttributes({"blog"})
+@SessionAttributes({ "blog" })
 public class BlogController {
 
 	@Autowired
@@ -48,6 +51,9 @@ public class BlogController {
 
 	@Autowired
 	MemberService memberService;
+
+	@Autowired
+	ProductService ps;
 
 	// 選擇所有留言資料顯現出來(select all)
 	@GetMapping("/blog")
@@ -73,57 +79,56 @@ public class BlogController {
 	}
 
 	// 搜尋欄select search bar
-		@GetMapping("/SelectSearchBar")
-		public String selectSearchBar(Model model, 
-				HttpSession session,
-				@RequestParam(value = "search",required = false) String search,
-				@RequestParam(value = "mask" ,required = false) String mask,
-				@RequestParam(value = "iso",required = false) String iso,
-				@RequestParam(value = "serum",required = false) String serum,
-				@RequestParam(value = "you",required = false) String you,
-				@RequestParam(value = "bio",required = false) String bio,
-				@RequestParam(value = "olay",required = false) String olay,
-				@RequestParam(value = "origin",required = false) String origin,
-				@RequestParam(value = "dr",required = false) String dr,
-				@RequestParam(value = "moist",required = false) String moist,
-				@RequestParam(value = "care",required = false) String care,
-				@RequestParam(value = "skin",required = false) String skin
+	@GetMapping("/SelectSearchBar")
+	public String selectSearchBar(Model model, HttpSession session,
+			@RequestParam(value = "search", required = false) String search,
+			@RequestParam(value = "mask", required = false) String mask,
+			@RequestParam(value = "iso", required = false) String iso,
+			@RequestParam(value = "serum", required = false) String serum,
+			@RequestParam(value = "you", required = false) String you,
+			@RequestParam(value = "bio", required = false) String bio,
+			@RequestParam(value = "olay", required = false) String olay,
+			@RequestParam(value = "origin", required = false) String origin,
+			@RequestParam(value = "dr", required = false) String dr,
+			@RequestParam(value = "moist", required = false) String moist,
+			@RequestParam(value = "care", required = false) String care,
+			@RequestParam(value = "skin", required = false) String skin
 
-				) {
-			String va= null;
-			if(search!=null) {
-				va=search;
-			} else if (mask!=null) {
-				va=mask;
-			} else if(iso!=null) {
-				va=iso;
-			} else if(serum!=null) {
-				va=serum;
-			}else if(you!=null) {
-				va=you;
-			}else if(bio!=null) {
-				va=bio;
-			}else if(olay!=null) {
-				va=olay;
-			}else if(origin!=null) {
-				va=origin;
-			}else if(dr!=null) {
-				va=dr;
-			}else if(moist!=null) {
-				va=moist;
-			}else if(care!=null) {
-				va=care;
-			}else if(skin!=null) {
-				va=skin;
-			}
-			System.out.println("+++++++++++++++++++++++++");
-			System.out.println(search);
-			System.out.println("SelectSearchBar");
-			List<Blog> bg = blogService.selectArticle(va);
-			session.setAttribute("bgsearch", bg);
-			return "blog/BlogSearch";
+	) {
+		String va = null;
+		if (search != null) {
+			va = search;
+		} else if (mask != null) {
+			va = mask;
+		} else if (iso != null) {
+			va = iso;
+		} else if (serum != null) {
+			va = serum;
+		} else if (you != null) {
+			va = you;
+		} else if (bio != null) {
+			va = bio;
+		} else if (olay != null) {
+			va = olay;
+		} else if (origin != null) {
+			va = origin;
+		} else if (dr != null) {
+			va = dr;
+		} else if (moist != null) {
+			va = moist;
+		} else if (care != null) {
+			va = care;
+		} else if (skin != null) {
+			va = skin;
 		}
-	
+		System.out.println("+++++++++++++++++++++++++");
+		System.out.println(search);
+		System.out.println("SelectSearchBar");
+		List<Blog> bg = blogService.selectArticle(va);
+		session.setAttribute("bgsearch", bg);
+		return "blog/BlogSearch";
+	}
+
 //		// 搜尋欄select various button
 //				@GetMapping("/SelectVariousButton")
 //				public String selectVariousButton(Model model, 
@@ -135,13 +140,11 @@ public class BlogController {
 ////					model.addAttribute("bgsearch", bg);
 //					return "blog/BlogSearch";
 //				}
-		
+
 	// 新增一筆部落格文章
 	@PostMapping("blog/edit")
-	public String add(@ModelAttribute("blog") Blog blog, Model model,
-			@RequestParam(value = "memberID") Integer mid,
-			@RequestParam(value = "file") MultipartFile file
-	) {
+	public String add(@ModelAttribute("blog") Blog blog, Model model, @RequestParam(value = "memberID") Integer mid,
+			@RequestParam(value = "file") MultipartFile file) {
 		System.out.println("into blogForm");
 		try {
 			// JAVA的Date轉SQL的Date
@@ -187,13 +190,13 @@ public class BlogController {
 			try {
 				blogService.insertBlog(blog);
 				System.out.println("新增blog成功");
-				
+
 			} catch (Exception e) {
 				e.printStackTrace();
 				System.out.println("新增blog");
 				// TODO: handle exception
 			}
-			
+
 			return getAll(model);
 		} catch (Exception ex) {
 			System.out.println(ex.getClass().getName() + ", ex.getMessage()=" + ex.getMessage());
@@ -215,31 +218,27 @@ public class BlogController {
 
 		return mav;
 	}
-	
-	
-	// 編輯部落格
-		@GetMapping("blog/edit/{blogid}")
-		public String editBlog(@PathVariable("blogid") Integer blogid,ModelMap model) {
-			Blog bg = blogService.selectBlog(blogid);
 
-			model.addAttribute("blog", bg);
-			return "blog/blogForm";
-		}
+	// 編輯部落格
+	@GetMapping("blog/edit/{blogid}")
+	public String editBlog(@PathVariable("blogid") Integer blogid, ModelMap model) {
+		Blog bg = blogService.selectBlog(blogid);
+
+		model.addAttribute("blog", bg);
+		return "blog/blogForm";
+	}
 
 	// 更新一篇部落格文章
 	@PostMapping(value = "blog/edit/{blogid}")
-	
-	public String modify(
-			@ModelAttribute("blog") Blog blog,
-			Model model,
+
+	public String modify(@ModelAttribute("blog") Blog blog, Model model,
 //			@PathVariable Integer blogid,
 //			@RequestParam(value = "memberID") Integer mid,
 			@RequestParam(value = "file") MultipartFile file) {
-		
-		System.out.println("檢查ModelAttribute:"+blog);
-		
-		
-		try {		
+
+		System.out.println("檢查ModelAttribute:" + blog);
+
+		try {
 			// 封面圖更新
 			if (file != null && file.getSize() > 0) {
 				System.out.println("有收到圖片");
@@ -269,15 +268,15 @@ public class BlogController {
 			}
 
 			Timestamp time = new Timestamp(new Date().getTime());
-			
+
 			if (blog.getCommentTime() != null) {
 				// JAVA的Date轉SQL的Date
-				
+
 				blog.setFixedtime(time);
-				
-			}else {
+
+			} else {
 				blog.setCommentTime(time);
-				
+
 			}
 			blogService.updateBlog(blog);
 			return getAll(model);
@@ -287,109 +286,88 @@ public class BlogController {
 		}
 
 	}
-	
 
-	
-	
-	@GetMapping(value="blog/adjust/")
+	@GetMapping(value = "blog/adjust/")
 	@ResponseBody
-	public boolean adjustable(
-			@RequestParam(value="blogId")Integer blogId,
-			@RequestParam(value="state")String state)
-	{
+	public boolean adjustable(@RequestParam(value = "blogId") Integer blogId,
+			@RequestParam(value = "state") String state) {
 		System.out.println("修改部落格狀態");
 		try {
-			Blog blog=blogService.selectBlog(blogId);
+			Blog blog = blogService.selectBlog(blogId);
 			blog.setStatus(state);
 			blogService.updateBlog(blog);
-			
+
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
-		
-		
-		
-		
+
 	}
-	
-	//取得後台分析資料
-	
+
+	// 取得後台分析資料
+
 	@SuppressWarnings("rawtypes")
-	@GetMapping(value="blog/analysis")
+	@GetMapping(value = "blog/analysis")
 	@ResponseBody
 	public Map getAnalysis() {
-		
 
-		Map analysis=new HashMap();
-		
-		
-		
-		
+		Map analysis = new HashMap();
+
 		return analysis;
-		
-		
-		
-		
-	}
-	
-	
 
-	//假刪除功能
+	}
+
+	// 假刪除功能
 	@GetMapping(value = "blog/delete/{blogId}")
 //	@ResponseBody
-	public String hideBlog(@PathVariable("blogId") Integer blogId,Model model) {
-		Blog bg=blogService.selectBlog(blogId);
+	public String hideBlog(@PathVariable("blogId") Integer blogId, Model model) {
+		Blog bg = blogService.selectBlog(blogId);
 		bg.setStatus(Blog.STATUS[3]);
 		blogService.updateBlog(bg);
 		return getAll(model);
-		
+
 	}
-	
-	@GetMapping(value="blog/backstage")
-	
-	
-	public String backstage(Model model,HttpSession session) {
-		MemberBean member=(MemberBean)session.getAttribute("member");
-		if(member!=null && member.getLevel()==999) {
-			List<Blog>blogs=new ArrayList<Blog>();
-			blogs=blogService.selectAllBlog();
+
+	@GetMapping(value = "blog/backstage")
+
+	public String backstage(Model model, HttpSession session) {
+		MemberBean member = (MemberBean) session.getAttribute("member");
+		if (member != null && member.getLevel() == 999) {
+			List<Blog> blogs = new ArrayList<Blog>();
+			blogs = blogService.selectAllBlog();
 			model.addAttribute("blogs", blogs);
-			List<String>titles=new ArrayList<String>();
-			List<String>views=new ArrayList<String>();
-			List<String>blogJson=new ArrayList<String>();
-			Gson gson=new Gson();
-			for(Blog b:blogs) {
-				
+			List<String> titles = new ArrayList<String>();
+			List<String> views = new ArrayList<String>();
+			List<String> blogJson = new ArrayList<String>();
+			Gson gson = new Gson();
+			for (Blog b : blogs) {
+
 				titles.add(gson.toJson(b.getTitle()));
 				views.add(gson.toJson(b.getViews()));
 				blogJson.add(gson.toJson(b));
 			}
-			model.addAttribute("titles",titles);
-			model.addAttribute("views",views);
-			model.addAttribute("blogJson",blogJson);
-			
+			model.addAttribute("titles", titles);
+			model.addAttribute("views", views);
+			model.addAttribute("blogJson", blogJson);
+
 			return "blog/blogBackstage";
-			
-		}else {
-			
-			return "redirect:"+"/member/login";
+
+		} else {
+
+			return "redirect:" + "/member/login";
 		}
-	
-		
-		
+
 	}
-	
-	@GetMapping(value="blog/table")
+
+	@GetMapping(value = "blog/table")
 	@ResponseBody
-	public List<Blog> getDataTable(){
-		
+	public List<Blog> getDataTable() {
+
 		return blogService.selectAllBlog();
-		
+
 	}
-	
-	
+
 //	@GetMapping(value="blog/getTitle")
 //	public String getTitle(Model model) {
 //		List<String>titles=new ArrayList<String>();
@@ -399,25 +377,83 @@ public class BlogController {
 //		return "blog/blogBackstage";
 //		
 //	}
-	
 
 	// 刪除一篇文章
 	@PostMapping(value = "blog/delete/{blogid}")
 	@ResponseBody
 	public boolean delete(@PathVariable("blogid") Integer blogid) {
-		
+
 		System.out.println("嘗試刪除blog");
 		try {
 			blogService.deleteBlog(blogid);
 			return true;
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 			return false;
 		}
-		
-		
+
+	}
+
+	@GetMapping(value = "blog/storage", produces = "application/json")
+	public @ResponseBody boolean collect(Model model, HttpSession session, @RequestParam("mid") Integer mid,
+			@RequestParam("bid") Integer bid) {
+		List<Integer> list = blogService.findcollection(mid);
+		System.out.println("LL " + list);
+		if (list != null) {
+			for (int i = 0; i < list.size(); i++) {
+				if (bid == list.get(i)) {
+					int pk = blogService.pkcollection(mid, bid);
+					ps.delcollection(pk);
+					return false;
+				}
+			}
+		}
+		blogService.addcollection(mid, bid);
+		return true;
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@GetMapping(value = "blog/storagectcheck", produces = "application/json")
+	public @ResponseBody Map collectcheck(Model model, HttpSession session) {
+		List<Integer> list = new ArrayList<>();
+		MemberBean member = (MemberBean) session.getAttribute("member");
+		List<CollectBean> collection = blogService.collection(member.getId());
+		if (collection != null) {
+			for (int i = 0; i < collection.size(); i++) {
+				list.add(collection.get(i).getBid());
+			}
+		}
+		Map map = new HashMap();
+		map.put("No", list);
+		return map;
+	}
+
+	@GetMapping(value = "blog/analysisCategory",produces = "application/json")
+	@ResponseBody
+	public Map analysisCategory() {
+		System.out.println("取得圖表中");
+		try {
+			return blogService.categoryAnalysis();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+
+		}
+	}
+	
+	@GetMapping(value = "blog/TopAnalysis",produces = "application/json")
+	@ResponseBody
+	public Map TopAnalysis() {
+		System.out.println("取得圖表中");
+		try {
+			return blogService.TopAnalysis();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+
+		}
 	}
 
 }

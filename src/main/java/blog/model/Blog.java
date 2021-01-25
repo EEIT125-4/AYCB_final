@@ -1,6 +1,7 @@
 package blog.model;
 
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -18,7 +19,7 @@ import member.MemberBean;
 
 @Entity
 @Table(name = "blog")
-public class Blog {
+public class Blog implements Serializable {
 	@Id
 	// 當使用IDENTITY時，主要鍵的資料型態必須是整數或符點數，不可以為char或String
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

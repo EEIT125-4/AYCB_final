@@ -1,10 +1,12 @@
 package blog.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Session;
 
 import blog.model.Blog;
+import product.model.CollectBean;
 
 public interface BlogDao {
 	
@@ -34,6 +36,19 @@ public interface BlogDao {
 
 	//search bar
 	List<Blog> selectArticle(String title);
+	
+	void addcollection(int mid, int bid);
+	
+	List<CollectBean> collection(int mid);
+	
+	int pkcollection(int mid, int bid);
+	
+	List<Integer> findcollection(int mid);
+	//回傳類別分析數據
+	Map categoryAnalysis();
+	//取前10名
+	Map TopAnalysis();
+	
 	
 	
 	

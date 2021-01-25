@@ -1,6 +1,11 @@
 package blog.dao;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -8,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import blog.model.Blog;
+import product.model.CollectBean;
+import video.model.Video;
 
 @Repository
 public class BlogDaoImp implements BlogDao {
@@ -102,11 +109,119 @@ public class BlogDaoImp implements BlogDao {
 	public void getAnalysis() {
 		Session session=factory.getCurrentSession();
 		
-		
-		
-		
-		
 	}
+	@Override
+	public void addcollection(int mid, int bid) {
+		CollectBean cb = new CollectBean();
+		cb.setMid(mid);
+		cb.setBid(bid);
+		Session session = factory.getCurrentSession();
+		session.save(cb);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<CollectBean> collection(int mid) {
+		String hql = "FROM CollectBean c WHERE c.mid = :mid";
+		Session session = factory.getCurrentSession();
+		return session.createQuery(hql).setParameter("mid", mid).getResultList();
+	}
+	
+	@Override
+	public int pkcollection(int mid, int bid) {
+		String hql = "SELECT c.cid FROM CollectBean c WHERE c.mid = :mid and c.bid = :bid";
+		Session session = factory.getCurrentSession();
+		return (int) session.createQuery(hql).setParameter("mid", mid).setParameter("bid", bid).uniqueResult();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Integer> findcollection(int mid) {
+		String hql = "SELECT c.bid FROM CollectBean c WHERE c.mid = :mid";
+		Session session = factory.getCurrentSession();
+		return session.createQuery(hql).setParameter("mid", mid).getResultList();
+	}
+
+	@Override
+	public Map categoryAnalysis() {
+		try {
+
+			Map<String, Integer> tempMap = new LinkedHashMap<String, Integer>();
+			Session session = factory.getCurrentSession();
+			String hql = "FROM Blog";
+
+			List<Blog> list = session.createQuery(hql).getResultList();
+			for (Blog b : list) {
+				//將每個種類的數量累加起來	
+				if (!tempMap.containsKey(b.getBlogcategory())) {
+					tempMap.put(b.getBlogcategory(), 1);
+
+				} else {
+					int temp = tempMap.get(b.getBlogcategory());
+					tempMap.put(b.getBlogcategory(), tempMap.get(b.getBlogcategory()) +1);
+
+				}
+			}
+			
+			List<String>categorys=new ArrayList<String>();
+			List<Integer>counts=new ArrayList<Integer>();
+			
+			Iterator entries = tempMap.entrySet().iterator();
+
+			while (entries.hasNext()) {
+
+				Map.Entry entry = (Map.Entry) entries.next();
+
+				String key = (String) entry.getKey();
+				categorys.add(key);
+
+				Integer value = (Integer) entry.getValue();
+				counts.add(value);
+				System.out.println("Key = " + key + ", Value = " + value);
+			}
+			
+			Map<String,List>result=new HashMap<String, List>();
+			result.put("categorys", categorys);
+			result.put("counts", counts);
+			
+
+			return result;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public Map TopAnalysis() {
+		
+		try {
+			Map<String, List>result=new LinkedHashMap<String, List>();
+			Session session = factory.getCurrentSession();
+			String hql = "FROM Blog order by views desc";
+
+			List<Blog> list = session.createQuery(hql).setMaxResults(10).getResultList();
+			
+			List<String>titles=new ArrayList<String>();
+			List<Integer>views=new ArrayList<Integer>();
+			for(int i=0;i<list.size();i++) {
+				titles.add(list.get(i).getTitle());
+				views.add(list.get(i).getViews());
+			}
+			
+			result.put("titles", titles);
+			result.put("views", views);
+			
+
+			return result;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	
 	
 

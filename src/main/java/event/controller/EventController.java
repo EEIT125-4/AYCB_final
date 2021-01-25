@@ -126,6 +126,7 @@ public class EventController {
 			EventValidator validator =new EventValidator();
 			validator.validate(event, result);
 			if(result.hasErrors()) {
+				
 				return "event/eventForm";
 			}
 //			MultipartFile img = event.getEventimage();
@@ -286,13 +287,13 @@ public class EventController {
 			return result;
 		}
 			
-		@GetMapping("/numberofpax")
+		@GetMapping("/numberofCategory")
 		public @ResponseBody List<Integer> getpax(){
 			
 			System.out.println("取得類別人數==============================");
 			
 //			List<Integer> list=new ArrayList<>();
-			List<Integer> numberofpax=eventService.getPaxbyCategory();
+			List<Integer> numberofpax=eventService.getNumberOfCategory();
 			
 			
 			return numberofpax;

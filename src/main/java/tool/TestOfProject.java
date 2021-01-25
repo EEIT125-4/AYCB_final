@@ -30,6 +30,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import member.MemberBean;
+import message.model.Messagebox;
 import product.model.ProductBean;
 import tool.model.Image;
 import video.model.Video;
@@ -74,17 +75,20 @@ public class TestOfProject {
 	
 	static void messageTest() {
 		
-		message.model.Message message=new message.model.Message();
+		Messagebox message=new Messagebox();
 		
 		message.setSenddate(new Date(new java.util.Date().getTime()));
 		message.setContent("hello");
-//		MemberBean from= session.get(MemberBean.class, 2);
-//		MemberBean to= session.get(MemberBean.class, 4);
+		MemberBean from= session.get(MemberBean.class, 2);
+		MemberBean to= session.get(MemberBean.class, 4);
+		System.out.println("from="+from.getName());
+		System.out.println("to="+to.getName());
 		message.setSendfrom(session.get(MemberBean.class, 2));
 		message.setSendto(session.get(MemberBean.class, 4));
 		message.setType("test");
 		session.save(message);
 		tx.commit();
+		
 		
 	}
 

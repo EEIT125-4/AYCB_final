@@ -100,9 +100,16 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 <%@include file="../jspf/header.jspf"%>
 <div id="mytop" style="text-align: center" class="container">
 
- 	<% 
- 		MemberBean member = (MemberBean) session.getAttribute("member");
- 	%>  
+<% 
+	String user = "";
+	boolean editable = false;
+	if (session.getAttribute("member") != null) {
+	MemberBean member = (MemberBean) session.getAttribute("member");
+	user = member.getName();
+	System.out.println("顧客名稱: " + user);
+	editable = true;
+	}
+%>  
 
 <div>
 	<ol class="progress_bar">

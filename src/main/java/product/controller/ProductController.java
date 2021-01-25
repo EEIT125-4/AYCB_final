@@ -375,6 +375,7 @@ public class ProductController {
 			pb = ps.getProduct((int)top5.get(i));
 			list.add(pb);
 		}
+		System.out.println("L " + list);
 		return list;
 	}
 }
