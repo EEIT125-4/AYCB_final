@@ -104,7 +104,7 @@ input:checked+.slider:before {
 	</div>
 	
 	
-	<table id="myDataTable" class="display">
+	<table id="dataTable" class="display">
 		<thead>
 			<tr>
 				<th>id</th>
@@ -164,6 +164,34 @@ input:checked+.slider:before {
 
 
 <script>
+
+
+var tr_selected;
+
+//獲取目前被選取的row
+
+$('#dataTable tbody').on('click','tr',function(){
+	if($(this).hasClass('selected')){
+		
+		 $(this).removeClass('selected');
+		 console.log('remove select');
+	}else {
+		if(tr_selected!=null){
+			tr_selected.removeClass('selected');
+		}
+		
+		
+		tr_selected=$(this);
+		
+
+        $(this).addClass('selected');
+        console.log('add select');
+      
+    }		
+	
+});
+
+
 //此javascript負責抓資料
 function getData(){
 	
@@ -233,7 +261,7 @@ function getData(){
 
 
         $(function () {
-            $("#myDataTable").DataTable({
+            $("#dataTable").DataTable({
                 searching: true, 
                 columnDefs: [{
                     orderable: true,
@@ -396,12 +424,12 @@ function getData(){
 		
 		let status=$(this).attr("checktype");
 		console.log("變更前:"+status);
-		if(status==true){
+		if(status=='true'){
 			
-			status=false;
+			status='false';
 		}else{
 			
-			status=true;
+			status='true';
 		}
 		
 		console.log('變更狀態為:'+status);
@@ -423,12 +451,13 @@ function getData(){
 						else{
 						s.attr("checktype", "true");
 						}
-					swal.fire({
-	      				  title: "success",
-	      				  text: "狀態變更",
-	      				  icon: "success",
-	      				  button: "OK",
-	      				});
+					console.log('修改成功');
+// 					swal.fire({
+// 	      				  title: "success",
+// 	      				  text: "狀態變更",
+// 	      				  icon: "success",
+// 	      				  button: "OK",
+// 	      				});
 					},
 					error:function(){
 						

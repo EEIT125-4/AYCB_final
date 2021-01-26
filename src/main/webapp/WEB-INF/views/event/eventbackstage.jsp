@@ -250,14 +250,25 @@
 					url : "numberofCategory",
 					dataType : "json",
 					success : function(data) {
+						for(let i=0;i<data.count.length;i++){
+							
+							console.log('人數:'+data.count[i]);
+							
+						}
+						
+						for(let i=0;i<data.nums.length;i++){
+							
+							console.log('活動數:'+data.nums[i]);
+						}
+					
 						var category = new Chart(ctx, {
 							type : 'pie', //圖表類型
 							data : {
 								//標題
-								labels : [ "體驗", "教學", "新品發表", "促銷", "其他" ],
+								labels : data.category,
 								datasets : [ {
-									label : '#test', //標籤
-									data : data, //資料
+									label : '活動參加人數', //標籤
+									data : data.count, //資料
 									//圖表背景色
 									backgroundColor : [
 											'rgba(255, 99, 132, 0.2)',
@@ -294,15 +305,21 @@
 	
 	$(document).ready(
 		function TotalAttendance() {
-			console.log("data")
+			console.log("data");
+			
 		$.ajax({
 			type : 'GET',
-			url : " totalattendance",
+			url : " ${pageContext.request.contextPath}/event/totalattendance",
 			dataType : "json",
 			success : function(data) {
-				$("#totalattendance").html(data);
+				console.log("取得資料");
+				$("#totalattendance").html('進行中活動數量'+data.unexpired+'<br>報名總人數:'+data.people);
+			},
+			error:function(){
+				console.log('fail');
 			}
 		});
+		
 	});
 </script>
 </html>

@@ -2,8 +2,9 @@ package event.controller;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -280,18 +281,44 @@ public class AttendanceController {
 			return "event/showAttendanceByID";
 		}
 		
+	
+		
 		@GetMapping(value = "/event/totalattendance")
-		public @ResponseBody Integer paxOfAttendance() {
+		@ResponseBody
+		public  Map<String,Integer> paxOfAttendance() {
 			
+			Map<String, Integer>result=new HashMap<String, Integer>();
 			System.out.println("回傳總人數");
 			
-			Integer totalPax=attendanceService.getPaxOfAttendance();
+			List<Event> list=eventService.unexpiredEvent();
+			System.out.println("未過期活動數:"+list.size());
+			int people=0;
 			
-			System.out.println("回傳總人數"+totalPax);
 			
-			return totalPax;
+			for(Event e:list) {
+				System.out.println("活動人數:"+e.getPax());
+				people+=e.getPax();
+			}
+		
+			System.out.println("people:"+people);
+			//未過期活動數\
+			result.put("unexpired",list.size());
+			//未過期活動的參加人數
+			result.put("people", people);
+			
+			
+			
+			
+		
+			
+			
+//			System.out.println("回傳總人數"+totalPax);	
+			
+			return result;
 			
 		}
+		
+		
 		
 		
 //		

@@ -24,9 +24,11 @@ public interface EventDAO {
         
 		List<Event> getEventByCategory(String eventcategory);
 
-		List<Integer>getNumberOfCategory();
+		public Map<String, List> getNumberOfCategory();
 		
 //		Map<String,Integer> getPaxOfCategory();
+		
+		public List<Event> unexpiredEvent();
 		
 		
 
