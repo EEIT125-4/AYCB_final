@@ -27,13 +27,13 @@
 	display: flex;
 	height: fit-content;
 	padding: 5px;
-	background-color: #F1E1FF;
+	background-color: #FFF8D7;
 	flex-direction: column;
 }
 
 .listBox {
 	    border: black solid 1px;
-    background-color: #F1E1FF;
+    background-color: #FFF8D7;
     min-height: 100px;
     margin: 10px;
     overflow: hidden;

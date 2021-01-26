@@ -45,7 +45,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 
 table{
 text-align: center;
-border:2px solid blue
+/* border:2px solid blue */
 
 }
 
@@ -57,7 +57,8 @@ border :1px solid black;
 
 body{
 
-	background-image:url(${pageContext.request.contextPath}/image/backstage2.jpg);background-size: cover;
+	background-image:url(${pageContext.request.contextPath}/image/backstage2.jpg);
+	background-size: repeated;
 }
 
 </style>

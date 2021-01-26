@@ -44,7 +44,7 @@ public class VideoDaoImpl implements VideoDao {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Video> selectAllVideo() {
-		String hql = "FROM Video order by commentTime asc";
+		String hql = "FROM Video order by commentTime desc";
 		Session session = getSession();
 		List<Video> list = session.createQuery(hql).getResultList();
 		return list;

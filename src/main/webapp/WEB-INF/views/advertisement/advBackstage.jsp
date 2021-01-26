@@ -38,6 +38,60 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
     float: right;
     margin-top: 150px;
 }
+
+
+/*停權開關*/
+.switch {
+	position: relative;
+	display: inline-block;
+	width: 50px;
+	height: 24px;
+}
+
+.switch input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+.slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ccc;
+	-webkit-transition: .4s;
+	transition: .4s;
+	border-radius: 34px;
+}
+
+.slider:before {
+	/* 未開顏色 */
+	position: absolute;
+	content: "";
+	height: 20px;
+	width: 20px;
+	left: 2px;
+	top: 2px;
+	background-color: white;
+	-webkit-transition: .4s;
+	transition: .4s;
+	border-radius: 50%;
+}
+
+input:checked+.slider {
+	/* 以開顏色 */
+	background-color: lightpink;
+}
+
+input:checked+.slider:before {
+	/* 按鈕顏色 */
+	-webkit-transform: translateX(26px);
+	-ms-transform: translateX(26px);
+	transform: translateX(26px);
+}
 </style>
 </head>
 <%@include file="../jspf/backstage.jspf"%>
@@ -50,18 +104,20 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 	</div>
 	
 	
-	<table id="myDataTable" class="display">
+	<table id="dataTable" class="display">
 		<thead>
 			<tr>
 				<th>id</th>
-				<th>標題</th>
+				<th >標題</th>
 				<th>分類</th>
 				<th>開始日期</th>
 				<th>結束日期</th>
 				<th>播放次數</th>
+				<th>強制秒數</th>
 				<th>狀態</th>
 				<th>上傳者</th>
 				<th>廠商</th>
+				<th>功能</th>
 				
 
 			</tr>
@@ -108,6 +164,34 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 
 
 <script>
+
+
+var tr_selected;
+
+//獲取目前被選取的row
+
+$('#dataTable tbody').on('click','tr',function(){
+	if($(this).hasClass('selected')){
+		
+		 $(this).removeClass('selected');
+		 console.log('remove select');
+	}else {
+		if(tr_selected!=null){
+			tr_selected.removeClass('selected');
+		}
+		
+		
+		tr_selected=$(this);
+		
+
+        $(this).addClass('selected');
+        console.log('add select');
+      
+    }		
+	
+});
+
+
 //此javascript負責抓資料
 function getData(){
 	
@@ -132,20 +216,25 @@ function getData(){
 			
 			
 			for (let i = 0; i < data.length; i++) {
-				console.log("data:" + i + data[i].advtitle);
-				
-				
+				console.log("data:" + i + data[i].advtitle);								
 				$('#tbody').append(
 				"<tr>"
-				+"<td>"+data[i].advid+"</td>"
+				+"<td style='max-width: 200px;'>"+data[i].advid+"</td>"
 				+"<td>"+data[i].advtitle+"</td>"
 				+"<td>"+data[i].advcategory+"</td>"
 				+"<td>"+data[i].postTime+"</td>"
-				+"<td>"+data[i].endTime+"</td>"
+				+"<td>"+data[i].endTime+"</td>"		
 				+"<td>"+data[i].advcount+"</td>"
-				+"<td>"+data[i].status+"</td>"
+				+"<td><input type='number' class='second' min='0' max='10' value="+data[i].advlength+"></td>"
+				+"<td><label class='switch'> <input type='checkbox' value="+data[i].status+">"
+				+"<span class='slider' checkType='"+data[i].status+"'></span>"
+				+"</label></td>"
 				+"<td>"+data[i].member.name+"</td>"
 				+"<td>"+data[i].owner+"</td>"
+				+"<td><a href='${pageContext.request.contextPath}/video/edit?videoId="+data[i].videoId+"' title='編輯廣告'><i class='fa fa-pencil fa-2x' aria-hidden='true' style='color:green'></i></a>"	
+				+"<button class='delete_btn' title='刪除廣告' style='border: none;background-color: transparent;' value='"+data[i].advid+"'>"
+				+"<i class='fa fa-trash-o fa-2x' aria-hidden='true' style='color:green'></i></button>"
+				+"</td>"
 				+"</tr>"
 
 				);
@@ -159,26 +248,20 @@ function getData(){
 
 	})
 		
-		
-		
-		
+
 	}
 	
 	getData();
 	
 	
-	
-	
-
-
 
 </script>
 <script type="text/javascript">
 
-var table=document.getElementById("myDataTable");
+
 
         $(function () {
-            $("#myDataTable").DataTable({
+            $("#dataTable").DataTable({
                 searching: true, 
                 columnDefs: [{
                     orderable: true,
@@ -267,6 +350,213 @@ var table=document.getElementById("myDataTable");
     		        },
     		      }
     		    });
+    	
+    	//修改強制秒數
+    	$(document).on('change','.second',function(){
+    		
+    		let index=$(this).parent().siblings().eq(0);
+    		console.log('second='+$(this).val());
+//     		index.css("background","red");
+    		console.log('index'+index.text());
+    		if($(this).val()<0 || $(this).val()>10){
+    			
+    			Swal.fire({
+  				  icon: 'error',
+  				  title: '請輸入0~10之間的數值',
+  				icon: "error",
+				  button: "OK",
+  				});
+    			
+    			$(this).val(0);
+    	
+    			
+    		}else{
+    			console.log('合法');
+    			
+    			$.ajax({
+    				
+    	            type: "POST", //傳送方式
+    	            url:"${pageContext.request.contextPath}/modifyAdsLength", 
+    	            
+    	            dataType: "json", //資料格式
+    	            data:{
+    	            "adsID":index.text(),
+    	            "length":$(this).val()	
+    	            },
+    		    
+    	            success: function(data) {
+    	            	console.log('成功');
+    	            
+    	           
+    	             	
+    	            },error: function(){
+    	            	alert('失敗');
+    	            	
+    	            	
+    	            }
+    				  				
+    			})
+    					
+    		}
+  		
+    	});
+    	
+    	
+    	//開啟按鈕
+    	
+    	 $(document).ready(function(){
+    		 
+			$(".slider").each(function(){
+				console.log('目前狀態:'+$(this).attr("checktype"));
+				if($(this).attr("checktype") == 'true'){
+					$(this).click();
+					console.log('檢查狀態:'+$(this).attr("checktype"));
+				}
+				
+		$(this).click(function(){
+		
+			let s = $(this);
+			
+// 			s.parent().parent().parent().children().eq(0).css('background','red');
+		
+		let adsID=s.parent().parent().parent().children().eq(0).text();
+		console.log("ID:"+adsID);
+		
+		let status=$(this).attr("checktype");
+		console.log("變更前:"+status);
+		if(status=='true'){
+			
+			status='false';
+		}else{
+			
+			status='true';
+		}
+		
+		console.log('變更狀態為:'+status);
+		
+		$.ajax({
+			url:"${pageContext.request.contextPath}/switchAds",
+			type:"POST",
+			data:{
+					'adsID': adsID,
+					'status': status
+				},
+					
+				success:function(){
+					
+					if(s.attr("checktype") == 'true'){
+						s.attr("checktype", "false");
+					
+						}
+						else{
+						s.attr("checktype", "true");
+						}
+					console.log('修改成功');
+// 					swal.fire({
+// 	      				  title: "success",
+// 	      				  text: "狀態變更",
+// 	      				  icon: "success",
+// 	      				  button: "OK",
+// 	      				});
+					},
+					error:function(){
+						
+						swal.fire({
+		      				  title: "fail",
+		      				  text: "未變更",
+		      				  icon: "error",
+		      				  button: "OK",
+		      				});
+						
+					}
+				});
+			});
+		})
+});
+    	
+    		//轉換時間格式
+ 		function formatTimeStamp(time) {
+ 			var time = new Date(time);
+ 			var date = (
+ 				(time.getFullYear()) + "-" +
+ 				(time.getMonth() + 1) + "-" +
+ 				(time.getDate()));
+ 			return date;
+ 		}
+    	
+    	
+    	//刪除廣告按鈕
+    		
+    	    $(document).on('click','.delete_btn',function() {
+    	    
+    	    	var vid=$(this).val();
+    	    	console.log('delete id='+vid);
+    	    	
+    	    	
+    	    	swal.fire({ 
+    	    		  title: '確定刪除?', 
+    	    		  text: '將無法恢復此筆資料', 
+    	    		  type: 'warning',
+    	    		  showCancelButton: true, 
+    	    		  confirmButtonColor: '#3085d6',
+    	    		  cancelButtonColor: '#d33',
+    	    		  confirmButtonText: '刪除', 
+    	    		}).then((result)=>{
+    	    			if(result.isConfirmed){
+    	    				
+    	    				$.ajax({
+    	    		            type: "POST", //傳送方式
+    	    		            url: "${pageContext.request.contextPath}/deleteAds", 
+    	    		            dataType: "json", //資料格式
+    	    		            data:{"adsID":vid},
+    	          
+
+    	    		            success: function(data) {
+    	    		            	if(data){
+    	    		            		swal.fire({
+    	      		      				  title: "已刪除",
+    	      		      				  text: "狀態變更",
+    	      		      				  icon: "success",
+    	      		      				  button: "OK",
+    	      		      				});
+    	    		            		console.log("this="+$(this));
+
+    									let tb=$("#dataTable").DataTable();
+    	    		            		tb.row('.selected').remove().draw( false );
+    	    		            	
+
+    	    		            		
+    	    		            	}else{
+    	    		            		
+    	    		            	 	swal.fire({
+    	      		    				  title:'刪除失敗',
+    	      		    				  text: '資料刪除過程中現異常,請聯絡管理員',
+    	      		    				  icon: "error",
+    	      		    				  button: "OK",
+    	      		    				});        		
+    	    		            	}
+    				   		     				
+    	    		            },
+    	    		            error: function(data) {
+    	    		            	
+    	    		            	swal.fire({
+    	    		    				  title:'請求錯誤',
+    	    		    				  text: 'server無回應,聯絡管理員',
+    	    		    				  icon: "error",
+    	    		    				  button: "OK",
+    	    		    				});        		
+    	  		            	}   		            	            	    		              		           
+    	    		        }) ;
+    	  				
+    	    			}else{
+    	    				console.log('取消刪除');
+
+    	    				
+    	    			}
+    	    			    			  			
+    	    		});
+    	    	
+    	    });
         
         
     </script>

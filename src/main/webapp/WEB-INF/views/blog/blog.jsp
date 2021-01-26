@@ -34,7 +34,7 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 
 <link href="${pageContext.request.contextPath}/css/inside.css"
 	rel="stylesheet">
-	
+
 <script>
 	$(document).ready(function() {
 		CK();
@@ -98,16 +98,16 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 /* 各種查詢按鈕 */
 .btn-group .button {
 	background-color: white;
-    border: 2px solid #BE77FF;
-    color: black;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    cursor: pointer;
-    float: left;
-    border-radius: 10px;
+	border: 2px solid #BE77FF;
+	color: black;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	cursor: pointer;
+	float: left;
+	border-radius: 10px;
 }
 
 .btn-group .button:not(:last-child) {
@@ -142,10 +142,10 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 </c:if>
 
 <c:if test="${empty member }">
-		<button style="vertical-align: middle; margin-left: 120px; margin-top: 10px;
-		border:white;background-color:white;color:white;">
-			<span>上傳文章 </span>
-		</button>
+	<button
+		style="vertical-align: middle; margin-left: 120px; margin-top: 10px; border: white; background-color: white; color: white;">
+		<span>上傳文章 </span>
+	</button>
 
 </c:if>
 
@@ -171,6 +171,15 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 
 
 <div class="search-container">
+	<c:if test="${not empty member }">
+		<a class="a1" href="${pageContext.request.contextPath}/blog/allCollect">
+			<button class="button1"
+				style="vertical-align: middle; margin-left: 30px; margin-top: 10px">
+				<span>我的收藏 </span>
+			</button>
+		</a>
+	</c:if>
+
 	<form action="<c:url value='/SelectSearchBar' />" method="GET"
 		name="search" style="margin-left: 1200px; margin-top: 10px;">
 		<input type="text" placeholder="查詢文章...." name="search">
@@ -192,7 +201,9 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 								style="background-image: url(&quot;img/blog/blog-1.jpg&quot;);">
 								<!-- heart收藏 -->
 								<div id="like1" class="like" style="display: block;">
-									<button id="likebtn${b.blogId}" class="like_button" onclick="Collect(${member.id},${b.blogId})" style="border: none;font-size:25px;">
+									<button id="likebtn${b.blogId}" class="like_button"
+										onclick="Collect(${member.id},${b.blogId})"
+										style="border: none; font-size: 25px;">
 										<i id="heart${b.blogId}" class="fa fa-heart-o"></i>
 									</button>
 								</div>

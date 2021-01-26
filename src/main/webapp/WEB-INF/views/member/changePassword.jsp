@@ -53,14 +53,14 @@ font-size:20px
  
 				<div style="font-size: 300px">
 
-					<p style="font-size: 10%; margin-left: 295px; margin-top: 0px; font-weight:bold">密碼更改</p>
+					<p style="font-size: 10%; margin-left: 295px; margin-top: 30px; font-weight:bold">密碼更改</p>
 				</div>
                   <br>
 				
 			
  
 				<div class="form-inline">
-					<label for="oldpwd" style="font-weight: bold; font-size: 20px; margin-left:320px">舊密碼 </label>
+					<label for="oldpwd" style="font-weight: bold; font-size: 20px; margin-left:330px">舊密碼 </label>
 					</div>
 					<div class="form-inline" style=" margin-left:220px">
 					<input type=password name="oldpwd" class="form-control mx-sm-3"  id="oldpwd"
@@ -74,7 +74,7 @@ font-size:20px
 
 
 					<div class="form-inline">
-					<label for="pw2" style="font-weight: bold; font-size: 20px;margin-left:320px">新密碼 </label>
+					<label for="pw2" style="font-weight: bold; font-size: 20px;margin-left:330px">新密碼 </label>
                       </div>
                       <div class="form-inline" style=" margin-left:220px">
 					<input type=password placeholder="請輸入6-12數英混合" name="pwd2" id="pwd2" class="form-control mx-sm-3"

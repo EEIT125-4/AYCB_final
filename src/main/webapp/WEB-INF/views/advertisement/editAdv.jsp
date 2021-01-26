@@ -300,16 +300,17 @@ function dragenter(e) {
 	
 	function autoInput(){
 		console.log('使用一鍵輸入');
-		$('#title').val('保養品開箱');
-		$('#sourcetype').val('1');
-		$('#advOwner').val('ROHDE');
-		$('#advCategory').val('保養品廣告');
+		$('#title').val('三得利健康網路商店');
+		$('#sourcetype').val('3');
+		$('#advOwner').val('三得利健康網路商店');
+		$('#advCategory').val('合作店家');
+		$('#link').val('https://wellness.suntory.com.tw/contents/0002/GKWPCal190729ZLFa1/index.html?gclid=Cj0KCQiAmL-ABhDFARIsAKywVacnvtB0NHtTPO6dR2MkzHSZZZV1bglHzmNiEhE0ELpop0K8RG12WrcaAqj9EALw_wcB');
 		let date=new Date();	
 		$('#postDate').val(getYYYYMMDD(date));
 		date.setDate(date.getDate()+30);
 		
 		$('#endDate').val(getYYYYMMDD(date));
-		$('#adsDesc').val('這是一個不錯的廣告');
+		$('#adsDesc').val('三得利健康網路商店');
 
 // 		$('#videoFile').
 		

@@ -85,6 +85,7 @@ public class AttendanceDaoImpl implements AttendanceDAO {
 		session.saveOrUpdate(a);
 
 	}
+	
     @SuppressWarnings("unchecked")
 	@Override
 	public  List<Attendance> getAllAttendancebyID(Integer id) {		
@@ -120,6 +121,9 @@ public class AttendanceDaoImpl implements AttendanceDAO {
 				
 		return result;
 	}
+	
+	
+	
 
 
 	

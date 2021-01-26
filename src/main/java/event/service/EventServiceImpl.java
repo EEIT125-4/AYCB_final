@@ -54,8 +54,14 @@ public class EventServiceImpl implements EventService  {
 	}
 
 	@Override
-	public List<Integer> getNumberOfCategory() {
+	public Map<String, List> getNumberOfCategory() {
 		return eventDAO.getNumberOfCategory();
+	}
+
+	@Override
+	public List<Event> unexpiredEvent() {
+		
+		return eventDAO.unexpiredEvent();
 	}
 	
 	

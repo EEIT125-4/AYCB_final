@@ -56,6 +56,78 @@ public class AdvertisementController {
 		}
 
 	}
+	
+	@PostMapping(value = "switchAds")
+	@ResponseBody
+	public boolean switchAds(
+			@RequestParam(value = "status") boolean status,
+			@RequestParam(value = "adsID") Integer adsID
+			) {
+		
+		try {
+			System.out.println("switch boolean="+status);
+			
+
+			Advertisement ad = advService.getAdvertisement(adsID);
+			ad.setStatus(status);
+			advService.updateAdvertisement(ad);
+			System.out.println("ad開啟狀態:" + ad.isStatus());
+			
+
+			return true;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+
+	}
+	
+	@PostMapping(value = "deleteAds")
+	@ResponseBody
+	public boolean deleteAds(
+			@RequestParam(value="adsID")Integer adsID
+			) {
+		try {
+			System.out.println("try to delete one ad");
+			
+			Advertisement ad = advService.getAdvertisement(adsID);//
+			System.out.println("delete ad=" + ad.getAdvtitle());
+			advService.deleteAdvertisement(adsID);
+						
+			return true;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+
+	}
+	//修改秒數
+	@PostMapping(value = "modifyAdsLength")
+	@ResponseBody
+	public boolean deleteAds(
+			@RequestParam(value="adsID")Integer adsID,
+			@RequestParam(value="length")Integer length
+			) {
+		try {
+			System.out.println("try to modify one ad");
+			
+			Advertisement ad = advService.getAdvertisement(adsID);//
+			System.out.println("調整 ad=" + ad.getAdvtitle()+"時長為"+length+"秒");
+			ad.setAdvlength(length);
+			
+			advService.updateAdvertisement(ad);
+						
+			return true;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+
+	}
+	
 
 	@GetMapping(value = "getOneAd")
 	@ResponseBody
