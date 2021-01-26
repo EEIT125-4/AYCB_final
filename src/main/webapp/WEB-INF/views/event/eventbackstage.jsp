@@ -37,7 +37,6 @@
 </head>
 <body  style="background-color: #f5f5f5">
 	<div>
-
 		<div class="back" style="width: 180px">
 			<div class="title" style="text-align: left">後臺管理</div>
 			<div class="mbtnbox">
@@ -78,7 +77,7 @@
 			</div>
 		</div>
 		<div class="row" style="margin: 50px">
-			<div class="col-lg-6 col-md-6 col-sm-6" style="margin-left: 200px;">
+			<div class="col-lg-6 col-md-6 col-sm-6" style="margin-left: 400px;">
 				<div class="card card-stats">
 					<div class="card-body">
 						<div class="row">
@@ -104,7 +103,11 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-6 col-md-6 col-sm-6" style="margin-left: 200px;">
+		</div>
+		
+		</div>
+		<div class="row" style="margin: 50px">
+		<div class="col-lg-5 col-md-6 col-sm-6" style="margin-left: 200px;">
 				<div class="card card-stats">
 					<div class="card-body">
 					<canvas id="myChart"></canvas>	
@@ -117,9 +120,19 @@
 					</div>
 				</div>
 			</div>
-<!-- 			<div style="width: 500px; height: 500px; margin-left: 220px"> -->
-<%-- 			<canvas id="myChart"></canvas> --%>
-		</div>	
+			<div class="col-lg-5 col-md-6 col-sm-6" >
+				<div class="card card-stats">
+					<div class="card-body">
+					<canvas id="myChart1"></canvas>	
+					</div>
+					<div class="card-footer ">
+						<hr>
+						<div class="stats">
+							<i class="fa fa-refresh"></i> Update Now 安插日期
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 		
 		<div style="margin-left:200px">
@@ -295,19 +308,54 @@
 									borderWidth : 1
 								} ]
 							},
-// 							options : {
-// 								scales : {
-// 									yAxes : [ {
-// 										ticks : {
-// 											beginAtZero : true,
-// 											responsive : true
-// 										//符合響應式
-// 										}
-// 									} ]
-// 								}
-// 							}
-						});
+							
+					
+						});  //參加人數結尾
+						
+						//活動數量
+						var ctx1 = document.getElementById('myChart1');
+						var category = new Chart(ctx1, {
+							type : 'bar', //圖表類型
+							data : {
+								//標題
+								labels : data.category,
+								datasets : [ {
+									label : '活動種類數量', //標籤
+									data : data.nums, //資料
+									//圖表背景色
+									backgroundColor : [
+											'rgba(255, 99, 132, 0.2)',
+											'rgba(54, 162, 235, 0.2)',
+											'rgba(255, 185, 15, 0.2)',
+											'rgba(155, 255, 155, 0.2)',
+											'rgba(153, 50, 204, 0.2)' ],
+									//圖表外框線色
+									borderColor : [ 'rgba(255, 99, 132, 1)',
+											'rgba(54, 162, 235, 1)',
+											'rgba(255, 185, 15, 1)',
+											'rgba(155, 255, 155, 1)',
+											'rgba(153, 50, 204, 1)', ],
+									//外框線寬度
+									borderWidth : 1
+								} ]
+							},
+							
+							
+							options : {
+								scales : {
+									yAxes : [ {
+										ticks : {
+											beginAtZero : true,
+											responsive : true
+										//符合響應式
+										}
+									} ]
+								}
+							}
+						}); 
+					
 					}
+				
 				});
 
 			});
