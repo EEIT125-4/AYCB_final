@@ -10,20 +10,23 @@
 
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	
+<link REL=STYLESHEET
+	HREF="${pageContext.request.contextPath}/css/paper-dashboard.css"
+	TYPE="text/css">	
 <title>廣告編輯</title>
 
 
 </head>
 <%@include file="../jspf/header.jspf"%>
 
-<div class="mid">
+<div class="mid" style="background-color: lightgray ;">
 	<c:set var="adv" value="${adv}" />
 	<c:choose>
 	<c:when test='${not empty adv.getAdvid() }'>
@@ -39,8 +42,11 @@
 
 
 	<main>
-		<div>
-			
+		<div class="container">
+		    <div class="card card-stats" style="margin-top: 30px">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-lg-6" style="margin-left: 300px;">
 			<form:form method="POST" modelAttribute="adv" enctype='multipart/form-data'>
 				<fieldset>
 <!-- 				隱藏資料 -->
@@ -88,7 +94,6 @@
 							<td>
 							
 							<form:select id="advCategory" path="advcategory">
-
 							<form:option value="保養品廣告" label="保養品廣告"/>
 							<form:option value="活動廣告" label="活動廣告"/>
 							<form:option value="合作店家" label="合作店家"/>
@@ -158,7 +163,7 @@
 						<tr id="drag">
 						
 						<td>上傳檔案</td>
-						<td id='dropbox' style='background:red;min-height: 300px;'	></td>
+						<td id='dropbox' style='height: 300px; border:2px dashed black;text-align: center'>請將上傳檔案檔案拖曳到此區</td>
 						</tr>
 						
 						<tr>
@@ -201,9 +206,18 @@
 
 			</form:form>
 			
+			
 		</div>
+							
+						</div>
+					</div>
+					<div class="card-footer ">
+					</div>
+				</div>
 	</main>
+	<div style="text-align: center">
 	<button type='button' onclick='autoInput();'>一鍵輸入</button>
+	</div>
 </div>
 
 
@@ -300,16 +314,17 @@ function dragenter(e) {
 	
 	function autoInput(){
 		console.log('使用一鍵輸入');
-		$('#title').val('保養品開箱');
-		$('#sourcetype').val('1');
-		$('#advOwner').val('ROHDE');
-		$('#advCategory').val('保養品廣告');
+		$('#title').val('三得利健康網路商店');
+		$('#sourcetype').val('3');
+		$('#advOwner').val('三得利健康網路商店');
+		$('#advCategory').val('合作店家');
+		$('#link').val('https://wellness.suntory.com.tw/contents/0002/GKWPCal190729ZLFa1/index.html?gclid=Cj0KCQiAmL-ABhDFARIsAKywVacnvtB0NHtTPO6dR2MkzHSZZZV1bglHzmNiEhE0ELpop0K8RG12WrcaAqj9EALw_wcB');
 		let date=new Date();	
 		$('#postDate').val(getYYYYMMDD(date));
 		date.setDate(date.getDate()+30);
 		
 		$('#endDate').val(getYYYYMMDD(date));
-		$('#adsDesc').val('這是一個不錯的廣告');
+		$('#adsDesc').val('三得利健康網路商店');
 
 // 		$('#videoFile').
 		
@@ -339,7 +354,7 @@ function dragenter(e) {
 	
 </script>
 
-
+<%@include file="../jspf/footer.jspf"%>
 </body>
 
 </html>

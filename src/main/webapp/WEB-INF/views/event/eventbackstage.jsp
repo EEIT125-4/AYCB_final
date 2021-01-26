@@ -37,7 +37,6 @@
 </head>
 <body  style="background-color: #f5f5f5">
 	<div>
-
 		<div class="back" style="width: 180px">
 			<div class="title" style="text-align: left">後臺管理</div>
 			<div class="mbtnbox">
@@ -62,15 +61,15 @@
 			</div>
 			<div class="mbtnbox">
 				<input class="mbtn" type="button" value="留言板"
-					onclick='location.href="#"'>
+					onclick='location.href="${pageContext.request.contextPath}/commentBackstage"'>
 			</div>
 			<div class="mbtnbox">
 				<input class="mbtn" type="button" value="部落格"
-					onclick='location.href="${pageContext.request.contextPath}/blog/backstage"'>
+					onclick='location.href="blog/backstage"'>
 			</div>
 			<div class="mbtnbox">
 				<input class="mbtn" type="button" value="影音區"
-					onclick='location.href="#"'>
+					onclick='location.href="${pageContext.request.contextPath}/video/backstage"ㄋ'>
 			</div>
 			<div class="mbtnbox">
 				<input class="mbtn" type="button" value="廣告區"
@@ -78,7 +77,7 @@
 			</div>
 		</div>
 		<div class="row" style="margin: 50px">
-			<div class="col-lg-6 col-md-6 col-sm-6" style="margin-left: 200px;">
+			<div class="col-lg-6 col-md-6 col-sm-6" style="margin-left: 400px;">
 				<div class="card card-stats">
 					<div class="card-body">
 						<div class="row">
@@ -104,7 +103,11 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-6 col-md-6 col-sm-6" style="margin-left: 200px;">
+		</div>
+		
+		</div>
+		<div class="row" style="margin: 50px">
+		<div class="col-lg-5 col-md-6 col-sm-6" style="margin-left: 200px;">
 				<div class="card card-stats">
 					<div class="card-body">
 					<canvas id="myChart"></canvas>	
@@ -117,12 +120,31 @@
 					</div>
 				</div>
 			</div>
-<!-- 			<div style="width: 500px; height: 500px; margin-left: 220px"> -->
-<%-- 			<canvas id="myChart"></canvas> --%>
-		</div>	
+			<div class="col-lg-5 col-md-6 col-sm-6" >
+				<div class="card card-stats">
+					<div class="card-body">
+					<canvas id="myChart1"></canvas>	
+					</div>
+					<div class="card-footer ">
+						<hr>
+						<div class="stats">
+							<i class="fa fa-refresh"></i> Update Now 安插日期
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
+		
+		<div style="margin-left:200px">
+		<a class="btn btn-outline-dark manager" href="<c:url value='/event/eventForm'/>">新增活動</a> &nbsp;&nbsp;
+		</div>
+		
 		<div class="row" style="margin:0px 5px 0px 55px">
-		<div class="col-lg-1 col-md-6 col-sm-6"></div>
+		
+		
+		<div class="col-lg-1 col-md-6 col-sm-6">
+		
+		</div>
 		<div class="col-lg-11 col-md-6 col-sm-6" style="margin:0px">
 		<div class="card card-stats">
 		<div class="card-body">
@@ -250,14 +272,25 @@
 					url : "numberofCategory",
 					dataType : "json",
 					success : function(data) {
+						for(let i=0;i<data.count.length;i++){
+							
+							console.log('人數:'+data.count[i]);
+							
+						}
+						
+						for(let i=0;i<data.nums.length;i++){
+							
+							console.log('活動數:'+data.nums[i]);
+						}
+					
 						var category = new Chart(ctx, {
 							type : 'pie', //圖表類型
 							data : {
 								//標題
-								labels : [ "體驗", "教學", "新品發表", "促銷", "其他" ],
+								labels : data.category,
 								datasets : [ {
-									label : '#test', //標籤
-									data : data, //資料
+									label : '活動參加人數', //標籤
+									data : data.count, //資料
 									//圖表背景色
 									backgroundColor : [
 											'rgba(255, 99, 132, 0.2)',
@@ -275,34 +308,75 @@
 									borderWidth : 1
 								} ]
 							},
-// 							options : {
-// 								scales : {
-// 									yAxes : [ {
-// 										ticks : {
-// 											beginAtZero : true,
-// 											responsive : true
-// 										//符合響應式
-// 										}
-// 									} ]
-// 								}
-// 							}
-						});
+							
+					
+						});  //參加人數結尾
+						
+						//活動數量
+						var ctx1 = document.getElementById('myChart1');
+						var category = new Chart(ctx1, {
+							type : 'bar', //圖表類型
+							data : {
+								//標題
+								labels : data.category,
+								datasets : [ {
+									label : '活動種類數量', //標籤
+									data : data.nums, //資料
+									//圖表背景色
+									backgroundColor : [
+											'rgba(255, 99, 132, 0.2)',
+											'rgba(54, 162, 235, 0.2)',
+											'rgba(255, 185, 15, 0.2)',
+											'rgba(155, 255, 155, 0.2)',
+											'rgba(153, 50, 204, 0.2)' ],
+									//圖表外框線色
+									borderColor : [ 'rgba(255, 99, 132, 1)',
+											'rgba(54, 162, 235, 1)',
+											'rgba(255, 185, 15, 1)',
+											'rgba(155, 255, 155, 1)',
+											'rgba(153, 50, 204, 1)', ],
+									//外框線寬度
+									borderWidth : 1
+								} ]
+							},
+							
+							
+							options : {
+								scales : {
+									yAxes : [ {
+										ticks : {
+											beginAtZero : true,
+											responsive : true
+										//符合響應式
+										}
+									} ]
+								}
+							}
+						}); 
+					
 					}
+				
 				});
 
 			});
 	
 	$(document).ready(
 		function TotalAttendance() {
-			console.log("data")
+			console.log("data");
+			
 		$.ajax({
 			type : 'GET',
-			url : " totalattendance",
+			url : " ${pageContext.request.contextPath}/event/totalattendance",
 			dataType : "json",
 			success : function(data) {
-				$("#totalattendance").html(data);
+				console.log("取得資料");
+				$("#totalattendance").html('進行中活動數量'+data.unexpired+'<br>報名總人數:'+data.people);
+			},
+			error:function(){
+				console.log('fail');
 			}
 		});
+		
 	});
 </script>
 </html>

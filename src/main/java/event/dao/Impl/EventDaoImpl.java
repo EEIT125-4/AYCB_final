@@ -1,6 +1,7 @@
 package event.dao.Impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Repository;
 import event.dao.EventDAO;
 import event.model.Event;
 import net.bytebuddy.description.ModifierReviewable.OfAbstraction;
+import net.bytebuddy.dynamic.DynamicType.Builder.InnerTypeDefinition;
 
 
 @Repository
@@ -98,87 +100,100 @@ public class EventDaoImpl implements EventDAO {
 	}
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Integer> getNumberOfCategory() {
+	public Map<String, List> getNumberOfCategory() {
 		String hql="FROM Event WHERE eventcategory=:category" ;
 		Session session = factory.getCurrentSession();
+		Map<String, List>result=new LinkedHashMap<String, List>();
+		
 		Query<Event> query= session.createQuery(hql);
+		List<String> category=new ArrayList<String>();
 		
-		Integer list1= query.setParameter("category", "體驗").getResultList().size();
-		Integer list2= query.setParameter("category", "教學").getResultList().size();
-		Integer list3= query.setParameter("category", "新品發表").getResultList().size();
-		Integer list4= query.setParameter("category", "促銷").getResultList().size();
-		Integer list5= query.setParameter("category", "其他").getResultList().size();
-		
+		List<Integer>nums=new ArrayList<Integer>();
 		List<Integer> list= new ArrayList<>();	
-	
-		list.add(list1);
-		list.add(list2);
-		list.add(list3);
-		list.add(list4);
-		list.add(list5);
+		category.add("體驗");
+		category.add("教學");
+		category.add("新品發表");
+		category.add("促銷");
+		category.add("其他");
+		result.put("category", category);
 		
-		return list;
+		List<Event>temp=new ArrayList<Event>();
+	
+		
+		
+		for(String name:category) {
+			int num=0;
+			int count=0;
+			temp=query.setParameter("category", name).getResultList();
+			for(Event e:temp) {
+				if(e.getEventcategory().equals(name)) {
+					num++;
+				}
+				count+=e.getPax();
+			}
+			list.add(count);
+			nums.add(num);
+		
+		}
+		
+//		Integer list1= query.setParameter("category", "體驗").getResultList().size();
+//		Integer list2= query.setParameter("category", "教學").getResultList().size();
+//		Integer list3= query.setParameter("category", "新品發表").getResultList().size();
+//		Integer list4= query.setParameter("category", "促銷").getResultList().size();
+//		Integer list5= query.setParameter("category", "其他").getResultList().size();
+		
+//		list.add(list1);
+//		list.add(list2);
+//		list.add(list3);
+//		list.add(list4);
+//		list.add(list5);
+		
+		result.put("count",list);
+		result.put("nums", nums);
+		
+		
+		
+		return result;
 	}
 
-//	@Override
-//	public Map<String, Integer> getPaxOfCategory() {
-//		
-//		String hql="FROM Event" ;
-//		Session session = factory.getCurrentSession();
-//		Query<Event> query= session.createQuery(hql);
-//		List<Event>list=query.getResultList();
-//		
-//		
-//		
-//		Map<String, List> result=new LinkedHashMap<String, List>();
-//		
-//		List<String>categorys=new ArrayList<String>();
-//		
-//		List<Integer>paxs=new ArrayList<Integer>();
-//		
-//		
-//		
-//		for(Event e:list) {
-//			
-//			if(!categorys.contains(e.getEventcategory())) {
-//				
-//			categorys.add(e.getEventcategory());	
-//				
-//			}else {
-//				
-//				paxs.add(e.getPax());
-//				
-//				
-//			}
-//			
-//
-//		}
-//		
-//		String temp="";
-//		int tempNum=0;
-//		
-//		for(int i=0;i<categorys.size();i++) {
-//			
-//			
-//			if(temp==null) {
-//				temp=categorys.get(i);	
-//			}
-//			if(categorys.get(i).equals(temp)) {
-//				
-//				categorys.remove(i);
-//				
-//				
-//			}
-//			
-//			
-//			
-//		}
-//		
-//		
-//		
-//		return result;
-//	}
-	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Event> unexpiredEvent() {
+		
+		Session session=factory.getCurrentSession();
+		
+		List<Event>result=new ArrayList<Event>();
+		
+		String hql="FROM Event";
+		
+		Query<Event> query= session.createQuery(hql);
+				
+		List<Event> list=session.createQuery(hql).getResultList();
+		
+		Date today=new Date();
+		
+		for(Event e:list) {
+			
+			String dateString[]=e.getEventdate().split("-");
+			
+			Date date=new Date(Integer.parseInt(dateString[0]),Integer.parseInt(dateString[1]),Integer.parseInt(dateString[2]));
+			System.out.println("date="+date.getYear()+"-"+date.getMonth()+"-"+date.getDay());
+			
+			//Kevin:只有日期>今天的是還沒過期的活動
+			
+			if(date.after(today)) {
+				
+				System.out.println("加入活動:"+e.getEventname());
+				result.add(e);
+			}	
+			
+		}
+		
+		
+		 
+		 
+		 
+		return result;
+	}
 
-	
 }
