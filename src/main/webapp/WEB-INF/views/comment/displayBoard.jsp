@@ -116,7 +116,7 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 							console.log(data)
 							$("#reply")
 									.prepend(
-											+"<div class=leavecomment>"
+											+"<div class=leavecomment style='margin:0 auto;padding:20px'>"
 											+ "<li>"
 											+ "<div class=picform>"
 											+ "<img class=headpic src= '"+ data.imageId +"'alt=Image placeholder>"
