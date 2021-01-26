@@ -45,7 +45,7 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 
 table {
 	text-align: center;
-	border: 2px solid blue
+/* 	border: 2px solid blue */
 }
 
 td {
@@ -56,7 +56,7 @@ td {
 body {
 	background-image:
 		url(${pageContext.request.contextPath}/image/backstage2.jpg);
-	background-size: cover;
+	background-size: repeated;
 }
 </style>
 </head>

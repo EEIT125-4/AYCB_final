@@ -20,44 +20,6 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 
 <title>編輯影片</title>
 
-<style>
-
-/* .t1{ */
-
-/*    			padding: 5px; */
-/*             border-radius: 10px; */
-/*             border: black 1px outset; */
-/* 			width:100%; */
-/* /*             width: fit-content; */
-*
-/
-
-/* /*             height: fit-content; */
- 
-*
-/
-/*             background-color: yellow; */
-/*             text-align: center; */
-/* /*             padding-left: 20px; */
- 
-*
-/
-/* /*             padding-right: 20px; */
- 
-*
-/
-/* /*             margin: 5px; */
- 
-*
-/
-/* /*             min-width: 100px; */
- 
-*
-/
-/* 			color:blue; */
-
-/* } */
-</style>
 </head>
 
 

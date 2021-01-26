@@ -40,7 +40,7 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 
 
 
-<div class="content" style="background-image:url(${pageContext.request.contextPath}/image/leave.jpg);background-size: cover">
+<div class="content" style="background-image:url(${pageContext.request.contextPath}/image/gr2.jpg);background-size: cover">
 	<div class="primary" style="margin-left: 100px;" >
 		<iframe class="videoFrame" id="frameid" src="${video.url}" autoplay
 			muted frameborder="0"
