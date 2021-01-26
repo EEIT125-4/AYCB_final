@@ -1,6 +1,10 @@
 package advertisement;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,6 +14,7 @@ import org.springframework.stereotype.Repository;
 
 import blog.model.Blog;
 import member.MemberBean;
+import video.model.Video;
 
 @Repository
 public class AdvertisementDao {
@@ -120,6 +125,69 @@ public Advertisement getAdvertisement(Integer adsID) {
 		Session session=factory.getCurrentSession();
 		Advertisement ads=session.get(Advertisement.class, adsID);
 		session.delete(ads);
+		
+	}
+	
+	public Map getCategoryData() {
+		
+
+		
+		try {
+
+			Map<String, Integer> result = new LinkedHashMap<String, Integer>();
+			Session session = factory.getCurrentSession();
+			
+			String hql = "FROM Advertisement";
+				
+			List<Video> list = session.createQuery(hql).getResultList();
+			List<String>category=new ArrayList<String>();
+			List<Integer>count=new ArrayList<Integer>();
+			
+			
+			for (Video v : list) {
+
+				if (!result.containsKey(v.getCategory())) {
+					result.put(v.getCategory(), v.getViewCount());
+
+				} else {
+					int temp = result.get(v.getCategory());
+					result.put(v.getCategory(), result.get(v.getCategory()) + v.getViewCount());
+
+				}
+			}
+			
+			
+
+			// debug
+
+			Iterator entries = result.entrySet().iterator();
+
+			while (entries.hasNext()) {
+				
+				
+				Map.Entry entry = (Map.Entry) entries.next();
+
+				String key = (String) entry.getKey();
+				category.add(key);
+
+				Integer value = (Integer) entry.getValue();
+				count.add(value);
+				System.out.println("Key = " + key + ", Value = " + value);
+				//
+			
+			}
+			
+			Map<String, List> resultMap=new LinkedHashMap<String, List>();
+			resultMap.put("category",category);
+			resultMap.put("count",count);
+
+			return resultMap;
+
+		}catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
 		
 	}
 //	public void modifyLength(Integer length) {
