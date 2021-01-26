@@ -62,15 +62,15 @@
 			</div>
 			<div class="mbtnbox">
 				<input class="mbtn" type="button" value="留言板"
-					onclick='location.href="#"'>
+					onclick='location.href="${pageContext.request.contextPath}/commentBackstage"'>
 			</div>
 			<div class="mbtnbox">
 				<input class="mbtn" type="button" value="部落格"
-					onclick='location.href="${pageContext.request.contextPath}/blog/backstage"'>
+					onclick='location.href="blog/backstage"'>
 			</div>
 			<div class="mbtnbox">
 				<input class="mbtn" type="button" value="影音區"
-					onclick='location.href="#"'>
+					onclick='location.href="${pageContext.request.contextPath}/video/backstage"ㄋ'>
 			</div>
 			<div class="mbtnbox">
 				<input class="mbtn" type="button" value="廣告區"
@@ -121,8 +121,17 @@
 <%-- 			<canvas id="myChart"></canvas> --%>
 		</div>	
 		</div>
+		
+		<div style="margin-left:200px">
+		<a class="btn btn-outline-dark manager" href="<c:url value='/event/eventForm'/>">新增活動</a> &nbsp;&nbsp;
+		</div>
+		
 		<div class="row" style="margin:0px 5px 0px 55px">
-		<div class="col-lg-1 col-md-6 col-sm-6"></div>
+		
+		
+		<div class="col-lg-1 col-md-6 col-sm-6">
+		
+		</div>
 		<div class="col-lg-11 col-md-6 col-sm-6" style="margin:0px">
 		<div class="card card-stats">
 		<div class="card-body">
