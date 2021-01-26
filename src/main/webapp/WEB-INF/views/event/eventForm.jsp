@@ -14,24 +14,23 @@
 </head>
 <%@include file="../jspf/header.jspf"%>
 
-<div class='container' style="margin-bottom: 80px"> 
-	<form:form method="POST" modelAttribute="event" enctype='multipart/form-data'>
-		<fieldset>
-			<legend>
-				<h2>新增活動</h2>
-			</legend>
-			<div class="form-inline ">
+<div class='container' style="margin-bottom: 80px">
+<div class="row">
+ <div class="col-lg-2"></div>
+   <div class="col-lg-8"> 
+	<form:form method="POST" modelAttribute="event" enctype='multipart/form-data' >
+		<fieldset style="margin-left:170px">
+			<div class="form-inline">
 					<img id="imageDemo" class="preview" name="icon"
 								src=<c:if test='${not empty member.getId()}'>
-							<c:out value="'${pageContext.request.contextPath}/image/noImage.jpg'"/>
-							
+							<c:out value="'${pageContext.request.contextPath}/image/noImage.jpg'"/>							
 							</c:if>
 								<c:if test='${empty member.id}'>
 							<c:out value=""/>
 							</c:if>
 								alt=""
 								onerror="javascript:this.src='${pageContext.request.contextPath}/image/noImage.jpg'">
-				</div>
+			</div><br>
 			<div>
 				<label class="label1" >活動名稱:</label> 
 				<form:input type='text' path="eventname" id="eventname"/>
@@ -93,6 +92,9 @@
                  <input type="button" id="express" value="一鍵輸入">	
 		</fieldset>
 	</form:form>
+	</div>
+	<div class="col-lg-2"></div>
+	</div>
 </div>
 <%@include file="../jspf/footer.jspf"%>
 <script src="${pageContext.request.contextPath}/js/preview.js"></script>

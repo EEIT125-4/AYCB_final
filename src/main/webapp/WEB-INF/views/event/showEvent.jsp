@@ -8,12 +8,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<!-- <script type='text/javascript' -->
-<!-- 	src="http://code.jquery.com/jquery-1.9.1.js"></script> -->
-
-
-<!-- <link rel="stylesheet" -->
-<!-- 	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"> -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
 	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
@@ -55,7 +49,7 @@ a:visited{
 <div>
 	
 	<section class="container" style="margin-top:30px">
-	<a class="btn btn-outline-dark manager" href="<c:url value='/event/eventForm'/>">新增活動</a> &nbsp;&nbsp;
+	
 	<span style="display:inline-block; margin-bottom: 30px" >
 	<form action="<c:url value='/event/showEventByCategory' />">
     <label style="font-size: 20px;text-align: left">分類搜尋活動:&nbsp;&nbsp;
@@ -68,7 +62,8 @@ a:visited{
 	</form>
 	</span>
 	
-	<span><button style="width:100px" class="btn btn-outline-dark"><a href="${pageContext.request.contextPath}/event/showEvent">所有類別</a></button></span>
+	<span><button style="width:100px" class="btn btn-outline-dark">
+	<a href="${pageContext.request.contextPath}/event/showEvent">所有類別</a></button></span>
 	<div class="line-it-button" data-lang="zh_Hant" data-type="share-A" data-ver="3" data-url="http://localhost:8080/AYCB_final/event/showEvent" data-color="default" data-size="large" data-count="true" style="display: none;"></div>
    <script src="https://www.line-website.com/social-plugins/js/thirdparty/loader.min.js" async="async" defer="defer"></script>
 	
@@ -77,7 +72,7 @@ a:visited{
 		   <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6">
                     <div class="product__item" >
                         <div class="product__item__pic set-bg"  id="resize" >
-                        <img width="350px" height="300px" src="${event.filename}">
+                        <img width="300px" height="250px" src="${event.filename}">
                         
                             <span class="label" id="label">New</span>
 <!--                             <ul class="product__hover"> -->
@@ -226,14 +221,6 @@ a:visited{
 // 		}
 // })
 	
-	//判斷是否為管理員
-	let aa =$('.aa').val();
-	
-	 if (aa=='999'){
-		 $('.manager').show();
-	 }else {
-		 $('.manager').hide();
-	 };
 	
 	//彈跳視窗 
 	$(document).ready(function() {
@@ -243,10 +230,11 @@ a:visited{
 		}
 	});
 	
+	// 調整圖片大小
 	$(window).bind("load", function() {
 		$('#resize img').each(function() {
-			var maxWidth = 350;
-			var maxHeight = 300;
+			var maxWidth = 300px;
+			var maxHeight = 250px;
 			var ratio = 0;
 			var width = $(this).width();
 			var height = $(this).height();
@@ -266,6 +254,19 @@ a:visited{
 			}
 		});
 	});
+	
+	//判斷是否為管理員
+// 	$(document).ready(function() {
+// 		let aa =$('.aa').val();
+	
+// 	 if (aa=='999'){
+// 		 $('.manager').show();
+// 	 }else {
+// 		 $('.manager').hide();
+// 	 };
+		
+// 	});
+	
 	
 	
 </script>

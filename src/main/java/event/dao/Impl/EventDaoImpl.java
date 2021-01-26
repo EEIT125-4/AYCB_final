@@ -156,6 +156,7 @@ public class EventDaoImpl implements EventDAO {
 		return result;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Event> unexpiredEvent() {
 		
