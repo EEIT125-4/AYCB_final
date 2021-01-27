@@ -266,17 +266,12 @@
 
 	$(document).ready(
 			function NumberOfCategory() {
-								
-				console.log('取得人數');
-				console.log('路徑:${pageContext.request.contextPath}/numberofCategory');
+				var ctx = document.getElementById('myChart');
 				$.ajax({
-					
-					type : "GET",
-					url : "http://localhost:8080/${pageContext.request.contextPath}/numberofCategory",
+					type : 'GET',
+					url : "numberofCategory",
 					dataType : "json",
-					
 					success : function(data) {
-						console.log('取得:'+data.length);
 						for(let i=0;i<data.count.length;i++){
 							
 							console.log('人數:'+data.count[i]);
@@ -287,8 +282,8 @@
 							
 							console.log('活動數:'+data.nums[i]);
 						}
-						var ctx = document.getElementById('myChart');
-						var categoryChart = new Chart(ctx, {
+					
+						var category = new Chart(ctx, {
 							type : 'pie', //圖表類型
 							data : {
 								//標題
@@ -359,32 +354,29 @@
 							}
 						}); 
 					
-					},
-					error:function(){
-						console.log('發生錯誤');
 					}
 				
 				});
 
 			});
 	
-// 	$(document).ready(
-// 		function TotalAttendance() {
-// 			console.log("data");
+	$(document).ready(
+		function TotalAttendance() {
+			console.log("data");
 			
-// 		$.ajax({
-// 			type : 'GET',
-// 			url : " ${pageContext.request.contextPath}/event/totalattendance",
-// 			dataType : "json",
-// 			success : function(data) {
-// 				console.log("取得資料");
-// 				$("#totalattendance").html('進行中活動數量'+data.unexpired+'<br>報名總人數:'+data.people);
-// 			},
-// 			error:function(){
-// 				console.log('fail');
-// 			}
-// 		});
+		$.ajax({
+			type : 'GET',
+			url : " ${pageContext.request.contextPath}/event/totalattendance",
+			dataType : "json",
+			success : function(data) {
+				console.log("取得資料");
+				$("#totalattendance").html('進行中活動數量'+data.unexpired+'<br>報名總人數:'+data.people);
+			},
+			error:function(){
+				console.log('fail');
+			}
+		});
 		
-// 	});
+	});
 </script>
 </html>
