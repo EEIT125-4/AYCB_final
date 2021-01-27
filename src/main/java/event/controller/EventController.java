@@ -294,8 +294,9 @@ public class EventController {
 			return result;
 		}
 			
-		@GetMapping("/numberofCategory")
-		public @ResponseBody Map<String,List> getpax(){
+		@GetMapping("numberofCategory")
+		@ResponseBody
+		public  Map<String,List> getpax(){
 			
 			System.out.println("取得類別人數==============================");
 			

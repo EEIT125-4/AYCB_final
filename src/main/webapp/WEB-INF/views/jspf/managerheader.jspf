@@ -17,6 +17,20 @@ MemberBean mb = (MemberBean) session.getAttribute("member");
 // 	System.out.println("member:" + mb.getName());
 // }
 %>
+<style>
+	.top {
+		color: white;
+		background: #FF2D2D;
+		padding: 14px 10px;
+		position: fixed;
+		right: 100px;
+		bottom: 85px;
+		text-align: center;
+		border-radius: 50px;
+		
+		z-index: 1;
+	}
+</style>
 
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

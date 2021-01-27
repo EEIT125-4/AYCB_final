@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -128,28 +129,41 @@ public class AdvertisementController {
 
 	}
 	
-//	
-//	@PostGetMapping(value = "getAdvCategory")
-//	@ResponseBody
-//	public String querySAll(Model model) {
-//		try {
-//			System.out.println("try to get one ad");
-//			Gson gson = new Gson();
-//
-//			Advertisement ad = advService.queryRandom();//
-//			ad.setAdvcount(ad.getAdvcount() + 1);
-//			advService.updateAdvertisement(ad);
-//			System.out.println("ad=" + ad.getAdvtitle());
-//			String result = gson.toJson(ad);
-//
-//			return result;
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return null;
-//		}
-//
-//	}
+//	取得廣告類型資料
+	@SuppressWarnings("rawtypes")
+	@GetMapping(value = "getAdvCategory")
+	@ResponseBody
+	public Map queryCategoryData(Model model) {
+		try {
+			System.out.println("try to get category data");
+			
+			return advService.getCategoryData();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+	}
+	
+//	取得廣告類型資料
+	@SuppressWarnings("rawtypes")
+	@GetMapping(value = "ads/getTopRate")
+	@ResponseBody
+	public List getTopRate(@RequestParam(value = "top",required = false)Integer top) {
+		try {
+			System.out.println("try to get top data");
+			if(top==null) {
+				top=5;
+			}
+			return advService.getTop(top);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+	}
 	
 	
 

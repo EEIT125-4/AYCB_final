@@ -36,7 +36,7 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 .content {
     width: 88%;
     float: right;
-    margin-top: 150px;
+    margin-top: 125px;
 }
 
 
@@ -353,46 +353,53 @@ function getColor(num){
             });
         });
         
-        function drawChart(){
-        	
-        	
-        	$.ajx
-        	
-        	
-        }
+
         
-        //業主前五名
-//         var ctxB = document.getElementById('chartTop').getContext("2d");
-//     	getColor(TopData.names.length);
-//     	var myChartB = new Chart(ctxB, {
-//     		  type: 'bar', //圖表類型
-//     		  data: {
-//     		    //標籤
-//     		    labels:TopData.names,
-//     		    //labels: ${jsonBrandName},
-//     		    datasets: [{
-//     		      label: '前五名影片', //標籤
-//     		      data: TopData.views, //資料  
-//     		      //data: ${jsonBrandCount}, //資料
-//     		      //圖表背景色
-//     		      backgroundColor:bg_colors ,
-//     		      //圖表外框線色
-//     		      borderColor:line_colors ,
-//     		      //外框線寬度
-//     		      borderWidth: 1
-//     		    }]
-//     		  },
-//     		  options: {
-//     		    scales: {
-//     		      yAxes: [{
-//     		        ticks: {
-//     		          beginAtZero: true,
-//     		          responsive: true //符合響應式
-//     		        }
-//     		      }]
-//     		    }
-//     		  }
-//     		});
+//         業主前五名
+function getTopRate(){
+		$.ajax({
+				
+	            type: "GET", //傳送方式
+	            url: "${pageContext.request.contextPath}/ads/getTopRate", 
+	            dataType: "json", //資料格式
+
+	            success: function(data) {
+	  
+	           
+	            getColor(data.length);
+       			 var ctxB = document.getElementById('chartTop').getContext("2d");
+    			
+		    	var myChartB = new Chart(ctxB, {
+		    		  type: 'bar', //圖表類型
+		    		  data: {
+		    		    //標籤
+		    		    labels:data.advtitle,
+		    		  
+		    		    datasets: [{
+		    		      label: '前五名影片', //標籤
+		    		      data: data.advcount, //資料  
+		    		   
+		    		      //圖表背景色
+		    		      backgroundColor:bg_colors ,
+		    		      //圖表外框線色
+		    		      borderColor:line_colors ,
+		    		      //外框線寬度
+		    		      borderWidth: 1
+		    		    }]
+		    		  },
+		    		  options: {
+		    		    scales: {
+		    		      yAxes: [{
+		    		        ticks: {
+		    		          beginAtZero: true,
+		    		          responsive: true //符合響應式
+		    		        }
+		    		      }]
+		    		    }
+		    		  }
+		    		});
+			            	}});
+				}
         
         
         
@@ -512,10 +519,10 @@ function getColor(num){
     	 $(document).ready(function(){
     		 
 			$(".slider").each(function(){
-				console.log('目前狀態:'+$(this).attr("checktype"));
+		
 				if($(this).attr("checktype") == 'true'){
 					$(this).click();
-					console.log('檢查狀態:'+$(this).attr("checktype"));
+			
 				}
 				
 		$(this).click(function(){
@@ -662,8 +669,56 @@ function getColor(num){
     	    		});
     	    	
     	    });
+    	
+    	  //類別比例
+    		function getCategory(){
+    		  
+    		  		console.log('取得類型圖表');	
+    			
+    				$.ajax({
+    				
+    	            type: "GET", //傳送方式
+    	            url: "${pageContext.request.contextPath}/getAdvCategory", 
+    	            dataType: "json", //資料格式
+
+    	            	success: function(data) {
+    	            	console.log('取得資料,筆數:'+data.length); 
+    	            	category=data.category;//類別分析
+    	            	count=data.count;
+    	            	var ctxA = document.getElementById('chartCategory').getContext("2d");
+    	            	getColor(category.length);
+    	            	var myChartA = new Chart(ctxA, {
+    	            		  type: 'pie', //圖表類型
+    	            		  data: {
+    	            		    //標題
+    	            		    labels:category,
+    	            		  
+    	            		    datasets: [{
+    	            		      label: '文章類型', //標籤
+    	            		        
+    	            		      data: count, //資料
+
+    	            		      backgroundColor: bg_colors,
+    	            		
+    	            		      borderColor:line_colors,
+//    	          
+
+//    	               		      ],
+    	            		      //外框線寬度
+    	            		      borderWidth: 1
+    	            		    }]
+    	            		  },
+    	            		});
+    	    	            	            	 		     				
+    	            },
+    	                     
+    	        }); 
+    			
+
+    		}
         
-        
+    		getCategory();
+    		getTopRate();
     </script>
 </body>
 

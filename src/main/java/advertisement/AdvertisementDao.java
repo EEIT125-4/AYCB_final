@@ -128,6 +128,22 @@ public Advertisement getAdvertisement(Integer adsID) {
 		
 	}
 	
+	public List getTop(Integer top) {
+		
+		Session session=factory.getCurrentSession();
+		
+//		Map<String,List>result=new LinkedHashMap<String, List>();
+		
+		String hql="FROM Advertisement order by viewCount desc";
+		
+		List<Advertisement> list=session.createQuery(hql).setMaxResults(top).getResultList();
+		
+		return list;
+		
+		
+		
+	}
+	
 	public Map getCategoryData() {
 		
 
@@ -139,27 +155,25 @@ public Advertisement getAdvertisement(Integer adsID) {
 			
 			String hql = "FROM Advertisement";
 				
-			List<Video> list = session.createQuery(hql).getResultList();
+			List<Advertisement> list = session.createQuery(hql).getResultList();
 			List<String>category=new ArrayList<String>();
 			List<Integer>count=new ArrayList<Integer>();
 			
 			
-			for (Video v : list) {
+			for (Advertisement ads : list) {
 
-				if (!result.containsKey(v.getCategory())) {
-					result.put(v.getCategory(), v.getViewCount());
+				if (!result.containsKey(ads.getAdvcategory())) {
+//					result.put(ads.getAdvcategory(),ads.getAdvcount());
+					result.put(ads.getAdvcategory(),1);
 
 				} else {
-					int temp = result.get(v.getCategory());
-					result.put(v.getCategory(), result.get(v.getCategory()) + v.getViewCount());
+					int temp = result.get(ads.getAdvcategory());
+					result.put(ads.getAdvcategory(), result.get(ads.getAdvcategory()) + 1);
 
 				}
 			}
-			
-			
 
 			// debug
-
 			Iterator entries = result.entrySet().iterator();
 
 			while (entries.hasNext()) {

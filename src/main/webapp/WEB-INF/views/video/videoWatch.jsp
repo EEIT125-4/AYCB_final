@@ -74,7 +74,7 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 		<br>
 		<iframe class="videoFrame" id="frameid" src="${video.url}" autoplay
 			muted frameborder="0"
-			style="width: 640px; height: 360px; text-align: center; float: center"
+			style="width: 100%%; height: 600px; text-align: center; float: center"
 			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 			allowfullscreen id='ads'></iframe>
 
@@ -93,7 +93,7 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 
 		<!-- 置頂留言功能列 -->
 		<div
-			style="width: 100%; background-color: whitesmoke; margin: 0 auto; padding: 20px; width: 900px; border-radius: 10px;">
+			style="width: 100%; background-color: whitesmoke; padding: 20px; width: 80%; border-radius: 10px;">
 			<div id='commentCount'></div>
 			<c:choose>
 				<c:when test='${not empty member }'>
@@ -107,8 +107,8 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 			</c:choose>
 
 			<div>
-				<textarea id='fixcomment' class="comment form-control" row="6"
-					placeholder="新增公開留言" style="width: 850px; text-align: center;"></textarea>
+				<textarea id='fixcomment' class="comment" row="6"
+					placeholder="新增公開留言" style="width: 100%; text-align: center;"></textarea>
 				<div class="btnarea" style="margin-left: 50%; display: none;">
 					<button class='resetBtn btn btn-outline-secondary' type='button'
 						style='width: auto; margin: 10px 0px'>取消</button>
