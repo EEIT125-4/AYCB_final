@@ -101,7 +101,8 @@ public class EventDaoImpl implements EventDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public Map<String, List> getNumberOfCategory() {
-		String hql="FROM Event WHERE eventcategory=:category" ;
+		String hql="FROM Event" ;
+		// WHERE eventcategory=:category
 		Session session = factory.getCurrentSession();
 		Map<String, List>result=new LinkedHashMap<String, List>();
 		

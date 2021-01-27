@@ -13,7 +13,9 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import blog.model.Blog;
 import member.MemberBean;
+import product.model.CollectBean;
 import video.model.Video;
 
 @Repository
@@ -400,4 +402,48 @@ public class VideoDaoImpl implements VideoDao {
 		}
 	}
 
+	@Override
+	public void addcollection(int mid, int vid) {
+		CollectBean cb = new CollectBean();
+		cb.setMid(mid);
+		cb.setVid(vid);
+		Session session = factory.getCurrentSession();
+		session.save(cb);
+		
+		System.out.println("收藏影片成功");
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<CollectBean> collection(int mid) {
+		String hql = "FROM CollectBean c WHERE c.mid = :mid";
+//		SELECT DISTINCT c.vid 
+		Session session = factory.getCurrentSession();
+		return session.createQuery(hql).setParameter("mid", mid).getResultList();
+	}
+	
+	@Override
+	public int pkcollection(int mid, int vid) {
+		String hql = "SELECT c.cid FROM CollectBean c WHERE c.mid = :mid and c.vid = :vid";
+		Session session = factory.getCurrentSession();
+		return (int) session.createQuery(hql).setParameter("mid", mid).setParameter("vid", vid).uniqueResult();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Integer> findcollection(int mid) {
+		String hql = "SELECT c.vid FROM CollectBean c WHERE c.mid = :mid";
+		Session session = factory.getCurrentSession();
+		return session.createQuery(hql).setParameter("mid", mid).getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Video> allcollection(int videoId) {
+		String hql = "FROM Video v WHERE v.videoId = :videoId";
+		Session session = factory.getCurrentSession();
+		return session.createQuery(hql).setParameter("videoId", videoId).getResultList();
+	}
+
+	
 }

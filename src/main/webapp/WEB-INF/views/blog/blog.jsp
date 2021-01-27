@@ -278,11 +278,7 @@ function CK() {
 		success : function(data) {
 			for (let i = 0; i < data.No.length; i++) {
 				$('#heart' + data.No[i]).attr('class', 'fa fa-heart');
-// 				$('#like' + data.No[i]).css('display', 'block');
-// 				$('#likebtn' + data.No[i]).css('border', 'none');
-// 				$('#star' + data.No[i]).attr('class', 'fa fa-heart');
-// 				$('#love' + data.No[i]).css('display', 'block');
-// 				$('#lovebtn' + data.No[i]).css('border', 'none');
+
 			}
 		}
 	});
