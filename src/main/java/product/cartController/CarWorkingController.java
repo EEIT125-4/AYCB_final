@@ -209,7 +209,7 @@ public class CarWorkingController {
 	}
 
 	//@RequestParam(value = "cartIndex", required = false) Integer cartIndex,
-	//@PathVariable Integer cartIndex,
+	//@PathVariable int cartIndex,
 	@SuppressWarnings( "unchecked" )
 	@GetMapping("/cartRemove/{cartIndex}")
 	public String TodoRemove(Model model, 
@@ -223,32 +223,10 @@ public class CarWorkingController {
 		System.out.println("刪除商品:" + theCart.get(cartIndex).getProductName());
 		theCart.remove(cartIndex); 
 		
-		//session.setAttribute("cart", theCart);
-	
+		//session.setAttribute("cart", theCart);	
 					
 		return "product/order";
 	}
 	
-	
-//	@SuppressWarnings("unchecked")
-//	@GetMapping("/getCarCount")
-//	public @ResponseBody Integer GetCarCount(Model model){
-//		
-//		List<CartItem> theCart = (List<CartItem>) model.getAttribute("cart");
-//		
-//		int size = 0;
-//			
-//		System.out.print("theCart"+ theCart);
-//		
-//		if (theCart != null && theCart.size() > 0) {
-//			
-//			size = theCart.size();
-//
-// 			System.out.print("theCartSize"+ size);
-// 			
-//			}
-//	
-//		return size;
-//	}
 
 }

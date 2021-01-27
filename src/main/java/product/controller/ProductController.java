@@ -327,7 +327,7 @@ public class ProductController {
 	}
 	
 	@GetMapping("/Collect")
-	public String collect(Model model, HttpSession session) {
+	public String collectlist(Model model, HttpSession session) {
 		MemberBean mb = (MemberBean) session.getAttribute("member");
 		if (mb != null ) {
 			List<ProductBean> list = new ArrayList<>();

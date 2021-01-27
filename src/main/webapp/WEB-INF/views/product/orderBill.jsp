@@ -203,14 +203,14 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
            </p>
 
 <% 		
-// 		session.removeAttribute("cart");
-// 		session.removeAttribute("totalPrice");
-// 		session.removeAttribute("totalQtyOrdered");
-// 		session.removeAttribute("Shipping");
-// 		session.removeAttribute("phone");
-// 		session.removeAttribute("address");
-// 		session.removeAttribute("email");
-// 		session.removeAttribute("receiveName");
+		session.removeAttribute("cart");
+		session.removeAttribute("totalPrice");
+		session.removeAttribute("totalQtyOrdered");
+		session.removeAttribute("Shipping");
+		session.removeAttribute("phone");
+		session.removeAttribute("address");
+		session.removeAttribute("email");
+		session.removeAttribute("receiveName");
 		
 %>
 			<br>
@@ -219,7 +219,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 
 	
 </div>
-<%-- <%@include file="../jspf/footer.jspf"%> --%>
+<%@include file="../jspf/footer.jspf"%>
 <script>
 
 

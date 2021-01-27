@@ -18,6 +18,7 @@ public class GlobalExceptionHandlerController {
 		
 		model.addAttribute("reason", ex.getMessage() + "   ,404   日期: 01/28");
 		model.addAttribute("exception", ex);
+		model.addAttribute("stackTrace", ex.getStackTrace());
 		model.addAttribute("url", request.getRequestURL()+"?" + request.getQueryString());
 		
 	    return "product/orderError";

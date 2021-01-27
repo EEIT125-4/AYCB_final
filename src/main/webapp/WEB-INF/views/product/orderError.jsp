@@ -38,6 +38,7 @@ if (session.getAttribute("member") != null) {
       	<div class="container" id="text" style="text-align: left; width: 800px;">
            <h4>請求網址: ${url}</h4>
            <h4>例外類型: ${exception}</h4>
+           <h4>例外追蹤: ${stackTrace}</h4>
         </div>
       </div>
       <br><br>
@@ -47,6 +48,6 @@ if (session.getAttribute("member") != null) {
            </p>
       </div>
    </section>
-<%@include file="../jspf/footer.jspf"%>
+
 </body>
 </html>

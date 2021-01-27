@@ -259,13 +259,6 @@ public class OrderController {
 		String sTimeString = sdf.format(new Date());
 		Timestamp tTime = Timestamp.valueOf(sTimeString);
 		
-//		OrderBean updateOrder = new OrderBean(orderNo, customerId, price, tTime, status, items);		
-//		if (os.updateOrderBean(updateOrder)) {
-//			System.out.println("Let orderUpdate done!");
-//			return "product/orderUpdateThanks";
-//		} else{
-//				return "product/orderUpdateThanks";
-		
 		return "redirect:/orderManagement";
 	}
 	
@@ -354,8 +347,7 @@ public class OrderController {
 		List<OrderBean>  orderList = new ArrayList<OrderBean>();
 		
 		orderList = os.selectOrderBean(membername);
-		
-		
+				
 		//System.out.println(orderlist);
 		
 		return orderList;
@@ -369,6 +361,7 @@ public class OrderController {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("reason", throwable.getMessage() + "   ,例外處理   日期: 01/28");
 		mv.addObject("exception", throwable);
+		mv.addObject("stackTrace", throwable.getStackTrace());
 		mv.addObject("url", request.getRequestURL()+"?" + request.getQueryString());
 		mv.setViewName("product/orderError");
 		return mv;
