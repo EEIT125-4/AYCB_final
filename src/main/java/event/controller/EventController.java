@@ -208,6 +208,8 @@ public class EventController {
 			try {
 				path = Common.saveImage(file);
 				event.setFilename(path);
+				
+				event.setPax(eventService.getEvent(eventid).getPax());
 				eventService.updateEvent(event);
 				System.out.println("000000000000000000000000000000000000"+path);
 			} catch (IOException e) {
@@ -294,6 +296,7 @@ public class EventController {
 			return result;
 		}
 			
+		@SuppressWarnings("rawtypes")
 		@GetMapping("/numberofCategory")
 		public @ResponseBody Map<String,List> getpax(){
 			
