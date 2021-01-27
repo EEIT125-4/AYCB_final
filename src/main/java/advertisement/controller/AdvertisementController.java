@@ -128,28 +128,28 @@ public class AdvertisementController {
 
 	}
 	
-	
-	@PostGetMapping(value = "getAdvCategory")
-	@ResponseBody
-	public String querySAll(Model model) {
-		try {
-			System.out.println("try to get one ad");
-			Gson gson = new Gson();
-
-			Advertisement ad = advService.queryRandom();//
-			ad.setAdvcount(ad.getAdvcount() + 1);
-			advService.updateAdvertisement(ad);
-			System.out.println("ad=" + ad.getAdvtitle());
-			String result = gson.toJson(ad);
-
-			return result;
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-
-	}
+//	
+//	@PostGetMapping(value = "getAdvCategory")
+//	@ResponseBody
+//	public String querySAll(Model model) {
+//		try {
+//			System.out.println("try to get one ad");
+//			Gson gson = new Gson();
+//
+//			Advertisement ad = advService.queryRandom();//
+//			ad.setAdvcount(ad.getAdvcount() + 1);
+//			advService.updateAdvertisement(ad);
+//			System.out.println("ad=" + ad.getAdvtitle());
+//			String result = gson.toJson(ad);
+//
+//			return result;
+//
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return null;
+//		}
+//
+//	}
 	
 	
 
