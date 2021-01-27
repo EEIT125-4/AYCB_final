@@ -27,7 +27,7 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 <style>
 table{
 text-align: center;
-border:2px solid blue
+/* border:2px solid blue */
 
 }
 
@@ -51,12 +51,12 @@ body{
 <%@include file="../jspf/header.jspf"%>
 
 <div class="contentoutbox">
-	<div class="contentbox" style="background-image: url(${pageContext.request.contextPath}/image/backstage2.jpg);background-size: cover;">
+	<div class="contentbox" style="background-image: url(${pageContext.request.contextPath}/image/backstage2.jpg);background: repeat;">
 		<%@include file="../jspf/memberPanel.jspf"%>
 		<div class="rightoutbox">
 			<table id="myDataTable" class="display" style="background:lightblue">
 				<thead>
-					<tr style='background:green'>
+					<tr style='background:lightgray'>
 						<!-- 						<th>影片id</th> -->
 						<th>預覽圖片</th>
 						<th>影片標題</th>

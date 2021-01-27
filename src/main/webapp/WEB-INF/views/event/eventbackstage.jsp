@@ -51,10 +51,10 @@
 				<input class="mbtn" type="button" value="訂單"
 					onclick='location.href="${pageContext.request.contextPath}/orderManager"'>
 			</div>
-			<div class="mbtnbox">
-				<input class="mbtn" type="button" value="訊息"
-					onclick='location.href="#"'>
-			</div>
+<!-- 			<div class="mbtnbox"> -->
+<!-- 				<input class="mbtn" type="button" value="訊息" -->
+<!-- 					onclick='location.href="#"'> -->
+<!-- 			</div> -->
 			<div class="mbtnbox">
 				<input class="mbtn" type="button" value="活動"
 					onclick='location.href="${pageContext.request.contextPath}/event/backstageshowEvent"'>

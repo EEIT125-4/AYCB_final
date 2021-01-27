@@ -74,7 +74,7 @@ a:visited{
                         <div class="product__item__pic set-bg"  id="resize" >
                         <img width="300px" height="250px" src="${event.filename}">
                         
-                            <span class="label" id="label">New</span>
+<!--                             <span class="label" id="label">New</span> -->
 <!--                             <ul class="product__hover"> -->
 <%--                                 <li><a href="#"><img src="${pageContext.request.contextPath}/image/icon/heart.png" alt=""></a></li> --%>
 <%--                                 <li><a href="#"><img src="${pageContext.request.contextPath}/image/icon/compare.png" alt=""><span>Compare</span></a></li> --%>
@@ -231,29 +231,29 @@ a:visited{
 	});
 	
 	// 調整圖片大小
-	$(window).bind("load", function() {
-		$('#resize img').each(function() {
-			var maxWidth = 300px;
-			var maxHeight = 250px;
-			var ratio = 0;
-			var width = $(this).width();
-			var height = $(this).height();
-			if (width > maxWidth) {
-				ratio = maxWidth / width;
-				$(this).css("width", maxWidth);
-				$(this).css("height", height * ratio);
-				height = height * ratio;
-			}
-			var width = $(this).width();
-			var height = $(this).height();
-			if (height > maxHeight) {
-				ratio = maxHeight / height;
-				$(this).css("height", maxHeight);
-				$(this).css("width", width * ratio);
-				width = width * ratio;
-			}
-		});
-	});
+// 	$(window).bind("load", function() {
+// 		$('#resize img').each(function() {
+// 			var maxWidth = 300px;
+// 			var maxHeight = 250px;
+// 			var ratio = 0;
+// 			var width = $(this).width();
+// 			var height = $(this).height();
+// 			if (width > maxWidth) {
+// 				ratio = maxWidth / width;
+// 				$(this).css("width", maxWidth);
+// 				$(this).css("height", height * ratio);
+// 				height = height * ratio;
+// 			}
+// 			var width = $(this).width();
+// 			var height = $(this).height();
+// 			if (height > maxHeight) {
+// 				ratio = maxHeight / height;
+// 				$(this).css("height", maxHeight);
+// 				$(this).css("width", width * ratio);
+// 				width = width * ratio;
+// 			}
+// 		});
+// 	});
 	
 	//判斷是否為管理員
 // 	$(document).ready(function() {

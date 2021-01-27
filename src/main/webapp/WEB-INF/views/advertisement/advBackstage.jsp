@@ -34,9 +34,10 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 <link REL=STYLESHEET HREF="${pageContext.request.contextPath}/css/paper-dashboard.css" TYPE="text/css">
 <style>
 .content {
-    width: 88%;
+    width: 80%;
     float: right;
-    margin-top: 125px;
+    margin-top: 150px;
+    margin-right: 60px;
 }
 
 

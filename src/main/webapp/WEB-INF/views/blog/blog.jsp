@@ -246,7 +246,7 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 function Collect(mid, blogId) {
 	$.ajax({
 		type : 'GET',
-		url : 'storage',
+		url : '${pageContext.request.contextPath}/blog/storage',
 		data : {
 			"mid" : mid,
 			"bid" : blogId
