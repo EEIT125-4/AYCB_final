@@ -45,7 +45,7 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 
 table {
 	text-align: center;
-	border: 2px solid blue
+/* 	border: 2px solid blue */
 }
 
 td {
@@ -56,7 +56,7 @@ td {
 body {
 	background-image:
 		url(${pageContext.request.contextPath}/image/backstage2.jpg);
-	background-size: cover;
+	background-size: repeated;
 }
 </style>
 </head>
@@ -283,8 +283,12 @@ function getData(){
 					+"<td name='content'><textarea class='contentBox' disabled>"+data[i].contentBox+"</textarea></td>"
 					+"<td>"+data[i].member.name+"</td>"
 					+"<td>"+formatTimeStamp(data[i].commentTime)+"</td>"
-					+"<td>"+formatTimeStamp(data[i].editTime)+"</td>"					
-					+"<td><button type='button' title='編輯留言'style='border: none;background-color: transparent;' class='editbtn'><i class='fa fa-pencil' aria-hidden='true' style='color:green'></i></button>"										
+					+"<td>"+formatTimeStamp(data[i].editTime)+"</td>"	
+				
+					
+					+"<td>"
+					+"<button type='button' title='前往留言頁面'style='border: none;background-color: transparent;' class='viewbtn' identify='"+data[i].type+"' key='"+data[i].keynumber+"'><i class='fa fa-eye' aria-hidden='true' style='color:green'></i></button>"
+					+"<button type='button' title='編輯留言'style='border: none;background-color: transparent;' class='editbtn'><i class='fa fa-pencil' aria-hidden='true' style='color:green'></i></button>"										
 					+"<button class='delete_btn' title='刪除留言' style='border: none;background-color: transparent;' value='"+data[i].commentId+"'>"
 					+"<i class='fa fa-trash-o' aria-hidden='true' style='color:green'></i></button>"
 					+"</td>"
@@ -336,6 +340,45 @@ function getData(){
         }) 		
 		
 	}
+	
+	//瀏覽按鈕
+	
+	 $(document).on('click','.viewbtn',function() {
+    
+    	let identify=$(this).attr('identify');
+    	let key=$(this).attr('key');
+    	let href='http://localhost:8080/AYCB_final/';
+    	
+    	if(identify=='blog'){
+    		href+=identify+"/"+key;
+
+    	}
+    	if(identify=='video'){
+    		href+=identify+"/videoWatch?videoID="+key;
+
+    	}
+    	if(identify=='product'){
+    		href+='Detail?no='+key;
+
+    	}
+    	
+    	
+    	if(identify!='comment'){
+    		window.open(href, "popup",'width='+(window.screen.availWidth-10)+',height='+(window.screen.availHeight-30)+ ',resizable=1');
+    	}else{
+    		
+    		swal.fire({
+				  title:'error',
+				  text: '不支援巢狀留言',
+				  icon: "error",
+				  button: "OK",
+				});  
+    		
+    	}
+    	//toolbar=no,status=no,, "width=100vh,height=100vh,resizable=1"
+
+    	
+    });
 	
 	
 	

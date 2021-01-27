@@ -36,7 +36,7 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 .content {
     width: 88%;
     float: right;
-    margin-top: 150px;
+    margin-top: 125px;
 }
 
 
@@ -104,7 +104,7 @@ input:checked+.slider:before {
 	</div>
 	
 	
-	<table id="myDataTable" class="display">
+	<table id="dataTable" class="display">
 		<thead>
 			<tr>
 				<th>id</th>
@@ -126,6 +126,42 @@ input:checked+.slider:before {
 		<tbody id="tbody">
 		</tbody>
 	</table>
+	<div class="row">
+						<div class="col-md-5" style="margin-left: 150px;">
+							<div class="card ">
+								<div class="card-header ">
+									<h4 class="card-title"
+										style="font-weight: bold; text-align: center;">影片分類比例</h4>
+								</div>
+								<div class="card-body ">
+									<canvas id="chartCategory"></canvas>
+								</div>
+								<div class="card-footer ">
+									<hr>
+									<div class="stats">
+										<i class="fa fa-refresh"></i> Update Now
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-5">
+							<div class="card ">
+								<div class="card-header ">
+									<h4 class="card-title"
+										style="font-weight: bold; text-align: center;">業主投放排行</h4>
+								</div>
+								<div class="card-body ">
+									<canvas id="chartTop"></canvas>
+								</div>
+								<div class="card-footer ">
+									<hr>
+									<div class="stats">
+										<i class="fa fa-refresh"></i> Update Now
+									</div>
+								</div>
+							</div>
+						</div>
+						</div>
 	<div class="row">
 						<div class="col-md-11" style="margin-left: 80px;">
 							<div class="card ">
@@ -164,6 +200,34 @@ input:checked+.slider:before {
 
 
 <script>
+
+
+var tr_selected;
+
+//獲取目前被選取的row
+
+$('#dataTable tbody').on('click','tr',function(){
+	if($(this).hasClass('selected')){
+		
+		 $(this).removeClass('selected');
+		 console.log('remove select');
+	}else {
+		if(tr_selected!=null){
+			tr_selected.removeClass('selected');
+		}
+		
+		
+		tr_selected=$(this);
+		
+
+        $(this).addClass('selected');
+        console.log('add select');
+      
+    }		
+	
+});
+
+
 //此javascript負責抓資料
 function getData(){
 	
@@ -230,10 +294,37 @@ function getData(){
 </script>
 <script type="text/javascript">
 
+//隨機取色
+var bg_colors;
+var line_colors;
+
+function getColor(num){
+	bg_colors=[];
+	line_colors=[];
+	
+	for(let i=0;i<num;i++){
+		 	
+		 
+		 let rgb = [];
+		 for (let i = 0; i < 3; i++) {
+	         rgb[i] = parseInt(Math.random() * 256);
+	          console.log(rgb[i]);
+	     };
+	     let color="rgba("+rgb[0]+","+rgb[1]+","+rgb[2]+",0.2)";         
+		 bg_colors.push(color);
+		 color="rgba("+rgb[0]+","+rgb[1]+","+rgb[2]+",1.0)";
+		 line_colors.push(color);	 
+//	 	 console.log("json_title"+blogJson[i].title);
+	}
+	
+	
+	
+}
+
 
 
         $(function () {
-            $("#myDataTable").DataTable({
+            $("#dataTable").DataTable({
                 searching: true, 
                 columnDefs: [{
                     orderable: true,
@@ -261,6 +352,55 @@ function getData(){
 			    }
             });
         });
+        
+
+        
+//         業主前五名
+function getTopRate(){
+		$.ajax({
+				
+	            type: "GET", //傳送方式
+	            url: "${pageContext.request.contextPath}/ads/getTopRate", 
+	            dataType: "json", //資料格式
+
+	            success: function(data) {
+	  
+	           
+	            getColor(data.length);
+       			 var ctxB = document.getElementById('chartTop').getContext("2d");
+    			
+		    	var myChartB = new Chart(ctxB, {
+		    		  type: 'bar', //圖表類型
+		    		  data: {
+		    		    //標籤
+		    		    labels:data.advtitle,
+		    		  
+		    		    datasets: [{
+		    		      label: '前五名影片', //標籤
+		    		      data: data.advcount, //資料  
+		    		   
+		    		      //圖表背景色
+		    		      backgroundColor:bg_colors ,
+		    		      //圖表外框線色
+		    		      borderColor:line_colors ,
+		    		      //外框線寬度
+		    		      borderWidth: 1
+		    		    }]
+		    		  },
+		    		  options: {
+		    		    scales: {
+		    		      yAxes: [{
+		    		        ticks: {
+		    		          beginAtZero: true,
+		    		          responsive: true //符合響應式
+		    		        }
+		    		      }]
+		    		    }
+		    		  }
+		    		});
+			            	}});
+				}
+        
         
         
         var ctxC = document.getElementById('chartWeeks').getContext("2d");
@@ -379,10 +519,10 @@ function getData(){
     	 $(document).ready(function(){
     		 
 			$(".slider").each(function(){
-				console.log('目前狀態:'+$(this).attr("checktype"));
+		
 				if($(this).attr("checktype") == 'true'){
 					$(this).click();
-					console.log('檢查狀態:'+$(this).attr("checktype"));
+			
 				}
 				
 		$(this).click(function(){
@@ -396,12 +536,12 @@ function getData(){
 		
 		let status=$(this).attr("checktype");
 		console.log("變更前:"+status);
-		if(status==true){
+		if(status=='true'){
 			
-			status=false;
+			status='false';
 		}else{
 			
-			status=true;
+			status='true';
 		}
 		
 		console.log('變更狀態為:'+status);
@@ -423,12 +563,13 @@ function getData(){
 						else{
 						s.attr("checktype", "true");
 						}
-					swal.fire({
-	      				  title: "success",
-	      				  text: "狀態變更",
-	      				  icon: "success",
-	      				  button: "OK",
-	      				});
+					console.log('修改成功');
+// 					swal.fire({
+// 	      				  title: "success",
+// 	      				  text: "狀態變更",
+// 	      				  icon: "success",
+// 	      				  button: "OK",
+// 	      				});
 					},
 					error:function(){
 						
@@ -528,8 +669,56 @@ function getData(){
     	    		});
     	    	
     	    });
+    	
+    	  //類別比例
+    		function getCategory(){
+    		  
+    		  		console.log('取得類型圖表');	
+    			
+    				$.ajax({
+    				
+    	            type: "GET", //傳送方式
+    	            url: "${pageContext.request.contextPath}/getAdvCategory", 
+    	            dataType: "json", //資料格式
+
+    	            	success: function(data) {
+    	            	console.log('取得資料,筆數:'+data.length); 
+    	            	category=data.category;//類別分析
+    	            	count=data.count;
+    	            	var ctxA = document.getElementById('chartCategory').getContext("2d");
+    	            	getColor(category.length);
+    	            	var myChartA = new Chart(ctxA, {
+    	            		  type: 'pie', //圖表類型
+    	            		  data: {
+    	            		    //標題
+    	            		    labels:category,
+    	            		  
+    	            		    datasets: [{
+    	            		      label: '文章類型', //標籤
+    	            		        
+    	            		      data: count, //資料
+
+    	            		      backgroundColor: bg_colors,
+    	            		
+    	            		      borderColor:line_colors,
+//    	          
+
+//    	               		      ],
+    	            		      //外框線寬度
+    	            		      borderWidth: 1
+    	            		    }]
+    	            		  },
+    	            		});
+    	    	            	            	 		     				
+    	            },
+    	                     
+    	        }); 
+    			
+
+    		}
         
-        
+    		getCategory();
+    		getTopRate();
     </script>
 </body>
 

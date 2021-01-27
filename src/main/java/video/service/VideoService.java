@@ -3,7 +3,9 @@ package video.service;
 import java.util.List;
 import java.util.Map;
 
+import blog.model.Blog;
 import member.MemberBean;
+import product.model.CollectBean;
 import video.model.Video;
 
 public interface VideoService {
@@ -47,4 +49,15 @@ public interface VideoService {
 		 * @return 回傳鍵值=category,value=統計數
 		 */
 		Map<String,Integer> getViewsByCategory();	
+		
+		
+		public List<Video> allcollection(int videoId);
+		
+		public List<Integer> findcollection(int mid);
+		
+		public int pkcollection(int mid, int vid);
+		
+		public List<CollectBean> collection(int mid);
+		
+		public void addcollection(int mid, int vid);
 }

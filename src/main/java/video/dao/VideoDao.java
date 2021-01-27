@@ -5,7 +5,9 @@ import java.util.Map;
 
 import org.hibernate.Session;
 
+import blog.model.Blog;
 import member.MemberBean;
+import product.model.CollectBean;
 import video.model.Video;
 
 public interface VideoDao {
@@ -59,5 +61,16 @@ public interface VideoDao {
 	
 	Map<String, Integer>getViewsByDate(Integer year);
 	
+
+	
+	public List<Video> allcollection(int videoId);
+	
+	public List<Integer> findcollection(int mid);
+	
+	public int pkcollection(int mid, int vid);
+	
+	public List<CollectBean> collection(int mid);
+	
+	public void addcollection(int mid, int vid);
 	
 }

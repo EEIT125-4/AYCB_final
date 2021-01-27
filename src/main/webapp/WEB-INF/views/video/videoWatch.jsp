@@ -25,11 +25,15 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
-        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+	crossorigin="anonymous"></script>
 
 <title>${video.title}</title>
 <style>
+.name :hover {
+	color: purple;
+}
 </style>
 </head>
 
@@ -40,28 +44,56 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 
 
 
-<div class="content" style="background-image:url(${pageContext.request.contextPath}/image/leave.jpg);background-size: cover">
-	<div class="primary" style="margin-left: 100px;" >
+<div class="content">
+	<br> <br>
+
+
+
+	<div class="primary"
+		style="margin-left: 100px; border: none; margin: 20px">
+
+		<h2 style="text-align: center;background-color:	#FFFFDF">${video.title}</h2>
+		<hr>
+		<!-- <h6 style="float:right;display:inline;"> -->
+		<div class="row" style="text-align: center;">
+			<div class="col-sm-4">
+				<h6 style="text-align: center;">
+					<i class="fa fa-thumbs-o-up fa-1g">${video.thumbsup}</i> <i
+						class="fa fa-thumbs-o-down fa-1g">${video.thumbsdown }</i>
+				</h6>
+			</div>
+			<div class="col-sm-4">
+				<span class="commentdate">觀看次數：${video.viewCount}</span>
+			</div>
+			<div class="col-sm-4">
+				<span class="commentdate">發布時間：${video.commentTime }</span>
+			</div>
+
+		</div>
+		<%-- 			<div class="commentdate">發布時間：${video.commentTime }</div> --%>
+		<br>
 		<iframe class="videoFrame" id="frameid" src="${video.url}" autoplay
 			muted frameborder="0"
+			style="width: 100%%; height: 600px; text-align: center; float: center"
 			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 			allowfullscreen id='ads'></iframe>
 
 		<div style="text-align: justify;">
-			<span>
-				<h2>${video.title}</h2>
-			</span> <span>觀看次數:${video.viewCount}</span>
-			<br>
-			 <i	class="fa fa-thumbs-o-up fa-1g">${video.thumbsup}</i> 
-			 <i	class="fa fa-thumbs-o-down fa-1g">${video.thumbsdown }</i>
+			<!-- 			<span> -->
+			<%-- 				<h2>${video.title}</h2> --%>
+			<%-- 			</span> <span>觀看次數:${video.viewCount}</span> --%>
+			<!-- 			<br> -->
+			<%-- 			 <i	class="fa fa-thumbs-o-up fa-1g">${video.thumbsup}</i>  --%>
+			<%-- 			 <i	class="fa fa-thumbs-o-down fa-1g">${video.thumbsdown }</i> --%>
 
-			<div class="commentdate">發布時間:${video.commentTime }</div>
-			<p>${video.description}</p>
+			<%-- 			<div class="commentdate">發布時間:${video.commentTime }</div> --%>
+			<p style="font-size: 20px; padding: 20px; line-height: 50px;">${video.description}</p>
 
 		</div>
 
 		<!-- 置頂留言功能列 -->
-		<div style="width: 100%; background-color: whitesmoke;">
+		<div
+			style="width: 100%; background-color: whitesmoke; padding: 20px; width: 80%; border-radius: 10px;">
 			<div id='commentCount'></div>
 			<c:choose>
 				<c:when test='${not empty member }'>
@@ -75,13 +107,17 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 			</c:choose>
 
 			<div>
-				<textarea id='fixcomment' class="comment" placeholder="新增公開留言"
-					cols="100" ></textarea>
+				<textarea id='fixcomment' class="comment" row="6"
+					placeholder="新增公開留言" style="width: 100%; text-align: center;"></textarea>
 				<div class="btnarea" style="margin-left: 50%; display: none;">
-					<button class='resetBtn' type='button' style='width: auto'>取消</button>
-					<button class='postComment' value='${pageContext.request.contextPath}/leaveComment?key=${video.videoId}&type=video' type='button' style='width: auto' disabled>留言</button>
-					<button class='fastComment' type='button' style='width: auto'>一鍵留言</button>
-					
+					<button class='resetBtn btn btn-outline-secondary' type='button'
+						style='width: auto; margin: 10px 0px'>取消</button>
+					<button class='postComment btn btn-outline-secondary'
+						value='${pageContext.request.contextPath}/leaveComment?key=${video.videoId}&type=video'
+						type='button' style='width: auto; margin: 10px 0px' disabled>留言</button>
+					<button class='fastComment btn btn-outline-secondary' type='button'
+						style='width: auto; margin: 10px 0px'>一鍵留言</button>
+
 				</div>
 			</div>
 		</div>
@@ -93,7 +129,7 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 	</div>
 	<div class="right_list" id="right_list"></div>
 
-	</div>
+</div>
 </div>
 
 
@@ -102,95 +138,98 @@ response.setDateHeader("Expires", -1); // 不想要暫存 Prevents caching at th
 <%@include file="../jspf/footer.jspf"%>
 
 <script>
-
-
 <!-- 留言功能初始化 -->
-var object = "video";
-var pk = ${video.videoId};
-var path = "${pageContext.request.contextPath}";
-var board = document.getElementById("board");
-//var postUrl = path + "/leaveComment?key="+ pk+ "&type=" + object;
-var getUrl = path + "/loadComment?key=" + pk + "&type=" + object;
-var commentCount=0;
+	var object = "video";
+	var pk = ${video.videoId};
+	var path = "${pageContext.request.contextPath}";
+	var board = document.getElementById("board");
+	//var postUrl = path + "/leaveComment?key="+ pk+ "&type=" + object;
+	var getUrl = path + "/loadComment?key=" + pk + "&type=" + object;
+	var commentCount = 0;
 
+	// 初始化結尾
 
+	$(document)
+			.ready(
+					function() {
+						var videoList = $("#right_list");
+						var flag = 0;
 
-// 初始化結尾
+						$
+								.ajax({
 
-$(document).ready(function () {
-var videoList = $("#right_list");
-var flag = 0;
+									type : "GET",
+									url : path + "/getRandomVideo/?num=5",//先預設產生五支影片
 
-	$.ajax({
+									datatype : 'json',
 
-		type:"GET",
-		url:path+"/getRandomVideo/?num=5",//先預設產生五支影片
-		
-		datatype:'json',
+									success : function(data) {
 
-		success:function (data){
-			
-			console.log("取得影片資料");
-			
-			
-			for(let i = 0; i < data.length;i++){
-				
-		
-		    	videoList.append(
-		        
-		
-		        '<div class="listBox">'
-		        + '<div class="list_imageBox">'
-		        +"<a href='${pageContext.request.contextPath}/video/videoWatch?videoID="+data[i].videoId+"'>"    
-		        +"<img class='video_image' src="+data[i].coverUrl
-				
-					+" onerror=javascript:this.src='${pageContext.request.contextPath}/image/noImage.jpg' " 
-		        
-		        +'</a>'
-		        + '</div>'
-		        + ' <div class="list_info">'
-		        + '   <span><h5>'+data[i].title+'</h5></span>'
-// 		        + ' <span><h6>'+data[i].member.name+'</h6></span>'
-				+'<span><img class="headpic" src="${pageContext.request.contextPath}/pic/' + data[i].member.iconid+'"><h6>'+data[i].member.name+'</h6></span>'
-		        + '<span><h6>觀看數'+data[i].viewCount+'</h6></span>'
-		        + ' <span><h6>發佈時間:'+formatTimeStamp(data[i].commentTime)+'</h6></span>'
-		        + '</div></div>      '
-		
-		    );
-		}
+										console.log("取得影片資料");
 
-	}
-		
-});
-});
+										for (let i = 0; i < data.length; i++) {
 
-$(document).on('click','.fastComment',function(){
-	console.log('快速留言');
+											videoList
+													.append(
 
-	$('#fixcomment').val('這是一條很有價值的留言!');
-	
-	
-});
+													'<div class="listBox">'
+															+ '<div class="list_imageBox">'
+															+ "<a href='${pageContext.request.contextPath}/video/videoWatch?videoID="
+															+ data[i].videoId
+															+ "'>"
+															+ "<img class='video_image' src="
+															+ data[i].coverUrl
 
-//轉換時間格式
-function formatTimeStamp(time) {
-	var time = new Date(time);
-	var date = (
-		(time.getFullYear()) + "-" +
-		(time.getMonth() + 1) + "-" +
-		(time.getDate()) + " " +
-		(time.getHours()) + ":" +
-		(time.getMinutes())
+															+ " onerror=javascript:this.src='${pageContext.request.contextPath}/image/noImage.jpg' "
+
+															+ '</a>'
+															+ '</div>'
+															+ ' <div class="list_info">'
+															+ '   <span><h5>'
+															+ data[i].title
+															+ '</h5></span>'
+															// 		        + ' <span><h6>'+data[i].member.name+'</h6></span>'
+															+ '<span><img class="headpic" src="${pageContext.request.contextPath}/pic/' + data[i].member.iconid+'"></span>'
+															+ '<span class="name" style="font-size:20px;color:#007bff;">'
+															+ data[i].member.name
+															+ '</span>'
+															+ '<br><span style="font-size:15px;color:black">觀看數：'
+															+ data[i].viewCount
+															+ '</span>'
+															+ '<br><span style="font-size:15px;color:black">發佈時間：'
+															+ formatTimeStamp(data[i].commentTime)
+															+ '</span>'
+															+ '</div></div>      '
+
+													);
+										}
+
+									}
+
+								});
+					});
+
+	$(document).on('click', '.fastComment', function() {
+		console.log('快速留言');
+
+		$('#fixcomment').val('這是一條很有價值的留言!');
+
+	});
+
+	//轉換時間格式
+	function formatTimeStamp(time) {
+		var time = new Date(time);
+		var date = ((time.getFullYear()) + "-" + (time.getMonth() + 1) + "-"
+				+ (time.getDate()) + " " + (time.getHours()) + ":" + (time
+				.getMinutes())
 		// 	               + ":" +(time.getSeconds())
-	);
-	return date;
-}
+		);
+		return date;
+	}
+</script>
 
-
-
-        </script>
-        
-        <script src="${pageContext.request.contextPath}/js/comment.js" defer="defer" charset="utf-8"></script>
+<script src="${pageContext.request.contextPath}/js/comment.js"
+	defer="defer" charset="utf-8"></script>
 
 
 </body>

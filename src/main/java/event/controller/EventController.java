@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -64,12 +66,17 @@ public class EventController {
 			return "event/showEvent";
 		}
 		
+		
+		//Kevin:進入影片後台
 		@GetMapping("/backstageshowEvent")
 		public String list1(Model model) {
 			model.addAttribute("events", eventService.getAllEvent());
+			model.addAttribute("unexpired",eventService.unexpiredEvent());			
 			System.out.println("events");
 			return "event/eventbackstage";
 		}
+		
+//		@GetMapping("/backstage")
 		
 		//分類顯示活動
 		@GetMapping("/showEventByCategory")
@@ -201,6 +208,8 @@ public class EventController {
 			try {
 				path = Common.saveImage(file);
 				event.setFilename(path);
+				
+				event.setPax(eventService.getEvent(eventid).getPax());
 				eventService.updateEvent(event);
 				System.out.println("000000000000000000000000000000000000"+path);
 			} catch (IOException e) {
@@ -287,18 +296,20 @@ public class EventController {
 			return result;
 		}
 			
+		@SuppressWarnings("rawtypes")
 		@GetMapping("/numberofCategory")
-		public @ResponseBody List<Integer> getpax(){
+		public @ResponseBody Map<String,List> getpax(){
 			
 			System.out.println("取得類別人數==============================");
 			
 //			List<Integer> list=new ArrayList<>();
-			List<Integer> numberofpax=eventService.getNumberOfCategory();
+//			List<Integer> numberofpax=eventService.getNumberOfCategory();
 			
 			
-			return numberofpax;
+			return eventService.getNumberOfCategory();
 			
 			
 		}
+	
 
 }

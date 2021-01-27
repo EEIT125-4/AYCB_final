@@ -8,7 +8,9 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import blog.model.Blog;
 import member.MemberBean;
+import product.model.CollectBean;
 import video.dao.VideoDao;
 import video.model.Video;
 
@@ -102,6 +104,38 @@ public class VideoServiceImpl implements VideoService {
 	
 		return dao.getViewsByCategory();
 	}
+
+	@Override
+	public List<Video> allcollection(int videoId) {
+		
+		return null;
+	}
+
+	@Override
+	public List<Integer> findcollection(int mid) {
+		
+		return dao.findcollection(mid);
+	}
+
+	@Override
+	public int pkcollection(int mid, int vid) {
+		// 
+		return dao.pkcollection(mid, vid);
+	}
+
+	@Override
+	public List<CollectBean> collection(int mid) {
+		
+		return dao.collection(mid);
+	}
+
+	@Override
+	public void addcollection(int mid, int vid) {
+		dao.addcollection(mid, vid);
+		
+	}
+	
+	
 	
 	
 }

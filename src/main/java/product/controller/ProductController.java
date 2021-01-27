@@ -334,7 +334,6 @@ public class ProductController {
 			List<CollectBean> clist = ps.collection(mb.getId());
 			for(int i=0 ; i<clist.size() ; i++) {
 				if(clist.get(i).getPid() != null) {
-					System.out.println("ididid "+clist.get(i).getPid());
 					ProductBean pb = ps.getProduct(clist.get(i).getPid());
 					list.add(pb);
 				}

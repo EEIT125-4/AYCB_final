@@ -37,6 +37,8 @@ import com.google.gson.Gson;
 import event.validator.AttendanceValidator;
 import member.MemberBean;
 import member.Service.MemberService;
+import product.model.CollectBean;
+import product.service.ProductService;
 import tool.Common;
 import video.model.Video;
 import video.service.VideoService;
@@ -50,6 +52,10 @@ public class VideoController {
 
 	@Autowired
 	MemberService ms;
+	
+	@Autowired
+	
+	ProductService ps;
 
 	@Autowired
 	ServletContext context;
@@ -453,5 +459,42 @@ public class VideoController {
 		return "video/videoBackstage";
 
 	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@GetMapping(value = "video/storagectcheck", produces = "application/json")
+	public @ResponseBody Map collectcheck(Model model, HttpSession session) {
+		List<Integer> list = new ArrayList<>();
+		MemberBean member = (MemberBean) session.getAttribute("member");
+		List<CollectBean> collection =vs.collection(member.getId()); 
+				
+		if (collection != null) {
+			for (int i = 0; i < collection.size(); i++) {
+				list.add(collection.get(i).getVid());
+				System.out.println("collect="+collection.get(i).getVid());
+			}
+		}
+		Map map = new HashMap();
+		map.put("No", list);
+		return map;
+	}
+	
+	@GetMapping(value = "video/storage", produces = "application/json")
+	public @ResponseBody boolean collect(Model model, HttpSession session, @RequestParam("mid") Integer mid,
+			@RequestParam("vid") Integer vid) {
+		List<Integer> list = vs.findcollection(mid);
+		
+		if (list != null) {
+			for (int i = 0; i < list.size(); i++) {
+				if (vid == list.get(i)) {
+					int pk = vs.pkcollection(mid, vid);
+					ps.delcollection(pk);
+					return false;
+				}
+			}
+		}
+		vs.addcollection(mid, vid);
+		return true;
+	}
+	
 
 }

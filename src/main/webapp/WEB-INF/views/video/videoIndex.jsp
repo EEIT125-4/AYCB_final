@@ -116,13 +116,7 @@ input[type=text]:focus {
 
 <!-- 功能列 -->
 	<div>
-	<c:if test="${not empty member }">
-				<a class="a1" href="${pageContext.request.contextPath}/video/edit">
-			<button class="button1"
-			style="vertical-align: middle; margin-left: 30px; margin-top: 10px">
-			<span>上傳影片</span> </button>
-		</a>
-		</c:if>
+	
 		
 
 		<div style="text-align: center;">
@@ -140,15 +134,23 @@ input[type=text]:focus {
 		<button class='tagbtn' type="button" onclick="javascript:window.location.href='${pageContext.request.contextPath}/video/recentVideo/'">近期影片</button>	
 		<br>
 		
-		<button id='test' type='button' >測試按鈕</button>
+<!-- 		<button id='test' type='button' >測試按鈕</button> -->
 		</div>
 		
 		<form action="${pageContext.request.contextPath}/video/" method="get">
 			<input type="text" name="search" id="search" placeholder="查詢影片....">
 		</form>
+		
+		<c:if test="${not empty member }">
+				<a class="a1" href="${pageContext.request.contextPath}/video/edit">
+			<button class="button1"
+			style="vertical-align: middle; margin-left: 30px; margin-top: 10px">
+			<span>上傳影片</span> </button>
+		</a>
+		</c:if>
 				
 				
-				</div>
+		</div>
 <div class="row">
 	
 
@@ -167,6 +169,14 @@ input[type=text]:focus {
 							<div class="blog__item__pic set-bg" data-setbg="${v.coverUrl}">
 							</div>
 						</a>
+						<!-- heart收藏 -->
+								<div id="like1" class="like" style="display: block;">
+								<button id="likebtn${v.videoId}" class="like_button" onclick="Collect(${member.id},${v.videoId})"
+										style="border: none; font-size: 25px;background-color: transparent">
+										<i id="heart${v.videoId}" class="fa fa-heart-o" style='color:red'></i>
+									</button>
+								</div>
+								<!-- heart收藏 end-->
 						<%-- 					<img src="" onerror=javascript:this.src='${pageContext.request.contextPath}/image/noImage.jpg'> --%>
 
 
@@ -240,7 +250,55 @@ input[type=text]:focus {
 <script>
 var flag=0;
 
+$(document).ready(function() {
+	CK();
+});
 
+
+function CK() {
+	console.log('執行檢查');
+	$.ajax({
+		type : 'GET',
+		url : '${pageContext.request.contextPath}/video/storagectcheck',
+		dataType : "json",
+		success : function(data) {
+			
+			
+			for (let i = 0; i < data.No.length; i++) {
+				console.log('取得收藏狀態'+data.No[i]);
+				$('#heart' + data.No[i]).attr('class', 'fa fa-heart');
+
+			}
+		}
+	});
+};
+
+function Collect(mid, videoId) {
+	$.ajax({
+		type : 'GET',
+		url : '${pageContext.request.contextPath}/video/storage',
+		data : {
+			"mid" : mid,
+			"vid" : videoId
+		},
+		dataType : "json",
+		success : function(data) {
+			if (data) {
+				swal.fire("收藏成功", "", "success");
+				$('#heart' + videoId).attr('class', 'fa fa-heart');
+
+			} else {
+				swal.fire("取消收藏", "", "error");
+				$('#heart' + videoId).attr('class', 'fa fa-heart-o');
+
+				
+			}
+		},
+		error:function(){
+			alert('收藏失敗!');
+		}
+	});
+}
 
 $('#test').click(function(){
 	console.log('test click');
@@ -258,21 +316,14 @@ $('#test').click(function(){
 				 flag++;
 				 
 			 }
-			 
-			 
-			 
+	 
 		 }
-		
-		
-		
+	
 	});
 	
 	
-	
-	
-	
-});
 
+});
 
 
 </script>

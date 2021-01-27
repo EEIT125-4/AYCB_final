@@ -14,6 +14,7 @@ import javax.persistence.Transient;
 
 import blog.model.Blog;
 import member.MemberBean;
+import video.model.Video;
 
 @Entity
 @Table(name = "Collect")
@@ -28,6 +29,7 @@ public class CollectBean implements Serializable{
 	private Integer mid;
 	private Integer pid;
 	private Integer bid;
+	private Integer vid;
 	
 
 	@Transient
@@ -44,6 +46,11 @@ public class CollectBean implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="bid")
 	Blog bcollect;
+	
+	@Transient
+	@ManyToOne
+	@JoinColumn(name="vid")
+	Video vcollect;
 
 	public CollectBean() {
 		super();
@@ -123,4 +130,36 @@ public class CollectBean implements Serializable{
 	public void setBid(Integer bid) {
 		this.bid = bid;
 	}
+
+
+	public Integer getVid() {
+		return vid;
+	}
+
+
+	public void setVid(Integer vid) {
+		this.vid = vid;
+	}
+
+
+	public Blog getBcollect() {
+		return bcollect;
+	}
+
+
+	public void setBcollect(Blog bcollect) {
+		this.bcollect = bcollect;
+	}
+
+
+	public Video getVcollect() {
+		return vcollect;
+	}
+
+
+	public void setVcollect(Video vcollect) {
+		this.vcollect = vcollect;
+	}
+	
+	
 }
