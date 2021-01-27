@@ -228,9 +228,9 @@ if (session.getAttribute("member") != null) {
 			</p>
 			
 			<div class="collapse" id="collapseExample">
-  				<div class="card card-body" style="width: 1500px;margin-left: 100px;">
+  				<div class="card card-body" style="width: 1200px;margin-left: 100px;">
 			<fieldset
-				style="margin: auto; position: relative; top: 10px; width: 1300px; border: 1px solid transparent;">
+				style="position: relative; top: 10px;border: 1px solid transparent;">
 				<form action="<c:url value='/Manager' />" method="get">
 					<h4 style="font-weight: bold; text-align: center" >歷史訂單</h4>
 					<br>

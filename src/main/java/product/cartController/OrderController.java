@@ -185,10 +185,10 @@ public class OrderController {
 		//sessionStatus.setComplete();
 		
 		/* 串接綠界 */
-//		String clientBackURL="http://localhost:8080/AYCB_final/ToBill";		
-//		String form=genAioCheckOutALL(order.getOrderNo(), amount, context.getContextPath(),itemDetail,clientBackURL);
-//		System.out.println("綠界執行中");
-//		session.setAttribute("form", form);
+		String clientBackURL="http://localhost:8080/AYCB_final/ToBill";		
+		String form=genAioCheckOutALL(order.getOrderNo(), amount, context.getContextPath(),itemDetail,clientBackURL);
+		System.out.println("綠界執行中");
+		session.setAttribute("form", form);
 		
 		
 		return "product/commit";
@@ -258,13 +258,6 @@ public class OrderController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String sTimeString = sdf.format(new Date());
 		Timestamp tTime = Timestamp.valueOf(sTimeString);
-		
-//		OrderBean updateOrder = new OrderBean(orderNo, customerId, price, tTime, status, items);		
-//		if (os.updateOrderBean(updateOrder)) {
-//			System.out.println("Let orderUpdate done!");
-//			return "product/orderUpdateThanks";
-//		} else{
-//				return "product/orderUpdateThanks";
 		
 		return "redirect:/orderManagement";
 	}
@@ -354,8 +347,7 @@ public class OrderController {
 		List<OrderBean>  orderList = new ArrayList<OrderBean>();
 		
 		orderList = os.selectOrderBean(membername);
-		
-		
+				
 		//System.out.println(orderlist);
 		
 		return orderList;
@@ -369,6 +361,7 @@ public class OrderController {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("reason", throwable.getMessage() + "   ,例外處理   日期: 01/28");
 		mv.addObject("exception", throwable);
+		mv.addObject("stackTrace", throwable.getStackTrace());
 		mv.addObject("url", request.getRequestURL()+"?" + request.getQueryString());
 		mv.setViewName("product/orderError");
 		return mv;

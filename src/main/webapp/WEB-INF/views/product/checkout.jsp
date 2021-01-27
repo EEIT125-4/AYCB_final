@@ -98,59 +98,11 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
  	
 <script >
 
-// function paymentTypeChange() {
-// 	//#paymentType, #shippingType
-// 	var payVal = $("#paymentType").val();
-// 	if(payVal.length > 0){
-// 		var shipData = $("#paymentType option:selected").attr("data-shippingArray");
-// 		if(shipData.length > 0){
-// 			$("#shippingType option").addClass("hidden");
-// 			$("#shippingType option[value='']").removeClass("hidden");
-// 			shipArray = shipData.split(",");
-// 			for(i = 0; i < shipArray.length; i++){
-// 				$("#shippingType option[value='"+shipArray[i]+"']").removeClass("hidden");
-// 			}
-// 		}			
-// 	}
-// 	calculateFee();	//calculate計算  
-// }
-
     function shippingTypeChange() {
-//     var width = parseFloat($("#recipientPhone").css("width"));
-//     console.log(width);
-
-//     $("#shippingAddress").removeAttr("list");
-//     $("#shippingAddress").removeAttr("autocomplete");
-//     $("#shippingAddress").removeAttr("placeholder");
-//     $("#shippingAddress").attr("readonly", false);
-//     $("#shippingAddress").attr("autocomplete", "on");
-//       $("#storeButton").css("display", "none");
-//     $("#shippingAddress").val("");
-<%--     if ($("#shippingType").val() == "<%= ShippingType.SHOP.name()%>") { --%>
-//         $("#shippingAddress").attr("placeholder", "請選擇門市");
-//         $("#shippingAddress").attr("list", "shopList");
-//         $("#shippingAddress").attr("autocomplete", "off");
-<%--     } else if ($("#shippingType").val() == "<%= ShippingType.STORE.name()%>") { --%>
-//         $("#shippingAddress").attr("readonly", true);
            $("#shippingAddress").attr("placeholder", "請點選下方的按鈕選擇超商");
-//         //$("#shippingAddress").css("width", width - 77);
            $("#storeButton").css("display", "inline");
-//     } else {
-//         $("#shippingAddress").attr("placeholder", "請輸入收件地址");
      }
     
-//     calculateFee();
-// }	
-
-// function calculateFee(){
-// 	var totalAmount = parseFloat($("#totalAmount").text());
-// 	var paymentFee = parseFloat($("#paymentType option:selected").attr("data-fee"));
-// 	var shippingFee = parseFloat($("#shippingType option:selected").attr("data-fee"));
-// 	var total = totalAmount+(isNaN(paymentFee)?0:paymentFee)+(isNaN(shippingFee)?0:shippingFee);
-// 	console.log(totalAmount, paymentFee, shippingFee, total);
-// 	$("#totalWithFee").text(total);
-	
-// }
 
 function copyMember(){
 	console.log("1111")

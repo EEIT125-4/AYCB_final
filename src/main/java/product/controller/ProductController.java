@@ -327,14 +327,17 @@ public class ProductController {
 	}
 	
 	@GetMapping("/Collect")
-	public String collect(Model model, HttpSession session) {
+	public String collectlist(Model model, HttpSession session) {
 		MemberBean mb = (MemberBean) session.getAttribute("member");
 		if (mb != null ) {
 			List<ProductBean> list = new ArrayList<>();
 			List<CollectBean> clist = ps.collection(mb.getId());
 			for(int i=0 ; i<clist.size() ; i++) {
-				ProductBean pb = ps.getProduct(clist.get(i).getPid());
-				list.add(pb);
+				if(clist.get(i).getPid() != null) {
+					System.out.println("ididid "+clist.get(i).getPid());
+					ProductBean pb = ps.getProduct(clist.get(i).getPid());
+					list.add(pb);
+				}
 			}
 			model.addAttribute("collection", list);
 			return "product/collect";

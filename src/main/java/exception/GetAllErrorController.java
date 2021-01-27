@@ -18,6 +18,7 @@ public class GetAllErrorController implements HandlerExceptionResolver{
 		ModelAndView mav = new ModelAndView("product/orderError");
 		mav.addObject("reason", ex.getMessage() + "   ,500   日期: 01/28");
 		mav.addObject("exception", ex);
+		mav.addObject("stackTrace", ex.getStackTrace());
 		mav.addObject("url", request.getRequestURL()+"?" + request.getQueryString());
 		mav.setViewName("product/orderError");
 		return mav;

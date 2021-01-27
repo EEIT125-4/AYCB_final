@@ -51,16 +51,6 @@ public class OrderManagerController {
 		return "product/mHistoryOrderItem";
 	}
 	
-//	@GetMapping("/managerOrderDelete")
-//	public String OrderDelete(Model model,
-//							   @RequestParam(value = "deleteindex", required = false) int deleteindex
-//	){
-//		System.out.println("delete process");
-//		
-//		os.deleteOrderBean(deleteindex);
-//
-//		return "redirect:/orderManager";
-//	}
 	
 	@GetMapping("/managerOrderDelete")
 	public @ResponseBody boolean OrderDelete(Model model,
@@ -91,9 +81,7 @@ public class OrderManagerController {
 		mv.addObject("brandList", brandList);  
 		mv.addObject("jsonBrandName", jsonBrandName);
 		mv.addObject("jsonBrandCount", jsonBrandCount);
-//		System.out.println("brandList: " + model.getAttribute("brandList"));
-//		System.out.println("jsonBrandName: " + jsonBrandName);
-//		System.out.println("jsonBrandCount: " + jsonBrandCount);
+
 		
 		/*訂單總數*/
 		List<OrderBean> orders = os.selectAllOrder();
@@ -109,28 +97,6 @@ public class OrderManagerController {
 		}
 		System.out.println("amount"+ totalAmount);
 		mv.addObject("totalAmount", totalAmount); 		
-		//int n = totalAmount.intValue();//double轉int
-		
-			
-//		os.getTopfive()
-//		System.out.println("GetTopfive: "+os.getTopfive().toString());
-//		System.out.println("GetTopfive: ");
-		//System.out.println("GetTopfive " + top.toArray());
-	
-//		for(int i=0;i<top.size();i++) {
-			
-//			System.out.println( "topFive: "  + test[i][0]);
-//		}
-//		List<String> productName = new ArrayList<String>();
-//
-//		
-//		for(int[] no : top) {
-//			
-//			productName.add(ps.getProduct(no[0]).getProductname());
-//			
-//		}
-//		
-//		System.out.println("productName: " + productName);
 		
 		mv.setViewName("/product/mHistoryOrders");
 		
@@ -143,39 +109,7 @@ public class OrderManagerController {
 		
 		return "product/returnsPolicy";
 	}
-	
-	
-
-	public Map<String, Object> GetTopfive() {
-//		List<int[][]> top = new ArrayList<int[][]>();
-		
-//		top = os.getTopfive();
-//		
-//		System.out.println("GetTopfive " + top);
-		
-		Map<String, Object> hotMap = new HashMap<String, Object>();
-		List<String> productName = new ArrayList<String>();
-		List<Integer> sellCount = new ArrayList<Integer>();
-		
-//		for(int[][] no : top) {
 			
-//			System.out.println(no);
-//			productName.add(ps.getProduct(no[0]).getProductname());
-//			
-//		}
-//		System.out.println("top"+top.get(0));
-//		for(int i=0;i>top.size();i++) {
-//			int[][] test =  top.get(i);
-//			
-//			System.out.println(test[i][0]);
-//		}
-		
-//		System.out.println("productName: " + productName);
-		
-		return null;
-	}
-	
-	
 	
 	@ModelAttribute("AllOrders")
 	public List<OrderBean> SelectAllOrders(Model model) {

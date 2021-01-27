@@ -76,8 +76,10 @@ public class BlogController {
 		List<Integer> blogid = blogService.findcollection(mb.getId());
 		System.out.println("blogid"+blogid);
 		for (int i = 0; i < blogid.size(); i++) {
-		Blog blog=blogService.getOneBlog(blogid.get(i));
-			list.add(blog);
+			if(blogid.get(i) != null) {
+				Blog blog=blogService.getOneBlog(blogid.get(i));
+				list.add(blog);
+			}
 		}
 		model.addAttribute("collect", list);
 		System.out.println("list" + list);
