@@ -76,7 +76,7 @@ public class OrderController {
 		
 		AllInOne all = new AllInOne("");//log紀錄
 		AioCheckOutALL obj = new AioCheckOutALL();
-		obj.setMerchantTradeNo("AYCBOrder"+order);
+		obj.setMerchantTradeNo("AYCBOrderr"+order);
 		
 		SimpleDateFormat sd=new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		//設定時間
