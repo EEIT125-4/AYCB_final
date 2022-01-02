@@ -29,12 +29,17 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import comment.model.CommentBean;
 import member.MemberBean;
 import message.model.Messagebox;
 import product.model.ProductBean;
 import tool.model.Image;
 import video.model.Video;
-
+/**
+ * 
+ * @author Kevin:單機測試各種功能
+ *
+ */
 public class TestOfProject {
 
 	static SessionFactory factory;
@@ -42,14 +47,18 @@ public class TestOfProject {
 	static Transaction tx;
 
 	public static void main(String[] args) {
-
+		String password="aycb";
+		System.out.println(password);
+		String newpwd = Common.getMD5Endocing(password);
+		System.out.println(newpwd);
 //		testJson();
 
 		/**
 		 * 這個方法是初始化交易的,如果要進資料庫,記得一定要開
 		 */
-		initTransaction();
-		messageTest();
+		//initTransaction();
+//		deleteMember();
+		//messageTest();
 //		videoSet();
 		
 //		Map<String, Map>result=new LinkedHashMap<String, Map>();
@@ -71,6 +80,36 @@ public class TestOfProject {
 //		refreshPic();
 //		testJson();
 
+	}
+	
+	
+	static void deleteMember() {
+		
+		MemberBean mb=session.get(MemberBean.class,8);
+		String hql="FROM CommentBean cb WHERE cb.member.id=:id";
+		Query<CommentBean> query=session.createQuery(hql);
+		
+		List<CommentBean>comments=new ArrayList<CommentBean>();
+		
+		comments=query.setParameter("id", mb.getId()).getResultList();
+		for(CommentBean cb:comments) {
+			
+			System.out.println("cb="+cb.getContentBox());
+			cb.setMember(null);
+			
+		}
+		//		mb.setComments(null);
+//		session.saveOrUpdate(mb);
+//		tx.commit();
+		session.delete(mb);
+		
+		
+		tx.commit();
+		
+		
+		
+		
+		
 	}
 	
 	static void messageTest() {
