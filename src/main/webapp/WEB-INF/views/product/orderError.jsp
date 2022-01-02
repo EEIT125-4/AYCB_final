@@ -44,7 +44,7 @@ if (session.getAttribute("member") != null) {
       <br><br>
       <div class="container" style="text-align: center;">
            <p>
-             <a href="<spring:url value='/car' />"  class='btn btn-primary' style="font-size: 18px;">返回</a>
+             <a href="<spring:url value='/' />"  class='btn btn-primary' style="font-size: 18px;">返回</a>
            </p>
       </div>
    </section>

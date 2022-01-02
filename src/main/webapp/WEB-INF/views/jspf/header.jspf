@@ -21,14 +21,16 @@ MemberBean mb = (MemberBean) session.getAttribute("member");
 width:100px;
 }
 .smallCar {
-		color: white;
+		
 		background: #FF2D2D;
-		font-size: xx-small;
+		
 		padding: 3px 8px;
-		right: 3px;
+		
 		text-align: center;
-		position: absolute;
+		
 		border-radius: 99px;
+		
+		color:white;
 	}	
 	
 	.top {
@@ -44,12 +46,41 @@ width:100px;
 		z-index: 1;
 	}
 	
+	
+.submenu{
+    width:100px;
+    text-align: center;
+    color: black;
+    font-weight: bolder;
+    display:none; 
+    
+    
+}
+.submenu:hover {
+
+    background-color: goldenrod;
+    display:block;
+    
+}
+	
 /* 	   .top:hover { */
 	
 /* 		background:green; */
 		
 
 /* 	} */
+
+
+table{
+        background-color: white;
+    }
+td{
+    border: 2px solid black;
+    width: 300px;
+    height: 100px;
+}
+
+
 	
 </style>
 
@@ -136,6 +167,7 @@ width:100px;
 		</div>
 		
         <div id="mobile-menu-wrap"></div> 
+        
 		<div class="offcanvas__text">
 			<p>Free shipping, 30-day return or refund guarantee.</p>
 		</div>
@@ -236,16 +268,25 @@ width:100px;
 					</nav>
 				</div>
 				<div class="col-lg-2 col-md-3" >
-					<div class="header__nav__option">
+				<div class="header__nav__option">
 					<form action="Keyword" style="height:0">
 <!-- 						<input type="text" name="keyword" style="width: 150px"> -->
 <!-- 							<button class="search-switch"> -->
-<%-- 			<%=theCart.size() %>					<img src="${pageContext.request.contextPath}/image/icon/search.png" alt=""> --%>
+
 <!-- 							</button>				 -->
-						<a href="#"><img src="${pageContext.request.contextPath}/image/icon/heart.png" alt=""></a>						
-						<span class="smallCar"><%=size %></span><a href="<c:url value='/car'/>"><img src="${pageContext.request.contextPath}/image/icon/cart.png" alt=""></a>	
-						<div class="search">
-				    </div>
+						<a href="#"><img src="/AYCB_final/image/icon/heart.png" alt=""></a>						
+						<a href="/AYCB_final/car"><img src="/AYCB_final/image/icon/cart.png" alt=""><span class="smallCar">0</span></a>	
+						
+			<button  onmouseover='showMailBox(this);' onmouseout='hideMailBox();' id='addOne'><i class="fa fa-envelope-o" style='color:red' aria-hidden="true" ></i><span class="smallCar" id='mymail'>0</span></button>
+			<div class='submenu' id='submenu'><ul>   
+								<li>A</li>
+                                <li>B</li>
+                                <li>C</li>
+                                <li>D</li>
+                                <li>E</li>
+                                </ul></div>
+<!--                                 onclick='addOne();' -->
+			
 				   </form>
 						<div class="price"></div>
 					</div>
@@ -253,11 +294,27 @@ width:100px;
 			</div>
 			<div class="canvas__open"><i class="fa fa-bars"></i></div>
 		</div>
+		
+		<div id='mailbox' onmouseover="showThis(this);" onmouseout="hideThis(this);" style="width:200px;height:200px;border:solid 1px #a1bece;position:absolute;z-index:10000;display:none;background-color:#EEF7EA;overflow:scroll;width: 300px;overflow-x: hidden;">
+		
+		</div>
 		<input type="hidden" id="memberid" value='${member.id }'>
 		<a onclick="goTop();"><div class="top">TOP</div></a>
 		
 <!-- 		<button class="top" onclick="goTop();">TOP</button> -->
 <script type="text/javascript">
+
+
+
+$("#addOne").click(function(event){
+	console.log('prevent');
+	  event.preventDefault();
+	  addOne();
+	});
+	
+$('addOne').hover(function(event){
+	$('submenu').css("display","block");
+})	;
 
 function goTop(){
 	var $body = (window.opera) ? (document.compatMode == "CSS1Compat" ? $('html') : $('body')) : $('html,body');
@@ -265,6 +322,112 @@ function goTop(){
 		scrollTop: 0
 	}, 200);
 }
+
+function refresh(){
+	
+
+	$.ajax({
+		//Kevin:async預設是非同步=true,但因為我們需要動態取得圖片,故要等controller將資料帶回來之後才進行,所以這邊用false,其他地方不建議 			
+		async : false,
+		type : "get",
+		url : "${pageContext.request.contextPath}/message/refresh",
+		contentType : "application/json; charset=utf-8",
+		
+		
+		
+		success : function(data) {
+			
+			console.log("nums" + data);
+			document.getElementById('mymail').innerHTML=data;
+			
+			
+		},
+		error : function() {
+			alert("fail");
+		}
+	})
+	
+	
+	
+}
+
+
+function addOne(){
+	
+	let nums=document.getElementById('mymail').innerHTML;
+	
+	for(let i=0;i<=4;i++){
+		
+		console.log('執行次數='+i);
+		
+		
+	
+	$.ajax({
+		//Kevin:async預設是非同步=true,但因為我們需要動態取得圖片,故要等controller將資料帶回來之後才進行,所以這邊用false,其他地方不建議 			
+		async : false,
+		type : "get",
+		url : "${pageContext.request.contextPath}/message/addOne?nums="+nums,
+		contentType : "application/json; charset=utf-8",
+		
+		
+		
+		success : function(data) {
+			
+			console.log("nums" + data);
+			document.getElementById('mymail').innerHTML=data;
+			
+			
+		},
+		error : function() {
+			alert("fail");
+		}
+	})
+	
+	}
+	
+	
+}
+
+//物件show & hide
+function showThis(obj) {
+	
+	
+	
+	
+    $(obj).show();
+}
+
+function hideThis(obj) {
+    $(obj).hide();
+}
+
+
+/*顯示浮動框*/
+function showMailBox(obj) {
+    var top = $(obj).offset().top;
+    var left = $(obj).offset().left + $(obj).width() - 7;
+    
+    $("#mailbox").empty();
+    
+    $("#mailbox").append(
+    		"<table><thead><th>title</th><th>postTime</th><tr><td>aa</td><td>bb</td></tr><tr><td>aa</td><td>bb</td></tr></thead></table>");
+    
+    
+    $("#mailbox").css({'top':top + "px",'left':left+"px"}).show("fast");
+    
+    
+    
+}
+
+/*隱藏浮動框*/
+function hideMailBox() {
+    $("#mailbox").hide();
+}
+
+
+
+
+refresh();
 </script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/TimeOut.js"></script>
 </header>
